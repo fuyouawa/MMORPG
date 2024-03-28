@@ -29,20 +29,21 @@ namespace GameServer.Network
         {
             var ipe = socket.RemoteEndPoint as IPEndPoint;
             Console.WriteLine("客户端接入：" + ipe.Address);
-            new NetConnection(socket,
-                new NetConnection.DataReceivedCallback(OnDataReceived),
-                new NetConnection.DisconnectedCallback(OnDisconnected));
+            new Connection(socket,
+                new Connection.DataReceivedCallback(OnDataReceived),
+                new Connection.DisconnectedCallback(OnDisconnected));
 
         }
 
-        private static void OnDisconnected(NetConnection sender)
+        private static void OnDisconnected(Connection sender)
         {
             Console.WriteLine("客户端断开");
         }
 
-        private static void OnDataReceived(NetConnection sender, byte[] data)
+        private static void OnDataReceived(Connection sender, byte[] data)
         {
-            //MessageRouter.Instance.AddMessage(sender, );
+            Proto.Package package = Proto.Package.Parser.ParseFrom(data);
+            MessageRouter.Instance.AddMessage(sender, package);
         }
     }
 }
