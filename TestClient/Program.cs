@@ -1,4 +1,4 @@
-﻿namespace GameServer
+﻿namespace TestClient
 {
     internal class Program
     {
