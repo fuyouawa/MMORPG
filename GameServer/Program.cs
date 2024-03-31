@@ -1,4 +1,6 @@
-﻿namespace GameServer
+﻿using GameServer.Tool;
+
+namespace GameServer
 {
     internal class Program
     {
