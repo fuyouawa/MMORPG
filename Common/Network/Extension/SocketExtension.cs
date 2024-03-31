@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Common.Network.Extension
 {
-    public static class Socket
+    public static class SocketExtension
     {
-        public static async Task<byte[]> ReadAsync(this System.Net.Sockets.Socket socket, int size)
+        public static async Task<byte[]> ReadAsync(this Socket socket, int size)
         {
             Debug.Assert(size < NetConfig.MaxPacketSize && size >= 0);
             if (size == 0)
@@ -32,7 +32,7 @@ namespace Common.Network.Extension
             return buffer;
         }
 
-        public static async Task<int> ReadInt32Async(this System.Net.Sockets.Socket socket)
+        public static async Task<int> ReadInt32Async(this Socket socket)
         {
             var intBytes = await socket.ReadAsync(sizeof(int));
             return IPAddress.NetworkToHostOrder(BitConverter.ToInt32(intBytes));
