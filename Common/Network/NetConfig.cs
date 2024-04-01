@@ -9,5 +9,6 @@ namespace Common.Network
     public static class NetConfig
     {
         public static readonly int MaxPacketSize = 1024 * 64;
+        public static readonly int ServerPort = 11451;
     }
 }

@@ -1,4 +1,6 @@
-﻿using GameServer.Tool;
+﻿
+using Common.Network;
+using GameServer.Service;
 
 namespace GameServer
 {
@@ -6,6 +8,9 @@ namespace GameServer
     {
         static void Main(string[] args)
         {
+            TcpServer server = new(NetConfig.ServerPort);
+            server.Start();
+            Console.ReadLine();
         }
     }
 }

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Common.Network
 {
-    public class Packet
+    public class BytesPacket
     {
         public byte[] Data { get; init; }
 
-        public Packet(byte[] data)
+        public BytesPacket(byte[] data)
         {
             Data = data;
         }

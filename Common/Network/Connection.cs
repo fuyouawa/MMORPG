@@ -1,6 +1,4 @@
-﻿using Common.Network;
-using Common.Network.Extension;
-using GameServer.Tool;
+﻿using Common.Network.Extension;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,43 +7,59 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameServer.Service
+namespace Common.Network
 {
-    public class SocketAsyncException : Exception
+    public class ConnectionClosedEventArgs : EventArgs
     {
-        private SocketError _error;
+        public bool IsManual { get; init; }
 
-        public SocketError Error
+        public ConnectionClosedEventArgs(bool isManual)
         {
-            get { return _error; }
-            set { _error = value; }
-        }
-
-
-        public SocketAsyncException(SocketError error)
-        {
-            _error = error;
+            IsManual = isManual;
         }
     }
+
+    public class DataReceivedEventArgs : EventArgs
+    {
+        public BytesPacket BytesPacket { get; init; }
+
+        public DataReceivedEventArgs(BytesPacket bytesPacket)
+        {
+            BytesPacket = bytesPacket;
+        }
+    }
+
+    public class ErrorOccurEventArgs : EventArgs
+    {
+        public Exception Exception { get; init; }
+
+        public ErrorOccurEventArgs(Exception ex)
+        {
+            Exception = ex;
+        }
+    }
+
+    public class HighWaterMarkEventArgs : EventArgs
+    {
+        public HighWaterMarkEventArgs()
+        {
+        }
+    }
+
 
     public class Connection
     {
         public static readonly int MaxSendQueueCount = 1024;
 
-        public delegate void EventHandler<TEventArgs>(Connection sender, TEventArgs e);
-        public delegate void EventHandler(Connection sender);
+        public event EventHandler<ConnectionClosedEventArgs>? ConnectionClosed;
+        public event EventHandler<DataReceivedEventArgs>? DataReceived;
+        public event EventHandler<ErrorOccurEventArgs>? ErrorOccur;
+        public event EventHandler<HighWaterMarkEventArgs>? HighWaterMark;
 
-        public event EventHandler<ObjectDisposedException?>? SessionClosed;
-        public event EventHandler<Packet>? PacketReceived;
-        public event EventHandler<Exception>? ErrorOccur;
-        public event EventHandler? HighWaterMark;
+        protected Socket _socket;
+        protected Queue<BytesPacket> _sendQueue = new();
 
-        private Socket _socket;
-        private Queue<Packet> _sendQueue = new();
-        private bool? _closeConnectionByServer;
-
-        //TODO 可读性更高的SessionName
-        private string SessionName => _socket.RemoteEndPoint.ToString();
+        private bool? _closeConnectionByManual;
 
 
         public Connection(Socket socket)
@@ -61,29 +75,26 @@ namespace GameServer.Service
 
         public void Close()
         {
+            if (!_socket.Connected)
+                return;
             try
             {
                 _socket.Shutdown(SocketShutdown.Both);
             }
-            catch (ObjectDisposedException)
-            {
-                Global.Logger.Warn($"尝试关闭已经关闭的socket!");
-                return;
-            }
             catch (Exception ex)
             {
-                ErrorOccur?.Invoke(this, ex);
+                ErrorOccur?.Invoke(this, new(ex));
             }
             finally
             {
                 _socket.Close();
-                _closeConnectionByServer = true;
-                Global.Logger.Info($"关闭对({SessionName})的链接!");
+                _closeConnectionByManual = true;
+                ConnectionClosed?.Invoke(this, new(true));
             }
         }
 
 
-        public void Send(Packet packet)
+        public void Send(BytesPacket packet)
         {
             try
             {
@@ -93,8 +104,7 @@ namespace GameServer.Service
                     var oldQueueCount = _sendQueue.Count;
                     if (oldQueueCount > MaxSendQueueCount)
                     {
-                        Global.Logger.Error($"({SessionName})的发送队列超出最高水位!");
-                        HighWaterMark?.Invoke(this);
+                        HighWaterMark?.Invoke(this, new());
                         return;
                     }
                     _sendQueue.Enqueue(packet);
@@ -114,18 +124,19 @@ namespace GameServer.Service
 
         private void HandleSent(object? sender, SocketAsyncEventArgs e)
         {
-            if (e.SocketError != SocketError.Success) {
-                Global.Logger.Error($"发送数据时出现异常:{e.SocketError}");
-                Close();
-                ErrorOccur?.Invoke(this, new SocketAsyncException(e.SocketError));
+            if (e.SocketError != SocketError.Success)
+            {
+                ErrorOccur?.Invoke(this, new(new SocketException((int)e.SocketError)));
+                return;
             }
             try
             {
-                Packet? pendingPacket = null;
+                BytesPacket? pendingPacket = null;
                 lock (_sendQueue)
                 {
                     _sendQueue.Dequeue();
-                    if (_sendQueue.Count > 0) {
+                    if (_sendQueue.Count > 0)
+                    {
                         pendingPacket = _sendQueue.Peek();
                     }
                 }
@@ -152,7 +163,7 @@ namespace GameServer.Service
                     var size = await _socket.ReadInt32Async();
                     Debug.Assert(size > 0 && size < NetConfig.MaxPacketSize);
                     var buffer = await _socket.ReadAsync(size);
-                    PacketReceived?.Invoke(this, new(buffer));
+                    DataReceived?.Invoke(this, new(new(buffer)));
                 }
             }
             catch (Exception ex)
@@ -163,18 +174,21 @@ namespace GameServer.Service
 
         private void HandleError(Exception ex)
         {
-            if (ex is ObjectDisposedException e)
+            if (ex is SocketException socketEx)
             {
-                Global.Logger.Error($"({SessionName})对端关闭链接:{ex}");
-                _closeConnectionByServer = false;
-                SessionClosed?.Invoke(this, e);
+                Debug.Assert(socketEx.SocketErrorCode != SocketError.Success);
+                switch (socketEx.SocketErrorCode)
+                {
+                    case SocketError.ConnectionReset:
+                        if (_closeConnectionByManual == true) return;
+                        _closeConnectionByManual = false;
+                        ConnectionClosed?.Invoke(this, new(false));
+                        return;
+                    default:
+                        break;
+                }
             }
-            else
-            {
-                Global.Logger.Error($"{SessionName}出现异常:{ex}");
-                Close();
-                ErrorOccur?.Invoke(this, ex);
-            }
+            ErrorOccur?.Invoke(this, new(ex));
         }
     }
 }
