@@ -1,5 +1,6 @@
 ﻿using Common.Network;
 using GameServer.Network;
+using GameServer.Tool;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,32 +13,27 @@ namespace GameServer.Service
     public class TcpServer
     {
         private Acceptor _acceptor;
-        private List<Connection> _clientSessions = new();
+        private List<Session> _clientSessions = new();
 
         public TcpServer(int port)
         {
             _acceptor = new(IPAddress.Parse("0.0.0.0"), port);
         }
 
-        public async void Start()
+        public void Start()
         {
-            while (true)
+            Global.Logger.Info("开启服务器");
+            Task.Run(async () =>
             {
-                var socket = await _acceptor.AcceptAsync();
-                Console.WriteLine($"客户端连接:{socket.RemoteEndPoint}");
-                Connection session = new(socket);
-                session.SessionClosed += OnSessionClosed;
-                session.PacketReceived += OnPacketReceived;
-                _clientSessions.Add(session);
-            }
-        }
-
-        private void OnPacketReceived(Connection sender, Packet packet)
-        {
-        }
-
-        private void OnSessionClosed(Connection sender, ObjectDisposedException? ex)
-        {
+                while (true)
+                {
+                    var socket = await _acceptor.AcceptAsync();
+                    Global.Logger.Info($"客户端连接:{socket.RemoteEndPoint}");
+                    Session session = new(socket);
+                    session.Start();
+                    _clientSessions.Add(session);
+                }
+            });
         }
     }
 }
