@@ -21,27 +21,39 @@ namespace GameServer.Service
             ConnectionClosed += OnConnectionClosed;
             ErrorOccur += OnErrorOccur;
             HighWaterMark += OnHighWaterMark;
+            SuccessSent += OnSuccessSent;
+            PacketReceived += OnPacketReceived;
+        }
+
+        private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
+        {
+            Global.Logger.Info($"[Session] 成功接收来自{SessionName}的数据包");
+        }
+
+        private void OnSuccessSent(object? sender, SuccessSentEventArgs e)
+        {
+            Global.Logger.Info($"[Session] 成功发送数据包给{SessionName}");
         }
 
         private void OnHighWaterMark(object? sender, HighWaterMarkEventArgs e)
         {
-            Global.Logger.Error($"({SessionName})的发送队列超出最高水位!");
+            Global.Logger.Error($"[Session] {SessionName}的发送队列超出最高水位!");
         }
 
         private void OnErrorOccur(object? sender, ErrorOccurEventArgs e)
         {
-            Global.Logger.Error($"{SessionName}出现异常:{e.Exception}");
+            Global.Logger.Error($"[Session] {SessionName}出现异常:{e.Exception}");
         }
 
         private void OnConnectionClosed(object? sender, ConnectionClosedEventArgs e)
         {
             if (e.IsManual)
             {
-                Global.Logger.Info($"成功关闭对({SessionName})的链接!");
+                Global.Logger.Info($"[Session] 成功关闭对{SessionName}的链接!");
             }
             else
             {
-                Global.Logger.Info($"({SessionName})对端关闭链接");
+                Global.Logger.Info($"[Session] {SessionName}对端关闭链接");
             }
         }
     }
