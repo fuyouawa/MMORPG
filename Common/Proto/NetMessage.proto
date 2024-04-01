@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package Common.Proto;
+
+
+message NetMessage {
+    Request request = 1;
+    Response response = 2;
+}
+
+message Request {
+    UserRegisterRequest user_register = 1;
+    UserLoginRequest user_login = 2;
+}
+
+message Response {
+    UserRegisterResponse user_register = 1;
+    UserLoginResponse user_login = 2;
+}
+
+message UserRegisterRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message UserRegisterResponse {
+    int32 code = 1;
+    string message = 2;
+}
+
+message UserLoginRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message UserLoginResponse {
+    int32 code = 1;
+    string message = 2;
+}

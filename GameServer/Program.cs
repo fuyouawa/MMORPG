@@ -1,5 +1,6 @@
 ﻿
 using Common.Network;
+using Common.Proto;
 using GameServer.Service;
 
 namespace GameServer
@@ -10,7 +11,13 @@ namespace GameServer
         {
             TcpServer server = new(NetConfig.ServerPort);
             server.Start();
+            MessageRouter.Instance.Reigster<UserRegisterRequest>(OnUserRegister);
             Console.ReadLine();
+        }
+
+        private static void OnUserRegister(object? sender, UserRegisterRequest e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

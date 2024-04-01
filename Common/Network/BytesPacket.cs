@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Google.Protobuf;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace Common.Network
         {
             Data = data;
         }
+
+        public BytesPacket(Google.Protobuf.IMessage msg) : this(msg.ToByteArray()) { }
 
         public byte[] Pack()
         {
