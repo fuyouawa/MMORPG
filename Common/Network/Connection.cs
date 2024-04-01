@@ -1,4 +1,5 @@
 ﻿using Common.Network.Extension;
+using Common.Proto;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,11 +22,11 @@ namespace Common.Network
 
     public class DataReceivedEventArgs : EventArgs
     {
-        public BytesPacket BytesPacket { get; init; }
+        public BytesPacket Packet { get; init; }
 
-        public DataReceivedEventArgs(BytesPacket bytesPacket)
+        public DataReceivedEventArgs(BytesPacket packet)
         {
-            BytesPacket = bytesPacket;
+            Packet = packet;
         }
     }
 
@@ -57,7 +58,7 @@ namespace Common.Network
         public event EventHandler<HighWaterMarkEventArgs>? HighWaterMark;
 
         protected Socket _socket;
-        protected Queue<BytesPacket> _sendQueue = new();
+        protected Queue<BytesPacket> _pendingSendQueue = new();
 
         private bool? _closeConnectionByManual;
 
@@ -93,27 +94,26 @@ namespace Common.Network
             }
         }
 
-
         public void Send(BytesPacket packet)
         {
             try
             {
                 Debug.Assert(_socket.Connected);
-                lock (_sendQueue)
+                lock (_pendingSendQueue)
                 {
-                    var oldQueueCount = _sendQueue.Count;
+                    var oldQueueCount = _pendingSendQueue.Count;
                     if (oldQueueCount > MaxSendQueueCount)
                     {
                         HighWaterMark?.Invoke(this, new());
                         return;
                     }
-                    _sendQueue.Enqueue(packet);
+                    _pendingSendQueue.Enqueue(packet);
                     if (oldQueueCount > 0)
                         return;
                 }
                 SocketAsyncEventArgs asyncEventArgs = new();
                 asyncEventArgs.SetBuffer(packet.Pack());
-                asyncEventArgs.Completed += HandleSent;
+                asyncEventArgs.Completed += OnSent;
                 _socket.SendAsync(asyncEventArgs);
             }
             catch (Exception ex)
@@ -122,7 +122,7 @@ namespace Common.Network
             }
         }
 
-        private void HandleSent(object? sender, SocketAsyncEventArgs e)
+        private void OnSent(object? sender, SocketAsyncEventArgs e)
         {
             if (e.SocketError != SocketError.Success)
             {
@@ -132,19 +132,19 @@ namespace Common.Network
             try
             {
                 BytesPacket? pendingPacket = null;
-                lock (_sendQueue)
+                lock (_pendingSendQueue)
                 {
-                    _sendQueue.Dequeue();
-                    if (_sendQueue.Count > 0)
+                    _pendingSendQueue.Dequeue();
+                    if (_pendingSendQueue.Count > 0)
                     {
-                        pendingPacket = _sendQueue.Peek();
+                        pendingPacket = _pendingSendQueue.Peek();
                     }
                 }
                 if (pendingPacket != null)
                 {
                     SocketAsyncEventArgs asyncEventArgs = new();
                     asyncEventArgs.SetBuffer(pendingPacket.Pack());
-                    asyncEventArgs.Completed += HandleSent;
+                    asyncEventArgs.Completed += OnSent;
                     _socket.SendAsync(asyncEventArgs);
                 }
             }
