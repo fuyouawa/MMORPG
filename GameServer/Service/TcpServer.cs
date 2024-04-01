@@ -26,21 +26,21 @@ namespace GameServer.Service
         {
             Task.Run(async () =>
             {
-                Global.Logger.Info("开启服务器");
+                Global.Logger.Info("[Server] 开启服务器");
                 _serverSocket.Listen();
                 while (true)
                 {
                     var socket = await _serverSocket.AcceptAsync();
-                    Global.Logger.Info($"客户端连接:{socket.RemoteEndPoint}");
+                    Global.Logger.Info($"[Server] 客户端连接:{socket.RemoteEndPoint}");
                     Session session = new(socket);
-                    session.DataReceived += OnDataReceived;
+                    session.PacketReceived += OnPacketReceived;
                     session.Start();
                     _clientSessions.Add(session);
                 }
             });
         }
 
-        private void OnDataReceived(object? sender, DataReceivedEventArgs e)
+        private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
         {
             MessageRouter.Instance.DispatchMessage(sender, NetMessage.Parser.ParseFrom(e.Packet.Data));
         }

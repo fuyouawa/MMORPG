@@ -20,11 +20,21 @@ namespace Common.Network
         }
     }
 
-    public class DataReceivedEventArgs : EventArgs
+    public class PacketReceivedEventArgs : EventArgs
     {
         public BytesPacket Packet { get; init; }
 
-        public DataReceivedEventArgs(BytesPacket packet)
+        public PacketReceivedEventArgs(BytesPacket packet)
+        {
+            Packet = packet;
+        }
+    }
+
+    public class SuccessSentEventArgs : EventArgs
+    {
+        public BytesPacket Packet { get; init; }
+
+        public SuccessSentEventArgs(BytesPacket packet)
         {
             Packet = packet;
         }
@@ -53,7 +63,8 @@ namespace Common.Network
         public static readonly int MaxSendQueueCount = 1024;
 
         public event EventHandler<ConnectionClosedEventArgs>? ConnectionClosed;
-        public event EventHandler<DataReceivedEventArgs>? DataReceived;
+        public event EventHandler<PacketReceivedEventArgs>? PacketReceived;
+        public event EventHandler<SuccessSentEventArgs>? SuccessSent;
         public event EventHandler<ErrorOccurEventArgs>? ErrorOccur;
         public event EventHandler<HighWaterMarkEventArgs>? HighWaterMark;
 
@@ -94,6 +105,12 @@ namespace Common.Network
             }
         }
 
+        public void Send(Google.Protobuf.IMessage msg)
+        {
+            Send(new BytesPacket(msg));
+        }
+
+
         public void Send(BytesPacket packet)
         {
             try
@@ -129,6 +146,10 @@ namespace Common.Network
                 ErrorOccur?.Invoke(this, new(new SocketException((int)e.SocketError)));
                 return;
             }
+            else
+            {
+                SuccessSent?.Invoke(this, new(_pendingSendQueue.Peek()));
+            }
             try
             {
                 BytesPacket? pendingPacket = null;
@@ -163,7 +184,7 @@ namespace Common.Network
                     var size = await _socket.ReadInt32Async();
                     Debug.Assert(size > 0 && size < NetConfig.MaxPacketSize);
                     var buffer = await _socket.ReadAsync(size);
-                    DataReceived?.Invoke(this, new(new(buffer)));
+                    PacketReceived?.Invoke(this, new(new(buffer)));
                 }
             }
             catch (Exception ex)

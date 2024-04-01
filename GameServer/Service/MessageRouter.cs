@@ -50,15 +50,19 @@ namespace GameServer.Service
 
             Task.Run(() =>
             {
-                var realyMsg = msg.Request != null ? msg.Request : msg.Response as Google.Protobuf.IMessage;
+                var realyMsg = (msg.Request != null ? msg.Request : msg.Response as object).AssertNotNull();
                 foreach (var property in realyMsg.GetType().GetProperties())
                 {
-                    var propertyType = property.GetType();
-                    if (typeof(Google.Protobuf.IMessage).IsAssignableFrom(propertyType))
+                    if (property == null)
+                        continue;
+                    var value = property.GetValue(realyMsg);
+                    if (value == null)
+                        continue;
+                    var valueType = value.GetType();
+                    if (typeof(Google.Protobuf.IMessage).IsAssignableFrom(valueType))
                     {
-                        var propertyValue = property.GetValue(realyMsg).AssertNotNull();
-                        var method = DispatchToHandlerMethod.MakeGenericMethod(propertyValue.GetType()).AssertNotNull();
-                        method.Invoke(this, new object[] { sender,  propertyValue });
+                        var method = DispatchToHandlerMethod.MakeGenericMethod(valueType).AssertNotNull();
+                        method.Invoke(this, new object[] { sender, value });
                     }
                 }
             });
