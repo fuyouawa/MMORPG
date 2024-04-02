@@ -11,7 +11,7 @@ namespace Common.Tool
     {
         public Singleton() { Debug.Assert(_instance == null); }
 
-		private static T? _instance;
+		private static T _instance;
         public static T Instance => _instance ??= new T();
 	}
 }
