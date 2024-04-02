@@ -11,7 +11,7 @@ namespace Common.Network
 {
     public class BytesPacket
     {
-        public byte[] Data { get; init; }
+        public byte[] Data { get; }
 
         public BytesPacket(byte[] data)
         {

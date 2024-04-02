@@ -1,7 +1,6 @@
 ﻿using Common.Network;
 using Common.Proto;
 using Common.Tool;
-using GameServer.Tool;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameServer.Service
+namespace Common.Network
 {
     public class MessageRouter : Singleton<MessageRouter>
     {
@@ -19,15 +18,13 @@ namespace GameServer.Service
         //private record SessionPacket(Connection Connection, BytesPacket Packet);
 
         //private Queue<SessionPacket> _pendingDispatchQueue = new();
-        private Dictionary<Type, Delegate?> _messageHandlers = new();
+        private Dictionary<Type, Delegate?> _messageHandlers = new Dictionary<Type, Delegate?>();
 
-        private MethodInfo DispatchToHandlerMethod { get; init; }
+        private MethodInfo DispatchToHandlerMethod { get; }
 
         public MessageRouter() : base()
         {
-            var method = GetType().GetMethod("DispatchToHandler",
-                BindingFlags.NonPublic | BindingFlags.Instance).AssertNotNull();
-            DispatchToHandlerMethod = method;
+            DispatchToHandlerMethod = GetType().GetMethod("DispatchToHandler", BindingFlags.NonPublic | BindingFlags.Instance);
         }
 
         public void Reigster<TMessage>(MessageHandler<TMessage> handler) where TMessage: Google.Protobuf.IMessage
@@ -50,7 +47,7 @@ namespace GameServer.Service
 
             Task.Run(() =>
             {
-                var realyMsg = (msg.Request != null ? msg.Request : msg.Response as object).AssertNotNull();
+                var realyMsg = (msg.Request != null ? msg.Request : msg.Response as object);
                 foreach (var property in realyMsg.GetType().GetProperties())
                 {
                     if (property == null)
@@ -61,7 +58,7 @@ namespace GameServer.Service
                     var valueType = value.GetType();
                     if (typeof(Google.Protobuf.IMessage).IsAssignableFrom(valueType))
                     {
-                        var method = DispatchToHandlerMethod.MakeGenericMethod(valueType).AssertNotNull();
+                        var method = DispatchToHandlerMethod.MakeGenericMethod(valueType);
                         method.Invoke(this, new object[] { sender, value });
                     }
                 }
@@ -80,8 +77,7 @@ namespace GameServer.Service
                 }
                 catch (Exception ex)
                 {
-                    Global.Logger.Error(ex);
-                    //TODO 异常处理
+
                 }
             }
         }
