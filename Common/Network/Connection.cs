@@ -1,5 +1,4 @@
-﻿using Common.Network.Extension;
-using Common.Proto;
+﻿using Common.Proto;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
