@@ -8,13 +8,12 @@ namespace GameServer
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async void Main(string[] args)
         {
             TcpServer server = new(NetConfig.ServerPort);
-            server.Start();
             MessageRouter.Instance.Reigster<UserRegisterRequest>(OnUserRegister);
             MessageRouter.Instance.Reigster<UserLoginRequest>(OnUserLogin);
-            Console.ReadLine();
+            await server.Run();
         }
 
         private static void OnUserLogin(object? sender, UserLoginRequest msg)
