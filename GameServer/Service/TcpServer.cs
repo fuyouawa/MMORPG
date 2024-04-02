@@ -22,22 +22,19 @@ namespace GameServer.Service
             _serverSocket.Bind(new IPEndPoint(IPAddress.Parse("0.0.0.0"), port));
         }
 
-        public void Start()
+        public async Task Run()
         {
-            Task.Run(async () =>
+            Global.Logger.Info("[Server] 开启服务器");
+            _serverSocket.Listen();
+            while (true)
             {
-                Global.Logger.Info("[Server] 开启服务器");
-                _serverSocket.Listen();
-                while (true)
-                {
-                    var socket = await _serverSocket.AcceptAsync();
-                    Global.Logger.Info($"[Server] 客户端连接:{socket.RemoteEndPoint}");
-                    Session session = new(socket);
-                    session.PacketReceived += OnPacketReceived;
-                    session.Start();
-                    _clientSessions.Add(session);
-                }
-            });
+                var socket = await _serverSocket.AcceptAsync();
+                Global.Logger.Info($"[Server] 客户端连接:{socket.RemoteEndPoint}");
+                Session session = new(socket);
+                session.PacketReceived += OnPacketReceived;
+                session.Start();
+                _clientSessions.Add(session);
+            }
         }
 
         private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
