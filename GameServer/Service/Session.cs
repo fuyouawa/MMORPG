@@ -1,5 +1,4 @@
 ﻿using Common.Network;
-using Common.Network.Extension;
 using GameServer.Tool;
 using System;
 using System.Collections.Generic;
@@ -14,7 +13,7 @@ namespace GameServer.Service
     public class Session : Connection
     {
         //TODO 可读性更高的SessionName
-        private string SessionName => _socket.RemoteEndPoint.ToString();
+        public string SessionName => _socket.RemoteEndPoint.ToString();
 
         public Session(Socket socket) : base(socket)
         {
