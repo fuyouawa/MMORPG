@@ -8,7 +8,7 @@ namespace GameServer
 {
     internal class Program
     {
-        static async void Main(string[] args)
+        static async Task Main(string[] args)
         {
             TcpServer server = new(NetConfig.ServerPort);
             MessageRouter.Instance.Reigster<UserRegisterRequest>(OnUserRegister);

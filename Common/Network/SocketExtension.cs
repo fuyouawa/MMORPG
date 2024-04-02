@@ -7,7 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Network.Extension
+namespace Common.Network
 {
     public static class SocketExtension
     {

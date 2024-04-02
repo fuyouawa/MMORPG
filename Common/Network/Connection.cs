@@ -11,7 +11,7 @@ namespace Common.Network
 {
     public class ConnectionClosedEventArgs : EventArgs
     {
-        public bool IsManual { get; init; }
+        public bool IsManual { get; }
 
         public ConnectionClosedEventArgs(bool isManual)
         {
@@ -21,7 +21,7 @@ namespace Common.Network
 
     public class PacketReceivedEventArgs : EventArgs
     {
-        public BytesPacket Packet { get; init; }
+        public BytesPacket Packet { get; }
 
         public PacketReceivedEventArgs(BytesPacket packet)
         {
@@ -31,7 +31,7 @@ namespace Common.Network
 
     public class SuccessSentEventArgs : EventArgs
     {
-        public BytesPacket Packet { get; init; }
+        public BytesPacket Packet { get; }
 
         public SuccessSentEventArgs(BytesPacket packet)
         {
@@ -41,7 +41,7 @@ namespace Common.Network
 
     public class ErrorOccurEventArgs : EventArgs
     {
-        public Exception Exception { get; init; }
+        public Exception Exception { get; }
 
         public ErrorOccurEventArgs(Exception ex)
         {
@@ -68,7 +68,7 @@ namespace Common.Network
         public event EventHandler<HighWaterMarkEventArgs>? HighWaterMark;
 
         protected Socket _socket;
-        protected Queue<BytesPacket> _pendingSendQueue = new();
+        protected Queue<BytesPacket> _pendingSendQueue = new Queue<BytesPacket>();
 
         private bool? _closeConnectionByManual;
 
@@ -94,13 +94,13 @@ namespace Common.Network
             }
             catch (Exception ex)
             {
-                ErrorOccur?.Invoke(this, new(ex));
+                ErrorOccur?.Invoke(this, new ErrorOccurEventArgs(ex));
             }
             finally
             {
                 _socket.Close();
                 _closeConnectionByManual = true;
-                ConnectionClosed?.Invoke(this, new(true));
+                ConnectionClosed?.Invoke(this, new ConnectionClosedEventArgs(true));
             }
         }
 
@@ -120,14 +120,14 @@ namespace Common.Network
                     var oldQueueCount = _pendingSendQueue.Count;
                     if (oldQueueCount > MaxSendQueueCount)
                     {
-                        HighWaterMark?.Invoke(this, new());
+                        HighWaterMark?.Invoke(this, new HighWaterMarkEventArgs());
                         return;
                     }
                     _pendingSendQueue.Enqueue(packet);
                     if (oldQueueCount > 0)
                         return;
                 }
-                SocketAsyncEventArgs asyncEventArgs = new();
+                SocketAsyncEventArgs asyncEventArgs = new SocketAsyncEventArgs();
                 asyncEventArgs.SetBuffer(packet.Pack());
                 asyncEventArgs.Completed += OnSent;
                 _socket.SendAsync(asyncEventArgs);
@@ -142,12 +142,12 @@ namespace Common.Network
         {
             if (e.SocketError != SocketError.Success)
             {
-                ErrorOccur?.Invoke(this, new(new SocketException((int)e.SocketError)));
+                ErrorOccur?.Invoke(this, new ErrorOccurEventArgs(new SocketException((int)e.SocketError)));
                 return;
             }
             else
             {
-                SuccessSent?.Invoke(this, new(_pendingSendQueue.Peek()));
+                SuccessSent?.Invoke(this, new SuccessSentEventArgs(_pendingSendQueue.Peek()));
             }
             try
             {
@@ -162,7 +162,7 @@ namespace Common.Network
                 }
                 if (pendingPacket != null)
                 {
-                    SocketAsyncEventArgs asyncEventArgs = new();
+                    var asyncEventArgs = new SocketAsyncEventArgs();
                     asyncEventArgs.SetBuffer(pendingPacket.Pack());
                     asyncEventArgs.Completed += OnSent;
                     _socket.SendAsync(asyncEventArgs);
@@ -183,7 +183,7 @@ namespace Common.Network
                     var size = await _socket.ReadInt32Async();
                     Debug.Assert(size > 0 && size < NetConfig.MaxPacketSize);
                     var buffer = await _socket.ReadAsync(size);
-                    PacketReceived?.Invoke(this, new(new(buffer)));
+                    PacketReceived?.Invoke(this, new PacketReceivedEventArgs(new BytesPacket(buffer)));
                 }
             }
             catch (Exception ex)
@@ -202,13 +202,13 @@ namespace Common.Network
                     case SocketError.ConnectionReset:
                         if (_closeConnectionByManual == true) return;
                         _closeConnectionByManual = false;
-                        ConnectionClosed?.Invoke(this, new(false));
+                        ConnectionClosed?.Invoke(this, new ConnectionClosedEventArgs(false));
                         return;
                     default:
                         break;
                 }
             }
-            ErrorOccur?.Invoke(this, new(ex));
+            ErrorOccur?.Invoke(this, new ErrorOccurEventArgs(ex));
         }
     }
 }
