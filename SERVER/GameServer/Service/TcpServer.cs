@@ -32,7 +32,7 @@ namespace GameServer.Service
                 Global.Logger.Info($"[Server] 客户端连接:{socket.RemoteEndPoint}");
                 Session session = new(socket);
                 session.PacketReceived += OnPacketReceived;
-                session.Start();
+                Task.Run(session.StartAsync);
                 _clientSessions.Add(session);
             }
         }
