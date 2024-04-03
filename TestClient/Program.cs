@@ -9,7 +9,7 @@ namespace TestClient
         static void Main(string[] args)
         {
             Socket socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            socket.Connect("127.0.0.1", NetConfig.ServerPort);
+            socket.Connect(NetConfig.ServerIpAddress, NetConfig.ServerPort);
             Console.WriteLine("链接到服务器");
             Connection connection = new(socket);
             connection.Start();

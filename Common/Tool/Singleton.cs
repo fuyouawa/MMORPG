@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Common.Tool
 {
-    public class Singleton<T> where T : new()
+    public class Singleton<T> where T : Singleton<T>, new()
     {
         public Singleton() { Debug.Assert(_instance == null); }
 
