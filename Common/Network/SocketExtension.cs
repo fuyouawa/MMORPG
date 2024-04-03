@@ -25,7 +25,8 @@ namespace Common.Network
                 var curReadSize = await socket.ReceiveAsync(
                     new ArraySegment<byte>(buffer, readSizeTotal, size - readSizeTotal),
                     SocketFlags.None);
-                Debug.Assert(curReadSize > 0);
+                if (curReadSize == 0)
+                    throw new SocketException((int)SocketError.ConnectionReset);
                 readSizeTotal += curReadSize;
             }
 
