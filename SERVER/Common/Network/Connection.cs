@@ -1,4 +1,5 @@
 ﻿using Common.Proto;
+using Google.Protobuf;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -78,9 +79,9 @@ namespace Common.Network
             _socket = socket;
         }
 
-        public void Start()
+        public async Task StartAsync()
         {
-            Task.Run(ReceiveLoop);
+            await ReceiveLoop();
         }
 
 
@@ -104,11 +105,22 @@ namespace Common.Network
             }
         }
 
-        public void Send(Google.Protobuf.IMessage msg)
+        public void SendRequest(Google.Protobuf.IMessage request)
         {
+            var msg = new NetMessage() { Request = new Request() };
+            bool foundDest = false;
+            foreach (var property in msg.Request.GetType().GetProperties())
+            {
+                if (property.PropertyType == request.GetType())
+                {
+                    foundDest = true;
+                    property.SetValue(msg.Request, request);
+                    break;
+                }
+            }
+            Debug.Assert(foundDest);
             Send(new BytesPacket(msg));
         }
-
 
         public void Send(BytesPacket packet)
         {
