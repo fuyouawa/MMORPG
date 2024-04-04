@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace GameServer.Service
 {
-    public class Session : Connection
+    public class NetSession : Connection
     {
         //TODO 可读性更高的SessionName
         public string SessionName => _socket.RemoteEndPoint.ToString();
 
-        public Session(Socket socket) : base(socket)
+        public NetSession(Socket socket) : base(socket)
         {
             ConnectionClosed += OnConnectionClosed;
             ErrorOccur += OnErrorOccur;

@@ -1,7 +1,10 @@
 ﻿using Common.Network;
 using Common.Proto;
+using Common.Proto.User;
+using Common.Tool;
 using System.Diagnostics;
 using System.Net.Sockets;
+using System.Reflection;
 
 namespace TestClient
 {
@@ -12,7 +15,7 @@ namespace TestClient
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             await socket.ConnectAsync(NetConfig.ServerIpAddress, NetConfig.ServerPort);
             var connection = new Connection(socket);
-            connection.SendRequest(new UserLoginRequest() { Username = "Test", Password = "TestPwd" });
+            connection.Send(new UserLoginRequest() { Username = "Test", Password = "TestPwd" });
             await connection.StartAsync();
         }
     }
