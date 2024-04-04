@@ -13,8 +13,21 @@ namespace Common.Network
 {
     public class Packet
     {
-        private Type? _messageType;
-        public Type MessageType => _messageType ??= ProtoManager.Instance.IDToType(MessageID);
+        private IMessage? _message;
+        public IMessage Message
+        {
+            get
+            {
+                if (_message == null)
+                {
+                    var msgType = ProtoManager.Instance.IDToType(MessageID);
+                    var desc = msgType.GetProperty("Descriptor").GetValue(null) as MessageDescriptor;
+                    Debug.Assert(desc != null);
+                    _message = desc.Parser.ParseFrom(Data);
+                }
+                return _message;
+            }
+        }
 
         public int MessageID { get; }
         public byte[] Data { get; }
@@ -39,13 +52,6 @@ namespace Common.Network
             Array.Copy(idBytes, 0, res, 4, 4);
             Array.Copy(Data, 0, res, 8, Data.Length);
             return res;
-        }
-
-        public IMessage Parse()
-        {
-            var desc = MessageType.GetProperty("Descriptor").GetValue(null) as MessageDescriptor;
-            Debug.Assert(desc != null);
-            return desc.Parser.ParseFrom(Data);
         }
     }
 }

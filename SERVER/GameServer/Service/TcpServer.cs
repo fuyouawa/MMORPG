@@ -1,5 +1,6 @@
 ﻿using Common.Network;
 using Common.Proto;
+using Common.Proto.User;
 using GameServer.Tool;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace GameServer.Service
 
         private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
         {
-            NetService.Instance.HandleMessage(sender, e.Packet.Parse());
+            NetService.Instance.HandleMessage(sender, e.Packet.Message);
         }
     }
 }

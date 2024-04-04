@@ -71,6 +71,7 @@ namespace Common.Network
         protected Queue<Packet> _pendingSendQueue = new Queue<Packet>();
 
         private bool? _closeConnectionByManual;
+        private TaskCompletionSource<Packet> _newReceivedPacketTSC = new TaskCompletionSource<Packet>();
 
 
         public Connection(Socket socket)
@@ -133,6 +134,21 @@ namespace Common.Network
             }
         }
 
+        public async Task<T> ReceiveAsync<T>() where T : class, Google.Protobuf.IMessage
+        {
+            while (true)
+            {
+                var packet = await _newReceivedPacketTSC.Task;
+                Debug.Assert(packet != null);
+                if (packet.Message.GetType() == typeof(T))
+                {
+                    var res = packet.Message as T;
+                    Debug.Assert(res != null);
+                    return res;
+                }
+            }
+        }
+
         private void OnSent(object? sender, SocketAsyncEventArgs e)
         {
             if (e.SocketError != SocketError.Success)
@@ -179,7 +195,9 @@ namespace Common.Network
                     Debug.Assert(size > 0 && size < NetConfig.MaxPacketSize);
                     var msgID = await _socket.ReadInt32Async();
                     var buffer = await _socket.ReadAsync(size);
-                    PacketReceived?.Invoke(this, new PacketReceivedEventArgs(new Packet(msgID, buffer)));
+                    var packet  = new Packet(msgID, buffer);
+                    _newReceivedPacketTSC.SetResult(packet);
+                    PacketReceived?.Invoke(this, new PacketReceivedEventArgs(packet));
                 }
             }
             catch (Exception ex)
