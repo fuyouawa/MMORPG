@@ -1,1 +1,1 @@
-protoc --csharp_out=. ./*.proto
+protoc --csharp_out=./User ./User/*.proto

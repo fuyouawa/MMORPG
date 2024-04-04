@@ -1,5 +1,4 @@
 ﻿using Common.Proto;
-using Google.Protobuf;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,9 +21,9 @@ namespace Common.Network
 
     public class PacketReceivedEventArgs : EventArgs
     {
-        public BytesPacket Packet { get; }
+        public Packet Packet { get; }
 
-        public PacketReceivedEventArgs(BytesPacket packet)
+        public PacketReceivedEventArgs(Packet packet)
         {
             Packet = packet;
         }
@@ -32,9 +31,9 @@ namespace Common.Network
 
     public class SuccessSentEventArgs : EventArgs
     {
-        public BytesPacket Packet { get; }
+        public Packet Packet { get; }
 
-        public SuccessSentEventArgs(BytesPacket packet)
+        public SuccessSentEventArgs(Packet packet)
         {
             Packet = packet;
         }
@@ -69,7 +68,7 @@ namespace Common.Network
         public event EventHandler<HighWaterMarkEventArgs>? HighWaterMark;
 
         protected Socket _socket;
-        protected Queue<BytesPacket> _pendingSendQueue = new Queue<BytesPacket>();
+        protected Queue<Packet> _pendingSendQueue = new Queue<Packet>();
 
         private bool? _closeConnectionByManual;
 
@@ -105,27 +104,11 @@ namespace Common.Network
             }
         }
 
-        public void SendRequest(Google.Protobuf.IMessage request)
-        {
-            var msg = new NetMessage() { Request = new Request() };
-            bool foundDest = false;
-            foreach (var property in msg.Request.GetType().GetProperties())
-            {
-                if (property.PropertyType == request.GetType())
-                {
-                    foundDest = true;
-                    property.SetValue(msg.Request, request);
-                    break;
-                }
-            }
-            Debug.Assert(foundDest);
-            Send(new BytesPacket(msg));
-        }
-
-        public void Send(BytesPacket packet)
+        public void Send(Google.Protobuf.IMessage msg)
         {
             try
             {
+                var packet = new Packet(msg);
                 Debug.Assert(_socket.Connected);
                 lock (_pendingSendQueue)
                 {
@@ -163,7 +146,7 @@ namespace Common.Network
             }
             try
             {
-                BytesPacket? pendingPacket = null;
+                Packet? pendingPacket = null;
                 lock (_pendingSendQueue)
                 {
                     _pendingSendQueue.Dequeue();
@@ -194,8 +177,9 @@ namespace Common.Network
                 {
                     var size = await _socket.ReadInt32Async();
                     Debug.Assert(size > 0 && size < NetConfig.MaxPacketSize);
+                    var msgID = await _socket.ReadInt32Async();
                     var buffer = await _socket.ReadAsync(size);
-                    PacketReceived?.Invoke(this, new PacketReceivedEventArgs(new BytesPacket(buffer)));
+                    PacketReceived?.Invoke(this, new PacketReceivedEventArgs(new Packet(msgID, buffer)));
                 }
             }
             catch (Exception ex)
