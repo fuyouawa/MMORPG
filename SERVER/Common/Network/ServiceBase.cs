@@ -32,7 +32,7 @@ namespace Common.Network
             }
             else
             {
-                Debug.WriteLine($"您还未实现{msg.GetType()}的Handler!");
+                Debug.WriteLine($"您还未实现{msgType}的Handler!");
             }
         }
     }
