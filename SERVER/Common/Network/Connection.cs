@@ -48,7 +48,7 @@ namespace Common.Network
         public delegate void EventHandler<TEventArgs>(Connection sender, TEventArgs e);
 
         public event EventHandler<ConnectionClosedEventArgs>? ConnectionClosed;
-        public event EventHandler<PacketReceivedEventArgs>? PacketReceived;
+        public EventHandler<PacketReceivedEventArgs>? PacketReceived;
         public event EventHandler<ErrorOccurEventArgs>? ErrorOccur;
 
         protected Socket _socket;
