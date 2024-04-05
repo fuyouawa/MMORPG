@@ -1,4 +1,5 @@
 using Common.Proto;
+using Common.Proto.User;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ public class StartManager : MonoSingleton<StartManager>
     public TMP_InputField RegisterVeriftyPasswordInput;
 
 
-    private void Start()
+    void Start()
     {
         AccountPanel.SetActive(true);
         LoginPanel.SetActive(false);
@@ -56,10 +57,8 @@ public class StartManager : MonoSingleton<StartManager>
 
     public void TryLogin()
     {
-
-
         //TODO ’À∫≈√‹¬ÎπÊ∑∂ºÏ≤È
-        GameClient.Instance.Connection.SendRequest(new UserLoginRequest() { 
+        GameClient.Instance.Session.SendAsync(new UserLoginRequest() { 
             Username = LoginUsernameInput.text,
             Password = LoginPasswordInput.text,
         });
@@ -69,10 +68,10 @@ public class StartManager : MonoSingleton<StartManager>
     public void TryRegister()
     {
         //TODO ’À∫≈√‹¬ÎπÊ∑∂ºÏ≤È
-        GameClient.Instance.Connection.SendRequest(new UserRegisterRequest()
-        {
-            Username = RegisterUsernameInput.text,
-            Password = RegisterPasswordInput.text,
-        });
+        //GameClient.Instance.Session.SendAsync(new UserRegisterRequest()
+        //{
+        //    Username = RegisterUsernameInput.text,
+        //    Password = RegisterPasswordInput.text,
+        //});
     }
 }
