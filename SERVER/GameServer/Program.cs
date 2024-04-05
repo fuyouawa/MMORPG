@@ -11,15 +11,9 @@ namespace GameServer
     {
         static async Task Main(string[] args)
         {
-            TcpServer server = new(NetConfig.ServerPort);
-            server.PacketReceived += OnPacketReceived;
+            GameServer server = new(NetConfig.ServerPort);
             await server.Run();
         }
 
-        static private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
-        {
-            UserService.Instance.HandleMessage(sender, e.Packet.Message);
-            PlayerService.Instance.HandleMessage(sender, e.Packet.Message);
-        }
     }
 }
