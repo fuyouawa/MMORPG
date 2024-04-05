@@ -8,14 +8,14 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameServer.Service
+namespace GameServer.Network
 {
-    public class NetChannel : Connection
+    public class Channel : Connection
     {
         //TODO 可读性更高的ChannelName
         public string ChannelName => _socket.RemoteEndPoint.ToString();
 
-        public NetChannel(Socket socket) : base(socket)
+        public Channel(Socket socket) : base(socket)
         {
             ConnectionClosed += OnConnectionClosed;
             ErrorOccur += OnErrorOccur;

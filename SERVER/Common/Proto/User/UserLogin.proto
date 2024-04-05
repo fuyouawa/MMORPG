@@ -1,0 +1,18 @@
+﻿syntax = "proto3";
+
+package Common.Proto.User;
+
+enum LoginStatus {
+    OK = 0;
+    ERROR = 1;
+}
+
+message UserLoginRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message UserLoginResponse {
+    LoginStatus status = 1;
+    string message = 2;
+}
