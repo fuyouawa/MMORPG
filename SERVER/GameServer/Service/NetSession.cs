@@ -26,12 +26,12 @@ namespace GameServer.Service
 
         private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
         {
-            Global.Logger.Info($"[Session] 成功接收来自{SessionName}的数据包");
+            Global.Logger.Info($"[Session] 接收来自{SessionName}的数据包:{e.Packet.Message.GetType()}");
         }
 
         private void OnSuccessSent(object? sender, SuccessSentEventArgs e)
         {
-            Global.Logger.Info($"[Session] 成功发送数据包给{SessionName}");
+            Global.Logger.Info($"[Session] 发送数据包给{SessionName}:{e.Packet.Message.GetType()}");
         }
 
         private void OnHighWaterMark(object? sender, HighWaterMarkEventArgs e)

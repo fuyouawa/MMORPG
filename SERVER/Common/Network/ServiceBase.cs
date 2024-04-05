@@ -23,17 +23,15 @@ namespace Common.Network
                          .ToDictionary(m => m.GetParameters()[1].ParameterType, m => m);
         }
 
-        public void HandleMessage(object? sender, Google.Protobuf.IMessage msg)
+        public bool HandleMessage(object? sender, Google.Protobuf.IMessage msg)
         {
             var msgType = msg.GetType();
             if (_handlers.ContainsKey(msgType))
             {
                 _handlers[msgType].Invoke(this, new object[] { sender, msg });
+                return true;
             }
-            else
-            {
-                Debug.WriteLine($"您还未实现{msgType}的Handler!");
-            }
+            return false;
         }
     }
 }
