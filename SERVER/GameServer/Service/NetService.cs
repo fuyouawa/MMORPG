@@ -14,7 +14,7 @@ namespace GameServer.Service
     {
         public void OnHandle(object? sender, UserLoginRequest request)
         {
-            Global.Logger.Info($"用户注册请求: Username={request.Username}, Password={request.Password}");
+            Global.Logger.Info($"[Service] 用户注册请求: Username={request.Username}, Password={request.Password}");
         }
     }
 }
