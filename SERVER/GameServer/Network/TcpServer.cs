@@ -1,21 +1,16 @@
 ﻿using Common.Network;
-using Common.Proto;
-using Common.Proto.User;
 using GameServer.Tool;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GameServer.Service
+namespace GameServer.Network
 {
     public class TcpServer
     {
         private Socket _serverSocket;
-        private List<NetChannel> _channels = new();
+        private List<Channel> _channels = new();
+
+        public event Channel.EventHandler<PacketReceivedEventArgs> PacketReceived;
 
         public TcpServer(int port)
         {
@@ -31,16 +26,11 @@ namespace GameServer.Service
             {
                 var socket = await _serverSocket.AcceptAsync();
                 Global.Logger.Info($"[Server] 客户端连接:{socket.RemoteEndPoint}");
-                NetChannel channel = new(socket);
-                channel.PacketReceived += OnPacketReceived;
+                Channel channel = new(socket);
+                channel.PacketReceived = PacketReceived;
                 Task.Run(channel.StartAsync);
                 _channels.Add(channel);
             }
-        }
-
-        private void OnPacketReceived(Connection sender, PacketReceivedEventArgs e)
-        {
-            NetService.Instance.HandleMessage(sender, e.Packet.Message);
         }
     }
 }

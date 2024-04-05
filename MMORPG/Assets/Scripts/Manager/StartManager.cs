@@ -56,6 +56,8 @@ public class StartManager : MonoSingleton<StartManager>
 
     public void TryLogin()
     {
+
+
         //TODO ’À∫≈√‹¬ÎπÊ∑∂ºÏ≤È
         GameClient.Instance.Connection.SendRequest(new UserLoginRequest() { 
             Username = LoginUsernameInput.text,
