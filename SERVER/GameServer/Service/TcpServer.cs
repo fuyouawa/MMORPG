@@ -15,7 +15,7 @@ namespace GameServer.Service
     public class TcpServer
     {
         private Socket _serverSocket;
-        private List<NetSession> _clientSessions = new();
+        private List<NetChannel> _channels = new();
 
         public TcpServer(int port)
         {
@@ -31,14 +31,14 @@ namespace GameServer.Service
             {
                 var socket = await _serverSocket.AcceptAsync();
                 Global.Logger.Info($"[Server] 客户端连接:{socket.RemoteEndPoint}");
-                NetSession session = new(socket);
-                session.PacketReceived += OnPacketReceived;
-                Task.Run(session.StartAsync);
-                _clientSessions.Add(session);
+                NetChannel channel = new(socket);
+                channel.PacketReceived += OnPacketReceived;
+                Task.Run(channel.StartAsync);
+                _channels.Add(channel);
             }
         }
 
-        private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
+        private void OnPacketReceived(Connection sender, PacketReceivedEventArgs e)
         {
             NetService.Instance.HandleMessage(sender, e.Packet.Message);
         }
