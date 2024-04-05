@@ -29,15 +29,6 @@ namespace Common.Network
         }
     }
 
-    public class SuccessSentEventArgs : EventArgs
-    {
-        public Packet Packet { get; }
-
-        public SuccessSentEventArgs(Packet packet)
-        {
-            Packet = packet;
-        }
-    }
 
     public class ErrorOccurEventArgs : EventArgs
     {
@@ -49,22 +40,16 @@ namespace Common.Network
         }
     }
 
-    public class HighWaterMarkEventArgs : EventArgs
-    {
-        public HighWaterMarkEventArgs()
-        {
-        }
-    }
-
     public class Connection
     {
         public static readonly int MaxSendQueueCount = 1024;
 
+        public delegate void EventHandler(Connection sender);
+        public delegate void EventHandler<TEventArgs>(Connection sender, TEventArgs e);
+
         public event EventHandler<ConnectionClosedEventArgs>? ConnectionClosed;
         public event EventHandler<PacketReceivedEventArgs>? PacketReceived;
-        public event EventHandler<SuccessSentEventArgs>? SuccessSent;
         public event EventHandler<ErrorOccurEventArgs>? ErrorOccur;
-        public event EventHandler<HighWaterMarkEventArgs>? HighWaterMark;
 
         protected Socket _socket;
 
@@ -109,7 +94,26 @@ namespace Common.Network
                 var packet = new Packet(msg);
                 var res = await _socket.SendAsync(packet.Pack(), SocketFlags.None);
                 Debug.Assert(res > 0);
-                SuccessSent?.Invoke(this, new SuccessSentEventArgs(packet));
+            }
+            catch (Exception ex)
+            {
+                HandleError(ex);
+            }
+        }
+
+        public delegate void SuccessSentCallback(Connection sender, Packet packet);
+        public void SendAsync(Google.Protobuf.IMessage msg, SuccessSentCallback? successSentCallback)
+        {
+            try
+            {
+                var packet = new Packet(msg);
+                var buf = packet.Pack();
+                _socket.BeginSend(buf, 0, buf.Length, SocketFlags.None, ar =>
+                {
+                    var res = _socket.EndSend(ar);
+                    Debug.Assert(res > 0);
+                    successSentCallback?.Invoke(this, packet);
+                }, null);
             }
             catch (Exception ex)
             {
@@ -124,9 +128,9 @@ namespace Common.Network
                 while (_socket.Connected)
                 {
                     var size = await _socket.ReadInt32Async();
-                    Debug.Assert(size > 0 && size < NetConfig.MaxPacketSize);
+                    Debug.Assert(size >= NetConfig.PacketHeaderSize && size < NetConfig.MaxPacketSize);
                     var msgID = await _socket.ReadInt32Async();
-                    var buffer = await _socket.ReadAsync(size);
+                    var buffer = await _socket.ReadAsync(size - NetConfig.PacketHeaderSize);
                     PacketReceived?.Invoke(this, new PacketReceivedEventArgs(new Packet(msgID, buffer)));
                 }
             }
@@ -136,7 +140,7 @@ namespace Common.Network
             }
         }
 
-        private void HandleError(Exception ex)
+        protected virtual void HandleError(Exception ex)
         {
             if (ex is SocketException socketEx)
             {

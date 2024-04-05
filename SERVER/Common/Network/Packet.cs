@@ -46,7 +46,7 @@ namespace Common.Network
 
         public byte[] Pack()
         {
-            var lengthBytes = BitConverter.GetBytes(IPAddress.HostToNetworkOrder(Data.Length));
+            var lengthBytes = BitConverter.GetBytes(IPAddress.HostToNetworkOrder(Data.Length + NetConfig.PacketHeaderSize));
             var idBytes = BitConverter.GetBytes(IPAddress.HostToNetworkOrder(MessageID));
             var res = new byte[8 + Data.Length];
             Array.Copy(lengthBytes, res, 4);
