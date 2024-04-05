@@ -56,7 +56,7 @@ namespace Common.Network
         }
     }
 
-
+    //TODO 确保能够协程安全
     public class Connection
     {
         public static readonly int MaxSendQueueCount = 1024;
@@ -68,10 +68,10 @@ namespace Common.Network
         public event EventHandler<HighWaterMarkEventArgs>? HighWaterMark;
 
         protected Socket _socket;
-        protected Queue<Packet> _pendingSendQueue = new Queue<Packet>();
 
         private bool? _closeConnectionByManual;
         private TaskCompletionSource<Packet> _newReceivedPacketTSC = new TaskCompletionSource<Packet>();
+        private bool _isReceiveAsyncCalling;
 
 
         public Connection(Socket socket)
@@ -105,28 +105,14 @@ namespace Common.Network
             }
         }
 
-        public void Send(Google.Protobuf.IMessage msg)
+        public async Task SendAsync(Google.Protobuf.IMessage msg)
         {
             try
             {
                 var packet = new Packet(msg);
-                Debug.Assert(_socket.Connected);
-                lock (_pendingSendQueue)
-                {
-                    var oldQueueCount = _pendingSendQueue.Count;
-                    if (oldQueueCount > MaxSendQueueCount)
-                    {
-                        HighWaterMark?.Invoke(this, new HighWaterMarkEventArgs());
-                        return;
-                    }
-                    _pendingSendQueue.Enqueue(packet);
-                    if (oldQueueCount > 0)
-                        return;
-                }
-                SocketAsyncEventArgs asyncEventArgs = new SocketAsyncEventArgs();
-                asyncEventArgs.SetBuffer(packet.Pack());
-                asyncEventArgs.Completed += OnSent;
-                _socket.SendAsync(asyncEventArgs);
+                var res = await _socket.SendAsync(packet.Pack(), SocketFlags.None);
+                Debug.Assert(res > 0);
+                SuccessSent?.Invoke(this, new SuccessSentEventArgs(packet));
             }
             catch (Exception ex)
             {
@@ -136,54 +122,59 @@ namespace Common.Network
 
         public async Task<T> ReceiveAsync<T>() where T : class, Google.Protobuf.IMessage
         {
+            //TODO 这里的设计可能有问题, 待测试
+            _isReceiveAsyncCalling = true;
+            T? res;
             while (true)
             {
                 var packet = await _newReceivedPacketTSC.Task;
                 Debug.Assert(packet != null);
                 if (packet.Message.GetType() == typeof(T))
                 {
-                    var res = packet.Message as T;
+                    res = packet.Message as T;
                     Debug.Assert(res != null);
-                    return res;
+                    break;
                 }
             }
+            _isReceiveAsyncCalling = false;
+            return res;
         }
 
-        private void OnSent(object? sender, SocketAsyncEventArgs e)
-        {
-            if (e.SocketError != SocketError.Success)
-            {
-                ErrorOccur?.Invoke(this, new ErrorOccurEventArgs(new SocketException((int)e.SocketError)));
-                return;
-            }
-            else
-            {
-                SuccessSent?.Invoke(this, new SuccessSentEventArgs(_pendingSendQueue.Peek()));
-            }
-            try
-            {
-                Packet? pendingPacket = null;
-                lock (_pendingSendQueue)
-                {
-                    _pendingSendQueue.Dequeue();
-                    if (_pendingSendQueue.Count > 0)
-                    {
-                        pendingPacket = _pendingSendQueue.Peek();
-                    }
-                }
-                if (pendingPacket != null)
-                {
-                    var asyncEventArgs = new SocketAsyncEventArgs();
-                    asyncEventArgs.SetBuffer(pendingPacket.Pack());
-                    asyncEventArgs.Completed += OnSent;
-                    _socket.SendAsync(asyncEventArgs);
-                }
-            }
-            catch (Exception ex)
-            {
-                HandleError(ex);
-            }
-        }
+        //private void OnSent(object? sender, SocketAsyncEventArgs e)
+        //{
+        //    if (e.SocketError != SocketError.Success)
+        //    {
+        //        ErrorOccur?.Invoke(this, new ErrorOccurEventArgs(new SocketException((int)e.SocketError)));
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        SuccessSent?.Invoke(this, new SuccessSentEventArgs(_pendingSendQueue.Peek()));
+        //    }
+        //    try
+        //    {
+        //        Packet? pendingPacket = null;
+        //        lock (_pendingSendQueue)
+        //        {
+        //            _pendingSendQueue.Dequeue();
+        //            if (_pendingSendQueue.Count > 0)
+        //            {
+        //                pendingPacket = _pendingSendQueue.Peek();
+        //            }
+        //        }
+        //        if (pendingPacket != null)
+        //        {
+        //            var asyncEventArgs = new SocketAsyncEventArgs();
+        //            asyncEventArgs.SetBuffer(pendingPacket.Pack());
+        //            asyncEventArgs.Completed += OnSent;
+        //            _socket.SendAsync(asyncEventArgs);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        HandleError(ex);
+        //    }
+        //}
 
         private async Task ReceiveLoop()
         {
@@ -196,7 +187,9 @@ namespace Common.Network
                     var msgID = await _socket.ReadInt32Async();
                     var buffer = await _socket.ReadAsync(size);
                     var packet  = new Packet(msgID, buffer);
-                    _newReceivedPacketTSC.SetResult(packet);
+                    if (_isReceiveAsyncCalling) {
+                        _newReceivedPacketTSC.SetResult(packet);
+                    }
                     PacketReceived?.Invoke(this, new PacketReceivedEventArgs(packet));
                 }
             }

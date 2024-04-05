@@ -35,6 +35,7 @@ namespace Common.Network
         public Packet(IMessage msg)
         {
             MessageID = ProtoManager.Instance.TypeToID(msg.GetType());
+            _message = msg;
             Data = msg.ToByteArray();
         }
         public Packet(int msgID, byte[] buffer)
