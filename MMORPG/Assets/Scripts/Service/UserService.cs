@@ -53,12 +53,11 @@ namespace Serivce {
             {
                 Username = LoginUsernameInput.text,
                 Password = LoginPasswordInput.text,
-            });
+            }, null);
 
             var res = await GameClient.Instance.Session.ReceiveAsync<UserLoginResponse>();
             if (res.Status == LoginStatus.Error)
             {
-                Popup.Instance.Show(res.Message);
             }
         }
         public void TryRegister()
