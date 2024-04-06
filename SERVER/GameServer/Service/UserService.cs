@@ -13,6 +13,5 @@ namespace GameServer.Service
             Global.Logger.Info($"用户登录请求: Username={request.Username}, Password={request.Password}");
             sender.SendAsync(new UserLoginResponse() { Status = LoginStatus.Ok, Message = "登录成功" });
         }
-
     }
 }
