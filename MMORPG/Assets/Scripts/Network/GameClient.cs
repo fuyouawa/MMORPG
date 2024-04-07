@@ -14,8 +14,6 @@ public class GameClient : Singleton<GameClient>
 
     public Session Session => _session;
 
-    public Action SuccessConnect;
-
     public async Task ConnectAsync() {
         var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         await socket.ConnectAsync(NetConfig.ServerIpAddress, NetConfig.ServerPort);
