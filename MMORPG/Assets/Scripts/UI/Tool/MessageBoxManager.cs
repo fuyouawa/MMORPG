@@ -184,7 +184,7 @@ public static class MessageBox
 
     public static Task ShowErrorAsync(
         string text,
-        string title = "¾¯¸æ",
+        string title = "´íÎó",
         string buttonText = "È·ÈÏ",
         MessageBoxStyle style = MessageBoxStyle.ForLongDesc)
     {

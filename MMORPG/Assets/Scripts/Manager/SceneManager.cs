@@ -14,18 +14,30 @@ public class SceneManager : MonoSingleton<SceneManager>
 
     private static readonly Queue<Action> _executionQueue = new Queue<Action>();
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         _mainCanvas = FindFirstObjectByType<Canvas>();
-        if (_mainCanvas == null) {
+        if (_mainCanvas == null)
+        {
             Global.Logger.Warn("当前场景还未创建Canvas组件!");
         }
         if (MessageBoxManager.Instance == null)
         {
             var obj = Resources.Load<GameObject>("Prefeb/UI/MessageBox Manager");
             var inst = Instantiate(obj, MainCanvas.transform);
-            inst.gameObject.name = "MessageBox Manager(Create by SceneManager)";
+            inst.name = "MessageBox Manager(Create by SceneManager)";
         }
+        if (SpinnerBoxManager.Instance == null)
+        {
+            var obj = Resources.Load<GameObject>("Prefeb/UI/SpinnerBox Manager");
+            var inst = Instantiate(obj, MainCanvas.transform);
+            inst.name = "SpinnerBox Manager(Create by SceneManager)";
+        }
+    }
+
+    private void Start()
+    {
     }
 
     private void Update()

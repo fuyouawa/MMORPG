@@ -14,25 +14,19 @@ public class GameClient : Singleton<GameClient>
 
     public Session Session => _session;
 
+    public Action SuccessConnect;
+
     public async Task ConnectAsync() {
-        while (true)
-        {
-            try
-            {
-                var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                await socket.ConnectAsync(NetConfig.ServerIpAddress, NetConfig.ServerPort);
-                Debug.Log("连接到服务器");
-                _session = new Session(socket);
-                await _session.StartAsync();
-                break;
-            }
-            catch (Exception e)
-            {
-                await MessageBox.ShowInfoAsync($"服务器连接失败!\n原因:{e.Message}", buttonText:"重新连接");
-                continue;
-            }
-        }
+        var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        await socket.ConnectAsync(NetConfig.ServerIpAddress, NetConfig.ServerPort);
+        _session = new Session(socket);
     }
+
+    public async Task StartAsync()
+    {
+        await _session.StartAsync();
+    }
+
     public bool Connected()
     {
         return _session != null;
