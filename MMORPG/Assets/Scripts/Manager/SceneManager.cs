@@ -8,11 +8,22 @@ using UnityEngine;
 
 public class SceneManager : MonoSingleton<SceneManager>
 {
+    [Header("Box服务")]
+    public bool EnableMessageBox = true;
+    public bool EnableSpinnerBox = true;
+    public bool EnableNotificationBox = true;
+
     private Canvas _mainCanvas;
 
     public Canvas MainCanvas => _mainCanvas;
 
     private static readonly Queue<Action> _executionQueue = new Queue<Action>();
+
+    private Transform _managerGroup;
+
+    private MessageBoxManager _messageBoxManager;
+    private NotificationBoxManager _notificationBoxManager;
+    private SpinnerBoxManager _spinnerBoxManager;
 
     protected override void Awake()
     {
@@ -20,24 +31,31 @@ public class SceneManager : MonoSingleton<SceneManager>
         _mainCanvas = FindFirstObjectByType<Canvas>();
         if (_mainCanvas == null)
         {
-            Global.Logger.Warn("当前场景还未创建Canvas组件!");
+            if (EnableMessageBox || EnableNotificationBox || EnableSpinnerBox)
+            {
+                throw new Exception("要激活Box服务, 当前创建必须存在Canvas组件!");
+            }
+            else
+            {
+                Global.Logger.Warn("当前场景还未创建Canvas组件!");
+            }
         }
-        if (MessageBoxManager.Instance == null)
+        else
         {
-            var obj = Resources.Load<GameObject>("Prefeb/UI/MessageBox Manager");
-            var inst = Instantiate(obj, MainCanvas.transform);
-            inst.name = "MessageBox Manager(Create by SceneManager)";
-        }
-        if (SpinnerBoxManager.Instance == null)
-        {
-            var obj = Resources.Load<GameObject>("Prefeb/UI/SpinnerBox Manager");
-            var inst = Instantiate(obj, MainCanvas.transform);
-            inst.name = "SpinnerBox Manager(Create by SceneManager)";
+            _managerGroup = new GameObject("Manager Group(Create by SceneManager)").transform;
+            _managerGroup.SetParent(MainCanvas.transform);
+            _managerGroup.localPosition = Vector3.zero;
+            _managerGroup.rotation = Quaternion.identity;
+            _managerGroup.localScale = Vector3.one;
+            InitManagers();
         }
     }
 
-    private void Start()
+    private void InitManagers()
     {
+        _messageBoxManager = Instantiate(Resources.Load<MessageBoxManager>("Prefabs/UI/Tool/MessageBox Manager"), _managerGroup);
+        _notificationBoxManager = Instantiate(Resources.Load<NotificationBoxManager>("Prefabs/UI/Tool/NotificationBox Manager"), _managerGroup);
+        _spinnerBoxManager = Instantiate(Resources.Load<SpinnerBoxManager>("Prefabs/UI/Tool/SpinnerBox Manager"), _managerGroup);
     }
 
     private void Update()
@@ -50,6 +68,8 @@ public class SceneManager : MonoSingleton<SceneManager>
             }
         }
     }
+
+#region Invoke
 
     public void Invoke(IEnumerator action)
     {
@@ -92,4 +112,54 @@ public class SceneManager : MonoSingleton<SceneManager>
         a();
         yield return null;
     }
+    #endregion
+
+#region Box
+    public void ShowMessageBox(MessageBoxConfig config)
+    {
+        Invoke(() =>
+        {
+            _messageBoxManager.Config = config;
+            _messageBoxManager.Show();
+        });
+    }
+    public Task<MessageBoxResult> ShowMessageBoxAsync(MessageBoxConfig config)
+    {
+        var tcs = new TaskCompletionSource<MessageBoxResult>();
+        void OnChose(MessageBoxResult result)
+        {
+            var suc = tcs.TrySetResult(result);
+            Debug.Assert(suc);
+        }
+        config.OnChose += OnChose;
+        ShowMessageBox(config);
+        return tcs.Task;
+    }
+
+    public void CreateNotificationBox(NotificationBoxConfig config)
+    {
+        Invoke(() =>
+        {
+            _notificationBoxManager.Config = config;
+            _notificationBoxManager.Create();
+        });
+    }
+
+    public void BeginSpinnerBox(SpinnerBoxConfig config)
+    {
+        Invoke(() =>
+        {
+            _spinnerBoxManager.Config = config;
+            _spinnerBoxManager.Show();
+        });
+    }
+
+    public void EndSpinnerBox()
+    {
+        Invoke(() =>
+        {
+            _spinnerBoxManager.Close();
+        });
+    }
+    #endregion
 }

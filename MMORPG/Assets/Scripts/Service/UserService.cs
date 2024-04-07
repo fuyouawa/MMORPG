@@ -1,4 +1,3 @@
-using Common.Proto.User;
 using TMPro;
 using UnityEngine;
 
@@ -14,6 +13,17 @@ namespace Serivce {
         public async void TryLogin()
         {
             //TODO 账号密码规范检查
+            if (LoginUsernameInput.text.Length < 4 || LoginUsernameInput.text.Length > 12)
+            {
+                SceneManager.Instance.CreateNotificationBox(new NotificationBoxConfig() { Description = "用户名长度必须在4-12字之间!" });
+                return;
+            }
+            if (LoginPasswordInput.text.Length < 8 || LoginPasswordInput.text.Length > 16)
+            {
+                SceneManager.Instance.CreateNotificationBox(new NotificationBoxConfig() { Description = "密码长度必须在8-16字之间!" });
+                return;
+            }
+
             GameClient.Instance.Session.SendAsync(new UserLoginRequest()
             {
                 Username = LoginUsernameInput.text,

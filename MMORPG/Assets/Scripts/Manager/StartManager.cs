@@ -1,5 +1,4 @@
 using Common.Proto;
-using Common.Proto.User;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -26,17 +25,22 @@ public class StartManager : MonoSingleton<StartManager>
         {
             while (true)
             {
-                SpinnerBox.Show("连接服务器中......");
+                SceneManager.Instance.BeginSpinnerBox(new SpinnerBoxConfig() { Description = "连接服务器中......" });
                 try
                 {
                     await GameClient.Instance.ConnectAsync();
-                    SpinnerBox.Close();
+                    SceneManager.Instance.EndSpinnerBox();
                     break;
                 }
                 catch (System.Exception ex)
                 {
-                    SpinnerBox.Close();
-                    await MessageBox.ShowErrorAsync($"连接服务器失败:{ex}", buttonText:"重新连接");
+                    SceneManager.Instance.EndSpinnerBox();
+                    await SceneManager.Instance.ShowMessageBoxAsync(new MessageBoxConfig()
+                    {
+                        Title = "错误",
+                        Description = $"连接服务器失败:{ex}",
+                        ConfirmButtonText = "重新连接",
+                    });
                     continue;
                 }
             }
