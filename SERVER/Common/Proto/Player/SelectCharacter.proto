@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package Common.Proto.Player;
+import "Base/Status.proto";
+
+message SelectCharacterRequest {
+    int32 character_id = 1;
+}
+
+message UserLoginResponse {
+    Base.Status status = 1;
+    string message = 2;
+}

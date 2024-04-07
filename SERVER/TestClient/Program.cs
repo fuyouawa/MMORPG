@@ -1,6 +1,6 @@
 ﻿using Common.Network;
 using Common.Proto;
-using Common.Proto.User;
+using Common.Proto.Player;
 using Common.Tool;
 using System.Diagnostics;
 using System.Net.Sockets;
@@ -25,10 +25,12 @@ namespace TestClient
             //        await session.ReceiveAsync<UserLoginResponse>();
             //    }
             //});
-            session.SendAsync(new UserLoginRequest() { Username = $"Test", Password = $"TestPwd" }, null);
+            session.SendAsync(new LoginRequest() { Username = $"Test", Password = $"TestPwd" }, null);
             //        await session.ReceiveAsync<UserLoginResponse>();
             session.PacketReceived += OnPacketReceived;
             await session.StartAsync();
+
+            Console.ReadLine();
         }
 
         static private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
@@ -39,7 +41,7 @@ namespace TestClient
 
     class UserService : ServiceBase<UserService>
     {
-        public void OnHandle(object? sender, UserLoginResponse response)
+        public void OnHandle(object? sender, LoginResponse response)
         {
             Console.WriteLine($"服务器响应登录：{response.Message}");
         }

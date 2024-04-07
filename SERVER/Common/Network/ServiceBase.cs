@@ -33,5 +33,9 @@ namespace Common.Network
             }
             return false;
         }
+
+        public virtual void OnConnect(object sender) {  }
+
+        public virtual void OnConnectionClosed(object sender) { }
     }
 }

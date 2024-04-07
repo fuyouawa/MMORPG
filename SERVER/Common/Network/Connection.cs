@@ -81,9 +81,9 @@ namespace Common.Network
             }
             finally
             {
-                _socket.Close();
                 _closeConnectionByManual = true;
                 ConnectionClosed?.Invoke(this, new ConnectionClosedEventArgs(true));
+                _socket.Close();
             }
         }
 
