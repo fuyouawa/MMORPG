@@ -1,4 +1,5 @@
 ﻿using Common.Network;
+using GameServer.Model;
 using GameServer.Tool;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,14 @@ using System.Threading.Tasks;
 
 namespace GameServer.Network
 {
-    public class Channel : Connection
+    public class NetChannel : Connection
     {
         //TODO 可读性更高的ChannelName
         public string ChannelName => _socket.RemoteEndPoint.ToString();
+        public Player Player { get; set; }
+        public DateTime LastActiveTime;
 
-        public Channel(Socket socket) : base(socket)
+        public NetChannel(Socket socket) : base(socket)
         {
             ConnectionClosed += OnConnectionClosed;
             ErrorOccur += OnErrorOccur;
@@ -26,7 +29,6 @@ namespace GameServer.Network
         {
             Global.Logger.Info($"[Channel] 接收来自{ChannelName}的数据包:{e.Packet.Message.GetType()}");
         }
-
 
         private void OnErrorOccur(Connection sender, ErrorOccurEventArgs e)
         {

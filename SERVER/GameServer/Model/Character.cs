@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameServer.Model
 {
-    public class Character // : Actor
+    public class Character  : Actor
     {
 
     }
