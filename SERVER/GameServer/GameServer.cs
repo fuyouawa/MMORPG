@@ -52,7 +52,6 @@ namespace GameServer
             var now = DateTime.Now;
             lock (_channels)
             {
-                Global.Logger.Debug(Thread.CurrentThread.ManagedThreadId.ToString());
                 for (var node = _channels.First; node != null;)
                 {
                     var next = node.Next;
@@ -83,7 +82,6 @@ namespace GameServer
             var channel = sender as NetChannel;
             lock (_channels)
             {
-                Global.Logger.Debug(Thread.CurrentThread.ManagedThreadId.ToString());
                 _channels.Remove(channel);
             }
         }
