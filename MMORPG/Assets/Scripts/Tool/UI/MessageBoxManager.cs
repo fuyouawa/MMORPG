@@ -7,16 +7,19 @@ using UnityEngine;
 
 public enum MessageBoxStyle
 {
-    LongDesc,
-    ShortDesc
+    LongDesc,   // 用于显示长消息
+    ShortDesc   // 用于显示短消息, 适合只有两行文本的
 }
 
 public enum MessageBoxResult
 {
-    Confirm,
-    Cancel
+    Confirm,    // 确认
+    Cancel      // 取消
 }
 
+/// <summary>
+/// 消息框的配置
+/// </summary>
 public class MessageBoxConfig
 {
     public string Title = "提示";
@@ -25,7 +28,7 @@ public class MessageBoxConfig
     public string CancalButtonText = "取消";
     public bool ShowConfirmButton = true;
     public bool ShowCancalButton = false;
-    public Action<MessageBoxResult> OnChose;
+    public Action<MessageBoxResult> OnChose;    // 当用户选择了"确认"或"取消"的其中一个按钮
     public Action OnOpen;
     public MessageBoxStyle Style = MessageBoxStyle.LongDesc;
 }
@@ -38,6 +41,17 @@ public class MessageBoxManager : MonoBehaviour
     public bool IsShowing => GetWindow().isOn;
 
     public MessageBoxConfig Config { get; set; }
+
+    private void Awake()
+    {
+        LongDescModalWindow.confirmButton.onClick.AddListener(() => Config.OnChose?.Invoke(MessageBoxResult.Confirm));
+        LongDescModalWindow.cancelButton.onClick.AddListener(() => Config.OnChose?.Invoke(MessageBoxResult.Cancel));
+        LongDescModalWindow.onOpen.AddListener(() => Config.OnOpen?.Invoke());
+
+        ShortDescModalWindow.confirmButton.onClick.AddListener(() => Config.OnChose?.Invoke(MessageBoxResult.Confirm));
+        ShortDescModalWindow.cancelButton.onClick.AddListener(() => Config.OnChose?.Invoke(MessageBoxResult.Cancel));
+        ShortDescModalWindow.onOpen.AddListener(() => Config.OnOpen?.Invoke());
+    }
 
     public void Show()
     {
@@ -64,19 +78,4 @@ public class MessageBoxManager : MonoBehaviour
         MessageBoxStyle.ShortDesc => ShortDescModalWindow,
         _ => throw new NotImplementedException()
     };
-
-    public void OnWindowCancal()
-    {
-        Config.OnChose?.Invoke(MessageBoxResult.Cancel);
-    }
-
-    public void OnWindowConfirm()
-    {
-        Config.OnChose?.Invoke(MessageBoxResult.Confirm);
-    }
-
-    public void OnWindowOpen()
-    {
-        Config.OnOpen?.Invoke();
-    }
 }
