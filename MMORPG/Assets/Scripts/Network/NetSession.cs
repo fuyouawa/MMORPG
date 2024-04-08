@@ -1,14 +1,25 @@
 using Common.Network;
-using System;
+using Common.Tool;
 using System.Collections.Generic;
+using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading.Tasks;
+
+public class SuddenPacketReceivedEventArgs
+{
+    public Packet Packet { get; }
+
+    public SuddenPacketReceivedEventArgs(Packet packet)
+    {
+        Packet = packet;
+    }
+}
 
 public class NetSession : Connection
 {
+    public event EventHandler<SuddenPacketReceivedEventArgs>? SuddenPacketReceived;
+
     public NetSession(Socket socket) : base(socket)
     {
         ConnectionClosed += OnConnectionClosed;
@@ -44,6 +55,11 @@ public class NetSession : Connection
     private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
     {
         Global.Logger.Info($"[Channel] 接收来自服务器端的数据包:{e.Packet.Message.GetType()}");
+        if (ProtoManager.Instance.IsSudden(e.Packet.Message.GetType()))
+        {
+            SuddenPacketReceived?.Invoke(this, new SuddenPacketReceivedEventArgs(e.Packet));
+            return;
+        }
         lock (_receivedPackets)
         {
             _receivedPackets.Add(e.Packet);

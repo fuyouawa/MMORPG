@@ -4,23 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestClient
+public class Logger
 {
-    public class Logger
+    public void Info(string message)
     {
-        public void Info(string message)
-        {
-            Console.WriteLine(message);
-        }
-
-        public void Error(string message)
-        {
-            Console.WriteLine(message);
-        }
+        Console.WriteLine(message);
     }
 
-    public static class Global
+    public void Error(string message)
     {
-        public static Logger Logger { get; } = new Logger();
+        Console.WriteLine(message);
     }
+}
+
+public static class Global
+{
+    public static Logger Logger { get; } = new Logger();
 }

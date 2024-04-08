@@ -1,74 +1,83 @@
 ﻿using Common.Network;
-using System;
-using System.Collections.Generic;
+using Common.Tool;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Sockets;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace TestClient
+public class SuddenPacketReceivedEventArgs
 {
-    public class NetSession : Connection
+    public Packet Packet { get; }
+
+    public SuddenPacketReceivedEventArgs(Packet packet)
     {
-        public NetSession(Socket socket) : base(socket)
-        {
-            ConnectionClosed += OnConnectionClosed;
-            ErrorOccur += OnErrorOccur;
-            PacketReceived += OnPacketReceived;
-        }
+        Packet = packet;
+    }
+}
 
-        //TODO 高水位处理
-        private List<Packet> _receivedPackets = new List<Packet>();
-        private TaskCompletionSource _receivedPacketTSC = new TaskCompletionSource();
+public class NetSession : Connection
+{
+    public event EventHandler<SuddenPacketReceivedEventArgs>? SuddenPacketReceived;
 
-        public async Task<T> ReceiveAsync<T>() where T : class, Google.Protobuf.IMessage
-        {
-            while (true)
-            {
-                await _receivedPacketTSC.Task;
-                _receivedPacketTSC = new TaskCompletionSource();
-                Packet? packet;
-                lock (_receivedPackets)
-                {
-                    packet = _receivedPackets.Find(packet => { return packet.Message.GetType() == typeof(T); });
-                    if (packet != null)
-                        _receivedPackets.Remove(packet);
-                    else
-                        continue;
-                }
-                var res = packet.Message as T;
-                Debug.Assert(res != null);
-                return res;
-            }
-        }
+    public NetSession(Socket socket) : base(socket)
+    {
+        ConnectionClosed += OnConnectionClosed;
+        ErrorOccur += OnErrorOccur;
+        PacketReceived += OnPacketReceived;
+    }
 
-        private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
+    //TODO 高水位处理
+    private List<Packet> _receivedPackets = new List<Packet>();
+    private TaskCompletionSource<bool> _receivedPacketTSC = new TaskCompletionSource<bool>();
+
+    public async Task<T> ReceiveAsync<T>() where T : class, Google.Protobuf.IMessage
+    {
+        while (true)
         {
-            Global.Logger.Info($"[Channel] 接收来自服务器端的数据包:{e.Packet.Message.GetType()}");
+            await _receivedPacketTSC.Task;
+            _receivedPacketTSC = new TaskCompletionSource<bool>();
+            Packet? packet;
             lock (_receivedPackets)
             {
-                _receivedPackets.Add(e.Packet);
+                packet = _receivedPackets.Find(packet => { return packet.Message.GetType() == typeof(T); });
+                if (packet != null)
+                    _receivedPackets.Remove(packet);
+                else
+                    continue;
             }
-            _receivedPacketTSC.TrySetResult();
+            var res = packet.Message as T;
+            Debug.Assert(res != null);
+            return res;
         }
+    }
 
-        private void OnErrorOccur(object? sender, ErrorOccurEventArgs e)
+    private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
+    {
+        Global.Logger.Info($"[Channel] 接收来自服务器端的数据包:{e.Packet.Message.GetType()}");
+        if (ProtoManager.Instance.IsSudden(e.Packet.Message.GetType()))
         {
-            Global.Logger.Error($"[Channel] 出现异常:{e.Exception}");
+            SuddenPacketReceived?.Invoke(this, new SuddenPacketReceivedEventArgs(e.Packet));
+            return;
         }
-
-        private void OnConnectionClosed(object? sender, ConnectionClosedEventArgs e)
+        lock (_receivedPackets)
         {
-            if (e.IsManual)
-            {
-                Global.Logger.Info($"[Channel] 关闭对服务器端的链接!");
-            }
-            else
-            {
-                Global.Logger.Info($"[Channel] 对端关闭链接");
-            }
+            _receivedPackets.Add(e.Packet);
+        }
+        _receivedPacketTSC.TrySetResult(true);
+    }
+
+    private void OnErrorOccur(object? sender, ErrorOccurEventArgs e)
+    {
+        Global.Logger.Error($"[Channel] 出现异常:{e.Exception}");
+    }
+
+    private void OnConnectionClosed(object? sender, ConnectionClosedEventArgs e)
+    {
+        if (e.IsManual)
+        {
+            Global.Logger.Info($"[Channel] 关闭对服务器端的链接!");
+        }
+        else
+        {
+            Global.Logger.Info($"[Channel] 对端关闭链接");
         }
     }
 }

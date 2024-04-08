@@ -28,9 +28,15 @@ namespace TestClient
             session.SendAsync(new LoginRequest() { Username = $"Test", Password = $"TestPwd" }, null);
             //        await session.ReceiveAsync<UserLoginResponse>();
             session.PacketReceived += OnPacketReceived;
+            session.SuddenPacketReceived += OnSuddenPacketReceived;
             await session.StartAsync();
 
             Console.ReadLine();
+        }
+
+        private static void OnSuddenPacketReceived(object? sender, SuddenPacketReceivedEventArgs e)
+        {
+            Console.WriteLine("突发消息接收!");
         }
 
         static private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
