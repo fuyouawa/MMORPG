@@ -17,13 +17,14 @@ namespace Common.Network
 
         protected ServiceBase()
         {
-            _handlers = (from m in GetType().GetMethods(BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+            _handlers = (from m in GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance)
                          where m.Name == "OnHandle"
                          select m)
                          .ToDictionary(m => m.GetParameters()[1].ParameterType, m => m);
         }
 
-        public bool HandleMessage(object? sender, Google.Protobuf.IMessage msg)
+        public bool HandleMessage<TConnection>(TConnection sender, Google.Protobuf.IMessage msg)
+            where TConnection : Connection
         {
             var msgType = msg.GetType();
             if (_handlers.ContainsKey(msgType))
@@ -33,9 +34,5 @@ namespace Common.Network
             }
             return false;
         }
-
-        public virtual void OnConnect(object sender) {  }
-
-        public virtual void OnConnectionClosed(object sender) { }
     }
 }

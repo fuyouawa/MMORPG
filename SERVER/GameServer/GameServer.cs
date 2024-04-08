@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using GameServer.Tool;
 using GameServer.Model;
 using System.Threading.Channels;
+using System.Diagnostics;
 
 namespace GameServer
 {
@@ -36,14 +37,8 @@ namespace GameServer
                 var socket = await _serverSocket.AcceptAsync();
                 Global.Logger.Info($"[Server] 客户端连接:{socket.RemoteEndPoint}");
                 NetChannel channel = new(socket);
-                OnConnect(channel);
-                channel.PacketReceived += OnPacketReceived;
-                channel.ConnectionClosed += OnConnectionClosed;
+                OnNewChannelConnection(channel);
                 Task.Run(channel.StartAsync);
-                lock (_channels)
-                {
-                    _channels.AddLast(channel);
-                }
             }
         }
 
@@ -65,34 +60,44 @@ namespace GameServer
             }
         }
 
-        private void OnConnect(object sender)
+        private void OnNewChannelConnection(NetChannel sender)
         {
-            var channel = sender as NetChannel;
-            channel.LastActiveTime = DateTime.Now;
+            sender.PacketReceived += OnPacketReceived;
+            sender.ConnectionClosed += OnConnectionClosed;
+            sender.LastActiveTime = DateTime.Now;
 
             PlayerService.Instance.OnConnect(sender);
             SpaceService.Instance.OnConnect(sender);
         }
 
-        private void OnConnectionClosed(object sender, ConnectionClosedEventArgs e)
+        private void OnConnectionClosed(object? sender, ConnectionClosedEventArgs e)
         {
-            PlayerService.Instance.OnConnectionClosed(sender);
-            SpaceService.Instance.OnConnectionClosed(sender);
-
             var channel = sender as NetChannel;
+            Debug.Assert(channel != null);
+
+            PlayerService.Instance.OnChannelClosed(channel);
+            SpaceService.Instance.OnChannelClosed(channel);
+
             lock (_channels)
             {
                 _channels.Remove(channel);
             }
         }
 
-        protected void OnPacketReceived(object sender, PacketReceivedEventArgs e)
+        private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
         {
             var channel = sender as NetChannel;
+            Debug.Assert(channel != null);
+
             channel.LastActiveTime = DateTime.Now;
 
-            PlayerService.Instance.HandleMessage(sender, e.Packet.Message);
-            SpaceService.Instance.HandleMessage(sender, e.Packet.Message);
+            PlayerService.Instance.HandleMessage(channel, e.Packet.Message);
+            SpaceService.Instance.HandleMessage(channel, e.Packet.Message);
+
+            lock (_channels)
+            {
+                _channels.AddLast(channel);
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ public class SceneManager : MonoSingleton<SceneManager>
 
     private static readonly Queue<Action> _executionQueue = new Queue<Action>();
 
-    private Transform _managerGroup;
+    private RectTransform _managerGroup;
 
     private MessageBoxManager _messageBoxManager;
     private NotificationBoxManager _notificationBoxManager;
@@ -42,11 +42,8 @@ public class SceneManager : MonoSingleton<SceneManager>
         }
         else
         {
-            _managerGroup = new GameObject("Manager Group(Create by SceneManager)").transform;
-            _managerGroup.SetParent(MainCanvas.transform);
-            _managerGroup.localPosition = Vector3.zero;
-            _managerGroup.rotation = Quaternion.identity;
-            _managerGroup.localScale = Vector3.one;
+            _managerGroup = new GameObject("Manager Group(Create by SceneManager)").AddComponent<RectTransform>();
+            _managerGroup.SetParent(MainCanvas.transform, false);
             InitManagers();
         }
     }
