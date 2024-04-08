@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// 旋转加载框的配置
+/// </summary>
 public record SpinnerBoxConfig
 {
     public string Description = "我是一个旋转加载面板";
