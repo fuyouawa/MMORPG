@@ -54,10 +54,11 @@ public class NotificationBoxManager : MonoBehaviour
     public void Create()
     {
         var notification = Instantiate(GetNotification());
-        notification.gameObject.transform.SetParent(_instantiationsGroup);
+        notification.gameObject.SetActive(true);
+        notification.gameObject.transform.SetParent(_instantiationsGroup, false);
         notification.title = Config.Title;
         notification.description = Config.Description;
-        notification.onClose.AddListener(() => Destroy(notification));
+        notification.closeBehaviour = Michsky.MUIP.NotificationManager.CloseBehaviour.Destroy;
         notification.UpdateUI();
         notification.Open();
     }
