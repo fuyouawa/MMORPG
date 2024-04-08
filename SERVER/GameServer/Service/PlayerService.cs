@@ -2,6 +2,7 @@
 using Common.Proto.Base;
 using Common.Proto.Player;
 using GameServer.Db;
+using GameServer.Mgr;
 using GameServer.Model;
 using GameServer.Network;
 using GameServer.Tool;
@@ -142,13 +143,13 @@ namespace GameServer.Service
                 .First();
             if (dbCharacter == null)
             {
-                sender.SendAsync(new CharacterCreateResponse() { Status = Status.Error, Message = "选择的角色不正确" }, null);
+                sender.SendAsync(new CharacterCreateResponse() { Status = Status.Error, Message = "选择的角色无效" }, null);
                 return;
             }
 
             var playerCharacter = new Character()
             {
-                EntityId = EntityService.Instance.NewEntityId(),
+                EntityId = EntityMgr.Instance.NewEntityId(),
                 SpeedId = dbCharacter.SpaceId,
                 CharacterId = dbCharacter.Id,
                 Name = dbCharacter.Name,
@@ -157,9 +158,16 @@ namespace GameServer.Service
                 Hp = dbCharacter.Hp,
                 Mp = dbCharacter.Mp,
             };
-            EntityService.Instance.AddEntity(playerCharacter);
+            playerCharacter.Position = new() {
+                X = dbCharacter.X,
+                Y = dbCharacter.Y,
+                Z = dbCharacter.Z,
+            };
+            playerCharacter.Direction = Vector3.Zero;
 
-            var space = SpaceService.Instance.GetSpaceById(playerCharacter.SpeedId);
+            EntityMgr.Instance.AddEntity(playerCharacter);
+
+            var space = SpaceMgr.Instance.GetSpaceById(playerCharacter.SpeedId);
             if (space == null)
             {
                 sender.SendAsync(new EnterGameResponse() { Status = Status.Error, Message = "无效地图" }, null);
@@ -171,7 +179,7 @@ namespace GameServer.Service
             var res = new EnterGameResponse()
             {
                 Status = Status.Ok,
-                Message = "",
+                Message = "加入游戏成功",
                 Character = playerCharacter.ToNetCharacter(),
             };
             sender.SendAsync(res, null);
@@ -224,7 +232,7 @@ namespace GameServer.Service
                     Mp = 100,
                     Level = 1,
                     Exp = 0,
-                    SpaceId = SpaceService.Instance.InitSpaceId,
+                    SpaceId = SpaceMgr.Instance.InitSpaceId,
                     Gold = 0,
                     PlayerId = sender.Player.PlayerId
                 };
