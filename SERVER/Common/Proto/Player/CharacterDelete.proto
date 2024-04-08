@@ -3,11 +3,11 @@ syntax = "proto3";
 package Common.Proto.Player;
 import "Base/Status.proto";
 
-message SelectCharacterRequest {
+message CharacterDeleteRequest {
     int32 character_id = 1;
 }
 
-message UserLoginResponse {
+message CharacterDeleteResponse {
     Base.Status status = 1;
     string message = 2;
 }

@@ -14,6 +14,8 @@ namespace GameServer.Service
 {
     public class SpaceService : ServiceBase<SpaceService>
     {
+        public readonly int InitSpaceId = 1;
+
         private Dictionary<int, Space> _spaceSet = new();
 
         public SpaceService()

@@ -12,10 +12,8 @@ namespace GameServer.Model
         public string Name;
         public int Level;
         public int SpeedId;
-
-        //public Actor(int id, Vector3 position, Vector3 direction) : base(id, position, direction)
-        //{
-
-        //}
+        public int Hp;
+        public int Mp;
+        public int Gold;
     }
 }
