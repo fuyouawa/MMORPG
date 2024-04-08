@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package Common.Proto.Player;
+import "Base/Status.proto";
+import "Player/NetCharacter.proto";
+
+message CharacterCreateRequest {
+    string name = 1;
+    int32 job_id = 2;
+}
+
+message CharacterCreateResponse {
+    Base.Status status = 1;
+    string message = 2;
+    NetCharacter character = 3;
+}

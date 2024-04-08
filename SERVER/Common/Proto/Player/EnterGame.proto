@@ -2,6 +2,7 @@
 
 package Common.Proto.Player;
 import "Base/Status.proto";
+import "Player/NetCharacter.proto";
 
 message EnterGameRequest {
     int32 character_id = 1;
@@ -10,5 +11,5 @@ message EnterGameRequest {
 message EnterGameResponse {
     Base.Status status = 1;
     string message = 2;
-    int32 entity_id = 3;
+    NetCharacter character = 4;
 }
