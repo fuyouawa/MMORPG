@@ -35,13 +35,15 @@ namespace TestClient
 
         static private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
         {
-            UserService.Instance.HandleMessage(sender, e.Packet.Message);
+            var session = sender as NetSession;
+            Debug.Assert(session != null);
+            UserService.Instance.HandleMessage(session, e.Packet.Message);
         }
     }
 
     class UserService : ServiceBase<UserService>
     {
-        public void OnHandle(object? sender, LoginResponse response)
+        public void OnHandle(NetSession sender, LoginResponse response)
         {
             Console.WriteLine($"服务器响应登录：{response.Message}");
         }

@@ -49,11 +49,12 @@ namespace GameServer.Service
             return null;
         }
 
-        public override void OnConnectionClosed(object sender)
+        public void OnChannelClosed(NetChannel sender)
         {
-            var channel = sender as NetChannel;
-            var space = GetSpaceById(channel.Player.Character.SpeedId);
-            space?.PlayerLeave(channel.Player);
+            if (sender.Player == null)
+                return;
+            var space = GetSpaceById(sender.Player.Character.SpeedId);
+            space?.PlayerLeave(sender.Player);
         }
 
         public void OnHandle(NetChannel sender, EntitySyncRequest request)
@@ -61,6 +62,10 @@ namespace GameServer.Service
             var space = GetSpaceById(sender.Player.Character.SpeedId);
             
             space?.EntityUpdate(request.EntitySync.Entity.ToEntity());
+        }
+
+        public void OnConnect(NetChannel sender)
+        {
         }
     }
 }

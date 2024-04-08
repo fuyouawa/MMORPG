@@ -32,8 +32,8 @@ public class MessageBoxConfig
 
 public class MessageBoxManager : MonoBehaviour
 {
-    public ModalWindowManager WindowStyle1;
-    public ModalWindowManager WindowStyle2;
+    public ModalWindowManager LongDescModalWindow;
+    public ModalWindowManager ShortDescModalWindow;
 
     public bool IsShowing => GetWindow().isOn;
 
@@ -60,8 +60,8 @@ public class MessageBoxManager : MonoBehaviour
 
     private ModalWindowManager GetWindow() => Config.Style switch
     {
-        MessageBoxStyle.LongDesc => WindowStyle1,
-        MessageBoxStyle.ShortDesc => WindowStyle2,
+        MessageBoxStyle.LongDesc => LongDescModalWindow,
+        MessageBoxStyle.ShortDesc => ShortDescModalWindow,
         _ => throw new NotImplementedException()
     };
 

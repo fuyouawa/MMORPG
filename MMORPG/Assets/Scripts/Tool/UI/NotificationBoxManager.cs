@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Playables;
 
+//TODO NotificationBoxPosition
 public enum NotificationBoxPosition
 {
     TopLeft,
@@ -42,12 +43,12 @@ public class NotificationBoxManager : MonoBehaviour
 
     public NotificationBoxConfig Config { get; set; }
 
-    private Transform _instantiationsGroup;
+    private RectTransform _instantiationsGroup;
 
     private void Awake()
     {
-        _instantiationsGroup = new GameObject("Instantiations Group").transform;
-        _instantiationsGroup.SetParent(transform);
+        _instantiationsGroup = new GameObject("Instantiations Group").AddComponent<RectTransform>();
+        _instantiationsGroup.SetParent(transform, false);
     }
 
     public void Create()

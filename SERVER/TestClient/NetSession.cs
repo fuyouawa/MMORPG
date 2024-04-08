@@ -44,7 +44,7 @@ namespace TestClient
             }
         }
 
-        private void OnPacketReceived(Connection sender, PacketReceivedEventArgs e)
+        private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
         {
             Global.Logger.Info($"[Channel] 接收来自服务器端的数据包:{e.Packet.Message.GetType()}");
             lock (_receivedPackets)
@@ -54,12 +54,12 @@ namespace TestClient
             _receivedPacketTSC.TrySetResult();
         }
 
-        private void OnErrorOccur(Connection sender, ErrorOccurEventArgs e)
+        private void OnErrorOccur(object? sender, ErrorOccurEventArgs e)
         {
             Global.Logger.Error($"[Channel] 出现异常:{e.Exception}");
         }
 
-        private void OnConnectionClosed(Connection sender, ConnectionClosedEventArgs e)
+        private void OnConnectionClosed(object? sender, ConnectionClosedEventArgs e)
         {
             if (e.IsManual)
             {

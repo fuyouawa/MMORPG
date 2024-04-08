@@ -4,6 +4,7 @@ using Common.Proto.Player;
 using GameServer.Model;
 using GameServer.Network;
 using GameServer.Tool;
+using System.Diagnostics;
 using System.Numerics;
 using System.Threading.Channels;
 
@@ -13,15 +14,13 @@ namespace GameServer.Service
     {
         private Dictionary<string, Player> _playerSet = new();
 
-        public override void OnConnectionClosed(object sender)
+        public void OnChannelClosed(NetChannel sender)
         {
-            var channel = sender as NetChannel;
+            if (sender.Player == null)
+                return;
             lock (_playerSet)
             {
-                if (_playerSet.ContainsKey(channel.Player.Character.Name))
-                {
-                    _playerSet.Remove(channel.Player.Character.Name);
-                }
+                _playerSet.Remove(sender.Player.Character.Name);
             }
         }
 
@@ -45,15 +44,19 @@ namespace GameServer.Service
             sender.SendAsync(new LoginResponse() { Status = Status.Ok, Message = "登录成功" }, null);
         }
 
-        public void OnHandle(NetChannel? sender, EnterGameRequest request)
+        public void OnHandle(NetChannel sender, EnterGameRequest request)
         {
             Global.Logger.Info($"玩家进入游戏");
         }
 
-        public void OnHandle(NetChannel? sender, HeartBeatRequest request)
+        public void OnHandle(NetChannel sender, HeartBeatRequest request)
         {
             Global.Logger.Debug($"玩家发送心跳请求");
             sender.SendAsync(new HeartBeatResponse() { }, null);
+        }
+
+        public void OnConnect(NetChannel sender)
+        {
         }
     }
 }
