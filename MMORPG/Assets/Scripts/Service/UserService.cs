@@ -10,7 +10,7 @@ namespace Serivce {
         public TMP_InputField RegisterPasswordInput;
         public TMP_InputField RegisterVeriftyPasswordInput;
 
-        public async void TryLogin()
+        public void TryLogin()
         {
             //TODO ’À∫≈√‹¬ÎπÊ∑∂ºÏ≤È
             if (LoginUsernameInput.text.Length < 4 || LoginUsernameInput.text.Length > 12)
