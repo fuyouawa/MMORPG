@@ -2,20 +2,25 @@ using System;
 using UnityEngine;
 using UnityEngine.Playables;
 
-//TODO NotificationBoxPosition
+/// <summary>
+/// 通知框显示位置
+/// </summary>
 public enum NotificationBoxPosition
 {
-    TopLeft,
+    TopLeft,        //TODO
     TopRight,
-    BottomLeft,
-    BottomRight
+    BottomLeft,     //TODO
+    BottomRight     //TODO
 }
 
+/// <summary>
+/// 通知框出现样式
+/// </summary>
 public enum NotificationBoxStyle
 {
-    Fading,
-    Popup,
-    Sliding
+    Fading,     // 渐变
+    Popup,      // 弹出
+    Sliding     // 滑动
 }
 
 public record NotificationBoxConfig

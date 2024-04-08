@@ -25,6 +25,7 @@ public class StartManager : MonoSingleton<StartManager>
         {
             while (true)
             {
+                // 显示旋转加载框
                 SceneManager.Instance.BeginSpinnerBox(new SpinnerBoxConfig() { Description = "连接服务器中......" });
                 try
                 {
@@ -35,6 +36,7 @@ public class StartManager : MonoSingleton<StartManager>
                 catch (System.Exception ex)
                 {
                     SceneManager.Instance.EndSpinnerBox();
+                    // 显示消息框
                     await SceneManager.Instance.ShowMessageBoxAsync(new MessageBoxConfig()
                     {
                         Title = "错误",
@@ -44,8 +46,8 @@ public class StartManager : MonoSingleton<StartManager>
                     continue;
                 }
             }
-            //TODO 异常处理
-            await GameClient.Instance.StartAsync();
+            // 开始事件循环
+            await GameClient.Instance.Session.StartAsync();
         });
     }
 

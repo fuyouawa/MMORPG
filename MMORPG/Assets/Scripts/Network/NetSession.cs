@@ -18,6 +18,9 @@ public class SuddenPacketReceivedEventArgs
 
 public class NetSession : Connection
 {
+    /// <summary>
+    /// 突发消息处理
+    /// </summary>
     public event EventHandler<SuddenPacketReceivedEventArgs>? SuddenPacketReceived;
 
     public NetSession(Socket socket) : base(socket)
