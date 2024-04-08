@@ -1,4 +1,5 @@
 ﻿using Common.Network;
+using Common.Tool;
 using GameServer.Model;
 using GameServer.Network;
 using System;
@@ -8,9 +9,9 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameServer.Service
+namespace GameServer.Mgr
 {
-    public class EntityService : ServiceBase<EntityService>
+    public class EntityMgr : Singleton<EntityMgr>
     {
         private int _serialNum = 0;
         private Dictionary<int, Entity> _entitiesSet = new();
@@ -28,6 +29,6 @@ namespace GameServer.Service
             }
         }
 
-        
+
     }
 }

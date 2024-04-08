@@ -64,13 +64,13 @@ namespace GameServer.Tool
             var netCharacter = new NetCharacter()
             {
                 CharacterId = character.CharacterId,
+                Entity = character.ToNetEntity(),
                 JobId = character.JobId,
                 Name = character.Name,
                 Level = character.Level,
                 Exp = character.Exp,
                 SpaceId = character.SpeedId,
                 Gold = character.Gold,
-                Entity = character.ToNetEntity(),
                 Hp = character.Hp,
                 Mp = character.Mp,
             };
