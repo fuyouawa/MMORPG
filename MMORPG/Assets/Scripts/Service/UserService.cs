@@ -23,17 +23,6 @@ namespace Serivce {
                 SceneManager.Instance.CreateNotificationBox(new NotificationBoxConfig() { Description = "密码长度必须在8-16字之间!" });
                 return;
             }
-
-            GameClient.Instance.Session.SendAsync(new UserLoginRequest()
-            {
-                Username = LoginUsernameInput.text,
-                Password = LoginPasswordInput.text,
-            }, null);
-
-            var res = await GameClient.Instance.Session.ReceiveAsync<UserLoginResponse>();
-            if (res.Status == LoginStatus.Error)
-            {
-            }
         }
         public void TryRegister()
         {

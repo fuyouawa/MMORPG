@@ -16,6 +16,10 @@
     <PackageReference Include="NLog" Version="5.2.8" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Proto\Sudden\" />
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)/../MMORPG/Assets/Plugins/$(TargetFileName)&quot;" />
   </Target>

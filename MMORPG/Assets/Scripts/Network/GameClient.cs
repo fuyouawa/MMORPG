@@ -1,6 +1,5 @@
 using Common.Network;
 using Common.Tool;
-using Network;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,14 +9,14 @@ using UnityEngine;
 
 public class GameClient : Singleton<GameClient>
 {
-    private Session _session;
+    private NetSession _session;
 
-    public Session Session => _session;
+    public NetSession NetSession => _session;
 
     public async Task ConnectAsync() {
         var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         await socket.ConnectAsync(NetConfig.ServerIpAddress, NetConfig.ServerPort);
-        _session = new Session(socket);
+        _session = new NetSession(socket);
     }
 
     public async Task StartAsync()

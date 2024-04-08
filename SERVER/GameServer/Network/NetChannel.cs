@@ -15,7 +15,7 @@ namespace GameServer.Network
     {
         //TODO 可读性更高的ChannelName
         public string ChannelName => _socket.RemoteEndPoint.ToString();
-        public Player Player { get; set; }
+        public Player? Player { get; set; }
         public DateTime LastActiveTime;
 
         public NetChannel(Socket socket) : base(socket)
@@ -25,17 +25,17 @@ namespace GameServer.Network
             PacketReceived += OnPacketReceived;
         }
 
-        private void OnPacketReceived(Connection sender, PacketReceivedEventArgs e)
+        private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
         {
             Global.Logger.Info($"[Channel] 接收来自{ChannelName}的数据包:{e.Packet.Message.GetType()}");
         }
 
-        private void OnErrorOccur(Connection sender, ErrorOccurEventArgs e)
+        private void OnErrorOccur(object? sender, ErrorOccurEventArgs e)
         {
             Global.Logger.Error($"[Channel] {ChannelName}出现异常:{e.Exception}");
         }
 
-        private void OnConnectionClosed(Connection sender, ConnectionClosedEventArgs e)
+        private void OnConnectionClosed(object? sender, ConnectionClosedEventArgs e)
         {
             if (e.IsManual)
             {

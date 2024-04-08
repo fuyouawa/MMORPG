@@ -44,9 +44,6 @@ namespace Common.Network
     {
         public static readonly int MaxSendQueueCount = 1024;
 
-        public delegate void EventHandler(Connection sender);
-        public delegate void EventHandler<TEventArgs>(Connection sender, TEventArgs e);
-
         public event EventHandler<ConnectionClosedEventArgs>? ConnectionClosed;
         public event EventHandler<PacketReceivedEventArgs>? PacketReceived;
         public event EventHandler<ErrorOccurEventArgs>? ErrorOccur;
