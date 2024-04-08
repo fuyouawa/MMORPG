@@ -25,21 +25,24 @@ namespace Common.Proto.Player {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChZQbGF5ZXIvRW50ZXJHYW1lLnByb3RvEhNDb21tb24uUHJvdG8uUGxheWVy",
-            "GhFCYXNlL1N0YXR1cy5wcm90byIoChBFbnRlckdhbWVSZXF1ZXN0EhQKDGNo",
-            "YXJhY3Rlcl9pZBgBIAEoBSJiChFFbnRlckdhbWVSZXNwb25zZRIpCgZzdGF0",
-            "dXMYASABKA4yGS5Db21tb24uUHJvdG8uQmFzZS5TdGF0dXMSDwoHbWVzc2Fn",
-            "ZRgCIAEoCRIRCgllbnRpdHlfaWQYAyABKAViBnByb3RvMw=="));
+            "GhFCYXNlL1N0YXR1cy5wcm90bxoZUGxheWVyL05ldENoYXJhY3Rlci5wcm90",
+            "byIoChBFbnRlckdhbWVSZXF1ZXN0EhQKDGNoYXJhY3Rlcl9pZBgBIAEoBSKF",
+            "AQoRRW50ZXJHYW1lUmVzcG9uc2USKQoGc3RhdHVzGAEgASgOMhkuQ29tbW9u",
+            "LlByb3RvLkJhc2UuU3RhdHVzEg8KB21lc3NhZ2UYAiABKAkSNAoJY2hhcmFj",
+            "dGVyGAQgASgLMiEuQ29tbW9uLlByb3RvLlBsYXllci5OZXRDaGFyYWN0ZXJi",
+            "BnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Common.Proto.Base.StatusReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Common.Proto.Base.StatusReflection.Descriptor, global::Common.Proto.Player.NetCharacterReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.EnterGameRequest), global::Common.Proto.Player.EnterGameRequest.Parser, new[]{ "CharacterId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.EnterGameResponse), global::Common.Proto.Player.EnterGameResponse.Parser, new[]{ "Status", "Message", "EntityId" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.EnterGameResponse), global::Common.Proto.Player.EnterGameResponse.Parser, new[]{ "Status", "Message", "Character" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EnterGameRequest : pb::IMessage<EnterGameRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -229,6 +232,7 @@ namespace Common.Proto.Player {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EnterGameResponse : pb::IMessage<EnterGameResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -265,7 +269,7 @@ namespace Common.Proto.Player {
     public EnterGameResponse(EnterGameResponse other) : this() {
       status_ = other.status_;
       message_ = other.message_;
-      entityId_ = other.entityId_;
+      character_ = other.character_ != null ? other.character_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -299,15 +303,15 @@ namespace Common.Proto.Player {
       }
     }
 
-    /// <summary>Field number for the "entity_id" field.</summary>
-    public const int EntityIdFieldNumber = 3;
-    private int entityId_;
+    /// <summary>Field number for the "character" field.</summary>
+    public const int CharacterFieldNumber = 4;
+    private global::Common.Proto.Player.NetCharacter character_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int EntityId {
-      get { return entityId_; }
+    public global::Common.Proto.Player.NetCharacter Character {
+      get { return character_; }
       set {
-        entityId_ = value;
+        character_ = value;
       }
     }
 
@@ -328,7 +332,7 @@ namespace Common.Proto.Player {
       }
       if (Status != other.Status) return false;
       if (Message != other.Message) return false;
-      if (EntityId != other.EntityId) return false;
+      if (!object.Equals(Character, other.Character)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -338,7 +342,7 @@ namespace Common.Proto.Player {
       int hash = 1;
       if (Status != global::Common.Proto.Base.Status.Ok) hash ^= Status.GetHashCode();
       if (Message.Length != 0) hash ^= Message.GetHashCode();
-      if (EntityId != 0) hash ^= EntityId.GetHashCode();
+      if (character_ != null) hash ^= Character.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -365,9 +369,9 @@ namespace Common.Proto.Player {
         output.WriteRawTag(18);
         output.WriteString(Message);
       }
-      if (EntityId != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(EntityId);
+      if (character_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(Character);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -387,9 +391,9 @@ namespace Common.Proto.Player {
         output.WriteRawTag(18);
         output.WriteString(Message);
       }
-      if (EntityId != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(EntityId);
+      if (character_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(Character);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -407,8 +411,8 @@ namespace Common.Proto.Player {
       if (Message.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
       }
-      if (EntityId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(EntityId);
+      if (character_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Character);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -428,8 +432,11 @@ namespace Common.Proto.Player {
       if (other.Message.Length != 0) {
         Message = other.Message;
       }
-      if (other.EntityId != 0) {
-        EntityId = other.EntityId;
+      if (other.character_ != null) {
+        if (character_ == null) {
+          Character = new global::Common.Proto.Player.NetCharacter();
+        }
+        Character.MergeFrom(other.Character);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -454,8 +461,11 @@ namespace Common.Proto.Player {
             Message = input.ReadString();
             break;
           }
-          case 24: {
-            EntityId = input.ReadInt32();
+          case 34: {
+            if (character_ == null) {
+              Character = new global::Common.Proto.Player.NetCharacter();
+            }
+            input.ReadMessage(Character);
             break;
           }
         }
@@ -481,8 +491,11 @@ namespace Common.Proto.Player {
             Message = input.ReadString();
             break;
           }
-          case 24: {
-            EntityId = input.ReadInt32();
+          case 34: {
+            if (character_ == null) {
+              Character = new global::Common.Proto.Player.NetCharacter();
+            }
+            input.ReadMessage(Character);
             break;
           }
         }
