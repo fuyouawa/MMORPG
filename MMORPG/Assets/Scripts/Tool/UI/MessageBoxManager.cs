@@ -42,6 +42,17 @@ public class MessageBoxManager : MonoBehaviour
 
     public MessageBoxConfig Config { get; set; }
 
+    private void Awake()
+    {
+        LongDescModalWindow.confirmButton.onClick.AddListener(() => Config.OnChose?.Invoke(MessageBoxResult.Confirm));
+        LongDescModalWindow.cancelButton.onClick.AddListener(() => Config.OnChose?.Invoke(MessageBoxResult.Cancel));
+        LongDescModalWindow.onOpen.AddListener(() => Config.OnOpen?.Invoke());
+
+        ShortDescModalWindow.confirmButton.onClick.AddListener(() => Config.OnChose?.Invoke(MessageBoxResult.Confirm));
+        ShortDescModalWindow.cancelButton.onClick.AddListener(() => Config.OnChose?.Invoke(MessageBoxResult.Cancel));
+        ShortDescModalWindow.onOpen.AddListener(() => Config.OnOpen?.Invoke());
+    }
+
     public void Show()
     {
         if (IsShowing)
@@ -67,19 +78,4 @@ public class MessageBoxManager : MonoBehaviour
         MessageBoxStyle.ShortDesc => ShortDescModalWindow,
         _ => throw new NotImplementedException()
     };
-
-    public void OnWindowCancal()
-    {
-        Config.OnChose?.Invoke(MessageBoxResult.Cancel);
-    }
-
-    public void OnWindowConfirm()
-    {
-        Config.OnChose?.Invoke(MessageBoxResult.Confirm);
-    }
-
-    public void OnWindowOpen()
-    {
-        Config.OnOpen?.Invoke();
-    }
 }
