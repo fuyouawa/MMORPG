@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package Common.Proto.Player;
+import "Entity/NetEntity.proto";
+
+message NetCharacter {
+    int32 character_id = 1;
+    Entity.NetEntity entity = 2;
+    int32 job_id = 3;
+    string name = 4;
+    int32 level = 5;
+    int64 exp = 6;
+    int32 space_id = 7;
+    int64 gold = 8;
+    int32 hp = 9;
+    int32 mp = 10;
+}

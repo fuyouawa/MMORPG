@@ -12,21 +12,19 @@ namespace GameServer.Service
 {
     public class EntityService : ServiceBase<EntityService>
     {
-        private int _serialNum = 1;
+        private int _serialNum = 0;
         private Dictionary<int, Entity> _entitiesSet = new();
 
-        public Entity NewEntity(int spaceId)
+        public int NewEntityId()
         {
-            lock (this)
+            return Interlocked.Increment(ref _serialNum);
+        }
+
+        public void AddEntity(Entity entity)
+        {
+            lock (_entitiesSet)
             {
-                var entity = new Entity()
-                {
-                    EntityId = _serialNum++,
-                    Position = Vector3.Zero,
-                    Direction = Vector3.Zero
-                };
                 _entitiesSet[entity.EntityId] = entity;
-                return entity;
             }
         }
 

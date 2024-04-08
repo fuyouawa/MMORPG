@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Common.Proto.Base;
 using Common.Proto.Entity;
+using Common.Proto.Player;
 using GameServer.Model;
 
 namespace GameServer.Tool
@@ -56,6 +57,24 @@ namespace GameServer.Tool
                 Position = netEntity.Position.ToVector3(),
             };
             return entity;
+        }
+
+        public static NetCharacter ToNetCharacter(this Character character)
+        {
+            var netCharacter = new NetCharacter()
+            {
+                CharacterId = character.CharacterId,
+                JobId = character.JobId,
+                Name = character.Name,
+                Level = character.Level,
+                Exp = character.Exp,
+                SpaceId = character.SpeedId,
+                Gold = character.Gold,
+                Entity = character.ToNetEntity(),
+                Hp = character.Hp,
+                Mp = character.Mp,
+            };
+            return netCharacter;
         }
     }
 }
