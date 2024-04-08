@@ -18,7 +18,7 @@ namespace GameServer.Manager
         {
             var noviceVillage = new Space()
             {
-                SpaceId = 1,
+                SpaceId = InitSpaceId,
                 Name = "新手村",
                 Description = "新手村",
                 Music = 0,
@@ -28,11 +28,7 @@ namespace GameServer.Manager
 
         public Space? GetSpaceById(int spaceId)
         {
-            if (!_spaceSet.ContainsKey(spaceId))
-            {
-                return null;
-            }
-            return _spaceSet[spaceId];
+            return _spaceSet.GetValueOrDefault(spaceId, null);
         }
 
         public Space? GetSpaceByName(string spaceName)
