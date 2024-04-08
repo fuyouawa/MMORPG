@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameServer.Mgr
+namespace GameServer.Manager
 {
-    public class SpaceMgr : Singleton<SpaceMgr>
+    public class SpaceManager : Singleton<SpaceManager>
     {
         public readonly int InitSpaceId = 1;
 
         private Dictionary<int, Space> _spaceSet = new();
 
-        public SpaceMgr()
+        public SpaceManager()
         {
             var noviceVillage = new Space()
             {

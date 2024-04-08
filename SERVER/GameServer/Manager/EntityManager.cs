@@ -9,9 +9,9 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameServer.Mgr
+namespace GameServer.Manager
 {
-    public class EntityMgr : Singleton<EntityMgr>
+    public class EntityManager : Singleton<EntityManager>
     {
         private int _serialNum = 0;
         private Dictionary<int, Entity> _entitiesSet = new();
@@ -28,7 +28,5 @@ namespace GameServer.Mgr
                 _entitiesSet[entity.EntityId] = entity;
             }
         }
-
-
     }
 }

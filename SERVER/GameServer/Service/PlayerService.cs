@@ -2,7 +2,7 @@
 using Common.Proto.Base;
 using Common.Proto.Player;
 using GameServer.Db;
-using GameServer.Mgr;
+using GameServer.Manager;
 using GameServer.Model;
 using GameServer.Network;
 using GameServer.Tool;
@@ -15,7 +15,6 @@ namespace GameServer.Service
     public class PlayerService : ServiceBase<PlayerService>
     {
         private Dictionary<string, Player> _playerSet = new();
-
         private static readonly object _register_lock = new();
         private static readonly object _character_create_lock = new();
 
@@ -149,7 +148,7 @@ namespace GameServer.Service
 
             var playerCharacter = new Character()
             {
-                EntityId = EntityMgr.Instance.NewEntityId(),
+                EntityId = EntityManager.Instance.NewEntityId(),
                 SpeedId = dbCharacter.SpaceId,
                 CharacterId = dbCharacter.Id,
                 Name = dbCharacter.Name,
@@ -165,9 +164,9 @@ namespace GameServer.Service
             };
             playerCharacter.Direction = Vector3.Zero;
 
-            EntityMgr.Instance.AddEntity(playerCharacter);
+            EntityManager.Instance.AddEntity(playerCharacter);
 
-            var space = SpaceMgr.Instance.GetSpaceById(playerCharacter.SpeedId);
+            var space = SpaceManager.Instance.GetSpaceById(playerCharacter.SpeedId);
             if (space == null)
             {
                 sender.SendAsync(new EnterGameResponse() { Status = Status.Error, Message = "无效地图" }, null);
@@ -232,7 +231,7 @@ namespace GameServer.Service
                     Mp = 100,
                     Level = 1,
                     Exp = 0,
-                    SpaceId = SpaceMgr.Instance.InitSpaceId,
+                    SpaceId = SpaceManager.Instance.InitSpaceId,
                     Gold = 0,
                     PlayerId = sender.Player.PlayerId
                 };
@@ -287,8 +286,6 @@ namespace GameServer.Service
                 .ExecuteAffrows();
             sender.SendAsync(new CharacterDeleteResponse() { Status = Status.Ok, Message = "删除完成" }, null);
         }
-
-
 
         public void OnConnect(NetChannel sender)
         {
