@@ -12,6 +12,8 @@ using GameServer.Tool;
 using GameServer.Model;
 using System.Threading.Channels;
 using System.Diagnostics;
+using Common.Tool;
+using System.Xml.Linq;
 
 namespace GameServer
 {
@@ -19,7 +21,7 @@ namespace GameServer
     {
         private Socket _serverSocket;
         private LinkedList<NetChannel> _channels = new();
-        private Timer _connectionCleanupTimer;
+        private TimeWheel _connectionCleanupTimer;
 
         public GameServer(int port)
         {
@@ -31,7 +33,8 @@ namespace GameServer
         {
             Global.Logger.Info("[Server] 开启服务器");
             _serverSocket.Listen();
-            _connectionCleanupTimer = new Timer(ConnectionCleanup, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+            _connectionCleanupTimer = new(1000);
+            _connectionCleanupTimer.Start();
             while (true)
             {
                 var socket = await _serverSocket.AcceptAsync();
@@ -42,29 +45,26 @@ namespace GameServer
             }
         }
 
-        private void ConnectionCleanup(object? state)
-        {
-            var now = DateTime.Now;
-            lock (_channels)
-            {
-                for (var node = _channels.First; node != null;)
-                {
-                    var next = node.Next;
-                    var duration = now - node.Value.LastActiveTime;
-                    if (duration.TotalSeconds > 10)
-                    {
-                        node.Value.Close();
-                    }
-                    node = next;
-                }
-            }
-        }
-
         private void OnNewChannelConnection(NetChannel sender)
         {
             sender.PacketReceived += OnPacketReceived;
             sender.ConnectionClosed += OnConnectionClosed;
-            sender.LastActiveTime = DateTime.Now;
+            sender.LastActiveTime = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
+
+            _connectionCleanupTimer.AddTask(10000, (task) =>
+            {
+                var now = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond; ;
+                var duration = now - sender.LastActiveTime;
+                if (duration > 10000)
+                {
+                    // sender已关闭也不会产生错误
+                    sender.Close();
+                }
+                else
+                {
+                    _connectionCleanupTimer.AddTask(10000, task.Action);
+                }
+            });
 
             PlayerService.Instance.OnConnect(sender);
             SpaceService.Instance.OnConnect(sender);
@@ -89,7 +89,7 @@ namespace GameServer
             var channel = sender as NetChannel;
             Debug.Assert(channel != null);
 
-            channel.LastActiveTime = DateTime.Now;
+            channel.LastActiveTime = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
 
             PlayerService.Instance.HandleMessage(channel, e.Packet.Message);
             SpaceService.Instance.HandleMessage(channel, e.Packet.Message);
