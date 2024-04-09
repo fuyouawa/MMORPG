@@ -2,16 +2,22 @@
 using Common.Proto;
 using Common.Proto.Player;
 using Common.Tool;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Security.Cryptography;
 
 namespace TestClient
 {
+
     internal class Program
     {
         static async Task Main(string[] args)
         {
+            //await TimeWheelTest.Start();
+
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             await socket.ConnectAsync(NetConfig.ServerIpAddress, NetConfig.ServerPort);
             var session = new NetSession(socket);
