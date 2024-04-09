@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Common.Tool
 {
-    public class TimingWheel
+    public class TimeWheel
     {
         private const int CircleCount = 5;
         private const int SlotCount = 1 << 6;
@@ -13,7 +13,7 @@ namespace Common.Tool
         public struct TimeTask
         {
             public int Tick;
-            public Action Action;
+            public Action<TimeTask> Action;
         };
 
         private LinkedList<TimeTask> _pendingList;
@@ -24,7 +24,7 @@ namespace Common.Tool
         private int _tickMs;  // 最小槽的时间范围，毫秒单位
         private volatile bool _stop;
 
-        public TimingWheel(int precision = 10) {
+        public TimeWheel(int precision = 10) {
 
             _pendingList = new();
             _backupList = new();
@@ -68,7 +68,7 @@ namespace Common.Tool
                     {
                         foreach (var task in _slot[_indexArr[0]])
                         {
-                            task.Action();
+                            task.Action(task);
                             // Task.Run(task.Action);
                         }
                         _slot[_indexArr[0]].Clear();
@@ -91,7 +91,7 @@ namespace Common.Tool
                     } while (true);
                 }
                 _lastMs = nowMs;
-                await Task.Delay(1);
+                await Task.Delay(_tickMs);
             } while (_stop == false);
         }
 
@@ -135,7 +135,7 @@ namespace Common.Tool
         /// 不可修改返回的task
         /// </summary>
         /// <param name="task"></param>
-        public TimeTask AddTask(int ms, Action action)
+        public TimeTask AddTask(int ms, Action<TimeTask> action)
         {
             if (ms < _tickMs) {
                 ms = _tickMs;
@@ -153,15 +153,13 @@ namespace Common.Tool
         }
     }
 
-
     public class TimeWheelTest
     {
         public static async Task Start()
         {
-            Console.WriteLine($"start:{DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond}");
-
+            //Console.WriteLine($"start:{DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond}");
             int count = 0;
-            var tw = new TimingWheel(1);
+            var tw = new TimeWheel(1);
 
             var begin = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
             tw.Start();
@@ -177,7 +175,7 @@ namespace Common.Tool
                 //randomValue %= 10;
 
                 int j = i;
-                tw.AddTask(1, () => {
+                tw.AddTask(1, (task) => {
                     //Console.WriteLine($"[{j}][{count++}]{randomValue}ms:{DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond}");
                     //count++;
                     Interlocked.Increment(ref count);
