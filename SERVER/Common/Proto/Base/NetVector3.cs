@@ -25,7 +25,7 @@ namespace Common.Proto.Base {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChVCYXNlL05ldFZlY3RvcjMucHJvdG8SEUNvbW1vbi5Qcm90by5CYXNlIi0K",
-            "Ck5ldFZlY3RvcjMSCQoBeBgBIAEoAhIJCgF5GAIgASgCEgkKAXoYAyABKAJi",
+            "Ck5ldFZlY3RvcjMSCQoBeBgBIAEoBRIJCgF5GAIgASgFEgkKAXoYAyABKAVi",
             "BnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
@@ -86,10 +86,10 @@ namespace Common.Proto.Base {
 
     /// <summary>Field number for the "x" field.</summary>
     public const int XFieldNumber = 1;
-    private float x_;
+    private int x_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public float X {
+    public int X {
       get { return x_; }
       set {
         x_ = value;
@@ -98,10 +98,10 @@ namespace Common.Proto.Base {
 
     /// <summary>Field number for the "y" field.</summary>
     public const int YFieldNumber = 2;
-    private float y_;
+    private int y_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public float Y {
+    public int Y {
       get { return y_; }
       set {
         y_ = value;
@@ -110,10 +110,10 @@ namespace Common.Proto.Base {
 
     /// <summary>Field number for the "z" field.</summary>
     public const int ZFieldNumber = 3;
-    private float z_;
+    private int z_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public float Z {
+    public int Z {
       get { return z_; }
       set {
         z_ = value;
@@ -135,9 +135,9 @@ namespace Common.Proto.Base {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
-      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
-      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Z, other.Z)) return false;
+      if (X != other.X) return false;
+      if (Y != other.Y) return false;
+      if (Z != other.Z) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -145,9 +145,9 @@ namespace Common.Proto.Base {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
-      if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
-      if (Z != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Z);
+      if (X != 0) hash ^= X.GetHashCode();
+      if (Y != 0) hash ^= Y.GetHashCode();
+      if (Z != 0) hash ^= Z.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -166,17 +166,17 @@ namespace Common.Proto.Base {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (X != 0F) {
-        output.WriteRawTag(13);
-        output.WriteFloat(X);
+      if (X != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(X);
       }
-      if (Y != 0F) {
-        output.WriteRawTag(21);
-        output.WriteFloat(Y);
+      if (Y != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Y);
       }
-      if (Z != 0F) {
-        output.WriteRawTag(29);
-        output.WriteFloat(Z);
+      if (Z != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Z);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -188,17 +188,17 @@ namespace Common.Proto.Base {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (X != 0F) {
-        output.WriteRawTag(13);
-        output.WriteFloat(X);
+      if (X != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(X);
       }
-      if (Y != 0F) {
-        output.WriteRawTag(21);
-        output.WriteFloat(Y);
+      if (Y != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Y);
       }
-      if (Z != 0F) {
-        output.WriteRawTag(29);
-        output.WriteFloat(Z);
+      if (Z != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Z);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -210,14 +210,14 @@ namespace Common.Proto.Base {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (X != 0F) {
-        size += 1 + 4;
+      if (X != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(X);
       }
-      if (Y != 0F) {
-        size += 1 + 4;
+      if (Y != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Y);
       }
-      if (Z != 0F) {
-        size += 1 + 4;
+      if (Z != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Z);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -231,13 +231,13 @@ namespace Common.Proto.Base {
       if (other == null) {
         return;
       }
-      if (other.X != 0F) {
+      if (other.X != 0) {
         X = other.X;
       }
-      if (other.Y != 0F) {
+      if (other.Y != 0) {
         Y = other.Y;
       }
-      if (other.Z != 0F) {
+      if (other.Z != 0) {
         Z = other.Z;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -255,16 +255,16 @@ namespace Common.Proto.Base {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 13: {
-            X = input.ReadFloat();
+          case 8: {
+            X = input.ReadInt32();
             break;
           }
-          case 21: {
-            Y = input.ReadFloat();
+          case 16: {
+            Y = input.ReadInt32();
             break;
           }
-          case 29: {
-            Z = input.ReadFloat();
+          case 24: {
+            Z = input.ReadInt32();
             break;
           }
         }
@@ -282,16 +282,16 @@ namespace Common.Proto.Base {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 13: {
-            X = input.ReadFloat();
+          case 8: {
+            X = input.ReadInt32();
             break;
           }
-          case 21: {
-            Y = input.ReadFloat();
+          case 16: {
+            Y = input.ReadInt32();
             break;
           }
-          case 29: {
-            Z = input.ReadFloat();
+          case 24: {
+            Z = input.ReadInt32();
             break;
           }
         }
