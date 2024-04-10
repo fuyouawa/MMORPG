@@ -47,6 +47,12 @@ namespace GameServer
 
         private void OnNewChannelConnection(NetChannel sender)
         {
+            lock (_channels)
+            {
+                var node = _channels.AddLast(sender);
+                sender.LinkedListNode = node;
+            }
+
             sender.PacketReceived += OnPacketReceived;
             sender.ConnectionClosed += OnConnectionClosed;
             sender.LastActiveTime = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
@@ -80,7 +86,7 @@ namespace GameServer
 
             lock (_channels)
             {
-                _channels.Remove(channel);
+                _channels.Remove(channel.LinkedListNode);
             }
         }
 
@@ -93,11 +99,6 @@ namespace GameServer
 
             PlayerService.Instance.HandleMessage(channel, e.Packet.Message);
             SpaceService.Instance.HandleMessage(channel, e.Packet.Message);
-
-            lock (_channels)
-            {
-                _channels.AddLast(channel);
-            }
         }
     }
 }

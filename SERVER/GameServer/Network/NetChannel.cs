@@ -16,7 +16,8 @@ namespace GameServer.Network
         //TODO 可读性更高的ChannelName
         public string ChannelName => _socket.RemoteEndPoint.ToString();
         public Player? Player { get; set; }
-        public long LastActiveTime;
+        public long LastActiveTime { get; set; }
+        public LinkedListNode<NetChannel>? LinkedListNode { get; set; }
 
         public NetChannel(Socket socket) : base(socket)
         {
