@@ -16,7 +16,7 @@ namespace TestClient
     {
         static async Task Main(string[] args)
         {
-            //await TimeWheelTest.Start();
+            await TimeWheelTest.Start();
 
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             await socket.ConnectAsync(NetConfig.ServerIpAddress, NetConfig.ServerPort);
