@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Common.Tool
 {
@@ -14,10 +16,13 @@ namespace Common.Tool
         {
             public int Tick;
             public Action<TimeTask> Action;
+            public LinkedListNode<TimeTask> LinkedListNode;
         };
 
-        private LinkedList<TimeTask> _pendingList;
-        private LinkedList<TimeTask> _backupList;
+        private LinkedList<TimeTask> _addList;
+        private LinkedList<TimeTask> _backupAddList;
+        private List<TimeTask> _removeList;
+        private List<TimeTask> _backupRemoveList;
         private LinkedList<TimeTask>[] _slot;
         private int[] _indexArr;
         private long _lastMs;
@@ -26,8 +31,10 @@ namespace Common.Tool
 
         public TimeWheel(int precision = 10) {
 
-            _pendingList = new();
-            _backupList = new();
+            _addList = new();
+            _backupAddList = new();
+            _removeList = new();
+            _backupRemoveList = new();
             _slot = new LinkedList<TimeTask>[SlotCount * CircleCount];
             _indexArr = new int[CircleCount];
             _tickMs = precision;
@@ -48,15 +55,36 @@ namespace Common.Tool
             _lastMs = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond / _tickMs;
             do
             {
-                if (_pendingList.Count > 0)
+                if (_addList.Count > 0)
                 {
-                    lock (_pendingList)
+                    lock (_addList)
                     {
-                        LinkedList<TimeTask> temp = _backupList;
-                        _backupList = _pendingList;
-                        _pendingList = temp;
+                        LinkedList<TimeTask> temp = _backupAddList;
+                        _backupAddList = _addList;
+                        _addList = temp;
                     }
-                    DispatchTasksToSlot(_backupList);
+                    DispatchTasksToSlot(_backupAddList);
+                }
+                if (_removeList.Count > 0)
+                {
+                    lock (_removeList)
+                    {
+                        List<TimeTask> temp = _backupRemoveList;
+                        _backupRemoveList = _removeList;
+                        _removeList = temp;
+                    }
+                    for (int i = 0; i < _backupRemoveList.Count; i++)
+                    {
+                        var node = _backupRemoveList[i].LinkedListNode;
+                        var list = node.List;
+                        if (list == null)
+                        {
+                            // 在上一次循环已被执行
+                            continue;
+                        }
+                        list.Remove(node);
+                    }
+                    _backupRemoveList.Clear();
                 }
 
                 // 根据上次循环至今经过的时间，逐格推进
@@ -100,38 +128,46 @@ namespace Common.Tool
             _stop = true;
         }
 
+        private int GetLayerByTick(int tick)
+        {
+            int mask = 0x3f;        // 0011 1111
+            for (int i = 0; i < CircleCount; i++)
+            {
+                if ((tick & ~mask) == 0)
+                {
+                    return i;
+                }
+                tick >>= 6;
+            }
+            throw new Exception("TimeWheel.GetLayerByTick: Tick too large.");
+        }
+
         private void DispatchTasksToSlot(LinkedList<TimeTask> list)
         {
             for (var task = list.First; task != null; )
             {
                 var next = task.Next;
-                int mask = 0x3f;        // 0011 1111
+
                 // 根据时长插入对应的槽中
-                int time = task.Value.Tick;
-                for (int i = 0; i < CircleCount; i++)
-                {
-                    if ((time & ~mask) == 0)
-                    {
-                        // 应插入到当前层
-                        int index = time & mask;
-                        index = i * SlotCount + ((index + _indexArr[i]) % SlotCount);
+                int tick = task.Value.Tick;
 
-                        // 清除在当前层的时长，在下次向下派发时可以插入到下层
-                        int mask2 = ~(0x7fffffff << (i * 6));
-                        task.ValueRef.Tick &= mask2;
+                int layer = GetLayerByTick(tick);
+                int index = tick & 0x3f;
+                index = layer * SlotCount + ((index + _indexArr[layer]) % SlotCount);
 
-                        list.Remove(task);
-                        _slot[index].AddLast(task);
-                        break;
-                    }
-                    time >>= 6;
-                }
+                // 清除在当前层的时长，在下次向下派发时可以插入到下层
+                int mask2 = ~(0x7fffffff << (layer * 6));
+                task.ValueRef.Tick &= mask2;
+
+                list.Remove(task);
+                _slot[index].AddLast(task);
+
                 task = next;
             }
         }
 
         /// <summary>
-        /// 将延时任务追加到时间轮中
+        /// 异步追加延时任务到时间轮中
         /// 不可修改返回的task
         /// </summary>
         /// <param name="task"></param>
@@ -143,13 +179,26 @@ namespace Common.Tool
             var task = new TimeTask()
             {
                 Tick = ms / _tickMs,
-                Action = action
+                Action = action,
             };
-            lock (_pendingList)
+            lock (_addList)
             {
-                _pendingList.AddLast(task);
+                var node = _addList.AddLast(task);
+                task.LinkedListNode = node;
             }
             return task;
+        }
+
+        /// <summary>
+        /// 异步删除延时任务
+        /// </summary>
+        /// <param name="task"></param>
+        public void RemoveTask(TimeTask task)
+        {
+            lock (_removeList)
+            {
+                _removeList.Add(task);
+            }
         }
     }
 
@@ -160,9 +209,16 @@ namespace Common.Tool
             //Console.WriteLine($"start:{DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond}");
             int count = 0;
             var tw = new TimeWheel(1);
+            tw.Start();
+            var task = tw.AddTask(1, (task) => {
+                Console.WriteLine($"hello");
+            });
+            await Task.Delay(1000);
+            tw.RemoveTask(task);
+
 
             var begin = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
-            tw.Start();
+           
             byte[] randomNumber = new byte[4];
             for (int i = 0; i < 1000000; i++)
             {
@@ -179,8 +235,7 @@ namespace Common.Tool
                     //Console.WriteLine($"[{j}][{count++}]{randomValue}ms:{DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond}");
                     //count++;
                     Interlocked.Increment(ref count);
-                }
-                );
+                });
             }
             while (count < 1000000)
             {
