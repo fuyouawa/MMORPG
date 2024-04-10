@@ -19,9 +19,9 @@ namespace GameServer.Tool
         {
             var netVector3 = new NetVector3()
             {
-                X = vector3.X,
-                Y = vector3.Y,
-                Z = vector3.Z
+                X = (int)(vector3.X * 1000),
+                Y = (int)(vector3.Y * 1000),
+                Z = (int)(vector3.Z * 1000)
             };
             return netVector3;
         }
@@ -30,9 +30,9 @@ namespace GameServer.Tool
         {
             var vector3 = new Vector3()
             {
-                X = netVector3.X,
-                Y = netVector3.Y,
-                Z = netVector3.Z
+                X = (float)(netVector3.X) / 1000,
+                Y = (float)(netVector3.Y) / 1000,
+                Z = (float)(netVector3.Z) / 1000
             };
             return vector3;
         }
