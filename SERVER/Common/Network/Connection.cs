@@ -147,6 +147,7 @@ namespace Common.Network
                 if (_closeConnectionByManual == true) return;
                 _closeConnectionByManual = false;
                 Close();
+                return;
             }
             ErrorOccur?.Invoke(this, new ErrorOccurEventArgs(ex));
         }

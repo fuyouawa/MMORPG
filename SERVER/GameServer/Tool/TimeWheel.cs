@@ -96,7 +96,11 @@ namespace Common.Tool
                     {
                         foreach (var task in _slot[_indexArr[0]])
                         {
-                            task.Action(task);
+                            try
+                            {
+                                task.Action(task);
+                            }
+                            catch { }
                             // Task.Run(task.Action);
                         }
                         _slot[_indexArr[0]].Clear();
