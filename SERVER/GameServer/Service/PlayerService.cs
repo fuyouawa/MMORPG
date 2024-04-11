@@ -55,13 +55,13 @@ namespace GameServer.Service
 
             if (sender.Player != null)
             {
-                sender.Send(new LoginResponse() { Error = NetError.Error, Message = "异常登录" });
+                sender.Send(new LoginResponse() { Error = NetError.UnknowError });
                 return;
             }
 
             if (_playerSet.ContainsKey(request.Username))
             {
-                sender.Send(new LoginResponse() { Error = NetError.Error, Message = "账号已在别处登录" });
+                sender.Send(new LoginResponse() { Error = NetError.LoginConflict });
                 return;
             }
 
@@ -71,7 +71,7 @@ namespace GameServer.Service
                 .First();
             if (dbPlayer == null)
             {
-                sender.Send(new LoginResponse() { Error = NetError.Error, Message = "用户名或密码不正确" });
+                sender.Send(new LoginResponse() { Error = NetError.IncorrectUsernameOrPassword });
                 return;
             }
             
@@ -82,7 +82,7 @@ namespace GameServer.Service
                 _playerSet[request.Username] = player;
             }
             sender.Player = player;
-            sender.Send(new LoginResponse() { Error = NetError.Success, Message = "登录成功" });
+            sender.Send(new LoginResponse() { Error = NetError.Success });
         }
 
         public void OnHandle(NetChannel sender, RegisterRequest request)
@@ -91,13 +91,13 @@ namespace GameServer.Service
 
             if (sender.Player != null)
             {
-                sender.Send(new LoginResponse() { Error = NetError.Error, Message = "异常注册" });
+                sender.Send(new RegisterResponse() { Error = NetError.UnknowError });
                 return;
             }
 
             if (!NameVerify(request.Username))
             {
-                sender.Send(new LoginResponse() { Error = NetError.Error, Message = "用户名非法，请检查长度及首尾空格" });
+                sender.Send(new RegisterResponse() { Error = NetError.IllegalUsername });
                 return;
             }
 
@@ -107,7 +107,7 @@ namespace GameServer.Service
                     .First();
                 if (dbPlayer != null)
                 {
-                    sender.Send(new LoginResponse() { Error = NetError.Error, Message = "用户名已被注册" });
+                    sender.Send(new RegisterResponse() { Error = NetError.RepeatUsername });
                     return;
                 }
 
@@ -120,10 +120,10 @@ namespace GameServer.Service
                 var insertCount = SqlDb.Connection.Insert<DbPlayer>(newDbPlayer).ExecuteAffrows();
                 if (insertCount <= 0)
                 {
-                    sender.Send(new LoginResponse() { Error = NetError.Error, Message = "注册异常" });
+                    sender.Send(new RegisterResponse() { Error = NetError.UnknowError });
                     return;
                 }
-                sender.Send(new LoginResponse() { Error = NetError.Success, Message = "注册成功" });
+                sender.Send(new RegisterResponse() { Error = NetError.Success });
             }
         }
 
@@ -142,11 +142,11 @@ namespace GameServer.Service
                 .First();
             if (dbCharacter == null)
             {
-                sender.Send(new CharacterCreateResponse() { Error = NetError.Error, Message = "选择的角色无效" });
+                sender.Send(new CharacterCreateResponse() { Error = NetError.InvalidCharacter });
                 return;
             }
 
-            var playerCharacter = new Character()
+            var playerCharacter = new Character
             {
                 EntityId = EntityManager.Instance.NewEntityId(),
                 SpeedId = dbCharacter.SpaceId,
@@ -156,20 +156,21 @@ namespace GameServer.Service
                 Exp = dbCharacter.Exp,
                 Hp = dbCharacter.Hp,
                 Mp = dbCharacter.Mp,
+                Position = new()
+                {
+                    X = dbCharacter.X,
+                    Y = dbCharacter.Y,
+                    Z = dbCharacter.Z,
+                },
+                Direction = Vector3.Zero
             };
-            playerCharacter.Position = new() {
-                X = dbCharacter.X,
-                Y = dbCharacter.Y,
-                Z = dbCharacter.Z,
-            };
-            playerCharacter.Direction = Vector3.Zero;
 
             EntityManager.Instance.AddEntity(playerCharacter);
 
             var space = SpaceManager.Instance.GetSpaceById(playerCharacter.SpeedId);
             if (space == null)
             {
-                sender.Send(new EnterGameResponse() { Error = NetError.Error, Message = "无效地图" });
+                sender.Send(new EnterGameResponse() { Error = NetError.InvalidMap });
                 return;
             }
             sender.Player.Character = playerCharacter;
@@ -178,7 +179,6 @@ namespace GameServer.Service
             var res = new EnterGameResponse()
             {
                 Error = NetError.Success,
-                Message = "加入游戏成功",
                 Character = playerCharacter.ToNetCharacter(),
             };
             sender.Send(res, null);
@@ -202,13 +202,13 @@ namespace GameServer.Service
                 .Count();
             if (count >= 4)
             {
-                sender.Send(new CharacterCreateResponse() { Error = NetError.Error, Message = "角色创建已达上限" });
+                sender.Send(new CharacterCreateResponse() { Error = NetError.CharacterCreationLimitReached });
                 return;
             }
 
             if (!NameVerify(request.Name))
             {
-                sender.Send(new CharacterCreateResponse() { Error = NetError.Error, Message = "角色名非法，请检查长度及首尾空格" });
+                sender.Send(new CharacterCreateResponse() { Error = NetError.IllegalCharacterName });
                 return;
             }
 
@@ -219,7 +219,7 @@ namespace GameServer.Service
                     .First();
                 if (dbCharacter != null)
                 {
-                    sender.Send(new CharacterCreateResponse() { Error = NetError.Error, Message = "角色名已被注册" });
+                    sender.Send(new CharacterCreateResponse() { Error = NetError.RepeatCharacterName });
                     return;
                 }
 
@@ -238,10 +238,10 @@ namespace GameServer.Service
                 var insertCount = SqlDb.Connection.Insert(newDbCharacter).ExecuteAffrows();
                 if (insertCount <= 0)
                 {
-                    sender.Send(new CharacterCreateResponse() { Error = NetError.Error, Message = "创建角色异常" });
+                    sender.Send(new CharacterCreateResponse() { Error = NetError.UnknowError });
                     return;
                 }
-                sender.Send(new CharacterCreateResponse() { Error = NetError.Success, Message = "创建角色成功" });
+                sender.Send(new CharacterCreateResponse() { Error = NetError.Success });
             }
         }
 
@@ -284,7 +284,7 @@ namespace GameServer.Service
                 .Where(t => t.PlayerId.Equals(sender.Player.PlayerId))
                 .Where(t => t.Id == request.CharacterId)
                 .ExecuteAffrows();
-            sender.Send(new CharacterDeleteResponse() { Error = NetError.Success, Message = "删除完成" });
+            sender.Send(new CharacterDeleteResponse() { Error = NetError.Success });
         }
 
         public void OnConnect(NetChannel sender)

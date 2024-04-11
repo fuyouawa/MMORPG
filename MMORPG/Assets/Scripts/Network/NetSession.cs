@@ -57,7 +57,7 @@ public class NetSession : Connection
 
     private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
     {
-        Global.Logger.Info($"[Channel] 接收来自服务器端的数据包:{e.Packet.Message.GetType()}");
+        Global.Logger.Debug($"[Channel] 接收来自服务器端的数据包:{e.Packet.Message.GetType()}");
         if (ProtoManager.Instance.IsEmergency(e.Packet.Message.GetType()))
         {
             SuddenPacketReceived?.Invoke(this, new SuddenPacketReceivedEventArgs(e.Packet));
