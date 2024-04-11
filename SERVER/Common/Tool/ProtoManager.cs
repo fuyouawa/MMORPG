@@ -9,14 +9,14 @@ namespace Common.Tool
     {
         private readonly Type[] _sortedProtoTypes;
 
-        private readonly HashSet<Type> _suddenProtoTypes;
+        private readonly HashSet<Type> _emergencyProtoTypes;
 
         public ProtoManager() : base()
         {
             _sortedProtoTypes = Meta.AllProtoType.OrderBy(t => t.Name).ToArray();
 
-            _suddenProtoTypes = (from type in _sortedProtoTypes
-                                 where type.Namespace.EndsWith(".Sudden")
+            _emergencyProtoTypes = (from type in _sortedProtoTypes
+                                 where type.Namespace.EndsWith(".Emergency")
                                  select type).ToHashSet();
         }
 
@@ -30,9 +30,9 @@ namespace Common.Tool
             return _sortedProtoTypes[id];
         }
 
-        public bool IsSudden(Type type)
+        public bool IsEmergency(Type type)
         {
-            return _suddenProtoTypes.Contains(type);
+            return _emergencyProtoTypes.Contains(type);
         }
     }
 }

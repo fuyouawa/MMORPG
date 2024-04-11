@@ -1,13 +1,13 @@
 syntax = "proto3";
 
 package Common.Proto.Player;
-import "Base/Status.proto";
+import "Base/NetError.proto";
 
 message CharacterDeleteRequest {
     int32 character_id = 1;
 }
 
 message CharacterDeleteResponse {
-    Base.Status status = 1;
+    Base.NetError error = 1;
     string message = 2;
 }
