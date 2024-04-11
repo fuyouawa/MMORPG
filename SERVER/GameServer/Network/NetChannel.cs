@@ -28,7 +28,7 @@ namespace GameServer.Network
 
         private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
         {
-            Global.Logger.Info($"[Channel] 接收来自{ChannelName}的数据包:{e.Packet.Message.GetType()}");
+            Global.Logger.Debug($"[Channel] 接收来自{ChannelName}的数据包:{e.Packet.Message.GetType()}");
         }
 
         private void OnErrorOccur(object? sender, ErrorOccurEventArgs e)

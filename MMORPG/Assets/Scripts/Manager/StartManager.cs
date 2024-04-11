@@ -1,6 +1,8 @@
+using Common.Network;
 using Common.Proto;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -23,13 +25,15 @@ public class StartManager : MonoSingleton<StartManager>
     {
         Task.Run(async () =>
         {
+            Socket socket;
             while (true)
             {
                 // 显示旋转加载框
                 SceneManager.Instance.BeginSpinnerBox(new SpinnerBoxConfig() { Description = "连接服务器中......" });
                 try
                 {
-                    await GameClient.Instance.ConnectAsync();
+                    socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    await socket.ConnectAsync(NetConfig.ServerIpAddress, NetConfig.ServerPort);
                     SceneManager.Instance.EndSpinnerBox();
                     break;
                 }
@@ -47,7 +51,7 @@ public class StartManager : MonoSingleton<StartManager>
                 }
             }
             // 开始事件循环
-            await GameClient.Instance.Session.StartAsync();
+            await NetClient.StartSessionAsync(socket);
         });
     }
 

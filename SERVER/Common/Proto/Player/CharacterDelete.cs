@@ -25,22 +25,21 @@ namespace Common.Proto.Player {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChxQbGF5ZXIvQ2hhcmFjdGVyRGVsZXRlLnByb3RvEhNDb21tb24uUHJvdG8u",
-            "UGxheWVyGhFCYXNlL1N0YXR1cy5wcm90byIuChZDaGFyYWN0ZXJEZWxldGVS",
-            "ZXF1ZXN0EhQKDGNoYXJhY3Rlcl9pZBgBIAEoBSJVChdDaGFyYWN0ZXJEZWxl",
-            "dGVSZXNwb25zZRIpCgZzdGF0dXMYASABKA4yGS5Db21tb24uUHJvdG8uQmFz",
-            "ZS5TdGF0dXMSDwoHbWVzc2FnZRgCIAEoCWIGcHJvdG8z"));
+            "UGxheWVyGhNCYXNlL05ldEVycm9yLnByb3RvIi4KFkNoYXJhY3RlckRlbGV0",
+            "ZVJlcXVlc3QSFAoMY2hhcmFjdGVyX2lkGAEgASgFIlYKF0NoYXJhY3RlckRl",
+            "bGV0ZVJlc3BvbnNlEioKBWVycm9yGAEgASgOMhsuQ29tbW9uLlByb3RvLkJh",
+            "c2UuTmV0RXJyb3ISDwoHbWVzc2FnZRgCIAEoCWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Common.Proto.Base.StatusReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Common.Proto.Base.NetErrorReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.CharacterDeleteRequest), global::Common.Proto.Player.CharacterDeleteRequest.Parser, new[]{ "CharacterId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.CharacterDeleteResponse), global::Common.Proto.Player.CharacterDeleteResponse.Parser, new[]{ "Status", "Message" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.CharacterDeleteResponse), global::Common.Proto.Player.CharacterDeleteResponse.Parser, new[]{ "Error", "Message" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CharacterDeleteRequest : pb::IMessage<CharacterDeleteRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -230,7 +229,6 @@ namespace Common.Proto.Player {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CharacterDeleteResponse : pb::IMessage<CharacterDeleteResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -265,7 +263,7 @@ namespace Common.Proto.Player {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CharacterDeleteResponse(CharacterDeleteResponse other) : this() {
-      status_ = other.status_;
+      error_ = other.error_;
       message_ = other.message_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -276,15 +274,15 @@ namespace Common.Proto.Player {
       return new CharacterDeleteResponse(this);
     }
 
-    /// <summary>Field number for the "status" field.</summary>
-    public const int StatusFieldNumber = 1;
-    private global::Common.Proto.Base.Status status_ = global::Common.Proto.Base.Status.Ok;
+    /// <summary>Field number for the "error" field.</summary>
+    public const int ErrorFieldNumber = 1;
+    private global::Common.Proto.Base.NetError error_ = global::Common.Proto.Base.NetError.Success;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Base.Status Status {
-      get { return status_; }
+    public global::Common.Proto.Base.NetError Error {
+      get { return error_; }
       set {
-        status_ = value;
+        error_ = value;
       }
     }
 
@@ -315,7 +313,7 @@ namespace Common.Proto.Player {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Status != other.Status) return false;
+      if (Error != other.Error) return false;
       if (Message != other.Message) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -324,7 +322,7 @@ namespace Common.Proto.Player {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Status != global::Common.Proto.Base.Status.Ok) hash ^= Status.GetHashCode();
+      if (Error != global::Common.Proto.Base.NetError.Success) hash ^= Error.GetHashCode();
       if (Message.Length != 0) hash ^= Message.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -344,9 +342,9 @@ namespace Common.Proto.Player {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Status != global::Common.Proto.Base.Status.Ok) {
+      if (Error != global::Common.Proto.Base.NetError.Success) {
         output.WriteRawTag(8);
-        output.WriteEnum((int) Status);
+        output.WriteEnum((int) Error);
       }
       if (Message.Length != 0) {
         output.WriteRawTag(18);
@@ -362,9 +360,9 @@ namespace Common.Proto.Player {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Status != global::Common.Proto.Base.Status.Ok) {
+      if (Error != global::Common.Proto.Base.NetError.Success) {
         output.WriteRawTag(8);
-        output.WriteEnum((int) Status);
+        output.WriteEnum((int) Error);
       }
       if (Message.Length != 0) {
         output.WriteRawTag(18);
@@ -380,8 +378,8 @@ namespace Common.Proto.Player {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Status != global::Common.Proto.Base.Status.Ok) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
+      if (Error != global::Common.Proto.Base.NetError.Success) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Error);
       }
       if (Message.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
@@ -398,8 +396,8 @@ namespace Common.Proto.Player {
       if (other == null) {
         return;
       }
-      if (other.Status != global::Common.Proto.Base.Status.Ok) {
-        Status = other.Status;
+      if (other.Error != global::Common.Proto.Base.NetError.Success) {
+        Error = other.Error;
       }
       if (other.Message.Length != 0) {
         Message = other.Message;
@@ -420,7 +418,7 @@ namespace Common.Proto.Player {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Status = (global::Common.Proto.Base.Status) input.ReadEnum();
+            Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
           case 18: {
@@ -443,7 +441,7 @@ namespace Common.Proto.Player {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Status = (global::Common.Proto.Base.Status) input.ReadEnum();
+            Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
           case 18: {

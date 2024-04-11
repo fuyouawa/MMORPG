@@ -31,7 +31,7 @@ namespace TestClient
             //        await session.ReceiveAsync<UserLoginResponse>();
             //    }
             //});
-            session.SendAsync(new LoginRequest() { Username = $"Test", Password = $"TestPwd" }, null);
+            session.Send(new LoginRequest() { Username = $"Test", Password = $"TestPwd" }, null);
             //        await session.ReceiveAsync<UserLoginResponse>();
             session.PacketReceived += OnPacketReceived;
             session.SuddenPacketReceived += OnSuddenPacketReceived;

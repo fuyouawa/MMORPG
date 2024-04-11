@@ -78,9 +78,9 @@ namespace Common.Network
             }
             finally
             {
-                _closeConnectionByManual = true;
-                ConnectionClosed?.Invoke(this, new ConnectionClosedEventArgs(true));
+                _closeConnectionByManual ??= true;      // 如果这个值被设置过, 说明可能是Error引起的关闭
                 _socket.Close();
+                ConnectionClosed?.Invoke(this, new ConnectionClosedEventArgs(true));
             }
         }
 
@@ -99,7 +99,7 @@ namespace Common.Network
         }
 
         public delegate void SuccessSentCallback(Connection sender, Packet packet);
-        public void SendAsync(Google.Protobuf.IMessage msg, SuccessSentCallback? successSentCallback)
+        public void Send(Google.Protobuf.IMessage msg, SuccessSentCallback? successSentCallback = null)
         {
             try
             {
@@ -142,16 +142,11 @@ namespace Common.Network
             if (ex is SocketException socketEx)
             {
                 Debug.Assert(socketEx.SocketErrorCode != SocketError.Success);
-                switch (socketEx.SocketErrorCode)
-                {
-                    case SocketError.ConnectionReset:
-                        if (_closeConnectionByManual == true) return;
-                        _closeConnectionByManual = false;
-                        ConnectionClosed?.Invoke(this, new ConnectionClosedEventArgs(false));
-                        return;
-                    default:
-                        break;
-                }
+                Debug.Assert(_closeConnectionByManual != false);
+
+                if (_closeConnectionByManual == true) return;
+                _closeConnectionByManual = false;
+                Close();
             }
             ErrorOccur?.Invoke(this, new ErrorOccurEventArgs(ex));
         }
