@@ -16,7 +16,7 @@ namespace TestClient
     {
         static async Task Main(string[] args)
         {
-            await TimeWheelTest.Start();
+            //await TimeWheelTest.Start();
 
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             await socket.ConnectAsync(NetConfig.ServerIpAddress, NetConfig.ServerPort);
@@ -31,7 +31,7 @@ namespace TestClient
             //        await session.ReceiveAsync<UserLoginResponse>();
             //    }
             //});
-            session.SendAsync(new LoginRequest() { Username = $"Test", Password = $"TestPwd" }, null);
+            session.Send(new LoginRequest() { Username = $"Test", Password = $"TestPwd" }, null);
             //        await session.ReceiveAsync<UserLoginResponse>();
             session.PacketReceived += OnPacketReceived;
             session.SuddenPacketReceived += OnSuddenPacketReceived;
