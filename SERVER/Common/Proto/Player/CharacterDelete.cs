@@ -26,14 +26,14 @@ namespace Common.Proto.Player {
           string.Concat(
             "ChxQbGF5ZXIvQ2hhcmFjdGVyRGVsZXRlLnByb3RvEhNDb21tb24uUHJvdG8u",
             "UGxheWVyGhNCYXNlL05ldEVycm9yLnByb3RvIi4KFkNoYXJhY3RlckRlbGV0",
-            "ZVJlcXVlc3QSFAoMY2hhcmFjdGVyX2lkGAEgASgFIlYKF0NoYXJhY3RlckRl",
+            "ZVJlcXVlc3QSFAoMY2hhcmFjdGVyX2lkGAEgASgFIkUKF0NoYXJhY3RlckRl",
             "bGV0ZVJlc3BvbnNlEioKBWVycm9yGAEgASgOMhsuQ29tbW9uLlByb3RvLkJh",
-            "c2UuTmV0RXJyb3ISDwoHbWVzc2FnZRgCIAEoCWIGcHJvdG8z"));
+            "c2UuTmV0RXJyb3JiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Base.NetErrorReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.CharacterDeleteRequest), global::Common.Proto.Player.CharacterDeleteRequest.Parser, new[]{ "CharacterId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.CharacterDeleteResponse), global::Common.Proto.Player.CharacterDeleteResponse.Parser, new[]{ "Error", "Message" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.CharacterDeleteResponse), global::Common.Proto.Player.CharacterDeleteResponse.Parser, new[]{ "Error" }, null, null, null, null)
           }));
     }
     #endregion
@@ -264,7 +264,6 @@ namespace Common.Proto.Player {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CharacterDeleteResponse(CharacterDeleteResponse other) : this() {
       error_ = other.error_;
-      message_ = other.message_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -286,18 +285,6 @@ namespace Common.Proto.Player {
       }
     }
 
-    /// <summary>Field number for the "message" field.</summary>
-    public const int MessageFieldNumber = 2;
-    private string message_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Message {
-      get { return message_; }
-      set {
-        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -314,7 +301,6 @@ namespace Common.Proto.Player {
         return true;
       }
       if (Error != other.Error) return false;
-      if (Message != other.Message) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -323,7 +309,6 @@ namespace Common.Proto.Player {
     public override int GetHashCode() {
       int hash = 1;
       if (Error != global::Common.Proto.Base.NetError.Success) hash ^= Error.GetHashCode();
-      if (Message.Length != 0) hash ^= Message.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -346,10 +331,6 @@ namespace Common.Proto.Player {
         output.WriteRawTag(8);
         output.WriteEnum((int) Error);
       }
-      if (Message.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Message);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -364,10 +345,6 @@ namespace Common.Proto.Player {
         output.WriteRawTag(8);
         output.WriteEnum((int) Error);
       }
-      if (Message.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Message);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -380,9 +357,6 @@ namespace Common.Proto.Player {
       int size = 0;
       if (Error != global::Common.Proto.Base.NetError.Success) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Error);
-      }
-      if (Message.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -398,9 +372,6 @@ namespace Common.Proto.Player {
       }
       if (other.Error != global::Common.Proto.Base.NetError.Success) {
         Error = other.Error;
-      }
-      if (other.Message.Length != 0) {
-        Message = other.Message;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -421,10 +392,6 @@ namespace Common.Proto.Player {
             Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
-          case 18: {
-            Message = input.ReadString();
-            break;
-          }
         }
       }
     #endif
@@ -442,10 +409,6 @@ namespace Common.Proto.Player {
             break;
           case 8: {
             Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
-            break;
-          }
-          case 18: {
-            Message = input.ReadString();
             break;
           }
         }

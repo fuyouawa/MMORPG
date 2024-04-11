@@ -24,8 +24,13 @@ namespace Common.Proto.Base {
     static NetErrorReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChNCYXNlL05ldEVycm9yLnByb3RvEhFDb21tb24uUHJvdG8uQmFzZSoiCghO",
-            "ZXRFcnJvchILCgdTVUNDRVNTEAASCQoFRVJST1IQAWIGcHJvdG8z"));
+            "ChNCYXNlL05ldEVycm9yLnByb3RvEhFDb21tb24uUHJvdG8uQmFzZSqBAgoI",
+            "TmV0RXJyb3ISCwoHU3VjY2VzcxAAEhEKDUxvZ2luQ29uZmxpY3QQARIfChtJ",
+            "bmNvcnJlY3RVc2VybmFtZU9yUGFzc3dvcmQQAhITCg9JbGxlZ2FsVXNlcm5h",
+            "bWUQAxIYChRJbGxlZ2FsQ2hhcmFjdGVyTmFtZRAEEhIKDlJlcGVhdFVzZXJu",
+            "YW1lEAUSFwoTUmVwZWF0Q2hhcmFjdGVyTmFtZRAGEhQKEEludmFsaWRDaGFy",
+            "YWN0ZXIQBxIOCgpJbnZhbGlkTWFwEAgSIQodQ2hhcmFjdGVyQ3JlYXRpb25M",
+            "aW1pdFJlYWNoZWQQCRIPCgtVbmtub3dFcnJvchAKYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Common.Proto.Base.NetError), }, null, null));
@@ -35,8 +40,17 @@ namespace Common.Proto.Base {
   }
   #region Enums
   public enum NetError {
-    [pbr::OriginalName("SUCCESS")] Success = 0,
-    [pbr::OriginalName("ERROR")] Error = 1,
+    [pbr::OriginalName("Success")] Success = 0,
+    [pbr::OriginalName("LoginConflict")] LoginConflict = 1,
+    [pbr::OriginalName("IncorrectUsernameOrPassword")] IncorrectUsernameOrPassword = 2,
+    [pbr::OriginalName("IllegalUsername")] IllegalUsername = 3,
+    [pbr::OriginalName("IllegalCharacterName")] IllegalCharacterName = 4,
+    [pbr::OriginalName("RepeatUsername")] RepeatUsername = 5,
+    [pbr::OriginalName("RepeatCharacterName")] RepeatCharacterName = 6,
+    [pbr::OriginalName("InvalidCharacter")] InvalidCharacter = 7,
+    [pbr::OriginalName("InvalidMap")] InvalidMap = 8,
+    [pbr::OriginalName("CharacterCreationLimitReached")] CharacterCreationLimitReached = 9,
+    [pbr::OriginalName("UnknowError")] UnknowError = 10,
   }
 
   #endregion

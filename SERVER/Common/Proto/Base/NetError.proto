@@ -3,6 +3,21 @@ syntax = "proto3";
 package Common.Proto.Base;
 
 enum NetError {
-    SUCCESS = 0;
-    ERROR = 1;
+    Success = 0;
+
+    LoginConflict = 1;
+    IncorrectUsernameOrPassword = 2;
+
+    IllegalUsername = 3;
+    IllegalCharacterName = 4;
+
+    RepeatUsername = 5;
+    RepeatCharacterName = 6;
+
+    InvalidCharacter = 7;
+    InvalidMap = 8;
+
+    CharacterCreationLimitReached = 9;
+
+    UnknowError = 10;
 }

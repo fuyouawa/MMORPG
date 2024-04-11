@@ -1,21 +1,25 @@
-using UnityEngine;
 
 public class Logger
 {
 #if UNITY_EDITOR
     public void Info(object message)
     {
-        Debug.Log(message);
+        UnityEngine.Debug.Log(message);
+    }
+
+    public void Debug(object message)
+    {
+        //UnityEngine.Debug.Log(message);
     }
 
     public void Error(object message)
     {
-        Debug.LogError(message);
+        UnityEngine.Debug.LogError(message);
     }
 
     public void Warn(object message)
     {
-        Debug.LogWarning(message);
+        UnityEngine.Debug.LogWarning(message);
     }
 #else
     private NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
