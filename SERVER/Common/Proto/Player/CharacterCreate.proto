@@ -11,6 +11,5 @@ message CharacterCreateRequest {
 
 message CharacterCreateResponse {
     Base.NetError error = 1;
-    string message = 2;
     NetCharacter character = 3;
 }

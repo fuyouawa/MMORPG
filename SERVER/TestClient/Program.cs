@@ -57,7 +57,6 @@ namespace TestClient
     {
         public void OnHandle(NetSession sender, LoginResponse response)
         {
-            Console.WriteLine($"服务器响应登录：{response.Message}");
         }
     }
 }
