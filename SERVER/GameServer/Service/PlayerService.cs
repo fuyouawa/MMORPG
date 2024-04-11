@@ -15,8 +15,8 @@ namespace GameServer.Service
     public class PlayerService : ServiceBase<PlayerService>
     {
         private Dictionary<string, Player> _playerSet = new();
-        private static readonly object _register_lock = new();
-        private static readonly object _character_create_lock = new();
+        private static readonly object _registerLock = new();
+        private static readonly object _characterCreateLock = new();
 
         private bool NameVerify(string name)
         {
@@ -76,7 +76,6 @@ namespace GameServer.Service
             }
             
             var player = new Player(sender);
-            player.Character.Name = request.Username;
             lock (_playerSet)
             {
                 _playerSet[request.Username] = player;
@@ -101,7 +100,7 @@ namespace GameServer.Service
                 return;
             }
 
-            lock (_register_lock) {
+            lock (_registerLock) {
                 var dbPlayer = SqlDb.Connection.Select<DbPlayer>()
                     .Where(p => p.Username == request.Username)
                     .First();
@@ -212,7 +211,7 @@ namespace GameServer.Service
                 return;
             }
 
-            lock (_character_create_lock)
+            lock (_characterCreateLock)
             {
                 var dbCharacter = SqlDb.Connection.Select<DbCharacter>()
                     .Where(p => p.Name == request.Name)
