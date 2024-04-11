@@ -35,7 +35,7 @@ namespace GameServer.Model
                 // 广播新玩家加入
                 foreach (var iter in _playerSet)
                 {
-                    iter.Value.Channel.SendAsync(res, null);
+                    iter.Value.Channel.Send(res, null);
                 }
 
                 // 向新玩家投递已在场景中的所有玩家
@@ -44,7 +44,7 @@ namespace GameServer.Model
                 {
                     res.EntityList.Add(player_.Value.Character.ToNetEntity());
                 }
-                player.Channel.SendAsync(res, null);
+                player.Channel.Send(res, null);
                 _playerSet[player.Character.EntityId] = player;
             }
         }
@@ -60,7 +60,7 @@ namespace GameServer.Model
                 _playerSet.Remove(res.EntityId);
                 foreach (var player_ in _playerSet)
                 {
-                    player_.Value.Channel.SendAsync(res, null);
+                    player_.Value.Channel.Send(res, null);
                 }
             }
             player.Character.SpeedId = InvalidSpaceId;
@@ -82,7 +82,7 @@ namespace GameServer.Model
                     }
                     else
                     {
-                        player.Value.Channel.SendAsync(res, null);
+                        player.Value.Channel.Send(res, null);
                     }
                 }
             }

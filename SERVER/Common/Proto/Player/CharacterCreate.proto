@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package Common.Proto.Player;
-import "Base/Status.proto";
+import "Base/NetError.proto";
 import "Player/NetCharacter.proto";
 
 message CharacterCreateRequest {
@@ -10,7 +10,7 @@ message CharacterCreateRequest {
 }
 
 message CharacterCreateResponse {
-    Base.Status status = 1;
+    Base.NetError error = 1;
     string message = 2;
     NetCharacter character = 3;
 }

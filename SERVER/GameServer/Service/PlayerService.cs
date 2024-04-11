@@ -51,17 +51,17 @@ namespace GameServer.Service
         // TODO:校验用户名、密码的合法性(长度等)
         public void OnHandle(NetChannel sender, LoginRequest request)
         {
-            Global.Logger.Info($"玩家登录请求: Username={request.Username}, Password={request.Password}");
+            Global.Logger.Info($"{sender.ChannelName}登录请求: Username={request.Username}, Password={request.Password}");
 
             if (sender.Player != null)
             {
-                sender.SendAsync(new LoginResponse() { Status = Status.Error, Message = "异常登录" }, null);
+                sender.Send(new LoginResponse() { Error = NetError.Error, Message = "异常登录" });
                 return;
             }
 
             if (_playerSet.ContainsKey(request.Username))
             {
-                sender.SendAsync(new LoginResponse() { Status = Status.Error, Message = "账号已在别处登录" }, null);
+                sender.Send(new LoginResponse() { Error = NetError.Error, Message = "账号已在别处登录" });
                 return;
             }
 
@@ -71,7 +71,7 @@ namespace GameServer.Service
                 .First();
             if (dbPlayer == null)
             {
-                sender.SendAsync(new LoginResponse() { Status = Status.Error, Message = "用户名或密码不正确" }, null);
+                sender.Send(new LoginResponse() { Error = NetError.Error, Message = "用户名或密码不正确" });
                 return;
             }
             
@@ -82,22 +82,22 @@ namespace GameServer.Service
                 _playerSet[request.Username] = player;
             }
             sender.Player = player;
-            sender.SendAsync(new LoginResponse() { Status = Status.Ok, Message = "登录成功" }, null);
+            sender.Send(new LoginResponse() { Error = NetError.Success, Message = "登录成功" });
         }
 
         public void OnHandle(NetChannel sender, RegisterRequest request)
         {
-            Global.Logger.Info($"玩家注册请求: Username={request.Username}, Password={request.Password}");
+            Global.Logger.Info($"{sender.ChannelName}注册请求: Username={request.Username}, Password={request.Password}");
 
             if (sender.Player != null)
             {
-                sender.SendAsync(new LoginResponse() { Status = Status.Error, Message = "异常注册" }, null);
+                sender.Send(new LoginResponse() { Error = NetError.Error, Message = "异常注册" });
                 return;
             }
 
             if (!NameVerify(request.Username))
             {
-                sender.SendAsync(new LoginResponse() { Status = Status.Error, Message = "用户名非法，请检查长度及首尾空格" }, null);
+                sender.Send(new LoginResponse() { Error = NetError.Error, Message = "用户名非法，请检查长度及首尾空格" });
                 return;
             }
 
@@ -107,7 +107,7 @@ namespace GameServer.Service
                     .First();
                 if (dbPlayer != null)
                 {
-                    sender.SendAsync(new LoginResponse() { Status = Status.Error, Message = "用户名已被注册" }, null);
+                    sender.Send(new LoginResponse() { Error = NetError.Error, Message = "用户名已被注册" });
                     return;
                 }
 
@@ -120,10 +120,10 @@ namespace GameServer.Service
                 var insertCount = SqlDb.Connection.Insert<DbPlayer>(newDbPlayer).ExecuteAffrows();
                 if (insertCount <= 0)
                 {
-                    sender.SendAsync(new LoginResponse() { Status = Status.Error, Message = "注册异常" }, null);
+                    sender.Send(new LoginResponse() { Error = NetError.Error, Message = "注册异常" });
                     return;
                 }
-                sender.SendAsync(new LoginResponse() { Status = Status.Ok, Message = "注册成功" }, null);
+                sender.Send(new LoginResponse() { Error = NetError.Success, Message = "注册成功" });
             }
         }
 
@@ -134,7 +134,7 @@ namespace GameServer.Service
                 return;
             }
 
-            Global.Logger.Info($"玩家进入游戏");
+            Global.Logger.Info($"{sender.ChannelName}进入游戏");
 
             var dbCharacter = SqlDb.Connection.Select<DbCharacter>()
                 .Where(t => t.PlayerId == sender.Player.PlayerId)
@@ -142,7 +142,7 @@ namespace GameServer.Service
                 .First();
             if (dbCharacter == null)
             {
-                sender.SendAsync(new CharacterCreateResponse() { Status = Status.Error, Message = "选择的角色无效" }, null);
+                sender.Send(new CharacterCreateResponse() { Error = NetError.Error, Message = "选择的角色无效" });
                 return;
             }
 
@@ -169,7 +169,7 @@ namespace GameServer.Service
             var space = SpaceManager.Instance.GetSpaceById(playerCharacter.SpeedId);
             if (space == null)
             {
-                sender.SendAsync(new EnterGameResponse() { Status = Status.Error, Message = "无效地图" }, null);
+                sender.Send(new EnterGameResponse() { Error = NetError.Error, Message = "无效地图" });
                 return;
             }
             sender.Player.Character = playerCharacter;
@@ -177,17 +177,17 @@ namespace GameServer.Service
 
             var res = new EnterGameResponse()
             {
-                Status = Status.Ok,
+                Error = NetError.Success,
                 Message = "加入游戏成功",
                 Character = playerCharacter.ToNetCharacter(),
             };
-            sender.SendAsync(res, null);
+            sender.Send(res, null);
         }
 
         public void OnHandle(NetChannel sender, HeartBeatRequest request)
         {
-            Global.Logger.Debug($"玩家发送心跳请求");
-            sender.SendAsync(new HeartBeatResponse() { }, null);
+            Global.Logger.Debug($"{sender.ChannelName}发送心跳请求");
+            sender.Send(new HeartBeatResponse() { }, null);
         }
 
         public void OnHandle(NetChannel sender, CharacterCreateRequest request)
@@ -202,13 +202,13 @@ namespace GameServer.Service
                 .Count();
             if (count >= 4)
             {
-                sender.SendAsync(new CharacterCreateResponse() { Status = Status.Error, Message = "角色创建已达上限" }, null);
+                sender.Send(new CharacterCreateResponse() { Error = NetError.Error, Message = "角色创建已达上限" });
                 return;
             }
 
             if (!NameVerify(request.Name))
             {
-                sender.SendAsync(new CharacterCreateResponse() { Status = Status.Error, Message = "角色名非法，请检查长度及首尾空格" }, null);
+                sender.Send(new CharacterCreateResponse() { Error = NetError.Error, Message = "角色名非法，请检查长度及首尾空格" });
                 return;
             }
 
@@ -219,7 +219,7 @@ namespace GameServer.Service
                     .First();
                 if (dbCharacter != null)
                 {
-                    sender.SendAsync(new CharacterCreateResponse() { Status = Status.Error, Message = "角色名已被注册" }, null);
+                    sender.Send(new CharacterCreateResponse() { Error = NetError.Error, Message = "角色名已被注册" });
                     return;
                 }
 
@@ -238,10 +238,10 @@ namespace GameServer.Service
                 var insertCount = SqlDb.Connection.Insert(newDbCharacter).ExecuteAffrows();
                 if (insertCount <= 0)
                 {
-                    sender.SendAsync(new CharacterCreateResponse() { Status = Status.Error, Message = "创建角色异常" }, null);
+                    sender.Send(new CharacterCreateResponse() { Error = NetError.Error, Message = "创建角色异常" });
                     return;
                 }
-                sender.SendAsync(new CharacterCreateResponse() { Status = Status.Ok, Message = "创建角色成功" }, null);
+                sender.Send(new CharacterCreateResponse() { Error = NetError.Success, Message = "创建角色成功" });
             }
         }
 
@@ -270,7 +270,7 @@ namespace GameServer.Service
                     Gold = character.Gold,
                 });
             }
-            sender.SendAsync(res, null);
+            sender.Send(res, null);
         }
 
         public void OnHandle(NetChannel sender, CharacterDeleteRequest request)
@@ -284,7 +284,7 @@ namespace GameServer.Service
                 .Where(t => t.PlayerId.Equals(sender.Player.PlayerId))
                 .Where(t => t.Id == request.CharacterId)
                 .ExecuteAffrows();
-            sender.SendAsync(new CharacterDeleteResponse() { Status = Status.Ok, Message = "删除完成" }, null);
+            sender.Send(new CharacterDeleteResponse() { Error = NetError.Success, Message = "删除完成" });
         }
 
         public void OnConnect(NetChannel sender)
