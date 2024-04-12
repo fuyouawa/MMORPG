@@ -7,6 +7,7 @@ using GameServer.Model;
 using GameServer.Network;
 using GameServer.Tool;
 using Serilog;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Numerics;
 using System.Threading.Channels;
@@ -15,7 +16,7 @@ namespace GameServer.Service
 {
     public class PlayerService : ServiceBase<PlayerService>
     {
-        private Dictionary<string, Player> _playerSet = new();
+        private ConcurrentDictionary<string, Player> _playerSet = new();
         private static readonly object _registerLock = new();
         private static readonly object _characterCreateLock = new();
 
@@ -43,10 +44,9 @@ namespace GameServer.Service
         {
             if (sender.Player == null)
                 return;
-            lock (_playerSet)
-            {
-                _playerSet.Remove(sender.Player.Username);
-            }
+            _playerSet.TryRemove(sender.Player.Username, out Player player);
+            Debug.Assert(sender.Player == player);
+            sender.Player = null;
         }
 
         // TODO:校验用户名、密码的合法性(长度等)
@@ -76,12 +76,12 @@ namespace GameServer.Service
                 return;
             }
             
-            var player = new Player(sender, request.Username);
-            lock (_playerSet)
-            {
-                _playerSet[request.Username] = player;
-            }
+            var player = new Player(sender, dbPlayer.Username, dbPlayer.Id);
+
+            _playerSet[dbPlayer.Username] = player;
+           
             sender.Player = player;
+
             sender.Send(new LoginResponse() { Error = NetError.Success });
         }
 

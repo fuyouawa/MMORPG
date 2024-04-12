@@ -19,10 +19,11 @@ namespace GameServer.Model
         public int PlayerId { get { return _playerId; } }
         public string Username { get { return _username; } }
 
-        public Player(NetChannel channel, string username) 
+        public Player(NetChannel channel, string username, int playerId) 
         {
             _channel = channel;
             _username = username;
+            _playerId = playerId;
         }
     }
 }
