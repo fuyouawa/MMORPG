@@ -35,6 +35,7 @@ namespace Serivce {
             var response = await NetClient.Session.ReceiveAsync<LoginResponse>();
             if (response.Error == NetError.Success)
             {
+                SceneManager.Instance.SwitchScene("EnterScene");
             }
             else
             {

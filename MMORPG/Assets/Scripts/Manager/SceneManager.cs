@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -20,6 +21,7 @@ public class SceneManager : MonoSingleton<SceneManager>
     public bool EnableMessageBox = true;
     public bool EnableSpinnerBox = true;
     public bool EnableNotificationBox = true;
+    public bool EnableBlackField = true;
 
     private Canvas _mainCanvas;
 
@@ -35,6 +37,19 @@ public class SceneManager : MonoSingleton<SceneManager>
     private MessageBoxManager _messageBoxManager;
     private NotificationBoxManager _notificationBoxManager;
     private SpinnerBoxManager _spinnerBoxManager;
+    private BlackFieldManager _blackFieldManager;
+
+    [MenuItem("Tools/MMORPG/Initialize Scene")]
+    public static void InitializeScene()
+    {
+        if (FindFirstObjectByType<SceneManager>() == null) {
+            var manager = new GameObject("Manager");
+            var self = new GameObject("Scene Manager");
+            self.transform.SetParent(manager.transform, false);
+            self.AddComponent<SceneManager>();
+        }
+    }
+
 
     protected override void Awake()
     {
@@ -44,7 +59,7 @@ public class SceneManager : MonoSingleton<SceneManager>
         {
             if (EnableMessageBox || EnableNotificationBox || EnableSpinnerBox)
             {
-                throw new Exception("要激活Box服务, 当前场景必须存在Canvas组件!");
+                throw new Exception("要启动Box, 当前场景必须存在一个Canvas!");
             }
             else
             {
@@ -53,9 +68,17 @@ public class SceneManager : MonoSingleton<SceneManager>
         }
         else
         {
-            _managerGroup = new GameObject("Manager Group(Create by SceneManager)").AddComponent<RectTransform>();
-            _managerGroup.SetParent(MainCanvas.transform, false);
-            InitManagers();
+            var found = _mainCanvas.transform.Find("Manager Group");
+            if (found != null)
+            {
+                _managerGroup = found.GetComponent<RectTransform>();
+            }
+            else
+            {
+                _managerGroup = new GameObject("Manager Group").AddComponent<RectTransform>();
+                _managerGroup.SetParent(MainCanvas.transform, false);
+                InitManagers();
+            }
         }
     }
 
@@ -72,6 +95,10 @@ public class SceneManager : MonoSingleton<SceneManager>
         if (EnableSpinnerBox)
         {
             _spinnerBoxManager = Instantiate(Resources.Load<SpinnerBoxManager>("Prefabs/UI/Tool/SpinnerBox Manager"), _managerGroup);
+        }
+        if (EnableBlackField)
+        {
+            _blackFieldManager = Instantiate(Resources.Load<BlackFieldManager>("Prefabs/UI/Tool/BlackField Manager"), _managerGroup);
         }
     }
 
@@ -198,6 +225,20 @@ public class SceneManager : MonoSingleton<SceneManager>
         Invoke(() =>
         {
             _spinnerBoxManager.Close();
+        });
+    }
+    #endregion
+
+    #region Scene
+    /// <summary>
+    /// 切换场景
+    /// </summary>
+    /// <param name="sceneName">场景名称</param>
+    public void SwitchScene(string sceneName)
+    {
+        _blackFieldManager.FadeIn(onComplete: () =>
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
         });
     }
     #endregion
