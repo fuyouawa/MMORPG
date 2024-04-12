@@ -14,6 +14,7 @@ using System.Threading.Channels;
 using System.Diagnostics;
 using Common.Tool;
 using System.Xml.Linq;
+using Serilog;
 
 namespace GameServer
 {
@@ -31,14 +32,14 @@ namespace GameServer
 
         public async Task Run()
         {
-            Global.Logger.Info("[Server] 开启服务器");
+            Log.Information("[Server] 开启服务器");
             _serverSocket.Listen();
             _connectionCleanupTimer = new(1000);
             _connectionCleanupTimer.Start();
             while (true)
             {
                 var socket = await _serverSocket.AcceptAsync();
-                Global.Logger.Info($"[Server] 客户端连接:{socket.RemoteEndPoint}");
+                Log.Information($"[Server] 客户端连接:{socket.RemoteEndPoint}");
                 NetChannel channel = new(socket);
                 OnNewChannelConnection(channel);
                 Task.Run(channel.StartAsync);
