@@ -236,10 +236,21 @@ public class SceneManager : MonoSingleton<SceneManager>
     /// <param name="sceneName">场景名称</param>
     public void SwitchScene(string sceneName)
     {
-        _blackFieldManager.FadeIn(onComplete: () =>
+        void LoadScene()
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
-        });
+        }
+        if (EnableBlackField)
+        {
+            _blackFieldManager.FadeIn(onComplete: () =>
+            {
+                LoadScene();
+            });
+        }
+        else
+        {
+            LoadScene();
+        }
     }
     #endregion
 }
