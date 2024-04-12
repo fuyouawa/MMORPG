@@ -14,6 +14,7 @@ using System.Threading.Channels;
 using System.Diagnostics;
 using Common.Tool;
 using System.Xml.Linq;
+using GameServer.Db;
 
 namespace GameServer
 {
@@ -34,7 +35,8 @@ namespace GameServer
             Global.Logger.Info("[Server] 开启服务器");
             _serverSocket.Listen();
             _connectionCleanupTimer = new(1000);
-            _connectionCleanupTimer.Start();
+            //_connectionCleanupTimer.Start();
+
             while (true)
             {
                 var socket = await _serverSocket.AcceptAsync();

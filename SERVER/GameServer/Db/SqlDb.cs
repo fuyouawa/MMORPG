@@ -12,18 +12,16 @@ namespace GameServer.Db
             $"Data Source={DbConfig.Host};Port={DbConfig.Port};User Id={DbConfig.User};Password={DbConfig.Password};" +
             $"Initial Catalog={DbConfig.DbName};Charset=utf8;SslMode=none;Max pool size=10";
 
-        private static IFreeSql _connection;
+        private static IFreeSql _connection = new FreeSql.FreeSqlBuilder()
+                        .UseConnectionString(FreeSql.DataType.MySql, ConnectionString)
+                        .UseAutoSyncStructure(true)
+                        .Build();
         public static IFreeSql Connection
         {
             get
             {
-                if (_connection == null)
-                {
-                    _connection = new FreeSql.FreeSqlBuilder()
-                        .UseConnectionString(FreeSql.DataType.MySql, ConnectionString)
-                        .UseAutoSyncStructure(true)
-                        .Build();
-                }
+                // 可以在初次访问连接的时候发送一个查询，验证数据库连接是否成功
+                
                 return _connection;
             }
         }

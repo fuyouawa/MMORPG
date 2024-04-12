@@ -44,7 +44,7 @@ namespace GameServer.Service
                 return;
             lock (_playerSet)
             {
-                _playerSet.Remove(sender.Player.Character.Name);
+                _playerSet.Remove(sender.Player.Username);
             }
         }
 
@@ -75,7 +75,7 @@ namespace GameServer.Service
                 return;
             }
             
-            var player = new Player(sender);
+            var player = new Player(sender, request.Username);
             lock (_playerSet)
             {
                 _playerSet[request.Username] = player;

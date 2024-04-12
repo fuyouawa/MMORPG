@@ -12,14 +12,17 @@ namespace GameServer.Model
     {
         private NetChannel _channel;
         private int _playerId;
+        private string _username;
 
         public Character? Character { get; set; }
         public NetChannel Channel { get { return _channel; } }
         public int PlayerId { get { return _playerId; } }
+        public string Username { get { return _username; } }
 
-        public Player(NetChannel channel) 
+        public Player(NetChannel channel, string username) 
         {
             _channel = channel;
+            _username = username;
         }
     }
 }
