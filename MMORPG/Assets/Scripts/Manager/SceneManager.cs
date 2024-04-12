@@ -93,6 +93,8 @@ public class SceneManager : MonoSingleton<SceneManager>
         }
     }
 
+    
+
     private void InitManagers()
     {
         if (EnableMessageBox)
