@@ -8,8 +8,6 @@ using UnityEngine.UI;
 
 public class BlackFieldManager : MonoBehaviour
 {
-    public bool FadeOutOnStart = true;
-
     private Image _image;
     private CanvasGroup _canvasGroup;
 
@@ -17,14 +15,6 @@ public class BlackFieldManager : MonoBehaviour
     {
         _image = GetComponent<Image>();
         _canvasGroup = GetComponent<CanvasGroup>();
-        if (FadeOutOnStart)
-        {
-            FadeOut();
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
     }
 
     public void FadeIn(float time = 0.5f, Action onComplete = null)

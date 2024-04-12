@@ -15,13 +15,15 @@ namespace GameServer.Network
     public class NetChannel : Connection
     {
         //TODO 可读性更高的ChannelName
-        public string ChannelName => _socket.RemoteEndPoint.ToString();
+        private string _channelName;
+        public string ChannelName => _channelName;
         public Player? Player { get; set; }
         public long LastActiveTime { get; set; }
         public LinkedListNode<NetChannel>? LinkedListNode { get; set; }
 
         public NetChannel(Socket socket) : base(socket)
         {
+            _channelName = _socket.RemoteEndPoint.ToString();
             ConnectionClosed += OnConnectionClosed;
             ErrorOccur += OnErrorOccur;
             PacketReceived += OnPacketReceived;
