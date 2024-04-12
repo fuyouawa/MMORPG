@@ -6,6 +6,7 @@ using GameServer.Manager;
 using GameServer.Model;
 using GameServer.Network;
 using GameServer.Tool;
+using Serilog;
 using System.Diagnostics;
 using System.Numerics;
 using System.Threading.Channels;
@@ -51,7 +52,7 @@ namespace GameServer.Service
         // TODO:校验用户名、密码的合法性(长度等)
         public void OnHandle(NetChannel sender, LoginRequest request)
         {
-            Global.Logger.Info($"{sender.ChannelName}登录请求: Username={request.Username}, Password={request.Password}");
+            Log.Information($"{sender.ChannelName}登录请求: Username={request.Username}, Password={request.Password}");
 
             if (sender.Player != null)
             {
@@ -86,7 +87,7 @@ namespace GameServer.Service
 
         public void OnHandle(NetChannel sender, RegisterRequest request)
         {
-            Global.Logger.Info($"{sender.ChannelName}注册请求: Username={request.Username}, Password={request.Password}");
+            Log.Information($"{sender.ChannelName}注册请求: Username={request.Username}, Password={request.Password}");
 
             if (sender.Player != null)
             {
@@ -133,7 +134,7 @@ namespace GameServer.Service
                 return;
             }
 
-            Global.Logger.Info($"{sender.ChannelName}进入游戏");
+            Log.Information($"{sender.ChannelName}进入游戏");
 
             var dbCharacter = SqlDb.Connection.Select<DbCharacter>()
                 .Where(t => t.PlayerId == sender.Player.PlayerId)
@@ -185,7 +186,7 @@ namespace GameServer.Service
 
         public void OnHandle(NetChannel sender, HeartBeatRequest request)
         {
-            Global.Logger.Debug($"{sender.ChannelName}发送心跳请求");
+            Log.Debug($"{sender.ChannelName}发送心跳请求");
             sender.Send(new HeartBeatResponse() { }, null);
         }
 

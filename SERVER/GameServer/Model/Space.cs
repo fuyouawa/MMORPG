@@ -1,5 +1,6 @@
 ﻿using Common.Proto.Space;
 using GameServer.Tool;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace GameServer.Model
         /// </summary>
         public void PlayerEnter(Player player)
         {
-            Global.Logger.Info($"角色进入场景:[{player.Character.EntityId}]{player.Character.Name}");
+            Log.Information($"角色进入场景:[{player.Character.EntityId}]{player.Character.Name}");
             var res = new EntityEnterResponse();
             res.SpaceId = SpaceId;
             res.EntityList.Add(player.Character.ToNetEntity());
@@ -51,7 +52,7 @@ namespace GameServer.Model
 
         public void PlayerLeave(Player player)
         {
-            Global.Logger.Info($"角色离开场景:[{player.Character.EntityId}]{player.Character.Name}");
+            Log.Information($"角色离开场景:[{player.Character.EntityId}]{player.Character.Name}");
 
             var res = new EntityLeaveResponse();
             res.EntityId = player.Character.EntityId;
