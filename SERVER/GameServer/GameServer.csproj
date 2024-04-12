@@ -14,6 +14,10 @@
     <PackageReference Include="FreeSql.Provider.MySql" Version="3.2.820" />
     <PackageReference Include="FreeSql.Repository" Version="3.2.820" />
     <PackageReference Include="Google.Protobuf" Version="3.26.1" />
+    <PackageReference Include="Serilog" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,7 +40,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(ProjectDir)\NLog.config&quot; &quot;$(TargetDir)\NLog.config&quot;&#xD;&#xA;$(SolutionDir)\DebugTools\syncc\syncc &quot;117.72.68.24&quot; $(TargetDir)" />
+    <Exec Command="$(SolutionDir)\DebugTools\syncc\syncc &quot;117.72.68.24&quot; $(TargetDir)" />
   </Target>
 
 </Project>
