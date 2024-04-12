@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 
 namespace Serivce {
-    public class UserService : MonoSingleton<UserService>
+    public class PlayerService : MonoSingleton<PlayerService>
     {
         public TMP_InputField LoginUsernameInput;
         public TMP_InputField LoginPasswordInput;
@@ -45,6 +45,7 @@ namespace Serivce {
                 });
             }
         }
+
         public async void TryRegister()
         {
             if (RegisterUsernameInput.text.Length < 4 || RegisterUsernameInput.text.Length > 12)
@@ -84,6 +85,11 @@ namespace Serivce {
                     Description = $"◊¢≤· ß∞‹!\n‘≠“Ú:{response.Error.GetInfo().Description}"
                 });
             }
+        }
+
+        public async void TryEnterGame()
+        {
+            SceneManager.Instance.SwitchScene("GameScene");
         }
     }
 }
