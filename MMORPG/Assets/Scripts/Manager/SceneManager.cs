@@ -23,6 +23,10 @@ public class SceneManager : MonoSingleton<SceneManager>
     public bool EnableNotificationBox = true;
     public bool EnableBlackField = true;
 
+    [Header("BlackField Config")]
+    [Tooltip("当场景开始时播放FadeOut(淡出)动画")]
+    public bool FadeOutOnAwake = true;
+
     private Canvas _mainCanvas;
 
     /// <summary>
@@ -99,6 +103,10 @@ public class SceneManager : MonoSingleton<SceneManager>
         if (EnableBlackField)
         {
             _blackFieldManager = Instantiate(Resources.Load<BlackFieldManager>("Prefabs/UI/Tool/BlackField Manager"), _managerGroup);
+            if (FadeOutOnAwake)
+                _blackFieldManager.FadeOut();
+            else
+                _blackFieldManager.gameObject.SetActive(false);
         }
     }
 
