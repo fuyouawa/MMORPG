@@ -55,6 +55,13 @@ public class SceneManager : MonoSingleton<SceneManager>
     }
 
 
+    [MenuItem("Debug/Close current channel")]
+    public static void CloseChannel()
+    {
+        NetClient.Session.Close();
+    }
+
+
     protected override void Awake()
     {
         base.Awake();

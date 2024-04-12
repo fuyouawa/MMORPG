@@ -70,6 +70,7 @@ public class NetSession : Connection
         _receivedPacketTSC.TrySetResult(true);
     }
 
+    //TODO ObjectDisposedException
     private void OnErrorOccur(object? sender, ErrorOccurEventArgs e)
     {
         Global.Logger.Error($"[Channel] ≥ˆœ÷“Ï≥£:{e.Exception}");
