@@ -14,11 +14,7 @@ using System.Threading.Channels;
 using System.Diagnostics;
 using Common.Tool;
 using System.Xml.Linq;
-<<<<<<< HEAD
-using GameServer.Db;
-=======
 using Serilog;
->>>>>>> ed1a718b25ee595995cf0cfdd9a91666690ac23b
 
 namespace GameServer
 {
