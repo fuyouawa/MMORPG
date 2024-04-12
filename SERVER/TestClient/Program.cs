@@ -2,6 +2,7 @@
 using Common.Proto;
 using Common.Proto.Player;
 using Common.Tool;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,8 +19,15 @@ namespace TestClient
         {
             //await TimeWheelTest.Start();
 
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo.Async(a => a.Console())
+                .WriteTo.Async(a => a.File("Logs/log-.txt", rollingInterval: RollingInterval.Day))
+                .CreateLogger();
+
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             await socket.ConnectAsync(NetConfig.ServerIpAddress, NetConfig.ServerPort);
+            Log.Information("连接到服务器");
             var session = new NetSession(socket);
             //Task.Run(async () =>
             //{

@@ -1,6 +1,7 @@
 ﻿using Common.Network;
 using GameServer.Model;
 using GameServer.Tool;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,23 +29,23 @@ namespace GameServer.Network
 
         private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
         {
-            Global.Logger.Debug($"[Channel] 接收来自{ChannelName}的数据包:{e.Packet.Message.GetType()}");
+            Log.Debug($"[Channel] 接收来自{ChannelName}的数据包:{e.Packet.Message.GetType()}");
         }
 
         private void OnErrorOccur(object? sender, ErrorOccurEventArgs e)
         {
-            Global.Logger.Error($"[Channel] {ChannelName}出现异常:{e.Exception}");
+            Log.Error($"[Channel] {ChannelName}出现异常:{e.Exception}");
         }
 
         private void OnConnectionClosed(object? sender, ConnectionClosedEventArgs e)
         {
             if (e.IsManual)
             {
-                Global.Logger.Info($"[Channel] 成功关闭对{ChannelName}的链接!");
+                Log.Information($"[Channel] 成功关闭对{ChannelName}的链接!");
             }
             else
             {
-                Global.Logger.Info($"[Channel] {ChannelName}对端关闭链接");
+                Log.Information($"[Channel] {ChannelName}对端关闭链接");
             }
         }
     }
