@@ -40,6 +40,16 @@ namespace Common.Network
         }
     }
 
+    public class WarningOccurEventArgs : EventArgs
+    {
+        public string Description { get; }
+
+        public WarningOccurEventArgs(string description)
+        {
+            Description = description;
+        }
+    }
+
     public class Connection
     {
         public static readonly int MaxSendQueueCount = 1024;
@@ -47,6 +57,7 @@ namespace Common.Network
         public event EventHandler<ConnectionClosedEventArgs>? ConnectionClosed;
         public event EventHandler<PacketReceivedEventArgs>? PacketReceived;
         public event EventHandler<ErrorOccurEventArgs>? ErrorOccur;
+        public event EventHandler<WarningOccurEventArgs>? WarningOccur;
 
         protected Socket _socket;
 
@@ -67,7 +78,10 @@ namespace Common.Network
         public void Close()
         {
             if (!_socket.Connected)
+            {
+                WarningOccur?.Invoke(this, new WarningOccurEventArgs("尝试关闭一个已经断开连接的Socket!"));
                 return;
+            }
             try
             {
                 _socket.Shutdown(SocketShutdown.Both);
@@ -86,6 +100,10 @@ namespace Common.Network
 
         public async Task SendAsync(Google.Protobuf.IMessage msg)
         {
+            if (!_socket.Connected) {
+                WarningOccur?.Invoke(this, new WarningOccurEventArgs("尝试向一个已经关闭的Socket发送数据!"));
+                return;
+            }
             try
             {
                 var packet = new Packet(msg);
@@ -101,6 +119,11 @@ namespace Common.Network
         public delegate void SuccessSentCallback(Connection sender, Packet packet);
         public void Send(Google.Protobuf.IMessage msg, SuccessSentCallback? successSentCallback = null)
         {
+            if (!_socket.Connected)
+            {
+                WarningOccur?.Invoke(this, new WarningOccurEventArgs("尝试向一个已经关闭的Socket发送数据!"));
+                return;
+            }
             try
             {
                 var packet = new Packet(msg);
@@ -139,15 +162,23 @@ namespace Common.Network
 
         protected virtual void HandleError(Exception ex)
         {
-            if (ex is SocketException socketEx)
+            if (ex is SocketException ex1)
             {
-                Debug.Assert(socketEx.SocketErrorCode != SocketError.Success);
+                Debug.Assert(ex1.SocketErrorCode != SocketError.Success);
                 Debug.Assert(_closeConnectionByManual != false);
 
                 if (_closeConnectionByManual == true) return;
                 _closeConnectionByManual = false;
                 Close();
                 return;
+            }
+            else if (ex is ObjectDisposedException ex2)
+            {
+                if (_closeConnectionByManual != null)
+                {
+                    WarningOccur?.Invoke(this, new WarningOccurEventArgs("在Socket被关闭后发生了ObjectDisposedException, 不过应该问题不大"));
+                    return;
+                }
             }
             ErrorOccur?.Invoke(this, new ErrorOccurEventArgs(ex));
         }
