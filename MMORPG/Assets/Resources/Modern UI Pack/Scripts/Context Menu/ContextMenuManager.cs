@@ -10,7 +10,7 @@ namespace Michsky.MUIP
     {
         // Resources
         public Canvas mainCanvas;
-        public Camera targetCamera;
+        public UnityEngine.Camera targetCamera;
         public GameObject contextContent;
         public Animator contextAnimator;
         public GameObject contextButton;
@@ -50,7 +50,7 @@ namespace Michsky.MUIP
         {
             if (mainCanvas == null) { mainCanvas = gameObject.GetComponentInParent<Canvas>(); }
             if (contextAnimator == null) { contextAnimator = gameObject.GetComponent<Animator>(); }
-            if (cameraSource == CameraSource.Main) { targetCamera = Camera.main; }
+            if (cameraSource == CameraSource.Main) { targetCamera = UnityEngine.Camera.main; }
 
             contextRect = gameObject.GetComponent<RectTransform>();
             contentRect = contextContent.GetComponent<RectTransform>();
