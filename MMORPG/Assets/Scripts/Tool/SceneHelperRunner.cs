@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -28,7 +28,7 @@ public class SceneHelperRunner : MonoSingleton<SceneHelperRunner>
 
     private readonly Queue<Action> _executionQueue = new Queue<Action>();
 
-    [MenuItem("Tools/MMORPG/初始化场景")]
+    //[MenuItem("Tools/MMORPG/初始化场景")]
     public static void InitializeScene()
     {
         if (GameObject.FindFirstObjectByType<SceneHelperRunner>() == null)
@@ -38,7 +38,7 @@ public class SceneHelperRunner : MonoSingleton<SceneHelperRunner>
         var canvas = GameObject.FindFirstObjectByType<Canvas>();
         if (canvas == null)
         {
-            EditorUtility.DisplayDialog("错误", "您必须先创建一个Canvas!", "确定");
+            //EditorUtility.DisplayDialog("错误", "您必须先创建一个Canvas!", "确定");
             return;
         }
         var group = canvas.transform.Find("Box Manager");
@@ -74,7 +74,7 @@ public class SceneHelperRunner : MonoSingleton<SceneHelperRunner>
             var inst = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/UI/Tool/BlackField Manager"), group2);
             inst.name = "BlackField Manager";
         }
-        EditorUtility.DisplayDialog("提示", "初始化完成!", "确定");
+        //EditorUtility.DisplayDialog("提示", "初始化完成!", "确定");
     }
 
     protected override void Awake()

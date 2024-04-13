@@ -6,6 +6,6 @@ public class EnterService : MonoBehaviour
 {
     public void DoEnterGame()
     {
-        SceneHelper.SwitchScene("GameScene");
+        SceneHelper.SwitchScene("Space1Scene");
     }
 }
