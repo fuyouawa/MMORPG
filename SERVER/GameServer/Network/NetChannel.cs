@@ -49,7 +49,7 @@ namespace GameServer.Network
         {
             if (e.IsManual)
             {
-                Log.Information($"[Channel:{ChannelName}] 服务器关闭链接");
+                Log.Information($"[Channel:{ChannelName}] 由服务器关闭链接");
             }
             else
             {
