@@ -79,7 +79,20 @@ namespace Common.Network
         {
             if (!_socket.Connected)
             {
-                WarningOccur?.Invoke(this, new WarningOccurEventArgs("尝试关闭一个已经断开连接的Socket!"));
+                // 如果为false, 说明是由报错引起的断开连接
+                // 所以直接通知ConnectionClosed
+                if (_closeConnectionByManual == false)
+                {
+                    ConnectionClosed?.Invoke(this, new ConnectionClosedEventArgs(true));
+                }
+                else if (_closeConnectionByManual == true)
+                {
+                    WarningOccur?.Invoke(this, new WarningOccurEventArgs("尝试重复关闭同一个连接!"));
+                }
+                else
+                {
+                    WarningOccur?.Invoke(this, new WarningOccurEventArgs("尝试关闭一个已经断开连接的Socket!"));
+                }
                 return;
             }
             try
