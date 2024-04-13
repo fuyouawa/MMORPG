@@ -22,6 +22,7 @@ public class Test : MonoBehaviour
 
         SceneManager.Instance.Invoke(() =>
         {
+
             var prefabs = Resources.Load<GameObject>("Prefabs/DogPBR");
             var hero = Instantiate(prefabs);
             hero.transform.position = response.Character.Entity.Position.ToVector3();
