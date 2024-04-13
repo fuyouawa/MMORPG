@@ -16,7 +16,7 @@ namespace GameServer.Service
 {
     public class PlayerService : ServiceBase<PlayerService>
     {
-        private ConcurrentDictionary<string, Player> _playerSet = new();
+        private Dictionary<string, Player> _playerSet = new();
         private static readonly object _registerLock = new();
         private static readonly object _characterCreateLock = new();
 
@@ -44,8 +44,10 @@ namespace GameServer.Service
         {
             if (sender.Player == null)
                 return;
-            _playerSet.TryRemove(sender.Player.Username, out Player player);
-            Debug.Assert(sender.Player == player);
+            lock (_playerSet)
+            {
+                _playerSet.Remove(sender.Player.Username);
+            }
             sender.Player = null;
         }
 
@@ -54,34 +56,34 @@ namespace GameServer.Service
         {
             Log.Information($"{sender.ChannelName}登录请求: Username={request.Username}, Password={request.Password}");
 
-            if (sender.Player != null)
+            lock (_playerSet)
             {
-                sender.Send(new LoginResponse() { Error = NetError.UnknowError });
-                return;
+                if (sender.Player != null)
+                {
+                    sender.Send(new LoginResponse() { Error = NetError.UnknowError });
+                    return;
+                }
+
+                if (_playerSet.ContainsKey(request.Username))
+                {
+                    sender.Send(new LoginResponse() { Error = NetError.LoginConflict });
+                    return;
+                }
+
+                var dbPlayer = SqlDb.Connection.Select<DbPlayer>()
+                    .Where(p => p.Username == request.Username)
+                    .Where(p => p.Password == request.Password)
+                    .First();
+                if (dbPlayer == null)
+                {
+                    sender.Send(new LoginResponse() { Error = NetError.IncorrectUsernameOrPassword });
+                    return;
+                }
+
+                var player = new Player(sender, dbPlayer.Username, dbPlayer.Id);
+                _playerSet[dbPlayer.Username] = player;
+                sender.Player = player;
             }
-
-            if (_playerSet.ContainsKey(request.Username))
-            {
-                sender.Send(new LoginResponse() { Error = NetError.LoginConflict });
-                return;
-            }
-
-            var dbPlayer = SqlDb.Connection.Select<DbPlayer>()
-                .Where(p => p.Username == request.Username)
-                .Where(p => p.Password == request.Password)
-                .First();
-            if (dbPlayer == null)
-            {
-                sender.Send(new LoginResponse() { Error = NetError.IncorrectUsernameOrPassword });
-                return;
-            }
-            
-            var player = new Player(sender, dbPlayer.Username, dbPlayer.Id);
-
-            _playerSet[dbPlayer.Username] = player;
-           
-            sender.Player = player;
-
             sender.Send(new LoginResponse() { Error = NetError.Success });
         }
 

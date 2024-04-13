@@ -29,7 +29,6 @@ public class NetRunner : MonoBehaviour
         });
     }
 
-
     public NetObject Spawn(NetObject obj, Vector3 position, Quaternion rotation)
     {
         var inst = Instantiate(obj, position, rotation);
