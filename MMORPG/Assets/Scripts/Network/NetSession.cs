@@ -1,5 +1,6 @@
 using Common.Network;
 using Common.Tool;
+using Serilog;
 using System.Collections.Generic;
 using System;
 using System.Diagnostics;
@@ -18,15 +19,13 @@ public class SuddenPacketReceivedEventArgs
 
 public class NetSession : Connection
 {
-    /// <summary>
-    /// 突发消息处理
-    /// </summary>
     public event EventHandler<SuddenPacketReceivedEventArgs>? SuddenPacketReceived;
 
     public NetSession(Socket socket) : base(socket)
     {
         ConnectionClosed += OnConnectionClosed;
         ErrorOccur += OnErrorOccur;
+        WarningOccur += OnWarningOccur;
         PacketReceived += OnPacketReceived;
     }
 
@@ -57,7 +56,7 @@ public class NetSession : Connection
 
     private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
     {
-        Global.Logger.Debug($"[Channel] 接收来自服务器端的数据包:{e.Packet.Message.GetType()}");
+        Log.Information($"[Channel] 接收数据包:{e.Packet.Message.GetType()}");
         if (ProtoManager.Instance.IsEmergency(e.Packet.Message.GetType()))
         {
             SuddenPacketReceived?.Invoke(this, new SuddenPacketReceivedEventArgs(e.Packet));
@@ -70,21 +69,25 @@ public class NetSession : Connection
         _receivedPacketTSC.TrySetResult(true);
     }
 
-    //TODO ObjectDisposedException
     private void OnErrorOccur(object? sender, ErrorOccurEventArgs e)
     {
-        Global.Logger.Error($"[Channel] 出现异常:{e.Exception}");
+        Log.Error($"[Channel] 出现异常:{e.Exception}");
+    }
+
+    private void OnWarningOccur(object? sender, WarningOccurEventArgs e)
+    {
+        Log.Warning($"[Channel] 出现警告:{e.Description}");
     }
 
     private void OnConnectionClosed(object? sender, ConnectionClosedEventArgs e)
     {
         if (e.IsManual)
         {
-            Global.Logger.Info($"[Channel] 关闭对服务器端的链接!");
+            Log.Information($"[Channel] 关闭对服务器端的链接!");
         }
         else
         {
-            Global.Logger.Info($"[Channel] 对端关闭链接");
+            Log.Information($"[Channel] 对端关闭链接");
         }
     }
 }
