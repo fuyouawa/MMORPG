@@ -26,28 +26,34 @@ namespace GameServer.Network
             _channelName = _socket.RemoteEndPoint.ToString();
             ConnectionClosed += OnConnectionClosed;
             ErrorOccur += OnErrorOccur;
+            WarningOccur += OnWarningOccur;
             PacketReceived += OnPacketReceived;
+        }
+
+        private void OnWarningOccur(object? sender, WarningOccurEventArgs e)
+        {
+            Log.Warning($"[Channel:{ChannelName}] 出现警告:{e.Description}");
         }
 
         private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
         {
-            Log.Debug($"[Channel] 接收来自{ChannelName}的数据包:{e.Packet.Message.GetType()}");
+            Log.Debug($"[Channel:{ChannelName}] 接收到数据包:{e.Packet.Message.GetType()}");
         }
 
         private void OnErrorOccur(object? sender, ErrorOccurEventArgs e)
         {
-            Log.Error($"[Channel] {ChannelName}出现异常:{e.Exception}");
+            Log.Error($"[Channel:{ChannelName}] 出现异常:{e.Exception}");
         }
 
         private void OnConnectionClosed(object? sender, ConnectionClosedEventArgs e)
         {
             if (e.IsManual)
             {
-                Log.Information($"[Channel] 成功关闭对{ChannelName}的链接!");
+                Log.Information($"[Channel:{ChannelName}] 服务器关闭链接");
             }
             else
             {
-                Log.Information($"[Channel] {ChannelName}对端关闭链接");
+                Log.Information($"[Channel:{ChannelName}] 对端关闭链接");
             }
         }
     }
