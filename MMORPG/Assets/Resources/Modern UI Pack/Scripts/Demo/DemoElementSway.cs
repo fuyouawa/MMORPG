@@ -67,7 +67,7 @@ namespace Michsky.MUIP
 
         void ProcessSSC()
         {
-            if (allowSway == true) { swayObject.position = Vector2.Lerp(swayObject.position, Camera.main.ScreenToWorldPoint(cursorPos), Time.deltaTime * smoothness); }
+            if (allowSway == true) { swayObject.position = Vector2.Lerp(swayObject.position, UnityEngine.Camera.main.ScreenToWorldPoint(cursorPos), Time.deltaTime * smoothness); }
             else { swayObject.localPosition = Vector2.Lerp(swayObject.localPosition, defaultPos, Time.deltaTime * smoothness); }
         }
 
@@ -76,7 +76,7 @@ namespace Michsky.MUIP
             if (allowSway == true) 
             {
                 Vector3 clampedPos = new Vector3(cursorPos.x, cursorPos.y, (mainCanvas.transform.position.z / 6f));
-                swayObject.position = Vector3.Lerp(swayObject.position, Camera.main.ScreenToWorldPoint(clampedPos), Time.deltaTime * smoothness);
+                swayObject.position = Vector3.Lerp(swayObject.position, UnityEngine.Camera.main.ScreenToWorldPoint(clampedPos), Time.deltaTime * smoothness);
             }
             else { swayObject.localPosition = Vector3.Lerp(swayObject.localPosition, defaultPos, Time.deltaTime * smoothness); }
         }
