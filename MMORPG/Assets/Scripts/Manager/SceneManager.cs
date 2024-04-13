@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,7 +71,7 @@ public class SceneManager : MonoSingleton<SceneManager>
             }
             else
             {
-                Global.Logger.Warn("当前场景还未创建Canvas组件!");
+                Log.Warning("当前场景还未创建Canvas组件!");
             }
         }
         else
