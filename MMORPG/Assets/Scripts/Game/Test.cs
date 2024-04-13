@@ -11,12 +11,7 @@ public class Test : MonoBehaviour
     public GameObject _heroCamera;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        //Emm();
-    }
-
-    async void Emm()
+    async void Start()
     {
         var request = new EnterGameRequest
         {
@@ -36,6 +31,11 @@ public class Test : MonoBehaviour
             var camera = _heroCamera.GetComponent<CinemachineFreeLook>();
             camera.Follow = hero.transform;
             camera.LookAt = hero.transform;
+            
+            var script = hero.AddComponent<PlayerMove>();
+            script.Player = hero;
+            script.MoveSpeed = 5;
+            script.PlayerCamera = camera;
         });
     }
 

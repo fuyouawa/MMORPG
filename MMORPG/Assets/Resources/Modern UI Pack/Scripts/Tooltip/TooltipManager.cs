@@ -12,7 +12,7 @@ namespace Michsky.MUIP
         public Canvas mainCanvas;
         public GameObject tooltipObject;
         public GameObject tooltipContent;
-        public Camera targetCamera;
+        public UnityEngine.Camera targetCamera;
 
         // Settings
         [Range(0.01f, 0.5f)] public float tooltipSmoothness = 0.1f;
@@ -68,7 +68,7 @@ namespace Michsky.MUIP
             tooltipContent.GetComponent<RectTransform>().pivot = new Vector2(tooltipContent.GetComponent<RectTransform>().pivot.x, 0f);
 
             if (mainCanvas == null) { mainCanvas = gameObject.GetComponentInParent<Canvas>(); }
-            if (cameraSource == CameraSource.Main) { targetCamera = Camera.main; }
+            if (cameraSource == CameraSource.Main) { targetCamera = UnityEngine.Camera.main; }
 
             contentRect = tooltipContent.GetComponentInParent<RectTransform>();
             tooltipRect = tooltipObject.GetComponent<RectTransform>();
