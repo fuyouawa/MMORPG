@@ -3,9 +3,13 @@ using Tool;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.VisualScripting;
+using Cinemachine;
 
 public class Test : MonoBehaviour
 {
+    public GameObject _heroCamera;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +32,10 @@ public class Test : MonoBehaviour
             hero.transform.position = response.Character.Entity.Position.ToVector3();
             var direction = response.Character.Entity.Direction.ToVector3();
             hero.transform.rotation = Quaternion.Euler(direction.x, direction.y, direction.z);
+
+            var camera = _heroCamera.GetComponent<CinemachineFreeLook>();
+            camera.Follow = hero.transform;
+            camera.LookAt = hero.transform;
         });
     }
 
