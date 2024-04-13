@@ -15,6 +15,8 @@ public class BlackFieldManager : MonoBehaviour
     {
         _image = GetComponent<Image>();
         _canvasGroup = GetComponent<CanvasGroup>();
+        _canvasGroup.alpha = 1.0f;
+        FadeOut();
     }
 
     public void FadeIn(float time = 0.5f, Action onComplete = null)
