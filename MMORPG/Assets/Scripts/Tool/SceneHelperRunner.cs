@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.SceneManagement;
 #endif
 using UnityEngine;
 
@@ -34,29 +35,23 @@ public class SceneHelperRunner : MonoSingleton<SceneHelperRunner>
     [MenuItem("Tools/MMORPG/初始化场景")]
     public static void InitializeScene()
     {
-        if (GameObject.FindFirstObjectByType<SceneHelperRunner>() == null)
-        {
-            new GameObject("SceneHelper Runner").AddComponent<SceneHelperRunner>();
-        }
         var canvas = GameObject.FindFirstObjectByType<Canvas>();
         if (canvas == null)
         {
-            //EditorUtility.DisplayDialog("错误", "您必须先创建一个Canvas!", "确定");
+            EditorUtility.DisplayDialog("错误", "您必须先创建一个Canvas!", "确定");
             return;
         }
-        var group = canvas.transform.Find("Box Manager");
+        var group = canvas.transform.Find("SceneHelper Runner");
         if (group == null)
         {
-            group = new GameObject("Box Manager").AddComponent<RectTransform>();
+            group = new GameObject("SceneHelper Runner").AddComponent<RectTransform>();
             group.SetParent(canvas.transform, false);
         }
-        var group2 = canvas.transform.Find("Auxiliary");
-        if (group2 == null)
-        {
-            group2 = new GameObject("Auxiliary").AddComponent<RectTransform>();
-            group2.SetParent(canvas.transform, false);
-        }
 
+        if (GameObject.FindFirstObjectByType<SceneHelperRunner>() == null)
+        {
+            group.gameObject.AddComponent<SceneHelperRunner>();
+        }
         if (GameObject.FindFirstObjectByType<MessageBoxManager>() == null)
         {
             var inst = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/UI/Tool/MessageBox Manager"), group);
@@ -74,10 +69,10 @@ public class SceneHelperRunner : MonoSingleton<SceneHelperRunner>
         }
         if (GameObject.FindFirstObjectByType<BlackFieldManager>() == null)
         {
-            var inst = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/UI/Tool/BlackField Manager"), group2);
+            var inst = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/UI/Tool/BlackField Manager"), group);
             inst.name = "BlackField Manager";
         }
-        //EditorUtility.DisplayDialog("提示", "初始化完成!", "确定");
+        EditorSceneManager.SaveOpenScenes();
     }
 #endif
 
