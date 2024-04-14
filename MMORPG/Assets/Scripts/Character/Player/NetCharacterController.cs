@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NetPlayer : NetObject
+public class NetCharacterController : MonoBehaviour
 {
     public float MoveSpeed = 5;
     public float RotateLerp = 0.5f;
