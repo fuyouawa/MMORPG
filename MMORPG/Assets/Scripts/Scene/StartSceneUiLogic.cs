@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-public class StartService : MonoBehaviour
+public class StartSceneUiLogic : MonoBehaviour
 {
     public TMP_InputField LoginUsernameInput;
     public TMP_InputField LoginPasswordInput;

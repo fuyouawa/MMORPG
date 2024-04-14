@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 /// <summary>
@@ -28,6 +30,7 @@ public class SceneHelperRunner : MonoSingleton<SceneHelperRunner>
 
     private readonly Queue<Action> _executionQueue = new Queue<Action>();
 
+#if UNITY_EDITOR
     [MenuItem("Tools/MMORPG/初始化场景")]
     public static void InitializeScene()
     {
@@ -76,6 +79,7 @@ public class SceneHelperRunner : MonoSingleton<SceneHelperRunner>
         }
         EditorUtility.DisplayDialog("提示", "初始化完成!", "确定");
     }
+#endif
 
     protected override void Awake()
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnterService : MonoBehaviour
+public class EnterSceneUiLogic : MonoBehaviour
 {
     public void DoEnterGame()
     {

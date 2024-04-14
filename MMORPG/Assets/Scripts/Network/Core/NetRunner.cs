@@ -20,7 +20,7 @@ public class NetRunner : MonoBehaviour
         SceneHelper.Invoke(() =>
         {
             var player = Spawn(
-                Resources.Load<NetPlayer>("Prefabs/Character/Player/DogPBR"),
+                Resources.Load<GameObject>("Prefabs/Character/Player/DogPBR"),
                 response.Character.Entity.Position.ToVector3(),
                 Quaternion.Euler(response.Character.Entity.Direction.ToVector3()));
 
@@ -30,7 +30,7 @@ public class NetRunner : MonoBehaviour
     }
 
 
-    public NetObject Spawn(NetObject obj, Vector3 position, Quaternion rotation)
+    public GameObject Spawn(GameObject obj, Vector3 position, Quaternion rotation)
     {
         var inst = Instantiate(obj, position, rotation);
         return inst;
