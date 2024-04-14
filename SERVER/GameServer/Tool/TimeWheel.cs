@@ -29,7 +29,7 @@ namespace Common.Tool
         private int _tickMs;  // 最小槽的时间范围，毫秒单位
         private volatile bool _stop;
 
-        public TimeWheel(int precision = 10) {
+        public TimeWheel(int tickMs = 10) {
 
             _addList = new();
             _backupAddList = new();
@@ -37,7 +37,7 @@ namespace Common.Tool
             _backupRemoveList = new();
             _slot = new LinkedList<TimeTask>[SlotCount * CircleCount];
             _indexArr = new int[CircleCount];
-            _tickMs = precision;
+            _tickMs = tickMs;
             _stop = false;
 
             for (int i = 0; i < SlotCount * CircleCount; i++)

@@ -25,16 +25,15 @@ namespace Common.Proto.Space {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChdTcGFjZS9FbnRpdHlFbnRlci5wcm90bxISQ29tbW9uLlByb3RvLlNwYWNl",
-            "GhZFbnRpdHkvTmV0RW50aXR5LnByb3RvIjkKEkVudGl0eUVudGVyUmVxdWVz",
-            "dBIQCghzcGFjZV9pZBgBIAEoBRIRCgllbnRpdHlfaWQYAiADKAUiXAoTRW50",
-            "aXR5RW50ZXJSZXNwb25zZRIQCghzcGFjZV9pZBgBIAEoBRIzCgtlbnRpdHlf",
-            "bGlzdBgCIAMoCzIeLkNvbW1vbi5Qcm90by5FbnRpdHkuTmV0RW50aXR5YgZw",
-            "cm90bzM="));
+            "GhZFbnRpdHkvTmV0RW50aXR5LnByb3RvIicKEkVudGl0eUVudGVyUmVxdWVz",
+            "dBIRCgllbnRpdHlfaWQYAiADKAUiSgoTRW50aXR5RW50ZXJSZXNwb25zZRIz",
+            "CgtlbnRpdHlfbGlzdBgCIAMoCzIeLkNvbW1vbi5Qcm90by5FbnRpdHkuTmV0",
+            "RW50aXR5YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Entity.NetEntityReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Space.EntityEnterRequest), global::Common.Proto.Space.EntityEnterRequest.Parser, new[]{ "SpaceId", "EntityId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Space.EntityEnterResponse), global::Common.Proto.Space.EntityEnterResponse.Parser, new[]{ "SpaceId", "EntityList" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Space.EntityEnterRequest), global::Common.Proto.Space.EntityEnterRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Space.EntityEnterResponse), global::Common.Proto.Space.EntityEnterResponse.Parser, new[]{ "EntityList" }, null, null, null, null)
           }));
     }
     #endregion
@@ -76,7 +75,6 @@ namespace Common.Proto.Space {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EntityEnterRequest(EntityEnterRequest other) : this() {
-      spaceId_ = other.spaceId_;
       entityId_ = other.entityId_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -85,18 +83,6 @@ namespace Common.Proto.Space {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EntityEnterRequest Clone() {
       return new EntityEnterRequest(this);
-    }
-
-    /// <summary>Field number for the "space_id" field.</summary>
-    public const int SpaceIdFieldNumber = 1;
-    private int spaceId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int SpaceId {
-      get { return spaceId_; }
-      set {
-        spaceId_ = value;
-      }
     }
 
     /// <summary>Field number for the "entity_id" field.</summary>
@@ -125,7 +111,6 @@ namespace Common.Proto.Space {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (SpaceId != other.SpaceId) return false;
       if(!entityId_.Equals(other.entityId_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -134,7 +119,6 @@ namespace Common.Proto.Space {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (SpaceId != 0) hash ^= SpaceId.GetHashCode();
       hash ^= entityId_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -154,10 +138,6 @@ namespace Common.Proto.Space {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (SpaceId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(SpaceId);
-      }
       entityId_.WriteTo(output, _repeated_entityId_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -169,10 +149,6 @@ namespace Common.Proto.Space {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (SpaceId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(SpaceId);
-      }
       entityId_.WriteTo(ref output, _repeated_entityId_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -184,9 +160,6 @@ namespace Common.Proto.Space {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (SpaceId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SpaceId);
-      }
       size += entityId_.CalculateSize(_repeated_entityId_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -199,9 +172,6 @@ namespace Common.Proto.Space {
     public void MergeFrom(EntityEnterRequest other) {
       if (other == null) {
         return;
-      }
-      if (other.SpaceId != 0) {
-        SpaceId = other.SpaceId;
       }
       entityId_.Add(other.entityId_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -219,10 +189,6 @@ namespace Common.Proto.Space {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            SpaceId = input.ReadInt32();
-            break;
-          }
           case 18:
           case 16: {
             entityId_.AddEntriesFrom(input, _repeated_entityId_codec);
@@ -243,10 +209,6 @@ namespace Common.Proto.Space {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            SpaceId = input.ReadInt32();
-            break;
-          }
           case 18:
           case 16: {
             entityId_.AddEntriesFrom(ref input, _repeated_entityId_codec);
@@ -294,7 +256,6 @@ namespace Common.Proto.Space {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EntityEnterResponse(EntityEnterResponse other) : this() {
-      spaceId_ = other.spaceId_;
       entityList_ = other.entityList_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -303,18 +264,6 @@ namespace Common.Proto.Space {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EntityEnterResponse Clone() {
       return new EntityEnterResponse(this);
-    }
-
-    /// <summary>Field number for the "space_id" field.</summary>
-    public const int SpaceIdFieldNumber = 1;
-    private int spaceId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int SpaceId {
-      get { return spaceId_; }
-      set {
-        spaceId_ = value;
-      }
     }
 
     /// <summary>Field number for the "entity_list" field.</summary>
@@ -343,7 +292,6 @@ namespace Common.Proto.Space {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (SpaceId != other.SpaceId) return false;
       if(!entityList_.Equals(other.entityList_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -352,7 +300,6 @@ namespace Common.Proto.Space {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (SpaceId != 0) hash ^= SpaceId.GetHashCode();
       hash ^= entityList_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -372,10 +319,6 @@ namespace Common.Proto.Space {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (SpaceId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(SpaceId);
-      }
       entityList_.WriteTo(output, _repeated_entityList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -387,10 +330,6 @@ namespace Common.Proto.Space {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (SpaceId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(SpaceId);
-      }
       entityList_.WriteTo(ref output, _repeated_entityList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -402,9 +341,6 @@ namespace Common.Proto.Space {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (SpaceId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SpaceId);
-      }
       size += entityList_.CalculateSize(_repeated_entityList_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -417,9 +353,6 @@ namespace Common.Proto.Space {
     public void MergeFrom(EntityEnterResponse other) {
       if (other == null) {
         return;
-      }
-      if (other.SpaceId != 0) {
-        SpaceId = other.SpaceId;
       }
       entityList_.Add(other.entityList_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -437,10 +370,6 @@ namespace Common.Proto.Space {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            SpaceId = input.ReadInt32();
-            break;
-          }
           case 18: {
             entityList_.AddEntriesFrom(input, _repeated_entityList_codec);
             break;
@@ -460,10 +389,6 @@ namespace Common.Proto.Space {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            SpaceId = input.ReadInt32();
-            break;
-          }
           case 18: {
             entityList_.AddEntriesFrom(ref input, _repeated_entityList_codec);
             break;
