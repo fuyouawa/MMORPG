@@ -48,9 +48,6 @@ public class NetCharacterController : MonoBehaviour
             Vector3 moveDirection = Vector3.zero;
             if (inputDirection != Vector3.zero)
             {
-                Debug.Log(horizontalInput);
-                Debug.Log(verticalInput);
-
                 moveDirection = Quaternion.LookRotation(cameraForward) * inputDirection;
 
                 PlayerRun();

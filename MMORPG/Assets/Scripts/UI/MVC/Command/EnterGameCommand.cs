@@ -9,6 +9,6 @@ public class EnterGameCommand : AbstractCommand
 {
     protected override void OnExecute()
     {
-        SceneHelper.SwitchScene("GameScene");
+        SceneHelper.SwitchScene("Space1Scene");
     }
 }
