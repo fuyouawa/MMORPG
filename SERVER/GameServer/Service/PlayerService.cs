@@ -33,7 +33,7 @@ namespace GameServer.Service
                 return false;
             }
 
-            if (name.Length > 7)
+            if (name.Length < 4 || name.Length > 12)
             {
                 return false;
             }
