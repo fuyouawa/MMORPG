@@ -14,8 +14,10 @@ public class NetRunner : MonoBehaviour
         {
             CharacterId = 1,
         };
+        SceneHelper.BeginSpinnerBox(new());
         NetClient.Session.Send(request);
         var response = await NetClient.Session.ReceiveAsync<EnterGameResponse>();
+        SceneHelper.EndSpinnerBox();
 
         SceneHelper.Invoke(() =>
         {
@@ -24,8 +26,8 @@ public class NetRunner : MonoBehaviour
                 response.Character.Entity.Position.ToVector3(),
                 Quaternion.Euler(response.Character.Entity.Direction.ToVector3()));
 
-            var cameraController = Camera.main.GetComponent<CameraController>();
-            cameraController.InitFromTarget(player.transform);
+            var camera = Camera.main.GetComponent<CameraController>();
+            camera.InitFromTarget(player.transform);
         });
     }
 
