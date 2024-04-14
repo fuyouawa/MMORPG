@@ -48,6 +48,14 @@ namespace GameServer.Service
             {
                 _playerSet.Remove(sender.Player.Username);
             }
+            if (sender.Player.Character != null)
+            {
+                var space = SpaceManager.Instance.GetSpaceById(sender.Player.Character.SpeedId);
+                if (space != null)
+                {
+                    space.PlayerLeave(sender.Player);
+                }
+            }
             sender.Player = null;
         }
 
@@ -133,6 +141,7 @@ namespace GameServer.Service
         {
             if (sender.Player == null)
             {
+                Log.Information($"{sender.ChannelName}进入游戏失败：未登录");
                 return;
             }
 
