@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class NetCharacterController : MonoBehaviour
 {
-    public float MoveSpeed = 5;
-    public float RotateLerp = 0.5f;
+    public float MoveSpeed;
+    public float RotateLerp;
 
     private Rigidbody _rigidbody;
 

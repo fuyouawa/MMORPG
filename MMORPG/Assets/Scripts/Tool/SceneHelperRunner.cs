@@ -41,7 +41,7 @@ public class SceneHelperRunner : MonoSingleton<SceneHelperRunner>
         var canvas = GameObject.FindFirstObjectByType<Canvas>();
         if (canvas == null)
         {
-            EditorUtility.DisplayDialog("错误", "您必须先创建一个Canvas!", "确定");
+            //EditorUtility.DisplayDialog("错误", "您必须先创建一个Canvas!", "确定");
             return;
         }
         var group = canvas.transform.Find("Box Manager");
@@ -77,7 +77,7 @@ public class SceneHelperRunner : MonoSingleton<SceneHelperRunner>
             var inst = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/UI/Tool/BlackField Manager"), group2);
             inst.name = "BlackField Manager";
         }
-        EditorUtility.DisplayDialog("提示", "初始化完成!", "确定");
+        //EditorUtility.DisplayDialog("提示", "初始化完成!", "确定");
     }
 #endif
 

@@ -6,6 +6,6 @@ public class EnterSceneUiLogic : MonoBehaviour
 {
     public void DoEnterGame()
     {
-        SceneHelper.SwitchScene("GameScene");
+        SceneHelper.SwitchScene("Space1Scene");
     }
 }
