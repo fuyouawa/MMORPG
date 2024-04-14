@@ -144,7 +144,7 @@ public class StartSceneUIManager : MonoSingleton<StartSceneUIManager>
             Username = RegisterUsernameInput.text,
             Password = RegisterPasswordInput.text
         };
-        SceneHelper.BeginSpinnerBox(new() { Description = "µÇÂ¼ÖÐ......" });
+        SceneHelper.BeginSpinnerBox(new() { Description = "×¢²áÖÐ......" });
         NetClient.Session.Send(request);
         var response = await NetClient.Session.ReceiveAsync<RegisterResponse>();
         SceneHelper.EndSpinnerBox();
