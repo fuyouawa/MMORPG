@@ -28,7 +28,6 @@ namespace GameServer.Model
         {
             Log.Information($"角色进入场景:[{player.Character.EntityId}]{player.Character.Name}");
             var res = new EntityEnterResponse();
-            res.SpaceId = SpaceId;
             res.EntityList.Add(player.Character.ToNetEntity());
 
             lock (_playerSet)
