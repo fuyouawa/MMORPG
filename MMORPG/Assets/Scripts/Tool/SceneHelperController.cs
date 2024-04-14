@@ -17,17 +17,19 @@ using UnityEngine;
 /// 2. 管理一些资源, 比如Canvas
 /// 3. 提供Invoke函数, 使函数可以在Unity主线程中运行
 /// </summary>
-public class SceneHelperRunner : MonoSingleton<SceneHelperRunner>
+public class SceneHelperController : MonoSingleton<SceneHelperController>
 {
+    [SerializeField]
+    private Canvas _mainCanvas;
     /// <summary>
     /// 当前场景中的主要Canvas
     /// </summary>
-    public Canvas MainCanvas { get; private set; }
+    public Canvas MainCanvas => _mainCanvas;
 
-    public MessageBoxManager MessageBoxManager { get; private set; }
-    public NotificationBoxManager NotificationBoxManager { get; private set; }
-    public SpinnerBoxManager SpinnerBoxManager { get; private set; }
-    public BlackFieldManager BlackFieldManager { get; private set; }
+    public MessageBoxManager MessageBoxManager;
+    public NotificationBoxManager NotificationBoxManager;
+    public SpinnerBoxManager SpinnerBoxManager;
+    public BlackFieldManager BlackFieldManager;
 
     private readonly Queue<Action> _executionQueue = new Queue<Action>();
 
@@ -41,57 +43,23 @@ public class SceneHelperRunner : MonoSingleton<SceneHelperRunner>
             EditorUtility.DisplayDialog("错误", "您必须先创建一个Canvas!", "确定");
             return;
         }
-        var group = canvas.transform.Find("SceneHelper Runner");
-        if (group == null)
+        if (FindFirstObjectByType<SceneHelperController>() == null)
         {
-            group = new GameObject("SceneHelper Runner").AddComponent<RectTransform>();
-            group.SetParent(canvas.transform, false);
+            var controller = Instantiate(Resources.Load<SceneHelperController>("Prefabs/UI/Tool/SceneHelper Controller"), canvas.transform);
+            controller.name = "SceneHelper Controller";
+            controller._mainCanvas = canvas;
         }
-
-        if (GameObject.FindFirstObjectByType<SceneHelperRunner>() == null)
-        {
-            group.gameObject.AddComponent<SceneHelperRunner>();
-        }
-        if (GameObject.FindFirstObjectByType<MessageBoxManager>() == null)
-        {
-            var inst = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/UI/Tool/MessageBox Manager"), group);
-            inst.name = "MessageBox Manager";
-        }
-        if (GameObject.FindFirstObjectByType<NotificationBoxManager>() == null)
-        {
-            var inst = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/UI/Tool/NotificationBox Manager"), group);
-            inst.name = "NotificationBox Manager";
-        }
-        if (GameObject.FindFirstObjectByType<SpinnerBoxManager>() == null)
-        {
-            var inst = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/UI/Tool/SpinnerBox Manager"), group);
-            inst.name = "SpinnerBox Manager";
-        }
-        if (GameObject.FindFirstObjectByType<BlackFieldManager>() == null)
-        {
-            var inst = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/UI/Tool/BlackField Manager"), group);
-            inst.name = "BlackField Manager";
-        }
-        EditorSceneManager.SaveOpenScenes();
+        EditorUtility.DisplayDialog("提示", "初始化成功!\n注意: 初始化后您必须先手动保存一下当前场景, 否则初始化创建的GameObject可能会丢失", "确定");
     }
 #endif
 
-    protected override void Awake()
+    private void Start()
     {
-        base.Awake();
-        var found = GameObject.FindObjectsByType<Canvas>(FindObjectsSortMode.None);
-        Debug.Assert(found.Length == 1);
-        MainCanvas = found[0];
-
-        Debug.Assert(MainCanvas != null);
-        MessageBoxManager = GameObject.FindFirstObjectByType<MessageBoxManager>();
-        Debug.Assert(MessageBoxManager != null);
-        NotificationBoxManager = GameObject.FindFirstObjectByType<NotificationBoxManager>();
-        Debug.Assert(NotificationBoxManager != null);
-        SpinnerBoxManager = GameObject.FindFirstObjectByType<SpinnerBoxManager>();
-        Debug.Assert(SpinnerBoxManager != null);
-        BlackFieldManager = GameObject.FindFirstObjectByType<BlackFieldManager>();
-        Debug.Assert(BlackFieldManager != null);
+        if (_mainCanvas == null)
+        {
+            _mainCanvas = FindFirstObjectByType<Canvas>();
+            Debug.Assert(_mainCanvas != null);
+        }
     }
 
     private void Update()
@@ -109,7 +77,8 @@ public class SceneHelperRunner : MonoSingleton<SceneHelperRunner>
     {
         lock (_executionQueue)
         {
-            _executionQueue.Enqueue(() => {
+            _executionQueue.Enqueue(() =>
+            {
                 StartCoroutine(action);
             });
         }
@@ -155,7 +124,7 @@ public static class SceneHelper
     /// </summary>
     public static void Invoke(Action action)
     {
-        SceneHelperRunner.Instance.Invoke(action);
+        SceneHelperController.Instance.Invoke(action);
     }
 
     /// <summary>
@@ -163,7 +132,7 @@ public static class SceneHelper
     /// </summary>
     public static Task InvokeAsync(Action action)
     {
-        return SceneHelperRunner.Instance.InvokeAsync(action);
+        return SceneHelperController.Instance.InvokeAsync(action);
     }
 
     /// <summary>
@@ -173,8 +142,8 @@ public static class SceneHelper
     {
         Invoke(() =>
         {
-            SceneHelperRunner.Instance.MessageBoxManager.Config = config;
-            SceneHelperRunner.Instance.MessageBoxManager.Show();
+            SceneHelperController.Instance.MessageBoxManager.Config = config;
+            SceneHelperController.Instance.MessageBoxManager.Show();
         });
     }
     /// <summary>
@@ -201,8 +170,8 @@ public static class SceneHelper
     {
         Invoke(() =>
         {
-            SceneHelperRunner.Instance.NotificationBoxManager.Config = config;
-            SceneHelperRunner.Instance.NotificationBoxManager.Create();
+            SceneHelperController.Instance.NotificationBoxManager.Config = config;
+            SceneHelperController.Instance.NotificationBoxManager.Create();
         });
     }
 
@@ -214,8 +183,8 @@ public static class SceneHelper
     {
         Invoke(() =>
         {
-            SceneHelperRunner.Instance.SpinnerBoxManager.Config = config;
-            SceneHelperRunner.Instance.SpinnerBoxManager.Show();
+            SceneHelperController.Instance.SpinnerBoxManager.Config = config;
+            SceneHelperController.Instance.SpinnerBoxManager.Show();
         });
     }
 
@@ -223,7 +192,7 @@ public static class SceneHelper
     {
         Invoke(() =>
         {
-            SceneHelperRunner.Instance.SpinnerBoxManager.Close();
+            SceneHelperController.Instance.SpinnerBoxManager.Close();
         });
     }
 
@@ -233,7 +202,7 @@ public static class SceneHelper
     /// <param name="sceneName">场景名称</param>
     public static void SwitchScene(string sceneName)
     {
-        SceneHelperRunner.Instance.BlackFieldManager.FadeIn(onComplete: () =>
+        SceneHelperController.Instance.BlackFieldManager.FadeIn(onComplete: () =>
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
         });
