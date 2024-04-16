@@ -26,6 +26,7 @@ namespace GameServer.Model
         /// </summary>
         public void PlayerEnter(Player player)
         {
+            if (player.Character == null) return;
             Log.Information($"角色进入场景:[{player.Character.EntityId}]{player.Character.Name}");
             var res = new EntityEnterResponse();
             res.EntityList.Add(player.Character.ToNetEntity());
@@ -33,15 +34,16 @@ namespace GameServer.Model
             lock (_playerSet)
             {
                 // 广播新玩家加入
-                foreach (var iter in _playerSet)
+                foreach (var player_ in _playerSet)
                 {
-                    iter.Value.Channel.Send(res, null);
+                    player_.Value.Channel.Send(res, null);
                 }
 
                 // 向新玩家投递已在场景中的所有玩家
                 res.EntityList.Clear();
                 foreach (var player_ in _playerSet)
                 {
+                    if (player_.Value.Character == null) return;
                     res.EntityList.Add(player_.Value.Character.ToNetEntity());
                 }
                 player.Channel.Send(res, null);
@@ -51,6 +53,7 @@ namespace GameServer.Model
 
         public void PlayerLeave(Player player)
         {
+            if (player.Character == null) return;
             Log.Information($"角色离开场景:[{player.Character.EntityId}]{player.Character.Name}");
 
             var res = new EntityLeaveResponse();
@@ -68,13 +71,17 @@ namespace GameServer.Model
 
         public void EntityUpdate(Entity entity)
         {
-            var res = new EntitySyncResponse();
+            var res = new EntitySyncResponse() { EntitySync = new() };
             // res.EntitySync.Status = ;
             res.EntitySync.Entity = entity.ToNetEntity();
             lock (_playerSet)
             {
                 foreach (var player in _playerSet)
                 {
+                    if (player.Value.Character == null)
+                    {
+                        continue;
+                    }
                     if (player.Value.Character.EntityId == entity.EntityId)
                     {
                         player.Value.Character.Position = res.EntitySync.Entity.Position.ToVector3();

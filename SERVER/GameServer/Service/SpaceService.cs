@@ -11,23 +11,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameServer.Service
+namespace Service
 {
     public class SpaceService : ServiceBase<SpaceService>
     {
         public void OnChannelClosed(NetChannel sender)
         {
-            if (sender.Player == null)
-                return;
-            var space = SpaceManager.Instance.GetSpaceById(sender.Player.Character.SpeedId);
-            space?.PlayerLeave(sender.Player);
+            if (sender.Player == null) return;
+            sender.Player.Space?.PlayerLeave(sender.Player);
         }
 
         public void OnHandle(NetChannel sender, EntitySyncRequest request)
         {
-            var space = SpaceManager.Instance.GetSpaceById(sender.Player.Character.SpeedId);
-            
-            space?.EntityUpdate(request.EntitySync.Entity.ToEntity());
+            if (sender.Player == null) return;
+            sender.Player.Space?.EntityUpdate(request.EntitySync.Entity.ToEntity());
         }
 
         public void OnConnect(NetChannel sender)

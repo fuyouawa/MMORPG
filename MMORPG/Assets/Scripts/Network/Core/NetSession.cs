@@ -7,11 +7,11 @@ using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
-public class SuddenPacketReceivedEventArgs
+public class EmergencyPacketReceivedEventArgs
 {
     public Packet Packet { get; }
 
-    public SuddenPacketReceivedEventArgs(Packet packet)
+    public EmergencyPacketReceivedEventArgs(Packet packet)
     {
         Packet = packet;
     }
@@ -19,7 +19,7 @@ public class SuddenPacketReceivedEventArgs
 
 public class NetSession : Connection
 {
-    public event EventHandler<SuddenPacketReceivedEventArgs>? SuddenPacketReceived;
+    public event EventHandler<EmergencyPacketReceivedEventArgs>? EmergencyPacketReceived;
 
     public NetSession(Socket socket) : base(socket)
     {
@@ -37,16 +37,23 @@ public class NetSession : Connection
     {
         while (true)
         {
-            await _receivedPacketTSC.Task;
-            _receivedPacketTSC = new TaskCompletionSource<bool>();
+            //await _receivedPacketTSC.Task;
+            //_receivedPacketTSC = new TaskCompletionSource<bool>();
+
+            await Task.Delay(100);
             Packet? packet;
             lock (_receivedPackets)
             {
                 packet = _receivedPackets.Find(packet => { return packet.Message.GetType() == typeof(T); });
                 if (packet != null)
+                {
+                    //UnityEngine.Debug.Log(typeof(T));
                     _receivedPackets.Remove(packet);
+                }
                 else
+                {
                     continue;
+                }
             }
             var res = packet.Message as T;
             Debug.Assert(res != null);
@@ -59,14 +66,15 @@ public class NetSession : Connection
         Log.Information($"[Channel] 接收数据包:{e.Packet.Message.GetType()}");
         if (ProtoManager.Instance.IsEmergency(e.Packet.Message.GetType()))
         {
-            SuddenPacketReceived?.Invoke(this, new SuddenPacketReceivedEventArgs(e.Packet));
+            EmergencyPacketReceived?.Invoke(this, new EmergencyPacketReceivedEventArgs(e.Packet));
             return;
         }
         lock (_receivedPackets)
         {
             _receivedPackets.Add(e.Packet);
         }
-        _receivedPacketTSC.TrySetResult(true);
+
+        //_receivedPacketTSC.TrySetResult(true);
     }
 
     private void OnErrorOccur(object? sender, ErrorOccurEventArgs e)
