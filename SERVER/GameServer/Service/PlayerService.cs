@@ -14,6 +14,8 @@ using System.Threading.Channels;
 
 namespace GameServer.Service
 {
+    // 可能有逻辑仍需要加锁
+
     public class PlayerService : ServiceBase<PlayerService>
     {
         private Dictionary<string, Player> _playerSet = new();
@@ -48,15 +50,6 @@ namespace GameServer.Service
             {
                 _playerSet.Remove(sender.Player.Username);
             }
-            if (sender.Player.Character != null)
-            {
-                var space = SpaceManager.Instance.GetSpaceById(sender.Player.Character.SpeedId);
-                if (space != null)
-                {
-                    space.PlayerLeave(sender.Player);
-                }
-            }
-            sender.Player = null;
         }
 
         // TODO:校验用户名、密码的合法性(长度等)
@@ -92,6 +85,7 @@ namespace GameServer.Service
                 _playerSet[dbPlayer.Username] = player;
                 sender.Player = player;
             }
+            Log.Information($"{sender.ChannelName}登录成功");
             sender.Send(new LoginResponse() { Error = NetError.Success });
         }
 
@@ -133,22 +127,29 @@ namespace GameServer.Service
                     sender.Send(new RegisterResponse() { Error = NetError.UnknowError });
                     return;
                 }
+                Log.Information($"{sender.ChannelName}注册成功");
                 sender.Send(new RegisterResponse() { Error = NetError.Success });
             }
         }
 
         public void OnHandle(NetChannel sender, EnterGameRequest request)
         {
+            Log.Information($"{sender.ChannelName}进入游戏请求");
+
             if (sender.Player == null)
             {
                 Log.Information($"{sender.ChannelName}进入游戏失败：未登录");
                 return;
             }
 
-            Log.Information($"{sender.ChannelName}进入游戏");
+            if (sender.Player.Character != null)
+            {
+                Log.Information($"{sender.ChannelName}进入游戏失败：重复进入");
+                return;
+            }
 
             var dbCharacter = SqlDb.Connection.Select<DbCharacter>()
-                .Where(t => t.PlayerId == sender.Player.PlayerId)
+                //.Where(t => t.PlayerId == sender.Player.PlayerId)
                 .Where(t => t.Id == request.CharacterId)
                 .First();
             if (dbCharacter == null)
@@ -184,7 +185,7 @@ namespace GameServer.Service
                 sender.Send(new EnterGameResponse() { Error = NetError.InvalidMap });
                 return;
             }
-            sender.Player.Character = playerCharacter;
+            sender.Player.SetCharacter(playerCharacter, space);
             space.PlayerEnter(sender.Player);
 
             var res = new EnterGameResponse()
@@ -192,13 +193,14 @@ namespace GameServer.Service
                 Error = NetError.Success,
                 Character = playerCharacter.ToNetCharacter(),
             };
+            Log.Information($"{sender.ChannelName}进入游戏成功");
             sender.Send(res, null);
         }
 
         public void OnHandle(NetChannel sender, HeartBeatRequest request)
         {
             Log.Debug($"{sender.ChannelName}发送心跳请求");
-            sender.Send(new HeartBeatResponse() { }, null);
+            //sender.Send(new HeartBeatResponse() { }, null);
         }
 
         public void OnHandle(NetChannel sender, CharacterCreateRequest request)

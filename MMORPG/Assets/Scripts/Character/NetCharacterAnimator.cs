@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class NetCharacterAnimator : MonoBehaviour
 {
     private Animator _animator;
@@ -14,47 +15,47 @@ public class NetCharacterAnimator : MonoBehaviour
         GetHit = 4,
         Die = 5,
     }
-    private AnimationStatus _status = AnimationStatus.Idle;
-    public AnimationStatus Status {  get { return _status; } }
+    private AnimationStatus _status;
+    public AnimationStatus Status { get { return _status; } }
 
     void Start()
     {
+        _status = AnimationStatus.Idle;
         _animator = GetComponent<Animator>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         Reset();
         switch (_status)
         {
             case AnimationStatus.Idle:
-            {
-                _animator.SetBool("Idle", true);
-                break;
-            }
+                {
+                    _animator.SetBool("Idle", true);
+                    break;
+                }
             case AnimationStatus.Run:
-            {
-                _animator.SetBool("Run", true);
-                break;
-            }
+                {
+                    _animator.SetBool("Run", true);
+                    break;
+                }
             case AnimationStatus.GetHit:
-            {
-                _animator.SetBool("GetHit", true);
-                break;
-            }
+                {
+                    _animator.SetBool("GetHit", true);
+                    break;
+                }
             case AnimationStatus.Attack:
-            {
-                _animator.SetBool("Attack01", true);
-                break;
-            }
+                {
+                    _animator.SetBool("Attack01", true);
+                    break;
+                }
             case AnimationStatus.Die:
-            {
-                _animator.SetBool("Die", true);
-                break;
-            }
+                {
+                    _animator.SetBool("Die", true);
+                    break;
+                }
         }
     }
-
 
     private void Reset()
     {

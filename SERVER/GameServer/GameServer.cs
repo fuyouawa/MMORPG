@@ -1,6 +1,7 @@
 ﻿using Common.Network;
 using GameServer.Network;
 using GameServer.Service;
+using Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
