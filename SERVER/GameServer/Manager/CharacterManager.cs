@@ -32,7 +32,6 @@ namespace GameServer.Manager
                 Name = name,
                 Space = _space,
                 Speed = 5,
-
             };
             EntityManager.Instance.AddEntity(character);
 

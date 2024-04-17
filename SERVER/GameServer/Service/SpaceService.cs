@@ -26,7 +26,7 @@ namespace Service
         public void OnHandle(NetChannel sender, EntitySyncRequest request)
         {
             if (sender.Player == null || sender.Player.Character == null) return;
-            sender.Player.Character.Space?.EntityUpdate(request.EntitySync.Entity.ToEntity());
+            sender.Player.Character.Space?.EntityUpdate(request.EntitySync.Entity);
         }
 
         public void OnConnect(NetChannel sender)
