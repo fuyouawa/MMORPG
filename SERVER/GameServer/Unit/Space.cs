@@ -84,13 +84,9 @@ namespace GameServer.Unit
 
         public void EntityUpdate(Entity entity)
         {
-            //entity.Position = res.EntitySync.Entity.Position.ToVector3();
-            //entity.Direction = res.EntitySync.Entity.Direction.ToVector3();
-
             var res = new EntitySyncResponse() { EntitySync = new() };
             // res.EntitySync.Status = ;
             res.EntitySync.Entity = entity.ToNetEntity();
-
             lock (CharacterManager.CharacterDict)
             {
                 // 向所有角色广播新实体的状态更新
