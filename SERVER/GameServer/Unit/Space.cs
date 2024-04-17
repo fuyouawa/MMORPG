@@ -35,7 +35,7 @@ namespace GameServer.Unit
         }
 
         /// <summary>
-        /// 角色进入场景
+        /// 广播实体进入场景
         /// </summary>
         public void EntityEnter(Entity entity)
         {
@@ -43,33 +43,21 @@ namespace GameServer.Unit
             var res = new EntityEnterResponse();
             res.EntityList.Add(entity.ToNetEntity());
 
-            lock (CharacterManager.CharacterDict)
-            {
-                // 向所有角色广播新实体加入场景
-                foreach (var character in CharacterManager.CharacterDict.Values)
-                {
-                    if (character.EntityId == entity.EntityId) continue;
-                    character.Player.Channel.Send(res, null);
-                }
+            // 向所有角色广播新实体加入场景
+            CharacterManager.Broadcast(res, entity);
 
-                // 如果新实体是角色，
-                // 向新角色投递已在场景中的所有玩家
-                if (entity.EntityType == EntityType.Character)
-                {
-                    res.EntityList.Clear();
-                    foreach (var character in CharacterManager.CharacterDict.Values)
-                    {
-                        if (character.EntityId == entity.EntityId) continue;
-                        res.EntityList.Add(character.ToNetEntity());
-                    }
-                    var currentCharacter = entity as Character;
-                    currentCharacter.Player.Channel.Send(res, null);
-                }
+            // 如果新实体是角色，
+            // 向新角色投递已在场景中的所有玩家
+            if (entity.EntityType == EntityType.Character)
+            {
+                CharacterManager.CharacterListToNetEntityList(res.EntityList, entity);
+                var currentCharacter = entity as Character;
+                currentCharacter.Player.Channel.Send(res, null);
             }
         }
 
         /// <summary>
-        /// 角色离开场景
+        ///  广播实体离开场景
         /// </summary>
         public void EntityLeave(Entity entity)
         {
@@ -78,19 +66,12 @@ namespace GameServer.Unit
             var res = new EntityLeaveResponse();
             res.EntityId = entity.EntityId;
 
-            lock (CharacterManager.CharacterDict)
-            {
-                // 向所有角色广播新实体离开场景
-                foreach (var character in CharacterManager.CharacterDict.Values)
-                {
-                    if (character.EntityId == entity.EntityId) continue;
-                    character.Player.Channel.Send(res, null);
-                }
-            }
+            // 向所有角色广播新实体离开场景
+            CharacterManager.Broadcast(res, entity);
         }
 
         /// <summary>
-        /// 根据网络实体对象更新实体在场景中的位置
+        /// 根据网络实体对象更新实体并广播
         /// </summary>
         /// <param name="netEntity"></param>
         public void EntityUpdate(NetEntity netEntity)
@@ -104,15 +85,9 @@ namespace GameServer.Unit
             var res = new EntitySyncResponse() { EntitySync = new() };
             // res.EntitySync.Status = ;
             res.EntitySync.Entity = netEntity;
-            lock (CharacterManager.CharacterDict)
-            {
-                // 向所有角色广播新实体的状态更新
-                foreach (var character in CharacterManager.CharacterDict.Values)
-                {
-                    if (character.EntityId == entity.EntityId) continue;
-                    character.Player.Channel.Send(res, null);
-                }
-            }
+
+            // 向所有角色广播新实体的状态更新
+            CharacterManager.Broadcast(res, entity);
         }
     }
 }

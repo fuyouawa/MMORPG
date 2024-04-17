@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace GameServer.Manager
 {
+    /// <summary>
+    /// 怪物管理器
+    /// 负责管理地图内的所有怪物
+    /// </summary>
     public class MonsterManager
     {
         private Dictionary<int, Monster> _monsterDict;
