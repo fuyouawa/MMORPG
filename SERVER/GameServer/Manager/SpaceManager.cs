@@ -1,5 +1,5 @@
 ﻿using Common.Tool;
-using GameServer.Model;
+using GameServer.Unit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,28 +12,28 @@ namespace GameServer.Manager
     {
         public readonly int InitSpaceId = 1;
 
-        private Dictionary<int, Space> _spaceSet = new();
+        private Dictionary<int, Space> _spaceDict = new();
 
         public SpaceManager()
         {
-            var noviceVillage = new Space()
-            {
-                SpaceId = InitSpaceId,
-                Name = "新手村",
-                Description = "新手村",
-                Music = 0,
-            };
-            _spaceSet[noviceVillage.SpaceId] = noviceVillage;
+            var noviceVillage = NewSpace(InitSpaceId, "新手村");
+        }
+
+        public Space NewSpace(int spaceId, string name)
+        {
+            var space = new Space(spaceId, name);
+            _spaceDict.Add(spaceId, space);
+            return space;
         }
 
         public Space? GetSpaceById(int spaceId)
         {
-            return _spaceSet.GetValueOrDefault(spaceId, null);
+            return _spaceDict.GetValueOrDefault(spaceId, null);
         }
 
         public Space? GetSpaceByName(string spaceName)
         {
-            foreach (var space in _spaceSet)
+            foreach (var space in _spaceDict)
             {
                 if (space.Value.Name == spaceName)
                 {

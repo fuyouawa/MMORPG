@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameServer.Model
+namespace GameServer.Unit
 {
-    public class Monster
+    public class Monster : Actor
     {
 
     }

@@ -10,7 +10,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using GameServer.Tool;
-using GameServer.Model;
+using GameServer.Unit;
 using System.Threading.Channels;
 using System.Diagnostics;
 using Common.Tool;
