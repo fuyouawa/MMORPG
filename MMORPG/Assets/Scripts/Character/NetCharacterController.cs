@@ -13,8 +13,8 @@ public class NetCharacterController : MonoBehaviour, IController
 
     private NetCharacterAnimator _animator;
 
-    public float RotateLerp = 0.2f;
-    public float MoveLerp = 0.2f;
+    private float _rotateLerp = 0.2f;
+    private float _moveLerp = 0.2f;
 
     public IArchitecture GetArchitecture()
     {
@@ -88,7 +88,7 @@ public class NetCharacterController : MonoBehaviour, IController
             if (inputDirection != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection.normalized, Vector3.up);
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotateLerp);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, _rotateLerp);
             }
 
             this.SendCommand(new CharacterPositionChangeCommand(NetPlayer, transform.position, transform.rotation));
@@ -99,7 +99,7 @@ public class NetCharacterController : MonoBehaviour, IController
     {
         // 是网络玩家，进行位置同步
         //transform.position = NetPlayer.Position;
-        transform.position = Vector3.Lerp(transform.position, NetPlayer.Position, MoveLerp);
-        transform.rotation = Quaternion.Lerp(transform.rotation, NetPlayer.Rotation, RotateLerp);
+        transform.position = Vector3.Lerp(transform.position, NetPlayer.Position, _moveLerp);
+        transform.rotation = Quaternion.Lerp(transform.rotation, NetPlayer.Rotation, _rotateLerp);
     }
 }

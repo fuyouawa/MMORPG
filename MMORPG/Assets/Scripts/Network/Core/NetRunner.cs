@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 using ThirdPersonCamera;
 using Tool;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 public class NetRunner : MonoBehaviour, IController
 {
-    NetPlayer player;
+    NetPlayer _player;
+    
+    Vector3 _position;
+    Quaternion _rotation;
+
 
     public IArchitecture GetArchitecture()
     {
@@ -29,11 +34,11 @@ public class NetRunner : MonoBehaviour, IController
         var response = await NetClient.Session.ReceiveAsync<EnterGameResponse>();
         SceneHelper.EndSpinnerBox();
 
-        player = new NetPlayer(response.Character.Entity.EntityId,
-            response.Character.Entity.Position.ToVector3(),
-            Quaternion.Euler(response.Character.Entity.Direction.ToVector3()),
-            true);
-        this.SendCommand(new CharacterEnterCommand(player));
+        _position = response.Character.Entity.Position.ToVector3();
+        _rotation = Quaternion.Euler(response.Character.Entity.Direction.ToVector3());
+        _player = new NetPlayer(response.Character.Entity.EntityId,
+            _position, _rotation, true);
+        this.SendCommand(new CharacterEnterCommand(_player));
 
         Task.Run(OnEntityEnterResponse);
         Task.Run(OnEntitySyncResponse);
@@ -44,19 +49,23 @@ public class NetRunner : MonoBehaviour, IController
     {
         while (true)
         {
-            var request = new EntitySyncRequest
-            {
-                EntitySync = new()
+            if (_position != _player.Position || _rotation != _player.Rotation) {
+                var request = new EntitySyncRequest
                 {
-                    Entity = new()
+                    EntitySync = new()
                     {
-                        EntityId = player.EntityId,
-                        Position = player.Position.ToNetVector3(),
-                        Direction = player.Rotation.eulerAngles.ToNetVector3()
+                        Entity = new()
+                        {
+                            EntityId = _player.EntityId,
+                            Position = _player.Position.ToNetVector3(),
+                            Direction = _player.Rotation.eulerAngles.ToNetVector3()
+                        }
                     }
-                }
-            };
-            NetClient.Session.Send(request);
+                };
+                _position = _player.Position;
+                _rotation = _player.Rotation;
+                NetClient.Session.Send(request);
+            }
             await Task.Delay(100);
         }
     }
