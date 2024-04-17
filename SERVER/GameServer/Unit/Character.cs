@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameServer.Model
+namespace GameServer.Unit
 {
     public class Character  : Actor
     {
+        public Player Player;
         public int CharacterId;
         public int JobId;
         public int Exp;
-        public int Hp;
-        public int Mp;
+        public int Gold;
     }
 }

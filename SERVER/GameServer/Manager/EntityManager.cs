@@ -1,6 +1,6 @@
 ﻿using Common.Network;
 using Common.Tool;
-using GameServer.Model;
+using GameServer.Unit;
 using GameServer.Network;
 using System;
 using System.Collections.Concurrent;
@@ -15,7 +15,7 @@ namespace GameServer.Manager
     public class EntityManager : Singleton<EntityManager>
     {
         private int _serialNum = 0;
-        private ConcurrentDictionary<int, Entity> _entitiesSet = new();
+        private ConcurrentDictionary<int, Entity> _entitiesDict = new();
 
         public int NewEntityId()
         {
@@ -24,17 +24,17 @@ namespace GameServer.Manager
 
         public void AddEntity(Entity entity)
         {
-            _entitiesSet[entity.EntityId] = entity;
+            _entitiesDict[entity.EntityId] = entity;
         }
 
-        public void RemoveEntity(int entityId)
+        public void RemoveEntity(Entity entity)
         {
-            _entitiesSet.TryRemove(entityId, out Entity entity);
+            _entitiesDict.TryRemove(entity.EntityId, out Entity outEntity);
         }
 
         public Entity? GetEntity(int entityId)
         {
-            return _entitiesSet.GetValueOrDefault(entityId, null);
+            return _entitiesDict.GetValueOrDefault(entityId, null);
         }
     }
 }

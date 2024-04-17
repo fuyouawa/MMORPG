@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameServer.Model
+namespace GameServer.Unit
 {
     public class Player
     {
@@ -15,14 +15,12 @@ namespace GameServer.Model
         private int _playerId;
         private string _username;
         private Character? _character;
-        private Space? _space;
 
         public NetChannel Channel { get { return _channel; } }
         public int PlayerId { get { return _playerId; } }
         public string Username { get { return _username; } }
 
         public Character? Character { get { return _character; } }
-        public Space? Space { get { return _space; } }
 
         public Player(NetChannel channel, string username, int playerId) 
         {
@@ -31,10 +29,9 @@ namespace GameServer.Model
             _playerId = playerId;
         }
 
-        public void SetCharacter(Character character, Space space)
+        public void SetCharacter(Character character)
         {
             _character = character;
-            _space = space;
         }
     }
 }
