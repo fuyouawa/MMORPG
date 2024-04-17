@@ -26,15 +26,15 @@ namespace Common.Proto.Player {
           string.Concat(
             "ChlQbGF5ZXIvTmV0Q2hhcmFjdGVyLnByb3RvEhNDb21tb24uUHJvdG8uUGxh",
             "eWVyGhZFbnRpdHkvTmV0RW50aXR5LnByb3RvIsYBCgxOZXRDaGFyYWN0ZXIS",
-            "FAoMY2hhcmFjdGVyX2lkGAEgASgFEi4KBmVudGl0eRgCIAEoCzIeLkNvbW1v",
-            "bi5Qcm90by5FbnRpdHkuTmV0RW50aXR5Eg4KBmpvYl9pZBgDIAEoBRIMCgRu",
-            "YW1lGAQgASgJEg0KBWxldmVsGAUgASgFEgsKA2V4cBgGIAEoAxIQCghzcGFj",
-            "ZV9pZBgHIAEoBRIMCgRnb2xkGAggASgDEgoKAmhwGAkgASgFEgoKAm1wGAog",
+            "LgoGZW50aXR5GAEgASgLMh4uQ29tbW9uLlByb3RvLkVudGl0eS5OZXRFbnRp",
+            "dHkSDAoEbmFtZRgCIAEoCRIQCghzcGFjZV9pZBgDIAEoBRINCgVsZXZlbBgE",
+            "IAEoBRIUCgxjaGFyYWN0ZXJfaWQYBSABKAUSDgoGam9iX2lkGAYgASgFEgsK",
+            "A2V4cBgHIAEoAxIMCgRnb2xkGAggASgDEgoKAmhwGAkgASgFEgoKAm1wGAog",
             "ASgFYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Entity.NetEntityReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.NetCharacter), global::Common.Proto.Player.NetCharacter.Parser, new[]{ "CharacterId", "Entity", "JobId", "Name", "Level", "Exp", "SpaceId", "Gold", "Hp", "Mp" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.NetCharacter), global::Common.Proto.Player.NetCharacter.Parser, new[]{ "Entity", "Name", "SpaceId", "Level", "CharacterId", "JobId", "Exp", "Gold", "Hp", "Mp" }, null, null, null, null)
           }));
     }
     #endregion
@@ -76,13 +76,13 @@ namespace Common.Proto.Player {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public NetCharacter(NetCharacter other) : this() {
-      characterId_ = other.characterId_;
       entity_ = other.entity_ != null ? other.entity_.Clone() : null;
-      jobId_ = other.jobId_;
       name_ = other.name_;
-      level_ = other.level_;
-      exp_ = other.exp_;
       spaceId_ = other.spaceId_;
+      level_ = other.level_;
+      characterId_ = other.characterId_;
+      jobId_ = other.jobId_;
+      exp_ = other.exp_;
       gold_ = other.gold_;
       hp_ = other.hp_;
       mp_ = other.mp_;
@@ -95,20 +95,8 @@ namespace Common.Proto.Player {
       return new NetCharacter(this);
     }
 
-    /// <summary>Field number for the "character_id" field.</summary>
-    public const int CharacterIdFieldNumber = 1;
-    private int characterId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CharacterId {
-      get { return characterId_; }
-      set {
-        characterId_ = value;
-      }
-    }
-
     /// <summary>Field number for the "entity" field.</summary>
-    public const int EntityFieldNumber = 2;
+    public const int EntityFieldNumber = 1;
     private global::Common.Proto.Entity.NetEntity entity_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -119,20 +107,8 @@ namespace Common.Proto.Player {
       }
     }
 
-    /// <summary>Field number for the "job_id" field.</summary>
-    public const int JobIdFieldNumber = 3;
-    private int jobId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int JobId {
-      get { return jobId_; }
-      set {
-        jobId_ = value;
-      }
-    }
-
     /// <summary>Field number for the "name" field.</summary>
-    public const int NameFieldNumber = 4;
+    public const int NameFieldNumber = 2;
     private string name_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -143,8 +119,20 @@ namespace Common.Proto.Player {
       }
     }
 
+    /// <summary>Field number for the "space_id" field.</summary>
+    public const int SpaceIdFieldNumber = 3;
+    private int spaceId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int SpaceId {
+      get { return spaceId_; }
+      set {
+        spaceId_ = value;
+      }
+    }
+
     /// <summary>Field number for the "level" field.</summary>
-    public const int LevelFieldNumber = 5;
+    public const int LevelFieldNumber = 4;
     private int level_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -155,8 +143,32 @@ namespace Common.Proto.Player {
       }
     }
 
+    /// <summary>Field number for the "character_id" field.</summary>
+    public const int CharacterIdFieldNumber = 5;
+    private int characterId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CharacterId {
+      get { return characterId_; }
+      set {
+        characterId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "job_id" field.</summary>
+    public const int JobIdFieldNumber = 6;
+    private int jobId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int JobId {
+      get { return jobId_; }
+      set {
+        jobId_ = value;
+      }
+    }
+
     /// <summary>Field number for the "exp" field.</summary>
-    public const int ExpFieldNumber = 6;
+    public const int ExpFieldNumber = 7;
     private long exp_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -164,18 +176,6 @@ namespace Common.Proto.Player {
       get { return exp_; }
       set {
         exp_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "space_id" field.</summary>
-    public const int SpaceIdFieldNumber = 7;
-    private int spaceId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int SpaceId {
-      get { return spaceId_; }
-      set {
-        spaceId_ = value;
       }
     }
 
@@ -230,13 +230,13 @@ namespace Common.Proto.Player {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (CharacterId != other.CharacterId) return false;
       if (!object.Equals(Entity, other.Entity)) return false;
-      if (JobId != other.JobId) return false;
       if (Name != other.Name) return false;
-      if (Level != other.Level) return false;
-      if (Exp != other.Exp) return false;
       if (SpaceId != other.SpaceId) return false;
+      if (Level != other.Level) return false;
+      if (CharacterId != other.CharacterId) return false;
+      if (JobId != other.JobId) return false;
+      if (Exp != other.Exp) return false;
       if (Gold != other.Gold) return false;
       if (Hp != other.Hp) return false;
       if (Mp != other.Mp) return false;
@@ -247,13 +247,13 @@ namespace Common.Proto.Player {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (CharacterId != 0) hash ^= CharacterId.GetHashCode();
       if (entity_ != null) hash ^= Entity.GetHashCode();
-      if (JobId != 0) hash ^= JobId.GetHashCode();
       if (Name.Length != 0) hash ^= Name.GetHashCode();
-      if (Level != 0) hash ^= Level.GetHashCode();
-      if (Exp != 0L) hash ^= Exp.GetHashCode();
       if (SpaceId != 0) hash ^= SpaceId.GetHashCode();
+      if (Level != 0) hash ^= Level.GetHashCode();
+      if (CharacterId != 0) hash ^= CharacterId.GetHashCode();
+      if (JobId != 0) hash ^= JobId.GetHashCode();
+      if (Exp != 0L) hash ^= Exp.GetHashCode();
       if (Gold != 0L) hash ^= Gold.GetHashCode();
       if (Hp != 0) hash ^= Hp.GetHashCode();
       if (Mp != 0) hash ^= Mp.GetHashCode();
@@ -275,33 +275,33 @@ namespace Common.Proto.Player {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (CharacterId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(CharacterId);
-      }
       if (entity_ != null) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(10);
         output.WriteMessage(Entity);
       }
-      if (JobId != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(JobId);
-      }
       if (Name.Length != 0) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(18);
         output.WriteString(Name);
       }
+      if (SpaceId != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(SpaceId);
+      }
       if (Level != 0) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(32);
         output.WriteInt32(Level);
       }
-      if (Exp != 0L) {
-        output.WriteRawTag(48);
-        output.WriteInt64(Exp);
+      if (CharacterId != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(CharacterId);
       }
-      if (SpaceId != 0) {
+      if (JobId != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(JobId);
+      }
+      if (Exp != 0L) {
         output.WriteRawTag(56);
-        output.WriteInt32(SpaceId);
+        output.WriteInt64(Exp);
       }
       if (Gold != 0L) {
         output.WriteRawTag(64);
@@ -325,33 +325,33 @@ namespace Common.Proto.Player {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (CharacterId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(CharacterId);
-      }
       if (entity_ != null) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(10);
         output.WriteMessage(Entity);
       }
-      if (JobId != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(JobId);
-      }
       if (Name.Length != 0) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(18);
         output.WriteString(Name);
       }
+      if (SpaceId != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(SpaceId);
+      }
       if (Level != 0) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(32);
         output.WriteInt32(Level);
       }
-      if (Exp != 0L) {
-        output.WriteRawTag(48);
-        output.WriteInt64(Exp);
+      if (CharacterId != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(CharacterId);
       }
-      if (SpaceId != 0) {
+      if (JobId != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(JobId);
+      }
+      if (Exp != 0L) {
         output.WriteRawTag(56);
-        output.WriteInt32(SpaceId);
+        output.WriteInt64(Exp);
       }
       if (Gold != 0L) {
         output.WriteRawTag(64);
@@ -375,26 +375,26 @@ namespace Common.Proto.Player {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (CharacterId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CharacterId);
-      }
       if (entity_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Entity);
-      }
-      if (JobId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(JobId);
       }
       if (Name.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
+      if (SpaceId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SpaceId);
+      }
       if (Level != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Level);
       }
+      if (CharacterId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CharacterId);
+      }
+      if (JobId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(JobId);
+      }
       if (Exp != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Exp);
-      }
-      if (SpaceId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SpaceId);
       }
       if (Gold != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Gold);
@@ -417,29 +417,29 @@ namespace Common.Proto.Player {
       if (other == null) {
         return;
       }
-      if (other.CharacterId != 0) {
-        CharacterId = other.CharacterId;
-      }
       if (other.entity_ != null) {
         if (entity_ == null) {
           Entity = new global::Common.Proto.Entity.NetEntity();
         }
         Entity.MergeFrom(other.Entity);
       }
-      if (other.JobId != 0) {
-        JobId = other.JobId;
-      }
       if (other.Name.Length != 0) {
         Name = other.Name;
+      }
+      if (other.SpaceId != 0) {
+        SpaceId = other.SpaceId;
       }
       if (other.Level != 0) {
         Level = other.Level;
       }
+      if (other.CharacterId != 0) {
+        CharacterId = other.CharacterId;
+      }
+      if (other.JobId != 0) {
+        JobId = other.JobId;
+      }
       if (other.Exp != 0L) {
         Exp = other.Exp;
-      }
-      if (other.SpaceId != 0) {
-        SpaceId = other.SpaceId;
       }
       if (other.Gold != 0L) {
         Gold = other.Gold;
@@ -465,35 +465,35 @@ namespace Common.Proto.Player {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            CharacterId = input.ReadInt32();
-            break;
-          }
-          case 18: {
+          case 10: {
             if (entity_ == null) {
               Entity = new global::Common.Proto.Entity.NetEntity();
             }
             input.ReadMessage(Entity);
             break;
           }
-          case 24: {
-            JobId = input.ReadInt32();
-            break;
-          }
-          case 34: {
+          case 18: {
             Name = input.ReadString();
             break;
           }
-          case 40: {
+          case 24: {
+            SpaceId = input.ReadInt32();
+            break;
+          }
+          case 32: {
             Level = input.ReadInt32();
             break;
           }
+          case 40: {
+            CharacterId = input.ReadInt32();
+            break;
+          }
           case 48: {
-            Exp = input.ReadInt64();
+            JobId = input.ReadInt32();
             break;
           }
           case 56: {
-            SpaceId = input.ReadInt32();
+            Exp = input.ReadInt64();
             break;
           }
           case 64: {
@@ -523,35 +523,35 @@ namespace Common.Proto.Player {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            CharacterId = input.ReadInt32();
-            break;
-          }
-          case 18: {
+          case 10: {
             if (entity_ == null) {
               Entity = new global::Common.Proto.Entity.NetEntity();
             }
             input.ReadMessage(Entity);
             break;
           }
-          case 24: {
-            JobId = input.ReadInt32();
-            break;
-          }
-          case 34: {
+          case 18: {
             Name = input.ReadString();
             break;
           }
-          case 40: {
+          case 24: {
+            SpaceId = input.ReadInt32();
+            break;
+          }
+          case 32: {
             Level = input.ReadInt32();
             break;
           }
+          case 40: {
+            CharacterId = input.ReadInt32();
+            break;
+          }
           case 48: {
-            Exp = input.ReadInt64();
+            JobId = input.ReadInt32();
             break;
           }
           case 56: {
-            SpaceId = input.ReadInt32();
+            Exp = input.ReadInt64();
             break;
           }
           case 64: {

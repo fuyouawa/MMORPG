@@ -11,6 +11,6 @@ enum EntityStatus {
 }
 
 message EntitySync {
-    EntityStatus status = 1;
-    NetEntity entity = 2;
+    NetEntity entity = 1;
+    bytes data = 2;
 }

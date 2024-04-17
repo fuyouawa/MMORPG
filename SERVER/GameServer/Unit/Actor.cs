@@ -5,15 +5,15 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameServer.Model
+namespace GameServer.Unit
 {
     public class Actor : Entity
     {
+        public Space? Space;
         public string Name;
+        public int Speed;
         public int Level;
-        public int SpeedId;
         public int Hp;
         public int Mp;
-        public int Gold;
     }
 }

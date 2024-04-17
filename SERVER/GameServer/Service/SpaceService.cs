@@ -2,7 +2,7 @@
 using Common.Proto.Player;
 using Common.Proto.Space;
 using GameServer.Manager;
-using GameServer.Model;
+using GameServer.Unit;
 using GameServer.Network;
 using GameServer.Tool;
 using System;
@@ -17,14 +17,16 @@ namespace Service
     {
         public void OnChannelClosed(NetChannel sender)
         {
-            if (sender.Player == null) return;
-            sender.Player.Space?.PlayerLeave(sender.Player);
+            if (sender.Player == null || sender.Player.Character == null) return;
+            var character = sender.Player.Character;
+            character.Space?.EntityLeave(character);
+            character.Space?.CharacterManager.RemoveCharacter(character);
         }
 
         public void OnHandle(NetChannel sender, EntitySyncRequest request)
         {
-            if (sender.Player == null) return;
-            sender.Player.Space?.EntityUpdate(request.EntitySync.Entity.ToEntity());
+            if (sender.Player == null || sender.Player.Character == null) return;
+            sender.Player.Character.Space?.EntityUpdate(request.EntitySync.Entity.ToEntity());
         }
 
         public void OnConnect(NetChannel sender)

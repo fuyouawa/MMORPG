@@ -3,7 +3,7 @@ using Common.Proto.Base;
 using Common.Proto.Player;
 using GameServer.Db;
 using GameServer.Manager;
-using GameServer.Model;
+using GameServer.Unit;
 using GameServer.Network;
 using GameServer.Tool;
 using Serilog;
@@ -18,7 +18,7 @@ namespace GameServer.Service
 
     public class PlayerService : ServiceBase<PlayerService>
     {
-        private Dictionary<string, Player> _playerSet = new();
+        private static readonly object _loginLock = new();
         private static readonly object _registerLock = new();
         private static readonly object _characterCreateLock = new();
 
@@ -46,10 +46,7 @@ namespace GameServer.Service
         {
             if (sender.Player == null)
                 return;
-            lock (_playerSet)
-            {
-                _playerSet.Remove(sender.Player.Username);
-            }
+            PlayerManager.Instance.RemovePlayer(sender.Player);
         }
 
         // TODO:校验用户名、密码的合法性(长度等)
@@ -57,7 +54,7 @@ namespace GameServer.Service
         {
             Log.Information($"{sender.ChannelName}登录请求: Username={request.Username}, Password={request.Password}");
 
-            lock (_playerSet)
+            lock (_loginLock)
             {
                 if (sender.Player != null)
                 {
@@ -65,7 +62,7 @@ namespace GameServer.Service
                     return;
                 }
 
-                if (_playerSet.ContainsKey(request.Username))
+                if (PlayerManager.Instance.GetPlayerByName(request.Username) != null)
                 {
                     sender.Send(new LoginResponse() { Error = NetError.LoginConflict });
                     return;
@@ -80,11 +77,9 @@ namespace GameServer.Service
                     sender.Send(new LoginResponse() { Error = NetError.IncorrectUsernameOrPassword });
                     return;
                 }
-
-                var player = new Player(sender, dbPlayer.Username, dbPlayer.Id);
-                _playerSet[dbPlayer.Username] = player;
-                sender.Player = player;
+                sender.Player = PlayerManager.Instance.NewPlayer(sender, dbPlayer.Username, dbPlayer.Id);
             }
+
             Log.Information($"{sender.ChannelName}登录成功");
             sender.Send(new LoginResponse() { Error = NetError.Success });
         }
@@ -157,41 +152,27 @@ namespace GameServer.Service
                 sender.Send(new CharacterCreateResponse() { Error = NetError.InvalidCharacter });
                 return;
             }
-
-            var playerCharacter = new Character
-            {
-                EntityId = EntityManager.Instance.NewEntityId(),
-                SpeedId = dbCharacter.SpaceId,
-                CharacterId = dbCharacter.Id,
-                Name = dbCharacter.Name,
-                Level = dbCharacter.Level,
-                Exp = dbCharacter.Exp,
-                Hp = dbCharacter.Hp,
-                Mp = dbCharacter.Mp,
-                Position = new()
-                {
-                    X = dbCharacter.X,
-                    Y = dbCharacter.Y,
-                    Z = dbCharacter.Z,
-                },
-                Direction = Vector3.Zero
-            };
-
-            EntityManager.Instance.AddEntity(playerCharacter);
-
-            var space = SpaceManager.Instance.GetSpaceById(playerCharacter.SpeedId);
+            var space = SpaceManager.Instance.GetSpaceById(dbCharacter.SpaceId);
             if (space == null)
             {
                 sender.Send(new EnterGameResponse() { Error = NetError.InvalidMap });
                 return;
             }
-            sender.Player.SetCharacter(playerCharacter, space);
-            space.PlayerEnter(sender.Player);
+
+            var pos = new Vector3()
+            {
+                X = dbCharacter.X,
+                Y = dbCharacter.Y,
+                Z = dbCharacter.Z,
+            };
+            var character = space.CharacterManager.NewCharacter(sender.Player, pos, Vector3.Zero, dbCharacter.Name);
+            sender.Player.SetCharacter(character);
+            space.EntityEnter(character);
 
             var res = new EnterGameResponse()
             {
                 Error = NetError.Success,
-                Character = playerCharacter.ToNetCharacter(),
+                Character = character.ToNetCharacter(),
             };
             Log.Information($"{sender.ChannelName}进入游戏成功");
             sender.Send(res, null);
