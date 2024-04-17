@@ -12,6 +12,10 @@ using System.Threading.Tasks;
 
 namespace GameServer.Manager
 {
+    /// <summary>
+    /// 实体管理器
+    /// 负责管理整个游戏的所有实体
+    /// </summary>
     public class EntityManager : Singleton<EntityManager>
     {
         private int _serialNum = 0;

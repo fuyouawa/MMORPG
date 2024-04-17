@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace GameServer.Manager
 {
+    /// <summary>
+    /// 玩家管理器
+    /// 负责管理所有已登录玩家
+    /// </summary>
     public class PlayerManager : Singleton<PlayerManager>
     {
         private Dictionary<string, Player> _playerDict = new();
@@ -33,7 +37,10 @@ namespace GameServer.Manager
 
         public void RemovePlayer(Player player)
         {
-            _playerDict.Remove(player.Username);
+            lock (_playerDict)
+            {
+                _playerDict.Remove(player.Username);
+            }
         }
     }
 }
