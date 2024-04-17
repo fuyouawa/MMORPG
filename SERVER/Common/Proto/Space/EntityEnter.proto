@@ -4,9 +4,9 @@ package Common.Proto.Space;
 import "Entity/NetEntity.proto";
 
 message EntityEnterRequest {
-    repeated int32 entity_id = 2;
+    repeated int32 entity_id = 1;
 }
 
 message EntityEnterResponse {
-    repeated Entity.NetEntity entity_list = 2;
+    repeated Entity.NetEntity entity_list = 1;
 }
