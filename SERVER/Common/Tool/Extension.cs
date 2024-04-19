@@ -54,5 +54,23 @@ namespace Common.Tool
             }
             return info;
         }
+
+        public static LinkedListNode<T>? FindIf<T>(this LinkedList<T> list, Func<T, bool> predicate)
+        {
+            var node = list.First;
+            do
+            {
+                if (predicate(node.Value)) {
+                    return node;
+                }
+                node = node.Next;
+            } while (node != null);
+            return node;
+        }
+
+        public static void RemoveIf<T>(this LinkedList<T> list, Func<T, bool> predicate)
+        {
+            list.Remove(list.FindIf(predicate));
+        }
     }
 }
