@@ -26,7 +26,6 @@ namespace AOI
     
             zone.Refresh(3, area, out var enters);
 
-    
             Console.WriteLine("---------------加入玩家范围的玩家列表--------------");
     
             foreach (var aoiKey in enters)
@@ -37,8 +36,9 @@ namespace AOI
     
             // 更新key为50的坐标。
     
-            var entity = zone.Refresh(3, 20, 20, new Vector2(3, 3), out enters);
-    
+            var entity = zone.Refresh(3, 4, 4, new Vector2(3, 3), out enters);
+
+
             Console.WriteLine("---------------离开玩家范围的玩家列表--------------");
     
             foreach (var aoiKey in entity.Leave)
@@ -47,7 +47,7 @@ namespace AOI
                 Console.WriteLine($"X:{findEntity.X.Value} Y:{findEntity.Y.Value}");
             }
     
-            Console.WriteLine("---------------key为3移动后加入玩家范围的玩家列表--------------");
+            Console.WriteLine("---------------key为3移动后玩家范围内的新玩家列表--------------");
     
             foreach (var aoiKey in enters)
             {

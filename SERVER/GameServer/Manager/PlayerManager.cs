@@ -12,6 +12,7 @@ namespace GameServer.Manager
     /// <summary>
     /// 玩家管理器
     /// 负责管理所有已登录玩家
+    /// 线程安全
     /// </summary>
     public class PlayerManager : Singleton<PlayerManager>
     {

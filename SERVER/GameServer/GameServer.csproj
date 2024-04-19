@@ -41,10 +41,6 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="System\" />
-  </ItemGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="$(SolutionDir)\..\Tools\syncc\syncc &quot;117.72.68.24&quot; $(TargetDir)" />
   </Target>
