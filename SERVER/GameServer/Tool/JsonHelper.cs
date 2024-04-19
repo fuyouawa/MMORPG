@@ -10,11 +10,12 @@ namespace GameServer.Tool
     {
         static public string LoadJsonFromFile(string name)
         {
-            string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            string exeDirectory = Path.GetDirectoryName(exePath);
-            string jsonPath = Path.Combine(exeDirectory, $"Data/Json/{name}.json");
-            string jsonContent = File.ReadAllText(jsonPath);
-            return jsonContent;
+            //string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            //string exeDirectory = Path.GetDirectoryName(exePath);
+            //string jsonPath = Path.Combine(exeDirectory, $"Data/Json/{name}.json");
+            //string jsonContent = File.ReadAllText(jsonPath);
+            //return jsonContent;
+            return "";
         }
     }
 }

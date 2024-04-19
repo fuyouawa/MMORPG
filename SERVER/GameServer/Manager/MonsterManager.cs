@@ -11,6 +11,7 @@ namespace GameServer.Manager
     /// <summary>
     /// 怪物管理器
     /// 负责管理地图内的所有怪物
+    /// 线程安全
     /// </summary>
     public class MonsterManager
     {
@@ -24,7 +25,7 @@ namespace GameServer.Manager
 
         public Monster NewMonster(Vector3 pos, Vector3 dire, string name)
         {
-            var monster = new Monster()
+            var monster = new Monster(pos)
             {
                 EntityId = EntityManager.Instance.NewEntityId(),
                 EntityType = EntityType.Monster,
@@ -34,7 +35,6 @@ namespace GameServer.Manager
                 Name = name,
                 Space = _space,
                 Speed = 5,
-
             };
             EntityManager.Instance.AddEntity(monster);
             return monster;

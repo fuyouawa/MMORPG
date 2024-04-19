@@ -1,5 +1,6 @@
 ﻿using Common.Proto.Entity;
 using Common.Tool;
+using GameServer.Db;
 using GameServer.Tool;
 using GameServer.Unit;
 using Google.Protobuf.Collections;
@@ -15,8 +16,9 @@ namespace GameServer.Manager
     /// <summary>
     /// 角色管理器
     /// 负责管理地图内的所有角色
+    /// 线程安全
     /// </summary>
-    public class CharacterManager : Singleton<EntityManager>
+    public class CharacterManager
     {
         private Dictionary<int, Character> _characterDict = new();
         private Space _space;
@@ -80,29 +82,24 @@ namespace GameServer.Manager
         /// <param name="sender"></param>
         public void Broadcast(Google.Protobuf.IMessage msg, Entity sender = null)
         {
-            lock (_characterDict)
+            if(sender == null)
             {
-                foreach (var character in _characterDict.Values)
+                lock (_characterDict)
                 {
-                    if (sender != null && character.EntityId == sender.EntityId) continue;
-                    character.Player.Channel.Send(msg, null);
+                    foreach (var character in _characterDict.Values)
+                    {
+                        if (sender != null && character.EntityId == sender.EntityId) continue;
+                        character.Player.Channel.Send(msg, null);
+                    }
                 }
             }
-        }
-
-        /// <summary>
-        /// 将sender周围的角色转换为网络实体列表
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="sender"></param>
-        public void CharacterListToNetEntityList(RepeatedField<NetEntity> list, Entity sender = null)
-        {
-            lock (_characterDict)
+            else
             {
-                foreach (var character in _characterDict.Values)
+                var list = _space.GetEntityViewEntityList(sender, EntityType.Character);
+                foreach (var entity in list)
                 {
-                    if (sender != null && character.EntityId == sender.EntityId) continue;
-                    list.Add(character.ToNetEntity());
+                    var character = entity as Character;
+                    character.Player.Channel.Send(msg, null);
                 }
             }
         }

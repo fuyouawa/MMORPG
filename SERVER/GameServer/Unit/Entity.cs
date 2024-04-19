@@ -9,6 +9,7 @@ namespace GameServer.Unit
 {
     public enum EntityType
     {
+        None = 0,
         Character = 1,
         Monster = 2,
         Npc = 3,
@@ -20,5 +21,7 @@ namespace GameServer.Unit
         public int EntityId;
         public Vector3 Position;
         public Vector3 Direction;
+
+        public virtual void Update() { }
     }
 }
