@@ -20,7 +20,7 @@ namespace Common.Network
             {
                 if (_message == null)
                 {
-                    var msgType = ProtoManager.Instance.IDToType(MessageID);
+                    var msgType = ProtoManager.IDToType(MessageID);
                     var desc = msgType.GetProperty("Descriptor").GetValue(null) as MessageDescriptor;
                     Debug.Assert(desc != null);
                     _message = desc.Parser.ParseFrom(Data);
@@ -34,7 +34,7 @@ namespace Common.Network
 
         public Packet(IMessage msg)
         {
-            MessageID = ProtoManager.Instance.TypeToID(msg.GetType());
+            MessageID = ProtoManager.TypeToID(msg.GetType());
             _message = msg;
             Data = msg.ToByteArray();
         }
