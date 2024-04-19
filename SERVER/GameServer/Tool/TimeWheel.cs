@@ -25,8 +25,10 @@ namespace Common.Tool
         private List<TimeTask> _backupRemoveList;
         private LinkedList<TimeTask>[] _slot;
         private int[] _indexArr;
+
         private long _lastMs;
         private int _tickMs;  // 最小槽的时间范围，毫秒单位
+
         private volatile bool _stop;
 
         public TimeWheel(int tickMs = 10) {

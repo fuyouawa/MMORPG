@@ -11,37 +11,48 @@ namespace GameServer.Manager
     /// <summary>
     /// 地图管理器
     /// 负责管理游戏的所有地图
+    /// 线程安全
     /// </summary>
     public class SpaceManager : Singleton<SpaceManager>
     {
         public readonly int InitSpaceId = 1;
 
-        private Dictionary<int, Space> _spaceDict = new();
+        private Dictionary<int, Space> _spaceDict;
 
         public SpaceManager()
         {
+            _spaceDict = new();
             var noviceVillage = NewSpace(InitSpaceId, "新手村");
         }
 
         public Space NewSpace(int spaceId, string name)
         {
             var space = new Space(spaceId, name);
-            _spaceDict.Add(spaceId, space);
+            lock (_spaceDict)
+            {
+                _spaceDict.Add(spaceId, space);
+            }
             return space;
         }
 
         public Space? GetSpaceById(int spaceId)
         {
-            return _spaceDict.GetValueOrDefault(spaceId, null);
+            lock (_spaceDict)
+            {
+                return _spaceDict.GetValueOrDefault(spaceId, null);
+            }
         }
 
         public Space? GetSpaceByName(string spaceName)
         {
-            foreach (var space in _spaceDict)
+            lock (_spaceDict)
             {
-                if (space.Value.Name == spaceName)
+                foreach (var space in _spaceDict)
                 {
-                    return space.Value;
+                    if (space.Value.Name == spaceName)
+                    {
+                        return space.Value;
+                    }
                 }
             }
             return null;

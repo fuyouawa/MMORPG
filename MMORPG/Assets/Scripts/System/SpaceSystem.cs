@@ -24,6 +24,7 @@ public class SpaceSystem : AbstractSystem
     public void CharacterEnter(NetPlayer player)
     {
         this.SendEvent(new CharacterEnterEvent() { Player = player });
+        FSM
     }
 
     public void CharacterLeave(NetPlayer player)
