@@ -28,6 +28,7 @@ public class CharacterSystem : AbstractSystem
     {
         player.Position = position;
         player.Rotation = rotation;
+        position.normalized
         // this.SendEvent(new CharacterPositionChangeEvent() { Player = player });
     }
 

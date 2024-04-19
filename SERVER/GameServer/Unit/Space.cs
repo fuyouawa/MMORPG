@@ -1,4 +1,5 @@
-﻿using Common.Proto.Entity;
+﻿using AOI;
+using Common.Proto.Entity;
 using Common.Proto.Space;
 using GameServer.Db;
 using GameServer.Manager;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +27,8 @@ namespace GameServer.Unit
         public CharacterManager CharacterManager;
         public MonsterManager MonsterManager;
 
+        private AoiZone _aoiZone;
+
         public Space(int spaceId, string name)
         {
             SpaceId = spaceId;
@@ -32,6 +36,8 @@ namespace GameServer.Unit
 
             CharacterManager = new(this);
             MonsterManager = new(this);
+
+            _aoiZone = new(.001f, .001f);
         }
 
         /// <summary>
@@ -43,14 +49,24 @@ namespace GameServer.Unit
             var res = new EntityEnterResponse();
             res.EntityList.Add(entity.ToNetEntity());
 
+            lock (_aoiZone)
+            {
+                _aoiZone.Enter(entity.EntityId, entity.Position.X, entity.Position.Z);
+            }
+
             // 向所有角色广播新实体加入场景
             CharacterManager.Broadcast(res, entity);
 
             // 如果新实体是角色，
-            // 向新角色投递已在场景中的所有玩家
+            // 向新角色投递已在场景中的所有实体
             if (entity.EntityType == EntityType.Character)
             {
-                CharacterManager.CharacterListToNetEntityList(res.EntityList, entity);
+                res.EntityList.Clear();
+                var list = GetEntityViewEntityList(entity);
+                foreach (var viewEntity in list)
+                {
+                    res.EntityList.Add(viewEntity.ToNetEntity());
+                }
                 var currentCharacter = entity as Character;
                 currentCharacter.Player.Channel.Send(res, null);
             }
@@ -66,8 +82,40 @@ namespace GameServer.Unit
             var res = new EntityLeaveResponse();
             res.EntityId = entity.EntityId;
 
+            lock (_aoiZone)
+            {
+                _aoiZone.Exit(entity.EntityId);
+            }
+
             // 向所有角色广播新实体离开场景
             CharacterManager.Broadcast(res, entity);
+        }
+
+        public void EntityMove(Entity entity, Vector3 newPos)
+        {
+            entity.Position = newPos;
+            lock (_aoiZone)
+            {
+                _aoiZone.Refresh(entity.EntityId, newPos.ToVector2());
+            }
+        }
+
+        public List<Entity> GetEntityViewEntityList(Entity entity, EntityType type = EntityType.None)
+        {
+            var entityList = new List<Entity>();
+            lock (_aoiZone)
+            {
+                var viewEntityIdSet = _aoiZone[entity.EntityId].ViewEntity;
+                foreach (var viewEntityId in viewEntityIdSet)
+                {
+                    var viewEntity = EntityManager.Instance.GetEntity((int)viewEntityId);
+                    if (viewEntity != null && (type == EntityType.None || viewEntity.EntityType == type))
+                    {
+                        entityList.Add(viewEntity);
+                    }
+                }
+            }
+            return entityList;
         }
 
         /// <summary>
@@ -79,7 +127,7 @@ namespace GameServer.Unit
             Entity? entity = EntityManager.Instance.GetEntity(netEntity.EntityId);
             if (entity == null) return;
 
-            entity.Position = netEntity.Position.ToVector3();
+            EntityMove(entity, netEntity.Position.ToVector3());
             entity.Direction = netEntity.Direction.ToVector3();
 
             var res = new EntitySyncResponse() { EntitySync = new() };

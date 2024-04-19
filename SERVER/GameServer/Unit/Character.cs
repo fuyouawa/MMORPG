@@ -13,5 +13,10 @@ namespace GameServer.Unit
         public int JobId;
         public int Exp;
         public int Gold;
+
+        public override void Update()
+        {
+            
+        }
     }
 }
