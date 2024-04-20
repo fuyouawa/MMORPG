@@ -33,18 +33,18 @@ public record NotificationBoxConfig
 
 public class NotificationBoxManager : MonoBehaviour
 {
-    public Michsky.MUIP.NotificationManager FadingNotificationTL;
-    public Michsky.MUIP.NotificationManager PopupNotificationTL;
-    public Michsky.MUIP.NotificationManager SlidingNotificationTL;
-    public Michsky.MUIP.NotificationManager FadingNotificationTR;
-    public Michsky.MUIP.NotificationManager PopupNotificationTR;
-    public Michsky.MUIP.NotificationManager SlidingNotificationTR;
-    public Michsky.MUIP.NotificationManager FadingNotificationBL;
-    public Michsky.MUIP.NotificationManager PopupNotificationBL;
-    public Michsky.MUIP.NotificationManager SlidingNotificationBL;
-    public Michsky.MUIP.NotificationManager FadingNotificationBR;
-    public Michsky.MUIP.NotificationManager PopupNotificationBR;
-    public Michsky.MUIP.NotificationManager SlidingNotificationBR;
+    public Michsky.MUIP.NotificationManager NotifyFadingTL;
+    public Michsky.MUIP.NotificationManager NotifyPopupTL;
+    public Michsky.MUIP.NotificationManager NotifySlidingTL;
+    public Michsky.MUIP.NotificationManager NotifyFadingTR;
+    public Michsky.MUIP.NotificationManager NotifyPopupTR;
+    public Michsky.MUIP.NotificationManager NotifySlidingTR;
+    public Michsky.MUIP.NotificationManager NotifyFadingBL;
+    public Michsky.MUIP.NotificationManager NotifyPopupBL;
+    public Michsky.MUIP.NotificationManager NotifySlidingBL;
+    public Michsky.MUIP.NotificationManager NotifyFadingBR;
+    public Michsky.MUIP.NotificationManager NotifyPopupBR;
+    public Michsky.MUIP.NotificationManager NotifySlidingBR;
 
     public NotificationBoxConfig Config { get; set; }
 
@@ -75,33 +75,33 @@ public class NotificationBoxManager : MonoBehaviour
             case NotificationBoxPosition.TopLeft:
                 return Config.Style switch
                 {
-                    NotificationBoxStyle.Fading => FadingNotificationTL,
-                    NotificationBoxStyle.Popup => PopupNotificationTL,
-                    NotificationBoxStyle.Sliding => SlidingNotificationTL,
+                    NotificationBoxStyle.Fading => NotifyFadingTL,
+                    NotificationBoxStyle.Popup => NotifyPopupTL,
+                    NotificationBoxStyle.Sliding => NotifySlidingTL,
                     _ => throw new NotImplementedException(),
                 };
             case NotificationBoxPosition.TopRight:
                 return Config.Style switch
                 {
-                    NotificationBoxStyle.Fading => FadingNotificationTR,
-                    NotificationBoxStyle.Popup => PopupNotificationTR,
-                    NotificationBoxStyle.Sliding => SlidingNotificationTR,
+                    NotificationBoxStyle.Fading => NotifyFadingTR,
+                    NotificationBoxStyle.Popup => NotifyPopupTR,
+                    NotificationBoxStyle.Sliding => NotifySlidingTR,
                     _ => throw new NotImplementedException(),
                 };
             case NotificationBoxPosition.BottomLeft:
                 return Config.Style switch
                 {
-                    NotificationBoxStyle.Fading => FadingNotificationBL,
-                    NotificationBoxStyle.Popup => PopupNotificationBL,
-                    NotificationBoxStyle.Sliding => SlidingNotificationBL,
+                    NotificationBoxStyle.Fading => NotifyFadingBL,
+                    NotificationBoxStyle.Popup => NotifyPopupBL,
+                    NotificationBoxStyle.Sliding => NotifySlidingBL,
                     _ => throw new NotImplementedException(),
                 };
             case NotificationBoxPosition.BottomRight:
                 return Config.Style switch
                 {
-                    NotificationBoxStyle.Fading => FadingNotificationBR,
-                    NotificationBoxStyle.Popup => PopupNotificationBR,
-                    NotificationBoxStyle.Sliding => SlidingNotificationBR,
+                    NotificationBoxStyle.Fading => NotifyFadingBR,
+                    NotificationBoxStyle.Popup => NotifyPopupBR,
+                    NotificationBoxStyle.Sliding => NotifySlidingBR,
                     _ => throw new NotImplementedException(),
                 };
             default:
