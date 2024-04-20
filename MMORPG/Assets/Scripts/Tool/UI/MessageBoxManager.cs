@@ -28,8 +28,9 @@ public class MessageBoxConfig
     public string CancalButtonText = "取消";
     public bool ShowConfirmButton = true;
     public bool ShowCancalButton = false;
-    public Action<MessageBoxResult> OnChose;    // 当用户选择了"确认"或"取消"的其中一个按钮
-    public Action OnOpen;
+    public Action<MessageBoxResult> OnChose = null;    // 当用户选择了"确认"或"取消"的其中一个按钮
+    public Action OnOpen = null;
+    public TaskCompletionSource<MessageBoxResult> OnChoseTcs = null;
     public MessageBoxStyle Style = MessageBoxStyle.LongDesc;
 }
 
@@ -44,13 +45,30 @@ public class MessageBoxManager : MonoBehaviour
 
     private void Awake()
     {
-        LongDescModalWindow.confirmButton.onClick.AddListener(() => Config.OnChose?.Invoke(MessageBoxResult.Confirm));
-        LongDescModalWindow.cancelButton.onClick.AddListener(() => Config.OnChose?.Invoke(MessageBoxResult.Cancel));
-        LongDescModalWindow.onOpen.AddListener(() => Config.OnOpen?.Invoke());
+        void OnConfirm()
+        {
+            Config.OnChose?.Invoke(MessageBoxResult.Confirm);
+            Config.OnChoseTcs?.TrySetResult(MessageBoxResult.Confirm);
+        }
 
-        ShortDescModalWindow.confirmButton.onClick.AddListener(() => Config.OnChose?.Invoke(MessageBoxResult.Confirm));
-        ShortDescModalWindow.cancelButton.onClick.AddListener(() => Config.OnChose?.Invoke(MessageBoxResult.Cancel));
-        ShortDescModalWindow.onOpen.AddListener(() => Config.OnOpen?.Invoke());
+        void OnCancel()
+        {
+            Config.OnChose?.Invoke(MessageBoxResult.Cancel);
+            Config.OnChoseTcs?.TrySetResult(MessageBoxResult.Cancel);
+        }
+
+        void OnOpen()
+        {
+            Config.OnOpen?.Invoke();
+        }
+
+        LongDescModalWindow.confirmButton.onClick.AddListener(OnConfirm);
+        LongDescModalWindow.cancelButton.onClick.AddListener(OnCancel);
+        LongDescModalWindow.onOpen.AddListener(OnOpen);
+
+        ShortDescModalWindow.confirmButton.onClick.AddListener(OnConfirm);
+        ShortDescModalWindow.cancelButton.onClick.AddListener(OnCancel);
+        ShortDescModalWindow.onOpen.AddListener(OnOpen);
     }
 
     public void Show()
