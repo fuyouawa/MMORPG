@@ -37,13 +37,13 @@ public class SpinnerBoxManager : MonoBehaviour
         DescriptionText.text = Config.Description;
         DescriptionText.fontSize = Config.DescriptionFontSize;
         IsShowing = true;
-        PanelSwitcher.FadeIn(SpinnerBox);
+        PanelHelper.FadeIn(SpinnerBox);
     }
 
     public void Close()
     {
         Debug.Assert(IsShowing);
-        PanelSwitcher.FadeOut(SpinnerBox);
+        PanelHelper.FadeOut(SpinnerBox);
         IsShowing = false;
     }
 }
