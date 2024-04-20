@@ -11,6 +11,7 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Numerics;
 using System.Threading.Channels;
+using Common.Proto.Space;
 
 namespace GameServer.Service
 {
@@ -167,14 +168,18 @@ namespace GameServer.Service
             var character = space.CharacterManager.NewCharacter(sender.Player, pos, Vector3.Zero, dbCharacter.Name);
             sender.Player.SetCharacter(character);
             space.EntityEnter(character);
-
             var res = new EnterGameResponse()
             {
                 Error = NetError.Success,
-                Character = character.ToNetCharacter(),
+                //Character = character.ToNetCharacter(),
+                EntityId = character.EntityId,
             };
             Log.Information($"{sender.ChannelName}进入游戏成功");
             sender.Send(res, null);
+
+            var res2 = new EntityEnterResponse();
+            res2.EntityList.Add(character.ToNetEntity());
+            sender.Send(res2, null);
         }
 
         public void OnHandle(NetChannel sender, HeartBeatRequest request)

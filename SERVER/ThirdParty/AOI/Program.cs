@@ -11,9 +11,15 @@ namespace AOI
             var area = new Vector2(3, 3);
 
             // 添加500个玩家。
-    
-            for (var i = 1; i <= 500; i++) zone.Enter(i, i, i);
-    
+
+            for (var i = 1; i <= 6; i++)
+            {
+                for (var j = 1; j <= 6; j++)
+                {
+                    zone.Enter((i - 1) * 6 + j, i, j);
+                }
+            }
+
             // 测试移动。
             // while (true)
             // {
@@ -24,7 +30,7 @@ namespace AOI
     
             // 刷新key为3的信息。
     
-            zone.Refresh(3, area, out var enters);
+            zone.Refresh(9, area, out var enters);
 
             Console.WriteLine("---------------加入玩家范围的玩家列表--------------");
     
@@ -49,7 +55,7 @@ namespace AOI
     
             Console.WriteLine("---------------key为3移动后玩家范围内的新玩家列表--------------");
     
-            foreach (var aoiKey in enters)
+            foreach (var aoiKey in entity.ViewEntity)
             {
                 var findEntity = zone[aoiKey];
                 Console.WriteLine($"X:{findEntity.X.Value} Y:{findEntity.Y.Value}");

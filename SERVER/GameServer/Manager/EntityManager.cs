@@ -21,20 +21,20 @@ namespace GameServer.Manager
     public class EntityManager : Singleton<EntityManager>
     {
         private int _serialNum = 0;
-        private ConcurrentDictionary<int, Entity> _entitiesDict = new();
+        private Dictionary<int, Entity> _entityDict = new();
 
         public Tool.Time Time;
 
         public EntityManager()
         {
 
-            CenterTimer.Instance.Register(100, Update);
+            CenterTimer.Instance.Register(100, UpdateAllEntity);
         }
 
-        private void Update()
+        private void UpdateAllEntity()
         {
             Time.Tick();
-            foreach (Entity entity in _entitiesDict.Values)
+            foreach (Entity entity in _entityDict.Values)
             {
                 entity.Update();
             }
@@ -47,17 +47,34 @@ namespace GameServer.Manager
 
         public void AddEntity(Entity entity)
         {
-            _entitiesDict[entity.EntityId] = entity;
+            lock (_entityDict)
+            {
+                _entityDict[entity.EntityId] = entity;
+            }
         }
 
         public void RemoveEntity(Entity entity)
         {
-            _entitiesDict.TryRemove(entity.EntityId, out Entity outEntity);
+            lock (_entityDict)
+            {
+                _entityDict.Remove(entity.EntityId);
+            }
         }
 
         public Entity? GetEntity(int entityId)
         {
-            return _entitiesDict.GetValueOrDefault(entityId, null);
+            lock (_entityDict)
+            {
+                return _entityDict.GetValueOrDefault(entityId, null);
+            }
+        }
+
+        public bool IsValidEntity(int entityId)
+        {
+            lock (_entityDict)
+            {
+                return _entityDict.ContainsKey(entityId);
+            }
         }
     }
 }

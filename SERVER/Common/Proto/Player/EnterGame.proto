@@ -10,5 +10,6 @@ message EnterGameRequest {
 
 message EnterGameResponse {
     Base.NetError error = 1;
-    NetCharacter character = 4;
+    //NetCharacter character = 4;
+    int32 entity_id = 2;
 }
