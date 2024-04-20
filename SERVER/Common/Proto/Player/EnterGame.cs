@@ -27,14 +27,14 @@ namespace Common.Proto.Player {
             "ChZQbGF5ZXIvRW50ZXJHYW1lLnByb3RvEhNDb21tb24uUHJvdG8uUGxheWVy",
             "GhNCYXNlL05ldEVycm9yLnByb3RvGhlQbGF5ZXIvTmV0Q2hhcmFjdGVyLnBy",
             "b3RvIigKEEVudGVyR2FtZVJlcXVlc3QSFAoMY2hhcmFjdGVyX2lkGAEgASgF",
-            "InUKEUVudGVyR2FtZVJlc3BvbnNlEioKBWVycm9yGAEgASgOMhsuQ29tbW9u",
-            "LlByb3RvLkJhc2UuTmV0RXJyb3ISNAoJY2hhcmFjdGVyGAQgASgLMiEuQ29t",
-            "bW9uLlByb3RvLlBsYXllci5OZXRDaGFyYWN0ZXJiBnByb3RvMw=="));
+            "IlIKEUVudGVyR2FtZVJlc3BvbnNlEioKBWVycm9yGAEgASgOMhsuQ29tbW9u",
+            "LlByb3RvLkJhc2UuTmV0RXJyb3ISEQoJZW50aXR5X2lkGAIgASgFYgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Base.NetErrorReflection.Descriptor, global::Common.Proto.Player.NetCharacterReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.EnterGameRequest), global::Common.Proto.Player.EnterGameRequest.Parser, new[]{ "CharacterId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.EnterGameResponse), global::Common.Proto.Player.EnterGameResponse.Parser, new[]{ "Error", "Character" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.EnterGameResponse), global::Common.Proto.Player.EnterGameResponse.Parser, new[]{ "Error", "EntityId" }, null, null, null, null)
           }));
     }
     #endregion
@@ -267,7 +267,7 @@ namespace Common.Proto.Player {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EnterGameResponse(EnterGameResponse other) : this() {
       error_ = other.error_;
-      character_ = other.character_ != null ? other.character_.Clone() : null;
+      entityId_ = other.entityId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -289,15 +289,18 @@ namespace Common.Proto.Player {
       }
     }
 
-    /// <summary>Field number for the "character" field.</summary>
-    public const int CharacterFieldNumber = 4;
-    private global::Common.Proto.Player.NetCharacter character_;
+    /// <summary>Field number for the "entity_id" field.</summary>
+    public const int EntityIdFieldNumber = 2;
+    private int entityId_;
+    /// <summary>
+    ///NetCharacter character = 4;
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Player.NetCharacter Character {
-      get { return character_; }
+    public int EntityId {
+      get { return entityId_; }
       set {
-        character_ = value;
+        entityId_ = value;
       }
     }
 
@@ -317,7 +320,7 @@ namespace Common.Proto.Player {
         return true;
       }
       if (Error != other.Error) return false;
-      if (!object.Equals(Character, other.Character)) return false;
+      if (EntityId != other.EntityId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -326,7 +329,7 @@ namespace Common.Proto.Player {
     public override int GetHashCode() {
       int hash = 1;
       if (Error != global::Common.Proto.Base.NetError.Success) hash ^= Error.GetHashCode();
-      if (character_ != null) hash ^= Character.GetHashCode();
+      if (EntityId != 0) hash ^= EntityId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -349,9 +352,9 @@ namespace Common.Proto.Player {
         output.WriteRawTag(8);
         output.WriteEnum((int) Error);
       }
-      if (character_ != null) {
-        output.WriteRawTag(34);
-        output.WriteMessage(Character);
+      if (EntityId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(EntityId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -367,9 +370,9 @@ namespace Common.Proto.Player {
         output.WriteRawTag(8);
         output.WriteEnum((int) Error);
       }
-      if (character_ != null) {
-        output.WriteRawTag(34);
-        output.WriteMessage(Character);
+      if (EntityId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(EntityId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -384,8 +387,8 @@ namespace Common.Proto.Player {
       if (Error != global::Common.Proto.Base.NetError.Success) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Error);
       }
-      if (character_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Character);
+      if (EntityId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(EntityId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -402,11 +405,8 @@ namespace Common.Proto.Player {
       if (other.Error != global::Common.Proto.Base.NetError.Success) {
         Error = other.Error;
       }
-      if (other.character_ != null) {
-        if (character_ == null) {
-          Character = new global::Common.Proto.Player.NetCharacter();
-        }
-        Character.MergeFrom(other.Character);
+      if (other.EntityId != 0) {
+        EntityId = other.EntityId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -427,11 +427,8 @@ namespace Common.Proto.Player {
             Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
-          case 34: {
-            if (character_ == null) {
-              Character = new global::Common.Proto.Player.NetCharacter();
-            }
-            input.ReadMessage(Character);
+          case 16: {
+            EntityId = input.ReadInt32();
             break;
           }
         }
@@ -453,11 +450,8 @@ namespace Common.Proto.Player {
             Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
-          case 34: {
-            if (character_ == null) {
-              Character = new global::Common.Proto.Player.NetCharacter();
-            }
-            input.ReadMessage(Character);
+          case 16: {
+            EntityId = input.ReadInt32();
             break;
           }
         }

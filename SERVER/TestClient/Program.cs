@@ -1,14 +1,9 @@
 ﻿using Common.Network;
-using Common.Proto;
 using Common.Proto.Player;
-using Common.Tool;
 using Serilog;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Sockets;
-using System.Reflection;
-using System.Security.Cryptography;
+//using Microsoft.Office.Interop.Excel;
 
 namespace TestClient
 {
@@ -52,6 +47,8 @@ namespace TestClient
         {
             Console.WriteLine("突发消息接收!");
         }
+
+
 
         static private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
         {
