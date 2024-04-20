@@ -26,8 +26,8 @@ namespace Common.Proto.Space {
           string.Concat(
             "ChdTcGFjZS9FbnRpdHlFbnRlci5wcm90bxISQ29tbW9uLlByb3RvLlNwYWNl",
             "GhZFbnRpdHkvTmV0RW50aXR5LnByb3RvIicKEkVudGl0eUVudGVyUmVxdWVz",
-            "dBIRCgllbnRpdHlfaWQYAiADKAUiSgoTRW50aXR5RW50ZXJSZXNwb25zZRIz",
-            "CgtlbnRpdHlfbGlzdBgCIAMoCzIeLkNvbW1vbi5Qcm90by5FbnRpdHkuTmV0",
+            "dBIRCgllbnRpdHlfaWQYASADKAUiSgoTRW50aXR5RW50ZXJSZXNwb25zZRIz",
+            "CgtlbnRpdHlfbGlzdBgBIAMoCzIeLkNvbW1vbi5Qcm90by5FbnRpdHkuTmV0",
             "RW50aXR5YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Entity.NetEntityReflection.Descriptor, },
@@ -86,9 +86,9 @@ namespace Common.Proto.Space {
     }
 
     /// <summary>Field number for the "entity_id" field.</summary>
-    public const int EntityIdFieldNumber = 2;
+    public const int EntityIdFieldNumber = 1;
     private static readonly pb::FieldCodec<int> _repeated_entityId_codec
-        = pb::FieldCodec.ForInt32(18);
+        = pb::FieldCodec.ForInt32(10);
     private readonly pbc::RepeatedField<int> entityId_ = new pbc::RepeatedField<int>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -189,8 +189,8 @@ namespace Common.Proto.Space {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 18:
-          case 16: {
+          case 10:
+          case 8: {
             entityId_.AddEntriesFrom(input, _repeated_entityId_codec);
             break;
           }
@@ -209,8 +209,8 @@ namespace Common.Proto.Space {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 18:
-          case 16: {
+          case 10:
+          case 8: {
             entityId_.AddEntriesFrom(ref input, _repeated_entityId_codec);
             break;
           }
@@ -267,9 +267,9 @@ namespace Common.Proto.Space {
     }
 
     /// <summary>Field number for the "entity_list" field.</summary>
-    public const int EntityListFieldNumber = 2;
+    public const int EntityListFieldNumber = 1;
     private static readonly pb::FieldCodec<global::Common.Proto.Entity.NetEntity> _repeated_entityList_codec
-        = pb::FieldCodec.ForMessage(18, global::Common.Proto.Entity.NetEntity.Parser);
+        = pb::FieldCodec.ForMessage(10, global::Common.Proto.Entity.NetEntity.Parser);
     private readonly pbc::RepeatedField<global::Common.Proto.Entity.NetEntity> entityList_ = new pbc::RepeatedField<global::Common.Proto.Entity.NetEntity>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -370,7 +370,7 @@ namespace Common.Proto.Space {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 18: {
+          case 10: {
             entityList_.AddEntriesFrom(input, _repeated_entityList_codec);
             break;
           }
@@ -389,7 +389,7 @@ namespace Common.Proto.Space {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 18: {
+          case 10: {
             entityList_.AddEntriesFrom(ref input, _repeated_entityList_codec);
             break;
           }

@@ -11,11 +11,6 @@ namespace GameServer.Data
 {
     public class SpaceData : Singleton<SpaceData>
     {
-        void Load()
-        {
-            var content = JsonHelper.LoadJsonFromFile("SpaceDefine");
-            var dict = JsonConvert.DeserializeObject<Dictionary<int, SpaceDefine>>(content);
-
-        }
+        
     }
 }

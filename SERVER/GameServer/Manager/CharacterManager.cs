@@ -82,7 +82,7 @@ namespace GameServer.Manager
         /// <param name="sender"></param>
         public void Broadcast(Google.Protobuf.IMessage msg, Entity sender = null)
         {
-            if(sender == null)
+            if (sender == null)
             {
                 lock (_characterDict)
                 {
@@ -95,7 +95,7 @@ namespace GameServer.Manager
             }
             else
             {
-                var list = _space.GetEntityViewEntityList(sender, EntityType.Character);
+                var list = _space.GetEntityViewEntityList(sender, e => e.EntityType == EntityType.Character);
                 foreach (var entity in list)
                 {
                     var character = entity as Character;

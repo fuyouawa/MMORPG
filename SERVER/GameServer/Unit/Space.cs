@@ -46,19 +46,21 @@ namespace GameServer.Unit
         public void EntityEnter(Entity entity)
         {
             Log.Information($"实体进入场景:{entity.EntityId}");
-            var res = new EntityEnterResponse();
-            res.EntityList.Add(entity.ToNetEntity());
 
             lock (_aoiZone)
             {
-                _aoiZone.Enter(entity.EntityId, entity.Position.X, entity.Position.Z);
+                Vector2 range = new (entity.ViewRange, entity.ViewRange);
+                _aoiZone.Enter(entity.EntityId, entity.Position.X, entity.Position.Z, range, out var enters);
             }
 
-            // 向所有角色广播新实体加入场景
+            var res = new EntityEnterResponse();
+            res.EntityList.Add(entity.ToNetEntity());
+
+            // 向能观察到新实体的角色广播新实体加入场景
             CharacterManager.Broadcast(res, entity);
 
-            // 如果新实体是角色，
-            // 向新角色投递已在场景中的所有实体
+            // 如果新实体是角色
+            // 向新角色投递已在场景中的在其可视范围内的实体
             if (entity.EntityType == EntityType.Character)
             {
                 res.EntityList.Clear();
@@ -79,28 +81,32 @@ namespace GameServer.Unit
         {
             Log.Information($"实体离开场景:{entity.EntityId}");
 
+            // 向能观察到实体的角色广播实体离开场景
+            // 实际上直接广播是向当前entity的关注实体广播而非关注当前entity的实体
+            // 这点是还没处理的，未来考虑维护一下实体与关注该实体的角色
             var res = new EntityLeaveResponse();
             res.EntityId = entity.EntityId;
+            CharacterManager.Broadcast(res, entity);
 
             lock (_aoiZone)
             {
                 _aoiZone.Exit(entity.EntityId);
             }
-
-            // 向所有角色广播新实体离开场景
-            CharacterManager.Broadcast(res, entity);
         }
 
-        public void EntityMove(Entity entity, Vector3 newPos)
+        public void EntityRefreshPosition(Entity entity)
         {
-            entity.Position = newPos;
             lock (_aoiZone)
             {
-                _aoiZone.Refresh(entity.EntityId, newPos.ToVector2());
+                var aoiEntity = _aoiZone.Refresh(entity.EntityId, entity.Position.ToVector2());
+                foreach (var leaveEntity in aoiEntity.Leave)
+                {
+                    
+                }
             }
         }
 
-        public List<Entity> GetEntityViewEntityList(Entity entity, EntityType type = EntityType.None)
+        public List<Entity> GetEntityViewEntityList(Entity entity, Predicate<Entity> condition = null)
         {
             var entityList = new List<Entity>();
             lock (_aoiZone)
@@ -109,7 +115,7 @@ namespace GameServer.Unit
                 foreach (var viewEntityId in viewEntityIdSet)
                 {
                     var viewEntity = EntityManager.Instance.GetEntity((int)viewEntityId);
-                    if (viewEntity != null && (type == EntityType.None || viewEntity.EntityType == type))
+                    if (viewEntity != null && (condition == null || condition(viewEntity)))
                     {
                         entityList.Add(viewEntity);
                     }
@@ -127,8 +133,9 @@ namespace GameServer.Unit
             Entity? entity = EntityManager.Instance.GetEntity(netEntity.EntityId);
             if (entity == null) return;
 
-            EntityMove(entity, netEntity.Position.ToVector3());
+            entity.Position = netEntity.Position.ToVector3();
             entity.Direction = netEntity.Direction.ToVector3();
+            EntityRefreshPosition(entity);
 
             var res = new EntitySyncResponse() { EntitySync = new() };
             // res.EntitySync.Status = ;

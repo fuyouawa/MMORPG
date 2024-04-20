@@ -21,6 +21,7 @@ namespace GameServer.Unit
         public int EntityId;
         public Vector3 Position;
         public Vector3 Direction;
+        public float ViewRange;
 
         public virtual void Update() { }
     }
