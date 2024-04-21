@@ -6,7 +6,7 @@ using QFramework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class LoginCommand : AbstractCommand
 {
@@ -34,21 +34,24 @@ public class LoginCommand : AbstractCommand
         }
 
         box.ShowSpinner("µÇÂ¼ÖÐ......");
-        var networkSys = this.GetSystem<INetworkSystem>();
-        networkSys.SendToServer(new LoginRequest
+        var net = this.GetSystem<INetworkSystem>();
+        net.SendToServer(new LoginRequest
         {
             Username = _username,
             Password = _password
         });
-        var response = await networkSys.ReceiveAsync<LoginResponse>();
+        var response = await net.ReceiveAsync<LoginResponse>();
         box.CloseSpinner();
 
         if (response.Error == NetError.Success)
         {
-            //SceneHelper.SwitchScene("EnterScene");
+            this.GetModel<IUserModel>().SetUsername(_username);
+            Logger.Info($"[Network]{_username}");
+            SceneManager.LoadScene("JoinMapScene");
         }
         else
         {
+            Logger.Error($"[Network][{_username}]µÇÂ¼Ê§°Ü:{response.Error.GetInfo().Description}");
             box.ShowMessage($"µÇÂ¼Ê§°Ü!\nÔ­Òò:{response.Error.GetInfo().Description}");
         }
     }

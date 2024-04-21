@@ -10,6 +10,20 @@ using System.Threading.Tasks;
 using Tool;
 using UnityEngine;
 
+public class NetworkEntityInfo
+{
+    public int EntityId { get; }
+    public Vector3 Position { get; }
+    public Quaternion Rotation { get; }
+
+    public NetworkEntityInfo(int entityId, Vector3 position, Quaternion rotation)
+    {
+        EntityId = entityId;
+        Position = position;
+        Rotation = rotation;
+    }
+}
+
 public interface IEntityManagerSystem : ISystem
 {
 }
@@ -27,11 +41,12 @@ public class EntityManagerSystem : AbstractSystem, IEntityManagerSystem
     {
         foreach (var entity in response.EntityList)
         {
-            this.SendEvent(new EntityEnterEvent(
-                entity.EntityId,
-                entity.Position.ToVector3(),
-                Quaternion.Euler(entity.Direction.ToVector3())
-            ));
+            var info = new NetworkEntityInfo(entity.EntityId,
+                    entity.Position.ToVector3(),
+                    Quaternion.Euler(entity.Direction.ToVector3()));
+
+            Logger.Info($"[Game]实体({entity.EntityId})加入: Position:{info.Position}, Rotation:{info.Rotation}");
+            this.SendEvent(new NetworkEntityEnterEvent(info));
         }
     }
 

@@ -98,6 +98,7 @@ namespace MMORPG
                 }
                 catch (Exception ex)
                 {
+                    Logger.Error(ex, $"[Network]连接服务器时出现错误:{ex.Message}");
                     box.CloseSpinner();
                     await box.ShowMessageAsync("错误", $"连接服务器失败:{ex}", "重新连接");
                     continue;

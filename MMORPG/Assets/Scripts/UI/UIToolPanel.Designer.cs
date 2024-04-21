@@ -5,15 +5,13 @@ using QFramework;
 
 namespace MMORPG.UI
 {
-	// Generate Id:0344978f-f97c-4371-a604-54380a8b5b8a
+	// Generate Id:2847c972-1bd1-4bff-af1c-cae92fce44c2
 	public partial class UIToolPanel
 	{
 		public const string Name = "UIToolPanel";
 		
 		[SerializeField]
 		public NotificationBoxManager NotificationBoxManager;
-		[SerializeField]
-		public BlackFieldManager BlackFieldManager;
 		[SerializeField]
 		public MessageBoxManager MessageBoxManager;
 		[SerializeField]
@@ -24,7 +22,6 @@ namespace MMORPG.UI
 		protected override void ClearUIComponents()
 		{
 			NotificationBoxManager = null;
-			BlackFieldManager = null;
 			MessageBoxManager = null;
 			SpinnerBoxManager = null;
 			

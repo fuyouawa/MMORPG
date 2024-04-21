@@ -5,15 +5,15 @@ using QFramework;
 
 namespace MMORPG.UI
 {
-	// Generate Id:679821bb-dff4-49f8-8c92-a4dd126de386
-	public partial class UIEnterOperationPanel
+	// Generate Id:eeaae5f1-c051-46a3-b763-0fd6acba29e5
+	public partial class UIJoinMapPanel
 	{
-		public const string Name = "UIEnterOperationPanel";
+		public const string Name = "UIJoinMapPanel";
 		
 		[SerializeField]
 		public Michsky.MUIP.ButtonManager BtnEnter;
 		
-		private UIEnterOperationPanelData mPrivateData = null;
+		private UIJoinMapPanelData mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
@@ -22,7 +22,7 @@ namespace MMORPG.UI
 			mData = null;
 		}
 		
-		public UIEnterOperationPanelData Data
+		public UIJoinMapPanelData Data
 		{
 			get
 			{
@@ -30,11 +30,11 @@ namespace MMORPG.UI
 			}
 		}
 		
-		UIEnterOperationPanelData mData
+		UIJoinMapPanelData mData
 		{
 			get
 			{
-				return mPrivateData ?? (mPrivateData = new UIEnterOperationPanelData());
+				return mPrivateData ?? (mPrivateData = new UIJoinMapPanelData());
 			}
 			set
 			{

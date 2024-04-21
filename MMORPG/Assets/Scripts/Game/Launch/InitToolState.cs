@@ -11,7 +11,10 @@ public class InitToolState : AbstractState<LaunchStatus, LaunchController>, ICon
 {
     public InitToolState(FSM<LaunchStatus> fsm, LaunchController target) : base(fsm, target)
     {
-        //TODO InitToolState
+    }
+
+    protected override void OnEnter()
+    {
         new GameObject(nameof(UIToolController)).AddComponent<UIToolController>();
         new GameObject(nameof(UnityMainThreadDispatcher)).AddComponent<UnityMainThreadDispatcher>();
         mFSM.ChangeState(LaunchStatus.InitNetwork);
