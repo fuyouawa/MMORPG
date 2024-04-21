@@ -29,6 +29,7 @@ namespace GameServer.Manager
         {
 
             CenterTimer.Instance.Register(100, UpdateAllEntity);
+            Time = new();
         }
 
         private void UpdateAllEntity()
