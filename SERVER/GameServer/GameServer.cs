@@ -36,7 +36,7 @@ namespace GameServer
             Log.Information("[Server] 开启服务器");
             _serverSocket.Listen();
             _connectionCleanupTimer = new(1000);
-            _connectionCleanupTimer.Start();
+            //_connectionCleanupTimer.Start();
 
             while (true)
             {
