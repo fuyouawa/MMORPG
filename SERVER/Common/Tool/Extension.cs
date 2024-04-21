@@ -58,13 +58,12 @@ namespace Common.Tool
         public static LinkedListNode<T>? FindIf<T>(this LinkedList<T> list, Func<T, bool> predicate)
         {
             var node = list.First;
-            do
+            while (node != null)
             {
-                if (predicate(node.Value)) {
+                if (predicate(node.Value))
                     return node;
-                }
                 node = node.Next;
-            } while (node != null);
+            }
             return node;
         }
 

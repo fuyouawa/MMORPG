@@ -6,13 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public sealed class PlayerController : MonoBehaviour, IController
+public sealed class Entity : MonoBehaviour, IController
 {
-    private EntityController _entity;
+    [ReadOnly]
+    public int EntityId;
+    [ReadOnly]
+    public bool IsMine;
 
     private void Awake()
     {
-        _entity = GetComponent<EntityController>();
+        
     }
 
     public IArchitecture GetArchitecture()
