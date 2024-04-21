@@ -11,27 +11,20 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour, IController
 {
-    public GameObject PlayerPrefab;
-
     private IPlayerManagerSystem _playerManager;
+    private ResLoader _resLoader = ResLoader.Allocate();
 
     private void Awake()
     {
         _playerManager = this.GetSystem<IPlayerManagerSystem>();
-        this.RegisterEventInUnityThread<PlayerEnterEvent>(OnPlayerEnter)
+        this.RegisterEventInUnityThread<NetworkEntityEnterEvent>(OnPlayerEnter)
             .UnRegisterWhenGameObjectDestroyed(gameObject);
     }
 
-    private void OnPlayerEnter(PlayerEnterEvent e)
+    private void OnPlayerEnter(NetworkEntityEnterEvent e)
     {
-        var inst = Instantiate(PlayerPrefab);
-        var entity = inst.GetComponent<EntityController>();
-        entity.EntityId = e.EntityId;
-        entity.IsMine = _playerManager.MineId == e.EntityId;
-        if (entity.IsMine) {
-            var camera = Camera.main.GetComponent<CameraController>();
-            camera.InitFromTarget(inst.transform);
-        }
+        var player = Instantiate(_resLoader.LoadSync<Player>("DogPBR"));
+        _playerManager.RegisterPlayer(player, e.EntityInfo.EntityId);
     }
 
     public IArchitecture GetArchitecture()

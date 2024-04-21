@@ -42,21 +42,23 @@ public class RegisterCommand : AbstractCommand
         }
 
         box.ShowSpinner("注册中......");
-        var networkSys = this.GetSystem<INetworkSystem>();
-        networkSys.SendToServer(new RegisterRequest
+        var net = this.GetSystem<INetworkSystem>();
+        net.SendToServer(new RegisterRequest
         {
             Username = _username,
             Password = _password
         });
-        var response = await networkSys.ReceiveAsync<RegisterResponse>();
+        var response = await net.ReceiveAsync<RegisterResponse>();
         box.CloseSpinner();
 
         if (response.Error == NetError.Success)
         {
+            Logger.Info($"[Network][{_username}]注册成功!");
             box.ShowMessage("注册成功!");
         }
         else
         {
+            Logger.Error($"[Network][{_username}]注册失败:{response.Error.GetInfo().Description}");
             box.ShowMessage($"注册失败!\n原因:{response.Error.GetInfo().Description}");
         }
     }
