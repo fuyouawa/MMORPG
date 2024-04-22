@@ -1,4 +1,5 @@
-﻿using GameServer.Manager;
+﻿using Common.Proto.Entity;
+using GameServer.Manager;
 using GameServer.Tool;
 using GameServer.Unit;
 using System;

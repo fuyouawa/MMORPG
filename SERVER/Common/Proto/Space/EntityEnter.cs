@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Space {
+namespace Common.Proto.Event.Space {
 
   /// <summary>Holder for reflection information generated from Space/EntityEnter.proto</summary>
   public static partial class EntityEnterReflection {
@@ -24,23 +24,22 @@ namespace Common.Proto.Space {
     static EntityEnterReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChdTcGFjZS9FbnRpdHlFbnRlci5wcm90bxISQ29tbW9uLlByb3RvLlNwYWNl",
-            "GhZFbnRpdHkvTmV0RW50aXR5LnByb3RvIicKEkVudGl0eUVudGVyUmVxdWVz",
-            "dBIRCgllbnRpdHlfaWQYASADKAUiSgoTRW50aXR5RW50ZXJSZXNwb25zZRIz",
-            "CgtlbnRpdHlfbGlzdBgBIAMoCzIeLkNvbW1vbi5Qcm90by5FbnRpdHkuTmV0",
-            "RW50aXR5YgZwcm90bzM="));
+            "ChdTcGFjZS9FbnRpdHlFbnRlci5wcm90bxIYQ29tbW9uLlByb3RvLkV2ZW50",
+            "LlNwYWNlGhZFbnRpdHkvTmV0RW50aXR5LnByb3RvIicKEkVudGl0eUVudGVy",
+            "UmVxdWVzdBIRCgllbnRpdHlfaWQYASADKAUiSgoTRW50aXR5RW50ZXJSZXNw",
+            "b25zZRIzCgtlbnRpdHlfbGlzdBgBIAMoCzIeLkNvbW1vbi5Qcm90by5FbnRp",
+            "dHkuTmV0RW50aXR5YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Entity.NetEntityReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Space.EntityEnterRequest), global::Common.Proto.Space.EntityEnterRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Space.EntityEnterResponse), global::Common.Proto.Space.EntityEnterResponse.Parser, new[]{ "EntityList" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.Space.EntityEnterRequest), global::Common.Proto.Event.Space.EntityEnterRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.Space.EntityEnterResponse), global::Common.Proto.Event.Space.EntityEnterResponse.Parser, new[]{ "EntityList" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityEnterRequest : pb::IMessage<EntityEnterRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -55,7 +54,7 @@ namespace Common.Proto.Space {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Space.EntityEnterReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Common.Proto.Event.Space.EntityEnterReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -221,7 +220,6 @@ namespace Common.Proto.Space {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityEnterResponse : pb::IMessage<EntityEnterResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -236,7 +234,7 @@ namespace Common.Proto.Space {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Space.EntityEnterReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Common.Proto.Event.Space.EntityEnterReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

@@ -14,6 +14,7 @@ public class InitLogState : AbstractState<LaunchStatus, LaunchController>, ICont
 
     protected override void OnEnter()
     {
+        Logger.Info("Launch", "初始化日志");
         Logger.Initialize();
         mFSM.ChangeState(LaunchStatus.InitPlugins);
     }

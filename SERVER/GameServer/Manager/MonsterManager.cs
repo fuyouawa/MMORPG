@@ -1,4 +1,5 @@
-﻿using GameServer.Unit;
+﻿using Common.Proto.Entity;
+using GameServer.Unit;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class WaitForEnterGameState : AbstractState<LaunchStatus, LaunchController>, IController
+public class WaitForJoinMapState : AbstractState<LaunchStatus, LaunchController>, IController
 {
-    public WaitForEnterGameState(FSM<LaunchStatus> fsm, LaunchController target) : base(fsm, target)
+    public WaitForJoinMapState(FSM<LaunchStatus> fsm, LaunchController target) : base(fsm, target)
     {
         this.RegisterEvent<JoinedMapEvent>(OnEnterSpace);
     }
@@ -20,7 +20,7 @@ public class WaitForEnterGameState : AbstractState<LaunchStatus, LaunchControlle
 
     protected override void OnEnter()
     {
-
+        Logger.Info("Launch", "开始等待加入地图");
     }
 
     public IArchitecture GetArchitecture()
