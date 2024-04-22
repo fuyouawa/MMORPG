@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class PlayerJoinedEvent
+public class EntitySummonEvent
 {
-    public NetworkEntity Player { get; }
+    public NetworkEntity Entity { get; }
 
-    public PlayerJoinedEvent(NetworkEntity player)
+    public EntitySummonEvent(NetworkEntity entity)
     {
-        Player = player;
+        Entity = entity;
     }
 }
