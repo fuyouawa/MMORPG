@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+
+[RequireComponent(typeof(NetworkTransform))]
 public class NetworkEntity : NetworkBehaviour
 {
     [SerializeField]
@@ -15,9 +17,17 @@ public class NetworkEntity : NetworkBehaviour
     [ReadOnly]
     private bool _isMine;
 
+    public NetworkTransform NetworkTransform { get; private set; }
+
     public int EntityId => _entityId;
 
     public bool IsMine => _isMine;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        NetworkTransform = GetComponent<NetworkTransform>();
+    }
 
     public void SetEntityId(int entityId)
     {

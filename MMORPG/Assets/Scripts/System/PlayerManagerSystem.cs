@@ -20,6 +20,8 @@ public class PlayerManagerSystem : AbstractSystem, IPlayerManagerSystem
     private int _mineId = -1;
     private int _characterId = -1;
     private NetworkPlayer _minePlayer = null;
+    private Dictionary<int, NetworkEntity> _playerDict = new();
+
     public NetworkPlayer MinePlayer => _minePlayer;
 
     public int CharacterId => _characterId;
@@ -35,5 +37,12 @@ public class PlayerManagerSystem : AbstractSystem, IPlayerManagerSystem
 
     protected override void OnInit()
     {
+        this.RegisterEvent<EntityEnterEvent>(OnEntityEnter);
+    }
+
+    private void OnEntityEnter(EntityEnterEvent e)
+    {
+        Debug.Assert(!_playerDict.ContainsKey(e.Entity.EntityId));
+        _playerDict[e.Entity.EntityId] = e.Entity;
     }
 }
