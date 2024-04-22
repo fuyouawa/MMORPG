@@ -1,4 +1,5 @@
 ﻿using Common.Tool;
+using GameServer.Tool;
 using GameServer.Unit;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace GameServer.Manager
 
         private Dictionary<int, Space> _spaceDict;
 
-        public SpaceManager()
+        SpaceManager()
         {
             _spaceDict = new();
             var noviceVillage = NewSpace(InitSpaceId, "新手村");

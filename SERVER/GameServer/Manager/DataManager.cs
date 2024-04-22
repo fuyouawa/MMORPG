@@ -4,6 +4,7 @@ using GameServer.Tool;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace GameServer.Manager
         public Dictionary<int, ItemDefine> ItemDict;
         public Dictionary<int, SkillDefine> SkillDict;
 
-        public void Init()
+        DataManager()
         {
             SpaceDict = Load<Dictionary<int, SpaceDefine>>("Data/SpaceDefine.json");
             UnitDict = Load<Dictionary<int, UnitDefine>>("Data/UnitDefine.json");
@@ -30,7 +31,10 @@ namespace GameServer.Manager
         private T Load<T>(string jsonPath)
         {
             var content = JsonHelper.LoadJsonFromFile(jsonPath);
-            return JsonConvert.DeserializeObject<T>(content); 
+            Debug.Assert(content != null);
+            var obj = JsonConvert.DeserializeObject<T>(content);
+            Debug.Assert(obj != null);
+            return obj;
         }
     }
 }

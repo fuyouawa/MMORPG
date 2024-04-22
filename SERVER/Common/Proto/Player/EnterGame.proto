@@ -2,7 +2,6 @@
 
 package Common.Proto.Player;
 import "Base/NetError.proto";
-import "Player/NetCharacter.proto";
 
 message EnterGameRequest {
     int32 character_id = 1;
@@ -10,6 +9,5 @@ message EnterGameRequest {
 
 message EnterGameResponse {
     Base.NetError error = 1;
-    //NetCharacter character = 4;
     int32 entity_id = 2;
 }

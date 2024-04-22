@@ -25,13 +25,12 @@ namespace Common.Proto.Player {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChZQbGF5ZXIvRW50ZXJHYW1lLnByb3RvEhNDb21tb24uUHJvdG8uUGxheWVy",
-            "GhNCYXNlL05ldEVycm9yLnByb3RvGhlQbGF5ZXIvTmV0Q2hhcmFjdGVyLnBy",
-            "b3RvIigKEEVudGVyR2FtZVJlcXVlc3QSFAoMY2hhcmFjdGVyX2lkGAEgASgF",
-            "IlIKEUVudGVyR2FtZVJlc3BvbnNlEioKBWVycm9yGAEgASgOMhsuQ29tbW9u",
-            "LlByb3RvLkJhc2UuTmV0RXJyb3ISEQoJZW50aXR5X2lkGAIgASgFYgZwcm90",
-            "bzM="));
+            "GhNCYXNlL05ldEVycm9yLnByb3RvIigKEEVudGVyR2FtZVJlcXVlc3QSFAoM",
+            "Y2hhcmFjdGVyX2lkGAEgASgFIlIKEUVudGVyR2FtZVJlc3BvbnNlEioKBWVy",
+            "cm9yGAEgASgOMhsuQ29tbW9uLlByb3RvLkJhc2UuTmV0RXJyb3ISEQoJZW50",
+            "aXR5X2lkGAIgASgFYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Common.Proto.Base.NetErrorReflection.Descriptor, global::Common.Proto.Player.NetCharacterReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Common.Proto.Base.NetErrorReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.EnterGameRequest), global::Common.Proto.Player.EnterGameRequest.Parser, new[]{ "CharacterId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.EnterGameResponse), global::Common.Proto.Player.EnterGameResponse.Parser, new[]{ "Error", "EntityId" }, null, null, null, null)
@@ -41,7 +40,6 @@ namespace Common.Proto.Player {
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EnterGameRequest : pb::IMessage<EnterGameRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -231,7 +229,6 @@ namespace Common.Proto.Player {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EnterGameResponse : pb::IMessage<EnterGameResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -292,9 +289,6 @@ namespace Common.Proto.Player {
     /// <summary>Field number for the "entity_id" field.</summary>
     public const int EntityIdFieldNumber = 2;
     private int entityId_;
-    /// <summary>
-    ///NetCharacter character = 4;
-    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int EntityId {

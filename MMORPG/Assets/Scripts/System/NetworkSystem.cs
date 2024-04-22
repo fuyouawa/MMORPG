@@ -14,10 +14,11 @@ namespace MMORPG
 {
     public interface INetworkSystem : ISystem
     {
-        public void RegisterEmergencyReceive<TMessage>(Action<TMessage> onReceived) where TMessage : class, IMessage;
-        public void UnregisterEmergencyReceive<TMessage>(Action<TMessage> onReceived) where TMessage : class, IMessage;
+        public IUnRegister ReceiveEvent<TMessage>(Action<TMessage> onReceived) where TMessage : class, IMessage;
 
         public Task ConnectAsync();
+        public void Close();
+
         public void SendToServer(IMessage msg);
         public Task<T> ReceiveAsync<T>() where T : class, IMessage;
         public Task StartAsync();
@@ -26,7 +27,7 @@ namespace MMORPG
     public class NetworkSystem : AbstractSystem, INetworkSystem
     {
         private NetSession _session;
-        private Dictionary<Type, Delegate> _emergencyHandlers = new();
+        private Dictionary<Type, Delegate> _eventMsgHandlers = new();
 
         ////TODO 高水位处理
         private LinkedList<IMessage> _messageList = new();
@@ -68,12 +69,12 @@ namespace MMORPG
             return _session.StartAsync();
         }
 
-        private void OnPacketReceived(object sender, Common.Network.PacketReceivedEventArgs e)
+        private void OnPacketReceived(object sender, PacketReceivedEventArgs e)
         {
             var msgType = e.Packet.Message.GetType();
-            if (ProtoManager.IsEmergency(msgType))
+            if (ProtoManager.IsEvent(msgType))
             {
-                _emergencyHandlers[msgType]?.DynamicInvoke(new object[] { e.Packet.Message });
+                _eventMsgHandlers[msgType]?.DynamicInvoke(new object[] { e.Packet.Message });
             }
             else
             {
@@ -98,7 +99,7 @@ namespace MMORPG
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error(ex, $"[Network]连接服务器时出现错误:{ex.Message}");
+                    Logger.Error("Network", ex, $"连接服务器时出现错误:{ex.Message}");
                     box.CloseSpinner();
                     await box.ShowMessageAsync("错误", $"连接服务器失败:{ex}", "重新连接");
                     continue;
@@ -111,21 +112,27 @@ namespace MMORPG
         {
         }
 
-        void INetworkSystem.RegisterEmergencyReceive<TMessage>(Action<TMessage> onReceived)
+        IUnRegister INetworkSystem.ReceiveEvent<TMessage>(Action<TMessage> onReceived)
         {
             var type = typeof(TMessage);
-            if (!_emergencyHandlers.ContainsKey(type))
+            if (!_eventMsgHandlers.ContainsKey(type))
             {
-                _emergencyHandlers[type] = null;
+                _eventMsgHandlers[type] = null;
             }
-            _emergencyHandlers[type] = (_emergencyHandlers[type] as Action<TMessage>) + onReceived;
+            _eventMsgHandlers[type] = (_eventMsgHandlers[type] as Action<TMessage>) + onReceived;
+            return new CustomUnRegister(() => UnReceiveEvent(onReceived));
         }
 
-        void INetworkSystem.UnregisterEmergencyReceive<TMessage>(Action<TMessage> onReceived)
+        private void UnReceiveEvent<TMessage>(Action<TMessage> onReceived)
         {
             var type = typeof(TMessage);
-            Debug.Assert(_emergencyHandlers.ContainsKey(type));
-            _emergencyHandlers[type] = (_emergencyHandlers[type] as Action<TMessage>) - onReceived;
+            Debug.Assert(_eventMsgHandlers.ContainsKey(type));
+            _eventMsgHandlers[type] = (_eventMsgHandlers[type] as Action<TMessage>) - onReceived;
+        }
+
+        public void Close()
+        {
+            _session.Close();
         }
     }
 }

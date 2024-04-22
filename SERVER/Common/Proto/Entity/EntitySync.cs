@@ -25,15 +25,14 @@ namespace Common.Proto.Entity {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChdFbnRpdHkvRW50aXR5U3luYy5wcm90bxITQ29tbW9uLlByb3RvLkVudGl0",
-            "eRoWRW50aXR5L05ldEVudGl0eS5wcm90byJvCgpFbnRpdHlTeW5jEjEKBnN0",
-            "YXR1cxgBIAEoDjIhLkNvbW1vbi5Qcm90by5FbnRpdHkuRW50aXR5U3RhdHVz",
-            "Ei4KBmVudGl0eRgCIAEoCzIeLkNvbW1vbi5Qcm90by5FbnRpdHkuTmV0RW50",
-            "aXR5KjYKDEVudGl0eVN0YXR1cxIICgROT0RFEAASCAoESURMRRABEggKBE1P",
-            "VkUQAhIICgRKVU1QEANiBnByb3RvMw=="));
+            "eRoWRW50aXR5L05ldEVudGl0eS5wcm90byJKCgpFbnRpdHlTeW5jEi4KBmVu",
+            "dGl0eRgBIAEoCzIeLkNvbW1vbi5Qcm90by5FbnRpdHkuTmV0RW50aXR5EgwK",
+            "BGRhdGEYAiABKAwqNgoMRW50aXR5U3RhdHVzEggKBE5PREUQABIICgRJRExF",
+            "EAESCAoETU9WRRACEggKBEpVTVAQA2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Entity.NetEntityReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Common.Proto.Entity.EntityStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Entity.EntitySync), global::Common.Proto.Entity.EntitySync.Parser, new[]{ "Status", "Entity" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Entity.EntitySync), global::Common.Proto.Entity.EntitySync.Parser, new[]{ "Entity", "Data" }, null, null, null, null)
           }));
     }
     #endregion
@@ -50,7 +49,6 @@ namespace Common.Proto.Entity {
   #endregion
 
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntitySync : pb::IMessage<EntitySync>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -85,8 +83,8 @@ namespace Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EntitySync(EntitySync other) : this() {
-      status_ = other.status_;
       entity_ = other.entity_ != null ? other.entity_.Clone() : null;
+      data_ = other.data_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -96,20 +94,8 @@ namespace Common.Proto.Entity {
       return new EntitySync(this);
     }
 
-    /// <summary>Field number for the "status" field.</summary>
-    public const int StatusFieldNumber = 1;
-    private global::Common.Proto.Entity.EntityStatus status_ = global::Common.Proto.Entity.EntityStatus.Node;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Entity.EntityStatus Status {
-      get { return status_; }
-      set {
-        status_ = value;
-      }
-    }
-
     /// <summary>Field number for the "entity" field.</summary>
-    public const int EntityFieldNumber = 2;
+    public const int EntityFieldNumber = 1;
     private global::Common.Proto.Entity.NetEntity entity_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -117,6 +103,18 @@ namespace Common.Proto.Entity {
       get { return entity_; }
       set {
         entity_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "data" field.</summary>
+    public const int DataFieldNumber = 2;
+    private pb::ByteString data_ = pb::ByteString.Empty;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pb::ByteString Data {
+      get { return data_; }
+      set {
+        data_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -135,8 +133,8 @@ namespace Common.Proto.Entity {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Status != other.Status) return false;
       if (!object.Equals(Entity, other.Entity)) return false;
+      if (Data != other.Data) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -144,8 +142,8 @@ namespace Common.Proto.Entity {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Status != global::Common.Proto.Entity.EntityStatus.Node) hash ^= Status.GetHashCode();
       if (entity_ != null) hash ^= Entity.GetHashCode();
+      if (Data.Length != 0) hash ^= Data.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -164,13 +162,13 @@ namespace Common.Proto.Entity {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Status != global::Common.Proto.Entity.EntityStatus.Node) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) Status);
-      }
       if (entity_ != null) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(10);
         output.WriteMessage(Entity);
+      }
+      if (Data.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteBytes(Data);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -182,13 +180,13 @@ namespace Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Status != global::Common.Proto.Entity.EntityStatus.Node) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) Status);
-      }
       if (entity_ != null) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(10);
         output.WriteMessage(Entity);
+      }
+      if (Data.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteBytes(Data);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -200,11 +198,11 @@ namespace Common.Proto.Entity {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Status != global::Common.Proto.Entity.EntityStatus.Node) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
-      }
       if (entity_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Entity);
+      }
+      if (Data.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(Data);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -218,14 +216,14 @@ namespace Common.Proto.Entity {
       if (other == null) {
         return;
       }
-      if (other.Status != global::Common.Proto.Entity.EntityStatus.Node) {
-        Status = other.Status;
-      }
       if (other.entity_ != null) {
         if (entity_ == null) {
           Entity = new global::Common.Proto.Entity.NetEntity();
         }
         Entity.MergeFrom(other.Entity);
+      }
+      if (other.Data.Length != 0) {
+        Data = other.Data;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -242,15 +240,15 @@ namespace Common.Proto.Entity {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            Status = (global::Common.Proto.Entity.EntityStatus) input.ReadEnum();
-            break;
-          }
-          case 18: {
+          case 10: {
             if (entity_ == null) {
               Entity = new global::Common.Proto.Entity.NetEntity();
             }
             input.ReadMessage(Entity);
+            break;
+          }
+          case 18: {
+            Data = input.ReadBytes();
             break;
           }
         }
@@ -268,15 +266,15 @@ namespace Common.Proto.Entity {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            Status = (global::Common.Proto.Entity.EntityStatus) input.ReadEnum();
-            break;
-          }
-          case 18: {
+          case 10: {
             if (entity_ == null) {
               Entity = new global::Common.Proto.Entity.NetEntity();
             }
             input.ReadMessage(Entity);
+            break;
+          }
+          case 18: {
+            Data = input.ReadBytes();
             break;
           }
         }

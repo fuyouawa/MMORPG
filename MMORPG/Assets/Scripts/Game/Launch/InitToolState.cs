@@ -15,6 +15,7 @@ public class InitToolState : AbstractState<LaunchStatus, LaunchController>, ICon
 
     protected override void OnEnter()
     {
+        Logger.Info("Launch", "初始化工具");
         new GameObject(nameof(UIToolController)).AddComponent<UIToolController>();
         new GameObject(nameof(UnityMainThreadDispatcher)).AddComponent<UnityMainThreadDispatcher>();
         mFSM.ChangeState(LaunchStatus.InitNetwork);

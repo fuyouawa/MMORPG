@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Space {
+namespace Common.Proto.Event.Space {
 
   /// <summary>Holder for reflection information generated from Space/EntitySync.proto</summary>
   public static partial class EntitySyncReflection {
@@ -24,24 +24,23 @@ namespace Common.Proto.Space {
     static EntitySyncReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChZTcGFjZS9FbnRpdHlTeW5jLnByb3RvEhJDb21tb24uUHJvdG8uU3BhY2Ua",
-            "F0VudGl0eS9FbnRpdHlTeW5jLnByb3RvIkkKEUVudGl0eVN5bmNSZXF1ZXN0",
-            "EjQKC2VudGl0eV9zeW5jGAEgASgLMh8uQ29tbW9uLlByb3RvLkVudGl0eS5F",
-            "bnRpdHlTeW5jIkoKEkVudGl0eVN5bmNSZXNwb25zZRI0CgtlbnRpdHlfc3lu",
-            "YxgBIAEoCzIfLkNvbW1vbi5Qcm90by5FbnRpdHkuRW50aXR5U3luY2IGcHJv",
-            "dG8z"));
+            "ChZTcGFjZS9FbnRpdHlTeW5jLnByb3RvEhhDb21tb24uUHJvdG8uRXZlbnQu",
+            "U3BhY2UaF0VudGl0eS9FbnRpdHlTeW5jLnByb3RvIkkKEUVudGl0eVN5bmNS",
+            "ZXF1ZXN0EjQKC2VudGl0eV9zeW5jGAEgASgLMh8uQ29tbW9uLlByb3RvLkVu",
+            "dGl0eS5FbnRpdHlTeW5jIkoKEkVudGl0eVN5bmNSZXNwb25zZRI0CgtlbnRp",
+            "dHlfc3luYxgBIAEoCzIfLkNvbW1vbi5Qcm90by5FbnRpdHkuRW50aXR5U3lu",
+            "Y2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Entity.EntitySyncReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Space.EntitySyncRequest), global::Common.Proto.Space.EntitySyncRequest.Parser, new[]{ "EntitySync" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Space.EntitySyncResponse), global::Common.Proto.Space.EntitySyncResponse.Parser, new[]{ "EntitySync" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.Space.EntitySyncRequest), global::Common.Proto.Event.Space.EntitySyncRequest.Parser, new[]{ "EntitySync" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.Space.EntitySyncResponse), global::Common.Proto.Event.Space.EntitySyncResponse.Parser, new[]{ "EntitySync" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntitySyncRequest : pb::IMessage<EntitySyncRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -56,7 +55,7 @@ namespace Common.Proto.Space {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Space.EntitySyncReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Common.Proto.Event.Space.EntitySyncReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -240,7 +239,6 @@ namespace Common.Proto.Space {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntitySyncResponse : pb::IMessage<EntitySyncResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -255,7 +253,7 @@ namespace Common.Proto.Space {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Space.EntitySyncReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Common.Proto.Event.Space.EntitySyncReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

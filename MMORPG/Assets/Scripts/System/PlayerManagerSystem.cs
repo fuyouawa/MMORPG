@@ -30,11 +30,11 @@ public class PlayerManagerSystem : AbstractSystem, IPlayerManagerSystem
     private Player _minePlayer = null;
     private Dictionary<int, Player> _playerDict = new();
 
-    public Player MinePlayer => _minePlayer.AssertNotNull();
+    public Player MinePlayer => _minePlayer;
 
-    public int CharacterId => _characterId.AssertNotEqual(-1);
+    public int CharacterId => _characterId;
 
-    int IPlayerManagerSystem.MineId => _mineId.AssertNotEqual(-1);
+    int IPlayerManagerSystem.MineId => _mineId;
 
     public Player GetPlayerById(int entityId)
     {
@@ -46,7 +46,7 @@ public class PlayerManagerSystem : AbstractSystem, IPlayerManagerSystem
         Debug.Assert(!_playerDict.ContainsKey(entityId));
         player.Entity.EntityId = entityId;
         _playerDict.Add(entityId, player);
-        Logger.Info($"[Game]玩家生成: Id:{entityId}");
+        Logger.Info("Game", $"玩家生成: Id:{entityId}");
         this.SendEvent(new PlayerJoinedEvent(player));
     }
 

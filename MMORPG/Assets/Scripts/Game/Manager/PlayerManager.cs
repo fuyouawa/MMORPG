@@ -1,5 +1,4 @@
-﻿using Common.Proto.Space;
-using MMORPG;
+﻿using MMORPG;
 using QFramework;
 using System;
 using System.Collections.Generic;

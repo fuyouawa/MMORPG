@@ -40,12 +40,12 @@ namespace MMORPG
             box.CloseSpinner();
             if (response.Error != Common.Proto.Base.NetError.Success)
             {
-                Logger.Error($"[Network]EnterGame Error:{response.Error.GetInfo().Description}");
+                Logger.Error("Network", $"EnterGame Error:{response.Error.GetInfo().Description}");
                 //TODO Error¥¶¿Ì
                 return;
             }
 
-            Logger.Info($"[Network]EnterGame Success, MineId:{response.EntityId}");
+            Logger.Info("Network", $"EnterGame Success, MineId:{response.EntityId}");
             _playerManager.SetMineId(response.EntityId);
             do
             {
