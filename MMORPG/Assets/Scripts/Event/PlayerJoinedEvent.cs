@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class PlayerJoinedEvent
 {
-    public Player Player { get; }
+    public NetworkEntity Player { get; }
 
-    public PlayerJoinedEvent(Player player)
+    public PlayerJoinedEvent(NetworkEntity player)
     {
         Player = player;
     }

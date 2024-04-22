@@ -45,7 +45,6 @@ public class LoginCommand : AbstractCommand
 
         if (response.Error == NetError.Success)
         {
-            this.GetModel<IUserModel>().SetUsername(_username);
             Logger.Info("Network", $"'{_username}'µÇÂ¼³É¹¦");
             SceneManager.LoadScene("JoinMapScene");
         }
