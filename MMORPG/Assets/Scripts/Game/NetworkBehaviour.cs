@@ -1,3 +1,4 @@
+using MMORPG;
 using QFramework;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,6 +6,8 @@ using UnityEngine;
 
 public class NetworkBehaviour : MonoBehaviour, IController
 {
+    protected INetworkSystem _network;
+
     private float _networkSyncDeltaTime;
 
     public IArchitecture GetArchitecture()
@@ -14,6 +17,7 @@ public class NetworkBehaviour : MonoBehaviour, IController
 
     protected virtual void Awake()
     {
+        _network = this.GetSystem<INetworkSystem>();
         var config = this.GetModel<IGameConfigModel>();
         config.NetworkSyncDeltaTime.RegisterWithInitValue(time => _networkSyncDeltaTime = time)
             .UnRegisterWhenGameObjectDestroyed(gameObject);
