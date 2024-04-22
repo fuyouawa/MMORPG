@@ -24,13 +24,48 @@ public class NetworkEntityInfo
     }
 }
 
+public struct EntityInfo
+{
+    public bool IsMine;
+}
+
 public interface IEntityManagerSystem : ISystem
 {
+    public void RegisterEntity(int entityId, NetworkEntity entity, EntityInfo info);
+    public void UnregisterEntity(int entityId);
+
+    public NetworkEntity GetEntityById(int entityId);
+    public bool TryGetEntityById(int entityId, out NetworkEntity entity);
 }
 
 
 public class EntityManagerSystem : AbstractSystem, IEntityManagerSystem
 {
+    private Dictionary<int, NetworkEntity> _entityDict = new();
+
+    public NetworkEntity GetEntityById(int entityId)
+    {
+        return _entityDict[entityId];
+    }
+
+    public void RegisterEntity(int entityId, NetworkEntity entity, EntityInfo info)
+    {
+        Debug.Assert(!_entityDict.ContainsKey(entityId));
+        entity.SetEntityId(entityId);
+        entity.SetIsMine(info.IsMine);
+        _entityDict[entityId] = entity;
+    }
+
+    public bool TryGetEntityById(int entityId, out NetworkEntity entity)
+    {
+        return _entityDict.TryGetValue(entityId, out entity);
+    }
+
+    public void UnregisterEntity(int entityId)
+    {
+        _entityDict.Remove(entityId);
+    }
+
     protected override void OnInit()
     {
         this.GetSystem<INetworkSystem>().ReceiveEvent<EntityEnterResponse>(OnEntityEnterReceived);

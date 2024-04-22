@@ -10,20 +10,24 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour, IController
 {
-    private IPlayerManagerSystem _playerManager;
+    private IEntityManagerSystem _entityManager;
     private ResLoader _resLoader = ResLoader.Allocate();
 
     private void Awake()
     {
-        _playerManager = this.GetSystem<IPlayerManagerSystem>();
+        _entityManager = this.GetSystem<IEntityManagerSystem>();
         this.RegisterEventInUnityThread<NetworkEntityEnterEvent>(OnPlayerEnter)
             .UnRegisterWhenGameObjectDestroyed(gameObject);
     }
 
     private void OnPlayerEnter(NetworkEntityEnterEvent e)
     {
-        var player = Instantiate(_resLoader.LoadSync<Player>("DogPBR"));
-        _playerManager.RegisterPlayer(player, e.EntityInfo.EntityId);
+        var player = Instantiate(_resLoader.LoadSync<NetworkEntity>("DogPBR"));
+        player.transform.position = e.EntityInfo.Position;
+        player.transform.rotation = e.EntityInfo.Rotation;
+
+        _entityManager.RegisterEntity(e.EntityInfo.EntityId, player, new() { IsMine = false });
+        this.SendCommand(new PlayerJoinedCommand(player));
     }
 
     public IArchitecture GetArchitecture()

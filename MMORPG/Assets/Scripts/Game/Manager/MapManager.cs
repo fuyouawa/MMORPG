@@ -16,6 +16,7 @@ namespace MMORPG
     public class MapManager : MonoBehaviour, IController
     {
         private IPlayerManagerSystem _playerManager;
+        private IEntityManagerSystem _entityManager;
 
         public IArchitecture GetArchitecture()
         {
@@ -25,6 +26,7 @@ namespace MMORPG
         void Awake()
         {
             _playerManager = this.GetSystem<IPlayerManagerSystem>();
+            _entityManager = this.GetSystem<IEntityManagerSystem>();
         }
 
         async void Start()
@@ -49,9 +51,9 @@ namespace MMORPG
             _playerManager.SetMineId(response.EntityId);
             do
             {
-                if (_playerManager.TryGetPlayerById(_playerManager.MineId, out var player))
+                if (_entityManager.TryGetEntityById(_playerManager.MineId, out var player))
                 {
-                    player.Entity.IsMine = true;
+                    player.SetIsMine(true);
                     var camera = Camera.main.GetComponent<CameraController>();
                     camera.InitFromTarget(player.transform);
                     return;
