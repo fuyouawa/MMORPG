@@ -77,23 +77,23 @@ public class NetSession : Connection
 
     private void OnErrorOccur(object sender, ErrorOccurEventArgs e)
     {
-        Logger.Error($"[Channel] 出现异常:{e.Exception}");
+        Logger.Error("Channel", $"出现异常:{e.Exception}");
     }
 
     private void OnWarningOccur(object sender, WarningOccurEventArgs e)
     {
-        Logger.Warn($"[Channel] 出现警告:{e.Description}");
+        Logger.Warn("Channel", $"出现警告:{e.Description}");
     }
 
     private void OnConnectionClosed(object sender, ConnectionClosedEventArgs e)
     {
         if (e.IsManual)
         {
-            Logger.Info($"[Channel] 关闭对服务器端的链接!");
+            Logger.Info("Channel", $"关闭对服务器端的链接!");
         }
         else
         {
-            Logger.Info($"[Channel] 对端关闭链接");
+            Logger.Info("Channel", $"对端关闭链接");
         }
     }
 }

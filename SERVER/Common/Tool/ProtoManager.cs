@@ -9,14 +9,14 @@ namespace Common.Tool
     {
         private static readonly Type[] _sortedProtoTypes;
 
-        private static readonly HashSet<Type> _emergencyProtoTypes;
+        private static readonly HashSet<Type> _eventProtoTypes;
 
         static ProtoManager()
         {
             _sortedProtoTypes = Meta.AllProtoType.OrderBy(t => t.Name).ToArray();
 
-            _emergencyProtoTypes = (from type in _sortedProtoTypes
-                                 where type.Namespace.EndsWith(".Emergency")
+            _eventProtoTypes = (from type in _sortedProtoTypes
+                                 where type.Namespace.StartsWith("Common.Proto.Event")
                                  select type).ToHashSet();
         }
 
@@ -30,9 +30,9 @@ namespace Common.Tool
             return _sortedProtoTypes[id];
         }
 
-        public static bool IsEmergency(Type type)
+        public static bool IsEvent(Type type)
         {
-            return _emergencyProtoTypes.Contains(type);
+            return _eventProtoTypes.Contains(type);
         }
     }
 }

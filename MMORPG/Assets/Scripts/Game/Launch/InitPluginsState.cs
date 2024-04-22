@@ -14,6 +14,7 @@ public class InitPluginsState : AbstractState<LaunchStatus, LaunchController>, I
 
     protected override void OnEnter()
     {
+        Logger.Info("Launch", "初始化插件");
         ResKit.Init();
         mFSM.ChangeState(LaunchStatus.InitTool);
     }

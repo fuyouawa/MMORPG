@@ -1,5 +1,5 @@
 ﻿using Common.Proto.Entity;
-using Common.Proto.Space;
+using Common.Proto.Event.Space;
 using MMORPG;
 using QFramework;
 using System;
@@ -33,8 +33,8 @@ public class EntityManagerSystem : AbstractSystem, IEntityManagerSystem
 {
     protected override void OnInit()
     {
-        this.GetSystem<INetworkSystem>().RegisterEmergencyReceive<EntityEnterResponse>(OnEntityEnterReceived);
-        this.GetSystem<INetworkSystem>().RegisterEmergencyReceive<EntitySyncResponse>(OnEntitySyncReceived);
+        this.GetSystem<INetworkSystem>().ReceiveEvent<EntityEnterResponse>(OnEntityEnterReceived);
+        this.GetSystem<INetworkSystem>().ReceiveEvent<EntitySyncResponse>(OnEntitySyncReceived);
     }
 
     private void OnEntityEnterReceived(EntityEnterResponse response)
@@ -45,7 +45,7 @@ public class EntityManagerSystem : AbstractSystem, IEntityManagerSystem
                     entity.Position.ToVector3(),
                     Quaternion.Euler(entity.Direction.ToVector3()));
 
-            Logger.Info($"[Game]实体({entity.EntityId})加入: Position:{info.Position}, Rotation:{info.Rotation}");
+            Logger.Info("Game", $"实体({entity.EntityId})加入: Position:{info.Position}, Rotation:{info.Rotation}");
             this.SendEvent(new NetworkEntityEnterEvent(info));
         }
     }

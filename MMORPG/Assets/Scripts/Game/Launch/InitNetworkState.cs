@@ -9,17 +9,16 @@ using System.Threading.Tasks;
 
 public class InitNetworkState : AbstractState<LaunchStatus, LaunchController>, IController
 {
-    private INetworkSystem _network;
-
     public InitNetworkState(FSM<LaunchStatus> fsm, LaunchController target) : base(fsm, target)
     {
-        _network = this.GetSystem<INetworkSystem>();
     }
 
     protected override async void OnEnter()
     {
-        await _network.ConnectAsync();
-        _network.StartAsync();
+        Logger.Info("Launch", "初始化网络");
+        var net = this.GetSystem<INetworkSystem>();
+        await net.ConnectAsync();
+        net.StartAsync();
         mFSM.ChangeState(LaunchStatus.WaitForJoinMap);
     }
 

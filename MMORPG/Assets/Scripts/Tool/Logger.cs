@@ -15,27 +15,31 @@ public static class Logger
                 .CreateLogger();
     }
 
-    public static void Info(string message)
+    public static void Info(string whichModel, string message)
     {
-        Log.Information(message);
-        QFramework.LogKit.I(message);
+        var msg = $"[{whichModel}] {message}";
+        Log.Information(msg);
+        QFramework.LogKit.I(msg);
     }
 
-    public static void Warn(string message)
+    public static void Warn(string whichModel, string message)
     {
-        Log.Warning(message);
-        QFramework.LogKit.W(message);
+        var msg = $"[{whichModel}] {message}";
+        Log.Warning(msg);
+        QFramework.LogKit.W(msg);
     }
 
-    public static void Error(string message)
+    public static void Error(string whichModel, string message)
     {
-        Log.Error(message);
-        QFramework.LogKit.E(message);
+        var msg = $"[{whichModel}] {message}";
+        Log.Error(msg);
+        QFramework.LogKit.E(msg);
     }
 
-    public static void Error(Exception ex, string message)
+    public static void Error(string whichModel, Exception ex, string message)
     {
-        Log.Error(ex, message);
-        QFramework.LogKit.E(message);
+        var msg = $"[{whichModel}] {message}";
+        Log.Error(ex, msg);
+        QFramework.LogKit.E(msg);
     }
 }

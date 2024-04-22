@@ -1,6 +1,6 @@
 ﻿using AOI;
 using Common.Proto.Entity;
-using Common.Proto.Space;
+using Common.Proto.Event.Space;
 using GameServer.Db;
 using GameServer.Manager;
 using GameServer.Tool;

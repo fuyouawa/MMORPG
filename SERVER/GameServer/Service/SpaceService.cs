@@ -1,6 +1,6 @@
 ﻿using Common.Network;
 using Common.Proto.Player;
-using Common.Proto.Space;
+using Common.Proto.Event.Space;
 using GameServer.Manager;
 using GameServer.Unit;
 using GameServer.Network;

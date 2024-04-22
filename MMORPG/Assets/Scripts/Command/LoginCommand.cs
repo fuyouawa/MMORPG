@@ -46,12 +46,12 @@ public class LoginCommand : AbstractCommand
         if (response.Error == NetError.Success)
         {
             this.GetModel<IUserModel>().SetUsername(_username);
-            Logger.Info($"[Network]{_username}");
+            Logger.Info("Network", $"'{_username}'µÇÂ¼³É¹¦");
             SceneManager.LoadScene("JoinMapScene");
         }
         else
         {
-            Logger.Error($"[Network][{_username}]µÇÂ¼Ê§°Ü:{response.Error.GetInfo().Description}");
+            Logger.Error("Network", $"'{_username}'µÇÂ¼Ê§°Ü:{response.Error.GetInfo().Description}");
             box.ShowMessage($"µÇÂ¼Ê§°Ü!\nÔ­Òò:{response.Error.GetInfo().Description}");
         }
     }

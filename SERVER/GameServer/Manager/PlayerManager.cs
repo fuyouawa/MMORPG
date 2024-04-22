@@ -1,5 +1,6 @@
 ﻿using Common.Tool;
 using GameServer.Network;
+using GameServer.Tool;
 using GameServer.Unit;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace GameServer.Manager
     public class PlayerManager : Singleton<PlayerManager>
     {
         private Dictionary<string, Player> _playerDict = new();
+
+        PlayerManager() { }
 
         public Player NewPlayer(NetChannel channel, string username, int playerId)
         {

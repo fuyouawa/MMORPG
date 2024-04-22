@@ -1,4 +1,5 @@
 ﻿using Common.Tool;
+using GameServer.Tool;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace GameServer.System
     {
         private TimeWheel _timer;
 
-        public CenterTimer()
+        CenterTimer() 
         {
             _timer = new();
             _timer.Start();

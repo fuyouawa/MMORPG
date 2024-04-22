@@ -26,6 +26,7 @@ public class InitMapState : AbstractState<LaunchStatus, LaunchController>, ICont
 
     protected override void OnEnter()
     {
+        Logger.Info("Launch", "初始化地图");
         var group = new GameObject("Manager(Auto Create)").transform;
         new GameObject("MapManager").AddComponent<MapManager>().transform.SetParent(group);
         new GameObject("PlayerManager").AddComponent<PlayerManager>().transform.SetParent(group);

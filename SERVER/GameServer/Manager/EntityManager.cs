@@ -10,6 +10,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using GameServer.System;
+using GameServer.Tool;
 
 namespace GameServer.Manager
 {
@@ -25,9 +26,8 @@ namespace GameServer.Manager
 
         public Tool.Time Time;
 
-        public EntityManager()
+        EntityManager()
         {
-
             CenterTimer.Instance.Register(100, UpdateAllEntity);
             Time = new();
         }

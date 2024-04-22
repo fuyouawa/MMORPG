@@ -1,5 +1,5 @@
 ﻿using Common.Proto.Entity;
-using Common.Proto.Space;
+using Common.Proto.Event.Space;
 using GameServer.Ai;
 using GameServer.Manager;
 using GameServer.System;
@@ -18,17 +18,14 @@ namespace GameServer.Unit
         private Vector3 _moveCurrentPos;
         private Vector3 _moveTargetPos;
         private MonsterAi _ai;
-        private Random _random;
+        private Random _random = new();
 
         public Vector3 InitPos;
-        public Actor ChasingTarget;
+        public Actor ChasingTarget = new();
 
         public Monster(Vector3 initPos)
         {
             InitPos = initPos;
-
-            _moveCurrentPos = new();
-            _moveTargetPos = new();
             _ai = new(this);
         }
 

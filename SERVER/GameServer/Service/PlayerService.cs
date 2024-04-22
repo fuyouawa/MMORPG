@@ -11,7 +11,7 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Numerics;
 using System.Threading.Channels;
-using Common.Proto.Space;
+using Common.Proto.Event.Space;
 
 namespace GameServer.Service
 {
