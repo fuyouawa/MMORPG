@@ -171,15 +171,15 @@ namespace GameServer.Service
             var res = new EnterGameResponse()
             {
                 Error = NetError.Success,
-                //Character = character.ToNetCharacter(),
-                EntityId = character.EntityId,
+                Character = character.ToNetCharacter(),
+                //EntityId = character.EntityId,
             };
             Log.Information($"{sender.ChannelName}进入游戏成功");
             sender.Send(res, null);
 
-            var res2 = new EntityEnterResponse();
-            res2.EntityList.Add(character.ToNetEntity());
-            sender.Send(res2, null);
+            //var res2 = new EntityEnterResponse();
+            //res2.EntityList.Add(character.ToNetEntity());
+            //sender.Send(res2, null);
         }
 
         public void OnHandle(NetChannel sender, HeartBeatRequest request)
