@@ -10,7 +10,7 @@ using UnityEngine;
 public interface IPlayerManagerSystem : ISystem
 {
     public int MineId { get; }
-    public NetworkPlayer MinePlayer { get; }
+    public Player MinePlayer { get; }
 
     public void SetMineId(int entityId);
 }
@@ -19,10 +19,10 @@ public class PlayerManagerSystem : AbstractSystem, IPlayerManagerSystem
 {
     private int _mineId = -1;
     private int _characterId = -1;
-    private NetworkPlayer _minePlayer = null;
-    private Dictionary<int, NetworkEntity> _playerDict = new();
+    private Player _minePlayer = null;
+    private Dictionary<int, Entity> _playerDict = new();
 
-    public NetworkPlayer MinePlayer => _minePlayer;
+    public Player MinePlayer => _minePlayer;
 
     public int CharacterId => _characterId;
 

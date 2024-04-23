@@ -1,9 +1,9 @@
-﻿using Common.Proto.Entity;
-using Common.Proto.Event.Space;
+﻿using Common.Proto.Event.Space;
 using MMORPG;
 using MoonSharp.VsCodeDebugger.SDK;
 using QFramework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,18 +13,21 @@ using UnityEngine;
 
 public interface INetworkEntityCallbacks
 {
-    public void OnNetworkSync(EntitySyncData data);
+    public void NetworkControlFixedUpdate(Entity entity, float deltaTime);
+    public void NetworkSyncUpdate(Entity entity, EntitySyncData data);
 }
 
 
 public class EntityManager : MonoBehaviour, IController, ICanSendEvent
 {
+    private IGameConfigModel _gameConfig;
     private IEntityManagerSystem _entityManager;
     private ResLoader _resLoader = ResLoader.Allocate();
 
     private void Awake()
     {
         _entityManager = this.GetSystem<IEntityManagerSystem>();
+        _gameConfig = this.GetModel<IGameConfigModel>();
 
         this.GetSystem<INetworkSystem>().ReceiveEvent<EntityEnterResponse>(OnEntityEnterReceived)
             .UnRegisterWhenGameObjectDestroyed(gameObject);
@@ -41,12 +44,7 @@ public class EntityManager : MonoBehaviour, IController, ICanSendEvent
             var rotation = Quaternion.Euler(netEntity.Direction.ToVector3());
 
             //TODO 根据Entity加载对应的Prefab
-            var entity = Instantiate(_resLoader.LoadSync<NetworkEntity>("DogPBR"));
-            entity.transform.SetPositionAndRotation(position, rotation);
-
-            _entityManager.RegisterEntity(entityId, entity, new() { IsMine = false });
-
-            this.SendEvent(new EntityEnterEvent(entity));
+            _entityManager.SpawnEntity(_resLoader.LoadSync<Entity>("DogPBR"), entityId, position, rotation, false);
         }
     }
 
@@ -56,9 +54,9 @@ public class EntityManager : MonoBehaviour, IController, ICanSendEvent
         var position = response.EntitySync.Entity.Position.ToVector3();
         var rotation = Quaternion.Euler(response.EntitySync.Entity.Direction.ToVector3());
 
-        var entity = _entityManager.GetEntityById(entityId);
+        var entity = _entityManager.GetEntityDict(false)[entityId];
         entity.GetComponents<INetworkEntityCallbacks>().ForEach(cb => {
-            cb.OnNetworkSync(new(position, rotation));
+            cb.NetworkSyncUpdate(entity, new(position, rotation));
         });
         this.SendEvent(new EntitySyncEvent(entity, position, rotation));
     }
