@@ -7,9 +7,9 @@ using UnityEngine;
 
 public class EntitySyncEvent : EntitySyncData
 {
-    public NetworkEntity Entity { get; }
+    public Entity Entity { get; }
 
-    public EntitySyncEvent(NetworkEntity entity, Vector3 position, Quaternion rotation) : base(position, rotation)
+    public EntitySyncEvent(Entity entity, Vector3 position, Quaternion rotation) : base(position, rotation)
     {
         Entity = entity;
     }

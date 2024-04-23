@@ -17,6 +17,7 @@ namespace MMORPG
     {
         private IPlayerManagerSystem _playerManager;
         private IEntityManagerSystem _entityManager;
+        private ResLoader _resLoader = ResLoader.Allocate();
 
         public IArchitecture GetArchitecture()
         {
@@ -47,19 +48,17 @@ namespace MMORPG
                 return;
             }
 
-            Logger.Info("Network", $"EnterGame Success, MineId:{response.EntityId}");
-            _playerManager.SetMineId(response.EntityId);
-            do
-            {
-                if (_entityManager.TryGetEntityById(_playerManager.MineId, out var player))
-                {
-                    player.SetIsMine(true);
-                    var camera = Camera.main.GetComponent<CameraController>();
-                    camera.InitFromTarget(player.transform);
-                    return;
-                }
-                await Task.Delay(100);
-            } while (true);
+            Logger.Info("Network", $"EnterGame Success, MineId:{response.Character.Entity.EntityId}");
+            _playerManager.SetMineId(response.Character.Entity.EntityId);
+
+            var entity = _entityManager.SpawnEntity(
+                _resLoader.LoadSync<Entity>("DogPBR"),
+                response.Character.Entity.EntityId,
+                response.Character.Entity.Position.ToVector3(),
+                Quaternion.Euler(response.Character.Entity.Direction.ToVector3()),
+                true);
+
+            Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
         }
     }
 }
