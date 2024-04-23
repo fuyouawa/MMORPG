@@ -26,32 +26,19 @@ public class NetworkEntityEnterEvent
         Rotation = rotation;
     }
 }
-public class EntitySyncData
+
+public class NetworkEntitySyncEvent
 {
+    public int EntityId { get; }
     public Vector3 Postion { get; }
     public Quaternion Rotation { get; }
 
-    public EntitySyncData(Vector3 position, Quaternion rotation)
+    public NetworkEntitySyncEvent(int entityId, Vector3 position, Quaternion rotation)
     {
+        EntityId = entityId;
         Postion = position;
         Rotation = rotation;
     }
-}
-
-public class NetworkEntitySyncEvent : EntitySyncData
-{
-    public int EntityId { get; }
-
-    public NetworkEntitySyncEvent(int entityId, Vector3 position, Quaternion rotation)
-        : base(position, rotation)
-    {
-        EntityId = entityId;
-    }
-}
-
-public struct EntityInfo
-{
-    public bool IsMine;
 }
 
 public interface IEntityManagerSystem : ISystem

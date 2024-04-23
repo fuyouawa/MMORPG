@@ -1,12 +1,13 @@
-﻿using Common.Proto.Event.Space;
+using Common.Proto.Event.Space;
 using MMORPG;
 using QFramework;
 using System.Collections;
 using Tool;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 
-public class Entity : NetworkBehaviour, IController
+public class Entity : MonoBehaviour, IController
 {
     [SerializeField]
     [ReadOnly]
@@ -14,6 +15,7 @@ public class Entity : NetworkBehaviour, IController
     [SerializeField]
     [ReadOnly]
     private bool _isMine;
+    public bool AutoUpdate = true;
 
     public INetworkEntityCallbacks[] _allCallbacks { get; private set; }
 
@@ -59,17 +61,21 @@ public class Entity : NetworkBehaviour, IController
 
     private IEnumerator NetworkFixedUpdate()
     {
-        var config = this.GetModel<IGameConfigModel>();
-        float deltaTime = 0f;
-        config.NetworkSyncDeltaTime.RegisterWithInitValue(t => deltaTime = t);
+        var config = this.GetModel<IConfigModel>().GameConfig;
+        var data = new NetworkControlData()
+        {
+            DeltaTime = config.NetworkSyncDeltaTime,
+        };
         while (true)
         {
             _allCallbacks.ForEach(cb =>
             {
                 if (IsMine)
-                    cb.NetworkControlFixedUpdate(this, deltaTime);
+                    cb.NetworkControlFixedUpdate(data);
             });
-            yield return new WaitForSeconds(deltaTime);
+            if (AutoUpdate)
+                NetworkUpdatePositionAndRotation();
+            yield return new WaitForSeconds(data.DeltaTime);
         }
     }
 

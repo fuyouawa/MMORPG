@@ -6,15 +6,14 @@ using UnityEngine;
 /// 自动同步
 /// </summary>
 [RequireComponent(typeof(Entity))]
-public class AutoSync : NetworkBehaviour, INetworkEntityCallbacks
+public class AutoSync : MonoBehaviour, INetworkEntityCallbacks
 {
-    public void NetworkControlFixedUpdate(Entity entity, float deltaTime)
+    void INetworkEntityCallbacks.NetworkControlFixedUpdate(NetworkControlData data)
     {
-        entity.NetworkUpdatePositionAndRotation();
     }
 
-    public void NetworkSyncUpdate(Entity entity, EntitySyncData data)
+    void INetworkEntityCallbacks.NetworkSyncUpdate(NetworkSyncData data)
     {
-        entity.transform.SetPositionAndRotation(data.Postion, data.Rotation);
+        transform.SetPositionAndRotation(data.Postion, data.Rotation);
     }
 }

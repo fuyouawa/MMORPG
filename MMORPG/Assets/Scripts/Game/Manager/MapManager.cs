@@ -10,8 +10,8 @@ using UnityEngine;
 namespace MMORPG
 {
     /// <summary>
-    /// µØÍ¼¿ØÖÆÆ÷
-    /// ¸ºÔğ¼àÌıÔÚµ±Ç°µØÍ¼ÖĞ´´½¨½ÇÉ«µÄÊÂ¼ş²¢½«½ÇÉ«¼ÓÈëµ½µØÍ¼
+    /// åœ°å›¾æ§åˆ¶å™¨
+    /// è´Ÿè´£ç›‘å¬åœ¨å½“å‰åœ°å›¾ä¸­åˆ›å»ºè§’è‰²çš„äº‹ä»¶å¹¶å°†è§’è‰²åŠ å…¥åˆ°åœ°å›¾
     /// </summary>
     public class MapManager : MonoBehaviour, IController
     {
@@ -44,7 +44,7 @@ namespace MMORPG
             if (response.Error != Common.Proto.Base.NetError.Success)
             {
                 Logger.Error("Network", $"EnterGame Error:{response.Error.GetInfo().Description}");
-                //TODO Error´¦Àí
+                //TODO Errorå¤„ç†
                 return;
             }
 
@@ -52,7 +52,7 @@ namespace MMORPG
             _playerManager.SetMineId(response.Character.Entity.EntityId);
 
             var entity = _entityManager.SpawnEntity(
-                _resLoader.LoadSync<Entity>("DogPBR"),
+                _resLoader.LoadSync<Entity>("HeroKnightFemale"),
                 response.Character.Entity.EntityId,
                 response.Character.Entity.Position.ToVector3(),
                 Quaternion.Euler(response.Character.Entity.Direction.ToVector3()),
