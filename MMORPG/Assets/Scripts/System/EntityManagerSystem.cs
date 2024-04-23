@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tool;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.EventSystems.EventTrigger;
@@ -55,39 +56,67 @@ public struct EntityInfo
 
 public interface IEntityManagerSystem : ISystem
 {
-    public void RegisterEntity(int entityId, NetworkEntity entity, EntityInfo info);
-    public void UnregisterEntity(int entityId);
+    public Entity SpawnEntity(
+        Entity prefab,
+        int entityId,
+        Vector3 position,
+        Quaternion rotation,
+        bool isMine);
 
-    public NetworkEntity GetEntityById(int entityId);
-    public bool TryGetEntityById(int entityId, out NetworkEntity entity);
+    public Dictionary<int, Entity> GetEntityDict(bool isMine);
 }
 
 
 public class EntityManagerSystem : AbstractSystem, IEntityManagerSystem
 {
-    private Dictionary<int, NetworkEntity> _entityDict = new();
+    public Dictionary<int, Entity> _mineEntityDict { get; } = new();
+    public Dictionary<int, Entity> _notMineEntityDict { get; } = new();
 
-    public NetworkEntity GetEntityById(int entityId)
+    public Dictionary<int, Entity> GetEntityDict(bool isMine)
     {
-        return _entityDict[entityId];
+        return isMine ? _mineEntityDict : _notMineEntityDict;
     }
 
-    public void RegisterEntity(int entityId, NetworkEntity entity, EntityInfo info)
+    public void RegisterNewEntity(Entity entity)
     {
-        Debug.Assert(!_entityDict.ContainsKey(entityId));
+        Debug.Assert(
+            !(_mineEntityDict.ContainsKey(entity.EntityId) ||
+            _notMineEntityDict.ContainsKey(entity.EntityId)));
+
+        if (entity.IsMine)
+        {
+            _mineEntityDict[entity.EntityId] = entity;
+        }
+        else
+        {
+            _notMineEntityDict[entity.EntityId] = entity;
+        }
+        this.SendEvent(new EntityEnterEvent(entity));
+    }
+
+    public Entity SpawnEntity(Entity prefab, int entityId, Vector3 position, Quaternion rotation, bool isMine)
+    {
+        Debug.Assert(
+            !(_mineEntityDict.ContainsKey(entityId) ||
+            _notMineEntityDict.ContainsKey(entityId)));
+
+        var entity = GameObject.Instantiate(prefab, position, rotation);
+        entity.transform.SetPositionAndRotation(position, rotation);
+
         entity.SetEntityId(entityId);
-        entity.SetIsMine(info.IsMine);
-        _entityDict[entityId] = entity;
-    }
+        entity.SetIsMine(isMine);
 
-    public bool TryGetEntityById(int entityId, out NetworkEntity entity)
-    {
-        return _entityDict.TryGetValue(entityId, out entity);
-    }
-
-    public void UnregisterEntity(int entityId)
-    {
-        _entityDict.Remove(entityId);
+        if (entity.IsMine)
+        {
+            _mineEntityDict[entity.EntityId] = entity;
+        }
+        else
+        {
+            _notMineEntityDict[entity.EntityId] = entity;
+        }
+        Logger.Info("Game", $"实体生成成功: id:{entityId}, position:{position}, rotation:{rotation}, isMine:{isMine}");
+        this.SendEvent(new EntityEnterEvent(entity));
+        return entity;
     }
 
     protected override void OnInit()

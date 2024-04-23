@@ -8,9 +8,9 @@ using UnityEngine;
 //TODO 完事Event命名
 public class EntityEnterEvent
 {
-    public NetworkEntity Entity { get; }
+    public Entity Entity { get; }
 
-    public EntityEnterEvent(NetworkEntity entity)
+    public EntityEnterEvent(Entity entity)
     {
         Entity = entity;
     }
