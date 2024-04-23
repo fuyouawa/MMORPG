@@ -7,28 +7,28 @@ using UnityEngine;
 
 public enum MessageBoxStyle
 {
-    LongDesc,   // ÓÃÓÚÏÔÊ¾³¤ÏûÏ¢
-    ShortDesc   // ÓÃÓÚÏÔÊ¾¶ÌÏûÏ¢, ÊÊºÏÖ»ÓĞÁ½ĞĞÎÄ±¾µÄ
+    LongDesc,   // ç”¨äºæ˜¾ç¤ºé•¿æ¶ˆæ¯
+    ShortDesc   // ç”¨äºæ˜¾ç¤ºçŸ­æ¶ˆæ¯, é€‚åˆåªæœ‰ä¸¤è¡Œæ–‡æœ¬çš„
 }
 
 public enum MessageBoxResult
 {
-    Confirm,    // È·ÈÏ
-    Cancel      // È¡Ïû
+    Confirm,    // ç¡®è®¤
+    Cancel      // å–æ¶ˆ
 }
 
 /// <summary>
-/// ÏûÏ¢¿òµÄÅäÖÃ
+/// æ¶ˆæ¯æ¡†çš„é…ç½®
 /// </summary>
 public class MessageBoxConfig
 {
-    public string Title = "ÌáÊ¾";
-    public string Description = "ÎÒÊÇÒ»¸öÏûÏ¢¿ò";
-    public string ConfirmButtonText = "È·ÈÏ";
-    public string CancalButtonText = "È¡Ïû";
+    public string Title = "æç¤º";
+    public string Description = "æˆ‘æ˜¯ä¸€ä¸ªæ¶ˆæ¯æ¡†";
+    public string ConfirmButtonText = "ç¡®è®¤";
+    public string CancalButtonText = "å–æ¶ˆ";
     public bool ShowConfirmButton = true;
     public bool ShowCancalButton = false;
-    public Action<MessageBoxResult> OnChose = null;    // µ±ÓÃ»§Ñ¡ÔñÁË"È·ÈÏ"»ò"È¡Ïû"µÄÆäÖĞÒ»¸ö°´Å¥
+    public Action<MessageBoxResult> OnChose = null;    // å½“ç”¨æˆ·é€‰æ‹©äº†"ç¡®è®¤"æˆ–"å–æ¶ˆ"çš„å…¶ä¸­ä¸€ä¸ªæŒ‰é’®
     public Action OnOpen = null;
     public TaskCompletionSource<MessageBoxResult> OnChoseTcs = null;
     public MessageBoxStyle Style = MessageBoxStyle.LongDesc;
@@ -74,7 +74,7 @@ public class MessageBoxManager : MonoBehaviour
     public void Show()
     {
         if (IsShowing)
-            throw new Exception("µ±Ç°ÒÑÓĞMessageBoxÕıÔÚÏÔÊ¾!");
+            throw new Exception("å½“å‰å·²æœ‰MessageBoxæ­£åœ¨æ˜¾ç¤º!");
 
         var window = GetWindow();
         window.titleText = Config.Title;

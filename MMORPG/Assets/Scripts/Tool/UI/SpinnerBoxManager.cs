@@ -5,11 +5,11 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// Ğı×ª¼ÓÔØ¿òµÄÅäÖÃ
+/// æ—‹è½¬åŠ è½½æ¡†çš„é…ç½®
 /// </summary>
 public record SpinnerBoxConfig
 {
-    public string Description = "ÎÒÊÇÒ»¸öĞı×ª¼ÓÔØÃæ°å";
+    public string Description = "æˆ‘æ˜¯ä¸€ä¸ªæ—‹è½¬åŠ è½½é¢æ¿";
     public float DescriptionFontSize = 16;
 }
 
@@ -31,7 +31,7 @@ public class SpinnerBoxManager : MonoBehaviour
     {
         if (IsShowing)
         {
-            Debug.LogWarning("µ±Ç°SpinnerBoxÕıÔÚÏÔÊ¾!");
+            Debug.LogWarning("å½“å‰SpinnerBoxæ­£åœ¨æ˜¾ç¤º!");
             return;
         }
         DescriptionText.text = Config.Description;
