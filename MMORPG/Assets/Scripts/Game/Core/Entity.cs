@@ -7,7 +7,7 @@ using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
 
-public class Entity : MonoBehaviour, IController
+public sealed class Entity : MonoBehaviour, IController
 {
     [SerializeField]
     [ReadOnly]
@@ -25,10 +25,14 @@ public class Entity : MonoBehaviour, IController
 
     private INetworkSystem _network;
 
-    protected void Awake()
+    private void Awake()
     {
         _network = this.GetSystem<INetworkSystem>();
         _allCallbacks = GetComponents<INetworkEntityCallbacks>();
+    }
+
+    private void Start()
+    {
         StartCoroutine(NetworkFixedUpdate());
     }
 
