@@ -1,10 +1,12 @@
-﻿using QFramework;
+using PimDeWitte.UnityMainThreadDispatcher;
+using QFramework;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class InitPluginsState : AbstractState<LaunchStatus, LaunchController>, IController
 {
@@ -16,7 +18,8 @@ public class InitPluginsState : AbstractState<LaunchStatus, LaunchController>, I
     {
         Logger.Info("Launch", "初始化插件");
         ResKit.Init();
-        mFSM.ChangeState(LaunchStatus.InitTool);
+        new GameObject(nameof(UnityMainThreadDispatcher)).AddComponent<UnityMainThreadDispatcher>();
+        mFSM.ChangeState(LaunchStatus.InitConfig);
     }
 
     public IArchitecture GetArchitecture()

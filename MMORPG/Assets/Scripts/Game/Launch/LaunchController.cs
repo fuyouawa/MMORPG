@@ -7,6 +7,7 @@ public enum LaunchStatus
 {
     InitLog,
     InitPlugins,
+    InitConfig,
     InitTool,
     InitNetwork,
     WaitForJoinMap,
@@ -25,9 +26,10 @@ public class LaunchController : MonoSingleton<LaunchController>, IController
 
     private void Start()
     {
-        Logger.Info("Launch", "¿ªÊ¼ÉúÃüÖÜÆÚ");
+        Logger.Info("Launch", "å¼€å§‹ç”Ÿå‘½å‘¨æœŸ");
         FSM.AddState(LaunchStatus.InitLog, new InitLogState(FSM, this));
         FSM.AddState(LaunchStatus.InitPlugins, new InitPluginsState(FSM, this));
+        FSM.AddState(LaunchStatus.InitConfig, new InitConfigState(FSM, this));
         FSM.AddState(LaunchStatus.InitTool, new InitToolState(FSM, this));
         FSM.AddState(LaunchStatus.InitNetwork, new InitNetworkState(FSM, this));
         FSM.AddState(LaunchStatus.WaitForJoinMap, new WaitForJoinMapState(FSM, this));
