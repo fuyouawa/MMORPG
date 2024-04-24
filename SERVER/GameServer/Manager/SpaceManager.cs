@@ -41,7 +41,8 @@ namespace GameServer.Manager
         {
             lock (_spaceDict)
             {
-                return _spaceDict.GetValueOrDefault(spaceId, null);
+                _spaceDict.TryGetValue(spaceId, out var space);
+                return space;
             }
         }
 

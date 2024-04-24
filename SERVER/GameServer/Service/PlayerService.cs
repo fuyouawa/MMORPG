@@ -58,12 +58,14 @@ namespace GameServer.Service
             {
                 if (sender.Player != null)
                 {
+                    Log.Debug($"{sender.ChannelName}登录失败：用户已登录");
                     sender.Send(new LoginResponse() { Error = NetError.UnknowError });
                     return;
                 }
 
                 if (PlayerManager.Instance.GetPlayerByName(request.Username) != null)
                 {
+                    Log.Debug($"{sender.ChannelName}登录失败：账号已在别处登录");
                     sender.Send(new LoginResponse() { Error = NetError.LoginConflict });
                     return;
                 }
@@ -74,6 +76,7 @@ namespace GameServer.Service
                     .First();
                 if (dbPlayer == null)
                 {
+                    Log.Debug($"{sender.ChannelName}登录失败：账号或密码错误");
                     sender.Send(new LoginResponse() { Error = NetError.IncorrectUsernameOrPassword });
                     return;
                 }
@@ -90,12 +93,14 @@ namespace GameServer.Service
 
             if (sender.Player != null)
             {
+                Log.Debug($"{sender.ChannelName}注册失败：用户已登录");
                 sender.Send(new RegisterResponse() { Error = NetError.UnknowError });
                 return;
             }
 
             if (!NameVerify(request.Username))
             {
+                Log.Debug($"{sender.ChannelName}注册失败：用户名非法");
                 sender.Send(new RegisterResponse() { Error = NetError.IllegalUsername });
                 return;
             }
@@ -106,6 +111,7 @@ namespace GameServer.Service
                     .First();
                 if (dbPlayer != null)
                 {
+                    Log.Debug($"{sender.ChannelName}注册失败：用户名已被注册");
                     sender.Send(new RegisterResponse() { Error = NetError.RepeatUsername });
                     return;
                 }
@@ -119,11 +125,14 @@ namespace GameServer.Service
                 var insertCount = SqlDb.Connection.Insert<DbPlayer>(newDbPlayer).ExecuteAffrows();
                 if (insertCount <= 0)
                 {
+                    Log.Debug($"{sender.ChannelName}注册失败：数据库错误");
                     sender.Send(new RegisterResponse() { Error = NetError.UnknowError });
                     return;
                 }
                 Log.Information($"{sender.ChannelName}注册成功");
                 sender.Send(new RegisterResponse() { Error = NetError.Success });
+
+                Log.Debug($"{sender.ChannelName}注册成功");
             }
         }
 
@@ -133,13 +142,13 @@ namespace GameServer.Service
 
             if (sender.Player == null)
             {
-                Log.Information($"{sender.ChannelName}进入游戏失败：未登录");
+                Log.Debug($"{sender.ChannelName}进入游戏失败：用户未登录");
                 return;
             }
 
             if (sender.Player.Character != null)
             {
-                Log.Information($"{sender.ChannelName}进入游戏失败：重复进入");
+                Log.Debug($"{sender.ChannelName}进入游戏失败：重复进入");
                 return;
             }
 
@@ -149,12 +158,14 @@ namespace GameServer.Service
                 .First();
             if (dbCharacter == null)
             {
+                Log.Debug($"{sender.ChannelName}进入游戏失败：数据库中不存在指定的角色");
                 sender.Send(new CharacterCreateResponse() { Error = NetError.InvalidCharacter });
                 return;
             }
             var space = SpaceManager.Instance.GetSpaceById(dbCharacter.SpaceId);
             if (space == null)
             {
+                Log.Debug($"{sender.ChannelName}进入游戏失败：指定的地图不存在");
                 sender.Send(new EnterGameResponse() { Error = NetError.InvalidMap });
                 return;
             }
@@ -190,8 +201,11 @@ namespace GameServer.Service
 
         public void OnHandle(NetChannel sender, CharacterCreateRequest request)
         {
+            Log.Information($"{sender.ChannelName}角色创建请求");
+
             if (sender.Player == null)
             {
+                Log.Debug($"{sender.ChannelName}角色创建失败：用户未登录");
                 return;
             }
 
@@ -200,12 +214,14 @@ namespace GameServer.Service
                 .Count();
             if (count >= 4)
             {
+                Log.Debug($"{sender.ChannelName}角色创建失败：创建的角色已满");
                 sender.Send(new CharacterCreateResponse() { Error = NetError.CharacterCreationLimitReached });
                 return;
             }
 
             if (!NameVerify(request.Name))
             {
+                Log.Debug($"{sender.ChannelName}角色创建失败：角色名称非法");
                 sender.Send(new CharacterCreateResponse() { Error = NetError.IllegalCharacterName });
                 return;
             }
@@ -217,6 +233,7 @@ namespace GameServer.Service
                     .First();
                 if (dbCharacter != null)
                 {
+                    Log.Debug($"{sender.ChannelName}角色创建失败：角色名已存在");
                     sender.Send(new CharacterCreateResponse() { Error = NetError.RepeatCharacterName });
                     return;
                 }
@@ -236,17 +253,23 @@ namespace GameServer.Service
                 var insertCount = SqlDb.Connection.Insert(newDbCharacter).ExecuteAffrows();
                 if (insertCount <= 0)
                 {
+                    Log.Debug($"{sender.ChannelName}角色创建失败：数据库错误");
                     sender.Send(new CharacterCreateResponse() { Error = NetError.UnknowError });
                     return;
                 }
                 sender.Send(new CharacterCreateResponse() { Error = NetError.Success });
+                Log.Information($"{sender.ChannelName}角色创建成功");
+
             }
         }
 
         public void OnHandle(NetChannel sender, CharacterListRequest request)
         {
+            Log.Information($"{sender.ChannelName}角色列表查询请求");
+            
             if (sender.Player == null)
             {
+                Log.Debug($"{sender.ChannelName}角色列表查询失败：用户未登录");
                 return;
             }
 
@@ -269,12 +292,16 @@ namespace GameServer.Service
                 });
             }
             sender.Send(res, null);
+            Log.Debug($"{sender.ChannelName}角色列表查询成功");
         }
 
         public void OnHandle(NetChannel sender, CharacterDeleteRequest request)
         {
+            Log.Information($"{sender.ChannelName}角色删除请求");
+            
             if (sender.Player == null)
             {
+                Log.Debug($"{sender.ChannelName}角色删除失败：用户未登录");
                 return;
             }
 
@@ -283,6 +310,8 @@ namespace GameServer.Service
                 .Where(t => t.Id == request.CharacterId)
                 .ExecuteAffrows();
             sender.Send(new CharacterDeleteResponse() { Error = NetError.Success });
+
+            Log.Information($"{sender.ChannelName}角色删除成功");
         }
 
         public void OnConnect(NetChannel sender)

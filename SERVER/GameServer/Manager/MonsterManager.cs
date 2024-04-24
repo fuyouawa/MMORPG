@@ -21,20 +21,19 @@ namespace GameServer.Manager
 
         public MonsterManager(Space space)
         {
+            _monsterDict = new();
             _space = space;
         }
 
         public Monster NewMonster(Vector3 pos, Vector3 dire, string name)
         {
-            var monster = new Monster(pos)
+            var monster = new Monster(_space, name, pos)
             {
                 EntityId = EntityManager.Instance.NewEntityId(),
                 EntityType = EntityType.Monster,
                 Position = pos,
                 Direction = dire,
                 
-                Name = name,
-                Space = _space,
                 Speed = 5,
             };
             EntityManager.Instance.AddEntity(monster);

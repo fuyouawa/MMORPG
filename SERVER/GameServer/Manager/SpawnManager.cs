@@ -15,6 +15,11 @@ namespace GameServer.Manager
         public SpawnDefine Define;
         public SpawnManager Manager;
 
+        public Spawner(SpawnManager manager, SpawnDefine define)
+        {
+            Manager = manager;
+            Define = define;
+        }
     }
 
 
@@ -27,7 +32,7 @@ namespace GameServer.Manager
 
         public SpawnManager(Space space)
         {
-
+            _space = space;
         }
 
         private void Spawn()

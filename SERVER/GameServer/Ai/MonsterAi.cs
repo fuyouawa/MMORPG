@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GameServer.Ai
@@ -26,7 +27,7 @@ namespace GameServer.Ai
         public MonsterAi(Monster monster)
         {
             FSM = new();
-            var parameter = new StateParameter();
+            var parameter = new StateParameter(monster);
             FSM.AddState(MonsterAiState.Walk, new WalkState(FSM, parameter));
             FSM.AddState(MonsterAiState.Chase, new ChaseState(FSM, parameter));
             FSM.AddState(MonsterAiState.Goback, new GobackState(FSM, parameter));
@@ -43,6 +44,11 @@ namespace GameServer.Ai
         {
             public Monster Monster;
             public Random Random = new();
+
+            public StateParameter(Monster monster)
+            {
+                Monster = monster;
+            }
         }
 
         /// <summary>
@@ -71,8 +77,8 @@ namespace GameServer.Ai
             public override void OnUpdate()
             {
                 var monster = _target.Monster;
-                var list = monster.Space.GetEntityViewEntityList(monster, e => e.EntityType == EntityType.Character);
-                var nearestCharacter = list.Aggregate((minEntity, nextEntity) =>
+                var list = monster.Space?.GetEntityViewEntityList(monster, e => e.EntityType == EntityType.Character);
+                var nearestCharacter = list?.Aggregate((minEntity, nextEntity) =>
                 {
                     var minDistance = Vector3.Distance(minEntity.Position, monster.Position);
                     var nextDistance = Vector3.Distance(nextEntity.Position, monster.Position);
@@ -114,27 +120,30 @@ namespace GameServer.Ai
             public override void OnUpdate()
             {
                 var monster = _target.Monster;
-                // 自身与出生点的距离
-                float d1 = Vector3.Distance(monster.Position, monster.InitPos);
-                // 自身与目标的距离
-                float d2 = Vector3.Distance(monster.Position, monster.ChasingTarget.Position);
-                if (d1 > _chaseRange || d2 > monster.ViewRange)
+                if (monster.ChasingTarget != null)
                 {
-                    _fsm.ChangeState(MonsterAiState.Goback);
-                    return;
-                }
-
-                if (d2 < 1)
-                {
-                    // 距离足够，可以发起攻击了
-                    if (monster.State == ActorState.Move)
+                    // 自身与出生点的距离
+                    float d1 = Vector3.Distance(monster.Position, monster.InitPos);
+                    // 自身与目标的距离
+                    float d2 = Vector3.Distance(monster.Position, monster.ChasingTarget.Position);
+                    if (d1 > _chaseRange || d2 > monster.ViewRange)
                     {
-                        monster.MoveStop();
+                        _fsm.ChangeState(MonsterAiState.Goback);
+                        return;
                     }
-                }
-                else
-                {
-                    monster.MoveTo(monster.Position);
+
+                    if (d2 < 1)
+                    {
+                        // 距离足够，可以发起攻击了
+                        if (monster.State == ActorState.Move)
+                        {
+                            monster.MoveStop();
+                        }
+                    }
+                    else
+                    {
+                        monster.MoveTo(monster.Position);
+                    }
                 }
             }
         }

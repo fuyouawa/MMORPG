@@ -10,6 +10,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace GameServer.Unit
 {
@@ -18,19 +19,25 @@ namespace GameServer.Unit
         private Vector3 _moveCurrentPos;
         private Vector3 _moveTargetPos;
         private MonsterAi _ai;
-        private Random _random = new();
+        private Random _random;
 
         public Vector3 InitPos;
-        public Actor ChasingTarget = new();
+        public Actor? ChasingTarget;
 
-        public Monster(Vector3 initPos)
+        public Monster(Space space, string name, Vector3 initPos) : base(space, name)
         {
             InitPos = initPos;
             _ai = new(this);
+            _random = new();
         }
 
         public override void Update()
         {
+            if (Space == null)
+            {
+                return;
+            }
+
             if (State == ActorState.Move)
             {
                 if (_moveTargetPos == _moveCurrentPos)
