@@ -15,6 +15,5 @@ public class GameApp : Architecture<GameApp>
         this.RegisterSystem<INetworkSystem>(new NetworkSystem());
         this.RegisterSystem<IPlayerManagerSystem>(new PlayerManagerSystem());
         this.RegisterModel<IUserModel>(new UserModel());
-        this.RegisterModel<IConfigModel>(new ConfigModel());
     }
 }

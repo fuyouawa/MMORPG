@@ -9,12 +9,10 @@ using UnityEngine;
 public class Player : MonoBehaviour, INetworkEntityCallbacks, IController
 {
     private Animator _animator;
-    private GameConfigObject _config;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        _config = this.GetModel<IConfigModel>().GameConfig;
     }
 
     public void NetworkControlFixedUpdate(NetworkControlData data)
@@ -24,9 +22,7 @@ public class Player : MonoBehaviour, INetworkEntityCallbacks, IController
 
         float horizontalAxis = Input.GetAxisRaw("Horizontal");
         float verticalAxis = Input.GetAxisRaw("Vertical");
-        _animator.SetBool(_config.AnimParamWalking, Mathf.Abs(horizontalAxis) >= 0.1f || Mathf.Abs(verticalAxis) >= 0.1f);
-        _animator.SetFloat(_config.AnimParamHorizontalAxis, horizontalAxis);
-        _animator.SetFloat(_config.AnimParamVerticalAxis, verticalAxis);
+
     }
 
     public void NetworkSyncUpdate(NetworkSyncData data)

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 namespace MMORPG.UI
 {
@@ -15,12 +16,18 @@ namespace MMORPG.UI
 			mData = uiData as UIJoinMapPanelData ?? new UIJoinMapPanelData();
 			// please add init code here
 
-			BtnEnter.onClick.AddListener(async () =>
-			{
-				await SceneManager.LoadSceneAsync("Space1Scene");
-				this.GetSystem<IMapManagerSystem>().JoinedMap(1);
-			});
+			BtnEnter.onClick.AddListener(() => JoinMapScene(1));
 		}
+
+        private void JoinMapScene(int mapId)
+        {
+            //TODO mapid
+            var op = SceneManager.LoadSceneAsync("Space1Scene");
+            op.completed += _ =>
+            {
+                this.GetSystem<IMapManagerSystem>().JoinedMap(mapId);
+            };
+        }
 		
 		protected override void OnOpen(IUIData uiData = null)
 		{
