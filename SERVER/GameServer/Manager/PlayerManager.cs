@@ -35,7 +35,8 @@ namespace GameServer.Manager
         {
             lock (_playerDict)
             {
-                return _playerDict.GetValueOrDefault(username, null);
+                _playerDict.TryGetValue(username, out var player);
+                return player;
             }
         }
 

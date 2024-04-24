@@ -38,16 +38,13 @@ namespace GameServer.Manager
         /// <returns></returns>
         public Character NewCharacter(Player player, Vector3 pos, Vector3 dire, string name)
         {
-            var character = new Character()
+            var character = new Character(_space, name, player)
             {
-                Player = player,
                 EntityId = EntityManager.Instance.NewEntityId(),
                 EntityType = EntityType.Character,
                 Position = pos,
                 Direction = dire,
 
-                Name = name,
-                Space = _space,
                 Speed = 5,
             };
             EntityManager.Instance.AddEntity(character);
@@ -80,7 +77,7 @@ namespace GameServer.Manager
         /// </summary>
         /// <param name="msg"></param>
         /// <param name="sender"></param>
-        public void Broadcast(Google.Protobuf.IMessage msg, Entity sender = null)
+        public void Broadcast(Google.Protobuf.IMessage msg, Entity? sender = null)
         {
             if (sender == null)
             {
@@ -99,7 +96,7 @@ namespace GameServer.Manager
                 foreach (var entity in list)
                 {
                     var character = entity as Character;
-                    character.Player.Channel.Send(msg, null);
+                    character?.Player.Channel.Send(msg, null);
                 }
             }
         }

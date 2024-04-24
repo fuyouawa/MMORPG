@@ -70,7 +70,7 @@ namespace GameServer.Unit
                     res.EntityList.Add(viewEntity.ToNetEntity());
                 }
                 var currentCharacter = entity as Character;
-                currentCharacter.Player.Channel.Send(res, null);
+                currentCharacter?.Player.Channel.Send(res, null);
             }
         }
 
@@ -106,7 +106,7 @@ namespace GameServer.Unit
             }
         }
 
-        public List<Entity> GetEntityViewEntityList(Entity entity, Predicate<Entity> condition = null)
+        public List<Entity> GetEntityViewEntityList(Entity entity, Predicate<Entity>? condition = null)
         {
             var entityList = new List<Entity>();
             lock (_aoiZone)
@@ -130,7 +130,7 @@ namespace GameServer.Unit
         /// <param name="netEntity"></param>
         public void EntityUpdate(NetEntity netEntity)
         {
-            Entity? entity = EntityManager.Instance.GetEntity(netEntity.EntityId);
+            var entity = EntityManager.Instance.GetEntity(netEntity.EntityId);
             if (entity == null) return;
 
             entity.Position = netEntity.Position.ToVector3();
