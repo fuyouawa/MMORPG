@@ -61,10 +61,9 @@ public class Entity : MonoBehaviour, IController
 
     private IEnumerator NetworkFixedUpdate()
     {
-        var config = this.GetModel<IConfigModel>().GameConfig;
         var data = new NetworkControlData()
         {
-            DeltaTime = config.NetworkSyncDeltaTime,
+            DeltaTime = Config.GameConfig.NetworkSyncDeltaTime
         };
         while (true)
         {

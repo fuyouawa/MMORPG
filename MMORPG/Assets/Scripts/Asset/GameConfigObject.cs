@@ -11,6 +11,4 @@ public class GameConfigObject : ScriptableObject
 
     [Header("Animator")]
     public string AnimParamWalking = "Walking";
-    public string AnimParamHorizontalAxis = "HorizontalAxis";
-    public string AnimParamVerticalAxis = "VerticalAxis";
 }

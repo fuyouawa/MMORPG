@@ -1,5 +1,5 @@
-﻿using PimDeWitte.UnityMainThreadDispatcher;
 using QFramework;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,6 @@ public class InitToolState : AbstractState<LaunchStatus, LaunchController>, ICon
     {
         Logger.Info("Launch", "初始化工具");
         new GameObject(nameof(UIToolController)).AddComponent<UIToolController>();
-        new GameObject(nameof(UnityMainThreadDispatcher)).AddComponent<UnityMainThreadDispatcher>();
         mFSM.ChangeState(LaunchStatus.InitNetwork);
     }
 
