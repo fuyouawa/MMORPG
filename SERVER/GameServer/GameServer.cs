@@ -22,20 +22,21 @@ namespace GameServer
     public class GameServer
     {
         private Socket _serverSocket;
-        private LinkedList<NetChannel> _channels = new();
+        private LinkedList<NetChannel> _channels;
         private TimeWheel _connectionCleanupTimer;
 
         public GameServer(int port)
         {
             _serverSocket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _serverSocket.Bind(new IPEndPoint(IPAddress.Parse("0.0.0.0"), port));
+            _channels = new();
+            _connectionCleanupTimer = new(1000);
         }
 
         public async Task Run()
         {
             Log.Information("[Server] 开启服务器");
             _serverSocket.Listen();
-            _connectionCleanupTimer = new(1000);
             //_connectionCleanupTimer.Start();
 
             while (true)
@@ -83,13 +84,20 @@ namespace GameServer
         {
             var channel = sender as NetChannel;
             Debug.Assert(channel != null);
+            if (channel == null)
+            {
+                return;
+            }
 
             PlayerService.Instance.OnChannelClosed(channel);
             SpaceService.Instance.OnChannelClosed(channel);
 
             lock (_channels)
             {
-                _channels.Remove(channel.LinkedListNode);
+                if (channel.LinkedListNode != null)
+                {
+                    _channels.Remove(channel.LinkedListNode);
+                }
             }
         }
 

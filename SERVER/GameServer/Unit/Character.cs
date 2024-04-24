@@ -14,6 +14,11 @@ namespace GameServer.Unit
         public int Exp;
         public int Gold;
 
+        public Character(Space space, string name, Player player) : base(space, name)
+        {
+            Player = player;
+        }
+
         public override void Update()
         {
             

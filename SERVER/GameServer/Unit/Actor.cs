@@ -23,5 +23,10 @@ namespace GameServer.Unit
         public int Hp;
         public int Mp;
 
+        public Actor(Space space, string name)
+        {
+            Space = space;
+            Name = name;
+        }
     }
 }

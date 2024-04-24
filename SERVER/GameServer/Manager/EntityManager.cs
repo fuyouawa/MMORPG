@@ -21,13 +21,16 @@ namespace GameServer.Manager
     /// </summary>
     public class EntityManager : Singleton<EntityManager>
     {
-        private int _serialNum = 0;
-        private Dictionary<int, Entity> _entityDict = new();
+        private int _serialNum;
+        private Dictionary<int, Entity> _entityDict;
 
         public Tool.Time Time;
 
         EntityManager()
         {
+            _serialNum = 0;
+            _entityDict = new();
+
             CenterTimer.Instance.Register(100, UpdateAllEntity);
             Time = new();
         }
@@ -66,7 +69,8 @@ namespace GameServer.Manager
         {
             lock (_entityDict)
             {
-                return _entityDict.GetValueOrDefault(entityId, null);
+                _entityDict.TryGetValue(entityId, out var entity);
+                return entity;
             }
         }
 

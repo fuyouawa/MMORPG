@@ -23,7 +23,9 @@ namespace GameServer.Network
 
         public NetChannel(Socket socket) : base(socket)
         {
-            _channelName = _socket.RemoteEndPoint.ToString();
+            var name = _socket.RemoteEndPoint?.ToString();
+            _channelName = name == null ? "Unknown" : name;
+
             ConnectionClosed += OnConnectionClosed;
             ErrorOccur += OnErrorOccur;
             WarningOccur += OnWarningOccur;
