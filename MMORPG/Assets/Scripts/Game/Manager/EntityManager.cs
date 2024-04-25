@@ -25,8 +25,9 @@ public struct NetworkSyncData
 
 public interface INetworkEntityCallbacks
 {
-    public void NetworkControlFixedUpdate(NetworkControlData data);
-    public void NetworkSyncUpdate(NetworkSyncData data);
+    public void NetworkMineUpdate() { }
+    public void NetworkMineFixedUpdate() { }
+    public void NetworkSyncUpdate(NetworkSyncData data) { }
 }
 
 

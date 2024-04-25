@@ -15,7 +15,7 @@ public enum LaunchStatus
     ExitGame
 }
 
-public class LaunchController : MonoSingleton<LaunchController>, IController
+public class LaunchController : MonoBehaviour, IController
 {
     public FSM<LaunchStatus> FSM = new();
 
@@ -44,9 +44,8 @@ public class LaunchController : MonoSingleton<LaunchController>, IController
         return GameApp.Interface;
     }
 
-    protected override void OnDestroy()
+    protected void OnDestroy()
     {
-        base.OnDestroy();
         FSM.ChangeState(LaunchStatus.ExitGame);
     }
 }

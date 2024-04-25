@@ -1,4 +1,4 @@
-﻿using MMORPG;
+using MMORPG;
 using QFramework;
 using Serilog;
 using System;
@@ -17,6 +17,11 @@ public class ExitGameState : AbstractState<LaunchStatus, LaunchController>, ICon
     {
         Logger.Info("Launch", "退出游戏");
         var net = this.GetSystem<INetworkSystem>();
+        var map = this.GetSystem<IMapManagerSystem>();
+        if (map.IsInMap)
+        {
+            map.ExitMap();
+        }
         net.Close();
     }
 
