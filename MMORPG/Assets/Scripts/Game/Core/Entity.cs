@@ -7,7 +7,7 @@ using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
 
-public class Entity : MonoBehaviour, IController
+public sealed class Entity : MonoBehaviour, IController
 {
     [SerializeField]
     [ReadOnly]
@@ -25,11 +25,20 @@ public class Entity : MonoBehaviour, IController
 
     private INetworkSystem _network;
 
-    protected void Awake()
+    private void Awake()
     {
         _network = this.GetSystem<INetworkSystem>();
         _allCallbacks = GetComponents<INetworkEntityCallbacks>();
+    }
+
+    private void Start()
+    {
         StartCoroutine(NetworkFixedUpdate());
+    }
+
+    private void Update()
+    {
+        _allCallbacks.ForEach(cb => cb.NetworkMineUpdate());
     }
 
     public void SetEntityId(int entityId)
@@ -61,20 +70,17 @@ public class Entity : MonoBehaviour, IController
 
     private IEnumerator NetworkFixedUpdate()
     {
-        var data = new NetworkControlData()
-        {
-            DeltaTime = Config.GameConfig.NetworkSyncDeltaTime
-        };
+        var deltaTime = Config.GameConfig.NetworkSyncDeltaTime;
         while (true)
         {
             _allCallbacks.ForEach(cb =>
             {
                 if (IsMine)
-                    cb.NetworkControlFixedUpdate(data);
+                    cb.NetworkMineFixedUpdate();
             });
             if (AutoUpdate)
                 NetworkUpdatePositionAndRotation();
-            yield return new WaitForSeconds(data.DeltaTime);
+            yield return new WaitForSeconds(deltaTime);
         }
     }
 
