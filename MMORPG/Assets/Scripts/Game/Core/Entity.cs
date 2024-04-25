@@ -36,6 +36,11 @@ public sealed class Entity : MonoBehaviour, IController
         StartCoroutine(NetworkFixedUpdate());
     }
 
+    private void Update()
+    {
+        _allCallbacks.ForEach(cb => cb.NetworkMineUpdate());
+    }
+
     public void SetEntityId(int entityId)
     {
         _entityId = entityId;
@@ -65,20 +70,17 @@ public sealed class Entity : MonoBehaviour, IController
 
     private IEnumerator NetworkFixedUpdate()
     {
-        var data = new NetworkControlData()
-        {
-            DeltaTime = Config.GameConfig.NetworkSyncDeltaTime
-        };
+        var deltaTime = Config.GameConfig.NetworkSyncDeltaTime;
         while (true)
         {
             _allCallbacks.ForEach(cb =>
             {
                 if (IsMine)
-                    cb.NetworkControlFixedUpdate(data);
+                    cb.NetworkMineFixedUpdate();
             });
             if (AutoUpdate)
                 NetworkUpdatePositionAndRotation();
-            yield return new WaitForSeconds(data.DeltaTime);
+            yield return new WaitForSeconds(deltaTime);
         }
     }
 
