@@ -61,9 +61,7 @@ namespace Common.Tool
                 {
                     lock (_addList)
                     {
-                        LinkedList<TimeTask> temp = _backupAddList;
-                        _backupAddList = _addList;
-                        _addList = temp;
+                        (_backupAddList, _addList) = (_addList, _backupAddList);
                     }
                     DispatchTasksToSlot(_backupAddList);
                 }
@@ -71,20 +69,13 @@ namespace Common.Tool
                 {
                     lock (_removeList)
                     {
-                        List<TimeTask> temp = _backupRemoveList;
-                        _backupRemoveList = _removeList;
-                        _removeList = temp;
+                        (_backupRemoveList, _removeList) = (_removeList, _backupRemoveList);
                     }
                     for (int i = 0; i < _backupRemoveList.Count; i++)
                     {
                         var node = _backupRemoveList[i].LinkedListNode;
                         var list = node.List;
-                        if (list == null)
-                        {
-                            // 在上一次循环已被执行
-                            continue;
-                        }
-                        list.Remove(node);
+                        list?.Remove(node);
                     }
                     _backupRemoveList.Clear();
                 }
@@ -102,7 +93,10 @@ namespace Common.Tool
                             {
                                 task.Action(task);
                             }
-                            catch { }
+                            catch
+                            {
+                                // ignored
+                            }
                             // Task.Run(task.Action);
                         }
                         _slot[_indexArr[0]].Clear();
@@ -136,7 +130,7 @@ namespace Common.Tool
 
         private int GetLayerByTick(int tick)
         {
-            int mask = 0x3f;        // 0011 1111
+            const int mask = 0x3f; // 0011 1111
             for (int i = 0; i < CircleCount; i++)
             {
                 if ((tick & ~mask) == 0)
@@ -176,7 +170,6 @@ namespace Common.Tool
         /// 异步追加延时任务到时间轮中
         /// 不可修改返回的task
         /// </summary>
-        /// <param name="task"></param>
         public TimeTask AddTask(int ms, Action<TimeTask> action)
         {
             if (ms < _tickMs) {
@@ -225,7 +218,7 @@ namespace Common.Tool
 
             var begin = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
            
-            byte[] randomNumber = new byte[4];
+            var randomNumber = new byte[4];
             for (int i = 0; i < 1000000; i++)
             {
                 //using (RandomNumberGenerator rng = RandomNumberGenerator.Create())

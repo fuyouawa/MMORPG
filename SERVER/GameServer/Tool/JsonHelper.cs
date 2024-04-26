@@ -8,7 +8,7 @@ namespace GameServer.Tool
 {
     public static class JsonHelper
     {
-        static public string LoadJsonFromFile(string name)
+        public static string LoadJsonFromFile(string name)
         {
             //string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
             //string exeDirectory = Path.GetDirectoryName(exePath);
