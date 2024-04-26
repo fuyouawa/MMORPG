@@ -80,8 +80,8 @@ namespace GameServer.Unit
                         Transform = ProtoHelper.ToNetTransform(viewEntity.Position, viewEntity.Direction),
                     });
                 }
-                var currentCharacter = entity as Player;
-                currentCharacter?.User.Channel.Send(res, null);
+                var currentPlayer = entity as Player;
+                currentPlayer?.User.Channel.Send(res, null);
             }
         }
 

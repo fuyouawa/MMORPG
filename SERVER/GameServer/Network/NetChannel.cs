@@ -17,7 +17,7 @@ namespace GameServer.Network
         //TODO 可读性更高的ChannelName
         public string ChannelName { get; }
 
-        public User? Player { get; set; }
+        public User? User { get; set; }
         public long LastActiveTime { get; set; }
         public LinkedListNode<NetChannel>? LinkedListNode { get; set; }
 

@@ -67,21 +67,21 @@ namespace GameServer.Tool
         //    return entity;
         //}
 
-        //public static NetCharacter ToNetCharacter(this Player character)
+        //public static NetCharacter ToNetCharacter(this Player player)
         //{
         //    var netCharacter = new NetCharacter()
         //    {
-        //        Entity = character.ToNetEntity(),
-        //        Name = character.Name,
-        //        Level = character.Level,
-        //        MapId = character.Map.MapId,
-        //        Hp = character.Hp,
-        //        Mp = character.Mp,
+        //        Entity = player.ToNetEntity(),
+        //        Name = player.Name,
+        //        Level = player.Level,
+        //        MapId = player.Map.MapId,
+        //        Hp = player.Hp,
+        //        Mp = player.Mp,
 
-        //        CharacterId = character.CharacterId,
-        //        JobId = character.JobId,
-        //        Exp = character.Exp,
-        //        Gold = character.Gold,
+        //        PlayerId = player.PlayerId,
+        //        JobId = player.JobId,
+        //        Exp = player.Exp,
+        //        Gold = player.Gold,
         //    };
         //    return netCharacter;
         //}

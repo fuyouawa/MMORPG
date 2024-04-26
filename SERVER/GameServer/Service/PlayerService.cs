@@ -29,19 +29,19 @@ namespace GameServer.Service
         public void OnHandle(NetChannel sender, JoinMapRequest request)
         {
             Log.Debug($"{sender.ChannelName}进入游戏请求");
-            if (sender.Player == null)
+            if (sender.User == null)
             {
                 Log.Debug($"{sender.ChannelName}进入游戏失败：用户未登录");
                 return;
             }
 
-            if (sender.Player.Character != null)
+            if (sender.User.Player != null)
             {
                 Log.Debug($"{sender.ChannelName}进入游戏失败：重复进入");
                 return;
             }
             var dbCharacter = SqlDb.Connection.Select<DbCharacter>()
-                //.Where(t => t.PlayerId == sender.Player.PlayerId)
+                //.Where(t => t.UserId == sender.User.UserId)
                 .Where(t => t.Id == request.CharacterId)
                 .First();
             if (dbCharacter == null)
@@ -63,8 +63,8 @@ namespace GameServer.Service
                 Y = dbCharacter.Y,
                 Z = dbCharacter.Z,
             };
-            var player = map.PlayerManager.NewPlayer(sender.Player, pos, Vector3.Zero, dbCharacter.Name);
-            sender.Player.SetCharacter(player);
+            var player = map.PlayerManager.NewPlayer(sender.User, pos, Vector3.Zero, dbCharacter.Name);
+            sender.User.SetPlayer(player);
             map.EntityEnter(player);
             var res = new JoinMapResponse()
             {
