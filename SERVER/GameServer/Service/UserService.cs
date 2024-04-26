@@ -89,12 +89,7 @@ namespace GameServer.Service
                     Log.Debug($"{sender.ChannelName}注册失败：用户名已被注册");
                     return;
                 }
-                var newDbPlayer = new DbUser()
-                {
-                    Username = request.Username,
-                    Password = request.Password,
-                    Coin = 0,
-                };
+                var newDbPlayer = new DbUser(username: request.Username, password: request.Password, coin: 0);
                 var insertCount = SqlDb.Connection.Insert<DbUser>(newDbPlayer).ExecuteAffrows();
                 if (insertCount <= 0)
                 {

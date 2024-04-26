@@ -31,10 +31,6 @@ namespace GameServer.Manager
         /// <summary>
         /// 从地图中创建
         /// </summary>
-        /// <param name="player"></param>
-        /// <param name="pos"></param>
-        /// <param name="dire"></param>
-        /// <param name="name"></param>
         /// <returns></returns>
         public Player NewPlayer(User user, Vector3 pos, Vector3 dire, string name)
         {
