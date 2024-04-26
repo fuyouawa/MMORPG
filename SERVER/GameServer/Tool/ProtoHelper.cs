@@ -7,8 +7,8 @@ using System.Runtime.Intrinsics;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Proto.Base;
+using Common.Proto.Character;
 using Common.Proto.Entity;
-using Common.Proto.Player;
 using GameServer.Unit;
 
 namespace GameServer.Tool
@@ -37,45 +37,53 @@ namespace GameServer.Tool
             return vector3;
         }
 
-        public static NetEntity ToNetEntity(this Entity entity)
+        public static NetTransform ToNetTransform(Vector3 pos, Vector3 dire)
         {
-            var netEntity = new NetEntity()
-            {
-                EntityId = entity.EntityId,
-                Direction = entity.Direction.ToNetVector3(),
-                Position = entity.Position.ToNetVector3(),
-            };
-            return netEntity;
+            var transform = new NetTransform();
+            transform.Position = pos.ToNetVector3();
+            transform.Direction = dire.ToNetVector3();
+            return transform;
         }
 
-        public static Entity ToEntity(this NetEntity netEntity)
-        {
-            var entity = new Entity()
-            {
-                EntityId = netEntity.EntityId,
-                Direction = netEntity.Direction.ToVector3(),
-                Position = netEntity.Position.ToVector3(),
-            };
-            return entity;
-        }
+        //public static NetEntity ToNetEntity(this Entity entity)
+        //{
+        //    var netEntity = new NetEntity()
+        //    {
+        //        EntityId = entity.EntityId,
+        //        Direction = entity.Direction.ToNetVector3(),
+        //        Position = entity.Position.ToNetVector3(),
+        //    };
+        //    return netEntity;
+        //}
 
-        public static NetCharacter ToNetCharacter(this Character character)
-        {
-            var netCharacter = new NetCharacter()
-            {
-                Entity = character.ToNetEntity(),
-                Name = character.Name,
-                Level = character.Level,
-                SpaceId = character.Space.SpaceId,
-                Hp = character.Hp,
-                Mp = character.Mp,
+        //public static Entity ToEntity(this NetEntity netEntity)
+        //{
+        //    var entity = new Entity()
+        //    {
+        //        EntityId = netEntity.EntityId,
+        //        Direction = netEntity.Direction.ToVector3(),
+        //        Position = netEntity.Position.ToVector3(),
+        //    };
+        //    return entity;
+        //}
 
-                CharacterId = character.CharacterId,
-                JobId = character.JobId,
-                Exp = character.Exp,
-                Gold = character.Gold,
-            };
-            return netCharacter;
-        }
+        //public static NetCharacter ToNetCharacter(this Player character)
+        //{
+        //    var netCharacter = new NetCharacter()
+        //    {
+        //        Entity = character.ToNetEntity(),
+        //        Name = character.Name,
+        //        Level = character.Level,
+        //        MapId = character.Map.MapId,
+        //        Hp = character.Hp,
+        //        Mp = character.Mp,
+
+        //        CharacterId = character.CharacterId,
+        //        JobId = character.JobId,
+        //        Exp = character.Exp,
+        //        Gold = character.Gold,
+        //    };
+        //    return netCharacter;
+        //}
     }
 }

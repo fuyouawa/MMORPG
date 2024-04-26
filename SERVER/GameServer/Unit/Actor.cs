@@ -16,16 +16,16 @@ namespace GameServer.Unit
     public class Actor : Entity
     {
         public ActorState State;
-        public Space? Space;
+        public Map? Map;
         public string Name;
         public int Speed;
         public int Level;
         public int Hp;
         public int Mp;
 
-        public Actor(Space space, string name)
+        public Actor(Map map, string name)
         {
-            Space = space;
+            Map = map;
             Name = name;
         }
     }

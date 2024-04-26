@@ -31,10 +31,10 @@ namespace GameServer
             //    Mp = 0,
             //    Name = "sb",
             //    PlayerId = 1,
-            //    SpaceId = 1,
-            //    X = 73,
-            //    Y = 22,
-            //    Z = 43,
+            //    MapId = 1,
+            //    X = 0,
+            //    Y = 2,
+            //    Z = 0,
             //};
             //SqlDb.Connection.Insert(character).ExecuteAffrows();
             GameServer server = new(NetConfig.ServerPort);

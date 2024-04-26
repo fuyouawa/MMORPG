@@ -17,17 +17,17 @@ namespace GameServer.Manager
     public class MonsterManager
     {
         private Dictionary<int, Monster> _monsterDict;
-        private Space _space;
+        private Map _map;
 
-        public MonsterManager(Space space)
+        public MonsterManager(Map map)
         {
             _monsterDict = new();
-            _space = space;
+            _map = map;
         }
 
         public Monster NewMonster(Vector3 pos, Vector3 dire, string name)
         {
-            var monster = new Monster(_space, name, pos)
+            var monster = new Monster(_map, name, pos)
             {
                 EntityId = EntityManager.Instance.NewEntityId(),
                 EntityType = EntityType.Monster,

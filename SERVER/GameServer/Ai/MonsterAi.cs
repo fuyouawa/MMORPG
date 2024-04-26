@@ -77,7 +77,7 @@ namespace GameServer.Ai
             public override void OnUpdate()
             {
                 var monster = _target.Monster;
-                var list = monster.Space?.GetEntityViewEntityList(monster, e => e.EntityType == EntityType.Character);
+                var list = monster.Map?.GetEntityViewEntityList(monster, e => e.EntityType == EntityType.Player);
                 var nearestCharacter = list?.Aggregate((minEntity, nextEntity) =>
                 {
                     var minDistance = Vector3.Distance(minEntity.Position, monster.Position);

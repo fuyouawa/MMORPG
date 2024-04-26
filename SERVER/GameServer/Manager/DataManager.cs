@@ -1,5 +1,4 @@
 ﻿using Common.Tool;
-using GameServer.Data;
 using GameServer.Tool;
 using Newtonsoft.Json;
 using System;
@@ -13,7 +12,7 @@ namespace GameServer.Manager
 {
     public class DataManager : Singleton<DataManager>
     {
-        public Dictionary<int, SpaceDefine> SpaceDict;
+        public Dictionary<int, MapDefine> MapDict;
         public Dictionary<int, UnitDefine> UnitDict;
         public Dictionary<int, SpawnDefine> SpawnDict;
         public Dictionary<int, ItemDefine> ItemDict;
@@ -21,7 +20,7 @@ namespace GameServer.Manager
 
         DataManager()
         {
-            SpaceDict = Load<Dictionary<int, SpaceDefine>>("Data/SpaceDefine.json");
+            MapDict = Load<Dictionary<int, MapDefine>>("Data/MapDefine.json");
             UnitDict = Load<Dictionary<int, UnitDefine>>("Data/UnitDefine.json");
             SpawnDict = Load<Dictionary<int, SpawnDefine>>("Data/SpawnDefine.json");
             ItemDict = Load<Dictionary<int, ItemDefine>>("Data/ItemDefine.json");
