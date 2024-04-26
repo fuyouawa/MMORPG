@@ -16,16 +16,11 @@ namespace GameServer.Tool
 
     public class FSM<TStateId> where TStateId : notnull
     {
-        private Dictionary<TStateId, IFSMState> _statusDict;
+        private Dictionary<TStateId, IFSMState> _statusDict = new();
 
         public TStateId? CurrentStateId { get; private set; }
         public IFSMState? CurrentState { get; private set; }
 
-
-        public FSM()
-        {
-            _statusDict = new();
-        }
 
         public void AddState(TStateId stateId, IFSMState state)
         {
@@ -46,8 +41,7 @@ namespace GameServer.Tool
         {
             if (CurrentStateId?.Equals(stateId) == true) return;
             if (!_statusDict.ContainsKey(stateId)) return;
-            if (CurrentState != null)
-                CurrentState.Exit();
+            CurrentState?.Exit();
             CurrentStateId = stateId;
             CurrentState = _statusDict[stateId];
             CurrentState.Enter();
@@ -65,7 +59,7 @@ namespace GameServer.Tool
         protected FSM<TStateId> _fsm;
         protected TTarget _target;
 
-        public FSMAbstractState(FSM<TStateId> fsm, TTarget target)
+        protected FSMAbstractState(FSM<TStateId> fsm, TTarget target)
         {
             _fsm = fsm;
             _target = target;

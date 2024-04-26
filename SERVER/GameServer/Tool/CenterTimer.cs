@@ -12,7 +12,7 @@ namespace GameServer.System
     {
         private TimeWheel _timer;
 
-        CenterTimer() 
+        private CenterTimer() 
         {
             _timer = new();
             _timer.Start();

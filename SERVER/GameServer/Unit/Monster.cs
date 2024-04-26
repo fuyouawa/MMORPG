@@ -48,7 +48,7 @@ namespace GameServer.Unit
 
                 var direction = (_moveTargetPos - _moveCurrentPos).Normalize();
                 Direction = direction.ToEulerAngles() * new Vector3(0, 1, 0);
-                float distance = Speed * EntityManager.Instance.Time.deltaTime;
+                float distance = Speed * EntityManager.Instance.Time.DeltaTime;
                 if (Vector3.Distance(_moveTargetPos, _moveCurrentPos) < distance)
                 {
                     // 走到了目的地
