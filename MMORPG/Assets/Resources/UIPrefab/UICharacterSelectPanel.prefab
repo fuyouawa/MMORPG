@@ -1662,6 +1662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed726f549c2fdc24d8263e88cebc1d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BtnPlay: {fileID: 6810359847133605145}
 --- !u!1 &5575005913369128211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,7 +1742,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CHARACTERS
+  m_Text: "\u9009\u62E9\u89D2\u8272"
 --- !u!114 &777169023243246210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3197,9 +3198,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7838787285118244236, guid: 88e3f6cd9763f844aa1a9618afce3754, type: 3}
       propertyPath: m_Text
-      value: 'PLAY
-
-'
+      value: "\u5F00\u59CB"
       objectReference: {fileID: 0}
     - target: {fileID: 7838787286112346661, guid: 88e3f6cd9763f844aa1a9618afce3754, type: 3}
       propertyPath: m_Name
@@ -3295,7 +3294,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7838787286112346661, guid: 88e3f6cd9763f844aa1a9618afce3754, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6271818629348327442}
+      addedObject: {fileID: 4755924948768616285}
   m_SourcePrefab: {fileID: 100100000, guid: 88e3f6cd9763f844aa1a9618afce3754, type: 3}
 --- !u!114 &6810359847133605145 stripped
 MonoBehaviour:
@@ -3318,7 +3317,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7838787286112346661, guid: 88e3f6cd9763f844aa1a9618afce3754, type: 3}
   m_PrefabInstance: {fileID: 3624190109620391683}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6271818629348327442
+--- !u!114 &4755924948768616285
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3327,13 +3326,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6810359847133605158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21ffe216b5b498140bfe83b5681b7fb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Scene: 4
-  m_UseLoadingOverlay: 0
-  m_InputKey: 0
-  m_HookToButton: {fileID: 6810359847133605145}
+  MarkType: 0
+  CustomComponentName: BtnPlay
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Button
 --- !u!1001 &3723914166846545368
 PrefabInstance:
   m_ObjectHideFlags: 0
