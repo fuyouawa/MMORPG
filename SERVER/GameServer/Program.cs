@@ -30,7 +30,7 @@ namespace GameServer
             //    Level = 0,
             //    Mp = 0,
             //    Name = "sb",
-            //    PlayerId = 1,
+            //    UserId = 1,
             //    MapId = 1,
             //    X = 0,
             //    Y = 2,

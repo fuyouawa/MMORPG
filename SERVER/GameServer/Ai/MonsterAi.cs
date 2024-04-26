@@ -78,16 +78,16 @@ namespace GameServer.Ai
             {
                 var monster = _target.Monster;
                 var list = monster.Map?.GetEntityViewEntityList(monster, e => e.EntityType == EntityType.Player);
-                var nearestCharacter = list?.Aggregate((minEntity, nextEntity) =>
+                var nearestPlayer = list?.Aggregate((minEntity, nextEntity) =>
                 {
                     var minDistance = Vector3.Distance(minEntity.Position, monster.Position);
                     var nextDistance = Vector3.Distance(nextEntity.Position, monster.Position);
                     return minDistance < nextDistance ? minEntity : nextEntity;
                 });
-                if (nearestCharacter != null &&
-                    Vector3.Distance(nearestCharacter.Position, monster.Position) <= monster.ViewRange)
+                if (nearestPlayer != null &&
+                    Vector3.Distance(nearestPlayer.Position, monster.Position) <= monster.ViewRange)
                 {
-                    monster.ChasingTarget = nearestCharacter as Actor;
+                    monster.ChasingTarget = nearestPlayer as Actor;
                     _fsm.ChangeState(MonsterAiState.Chase);
                     return;
                 }
