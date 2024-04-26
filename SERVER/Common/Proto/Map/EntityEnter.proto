@@ -1,0 +1,19 @@
+﻿syntax = "proto3";
+
+package Common.Proto.Event.Map;
+import "Entity/EntityType.proto";
+import "Entity/NetTransform.proto";
+
+message EntityEnterRequest {
+    repeated int32 entity_id = 1;
+}
+
+message EntityEnterData {
+    int32 entity_id = 1;
+    Entity.EntityType entity_type = 2;
+    Entity.NetTransform transform = 3;
+}
+
+message EntityEnterResponse {
+    repeated EntityEnterData datas = 1;
+}

@@ -28,16 +28,16 @@ namespace GameServer.Manager
     /// </summary>
     public class SpawnManager
     {
-        private Space _space;
+        private Map _map;
 
-        public SpawnManager(Space space)
+        public SpawnManager(Map map)
         {
-            _space = space;
+            _map = map;
         }
 
         private void Spawn()
         {
-            //_space.MonsterManager.NewMonster();
+            //_map.MonsterManager.NewMonster();
         }
     }
 }

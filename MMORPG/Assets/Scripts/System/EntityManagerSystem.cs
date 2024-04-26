@@ -1,5 +1,6 @@
-﻿using Common.Proto.Entity;
-using Common.Proto.Event.Space;
+using Common.Proto.Entity;
+using Common.Proto.Event;
+using Common.Proto.Event.Map;
 using MMORPG;
 using QFramework;
 using System;
@@ -109,28 +110,28 @@ public class EntityManagerSystem : AbstractSystem, IEntityManagerSystem
     protected override void OnInit()
     {
         this.GetSystem<INetworkSystem>().ReceiveEvent<EntityEnterResponse>(OnEntityEnterReceived);
-        this.GetSystem<INetworkSystem>().ReceiveEvent<EntitySyncResponse>(OnEntitySyncReceived);
+        this.GetSystem<INetworkSystem>().ReceiveEvent<EntityTransformSyncResponse>(OnEntitySyncReceived);
     }
 
     private void OnEntityEnterReceived(EntityEnterResponse response)
     {
-        foreach (var entity in response.EntityList)
+        foreach (var entity in response.Datas)
         {
             var e = new NetworkEntityEnterEvent(
                 entity.EntityId,
-                entity.Position.ToVector3(),
-                Quaternion.Euler(entity.Direction.ToVector3()));
+                entity.Transform.Position.ToVector3(),
+                Quaternion.Euler(entity.Transform.Direction.ToVector3()));
 
             Logger.Info("Game", $"实体({entity.EntityId})加入: Position:{e.Position}, Rotation:{e.Rotation}");
             this.SendEvent(e);
         }
     }
 
-    private void OnEntitySyncReceived(EntitySyncResponse response)
+    private void OnEntitySyncReceived(EntityTransformSyncResponse response)
     {
         this.SendEvent(new NetworkEntitySyncEvent(
-            response.EntitySync.Entity.EntityId,
-            response.EntitySync.Entity.Position.ToVector3(),
-            Quaternion.Euler(response.EntitySync.Entity.Direction.ToVector3())));
+            response.EntityId,
+            response.Transform.Position.ToVector3(),
+            Quaternion.Euler(response.Transform.Direction.ToVector3())));
     }
 }

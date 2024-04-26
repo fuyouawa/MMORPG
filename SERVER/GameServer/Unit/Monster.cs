@@ -1,5 +1,6 @@
 ﻿using Common.Proto.Entity;
-using Common.Proto.Event.Space;
+using Common.Proto.Event;
+using Common.Proto.Event.Map;
 using GameServer.Ai;
 using GameServer.Manager;
 using GameServer.System;
@@ -24,7 +25,7 @@ namespace GameServer.Unit
         public Vector3 InitPos;
         public Actor? ChasingTarget;
 
-        public Monster(Space space, string name, Vector3 initPos) : base(space, name)
+        public Monster(Map map, string name, Vector3 initPos) : base(map, name)
         {
             InitPos = initPos;
             _ai = new(this);
@@ -33,7 +34,7 @@ namespace GameServer.Unit
 
         public override void Update()
         {
-            if (Space == null)
+            if (Map == null)
             {
                 return;
             }
@@ -60,11 +61,13 @@ namespace GameServer.Unit
                     _moveCurrentPos += distance * direction;
                 }
                 Position = _moveCurrentPos;
-                Space.EntityRefreshPosition(this);
+                Map.EntityRefreshPosition(this);
 
-                var res = new EntitySyncResponse() { EntitySync = new() };
-                res.EntitySync.Entity = this.ToNetEntity();
-                Space.CharacterManager.Broadcast(res, this);
+                var res = new EntityTransformSyncResponse() { 
+                    EntityId = EntityId,
+                    Transform = ProtoHelper.ToNetTransform(Position, Direction)
+                };
+                Map.PlayerManager.Broadcast(res, this);
             }
         }
 

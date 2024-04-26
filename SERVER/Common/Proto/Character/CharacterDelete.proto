@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package Common.Proto.Character;
+import "Base/NetError.proto";
+
+message CharacterDeleteRequest {
+    int32 character_id = 1;
+}
+
+message CharacterDeleteResponse {
+    Base.NetError error = 1;
+}

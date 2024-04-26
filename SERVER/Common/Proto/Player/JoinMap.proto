@@ -1,0 +1,16 @@
+﻿syntax = "proto3";
+
+package Common.Proto.Player;
+import "Base/NetError.proto";
+import "Entity/NetTransform.proto";
+
+message JoinMapRequest {
+    int32 character_id = 1;
+}
+
+message JoinMapResponse {
+    Base.NetError error = 1;
+    int32 entity_id = 2;
+    int32 map_id = 3;
+    Entity.NetTransform transform = 4;
+}

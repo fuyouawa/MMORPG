@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "Base/NetError.proto";
+package Common.Proto.Character;
+import "Character/NetCharacter.proto";
+
+message CharacterCreateRequest {
+    string name = 1;
+    int32 job_id = 2;
+}
+
+message CharacterCreateResponse {
+    Base.NetError error = 1;
+    NetCharacter character = 3;
+}

@@ -9,7 +9,7 @@ namespace GameServer.Db
 {
 
     [Table(Name = "player")]
-    public class DbPlayer
+    public class DbUser
     {
         [Column(IsIdentity = true, IsPrimary = true)]
         public int Id { get; set; }
@@ -29,7 +29,7 @@ namespace GameServer.Db
         public int Mp { get; set; } = 100;
         public int Level { get; set; } = 1;
         public int Exp { get; set; } = 0;
-        public int SpaceId { get; set; }
+        public int MapId { get; set; }
         public int X { get; set; } = 0;
         public int Y { get; set; } = 0;
         public int Z { get; set; } = 0;
