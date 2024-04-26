@@ -3,6 +3,8 @@ using Common.Proto.Player;
 using Serilog;
 using System.Diagnostics;
 using System.Net.Sockets;
+using Common.Proto.User;
+
 //using Microsoft.Office.Interop.Excel;
 
 namespace TestClient

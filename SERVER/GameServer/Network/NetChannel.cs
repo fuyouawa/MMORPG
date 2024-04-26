@@ -15,8 +15,8 @@ namespace GameServer.Network
     public class NetChannel : Connection
     {
         //TODO 可读性更高的ChannelName
-        private string _channelName;
-        public string ChannelName => _channelName;
+        public string ChannelName { get; }
+
         public User? Player { get; set; }
         public long LastActiveTime { get; set; }
         public LinkedListNode<NetChannel>? LinkedListNode { get; set; }
@@ -24,7 +24,7 @@ namespace GameServer.Network
         public NetChannel(Socket socket) : base(socket)
         {
             var name = _socket.RemoteEndPoint?.ToString();
-            _channelName = name == null ? "Unknown" : name;
+            ChannelName = name ?? "Unknown";
 
             ConnectionClosed += OnConnectionClosed;
             ErrorOccur += OnErrorOccur;

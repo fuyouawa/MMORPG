@@ -61,18 +61,9 @@ namespace GameServer.Service
                     Log.Debug($"{sender.ChannelName}角色创建失败：角色名已存在");
                     return;
                 }
-                var newDbCharacter = new DbCharacter()
-                {
-                    Name = request.Name,
-                    JobId = request.JobId,
-                    Hp = 100,
-                    Mp = 100,
-                    Level = 1,
-                    Exp = 0,
-                    MapId = MapManager.Instance.InitMapId,
-                    Gold = 0,
-                    PlayerId = sender.Player.PlayerId
-                };
+
+                var newDbCharacter = new DbCharacter(request.Name, request.JobId, 100, 100, 1, 0,
+                    MapManager.Instance.InitMapId, 0, sender.Player.PlayerId);
                 var insertCount = SqlDb.Connection.Insert(newDbCharacter).ExecuteAffrows();
                 if (insertCount <= 0)
                 {

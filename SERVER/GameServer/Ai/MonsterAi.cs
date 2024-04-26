@@ -92,16 +92,13 @@ namespace GameServer.Ai
                     return;
                 }
 
-                if (monster.State == ActorState.Idle)
-                {
-                    if (_lastTime + _waitTime < EntityManager.Instance.Time.time)
-                    {
-                        _waitTime = _target.Random.NextSingle();
-                        _lastTime = EntityManager.Instance.Time.time;
-                        // 移动到随机位置
-                        monster.MoveTo(monster.RandomPointWithBirth(10));
-                    }
-                }
+                if (monster.State != ActorState.Idle) return;
+                if (!(_lastTime + _waitTime < EntityManager.Instance.Time.time)) return;
+
+                _waitTime = _target.Random.NextSingle();
+                _lastTime = EntityManager.Instance.Time.time;
+                // 移动到随机位置
+                monster.MoveTo(monster.RandomPointWithBirth(10));
             }
         }
 
@@ -120,30 +117,28 @@ namespace GameServer.Ai
             public override void OnUpdate()
             {
                 var monster = _target.Monster;
-                if (monster.ChasingTarget != null)
+                if (monster.ChasingTarget == null) return;
+                // 自身与出生点的距离
+                float d1 = Vector3.Distance(monster.Position, monster.InitPos);
+                // 自身与目标的距离
+                float d2 = Vector3.Distance(monster.Position, monster.ChasingTarget.Position);
+                if (d1 > _chaseRange || d2 > monster.ViewRange)
                 {
-                    // 自身与出生点的距离
-                    float d1 = Vector3.Distance(monster.Position, monster.InitPos);
-                    // 自身与目标的距离
-                    float d2 = Vector3.Distance(monster.Position, monster.ChasingTarget.Position);
-                    if (d1 > _chaseRange || d2 > monster.ViewRange)
-                    {
-                        _fsm.ChangeState(MonsterAiState.Goback);
-                        return;
-                    }
+                    _fsm.ChangeState(MonsterAiState.Goback);
+                    return;
+                }
 
-                    if (d2 < 1)
+                if (d2 < 1)
+                {
+                    // 距离足够，可以发起攻击了
+                    if (monster.State == ActorState.Move)
                     {
-                        // 距离足够，可以发起攻击了
-                        if (monster.State == ActorState.Move)
-                        {
-                            monster.MoveStop();
-                        }
+                        monster.MoveStop();
                     }
-                    else
-                    {
-                        monster.MoveTo(monster.Position);
-                    }
+                }
+                else
+                {
+                    monster.MoveTo(monster.Position);
                 }
             }
         }

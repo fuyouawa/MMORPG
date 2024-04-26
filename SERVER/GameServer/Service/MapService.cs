@@ -23,7 +23,7 @@ namespace Service
         public void OnChannelClosed(NetChannel sender)
         {
             var character = sender.Player?.Character;
-            if (character == null || character.Map == null) return;
+            if (character?.Map == null) return;
             character.Map.EntityLeave(character);
             character.Map.PlayerManager.RemoveCharacter(character);
         }
