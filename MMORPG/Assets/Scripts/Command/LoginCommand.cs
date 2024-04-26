@@ -24,16 +24,16 @@ public class LoginCommand : AbstractCommand
         var box = this.GetSystem<IBoxSystem>();
         if (_username.Length < 4 || _username.Length > 12)
         {
-            box.ShowNotification("ÓÃ»§Ãû³¤¶È±ØĞëÔÚ4-12×ÖÖ®¼ä!");
+            box.ShowNotification("ç”¨æˆ·åé•¿åº¦å¿…é¡»åœ¨4-12å­—ä¹‹é—´!");
             return;
         }
         if (_password.Length < 8 || _password.Length > 16)
         {
-            box.ShowNotification("ÃÜÂë³¤¶È±ØĞëÔÚ8-16×ÖÖ®¼ä!");
+            box.ShowNotification("å¯†ç é•¿åº¦å¿…é¡»åœ¨8-16å­—ä¹‹é—´!");
             return;
         }
 
-        box.ShowSpinner("µÇÂ¼ÖĞ......");
+        box.ShowSpinner("ç™»å½•ä¸­......");
         var net = this.GetSystem<INetworkSystem>();
         net.SendToServer(new LoginRequest
         {
@@ -45,13 +45,13 @@ public class LoginCommand : AbstractCommand
 
         if (response.Error == NetError.Success)
         {
-            Logger.Info("Network", $"'{_username}'µÇÂ¼³É¹¦");
-            SceneManager.LoadScene("JoinMapScene");
+            Logger.Info("Network", $"'{_username}'ç™»å½•æˆåŠŸ");
+            SceneManager.LoadScene("CharacterSelectScene");
         }
         else
         {
-            Logger.Error("Network", $"'{_username}'µÇÂ¼Ê§°Ü:{response.Error.GetInfo().Description}");
-            box.ShowMessage($"µÇÂ¼Ê§°Ü!\nÔ­Òò:{response.Error.GetInfo().Description}");
+            Logger.Error("Network", $"'{_username}'ç™»å½•å¤±è´¥:{response.Error.GetInfo().Description}");
+            box.ShowMessage($"ç™»å½•å¤±è´¥!\nåŸå› :{response.Error.GetInfo().Description}");
         }
     }
 }
