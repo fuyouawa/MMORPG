@@ -5,16 +5,19 @@ using QFramework;
 
 namespace MMORPG.UI
 {
-	// Generate Id:000a6d54-a0e2-4c2b-b32a-7c973c7dbe37
+	// Generate Id:b702a2c7-490f-49e2-850a-72c292e2e89d
 	public partial class UICharacterSelectPanel
 	{
 		public const string Name = "UICharacterSelectPanel";
 		
+		[SerializeField]
+		public UnityEngine.UI.Button BtnPlay;
 		
 		private UICharacterSelectPanelData mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
+			BtnPlay = null;
 			
 			mData = null;
 		}
