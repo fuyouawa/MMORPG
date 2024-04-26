@@ -40,13 +40,12 @@ public class Player : MonoBehaviour, INetworkEntityCallbacks, IController
         
         _animParamHoriSpeedNormalized.Value = _velocity.x;
         _animParamVertSpeedNormalized.Value = _velocity.y;
-        // if (!(_moveAxis.sqrMagnitude > 0.5f)) return;
-        // var cameraForward = Camera.main.transform.forward;
-        // cameraForward.y = 0;
-        // var moveDirection = new Vector3(_moveAxis.x, 0f, _moveAxis.y).normalized;
-        // var targetDirection = Quaternion.LookRotation(cameraForward) * moveDirection;
-        // var targetRotation = Quaternion.LookRotation(targetDirection.normalized, Vector3.up);
-        // transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
+        if (!(_moveAxis.sqrMagnitude > 0.5f)) return;
+        
+        var cameraForward = Camera.main.transform.forward;
+        cameraForward.y = 0;
+        var targetRotation = Quaternion.LookRotation(cameraForward, Vector3.up);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
     }
     private void OnEnable()
     {
