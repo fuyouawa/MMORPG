@@ -1,7 +1,4 @@
-﻿using Common.Network;
-using GameServer.Manager;
-using GameServer.Network;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,24 +6,22 @@ using System.Threading.Tasks;
 
 namespace GameServer.Unit
 {
-    public class Player
+    public class Player : Actor
     {
-        public NetChannel Channel { get; }
-        public int PlayerId { get; }
-        public string Username { get; }
+        public User User;
+        public int CharacterId;
+        public int JobId;
+        public int Exp;
+        public int Gold;
 
-        public Character? Character { get; private set; }
-
-        public Player(NetChannel channel, string username, int playerId) 
+        public Player(Map map, string characterName, User user) : base(map, characterName)
         {
-            Channel = channel;
-            Username = username;
-            PlayerId = playerId;
+            User = user;
         }
 
-        public void SetCharacter(Character character)
+        public override void Update()
         {
-            Character = character;
+            
         }
     }
 }

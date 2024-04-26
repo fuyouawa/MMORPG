@@ -1,4 +1,5 @@
-using Common.Proto.Event.Space;
+using Common.Proto.Event;
+using Common.Proto.Event.Map;
 using MMORPG;
 using QFramework;
 using System.Collections;
@@ -54,16 +55,13 @@ public sealed class Entity : MonoBehaviour, IController
     public void NetworkUpdatePositionAndRotation()
     {
         Debug.Assert(IsMine);
-        _network.SendToServer(new EntitySyncRequest()
+        _network.SendToServer(new EntityTransformSyncRequest()
         {
-            EntitySync = new()
+            EntityId = EntityId,
+            Transform = new()
             {
-                Entity = new()
-                {
-                    EntityId = EntityId,
-                    Position = transform.position.ToNetVector3(),
-                    Direction = transform.rotation.eulerAngles.ToNetVector3()
-                }
+                Position = transform.position.ToNetVector3(),
+                Direction = transform.rotation.eulerAngles.ToNetVector3()
             }
         });
     }

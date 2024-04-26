@@ -29,7 +29,7 @@ namespace Common.Tool
         private long _lastMs;
         private int _tickMs;  // 最小槽的时间范围，毫秒单位
 
-        private volatile bool _stop;
+        private bool _stop;
 
         public TimeWheel(int tickMs = 10) {
 

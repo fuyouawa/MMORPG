@@ -76,8 +76,10 @@ namespace GameServer
                 }
             });
 
+            UserService.Instance.OnConnect(sender);
+            CharacterService.Instance.OnConnect(sender);
+            MapService.Instance.OnConnect(sender);
             PlayerService.Instance.OnConnect(sender);
-            SpaceService.Instance.OnConnect(sender);
         }
 
         private void OnConnectionClosed(object? sender, ConnectionClosedEventArgs e)
@@ -89,8 +91,10 @@ namespace GameServer
                 return;
             }
 
+            UserService.Instance.OnChannelClosed(channel);
+            CharacterService.Instance.OnChannelClosed(channel);
+            MapService.Instance.OnChannelClosed(channel);
             PlayerService.Instance.OnChannelClosed(channel);
-            SpaceService.Instance.OnChannelClosed(channel);
 
             lock (_channels)
             {
@@ -108,8 +112,10 @@ namespace GameServer
 
             channel.LastActiveTime = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
 
+            UserService.Instance.HandleMessage(channel, e.Packet.Message);
+            CharacterService.Instance.HandleMessage(channel, e.Packet.Message);
+            MapService.Instance.HandleMessage(channel, e.Packet.Message);
             PlayerService.Instance.HandleMessage(channel, e.Packet.Message);
-            SpaceService.Instance.HandleMessage(channel, e.Packet.Message);
         }
     }
 }

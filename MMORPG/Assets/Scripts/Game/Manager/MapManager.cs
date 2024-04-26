@@ -35,27 +35,27 @@ namespace MMORPG
             var box = this.GetSystem<IBoxSystem>();
             var net = this.GetSystem<INetworkSystem>();
             box.ShowSpinner("");
-            net.SendToServer(new EnterGameRequest
+            net.SendToServer(new JoinMapRequest
             {
                 CharacterId = 1,
             });
-            var response = await net.ReceiveAsync<EnterGameResponse>();
+            var response = await net.ReceiveAsync<JoinMapResponse>();
             box.CloseSpinner();
             if (response.Error != Common.Proto.Base.NetError.Success)
             {
-                Logger.Error("Network", $"EnterGame Error:{response.Error.GetInfo().Description}");
+                Logger.Error("Network", $"JoinMap Error:{response.Error.GetInfo().Description}");
                 //TODO Error处理
                 return;
             }
 
-            Logger.Info("Network", $"EnterGame Success, MineId:{response.Character.Entity.EntityId}");
-            _playerManager.SetMineId(response.Character.Entity.EntityId);
+            Logger.Info("Network", $"JoinMap Success, MineId:{response.EntityId}");
+            _playerManager.SetMineId(response.EntityId);
 
             var entity = _entityManager.SpawnEntity(
                 _resLoader.LoadSync<Entity>("HeroKnightFemale"),
-                response.Character.Entity.EntityId,
-                response.Character.Entity.Position.ToVector3(),
-                Quaternion.Euler(response.Character.Entity.Direction.ToVector3()),
+                response.EntityId,
+                response.Transform.Position.ToVector3(),
+                Quaternion.Euler(response.Transform.Direction.ToVector3()),
                 true);
 
             Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);

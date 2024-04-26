@@ -25,8 +25,8 @@ namespace Common.Proto.Entity {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChdFbnRpdHkvRW50aXR5VHlwZS5wcm90bxITQ29tbW9uLlByb3RvLkVudGl0",
-            "eSoxCgpFbnRpdHlUeXBlEg0KCUNIQVJBQ1RFUhAAEgsKB01PTlNURVIQARIH",
-            "CgNOUEMQAmIGcHJvdG8z"));
+            "eSouCgpFbnRpdHlUeXBlEgoKBlBMQVlFUhAAEgsKB01PTlNURVIQARIHCgNO",
+            "UEMQAmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Common.Proto.Entity.EntityType), }, null, null));
@@ -36,7 +36,7 @@ namespace Common.Proto.Entity {
   }
   #region Enums
   public enum EntityType {
-    [pbr::OriginalName("CHARACTER")] Character = 0,
+    [pbr::OriginalName("PLAYER")] Player = 0,
     [pbr::OriginalName("MONSTER")] Monster = 1,
     [pbr::OriginalName("NPC")] Npc = 2,
   }

@@ -1,4 +1,5 @@
-using Common.Proto.Event.Space;
+using Common.Proto.Event;
+using Common.Proto.Event.Map;
 using MMORPG;
 using MoonSharp.VsCodeDebugger.SDK;
 using QFramework;
@@ -42,28 +43,28 @@ public class EntityManager : MonoBehaviour, IController, ICanSendEvent
 
         this.GetSystem<INetworkSystem>().ReceiveEvent<EntityEnterResponse>(OnEntityEnterReceived)
             .UnRegisterWhenGameObjectDestroyed(gameObject);
-        this.GetSystem<INetworkSystem>().ReceiveEvent<EntitySyncResponse>(OnEntitySyncReceived)
+        this.GetSystem<INetworkSystem>().ReceiveEvent<EntityTransformSyncResponse>(OnEntitySyncReceived)
             .UnRegisterWhenGameObjectDestroyed(gameObject);
     }
 
     private void OnEntityEnterReceived(EntityEnterResponse response)
     {
-        foreach (var netEntity in response.EntityList)
+        foreach (var netEntity in response.Datas)
         {
             var entityId = netEntity.EntityId;
-            var position = netEntity.Position.ToVector3();
-            var rotation = Quaternion.Euler(netEntity.Direction.ToVector3());
+            var position = netEntity.Transform.Position.ToVector3();
+            var rotation = Quaternion.Euler(netEntity.Transform.Direction.ToVector3());
 
             //TODO 根据Entity加载对应的Prefab
             _entityManager.SpawnEntity(_resLoader.LoadSync<Entity>("HeroKnightFemale"), entityId, position, rotation, false);
         }
     }
 
-    private void OnEntitySyncReceived(EntitySyncResponse response)
+    private void OnEntitySyncReceived(EntityTransformSyncResponse response)
     {
-        var entityId = response.EntitySync.Entity.EntityId;
-        var position = response.EntitySync.Entity.Position.ToVector3();
-        var rotation = Quaternion.Euler(response.EntitySync.Entity.Direction.ToVector3());
+        var entityId = response.EntityId;
+        var position = response.Transform.Position.ToVector3();
+        var rotation = Quaternion.Euler(response.Transform.Direction.ToVector3());
         var entity = _entityManager.GetEntityDict(false)[entityId];
 
         var data = new NetworkSyncData

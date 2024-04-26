@@ -1,0 +1,9 @@
+﻿syntax = "proto3";
+
+package Common.Proto.Entity;
+import "Base/NetVector3.proto";
+
+message NetTransform {
+    Base.NetVector3 position = 1;
+    Base.NetVector3 direction = 2;
+}

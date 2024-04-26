@@ -26,7 +26,6 @@ namespace GameServer.System
                 task();
             });
         }
-
     }
 
 }

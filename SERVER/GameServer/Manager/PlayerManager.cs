@@ -1,50 +1,103 @@
-﻿using Common.Tool;
-using GameServer.Network;
+﻿using Common.Proto.Entity;
+using Common.Tool;
+using GameServer.Db;
 using GameServer.Tool;
 using GameServer.Unit;
+using Google.Protobuf.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GameServer.Manager
 {
     /// <summary>
-    /// 玩家管理器
-    /// 负责管理所有已登录玩家
+    /// 角色管理器
+    /// 负责管理地图内的所有角色
     /// 线程安全
     /// </summary>
-    public class PlayerManager : Singleton<PlayerManager>
+    public class PlayerManager
     {
-        private Dictionary<string, Player> _playerDict = new();
+        private Dictionary<int, Player> _playerDict = new();
+        private Map _map;
 
-        PlayerManager() { }
-
-        public Player NewPlayer(NetChannel channel, string username, int playerId)
+        public PlayerManager(Map map)
         {
-            var player = new Player(channel, username, playerId);
+            _map = map;
+        }
+
+        /// <summary>
+        /// 从地图中创建
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="pos"></param>
+        /// <param name="dire"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public Player NewPlayer(User user, Vector3 pos, Vector3 dire, string name)
+        {
+            var player = new Player(_map, name, user)
+            {
+                EntityId = EntityManager.Instance.NewEntityId(),
+                EntityType = EntityType.Player,
+                Position = pos,
+                Direction = dire,
+
+                Speed = 5,
+            };
+            EntityManager.Instance.AddEntity(player);
+
             lock (_playerDict)
             {
-                _playerDict.Add(username, player);
+                _playerDict.Add(player.EntityId, player);
             }
+
             return player;
         }
 
-        public Player? GetPlayerByName(string username)
+        /// <summary>
+        /// 从地图中删除
+        /// </summary>
+        /// <param name="player"></param>
+        public void RemoveCharacter(Player player)
         {
+            EntityManager.Instance.RemoveEntity(player);
             lock (_playerDict)
             {
-                _playerDict.TryGetValue(username, out var player);
-                return player;
+                _playerDict.Remove(player.EntityId);
             }
+            player.Map = null;
         }
 
-        public void RemovePlayer(Player player)
+        /// <summary>
+        /// 将消息广播给sender周围的，排除sender
+        /// 没有sender则为全图广播
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="sender"></param>
+        public void Broadcast(Google.Protobuf.IMessage msg, Entity? sender = null)
         {
-            lock (_playerDict)
+            if (sender == null)
             {
-                _playerDict.Remove(player.Username);
+                lock (_playerDict)
+                {
+                    foreach (var character in _playerDict.Values)
+                    {
+                        if (sender != null && character.EntityId == sender.EntityId) continue;
+                        character.User.Channel.Send(msg, null);
+                    }
+                }
+            }
+            else
+            {
+                var list = _map.GetEntityViewEntityList(sender, e => e.EntityType == EntityType.Player);
+                foreach (var entity in list)
+                {
+                    var player = entity as Player;
+                    player?.User.Channel.Send(msg, null);
+                }
             }
         }
     }
