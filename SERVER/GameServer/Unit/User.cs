@@ -12,21 +12,21 @@ namespace GameServer.Unit
     public class User
     {
         public NetChannel Channel { get; }
-        public int PlayerId { get; }
+        public int UserId { get; }
         public string Username { get; }
 
-        public Player? Character { get; private set; }
+        public Player? Player { get; private set; }
 
-        public User(NetChannel channel, string username, int playerId) 
+        public User(NetChannel channel, string username, int userId) 
         {
             Channel = channel;
             Username = username;
-            PlayerId = playerId;
+            UserId = userId;
         }
 
-        public void SetCharacter(Player character)
+        public void SetPlayer(Player player)
         {
-            Character = character;
+            Player = player;
         }
     }
 }

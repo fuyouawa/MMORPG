@@ -21,30 +21,30 @@ namespace GameServer.Manager
 
         UserManager() { }
 
-        public User NewUser(NetChannel channel, string username, int playerId)
+        public User NewUser(NetChannel channel, string username, int userId)
         {
-            var player = new User(channel, username, playerId);
+            var user = new User(channel, username, userId);
             lock (_userDict)
             {
-                _userDict.Add(username, player);
+                _userDict.Add(username, user);
             }
-            return player;
+            return user;
         }
 
-        public User? GetPlayerByName(string username)
+        public User? GetUserByName(string username)
         {
             lock (_userDict)
             {
-                _userDict.TryGetValue(username, out var player);
-                return player;
+                _userDict.TryGetValue(username, out var user);
+                return user;
             }
         }
 
-        public void RemovePlayer(User player)
+        public void RemoveUser(User user)
         {
             lock (_userDict)
             {
-                _userDict.Remove(player.Username);
+                _userDict.Remove(user.Username);
             }
         }
     }

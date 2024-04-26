@@ -15,7 +15,7 @@ namespace GameServer.Manager
 {
     /// <summary>
     /// 角色管理器
-    /// 负责管理地图内的所有角色
+    /// 负责管理地图内的所有玩家
     /// 线程安全
     /// </summary>
     public class PlayerManager
@@ -29,7 +29,7 @@ namespace GameServer.Manager
         }
 
         /// <summary>
-        /// 从地图中创建
+        /// 从地图中创建玩家
         /// </summary>
         /// <returns></returns>
         public Player NewPlayer(User user, Vector3 pos, Vector3 dire, string name)
@@ -54,10 +54,10 @@ namespace GameServer.Manager
         }
 
         /// <summary>
-        /// 从地图中删除
+        /// 从地图中删除玩家
         /// </summary>
         /// <param name="player"></param>
-        public void RemoveCharacter(Player player)
+        public void RemovePlayer(Player player)
         {
             EntityManager.Instance.RemoveEntity(player);
             lock (_playerDict)
@@ -68,7 +68,7 @@ namespace GameServer.Manager
         }
 
         /// <summary>
-        /// 将消息广播给sender周围的，排除sender
+        /// 将消息广播给sender周围的玩家，排除sender
         /// 没有sender则为全图广播
         /// </summary>
         /// <param name="msg"></param>
@@ -79,10 +79,10 @@ namespace GameServer.Manager
             {
                 lock (_playerDict)
                 {
-                    foreach (var character in _playerDict.Values)
+                    foreach (var player in _playerDict.Values)
                     {
-                        if (sender != null && character.EntityId == sender.EntityId) continue;
-                        character.User.Channel.Send(msg, null);
+                        if (sender != null && player.EntityId == sender.EntityId) continue;
+                        player.User.Channel.Send(msg, null);
                     }
                 }
             }

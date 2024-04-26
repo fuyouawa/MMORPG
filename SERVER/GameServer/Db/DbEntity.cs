@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace GameServer.Db
 {
 
-    [Table(Name = "player")]
+    [Table(Name = "user")]
     public class DbUser
     {
 
@@ -42,9 +42,9 @@ namespace GameServer.Db
         public int Y { get; set; } = 0;
         public int Z { get; set; } = 0;
         public long Gold { get; set; }
-        public int PlayerId { get; set; }
+        public int UserId { get; set; }
 
-        public DbCharacter(string name, int jobId, int hp, int mp, int level, int exp, int mapId, long gold, int playerId)
+        public DbCharacter(string name, int jobId, int hp, int mp, int level, int exp, int mapId, long gold, int userId)
         {
             Name = name;
             JobId = jobId;
@@ -54,7 +54,7 @@ namespace GameServer.Db
             Exp = exp;
             MapId = mapId;
             Gold = gold;
-            PlayerId = playerId;
+            UserId = userId;
         }
     }
 }

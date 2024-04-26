@@ -25,9 +25,9 @@ namespace GameServer.Service
 
         public void OnChannelClosed(NetChannel sender)
         {
-            if (sender.Player == null)
+            if (sender.User == null)
                 return;
-            UserManager.Instance.RemovePlayer(sender.Player);
+            UserManager.Instance.RemoveUser(sender.User);
         }
 
         // TODO:校验用户名、密码的合法性(长度等)
@@ -36,29 +36,29 @@ namespace GameServer.Service
             Log.Debug($"{sender.ChannelName}登录请求: Username={request.Username}, Password={request.Password}");
             lock (_loginLock)
             {
-                if (sender.Player != null)
+                if (sender.User != null)
                 {
                     sender.Send(new LoginResponse() { Error = NetError.UnknowError });
                     Log.Debug($"{sender.ChannelName}登录失败：用户已登录");
                     return;
                 }
-                if (UserManager.Instance.GetPlayerByName(request.Username) != null)
+                if (UserManager.Instance.GetUserByName(request.Username) != null)
                 {
                     sender.Send(new LoginResponse() { Error = NetError.LoginConflict });
                     Log.Debug($"{sender.ChannelName}登录失败：账号已在别处登录");
                     return;
                 }
-                var dbPlayer = SqlDb.Connection.Select<DbUser>()
+                var dbUser = SqlDb.Connection.Select<DbUser>()
                     .Where(p => p.Username == request.Username)
                     .Where(p => p.Password == request.Password)
                     .First();
-                if (dbPlayer == null)
+                if (dbUser == null)
                 {
                     sender.Send(new LoginResponse() { Error = NetError.IncorrectUsernameOrPassword });
                     Log.Debug($"{sender.ChannelName}登录失败：账号或密码错误");
                     return;
                 }
-                sender.Player = UserManager.Instance.NewUser(sender, dbPlayer.Username, dbPlayer.Id);
+                sender.User = UserManager.Instance.NewUser(sender, dbUser.Username, dbUser.Id);
             }
             sender.Send(new LoginResponse() { Error = NetError.Success });
             Log.Debug($"{sender.ChannelName}登录成功");
@@ -67,7 +67,7 @@ namespace GameServer.Service
         public void OnHandle(NetChannel sender, RegisterRequest request)
         {
             Log.Debug($"{sender.ChannelName}注册请求: Username={request.Username}, Password={request.Password}");
-            if (sender.Player != null)
+            if (sender.User != null)
             {
                 sender.Send(new RegisterResponse() { Error = NetError.UnknowError });
                 Log.Debug($"{sender.ChannelName}注册失败：用户已登录");
@@ -80,17 +80,17 @@ namespace GameServer.Service
                 return;
             }
             lock (_registerLock) {
-                var dbPlayer = SqlDb.Connection.Select<DbUser>()
+                var dbUser = SqlDb.Connection.Select<DbUser>()
                     .Where(p => p.Username == request.Username)
                     .First();
-                if (dbPlayer != null)
+                if (dbUser != null)
                 {
                     sender.Send(new RegisterResponse() { Error = NetError.RepeatUsername });
                     Log.Debug($"{sender.ChannelName}注册失败：用户名已被注册");
                     return;
                 }
-                var newDbPlayer = new DbUser(request.Username, request.Password, 0);
-                var insertCount = SqlDb.Connection.Insert<DbUser>(newDbPlayer).ExecuteAffrows();
+                var newDbUser = new DbUser(request.Username, request.Password, 0);
+                var insertCount = SqlDb.Connection.Insert<DbUser>(newDbUser).ExecuteAffrows();
                 if (insertCount <= 0)
                 {
                     sender.Send(new RegisterResponse() { Error = NetError.UnknowError });

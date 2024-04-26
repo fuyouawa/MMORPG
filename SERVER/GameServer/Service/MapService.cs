@@ -22,15 +22,15 @@ namespace Service
 
         public void OnChannelClosed(NetChannel sender)
         {
-            var character = sender.Player?.Character;
-            if (character?.Map == null) return;
-            character.Map.EntityLeave(character);
-            character.Map.PlayerManager.RemoveCharacter(character);
+            var player = sender.User?.Player;
+            if (player?.Map == null) return;
+            player.Map.EntityLeave(player);
+            player.Map.PlayerManager.RemovePlayer(player);
         }
 
         public void OnHandle(NetChannel sender, EntityTransformSyncRequest request)
         {
-            sender.Player?.Character?.Map?.EntityTransformUpdate(request.EntityId, request.Transform);
+            sender.User?.Player?.Map?.EntityTransformUpdate(request.EntityId, request.Transform);
         }
 
     }

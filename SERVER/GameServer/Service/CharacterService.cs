@@ -30,13 +30,13 @@ namespace GameServer.Service
         public void OnHandle(NetChannel sender, CharacterCreateRequest request)
         {
             Log.Debug($"{sender.ChannelName}角色创建请求");
-            if (sender.Player == null)
+            if (sender.User == null)
             {
                 Log.Debug($"{sender.ChannelName}角色创建失败：用户未登录");
                 return;
             }
             var count = SqlDb.Connection.Select<DbCharacter>()
-                .Where(t => t.PlayerId.Equals(sender.Player.PlayerId))
+                .Where(t => t.UserId.Equals(sender.User.UserId))
                 .Count();
             if (count >= 4)
             {
@@ -63,7 +63,7 @@ namespace GameServer.Service
                 }
 
                 var newDbCharacter = new DbCharacter(request.Name, request.JobId, 100, 100, 1, 0,
-                    MapManager.Instance.InitMapId, 0, sender.Player.PlayerId);
+                    MapManager.Instance.InitMapId, 0, sender.User.UserId);
                 var insertCount = SqlDb.Connection.Insert(newDbCharacter).ExecuteAffrows();
                 if (insertCount <= 0)
                 {
@@ -79,13 +79,13 @@ namespace GameServer.Service
         public void OnHandle(NetChannel sender, CharacterListRequest request)
         {
             Log.Debug($"{sender.ChannelName}角色列表查询请求");
-            if (sender.Player == null)
+            if (sender.User == null)
             {
                 Log.Debug($"{sender.ChannelName}角色列表查询失败：用户未登录");
                 return;
             }
             var characterList = SqlDb.Connection.Select<DbCharacter>()
-                .Where(t => t.PlayerId.Equals(sender.Player.PlayerId))
+                .Where(t => t.UserId.Equals(sender.User.UserId))
                 .ToList();
             var res = new CharacterListResponse();
             foreach (var character in characterList)
@@ -108,13 +108,13 @@ namespace GameServer.Service
         public void OnHandle(NetChannel sender, CharacterDeleteRequest request)
         {
             Log.Debug($"{sender.ChannelName}角色删除请求");
-            if (sender.Player == null)
+            if (sender.User == null)
             {
                 Log.Debug($"{sender.ChannelName}角色删除失败：用户未登录");
                 return;
             }
             var deleteCount = SqlDb.Connection.Delete<DbCharacter>()
-                .Where(t => t.PlayerId.Equals(sender.Player.PlayerId))
+                .Where(t => t.UserId.Equals(sender.User.UserId))
                 .Where(t => t.Id == request.CharacterId)
                 .ExecuteAffrows();
             sender.Send(new CharacterDeleteResponse() { Error = NetError.Success });
