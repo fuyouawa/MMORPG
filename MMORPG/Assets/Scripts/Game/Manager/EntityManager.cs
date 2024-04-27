@@ -56,7 +56,7 @@ public class EntityManager : MonoBehaviour, IController, ICanSendEvent
             var rotation = Quaternion.Euler(netEntity.Transform.Direction.ToVector3());
 
             //TODO 根据Entity加载对应的Prefab
-            _entityManager.SpawnEntity(_resLoader.LoadSync<Entity>("HeroKnightFemale"), entityId, position, rotation, false);
+            _entityManager.SpawnEntity(_resLoader.LoadSync<Entity>("HeroKnightMale"), entityId, position, rotation, false);
         }
     }
 

@@ -1,4 +1,4 @@
-﻿using Google.Protobuf;
+using Google.Protobuf;
 using QFramework;
 using System;
 using System.Collections.Generic;
@@ -10,8 +10,6 @@ using UnityEngine;
 public interface IPlayerManagerSystem : ISystem
 {
     public int MineId { get; }
-    public Player MinePlayer { get; }
-
     public void SetMineId(int entityId);
 }
 
@@ -19,10 +17,7 @@ public class PlayerManagerSystem : AbstractSystem, IPlayerManagerSystem
 {
     private int _mineId = -1;
     private int _characterId = -1;
-    private Player _minePlayer = null;
     private Dictionary<int, Entity> _playerDict = new();
-
-    public Player MinePlayer => _minePlayer;
 
     public int CharacterId => _characterId;
 

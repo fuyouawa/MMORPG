@@ -39,7 +39,8 @@ public sealed class Entity : MonoBehaviour, IController
 
     private void Update()
     {
-        _allCallbacks.ForEach(cb => cb.NetworkMineUpdate());
+        if (_isMine)
+            _allCallbacks.ForEach(cb => cb.NetworkMineUpdate());
     }
 
     public void SetEntityId(int entityId)

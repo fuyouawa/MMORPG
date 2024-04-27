@@ -52,7 +52,7 @@ namespace MMORPG
             _playerManager.SetMineId(response.EntityId);
 
             var entity = _entityManager.SpawnEntity(
-                _resLoader.LoadSync<Entity>("HeroKnightFemale"),
+                _resLoader.LoadSync<Entity>("HeroKnightMale"),
                 response.EntityId,
                 response.Transform.Position.ToVector3(),
                 Quaternion.Euler(response.Transform.Direction.ToVector3()),
