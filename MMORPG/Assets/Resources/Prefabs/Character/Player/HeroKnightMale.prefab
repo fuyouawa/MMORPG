@@ -2068,7 +2068,6 @@ GameObject:
   - component: {fileID: 6160873211826916690}
   - component: {fileID: 6100264319467832486}
   - component: {fileID: 2416873527042237913}
-  - component: {fileID: 2795587727047510596}
   m_Layer: 0
   m_Name: HeroKnightMale
   m_TagString: Untagged
@@ -2162,28 +2161,6 @@ MonoBehaviour:
   VertSpeedNormalized: 0
   Acceleration: 3
   _moveAxis: {x: 0, y: 0}
---- !u!95 &2795587727047510596
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6023422151166410460}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b69174d668ba02d44b14a084b217670a, type: 3}
-  m_Controller: {fileID: 9100000, guid: 45724f3fdf0809045b6998baf583149d, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6072385525174587162
 GameObject:
   m_ObjectHideFlags: 0
@@ -2416,6 +2393,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9087934345694290826}
+  - component: {fileID: 1201144034948401517}
+  - component: {fileID: 7761515763248269317}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -2440,6 +2419,44 @@ Transform:
   - {fileID: 1249248324390040188}
   m_Father: {fileID: 2429740359941644855}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1201144034948401517
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7194672956322385563}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: b69174d668ba02d44b14a084b217670a, type: 3}
+  m_Controller: {fileID: 9100000, guid: 45724f3fdf0809045b6998baf583149d, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7761515763248269317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7194672956322385563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b8f1831df37c9042b6ba5121d0e40f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Walking: 0
+  HoriSpeedNormalized: 0
+  VertSpeedNormalized: 0
+  MoveByAnimator: 0
 --- !u!1 &7249225087750854683
 GameObject:
   m_ObjectHideFlags: 0
