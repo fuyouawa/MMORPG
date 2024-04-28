@@ -3,24 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerAnimatorController : MonoBehaviour
+public class PlayerAnimatorController : MonoBehaviour, IAnimatorAutoUpdateParams
 {
     [AnimatorParam]
-    [ReadOnly]
-    public bool Walking;
+    public bool Walking { get; set; }
     [AnimatorParam]
-    [ReadOnly]
-    public float HoriSpeedNormalized;
+    public float HoriSpeedNormalized { get; set; }
     [AnimatorParam]
-    [ReadOnly]
-    public float VertSpeedNormalized;
+    public float VertSpeedNormalized { get; set; }
 
     [Range(0.1f, 100f)]
     public float Acceleration = 3;
 
     private bool _moveByAnim;
-
-    private AnimatorMachine _animatorMachine;
+    private Animator _animator;
     private Transform _owner;
 
     public void Setup(Transform owner, bool moveByAnim)
@@ -31,12 +27,8 @@ public class PlayerAnimatorController : MonoBehaviour
 
     void Awake()
     {
-        _animatorMachine = new(this, GetComponent<Animator>());
-    }
-
-    private void Update()
-    {
-        _animatorMachine.UpdateAnimator();
+        _animator = GetComponent<Animator>();
+        this.StartAnimatorAutoUpdate(gameObject, _animator);
     }
 
     public void SetMovement(Vector2 move)
@@ -61,8 +53,8 @@ public class PlayerAnimatorController : MonoBehaviour
         {
             if (_owner != null)
             {
-                _owner.position += _animatorMachine.Animator.deltaPosition;
-                _owner.rotation *= _animatorMachine.Animator.deltaRotation;
+                _owner.position += _animator.deltaPosition;
+                _owner.rotation *= _animator.deltaRotation;
             }
         }
     }

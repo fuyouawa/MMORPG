@@ -29,17 +29,11 @@ namespace GameServer.Network
             ConnectionClosed += OnConnectionClosed;
             ErrorOccur += OnErrorOccur;
             WarningOccur += OnWarningOccur;
-            PacketReceived += OnPacketReceived;
         }
 
         private void OnWarningOccur(object? sender, WarningOccurEventArgs e)
         {
             Log.Warning($"[Channel:{ChannelName}] 出现警告:{e.Description}");
-        }
-
-        private void OnPacketReceived(object? sender, PacketReceivedEventArgs e)
-        {
-            Log.Debug($"[Channel:{ChannelName}] 接收到数据包:{e.Packet.Message.GetType()}");
         }
 
         private void OnErrorOccur(object? sender, ErrorOccurEventArgs e)
