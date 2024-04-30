@@ -1,15 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 
 [CustomPropertyDrawer(typeof(ConditionAttribute))]
 public class ConditionAttributeDrawer : PropertyDrawer
 {
-	#if  UNITY_EDITOR
 	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 	{
 		ConditionAttribute conditionAttribute = (ConditionAttribute)attribute;
@@ -23,7 +20,6 @@ public class ConditionAttributeDrawer : PropertyDrawer
 			GUI.enabled = previouslyEnabled;
 		}
 	}
-	#endif
         
 	private bool GetConditionAttributeResult(ConditionAttribute conditionAttribute, SerializedProperty property)
 	{

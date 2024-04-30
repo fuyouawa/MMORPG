@@ -8,7 +8,20 @@ using QFramework;
 [AttributeUsage(AttributeTargets.Property)]
 public class AnimatorParamAttribute : Attribute
 {
-    public string Name = string.Empty;
+    public bool AutoName { get; }
+    public string Name;
+
+    public AnimatorParamAttribute()
+    {
+        Name = string.Empty;
+        AutoName = true;
+    }
+
+    public AnimatorParamAttribute(string name)
+    {
+        Name = name;
+        AutoName = false;
+    }
 }
 
 public struct AnimatorTrigger
@@ -62,7 +75,7 @@ public class AnimatorParamsAutoUpdater : MonoBehaviour
         foreach (var paramInfo in _paramsInfo)
         {
             var attr = paramInfo.GetAttribute<AnimatorParamAttribute>();
-            var paramName = attr.Name == string.Empty ? paramInfo.Name : attr.Name;
+            var paramName = attr.AutoName ? paramInfo.Name : attr.Name;
             var paramId = Animator.StringToHash(paramName);
             var value = paramInfo.GetValue(_owner);
 
@@ -98,11 +111,6 @@ public interface IAnimatorAutoUpdateParams { }
 
 public static class AnimatorAutoUpdateParamsExtension
 {
-    public static void StartAnimatorAutoUpdate(this IAnimatorAutoUpdateParams owner, GameObject target)
-    {
-        StartAnimatorAutoUpdate(owner, target, target.GetComponent<Animator>());
-    }
-
     public static void StartAnimatorAutoUpdate(this IAnimatorAutoUpdateParams owner, GameObject target, Animator animator)
     {
         var updater = target.AddComponent<AnimatorParamsAutoUpdater>();
