@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System;
@@ -19,9 +19,9 @@ public class EnumConditionAttribute : PropertyAttribute
 		return bitArray.Get(enumValue);
 	}
 
-	public EnumConditionAttribute(string conditionBoolean, params int[] enumValues)
+	public EnumConditionAttribute(string conditionEnum, params int[] enumValues)
 	{
-		this.ConditionEnum = conditionBoolean;
+		this.ConditionEnum = conditionEnum;
 		this.Hidden = true;
 
 		for (int i = 0; i < enumValues.Length; i++)
