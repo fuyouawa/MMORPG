@@ -66,20 +66,15 @@ public class CharacterConditionDrawer : PropertyDrawer
         if (_thisCondition == null) return;
 
         var extraParams = (
-            from p in _thisCondition.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
+            from p in _thisCondition.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
             where p.HasAttribute<CharacterStateParamAttribute>()
             select p).ToArray();
-        if (extraParams.Length > 0)
-        {
-            NextLine();
-            EditorGUI.LabelField(_position, new GUIContent("Params"), EditorStyles.boldLabel);
-        }
         foreach (var param in extraParams)
         {
             NextLine();
             var value = param.GetValue(_thisCondition);
             var label = new GUIContent(param.Name);
-            value = EditorGUIHelper.AutoField(_position, label, value, param.PropertyType);
+            value = EditorGUIHelper.AutoField(_position, label, value, param.FieldType);
             param.SetValue(_thisCondition, value);
         }
     }

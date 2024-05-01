@@ -23,10 +23,9 @@ public abstract class CharacterCondition : MonoBehaviour
 public class CharacterTransition
 {
     public CharacterCondition Condition;
-    [Header("Branch")]
-    [DropdownRuntime("GetAllStateName")]
+    [DropdownRuntime("GetAllStateName", "TrueState")]
     public string TrueStateName;
-    [DropdownRuntime("GetAllStateName")]
+    [DropdownRuntime("GetAllStateName", "FalseState")]
     public string FalseStateName;
 
     public CharacterState TrueState { get; set; }

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System;
+using Malee.List;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class CharacterStateParamAttribute : PropertyAttribute
 {
@@ -8,11 +10,18 @@ public class CharacterStateParamAttribute : PropertyAttribute
 }
 
 [Serializable]
+public class CharacterActionArray : ReorderableArray<CharacterAction> { }
+[Serializable]
+public class CharacterTransitionArray : ReorderableArray<CharacterTransition> { }
+
+[Serializable]
 public class CharacterState
 {
     public string StateName;
-    public List<CharacterAction> Actions = new();
-    public List<CharacterTransition> Transitions = new();
+    [Reorderable]
+    public CharacterActionArray Actions = new();
+    [Reorderable]
+    public CharacterTransitionArray Transitions = new();
 
     public CharacterBrain Brain { get; set; }
 
