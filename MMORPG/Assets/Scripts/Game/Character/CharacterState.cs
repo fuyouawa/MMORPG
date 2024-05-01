@@ -1,26 +1,16 @@
 using System.Collections.Generic;
 using System;
+using UnityEngine;
 
-[Serializable]
-public class CharacterTransition
+public class CharacterStateParamAttribute : PropertyAttribute
 {
-    [DropdownRuntime("GetAttachedConditions")]
-    public CharacterCondition Condition;
-    public string ExtraParam;
-    [DropdownRuntime("GetAllStateName", "TrueState")]
-    public string TrueStateName;
-    [DropdownRuntime("GetAllStateName", "FalseState")]
-    public string FalseStateName;
 
-    public CharacterState TrueState { get; set; }
-    public CharacterState FalseState { get; set; }
 }
 
 [Serializable]
 public class CharacterState
 {
     public string StateName;
-    [DropdownRuntime("GetAttachedActions")]
     public List<CharacterAction> Actions = new();
     public List<CharacterTransition> Transitions = new();
 
@@ -37,7 +27,6 @@ public class CharacterState
         foreach (var transition in Transitions)
         {
             transition.Condition.Character = Brain.Character;
-            transition.Condition.ExtraParam = transition.ExtraParam;
             transition.TrueState ??= Brain.GetState(transition.TrueStateName);
             transition.FalseState ??= Brain.GetState(transition.FalseStateName);
             transition.Condition.OnStateEnter();
@@ -85,11 +74,13 @@ public class CharacterState
             {
                 if (transition.TrueState != null)
                     Brain.ChangeState(transition.TrueState);
+                break;
             }
             else
             {
                 if (transition.FalseState != null)
                     Brain.ChangeState(transition.FalseState);
+                break;
             }
         }
     }

@@ -1,8 +1,6 @@
+#if UNITY_EDITOR
 using System;
 using UnityEditor;
-using Object = UnityEngine.Object;
-
-#if UNITY_EDITOR
 
 public static class EditorExtension
 {
@@ -55,7 +53,7 @@ public static class EditorExtension
             case ulong ul:
                 property.ulongValue = ul;
                 break;
-            case Object obj:
+            case UnityEngine.Object obj:
                 property.objectReferenceValue = obj;
                 break;
             default:

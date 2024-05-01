@@ -12,7 +12,6 @@ public class CharacterBrain : MonoBehaviour
     [DropdownRuntime("GetAllStateName", "StartState")]
     private string _startStateName;
     [SerializeField]
-    [Reorderable]
     private List<CharacterState> _states = new();
 
     public CharacterState CurrentState { get; private set; }
