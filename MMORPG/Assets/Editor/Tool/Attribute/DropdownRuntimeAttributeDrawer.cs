@@ -57,7 +57,6 @@ public class DropdownRuntimeAttributeDrawer : PropertyDrawer
 
     private string FormatName(object val, int i)
     {
-        var type = val.GetType();
         return $"{i} - {Convert.ToString(val)}";
     }
 
@@ -68,7 +67,7 @@ public class DropdownRuntimeAttributeDrawer : PropertyDrawer
         _contentGetterMethod =
             property.serializedObject.targetObject.GetType().GetMethod(
                 _dropdownAttribute.ContentGetter,
-                BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                BindingFlags.Instance | BindingFlags.Public);
         if (_contentGetterMethod == null)
             throw new Exception($"在{property.serializedObject.targetObject}中没有函数{_dropdownAttribute.ContentGetter}");
 
