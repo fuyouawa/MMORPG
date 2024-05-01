@@ -2,19 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using SubjectNerd.Utilities;
+using Malee.List;
 using UnityEngine;
+
+
 
 public class CharacterBrain : MonoBehaviour
 {
     public Character Character;
-    [SerializeField]
-    [DropdownRuntime("GetAllStateName", "StartState")]
-    private string _startStateName;
-    [SerializeField]
-    private List<CharacterState> _states = new();
-
+    public List<CharacterState> States = new();
     public CharacterState CurrentState { get; private set; }
+
 
     public CharacterCondition[] GetAttachedConditions()
     {
@@ -27,17 +25,17 @@ public class CharacterBrain : MonoBehaviour
 
     public string[] GetAllStateName()
     {
-        return _states.Select(s => s.StateName).ToArray();
+        return States.Select(s => s.StateName).ToArray();
     }
 
     public CharacterState GetState(string stateName)
     {
-        return _states.Find(s => s.StateName == stateName);
+        return States.FirstOrDefault(x => x.StateName == stateName);
     }
 
     public void ChangeState(CharacterState state)
     {
-        Debug.Assert(_states.Contains(state));
+        Debug.Assert(States.Contains(state));
         state.Brain = this;
         CurrentState?.Exit();
         CurrentState = state;
@@ -46,7 +44,7 @@ public class CharacterBrain : MonoBehaviour
 
     private void StartState(CharacterState state)
     {
-        Debug.Assert(_states.Contains(state));
+        Debug.Assert(States.Contains(state));
         state.Brain = this;
         CurrentState = state;
         CurrentState.Enter();
@@ -54,15 +52,13 @@ public class CharacterBrain : MonoBehaviour
 
     private void Awake()
     {
-        if (_states.Count == 0)
+        if (States.Count == 0)
             throw new Exception($"({this})的状态机为空, 这是没有意义的!");
-        var startState = GetState(_startStateName)
-                         ?? throw new Exception($"({this})还没有设置开始状态!");
-        StartState(startState);
     }
 
     private void Start()
     {
+        StartState(States[0]);
         StartCoroutine(NetworkFixedUpdate());
     }
 

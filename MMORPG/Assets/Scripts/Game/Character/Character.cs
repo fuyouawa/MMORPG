@@ -30,12 +30,10 @@ public class Character : MonoBehaviour
     [ContextMenu("Build Player")]
     public void BuildPlayer()
     {
-        BuildBrain();
         Player = gameObject.AddComponent<Player>();
         Player.Character = this;
         CharacterType = CharacterType.Player;
-        gameObject.AddComponent<PlayerInput>();
-        //TODO PlayerInput
+        BuildBrain();
     }
 #endif
 }

@@ -2067,10 +2067,12 @@ GameObject:
   - component: {fileID: 7440351696711677815}
   - component: {fileID: 6100264319467832486}
   - component: {fileID: 224805171054128564}
-  - component: {fileID: 1978397322497063670}
   - component: {fileID: 1723814193647785173}
   - component: {fileID: 72820028763516274}
+  - component: {fileID: 1978397322497063670}
   - component: {fileID: 2722445945428457472}
+  - component: {fileID: 8720829739504560823}
+  - component: {fileID: 7486513119960268476}
   m_Layer: 0
   m_Name: HeroKnightMale
   m_TagString: Untagged
@@ -2153,28 +2155,6 @@ MonoBehaviour:
   Brain: {fileID: 1978397322497063670}
   CharacterType: 0
   Player: {fileID: 1723814193647785173}
---- !u!114 &1978397322497063670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6023422151166410460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02c57020d1f5fef468b4e8005a8700d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Character: {fileID: 224805171054128564}
-  _startStateName: 
-  _states:
-  - StateName: Idle
-    Actions:
-    - {fileID: 0}
-    Transitions:
-    - Condition: {fileID: 2722445945428457472}
-      TrueStateName: 
-      FalseStateName: 
 --- !u!114 &1723814193647785173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2218,6 +2198,38 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1978397322497063670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6023422151166410460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c57020d1f5fef468b4e8005a8700d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Character: {fileID: 224805171054128564}
+  States:
+  - StateName: Idle
+    Actions:
+      array:
+      - {fileID: 8720829739504560823}
+    Transitions:
+      array:
+      - Condition: {fileID: 2722445945428457472}
+        TrueStateName: Walking
+        FalseStateName: 
+  - StateName: Walking
+    Actions:
+      array:
+      - {fileID: 7486513119960268476}
+    Transitions:
+      array:
+      - Condition: {fileID: 2722445945428457472}
+        TrueStateName: 
+        FalseStateName: Idle
 --- !u!114 &2722445945428457472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2228,6 +2240,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28f7ef1e7006bda41b5e64c330cecf33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8720829739504560823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6023422151166410460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9badb2ac670634da607720591c996c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7486513119960268476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6023422151166410460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc7ff13306a4f14aa261556ea2a67eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6072385525174587162
