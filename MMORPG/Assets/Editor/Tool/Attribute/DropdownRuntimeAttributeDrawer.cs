@@ -67,7 +67,7 @@ public class DropdownRuntimeAttributeDrawer : PropertyDrawer
         _contentGetterMethod =
             property.serializedObject.targetObject.GetType().GetMethod(
                 _dropdownAttribute.ContentGetter,
-                BindingFlags.Instance | BindingFlags.Public);
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
         if (_contentGetterMethod == null)
             throw new Exception($"在{property.serializedObject.targetObject}中没有函数{_dropdownAttribute.ContentGetter}");
 

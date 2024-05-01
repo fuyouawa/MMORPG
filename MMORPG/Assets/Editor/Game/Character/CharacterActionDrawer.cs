@@ -66,20 +66,15 @@ public class CharacterActionDrawer : PropertyDrawer
         if (_thisAction == null) return;
 
         var extraParams = (
-            from p in _thisAction.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
+            from p in _thisAction.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
             where p.HasAttribute<CharacterStateParamAttribute>()
             select p).ToArray();
-        if (extraParams.Length > 0)
-        {
-            NextLine();
-            EditorGUI.LabelField(_position, new GUIContent("Params"), EditorStyles.boldLabel);
-        }
         foreach (var param in extraParams)
         {
             NextLine();
             var value = param.GetValue(_thisAction);
             var label = new GUIContent(param.Name);
-            value = EditorGUIHelper.AutoField(_position, label, value, param.PropertyType);
+            value = EditorGUIHelper.AutoField(_position, label, value, param.FieldType);
             param.SetValue(_thisAction, value);
         }
     }
