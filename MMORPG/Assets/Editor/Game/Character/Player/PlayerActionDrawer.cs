@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerActionDrawer : PropertyDrawer
 {
     public static readonly float LineTotalHeight = EditorGUIUtility.singleLineHeight + 0.5f;
-    public static readonly float TotalHeight = LineTotalHeight * 2;
+    public static readonly float TotalHeight = LineTotalHeight * 2f + 8f;
 
     private PlayerAction _currentAction;
     private PlayerAction[] _actions;
@@ -18,8 +18,9 @@ public class PlayerActionDrawer : PropertyDrawer
         using (new EditorGUI.PropertyScope(position, label, property))
         {
             _position = position;
-            _position.x += 10;
-            _position.width -= 10;
+            _position.y += 5f;
+            _position.x += 10f;
+            _position.width -= 10f;
             _position.height = EditorGUIUtility.singleLineHeight;
 
             DrawIcon();
@@ -58,7 +59,7 @@ public class PlayerActionDrawer : PropertyDrawer
         _currentAction = property.objectReferenceValue as PlayerAction;
         _actions = (property.serializedObject.targetObject as Player).GetAttachActions();
         _options = new string[_actions.Length + 1];
-        _options[0] = "None";
+        _options[0] = "None Action";
         _selectedIndex = 0;
         int i = 1;
         foreach (var action in _actions)
