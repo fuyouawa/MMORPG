@@ -32,7 +32,7 @@ namespace Malee.List {
 
 		public delegate void DrawHeaderDelegate(Rect rect, GUIContent label);
 		public delegate void DrawFooterDelegate(Rect rect);
-		public delegate void DrawElementDelegate(Rect rect, SerializedProperty element, GUIContent label, bool selected, bool focused);
+		public delegate void DrawElementDelegate(Rect rect, int index, SerializedProperty element, GUIContent label, bool selected, bool focused);
 		public delegate void ActionDelegate(ReorderableList list);
 		public delegate bool ActionBoolDelegate(ReorderableList list);
 		public delegate void AddDropdownDelegate(Rect buttonRect, ReorderableList list);
@@ -845,7 +845,7 @@ namespace Malee.List {
 
 					bool selected = selection.Contains(i);
 
-					DrawElement(list.GetArrayElementAtIndex(i), GetElementDrawRect(i, elementRects[i]), selected, selected && GUIUtility.keyboardControl == controlID);
+					DrawElement(list.GetArrayElementAtIndex(i), i, GetElementDrawRect(i, elementRects[i]), selected, selected && GUIUtility.keyboardControl == controlID);
 				}
 			}
 			else if (evt.type == EventType.Repaint) {
@@ -879,7 +879,7 @@ namespace Malee.List {
 
 					if (element.selected) {
 
-						DrawElement(element.property, element.desiredRect, true, true);
+						DrawElement(element.property, i, element.desiredRect, true, true);
 						continue;
 					}
 
@@ -906,7 +906,7 @@ namespace Malee.List {
 
 					//draw the element with the new rect
 
-					DrawElement(element.property, GetElementDrawRect(i, elementRect), false, false);
+					DrawElement(element.property, i, GetElementDrawRect(i, elementRect), false, false);
 
 					//reassign the element back into the dragList
 
@@ -916,7 +916,7 @@ namespace Malee.List {
 			}
 		}
 
-		private void DrawElement(SerializedProperty element, Rect rect, bool selected, bool focused) {
+		private void DrawElement(SerializedProperty element, int index, Rect rect, bool selected, bool focused) {
 
 			Rect backgroundRect = rect;
 
@@ -928,7 +928,7 @@ namespace Malee.List {
 
 			if (drawElementBackgroundCallback != null) {
 
-				drawElementBackgroundCallback(backgroundRect, element, null, selected, focused);
+				drawElementBackgroundCallback(backgroundRect, index, element, null, selected, focused);
 			}
 			else if (evt.type == EventType.Repaint) {
 
@@ -946,7 +946,7 @@ namespace Malee.List {
 
 			if (drawElementCallback != null) {
 
-				drawElementCallback(renderRect, element, label, selected, focused);
+				drawElementCallback(renderRect, index, element, label, selected, focused);
 			}
 			else {
 
