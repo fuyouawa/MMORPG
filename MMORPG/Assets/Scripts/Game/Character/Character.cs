@@ -15,25 +15,17 @@ public class Character : MonoBehaviour
     public Entity Entity;
     public CharacterController CharacterController;
     public Animator Animator;
-    public CharacterBrain Brain;
     public CharacterType CharacterType;
     [EnumCondition("CharacterType", (int)CharacterType.Player)]
     public Player Player;
 
 #if UNITY_EDITOR
-    public void BuildBrain()
-    {
-        Brain = gameObject.AddComponent<CharacterBrain>();
-        Brain.Character = this;
-    }
-
     [ContextMenu("Build Player")]
     public void BuildPlayer()
     {
         Player = gameObject.AddComponent<Player>();
         Player.Character = this;
         CharacterType = CharacterType.Player;
-        BuildBrain();
     }
 #endif
 }

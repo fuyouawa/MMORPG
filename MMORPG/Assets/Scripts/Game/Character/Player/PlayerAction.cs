@@ -1,6 +1,8 @@
+using Malee.List;
+using System;
 using UnityEngine;
 
-public class CharacterAction : MonoBehaviour
+public class PlayerAction : MonoBehaviour
 {
     public Character Character { get; set; }
 
@@ -14,3 +16,6 @@ public class CharacterAction : MonoBehaviour
 
     public virtual void OnStateExit() {}
 }
+
+[Serializable]
+public class PlayerActionArray : ReorderableArray<PlayerAction> { }
