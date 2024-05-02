@@ -8,7 +8,7 @@ using UnityEngine;
 public class PlayerTransitionDrawer : PropertyDrawer
 {
     public static readonly float LineTotalHeight = EditorGUIUtility.singleLineHeight + 0.5f;
-    public static readonly float TotalHeight = LineTotalHeight * 3;
+    public static readonly float TotalHeight = LineTotalHeight * 3 + 8f;
 
     private SerializedProperty _conditionProperty;
     private SerializedProperty _objectProperty;
@@ -34,6 +34,7 @@ public class PlayerTransitionDrawer : PropertyDrawer
         _falseStateNameProperty = property.FindPropertyRelative("FalseStateName");
 
         _position = position;
+        _position.y += 5f;
         _position.height = EditorGUIUtility.singleLineHeight;
         
         using (new EditorGUI.PropertyScope(position, label, property))
@@ -127,7 +128,7 @@ public class PlayerTransitionDrawer : PropertyDrawer
 
     private void UpdateConditions()
     {
-        _conditionOptions = new[] { "NONE" };
+        _conditionOptions = new[] { "None Condition" };
         if (_object == _objectProperty.objectReferenceValue)
             return;
         _object = _objectProperty.objectReferenceValue;
@@ -183,7 +184,7 @@ public class PlayerTransitionDrawer : PropertyDrawer
 
     private void UpdateStates()
     {
-        _stateOptions = new[] { "NONE" };
+        _stateOptions = new[] { "None State" };
         if (_target.States.Count > 0)
         {
             _stateOptions = _stateOptions.Combine(
