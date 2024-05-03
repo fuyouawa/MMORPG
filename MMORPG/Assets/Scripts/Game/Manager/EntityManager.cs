@@ -12,25 +12,11 @@ using System.Threading.Tasks;
 using Tool;
 using UnityEngine;
 
-public struct NetworkControlData
-{
-    public float DeltaTime;
-}
-
 public struct NetworkSyncData
 {
-    public Vector3 Postion;
+    public Vector3 Position;
     public Quaternion Rotation;
 }
-
-
-public interface INetworkEntityCallbacks
-{
-    public void NetworkMineUpdate() { }
-    public void NetworkMineFixedUpdate() { }
-    public void NetworkSyncUpdate(NetworkSyncData data) { }
-}
-
 
 public class EntityManager : MonoBehaviour, IController, ICanSendEvent
 {
@@ -69,13 +55,11 @@ public class EntityManager : MonoBehaviour, IController, ICanSendEvent
 
         var data = new NetworkSyncData
         {
-            Postion = position,
+            Position = position,
             Rotation = rotation
         };
 
-        entity.GetComponents<INetworkEntityCallbacks>().ForEach(cb => {
-            cb.NetworkSyncUpdate(data);
-        });
+        entity.HandleNetworkSync(data);
     }
 
     public IArchitecture GetArchitecture()

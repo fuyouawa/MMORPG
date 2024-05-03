@@ -11,13 +11,14 @@ using Object = UnityEngine.Object;
 public class PlayerTransitionDrawer : PropertyDrawer
 {
     public static readonly float LineTotalHeight = EditorGUIUtility.singleLineHeight + 0.5f;
-    public static readonly float TotalHeight = LineTotalHeight * 3 + 8f;
+    public static readonly float TotalHeight = LineTotalHeight * 4 + 9f;
 
     private SerializedProperty _conditionMethodNameProperty;
     private SerializedProperty _conditionMethodObjectProperty;
     private SerializedProperty _attachedObjectProperty;
     private SerializedProperty _trueStateNameProperty;
     private SerializedProperty _falseStateNameProperty;
+    private SerializedProperty _isExpandingProperty;
 
     private Object AttachObjectRef
     {
@@ -25,7 +26,7 @@ public class PlayerTransitionDrawer : PropertyDrawer
         set => _attachedObjectProperty.objectReferenceValue = value;
     }
 
-    private string CurrentConditionMethodNameRef
+    private string ConditionMethodNameRef
     {
         get => _conditionMethodNameProperty.stringValue;
         set => _conditionMethodNameProperty.stringValue = value;
@@ -35,8 +36,13 @@ public class PlayerTransitionDrawer : PropertyDrawer
         get => _conditionMethodObjectProperty.objectReferenceValue;
         set => _conditionMethodObjectProperty.objectReferenceValue = value;
     }
+    private bool IsExpandingRef
+    {
+        get => _isExpandingProperty.boolValue;
+        set => _isExpandingProperty.boolValue = value;
+    }
 
-    private Player _target;
+    private PlayerBrain _target;
     private Dictionary<Object, List<MethodInfo>> _conditionMethods = new();
 
     private int _conditionOptionsSelectedIndex;
@@ -49,42 +55,69 @@ public class PlayerTransitionDrawer : PropertyDrawer
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        _target = (Player)property.serializedObject.targetObject;
+        _target = (PlayerBrain)property.serializedObject.targetObject;
         _conditionMethodNameProperty = property.FindPropertyRelative("ConditionMethodName");
         _conditionMethodObjectProperty = property.FindPropertyRelative("ConditionMethodObject");
         _attachedObjectProperty = property.FindPropertyRelative("AttachedObject");
         _trueStateNameProperty = property.FindPropertyRelative("TrueStateName");
         _falseStateNameProperty = property.FindPropertyRelative("FalseStateName");
+        _isExpandingProperty = property.FindPropertyRelative("IsExpanding");
 
         _position = position;
-        _position.y += 5f;
+        _position.y += 5;
         _position.height = EditorGUIUtility.singleLineHeight;
         
         using (new EditorGUI.PropertyScope(position, label, property))
         {
-            DrawIcon();
-            DrawConditionSelect(property);
-            NextLine();
-            UpdateStates();
-            DrawStateSelect(property, _trueStateNameProperty, "TrueState", out _trueStatesSelectedIndex);
-            NextLine();
-            DrawStateSelect(property, _falseStateNameProperty, "FalseState", out _falseStatesSelectedIndex);
+            DrawExpandTitle();
+            if (IsExpandingRef)
+            {
+                NextLine();
+                DrawConditionSelect(property);
+                NextLine();
+                UpdateStates();
+                DrawStateSelect(property, _trueStateNameProperty, "TrueState", out _trueStatesSelectedIndex);
+                NextLine();
+                DrawStateSelect(property, _falseStateNameProperty, "FalseState", out _falseStatesSelectedIndex);
+            }
         }
     }
 
-    private void DrawIcon()
+    private void DrawExpandTitle()
     {
-        var iconRect = new Rect(_position)
+        var style = new GUIStyle();
+        style.normal.background = MakeBackgroundTexture(1, 1, IsExpandingRef ? Color.yellow : Color.yellow * 0.8f);
+        style.margin = new RectOffset(4, 4, 2, 2);
+        style.alignment = TextAnchor.MiddleCenter;
+
+        if (GUI.Button(_position, $"{ConditionMethodObjectRef.GetType()} - {ConditionMethodNameRef}", style))
         {
-            x = _position.x - 25f,
-            y = _position.y + LineTotalHeight
-        };
-        EditorGUI.LabelField(iconRect, EditorGUIUtility.IconContent("d_AnimatorStateTransition Icon"));
+            IsExpandingRef = !IsExpandingRef;
+        }
+        _position.y += 5f;
+    }
+
+    private Texture2D MakeBackgroundTexture(int width, int height, Color color)
+    {
+        Color[] pixels = new Color[width * height];
+
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            pixels[i] = color;
+        }
+
+        Texture2D backgroundTexture = new Texture2D(width, height);
+
+        backgroundTexture.SetPixels(pixels);
+        backgroundTexture.Apply();
+
+        return backgroundTexture;
     }
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        return TotalHeight;
+        _isExpandingProperty = property.FindPropertyRelative("IsExpanding");
+        return IsExpandingRef ? TotalHeight : LineTotalHeight + 5f;
     }
 
     private void DrawConditionSelect(SerializedProperty property)
@@ -116,7 +149,7 @@ public class PlayerTransitionDrawer : PropertyDrawer
         if (check.changed)
         {
             CorrectedConditionValueByOptionsSelectedIndex();
-            CurrentConditionMethodNameRef = _conditionOptionsSelectedIndex == 0 ?
+            ConditionMethodNameRef = _conditionOptionsSelectedIndex == 0 ?
                 string.Empty :
                 _conditionMethods[ConditionMethodObjectRef][_conditionOffsetSelectedIndex].Name;
             property.serializedObject.ApplyModifiedProperties();
@@ -184,7 +217,7 @@ public class PlayerTransitionDrawer : PropertyDrawer
     {
         AttachObjectRef = obj;
         ConditionMethodObjectRef = null;
-        CurrentConditionMethodNameRef = string.Empty;
+        ConditionMethodNameRef = string.Empty;
     }
 
     private void CombineConditionMethodsAndOptions(Object obj, List<MethodInfo> methods)
@@ -192,9 +225,7 @@ public class PlayerTransitionDrawer : PropertyDrawer
         if (methods.Count == 0)
             return;
         _conditionMethods[obj] = methods;
-        var options = _conditionMethods
-            .SelectMany(pair => pair.Value)
-            .Select(x => $"{obj.GetType()}.{x.Name}").ToArray();
+        var options = methods.Select(x => $"{obj.GetType()}.{x.Name}").ToArray();
         _conditionOptions = _conditionOptions.Combine(options);
     }
 
@@ -231,14 +262,14 @@ public class PlayerTransitionDrawer : PropertyDrawer
     private void UpdateConditionSelectedIndex()
     {
         _conditionOptionsSelectedIndex = 0;
-        if (CurrentConditionMethodNameRef == string.Empty)
+        if (ConditionMethodNameRef == string.Empty)
             return;
         int totalIdx = 1;
         foreach (var methods in _conditionMethods)
         {
             if (methods.Key == ConditionMethodObjectRef)
             {
-                var idx = methods.Value.FindIndex(x => x.Name == CurrentConditionMethodNameRef);
+                var idx = methods.Value.FindIndex(x => x.Name == ConditionMethodNameRef);
                 if (idx != -1)
                 {
                     _conditionOptionsSelectedIndex = totalIdx + idx;
