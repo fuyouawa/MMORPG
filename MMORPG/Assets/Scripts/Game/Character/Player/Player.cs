@@ -93,4 +93,20 @@ public class Player : MonoBehaviour
         foreach (var transition in AnyStateTransitions)
             transition.Initialize(this);
     }
+
+    [StateCondition]
+    public bool CanMovement()
+    {
+        return true;
+    }
+    [StateCondition]
+    public bool CanMovement2()
+    {
+        return true;
+    }
+    [StateCondition]
+    public bool CanMovement3()
+    {
+        return true;
+    }
 }

@@ -28,4 +28,21 @@ public class Character : MonoBehaviour
         CharacterType = CharacterType.Player;
     }
 #endif
+
+
+    [StateCondition]
+    public bool CanMovement()
+    {
+        return true;
+    }
+    [StateCondition]
+    public bool CanMovement2()
+    {
+        return true;
+    }
+    [StateCondition]
+    public bool CanMovement3()
+    {
+        return true;
+    }
 }

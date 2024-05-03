@@ -1,8 +1,11 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using QFramework;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 [CustomPropertyDrawer(typeof(PlayerTransition))]
 public class PlayerTransitionDrawer : PropertyDrawer
@@ -10,15 +13,34 @@ public class PlayerTransitionDrawer : PropertyDrawer
     public static readonly float LineTotalHeight = EditorGUIUtility.singleLineHeight + 0.5f;
     public static readonly float TotalHeight = LineTotalHeight * 3 + 8f;
 
-    private SerializedProperty _conditionProperty;
-    private SerializedProperty _objectProperty;
+    private SerializedProperty _conditionMethodNameProperty;
+    private SerializedProperty _conditionMethodObjectProperty;
+    private SerializedProperty _attachedObjectProperty;
     private SerializedProperty _trueStateNameProperty;
     private SerializedProperty _falseStateNameProperty;
-    private Object _object;
+
+    private Object AttachObjectRef
+    {
+        get => _attachedObjectProperty.objectReferenceValue;
+        set => _attachedObjectProperty.objectReferenceValue = value;
+    }
+
+    private string CurrentConditionMethodNameRef
+    {
+        get => _conditionMethodNameProperty.stringValue;
+        set => _conditionMethodNameProperty.stringValue = value;
+    }
+    private Object ConditionMethodObjectRef
+    {
+        get => _conditionMethodObjectProperty.objectReferenceValue;
+        set => _conditionMethodObjectProperty.objectReferenceValue = value;
+    }
 
     private Player _target;
-    private MethodInfo[] _conditionMethods;
-    private int _conditionSelectedIndex;
+    private Dictionary<Object, List<MethodInfo>> _conditionMethods = new();
+
+    private int _conditionOptionsSelectedIndex;
+    private int _conditionOffsetSelectedIndex;
     private int _trueStatesSelectedIndex;
     private int _falseStatesSelectedIndex;
     private string[] _conditionOptions;
@@ -28,8 +50,9 @@ public class PlayerTransitionDrawer : PropertyDrawer
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         _target = (Player)property.serializedObject.targetObject;
-        _conditionProperty = property.FindPropertyRelative("Condition");
-        _objectProperty = property.FindPropertyRelative("Object");
+        _conditionMethodNameProperty = property.FindPropertyRelative("ConditionMethodName");
+        _conditionMethodObjectProperty = property.FindPropertyRelative("ConditionMethodObject");
+        _attachedObjectProperty = property.FindPropertyRelative("AttachedObject");
         _trueStateNameProperty = property.FindPropertyRelative("TrueStateName");
         _falseStateNameProperty = property.FindPropertyRelative("FalseStateName");
 
@@ -79,17 +102,23 @@ public class PlayerTransitionDrawer : PropertyDrawer
 
         using var check = new EditorGUI.ChangeCheckScope();
 
-        UpdateConditions();
-        _objectProperty.objectReferenceValue = EditorGUI.ObjectField(objectRect, _objectProperty.objectReferenceValue, typeof(Object), true);
-        
+        var currentAttachObject = EditorGUI.ObjectField(objectRect, AttachObjectRef, typeof(Object), true);
+        if (AttachObjectRef != currentAttachObject)
+        {
+            AttachedObjectChanged(currentAttachObject);
+        }
+
+        RefreshConditionMethodsAndOptions();
+
         UpdateConditionSelectedIndex();
 
-        _conditionSelectedIndex = EditorGUI.Popup(conditionsRect, _conditionSelectedIndex, _conditionOptions);
+        _conditionOptionsSelectedIndex = EditorGUI.Popup(conditionsRect, _conditionOptionsSelectedIndex, _conditionOptions);
         if (check.changed)
         {
-            _conditionProperty.stringValue = _conditionSelectedIndex == 0 ?
+            CorrectedConditionValueByOptionsSelectedIndex();
+            CurrentConditionMethodNameRef = _conditionOptionsSelectedIndex == 0 ?
                 string.Empty :
-                _conditionMethods[_conditionSelectedIndex - 1].Name;
+                _conditionMethods[ConditionMethodObjectRef][_conditionOffsetSelectedIndex].Name;
             property.serializedObject.ApplyModifiedProperties();
             EditorUtility.SetDirty(property.serializedObject.targetObject);
         }
@@ -126,41 +155,98 @@ public class PlayerTransitionDrawer : PropertyDrawer
     }
 
 
-    private void UpdateConditions()
+    private void RefreshConditionMethodsAndOptions()
     {
         _conditionOptions = new[] { "None Condition" };
-        if (_object == _objectProperty.objectReferenceValue)
-            return;
-        _object = _objectProperty.objectReferenceValue;
-        _conditionMethods = null;
-        if (_object != null)
+        _conditionMethods.Clear();
+        if (AttachObjectRef != null)
         {
-            _conditionMethods = (
-                from method in _object.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                where method.HasAttribute<StateConditionAttribute>()
-                select method).ToArray();
-            if (_conditionMethods.Length > 0)
+            if (AttachObjectRef is not Component && AttachObjectRef is not GameObject)
             {
-                _conditionOptions = _conditionOptions.Combine(_conditionMethods.Select(x => x.Name).ToArray());
+                CombineConditionMethodsAndOptions(AttachObjectRef, GetConditionMethods(AttachObjectRef.GetType()));
+                return;
+            }
+
+            GameObject gameObject;
+            if (AttachObjectRef is Component comp)
+                gameObject = comp.gameObject;
+            else
+                gameObject = (GameObject)AttachObjectRef;
+
+            foreach (var component in gameObject.GetComponents<Component>())
+            {
+                CombineConditionMethodsAndOptions(component, GetConditionMethods(component.GetType()));
             }
         }
     }
 
-    private void UpdateConditionSelectedIndex()
+    private void AttachedObjectChanged(Object obj)
     {
-        _conditionSelectedIndex = 0;
-        if (_conditionProperty.stringValue == string.Empty)
-            return;
+        AttachObjectRef = obj;
+        ConditionMethodObjectRef = null;
+        CurrentConditionMethodNameRef = string.Empty;
+    }
 
-        int i = 1;
+    private void CombineConditionMethodsAndOptions(Object obj, List<MethodInfo> methods)
+    {
+        if (methods.Count == 0)
+            return;
+        _conditionMethods[obj] = methods;
+        var options = _conditionMethods
+            .SelectMany(pair => pair.Value)
+            .Select(x => $"{obj.GetType()}.{x.Name}").ToArray();
+        _conditionOptions = _conditionOptions.Combine(options);
+    }
+
+    private void CorrectedConditionValueByOptionsSelectedIndex()
+    {
+        if (_conditionOptionsSelectedIndex == 0)
+        {
+            ConditionMethodObjectRef = null;
+            _conditionOffsetSelectedIndex = 0;
+            return;
+        }
+
+        var offsetIndex = _conditionOptionsSelectedIndex - 1;
         foreach (var method in _conditionMethods)
         {
-            if (method.Name == _conditionProperty.stringValue)
+            if (offsetIndex < method.Value.Count)
             {
-                _conditionSelectedIndex = i;
+                ConditionMethodObjectRef = method.Key;
+                _conditionOffsetSelectedIndex = offsetIndex;
                 return;
             }
-            i++;
+            offsetIndex -= method.Value.Count;
+        }
+        _conditionOffsetSelectedIndex = 0;
+    }
+
+    private List<MethodInfo> GetConditionMethods(Type type)
+    {
+        return (from method in type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                where method.HasAttribute<StateConditionAttribute>()
+                select method).ToList();
+    }
+
+    private void UpdateConditionSelectedIndex()
+    {
+        _conditionOptionsSelectedIndex = 0;
+        if (CurrentConditionMethodNameRef == string.Empty)
+            return;
+        int totalIdx = 1;
+        foreach (var methods in _conditionMethods)
+        {
+            if (methods.Key == ConditionMethodObjectRef)
+            {
+                var idx = methods.Value.FindIndex(x => x.Name == CurrentConditionMethodNameRef);
+                if (idx != -1)
+                {
+                    _conditionOptionsSelectedIndex = totalIdx + idx;
+                }
+                return;
+            }
+
+            totalIdx += methods.Value.Count;
         }
     }
 

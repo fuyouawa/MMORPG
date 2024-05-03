@@ -23,14 +23,14 @@ public class PlayerEditor : Editor
             EditorGUI.PropertyField(rect, element, label, true);
 
             var leftBoardRect = new Rect(rect.xMin - 32, rect.yMin, 4f, rect.height + 4f);
-            var bottomBoardRect = new Rect(rect.xMin - 32, rect.yMax, rect.width + 32, 3f);
+            // var bottomBoardRect = new Rect(rect.xMin - 32, rect.yMax, rect.width + 32, 3f);
 
             var boardColor = index % 3 == 0 ?
                 Color.yellow :
                 (index % 3 == 1 ? Color.green : Color.cyan);
 
             EditorGUI.DrawRect(leftBoardRect, boardColor);
-            EditorGUI.DrawRect(bottomBoardRect, boardColor * 0.7f);
+            // EditorGUI.DrawRect(bottomBoardRect, boardColor * 0.7f);
 
             if (element.isExpanded)
             {
