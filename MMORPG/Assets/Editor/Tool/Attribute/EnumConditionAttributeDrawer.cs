@@ -1,13 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 
 [CustomPropertyDrawer(typeof(EnumConditionAttribute))]
 public class EnumConditionAttributeDrawer : PropertyDrawer
 {
-	#if  UNITY_EDITOR
 	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 	{
 		EnumConditionAttribute enumConditionAttribute = (EnumConditionAttribute)attribute;
@@ -20,7 +17,6 @@ public class EnumConditionAttributeDrawer : PropertyDrawer
 		}
 		GUI.enabled = previouslyEnabled;
 	}
-	#endif
 
 	private static Dictionary<string, string> cachedPaths = new Dictionary<string, string>();
 
