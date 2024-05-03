@@ -6,11 +6,11 @@ import "Entity/NetTransform.proto";
 message EntityTransformSyncRequest {
     int32 entity_id = 1;
     Entity.NetTransform transform = 2;
-    //bytes data = 3;
+    bytes data = 3;
 }
 
 message EntityTransformSyncResponse {
     int32 entity_id = 1;
     Entity.NetTransform transform = 2;
-    //bytes data = 3;
+    bytes data = 3;
 }

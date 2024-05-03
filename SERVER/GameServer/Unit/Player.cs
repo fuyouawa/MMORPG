@@ -23,5 +23,10 @@ namespace GameServer.Unit
         {
             
         }
+
+        public bool IsOnline()
+        {
+            return true;
+        }
     }
 }
