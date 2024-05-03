@@ -23,22 +23,11 @@ public class PlayerActionDrawer : PropertyDrawer
             _position.width -= 10f;
             _position.height = EditorGUIUtility.singleLineHeight;
 
-            DrawIcon();
             RefreshValue(property);
             DrawDropdownSelections(property);
             NextLine();
             EditorGUI.PropertyField(_position, property, label);
         }
-    }
-
-    private void DrawIcon()
-    {
-        var iconRect = new Rect(_position)
-        {
-            x = _position.x - 25f,
-            y = _position.y + LineTotalHeight - LineTotalHeight / 2
-        };
-        EditorGUI.LabelField(iconRect, EditorGUIUtility.IconContent("d_AnimationClip Icon"));
     }
 
     private void DrawDropdownSelections(SerializedProperty property)
@@ -57,7 +46,7 @@ public class PlayerActionDrawer : PropertyDrawer
     private void RefreshValue(SerializedProperty property)
     {
         _currentAction = property.objectReferenceValue as PlayerAction;
-        _actions = (property.serializedObject.targetObject as Player).GetAttachActions();
+        _actions = (property.serializedObject.targetObject as PlayerBrain).GetAttachActions();
         _options = new string[_actions.Length + 1];
         _options[0] = "None Action";
         _selectedIndex = 0;

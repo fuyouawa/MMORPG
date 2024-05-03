@@ -2,14 +2,14 @@ using Malee.List;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(Player), true)]
-public class PlayerEditor : Editor
+[CustomEditor(typeof(PlayerBrain), true)]
+public class PlayerBrainEditor : Editor
 {
     private SerializedProperty _characterProperty;
     private SerializedProperty _statesProperty;
     private ReorderableList _statesList;
     private ReorderableList _anyStateTransitionsList;
-    private Player _player => (Player)target;
+    private PlayerBrain Brain => (PlayerBrain)target;
 
     private void OnEnable()
     {
@@ -51,6 +51,10 @@ public class PlayerEditor : Editor
         serializedObject.Update();
 
         EditorGUILayout.PropertyField(_characterProperty);
+        if (Brain.CurrentState != null && Brain.CurrentState.Name != string.Empty)
+        {
+            EditorGUILayout.LabelField("CurrentState", Brain.CurrentState.Name);
+        }
         _statesList.DoLayoutList();
         _anyStateTransitionsList.DoLayoutList();
 

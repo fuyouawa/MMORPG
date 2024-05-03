@@ -13,15 +13,18 @@ public class PlayerTransition
     public UnityEngine.Object AttachedObject;
     public string TrueStateName;
     public string FalseStateName;
+#if UNITY_EDITOR
+    public bool IsExpanding;
+#endif
 
     public PlayerState TrueState { get; private set; }
     public PlayerState FalseState { get; private set; }
 
     public bool IsInitialized { get; private set; }
     public Func<bool> ConditionFunc { get; private set; }
-    public Player Owner { get; private set; }
+    public PlayerBrain Owner { get; private set; }
 
-    public void Initialize(Player owner)
+    public void Initialize(PlayerBrain owner)
     {
         if (IsInitialized) return;
         Owner = owner;

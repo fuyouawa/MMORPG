@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using MMORPG;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class PlayerBrain : MonoBehaviour
 {
     public Character Character;
     public List<PlayerState> States = new();
     public List<PlayerTransition> AnyStateTransitions = new();
-    public GameInputControls InputControls { get; private set; }
     public PlayerState CurrentState { get; private set; }
+    public GameInputControls InputControls { get; private set; }
 
     public PlayerAction[] GetAttachActions()
     {
@@ -92,21 +93,5 @@ public class Player : MonoBehaviour
 
         foreach (var transition in AnyStateTransitions)
             transition.Initialize(this);
-    }
-
-    [StateCondition]
-    public bool CanMovement()
-    {
-        return true;
-    }
-    [StateCondition]
-    public bool CanMovement2()
-    {
-        return true;
-    }
-    [StateCondition]
-    public bool CanMovement3()
-    {
-        return true;
     }
 }
