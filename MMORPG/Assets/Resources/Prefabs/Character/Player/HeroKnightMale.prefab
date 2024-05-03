@@ -2167,28 +2167,20 @@ MonoBehaviour:
   States:
   - Name: Idle
     Actions:
-      array:
-      - {fileID: 814320427249062527}
+      array: []
     Transitions:
       array:
-      - ConditionMethodName: DoWalking
-        ConditionMethodObject: {fileID: 814320427249062527}
-        AttachedObject: {fileID: 814320427249062527}
-        TrueStateName: Walking
+      - ConditionBinder:
+          ConditionMethodName: 
+          ConditionMethodObject: {fileID: 0}
+          AttachedObject: {fileID: 0}
+        TrueStateName: 
         FalseStateName: 
-        IsExpanding: 1
   - Name: Walking
     Actions:
-      array:
-      - {fileID: 4610019592424521565}
+      array: []
     Transitions:
-      array:
-      - ConditionMethodName: StopWalking
-        ConditionMethodObject: {fileID: 4610019592424521565}
-        AttachedObject: {fileID: 4610019592424521565}
-        TrueStateName: Idle
-        FalseStateName: 
-        IsExpanding: 1
+      array: []
   AnyStateTransitions: []
 --- !u!114 &72820028763516274
 MonoBehaviour:

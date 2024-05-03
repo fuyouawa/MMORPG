@@ -6,22 +6,44 @@ using QFramework;
 using UnityEngine;
 
 [Serializable]
-public class PlayerTransition
+public class PlayerConditionBinder
 {
     public string ConditionMethodName;
     public UnityEngine.Object ConditionMethodObject;
+#if UNITY_EDITOR
     public UnityEngine.Object AttachedObject;
+#endif
+
+    private Func<bool> _conditionFunc;
+    public bool Invoke()
+    {
+        if (_conditionFunc == null)
+        {
+            Debug.Assert(ConditionMethodName != string.Empty, "Condition不能为空!");
+            var methods = (
+                from method in ConditionMethodObject.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                where method.HasAttribute<StateConditionAttribute>()
+                select method).ToArray();
+            var cond = methods.FirstOrDefault(x => x.Name == ConditionMethodName);
+            Debug.Assert(cond != null);
+            Debug.Assert(cond.ReturnType != typeof(bool), "Condition的返回值必须是bool!");
+            _conditionFunc = () => (bool)cond.Invoke(ConditionMethodObject, null);
+        }
+        return _conditionFunc.Invoke();
+    }
+}
+
+[Serializable]
+public class PlayerTransition
+{
+    public PlayerConditionBinder ConditionBinder = new();
     public string TrueStateName;
     public string FalseStateName;
-#if UNITY_EDITOR
-    public bool IsExpanding;
-#endif
 
     public PlayerState TrueState { get; private set; }
     public PlayerState FalseState { get; private set; }
 
     public bool IsInitialized { get; private set; }
-    public Func<bool> ConditionFunc { get; private set; }
     public PlayerBrain Owner { get; private set; }
 
     public void Initialize(PlayerBrain owner)
@@ -39,26 +61,12 @@ public class PlayerTransition
             FalseState = owner.States.Find(x => x.Name == FalseStateName);
             Debug.Assert(FalseState != null);
         }
-
-        if (ConditionMethodName != string.Empty)
-        {
-            var methods = (
-                from method in ConditionMethodObject.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                where method.HasAttribute<StateConditionAttribute>()
-                select method).ToArray();
-            var cond = methods.FirstOrDefault(x => x.Name == ConditionMethodName);
-            Debug.Assert(cond != null);
-            Debug.Assert(cond.ReturnType != typeof(bool), "Condition的返回值必须是bool!");
-            ConditionFunc = () => (bool)cond.Invoke(ConditionMethodObject, null);
-        }
     }
 
 
     public bool Evaluate()
     {
-        if (ConditionFunc == null)
-            return false;
-        if (ConditionFunc())
+        if (ConditionBinder.Invoke())
         {
             if (TrueState != null)
             {
