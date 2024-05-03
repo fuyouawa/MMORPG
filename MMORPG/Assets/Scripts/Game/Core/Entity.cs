@@ -1,11 +1,9 @@
 using Common.Proto.Event;
-using Common.Proto.Event.Map;
 using MMORPG;
 using QFramework;
 using System.Collections;
 using Tool;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 
 public sealed class Entity : MonoBehaviour, IController
@@ -25,6 +23,14 @@ public sealed class Entity : MonoBehaviour, IController
     public bool IsMine => _isMine;
 
     private INetworkSystem _network;
+
+    [ContextMenu("Build Character")]
+    public void BuildCharacter()
+    {
+        var character = gameObject.AddComponent<Character>();
+        character.CharacterController = gameObject.AddComponent<CharacterController>();
+        character.Entity = this;
+    }
 
     private void Awake()
     {

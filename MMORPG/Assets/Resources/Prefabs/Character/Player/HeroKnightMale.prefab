@@ -2065,9 +2065,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2429740359941644855}
   - component: {fileID: 7440351696711677815}
-  - component: {fileID: 6160873211826916690}
   - component: {fileID: 6100264319467832486}
-  - component: {fileID: 2416873527042237913}
+  - component: {fileID: 224805171054128564}
+  - component: {fileID: 1723814193647785173}
+  - component: {fileID: 72820028763516274}
   m_Layer: 0
   m_Name: HeroKnightMale
   m_TagString: Untagged
@@ -2106,18 +2107,6 @@ MonoBehaviour:
   _entityId: 0
   _isMine: 0
   AutoUpdate: 1
---- !u!114 &6160873211826916690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6023422151166410460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1992a19b133c7f841886b219baa859fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!143 &6100264319467832486
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2144,7 +2133,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: -0, y: 0.9, z: 0}
---- !u!114 &2416873527042237913
+--- !u!114 &224805171054128564
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2153,14 +2142,69 @@ MonoBehaviour:
   m_GameObject: {fileID: 6023422151166410460}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c69e018544da96a41b466d2954bbca4a, type: 3}
+  m_Script: {fileID: 11500000, guid: a8875462a3749c04e82b4f7518e5b5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Walking: 0
-  HoriSpeedNormalized: 0
-  VertSpeedNormalized: 0
-  Acceleration: 3
-  _moveAxis: {x: 0, y: 0}
+  Entity: {fileID: 7440351696711677815}
+  CharacterController: {fileID: 6100264319467832486}
+  Animator: {fileID: 1201144034948401517}
+  CharacterType: 0
+  Player: {fileID: 1723814193647785173}
+--- !u!114 &1723814193647785173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6023422151166410460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 383d8b3b9209e9749a08b35f3f0592d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Character: {fileID: 224805171054128564}
+  States:
+  - Name: 
+    Actions:
+      array: []
+    Transitions:
+      array:
+      - ConditionMethodName: 
+        ConditionMethodObject: {fileID: 0}
+        AttachedObject: {fileID: 6023422151166410460}
+        TrueStateName: 
+        FalseStateName: 
+  AnyStateTransitions: []
+--- !u!114 &72820028763516274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6023422151166410460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 7f6dc99a77f75b24d8edecff6a7c793f, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &6072385525174587162
 GameObject:
   m_ObjectHideFlags: 0
@@ -2453,10 +2497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8f1831df37c9042b6ba5121d0e40f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Walking: 0
-  HoriSpeedNormalized: 0
-  VertSpeedNormalized: 0
-  MoveByAnimator: 0
+  Acceleration: 3
 --- !u!1 &7249225087750854683
 GameObject:
   m_ObjectHideFlags: 0
