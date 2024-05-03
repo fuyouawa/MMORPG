@@ -28,5 +28,10 @@ namespace GameServer.Unit
             Map = map;
             Name = name;
         }
+
+        public bool IsDeath()
+        {
+            return Hp <= 0;
+        }
     }
 }

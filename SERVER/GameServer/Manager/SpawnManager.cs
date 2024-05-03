@@ -29,14 +29,23 @@ namespace GameServer.Manager
     public class SpawnManager
     {
         private Map _map;
+        public List<Spawner> Rules = new();
 
         public SpawnManager(Map map)
         {
             _map = map;
+
+            var rules = DataManager.Instance.SpawnDict.Values.Where(r => r.MapId == _map.MapId);
+            foreach (var rule in rules)
+            {
+                Rules.Add(new(this, rule));
+            }
         }
 
         private void Spawn()
         {
+
+
             //_map.MonsterManager.NewMonster();
         }
     }
