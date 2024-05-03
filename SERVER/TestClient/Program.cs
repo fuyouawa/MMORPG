@@ -16,6 +16,7 @@ namespace TestClient
         {
             //await TimeWheelTest.Start();
 
+
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
                 .WriteTo.Async(a => a.Console())
@@ -64,6 +65,7 @@ namespace TestClient
     {
         public void OnHandle(NetSession sender, LoginResponse response)
         {
+            
         }
     }
 }
