@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerAction : MonoBehaviour
 {
-    public Character Character { get; set; }
+    public PlayerBrain Brain { get; set; }
+    public Entity Entity => Brain.Character.Entity;
 
     public virtual void OnStateEnter() {}
 

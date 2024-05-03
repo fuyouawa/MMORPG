@@ -11,11 +11,16 @@ public class PlayerState
     [Reorderable(sortable = false)]
     public PlayerTransitionArray Transitions = new();
 
-    public void Initialize(Player owner)
+    public void Initialize(PlayerBrain brain)
     {
         foreach (var transition in Transitions)
         {
-            transition.Initialize(owner);
+            transition.Initialize(brain);
+        }
+
+        foreach (var action in Actions)
+        {
+            action.Brain = brain;
         }
     }
 
