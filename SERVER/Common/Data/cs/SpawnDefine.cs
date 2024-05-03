@@ -9,7 +9,7 @@
 public class SpawnDefine
 {
 	public int ID; // ID
-	public int SpaceId; // 场景ID
+	public int MapId; // 地图ID
 	public string Pos; // 刷怪位置
 	public string Dir; // 刷怪方向
 	public int TID; // 单位类型

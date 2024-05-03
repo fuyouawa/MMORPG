@@ -45,6 +45,14 @@ namespace GameServer.Ai
             public Monster Monster;
             public Random Random = new();
 
+            // 相对于出生点的活动范围
+            public float WalkRange = 100f;
+            // 相对于出生点的追击范围
+            public float ChaseRange = 100f;
+            // 攻击范围
+            public float AttackRange = 1f;
+
+
             public StateParameter(Monster monster)
             {
                 Monster = monster;
@@ -58,9 +66,6 @@ namespace GameServer.Ai
         {
             private float _lastTime;
             private float _waitTime;
-
-            // 相对于出生点的活动范围
-            private float _walkRange = 100f;
 
             public WalkState(FSM<MonsterAiState> fsm, StateParameter parameter) :
                 base(fsm, parameter)
@@ -77,6 +82,8 @@ namespace GameServer.Ai
             public override void OnUpdate()
             {
                 var monster = _target.Monster;
+
+                // 查找怪物视野范围内距离怪物最近的玩家
                 var list = monster.Map?.GetEntityViewEntityList(monster, e => e.EntityType == EntityType.Player);
                 var nearestPlayer = list?.Aggregate((minEntity, nextEntity) =>
                 {
@@ -84,9 +91,12 @@ namespace GameServer.Ai
                     var nextDistance = Vector3.Distance(nextEntity.Position, monster.Position);
                     return minDistance < nextDistance ? minEntity : nextEntity;
                 });
+
+                // 若玩家位于怪物的视野范围内
                 if (nearestPlayer != null &&
                     Vector3.Distance(nearestPlayer.Position, monster.Position) <= monster.ViewRange)
                 {
+                    // 切换为追击状态
                     monster.ChasingTarget = nearestPlayer as Actor;
                     _fsm.ChangeState(MonsterAiState.Chase);
                     return;
@@ -95,10 +105,10 @@ namespace GameServer.Ai
                 if (monster.State != ActorState.Idle) return;
                 if (!(_lastTime + _waitTime < EntityManager.Instance.Time.time)) return;
 
+                // 状态是空闲或等待时间已结束，则尝试随机移动
                 _waitTime = _target.Random.NextSingle();
                 _lastTime = EntityManager.Instance.Time.time;
-                // 移动到随机位置
-                monster.MoveTo(monster.RandomPointWithBirth(10));
+                monster.MoveTo(monster.RandomPointWithBirth(_target.WalkRange));
             }
         }
 
@@ -107,9 +117,7 @@ namespace GameServer.Ai
         /// </summary>
         public class ChaseState : FSMAbstractState<MonsterAiState, StateParameter>
         {
-            // 相对于出生点的追击范围
-            private float _chaseRange = 100f;
-
+            
             public ChaseState(FSM<MonsterAiState> fsm, StateParameter parameter) :
                 base(fsm, parameter)
             { }
@@ -117,18 +125,28 @@ namespace GameServer.Ai
             public override void OnUpdate()
             {
                 var monster = _target.Monster;
-                if (monster.ChasingTarget == null) return;
-                // 自身与出生点的距离
-                float d1 = Vector3.Distance(monster.Position, monster.InitPos);
-                // 自身与目标的距离
-                float d2 = Vector3.Distance(monster.Position, monster.ChasingTarget.Position);
-                if (d1 > _chaseRange || d2 > monster.ViewRange)
+                if (monster.ChasingTarget == null || monster.ChasingTarget.IsDeath())
                 {
                     _fsm.ChangeState(MonsterAiState.Goback);
                     return;
                 }
 
-                if (d2 < 1)
+                var player = monster.ChasingTarget as Player;
+                if (player != null && !player.IsOnline())
+                {
+                    _fsm.ChangeState(MonsterAiState.Goback);
+                    return;
+                }
+
+                float d1 = Vector3.Distance(monster.Position, monster.InitPos); // 自身与出生点的距离
+                float d2 = Vector3.Distance(monster.Position, monster.ChasingTarget.Position);  // 自身与目标的距离
+                if (d1 > _target.ChaseRange || d2 > monster.ViewRange)
+                {
+                    _fsm.ChangeState(MonsterAiState.Goback);
+                    return;
+                }
+
+                if (d2 < _target.AttackRange)
                 {
                     // 距离足够，可以发起攻击了
                     if (monster.State == ActorState.Move)
@@ -155,14 +173,9 @@ namespace GameServer.Ai
             public override void OnEnter()
             {
                 _target.Monster.MoveTo(_target.Monster.InitPos);
-            }
 
-            public override void OnUpdate()
-            {
-                if (_target.Monster.State == ActorState.Idle)
-                {
-                    _fsm.ChangeState(MonsterAiState.Walk);
-                }
+                // 切回巡逻状态，使得回出生点的过程也能继续寻敌
+                _fsm.ChangeState(MonsterAiState.Walk);
             }
         }
     }
