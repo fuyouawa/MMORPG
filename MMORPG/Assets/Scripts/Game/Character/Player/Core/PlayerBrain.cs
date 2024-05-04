@@ -9,7 +9,6 @@ public class PlayerBrain : MonoBehaviour
 {
     public Character Character;
     public List<PlayerState> States = new();
-    public List<PlayerTransition> AnyStateTransitions = new();
     public PlayerState CurrentState { get; private set; }
     public GameInputControls InputControls { get; private set; }
 
@@ -51,11 +50,6 @@ public class PlayerBrain : MonoBehaviour
         
     private void Update()
     {
-        foreach (var transition in AnyStateTransitions)
-        {
-            if (transition.Evaluate())
-                break;
-        }
         CurrentState?.Update();
         CurrentState?.EvaluateTransitions();
     }
@@ -90,8 +84,5 @@ public class PlayerBrain : MonoBehaviour
     {
         foreach (var state in States)
             state.Initialize(this);
-
-        foreach (var transition in AnyStateTransitions)
-            transition.Initialize(this);
     }
 }

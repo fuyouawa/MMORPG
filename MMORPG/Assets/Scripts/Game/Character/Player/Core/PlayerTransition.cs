@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Malee.List;
@@ -8,26 +9,23 @@ using UnityEngine;
 [Serializable]
 public class PlayerConditionBinder
 {
-    public string ConditionMethodName;
-    public UnityEngine.Object ConditionMethodObject;
-#if UNITY_EDITOR
-    public UnityEngine.Object AttachedObject;
-#endif
+    public string MethodName;
+    public Component MethodObject;
 
     private Func<bool> _conditionFunc;
     public bool Invoke()
     {
         if (_conditionFunc == null)
         {
-            Debug.Assert(ConditionMethodName != string.Empty, "Condition不能为空!");
+            Debug.Assert(MethodName != string.Empty, "Condition不能为空!");
             var methods = (
-                from method in ConditionMethodObject.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                from method in MethodObject.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
                 where method.HasAttribute<StateConditionAttribute>()
                 select method).ToArray();
-            var cond = methods.FirstOrDefault(x => x.Name == ConditionMethodName);
+            var cond = methods.FirstOrDefault(x => x.Name == MethodName);
             Debug.Assert(cond != null);
             Debug.Assert(cond.ReturnType != typeof(bool), "Condition的返回值必须是bool!");
-            _conditionFunc = () => (bool)cond.Invoke(ConditionMethodObject, null);
+            _conditionFunc = () => (bool)cond.Invoke(MethodObject, null);
         }
         return _conditionFunc.Invoke();
     }
@@ -36,7 +34,7 @@ public class PlayerConditionBinder
 [Serializable]
 public class PlayerTransition
 {
-    public PlayerConditionBinder ConditionBinder = new();
+    public PlayerConditionBinder[] ConditionBinders;
     public string TrueStateName;
     public string FalseStateName;
 
@@ -66,22 +64,22 @@ public class PlayerTransition
 
     public bool Evaluate()
     {
-        if (ConditionBinder.Invoke())
-        {
-            if (TrueState != null)
-            {
-                Owner.ChangeState(TrueState);
-                return true;
-            }
-        }
-        else
-        {
-            if (FalseState != null)
-            {
-                Owner.ChangeState(FalseState);
-                return true;
-            }
-        }
+        // if (ConditionBinder.Invoke())
+        // {
+        //     if (TrueState != null)
+        //     {
+        //         Owner.ChangeState(TrueState);
+        //         return true;
+        //     }
+        // }
+        // else
+        // {
+        //     if (FalseState != null)
+        //     {
+        //         Owner.ChangeState(FalseState);
+        //         return true;
+        //     }
+        // }
         return false;
     }
 }

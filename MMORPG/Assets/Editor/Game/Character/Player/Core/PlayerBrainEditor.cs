@@ -8,7 +8,6 @@ public class PlayerBrainEditor : Editor
     private SerializedProperty _characterProperty;
     private SerializedProperty _statesProperty;
     private ReorderableList _statesList;
-    private ReorderableList _anyStateTransitionsList;
     private PlayerBrain Brain => (PlayerBrain)target;
 
     private void OnEnable()
@@ -16,7 +15,6 @@ public class PlayerBrainEditor : Editor
         _characterProperty = serializedObject.FindProperty("Character");
         _statesProperty = serializedObject.FindProperty("States");
         _statesList = new(_statesProperty);
-        _anyStateTransitionsList = new(serializedObject.FindProperty("AnyStateTransitions"));
 
         _statesList.drawElementCallback += (rect, index, element, label, selected, focused) =>
         {
@@ -56,7 +54,6 @@ public class PlayerBrainEditor : Editor
             EditorGUILayout.LabelField("CurrentState", Brain.CurrentState.Name);
         }
         _statesList.DoLayoutList();
-        _anyStateTransitionsList.DoLayoutList();
 
         serializedObject.ApplyModifiedProperties();
     }
