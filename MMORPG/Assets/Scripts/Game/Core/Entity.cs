@@ -1,8 +1,10 @@
+using System;
 using Common.Proto.Event;
 using MMORPG;
 using QFramework;
 using System.Collections;
 using Tool;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -14,40 +16,39 @@ public sealed class Entity : MonoBehaviour, IController
     [SerializeField]
     [ReadOnly]
     private bool _isMine;
-    public bool AutoUpdate = true;
 
-    public INetworkEntityCallbacks[] _allCallbacks { get; private set; }
+    public event Action<NetworkSyncData> OnNetworkSync; 
 
     public int EntityId => _entityId;
 
     public bool IsMine => _isMine;
 
-    private INetworkSystem _network;
-
-    [ContextMenu("Build Character")]
+#if UNITY_EDITOR
+    //TODO
     public void BuildCharacter()
     {
+        if (gameObject.TryGetComponent(out Character _))
+        {
+            EditorUtility.DisplayDialog("提示", "已经有一个Character了", "确认");
+            return;
+        }
         var character = gameObject.AddComponent<Character>();
-        character.CharacterController = gameObject.AddComponent<CharacterController>();
         character.Entity = this;
-    }
+        if (!gameObject.TryGetComponent(out character.Animator))
+        {
+            character.Animator = gameObject.GetComponentInChildren<Animator>();
+        }
 
-    private void Awake()
-    {
-        _network = this.GetSystem<INetworkSystem>();
-        _allCallbacks = GetComponents<INetworkEntityCallbacks>();
+        if (character.Animator != null)
+        {
+            if (!character.Animator.gameObject.TryGetComponent(out character.AnimationController))
+            {
+                character.AnimationController =
+                    character.Animator.gameObject.AddComponent<CharacterAnimationController>();
+            }
+        }
     }
-
-    private void Start()
-    {
-        StartCoroutine(NetworkFixedUpdate());
-    }
-
-    private void Update()
-    {
-        if (_isMine)
-            _allCallbacks.ForEach(cb => cb.NetworkMineUpdate());
-    }
+#endif
 
     public void SetEntityId(int entityId)
     {
@@ -59,38 +60,13 @@ public sealed class Entity : MonoBehaviour, IController
         _isMine = isMine;
     }
 
-    public void NetworkUpdatePositionAndRotation()
-    {
-        Debug.Assert(IsMine);
-        _network.SendToServer(new EntityTransformSyncRequest()
-        {
-            EntityId = EntityId,
-            Transform = new()
-            {
-                Position = transform.position.ToNetVector3(),
-                Direction = transform.rotation.eulerAngles.ToNetVector3()
-            }
-        });
-    }
-
-    private IEnumerator NetworkFixedUpdate()
-    {
-        var deltaTime = Config.GameConfig.NetworkSyncDeltaTime;
-        while (true)
-        {
-            _allCallbacks.ForEach(cb =>
-            {
-                if (IsMine)
-                    cb.NetworkMineFixedUpdate();
-            });
-            if (AutoUpdate)
-                NetworkUpdatePositionAndRotation();
-            yield return new WaitForSeconds(deltaTime);
-        }
-    }
-
     public IArchitecture GetArchitecture()
     {
         return GameApp.Interface;
+    }
+
+    public void HandleNetworkSync(NetworkSyncData data)
+    {
+        OnNetworkSync?.Invoke(data);
     }
 }
