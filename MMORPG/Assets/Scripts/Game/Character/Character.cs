@@ -13,36 +13,20 @@ public enum CharacterType
 public class Character : MonoBehaviour
 {
     public Entity Entity;
-    public CharacterController CharacterController;
-    public Animator Animator;
     public CharacterType CharacterType;
     [EnumCondition("CharacterType", (int)CharacterType.Player)]
-    public Player Player;
+    public PlayerBrain Player;
+    [Header("Binding")]
+    public Animator Animator;
+    public CharacterAnimationController AnimationController;
 
 #if UNITY_EDITOR
-    [ContextMenu("Build Player")]
+    //TODO
     public void BuildPlayer()
     {
-        Player = gameObject.AddComponent<Player>();
+        Player = gameObject.AddComponent<PlayerBrain>();
         Player.Character = this;
         CharacterType = CharacterType.Player;
     }
 #endif
-
-
-    [StateCondition]
-    public bool CanMovement()
-    {
-        return true;
-    }
-    [StateCondition]
-    public bool CanMovement2()
-    {
-        return true;
-    }
-    [StateCondition]
-    public bool CanMovement3()
-    {
-        return true;
-    }
 }
