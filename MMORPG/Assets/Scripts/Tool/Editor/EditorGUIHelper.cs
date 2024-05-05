@@ -3,6 +3,23 @@ using UnityEngine;
 
 public static class EditorGUIHelper
 {
+    public static Texture2D MakeBackgroundTexture(int width, int height, Color color)
+    {
+        var pixels = new Color[width * height];
+
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            pixels[i] = color;
+        }
+
+        var backgroundTexture = new Texture2D(width, height);
+
+        backgroundTexture.SetPixels(pixels);
+        backgroundTexture.Apply();
+
+        return backgroundTexture;
+    }
+
     public class ListGroup
     {
         public static readonly float DefaultLineHeight = EditorGUIUtility.singleLineHeight + 0.5f;

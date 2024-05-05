@@ -66,19 +66,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: HoriSpeedNormalized
+    m_Controller: {fileID: 0}
+  - m_Name: HoriMovementNormalized
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: VertSpeedNormalized
+    m_Controller: {fileID: 0}
+  - m_Name: VertMovementNormalized
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -241,10 +241,18 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: HoriSpeedNormalized
     m_Mirror: 0
-  m_BlendParameter: HoriSpeedNormalized
-  m_BlendParameterY: VertSpeedNormalized
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400004, guid: 7cde7dfd587dc7b4ab999b94bd5d8ac5, type: 3}
+    m_Threshold: 1.1428571
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: HoriMovementNormalized
+    m_Mirror: 0
+  m_BlendParameter: HoriMovementNormalized
+  m_BlendParameterY: VertMovementNormalized
   m_MinThreshold: 0
-  m_MaxThreshold: 1
+  m_MaxThreshold: 1.1428571
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
-  m_BlendType: 1
+  m_BlendType: 2
