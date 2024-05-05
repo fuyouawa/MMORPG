@@ -1,53 +1,70 @@
 using UnityEngine;
 
-public class HeroKnightWalking : PlayerAction, IAnimatorAutoUpdateParams
+public class HeroKnightWalking : PlayerAbility, IAnimatorAutoUpdateParams
 {
+    public float IdleThreshold = 0.05f;
+
     [Range(0.1f, 100f)]
     public float Acceleration = 3;
 
     [AnimatorParam]
     public bool Walking { get; set; }
     [AnimatorParam]
-    public float HoriMoveSpeedNormalized { get; set; }
+    public float HoriMovementNormalized { get; set; }
     [AnimatorParam]
-    public float VertMoveSpeedNormalized { get; set; }
+    public float VertMovementNormalized { get; set; }
 
-    private void Awake()
+    public override void OnStateInit()
     {
         this.StartAnimatorAutoUpdate(gameObject, Brain.Character.Animator);
     }
 
+    public override void OnStateEnter()
+    {
+        Walking = true;
+        HoriMovementNormalized = 0;
+        VertMovementNormalized = 0;
+    }
+
     public override void OnStateUpdate()
     {
-        SetMovement(Brain.InputControls.Player.Move.ReadValue<Vector2>());
+        SetMovement();
+        ForwardCamera();
     }
 
     public override void OnStateExit()
     {
         Walking = false;
-        HoriMoveSpeedNormalized = 0;
-        VertMoveSpeedNormalized = 0;
+        HoriMovementNormalized = 0;
+        VertMovementNormalized = 0;
     }
 
     [StateCondition]
-    public bool StopWalking()
+    public bool ReachIdleThreshold()
     {
-        return !Walking;
+        return Brain.CurrentMovementDirection.magnitude > IdleThreshold;
     }
 
-    public void SetMovement(Vector2 moveDirection)
+    [StateCondition]
+    public bool FinishInertia()
     {
+        return new Vector2(HoriMovementNormalized, VertMovementNormalized).magnitude < IdleThreshold;
+    }
+
+    public void SetMovement()
+    {
+        var moveDirection = Brain.CurrentMovementDirection;
+
         var acc = Acceleration * Time.deltaTime;
-        HoriMoveSpeedNormalized = Mathf.MoveTowards(HoriMoveSpeedNormalized, moveDirection.x, acc);
-        VertMoveSpeedNormalized = Mathf.MoveTowards(VertMoveSpeedNormalized, moveDirection.y, acc);
-    
-        Walking = moveDirection.sqrMagnitude > 0.5f ||
-                  new Vector2(HoriMoveSpeedNormalized, VertMoveSpeedNormalized).sqrMagnitude > 0.5f;
-    
-        if (!(moveDirection.sqrMagnitude > 0.5f)) return;
+        HoriMovementNormalized = Mathf.MoveTowards(HoriMovementNormalized, moveDirection.x, acc);
+        VertMovementNormalized = Mathf.MoveTowards(VertMovementNormalized, moveDirection.y, acc);
+    }
+
+    private void ForwardCamera()
+    {
         var cameraForward = Camera.main.transform.forward;
         cameraForward.y = 0;
         var targetRotation = Quaternion.LookRotation(cameraForward, Vector3.up);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
+        Brain.Character.SmoothMoveRotation(targetRotation);
     }
 }

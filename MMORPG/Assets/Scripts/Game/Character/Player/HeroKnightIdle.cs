@@ -1,8 +1,8 @@
-public class HeroKnightIdle : PlayerAction
+public class HeroKnightIdle : PlayerAbility
 {
     [StateCondition]
-    public bool DoWalking()
+    public bool CanMovement()
     {
-        return Brain.InputControls.Player.Move.IsPressed();
+        return true;
     }
 }

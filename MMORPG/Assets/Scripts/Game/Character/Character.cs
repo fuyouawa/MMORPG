@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using QFramework;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,19 +15,16 @@ public class Character : MonoBehaviour
 {
     public Entity Entity;
     public CharacterType CharacterType;
-    [EnumCondition("CharacterType", (int)CharacterType.Player)]
-    public PlayerBrain Player;
+    public float RotationLerp = 0.2f;
     [Header("Binding")]
     public Animator Animator;
     public CharacterAnimationController AnimationController;
+    [Header("Action")]
+    [ChildGameObjectsOnly]
+    public GameObject[] AdditionalAbilityNodes;
 
-#if UNITY_EDITOR
-    //TODO
-    public void BuildPlayer()
+    public void SmoothMoveRotation(Quaternion targetRotation)
     {
-        Player = gameObject.AddComponent<PlayerBrain>();
-        Player.Character = this;
-        CharacterType = CharacterType.Player;
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationLerp);
     }
-#endif
 }

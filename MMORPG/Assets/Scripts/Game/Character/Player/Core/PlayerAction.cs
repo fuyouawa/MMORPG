@@ -1,22 +1,40 @@
-using Malee.List;
 using System;
-using UnityEngine;
-
-public class PlayerAction : MonoBehaviour
-{
-    public PlayerBrain Brain { get; set; }
-    public Entity Entity => Brain.Character.Entity;
-
-    public virtual void OnStateEnter() {}
-
-    public virtual void OnStateUpdate() {}
-
-    public virtual void OnStateFixedUpdate() {}
-
-    public virtual void OnStateNetworkFixedUpdate() {}
-
-    public virtual void OnStateExit() {}
-}
+using System.Collections;
+using System.Linq;
+using Sirenix.OdinInspector;
 
 [Serializable]
-public class PlayerActionArray : ReorderableArray<PlayerAction> { }
+public class PlayerAction
+{
+    //TODO AbilityName check valid
+    [Required("Can't be none!")]
+    [VerticalGroup("Ability")]
+    [ValueDropdown("GetAbilityDropdown")]
+    [HideLabel]
+    public string AbilityName = string.Empty;
+
+    //TODO Delay
+    [TableColumnWidth(50, false)]
+    public float Delay;
+
+    public PlayerAbility Ability {get; private set; }
+    public PlayerState OwnerState { get; set; }
+
+    public void Initialize(PlayerState state)
+    {
+        OwnerState = state;
+        Ability = OwnerState.Brain.GetAttachAbilities().First(x => x.GetType().Name == AbilityName);
+    }
+
+    public IEnumerable GetAbilityDropdown()
+    {
+        var total = new ValueDropdownList<string> { { "None Ability", string.Empty } };
+        if (OwnerState != null)
+        {
+            total.AddRange(OwnerState.Brain.GetAttachAbilities().Select((x, i) =>
+                new ValueDropdownItem<string>($"{i} - {x.GetType().Name}", x.GetType().Name))
+            );
+        }
+        return total;
+    }
+}
