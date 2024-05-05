@@ -8,7 +8,7 @@ public class CharacterAnimationController : MonoBehaviour
     public GameObject Owner;
 
     private Animator _animator;
-    private bool _animatorMove;
+    private bool _animatorMove = true;
 
     void Awake()
     {
