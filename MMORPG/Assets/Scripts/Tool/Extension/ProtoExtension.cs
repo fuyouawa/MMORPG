@@ -51,7 +51,7 @@ namespace Tool
         //    return entity;
         //}
 
-        //public static NetCharacter ToNetCharacter(this Character character)
+        //public static NetCharacter ToNetCharacter(this CharacterController character)
         //{
         //    var netCharacter = new NetCharacter()
         //    {

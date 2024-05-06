@@ -17,7 +17,7 @@ public class PlayerManagerSystem : AbstractSystem, IPlayerManagerSystem
 {
     private int _mineId = -1;
     private int _characterId = -1;
-    private Dictionary<int, Entity> _playerDict = new();
+    private Dictionary<int, EntityView> _playerDict = new();
 
     public int CharacterId => _characterId;
 

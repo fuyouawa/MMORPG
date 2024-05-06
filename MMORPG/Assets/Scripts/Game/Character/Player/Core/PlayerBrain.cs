@@ -3,28 +3,44 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MMORPG;
+using MMORPG.Proto.Character;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
 
 public class PlayerBrain : MonoBehaviour
 {
-    public Character Character;
+    [Required]
+    public CharacterController CharacterController;
+
+#if UNITY_EDITOR
+    [SerializeField]
+    [ReadOnly]
+    [LabelText("CurrentState")]
+    private string _currentStateName = "NONE";
+#endif
 
     [InfoBox("Empty state machine is meaningless", InfoMessageType.Warning, "IsEmptyStates")]
     [InfoBox("The state machine name cannot be the same!", InfoMessageType.Error, "HasRepeatStateName")]
     [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "Name")]
     public PlayerState[] States;
+
     public PlayerState CurrentState { get; private set; }
+
     public GameInputControls InputControls { get; private set; }
 
     public Vector2 CurrentMovementDirection { get; private set; }
 
     public PlayerAbility[] GetAttachAbilities()
     {
+#if UNITY_EDITOR
+        // 在Editor中可能会有null的情况
+        if (CharacterController?.AdditionalAbilityNodes == null)
+            return Array.Empty<PlayerAbility>();
+#endif
         var total = new List<PlayerAbility>();
         total.AddRange(GetComponents<PlayerAbility>());
-        foreach (var node in Character.AdditionalAbilityNodes)
+        foreach (var node in CharacterController.AdditionalAbilityNodes)
         {
             total.AddRange(node.GetComponents<PlayerAbility>());
         }
@@ -49,6 +65,9 @@ public class PlayerBrain : MonoBehaviour
         Debug.Assert(States.Contains(state));
         CurrentState?.Exit();
         CurrentState = state;
+#if UNITY_EDITOR
+        _currentStateName = CurrentState.Name;
+#endif
         CurrentState.Enter();
     }
 
@@ -59,9 +78,23 @@ public class PlayerBrain : MonoBehaviour
 
     private void Awake()
     {
+        CurrentState = null;
         InputControls = new();
         if (States.Length == 0) return;
         InitStates();
+        CharacterController.Entity.OnTransformSync += OnTransformEntitySync;
+    }
+
+    private void OnTransformEntitySync(EntityTransformSyncData data)
+    {
+        var state = States[data.StateId];
+        Debug.Assert(state != null);
+        if (state != CurrentState)
+        {
+            ChangeState(state);
+        }
+
+        state.Actions.ForEach(x => x.Ability.OnStateNetworkSyncTransform(data));
     }
 
     private void Start()
@@ -110,14 +143,14 @@ public class PlayerBrain : MonoBehaviour
 
     private void InitStates()
     {
-        foreach (var state in States)
+        States.ForEach((x, i) =>
         {
-            state.Initialize(this);
-            state.OnTransitionEvaluated += (transition, condition) =>
+            x.Initialize(this, i);
+            x.OnTransitionEvaluated += (transition, condition) =>
             {
                 ChangeState(condition ? transition.TrueState : transition.FalseState);
             };
-        }
+        });
     }
 
 

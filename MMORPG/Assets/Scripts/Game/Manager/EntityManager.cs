@@ -12,10 +12,13 @@ using System.Threading.Tasks;
 using Tool;
 using UnityEngine;
 
-public struct NetworkSyncData
+public struct EntityTransformSyncData
 {
+    public EntityView Entity;
     public Vector3 Position;
     public Quaternion Rotation;
+    public int StateId;
+    public byte[] Data;
 }
 
 public class EntityManager : MonoBehaviour, IController, ICanSendEvent
@@ -42,7 +45,7 @@ public class EntityManager : MonoBehaviour, IController, ICanSendEvent
             var rotation = Quaternion.Euler(netEntity.Transform.Direction.ToVector3());
 
             //TODO 根据Entity加载对应的Prefab
-            _entityManager.SpawnEntity(_resLoader.LoadSync<Entity>("HeroKnightMale"), entityId, position, rotation, false);
+            _entityManager.SpawnEntity(_resLoader.LoadSync<EntityView>("HeroKnightMale"), entityId, position, rotation, false);
         }
     }
 
@@ -53,10 +56,13 @@ public class EntityManager : MonoBehaviour, IController, ICanSendEvent
         var rotation = Quaternion.Euler(response.Transform.Direction.ToVector3());
         var entity = _entityManager.GetEntityDict(false)[entityId];
 
-        var data = new NetworkSyncData
+        var data = new EntityTransformSyncData
         {
+            Entity = entity,
             Position = position,
-            Rotation = rotation
+            Rotation = rotation,
+            StateId = response.StateId,
+            Data = response.Data.ToByteArray()
         };
 
         entity.HandleNetworkSync(data);

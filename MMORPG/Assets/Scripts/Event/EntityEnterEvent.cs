@@ -7,9 +7,9 @@ using UnityEngine;
 
 public class EntityEnterEvent
 {
-    public Entity Entity { get; }
+    public EntityView Entity { get; }
 
-    public EntityEnterEvent(Entity entity)
+    public EntityEnterEvent(EntityView entity)
     {
         Entity = entity;
     }

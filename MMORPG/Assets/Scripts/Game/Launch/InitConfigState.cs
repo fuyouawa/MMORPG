@@ -16,9 +16,6 @@ public class InitConfigState : AbstractState<LaunchStatus, LaunchController>, IC
     protected override void OnEnter()
     {
         Logger.Info("Launch", "初始化配置");
-        var resLoader = ResLoader.Allocate();
-        Config.GameConfig = resLoader.LoadSync<GameConfigObject>("GameConfig");
-        resLoader.Recycle2Cache();
         mFSM.ChangeState(LaunchStatus.InitTool);
     }
 

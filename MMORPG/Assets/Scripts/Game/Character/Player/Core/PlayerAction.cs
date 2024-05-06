@@ -26,10 +26,11 @@ public class PlayerAction
         Ability = OwnerState.Brain.GetAttachAbilities().First(x => x.GetType().Name == AbilityName);
     }
 
+#if UNITY_EDITOR
     public IEnumerable GetAbilityDropdown()
     {
         var total = new ValueDropdownList<string> { { "None Ability", string.Empty } };
-        if (OwnerState != null)
+        if (OwnerState?.Brain != null)
         {
             total.AddRange(OwnerState.Brain.GetAttachAbilities().Select((x, i) =>
                 new ValueDropdownItem<string>($"{i} - {x.GetType().Name}", x.GetType().Name))
@@ -37,4 +38,5 @@ public class PlayerAction
         }
         return total;
     }
+#endif
 }

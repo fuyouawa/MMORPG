@@ -9,7 +9,8 @@ using UnityEngine;
 public class PlayerAbility : MonoBehaviour
 {
     public PlayerBrain Brain { get; set; }
-    public Entity Entity => Brain.Character.Entity;
+    public int OwnerStateId { get; set; }
+    public bool IsMine => Brain.CharacterController.Entity.IsMine;
 
     public virtual IEnumerable<MethodInfo> GetStateConditions()
     {
@@ -28,5 +29,11 @@ public class PlayerAbility : MonoBehaviour
 
     public virtual void OnStateNetworkFixedUpdate() {}
 
-    public virtual void OnStateExit() {}
+    public virtual void OnStateExit() { }
+
+    public virtual void OnStateNetworkSyncTransform(EntityTransformSyncData data)
+    {
+        Brain.CharacterController.SmoothMove(data.Position);
+        Brain.CharacterController.SmoothRotate(data.Rotation);
+    }
 }
