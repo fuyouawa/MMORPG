@@ -78,13 +78,13 @@ public class PlayerTransition
 
     private bool CheckTrueStateNameInvalid()
     {
-        if (TrueStateName == string.Empty)
+        if (TrueStateName == string.Empty || OwnerState?.Brain == null)
             return false;
         return OwnerState.Brain.GetState(TrueStateName) == null;
     }
     private bool CheckFalseStateNameInvalid()
     {
-        if (FalseStateName == string.Empty)
+        if (FalseStateName == string.Empty || OwnerState?.Brain == null)
             return false;
         return OwnerState.Brain.GetState(FalseStateName) == null;
     }

@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MMORPG;
-using QFramework;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 
 public class PlayerBrain : MonoBehaviour
@@ -30,7 +30,7 @@ public class PlayerBrain : MonoBehaviour
         }
         return total.ToArray();
     }
-    
+
 #if UNITY_EDITOR
     [OnInspectorGUI]
     private void OnInspectorGUI()
@@ -56,14 +56,6 @@ public class PlayerBrain : MonoBehaviour
     {
         return Array.Find(States, x => x.Name == stateName);
     }
-
-
-    // private void StartState(PlayerState state)
-    // {
-    //     Debug.Assert(States.Contains(state));
-    //     CurrentState = state;
-    //     CurrentState.Enter();
-    // }
 
     private void Awake()
     {

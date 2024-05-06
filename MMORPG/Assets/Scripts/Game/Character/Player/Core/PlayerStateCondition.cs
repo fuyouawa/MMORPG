@@ -78,6 +78,9 @@ public class PlayerStateCondition
 
     private bool CheckMethodNameInvalid()
     {
+        if (OwnerTransition?.OwnerState == null)
+            return false;
+
         if (FullMethodName == string.Empty)
             return true;
         var split = FullMethodName.Split('/');
