@@ -22,6 +22,8 @@ public class PlayerState
     [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "Label")]
     public PlayerTransition[] Transitions;
 
+    public int StateId { get; private set; }
+
     public delegate void TransitionEvaluatedHandler(PlayerTransition transition, bool condition);
     public event TransitionEvaluatedHandler OnTransitionEvaluated;
 
@@ -39,14 +41,10 @@ public class PlayerState
 
     public PlayerBrain Brain { get; set; }
 
-    public PlayerAbility[] GetAttachAbilities()
-    {
-        return Brain == null ? Array.Empty<PlayerAbility>() : Brain.GetAttachAbilities();
-    }
-
-    public void Initialize(PlayerBrain brain)
+    public void Initialize(PlayerBrain brain, int stateId)
     {
         Brain = brain;
+        StateId = stateId;
         foreach (var transition in Transitions)
         {
             transition.Initialize(this);
@@ -63,50 +61,36 @@ public class PlayerState
 
     public void Enter()
     {
-        foreach (var action in Actions)
+        Actions.ForEach(x =>
         {
-            action.Ability.OnStateEnter();
-        }
+            x.Ability.OwnerStateId = StateId;
+            x.Ability.OnStateEnter();
+        });
     }
 
     public void Update()
     {
-        foreach (var action in Actions)
-        {
-            action.Ability.OnStateUpdate();
-        }
+        Actions.ForEach(x => x.Ability.OnStateUpdate());
     }
 
     public void FixedUpdate()
     {
-        foreach (var action in Actions)
-        {
-            action.Ability.OnStateFixedUpdate();
-        }
+        Actions.ForEach(x => x.Ability.OnStateFixedUpdate());
     }
 
     public void NetworkFixedUpdate()
     {
-        foreach (var action in Actions)
-        {
-            action.Ability.OnStateNetworkFixedUpdate();
-        }
+        Actions.ForEach(x => x.Ability.OnStateNetworkFixedUpdate());
     }
 
     public void Exit()
     {
-        foreach (var action in Actions)
-        {
-            action.Ability.OnStateExit();
-        }
+        Actions.ForEach(x => x.Ability.OnStateExit());
     }
 
     public void EvaluateTransitions()
     {
-        foreach (var transition in Transitions)
-        {
-            transition.Evaluate();
-        }
+        Transitions.ForEach(x => x.Evaluate());
     }
 }
 
