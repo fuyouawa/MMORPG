@@ -41,7 +41,7 @@ public class PlayerState
 
     public PlayerAbility[] GetAttachAbilities()
     {
-        return Brain?.GetAttachAbilities();
+        return Brain == null ? Array.Empty<PlayerAbility>() : Brain.GetAttachAbilities();
     }
 
     public void Initialize(PlayerBrain brain)

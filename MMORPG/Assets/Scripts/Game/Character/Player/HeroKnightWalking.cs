@@ -68,3 +68,4 @@ public class HeroKnightWalking : PlayerAbility, IAnimatorAutoUpdateParams
         Brain.Character.SmoothMoveRotation(targetRotation);
     }
 }
+
