@@ -44,28 +44,28 @@ public class NetworkEntitySyncEvent
 
 public interface IEntityManagerSystem : ISystem
 {
-    public Entity SpawnEntity(
-        Entity prefab,
+    public EntityView SpawnEntity(
+        EntityView prefab,
         int entityId,
         Vector3 position,
         Quaternion rotation,
         bool isMine);
 
-    public Dictionary<int, Entity> GetEntityDict(bool isMine);
+    public Dictionary<int, EntityView> GetEntityDict(bool isMine);
 }
 
 
 public class EntityManagerSystem : AbstractSystem, IEntityManagerSystem
 {
-    public Dictionary<int, Entity> _mineEntityDict { get; } = new();
-    public Dictionary<int, Entity> _notMineEntityDict { get; } = new();
+    public Dictionary<int, EntityView> _mineEntityDict { get; } = new();
+    public Dictionary<int, EntityView> _notMineEntityDict { get; } = new();
 
-    public Dictionary<int, Entity> GetEntityDict(bool isMine)
+    public Dictionary<int, EntityView> GetEntityDict(bool isMine)
     {
         return isMine ? _mineEntityDict : _notMineEntityDict;
     }
 
-    public void RegisterNewEntity(Entity entity)
+    public void RegisterNewEntity(EntityView entity)
     {
         Debug.Assert(
             !(_mineEntityDict.ContainsKey(entity.EntityId) ||
@@ -82,7 +82,7 @@ public class EntityManagerSystem : AbstractSystem, IEntityManagerSystem
         this.SendEvent(new EntityEnterEvent(entity));
     }
 
-    public Entity SpawnEntity(Entity prefab, int entityId, Vector3 position, Quaternion rotation, bool isMine)
+    public EntityView SpawnEntity(EntityView prefab, int entityId, Vector3 position, Quaternion rotation, bool isMine)
     {
         Debug.Assert(
             !(_mineEntityDict.ContainsKey(entityId) ||
