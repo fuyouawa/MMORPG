@@ -27,18 +27,6 @@ public class PlayerState
     public delegate void TransitionEvaluatedHandler(PlayerTransition transition, bool condition);
     public event TransitionEvaluatedHandler OnTransitionEvaluated;
 
-#if UNITY_EDITOR
-    [OnInspectorGUI]
-    private void OnInspectorGUI()
-    {
-        Transitions?.ForEach(x => x.OwnerState = this);
-        Actions?.ForEach(x => x.OwnerState = this);
-    }
-
-    private bool IsEmptyActions => Actions == null || Actions.Length == 0;
-    private bool IsEmptyTransitions => Transitions == null || Transitions.Length == 0;
-#endif
-
     public PlayerBrain Brain { get; set; }
 
     public void Initialize(PlayerBrain brain, int stateId)
@@ -53,45 +41,51 @@ public class PlayerState
 
         foreach (var action in Actions)
         {
-            action.Initialize(this);
-            action.Ability.Brain = Brain;
-            action.Ability.OnStateInit();
+            action.Initialize(this, stateId);
         }
     }
 
     public void Enter()
     {
-        Actions.ForEach(x =>
-        {
-            x.Ability.OwnerStateId = StateId;
-            x.Ability.OnStateEnter();
-        });
+        Actions.ForEach(x => x.Enter());
     }
 
     public void Update()
     {
-        Actions.ForEach(x => x.Ability.OnStateUpdate());
+        Actions.ForEach(x => x.Update());
     }
 
     public void FixedUpdate()
     {
-        Actions.ForEach(x => x.Ability.OnStateFixedUpdate());
+        Actions.ForEach(x => x.FixedUpdate());
     }
 
     public void NetworkFixedUpdate()
     {
-        Actions.ForEach(x => x.Ability.OnStateNetworkFixedUpdate());
+        Actions.ForEach(x => x.NetworkFixedUpdate());
     }
 
     public void Exit()
     {
-        Actions.ForEach(x => x.Ability.OnStateExit());
+        Actions.ForEach(x => x.Exit());
     }
 
     public void EvaluateTransitions()
     {
         Transitions.ForEach(x => x.Evaluate());
     }
+
+#if UNITY_EDITOR
+    [OnInspectorGUI]
+    private void OnInspectorGUI()
+    {
+        Transitions?.ForEach(x => x.OwnerState = this);
+        Actions?.ForEach(x => x.OwnerState = this);
+    }
+
+    private bool IsEmptyActions => Actions == null || Actions.Length == 0;
+    private bool IsEmptyTransitions => Transitions == null || Transitions.Length == 0;
+#endif
 }
 
 public class StateConditionAttribute : Attribute { }

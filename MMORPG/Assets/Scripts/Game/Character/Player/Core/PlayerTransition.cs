@@ -40,6 +40,53 @@ public class PlayerTransition
 
     public event Action<bool> OnEvaluated;
 
+    public void Initialize(PlayerState state)
+    {
+        OwnerState = state;
+        Debug.Assert(StateConditions.Length > 0);
+        foreach (var condition in StateConditions)
+        {
+            condition.Initialize(this);
+        }
+        if (TrueStateName != string.Empty)
+        {
+            TrueState = OwnerState.Brain.GetState(TrueStateName);
+            Debug.Assert(TrueState != null, "TrueState != null");
+        }
+        
+        if (FalseStateName != string.Empty)
+        {
+            FalseState = OwnerState.Brain.GetState(FalseStateName);
+            Debug.Assert(FalseState != null, "FalseState != null");
+        }
+    }
+
+
+    public void Evaluate()
+    {
+        bool res = true;
+        foreach (var binder in StateConditions)
+        {
+            res &= binder.Invoke();
+            if (!res) break;
+        }
+        if (res)
+        {
+            if (TrueState != null)
+            {
+                OnEvaluated?.Invoke(true);
+            }
+        }
+        else
+        {
+            if (FalseState != null)
+            {
+                OnEvaluated?.Invoke(false);
+            }
+        }
+    }
+
+
 #if UNITY_EDITOR
     private bool IsEmptyStateConditions => StateConditions == null || StateConditions.Length == 0;
     private bool IsTrueOrFalseStateEmpty => TrueStateName == string.Empty && FalseStateName == string.Empty;
@@ -89,50 +136,4 @@ public class PlayerTransition
         return OwnerState.Brain.GetState(FalseStateName) == null;
     }
 #endif
-
-    public void Initialize(PlayerState state)
-    {
-        OwnerState = state;
-        Debug.Assert(StateConditions.Length > 0);
-        foreach (var condition in StateConditions)
-        {
-            condition.Initialize(this);
-        }
-        if (TrueStateName != string.Empty)
-        {
-            TrueState = OwnerState.Brain.GetState(TrueStateName);
-            Debug.Assert(TrueState != null, "TrueState != null");
-        }
-        
-        if (FalseStateName != string.Empty)
-        {
-            FalseState = OwnerState.Brain.GetState(FalseStateName);
-            Debug.Assert(FalseState != null, "FalseState != null");
-        }
-    }
-
-
-    public void Evaluate()
-    {
-        bool res = true;
-        foreach (var binder in StateConditions)
-        {
-            res &= binder.Invoke();
-            if (!res) break;
-        }
-        if (res)
-        {
-            if (TrueState != null)
-            {
-                OnEvaluated?.Invoke(true);
-            }
-        }
-        else
-        {
-            if (FalseState != null)
-            {
-                OnEvaluated?.Invoke(false);
-            }
-        }
-    }
 }
