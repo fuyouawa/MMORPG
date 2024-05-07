@@ -63,14 +63,6 @@ public class BGScaler : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-#if UNITY_EDITOR
-        // 编辑器模式下测试用
-        Scaler();
-#endif
-    }
-
     // 在窗口大小变化时重新适配背景图片
     void OnRectTransformDimensionsChange()
     {
