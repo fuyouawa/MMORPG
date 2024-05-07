@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MMORPG;
-using MMORPG.Proto.Character;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
@@ -20,6 +19,8 @@ public class PlayerBrain : MonoBehaviour
     private string _currentStateName = "NONE";
 #endif
 
+    // public string StartStateName = string.Empty;
+
     [InfoBox("Empty state machine is meaningless", InfoMessageType.Warning, "IsEmptyStates")]
     [InfoBox("The state machine name cannot be the same!", InfoMessageType.Error, "HasRepeatStateName")]
     [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "Name")]
@@ -31,33 +32,25 @@ public class PlayerBrain : MonoBehaviour
 
     public Vector2 CurrentMovementDirection { get; private set; }
 
-    public PlayerAbility[] GetAttachAbilities()
+    public LocalPlayerAbility[] GetAttachLocalAbilities() => GetAttachAbilities<LocalPlayerAbility>();
+
+    public RemotePlayerAbility[] GetAttachRemoteAbilities() => GetAttachAbilities<RemotePlayerAbility>();
+
+    private TAbility[] GetAttachAbilities<TAbility>() where TAbility : PlayerAbility
     {
 #if UNITY_EDITOR
         // 在Editor中可能会有null的情况
         if (CharacterController?.AdditionalAbilityNodes == null)
-            return Array.Empty<PlayerAbility>();
+            return Array.Empty<TAbility>();
 #endif
-        var total = new List<PlayerAbility>();
-        total.AddRange(GetComponents<PlayerAbility>());
+        var total = new List<TAbility>();
+        total.AddRange(GetComponents<TAbility>());
         foreach (var node in CharacterController.AdditionalAbilityNodes)
         {
-            total.AddRange(node.GetComponents<PlayerAbility>());
+            total.AddRange(node.GetComponents<TAbility>());
         }
         return total.ToArray();
     }
-
-#if UNITY_EDITOR
-    [OnInspectorGUI]
-    private void OnInspectorGUI()
-    {
-        States?.ForEach(x => x.Brain = this);
-    }
-
-    private bool HasRepeatStateName => States.GroupBy(x => x.Name).Any(g => g.Count() > 1);
-
-    private bool IsEmptyStates => States.Length == 0;
-#endif
 
     public void ChangeState(PlayerState state)
     {
@@ -81,7 +74,6 @@ public class PlayerBrain : MonoBehaviour
         CurrentState = null;
         InputControls = new();
         if (States.Length == 0) return;
-        InitStates();
         CharacterController.Entity.OnTransformSync += OnTransformEntitySync;
     }
 
@@ -94,13 +86,13 @@ public class PlayerBrain : MonoBehaviour
             ChangeState(state);
         }
 
-        state.Actions.ForEach(x => x.Ability.OnStateNetworkSyncTransform(data));
+        state.Actions.ForEach(x => x.TransformEntitySync(data));
     }
 
     private void Start()
     {
         if (States.Length == 0) return;
-        Debug.Log(States[0].Name);
+        InitStates();
         ChangeState(States[0]);
         StartCoroutine(NetworkFixedUpdate());
     }
@@ -158,4 +150,18 @@ public class PlayerBrain : MonoBehaviour
     {
         CurrentMovementDirection = InputControls.Player.Move.ReadValue<Vector2>();
     }
+
+
+
+#if UNITY_EDITOR
+    [OnInspectorGUI]
+    private void OnInspectorGUI()
+    {
+        States?.ForEach(x => x.Brain = this);
+    }
+
+    private bool HasRepeatStateName => States.GroupBy(x => x.Name).Any(g => g.Count() > 1);
+
+    private bool IsEmptyStates => States.Length == 0;
+#endif
 }

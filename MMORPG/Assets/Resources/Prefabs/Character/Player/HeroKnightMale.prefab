@@ -66,6 +66,63 @@ Transform:
   - {fileID: 3673685267758564689}
   m_Father: {fileID: 5460200037089215745}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &171388820641581816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3280464013719024209}
+  - component: {fileID: 7811572762799699525}
+  - component: {fileID: 5991820956586231828}
+  m_Layer: 7
+  m_Name: RemoteAbilities
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3280464013719024209
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171388820641581816}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2429740359941644855}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7811572762799699525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171388820641581816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2873ee7a448c43042ba84f770c2cee3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5991820956586231828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171388820641581816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f79b878922d36ba4fb4ca47491c1e0cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &284044486536489920
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,7 +688,7 @@ GameObject:
   - component: {fileID: 997149082885639855}
   - component: {fileID: 5844382415902207706}
   m_Layer: 7
-  m_Name: Abilities
+  m_Name: LocalAbilities
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -677,7 +734,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IdleThreshold: 0.05
-  Acceleration: 3
 --- !u!1 &2031200277136639676
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,27 +847,27 @@ MonoBehaviour:
   States:
   - Name: Idle
     Actions:
-    - AbilityName: HeroKnightIdle
-      Delay: 0
+    - LocalAbilityName: LocalHeroKnightIdle
+      RemoteAbilityName: RemoteHeroKnightIdle
     Transitions:
     - Label: "\u5207\u6362\u8D70\u8DEF"
       StateConditions:
-      - FullMethodName: HeroKnightIdle/CanMovement
+      - FullMethodName: LocalHeroKnightIdle/CanMovement
         Not: 0
-      - FullMethodName: HeroKnightWalking/ReachIdleThreshold
+      - FullMethodName: LocalHeroKnightWalking/ReachIdleThreshold
         Not: 0
       TrueStateName: Walking
       FalseStateName: 
   - Name: Walking
     Actions:
-    - AbilityName: HeroKnightWalking
-      Delay: 0
+    - LocalAbilityName: LocalHeroKnightWalking
+      RemoteAbilityName: RemoteHeroKnightWalking
     Transitions:
     - Label: "\u56DE\u5230Idle"
       StateConditions:
-      - FullMethodName: HeroKnightIdle/CanMovement
+      - FullMethodName: LocalHeroKnightIdle/CanMovement
         Not: 1
-      - FullMethodName: HeroKnightWalking/FinishInertia
+      - FullMethodName: LocalHeroKnightWalking/FinishInertia
         Not: 0
       TrueStateName: Idle
       FalseStateName: 
@@ -2234,6 +2290,7 @@ Transform:
   m_Children:
   - {fileID: 9087934345694290826}
   - {fileID: 8123658061040279742}
+  - {fileID: 3280464013719024209}
   - {fileID: 6292130008949261289}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2271,6 +2328,7 @@ MonoBehaviour:
   AnimationController: {fileID: 2781993986776610642}
   AdditionalAbilityNodes:
   - {fileID: 1952149207982524674}
+  - {fileID: 171388820641581816}
 --- !u!114 &72820028763516274
 MonoBehaviour:
   m_ObjectHideFlags: 0
