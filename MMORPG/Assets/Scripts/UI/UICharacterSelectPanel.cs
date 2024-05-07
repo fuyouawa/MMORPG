@@ -42,7 +42,7 @@ namespace MMORPG.UI
 
         private void JoinMapScene(int mapId)
         {
-            //TODO mapid
+            Debug.Log("111123453245311");
             var op = SceneManager.LoadSceneAsync("Space1Scene");
             op.completed += _ =>
             {

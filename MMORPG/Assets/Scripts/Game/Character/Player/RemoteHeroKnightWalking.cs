@@ -1,33 +1,30 @@
 using MessagePack;
 using UnityEngine;
 
-public class RemoteHeroKnightWalking : RemotePlayerAbility, IAnimatorAutoUpdateParams
+public class RemoteHeroKnightWalking : RemotePlayerAbility
 {
-    [AnimatorParam]
-    public bool Walking { get; set; }
-    [AnimatorParam]
-    public float HoriMovementNormalized { get; set; }
-    [AnimatorParam]
-    public float VertMovementNormalized { get; set; }
+    private WalkAnimParams _walkAnimParams = new();
 
     private Vector3 _targetSyncPosition;
     private Quaternion _targetSyncRotation;
     private Vector2 _moveDirection;
 
+    private AnimatorMachine _animatorMachine;
+
     public override void OnStateInit()
     {
-        this.StartAnimatorAutoUpdate(gameObject, Brain.CharacterController.Animator);
+        _animatorMachine = new(_walkAnimParams, gameObject, Brain.CharacterController.Animator);
     }
 
     public override void OnStateEnter()
     {
-        Walking = true;
-        HoriMovementNormalized = 0;
-        VertMovementNormalized = 0;
+        _walkAnimParams.Enter();
 
         _targetSyncPosition = transform.position;
         _targetSyncRotation = transform.rotation;
         Brain.CharacterController.AnimationController.DisableAnimatorMove();
+
+        _animatorMachine.Run();
     }
 
     public override void OnStateUpdate()
@@ -46,9 +43,8 @@ public class RemoteHeroKnightWalking : RemotePlayerAbility, IAnimatorAutoUpdateP
 
     public override void OnStateExit()
     {
-        Walking = false;
-        HoriMovementNormalized = 0;
-        VertMovementNormalized = 0;
+        _walkAnimParams.Exit();
+        _animatorMachine.StopInNextFrame();
     }
     private void SyncMove()
     {
@@ -58,9 +54,7 @@ public class RemoteHeroKnightWalking : RemotePlayerAbility, IAnimatorAutoUpdateP
 
     private void UpdateAnimation()
     {
-        var acc = 3f * Time.deltaTime;
-        HoriMovementNormalized = Mathf.MoveTowards(HoriMovementNormalized, _moveDirection.x, acc);
-        VertMovementNormalized = Mathf.MoveTowards(VertMovementNormalized, _moveDirection.y, acc);
+        _walkAnimParams.SmoothToDirection(_moveDirection);
     }
 }
 
