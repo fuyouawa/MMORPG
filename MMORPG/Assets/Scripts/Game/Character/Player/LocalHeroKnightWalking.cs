@@ -1,18 +1,17 @@
 using MessagePack;
+using QFramework;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 [MessagePackObject]
-public struct WalkStateSyncData
+public class WalkStateSyncData
 {
     [Key(0)]
-    public Vector2 MoveDirection;
+    public Vector2 MoveDirection { get; set; }
 }
 
-public class LocalHeroKnightWalking : LocalPlayerAbility, IAnimatorAutoUpdateParams
+public class WalkAnimParams
 {
-    public float IdleThreshold = 0.05f;
-
     [AnimatorParam]
     public bool Walking { get; set; }
     [AnimatorParam]
@@ -20,20 +19,49 @@ public class LocalHeroKnightWalking : LocalPlayerAbility, IAnimatorAutoUpdatePar
     [AnimatorParam]
     public float VertMovementNormalized { get; set; }
 
+    public void Enter()
+    {
+        Walking = true;
+        HoriMovementNormalized = 0f;
+        VertMovementNormalized = 0f;
+    }
+
+    public void Exit()
+    {
+        Walking = false;
+        HoriMovementNormalized = 0f;
+        VertMovementNormalized = 0f;
+    }
+
+    public void SmoothToDirection(Vector2 moveDirection)
+    {
+        var acc = 3f * Time.deltaTime;
+        HoriMovementNormalized = Mathf.MoveTowards(HoriMovementNormalized, moveDirection.x, acc);
+        VertMovementNormalized = Mathf.MoveTowards(VertMovementNormalized, moveDirection.y, acc);
+    }
+}
+
+
+public class LocalHeroKnightWalking : LocalPlayerAbility
+{
+    public float IdleThreshold = 0.05f;
+
+    private WalkAnimParams _walkAnimParams = new();
+
     private Vector2 _moveDirection;
+    private AnimatorMachine _animatorMachine;
 
     public override void OnStateInit()
     {
-        this.StartAnimatorAutoUpdate(gameObject, Brain.CharacterController.Animator);
+        _animatorMachine = new(_walkAnimParams, gameObject, Brain.CharacterController.Animator);
     }
 
     public override void OnStateEnter()
     {
-        Walking = true;
-        HoriMovementNormalized = 0;
-        VertMovementNormalized = 0;
+        _walkAnimParams.Enter();
 
         Brain.CharacterController.AnimationController.EnableAnimatorMove();
+        _animatorMachine.Run();
     }
 
     public override void OnStateUpdate()
@@ -50,9 +78,8 @@ public class LocalHeroKnightWalking : LocalPlayerAbility, IAnimatorAutoUpdatePar
 
     public override void OnStateExit()
     {
-        Walking = false;
-        HoriMovementNormalized = 0;
-        VertMovementNormalized = 0;
+        _walkAnimParams.Exit();
+        _animatorMachine.StopInNextFrame();
     }
 
     [StateCondition]
@@ -64,7 +91,7 @@ public class LocalHeroKnightWalking : LocalPlayerAbility, IAnimatorAutoUpdatePar
     [StateCondition]
     public bool FinishInertia()
     {
-        return new Vector2(HoriMovementNormalized, VertMovementNormalized).magnitude < IdleThreshold;
+        return new Vector2(_walkAnimParams.HoriMovementNormalized, _walkAnimParams.VertMovementNormalized).magnitude < IdleThreshold;
     }
 
     private void ControlMove()
@@ -84,8 +111,7 @@ public class LocalHeroKnightWalking : LocalPlayerAbility, IAnimatorAutoUpdatePar
     private void UpdateAnimation()
     {
         var acc = 3f * Time.deltaTime;
-        HoriMovementNormalized = Mathf.MoveTowards(HoriMovementNormalized, _moveDirection.x, acc);
-        VertMovementNormalized = Mathf.MoveTowards(VertMovementNormalized, _moveDirection.y, acc);
+        _walkAnimParams.SmoothToDirection(_moveDirection);
     }
 }
 

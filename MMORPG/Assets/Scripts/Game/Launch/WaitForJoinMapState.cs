@@ -1,20 +1,22 @@
-﻿using QFramework;
+using QFramework;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class WaitForJoinMapState : AbstractState<LaunchStatus, LaunchController>, IController
 {
     public WaitForJoinMapState(FSM<LaunchStatus> fsm, LaunchController target) : base(fsm, target)
     {
-        this.RegisterEvent<JoinedMapEvent>(OnEnterSpace);
+        this.RegisterEventInUnityThread<JoinedMapEvent>(OnEnterSpace);
     }
 
     private void OnEnterSpace(JoinedMapEvent e)
     {
+        //TODO 有个未知原因的有时调用多次的bug
         mFSM.ChangeState(LaunchStatus.InitMap);
     }
 

@@ -114,12 +114,10 @@ public class PlayerBrain : MonoBehaviour
     
     private IEnumerator NetworkFixedUpdate()
     {
-        var deltaTime = 0.1f;
-        // var deltaTime = Config.GameConfig.NetworkSyncDeltaTime;
         while (true)
         {
             CurrentState?.NetworkFixedUpdate();
-            yield return new WaitForSeconds(deltaTime);
+            yield return new WaitForSeconds(Config.NetworkUpdateDeltaTime);
         }
     }
 

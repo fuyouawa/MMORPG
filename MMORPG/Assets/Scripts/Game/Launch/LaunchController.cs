@@ -7,7 +7,6 @@ public enum LaunchStatus
 {
     InitLog,
     InitPlugins,
-    InitConfig,
     InitTool,
     InitNetwork,
     WaitForJoinMap,
@@ -29,7 +28,6 @@ public class LaunchController : MonoBehaviour, IController
         Logger.Info("Launch", "开始生命周期");
         FSM.AddState(LaunchStatus.InitLog, new InitLogState(FSM, this));
         FSM.AddState(LaunchStatus.InitPlugins, new InitPluginsState(FSM, this));
-        FSM.AddState(LaunchStatus.InitConfig, new InitConfigState(FSM, this));
         FSM.AddState(LaunchStatus.InitTool, new InitToolState(FSM, this));
         FSM.AddState(LaunchStatus.InitNetwork, new InitNetworkState(FSM, this));
         FSM.AddState(LaunchStatus.WaitForJoinMap, new WaitForJoinMapState(FSM, this));
@@ -44,7 +42,7 @@ public class LaunchController : MonoBehaviour, IController
         return GameApp.Interface;
     }
 
-    protected void OnDestroy()
+    protected void OnApplicationQuit()
     {
         FSM.ChangeState(LaunchStatus.ExitGame);
     }

@@ -8,17 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class InitedMapCommand : AbstractCommand
-{
-    protected override void OnExecute()
-    {
-        this.SendEvent(new InitedMapEvent());
-    }
-}
-
-public class InitedMapEvent { }
-
-public class InitMapState : AbstractState<LaunchStatus, LaunchController>, IController
+public class InitMapState : AbstractState<LaunchStatus, LaunchController>
 {
     public InitMapState(FSM<LaunchStatus> fsm, LaunchController target) : base(fsm, target)
     {
@@ -31,11 +21,5 @@ public class InitMapState : AbstractState<LaunchStatus, LaunchController>, ICont
         new GameObject(nameof(MapManager)).AddComponent<MapManager>().transform.SetParent(group);
         new GameObject(nameof(EntityManager)).AddComponent<EntityManager>().transform.SetParent(group);
         new GameObject(nameof(PlayerManager)).AddComponent<PlayerManager>().transform.SetParent(group);
-        this.SendCommand(new InitedMapCommand());
-    }
-
-    public IArchitecture GetArchitecture()
-    {
-        return GameApp.Interface;
     }
 }
