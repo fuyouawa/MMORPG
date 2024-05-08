@@ -18,7 +18,6 @@ public class ApplicationQuitState : AbstractState<LaunchStatus, LaunchController
     protected override void OnEnter()
     {
         Logger.Info("Launch", "程序退出");
-        //TODO如果还没退出地图, 就发送退出地图
         this.SendEvent(new ApplicationQuitEvent());
     }
 

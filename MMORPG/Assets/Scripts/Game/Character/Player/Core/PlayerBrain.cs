@@ -40,11 +40,6 @@ public class PlayerBrain : MonoBehaviour
 
     private TAbility[] GetAttachAbilities<TAbility>() where TAbility : PlayerAbility
     {
-#if UNITY_EDITOR
-        // 在Editor中可能会有null的情况
-        if (CharacterController?.AdditionalAbilityNodes == null)
-            return Array.Empty<TAbility>();
-#endif
         var total = new List<TAbility>();
         total.AddRange(GetComponents<TAbility>());
         foreach (var node in CharacterController.AdditionalAbilityNodes)

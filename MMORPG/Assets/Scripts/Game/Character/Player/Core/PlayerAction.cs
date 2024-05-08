@@ -8,14 +8,13 @@ using UnityEngine;
 [Serializable]
 public class PlayerAction
 {
-    //TODO AbilityName check valid
-    [Required("Can't be none!")]
+    [InfoBox("Invalid ability!", InfoMessageType.Error, "CheckLocalAbilityNameInvalid")]
     [VerticalGroup("Local Ability")]
     [ValueDropdown("GetLocalAbilityDropdown")]
     [HideLabel]
     public string LocalAbilityName = string.Empty;
 
-    [Required("Can't be none!")]
+    [InfoBox("Invalid ability!", InfoMessageType.Error, "CheckRemoteAbilityNameInvalid")]
     [VerticalGroup("Remote Ability")]
     [ValueDropdown("GetRemoteAbilityDropdown")]
     [HideLabel]
@@ -135,27 +134,59 @@ public class PlayerAction
     }
 
 #if UNITY_EDITOR
-    public IEnumerable GetLocalAbilityDropdown()
+    private IEnumerable GetLocalAbilityDropdown()
     {
         var total = new ValueDropdownList<string> { { "None Local Ability", string.Empty } };
         if (OwnerState?.Brain != null)
         {
-            total.AddRange(OwnerState.Brain.GetAttachLocalAbilities().Select((x, i) =>
+            var abilities = OwnerState.Brain.GetAttachLocalAbilities();
+            if (abilities == null)
+                return total;
+            total.AddRange(abilities.Select((x, i) =>
                 new ValueDropdownItem<string>($"{i} - {x.GetType().Name}", x.GetType().Name))
             );
         }
         return total;
     }
-    public IEnumerable GetRemoteAbilityDropdown()
+    private IEnumerable GetRemoteAbilityDropdown()
     {
         var total = new ValueDropdownList<string> { { "None Remote Ability", string.Empty } };
         if (OwnerState?.Brain != null)
         {
-            total.AddRange(OwnerState.Brain.GetAttachRemoteAbilities().Select((x, i) =>
+            var abilities = OwnerState.Brain.GetAttachRemoteAbilities();
+            if (abilities == null)
+                return total;
+            total.AddRange(abilities.Select((x, i) =>
                 new ValueDropdownItem<string>($"{i} - {x.GetType().Name}", x.GetType().Name))
             );
         }
         return total;
+    }
+
+
+    private bool CheckLocalAbilityNameInvalid()
+    {
+        if (OwnerState?.Brain == null)
+            return false;
+        if (LocalAbilityName == string.Empty)
+            return true;
+        var ability = OwnerState.Brain.GetAttachLocalAbilities()?.FirstOrDefault(x => x.GetType().Name == LocalAbilityName);
+        if (ability == null)
+            return true;
+        return false;
+    }
+
+
+    private bool CheckRemoteAbilityNameInvalid()
+    {
+        if (OwnerState?.Brain == null)
+            return false;
+        if (RemoteAbilityName == string.Empty)
+            return true;
+        var ability = OwnerState.Brain.GetAttachRemoteAbilities()?.FirstOrDefault(x => x.GetType().Name == RemoteAbilityName);
+        if (ability == null)
+            return true;
+        return false;
     }
 #endif
 }

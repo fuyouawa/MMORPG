@@ -31,13 +31,13 @@ public class NetworkEntityEnterEvent
 public class NetworkEntitySyncEvent
 {
     public int EntityId { get; }
-    public Vector3 Postion { get; }
+    public Vector3 Position { get; }
     public Quaternion Rotation { get; }
 
     public NetworkEntitySyncEvent(int entityId, Vector3 position, Quaternion rotation)
     {
         EntityId = entityId;
-        Postion = position;
+        Position = position;
         Rotation = rotation;
     }
 }
