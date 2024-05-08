@@ -13,6 +13,7 @@ using System.Numerics;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using Google.Protobuf;
 
 namespace GameServer.Unit
 {
@@ -138,8 +139,7 @@ namespace GameServer.Unit
         /// <summary>
         /// 根据网络实体对象更新实体并广播
         /// </summary>
-        /// <param name="netEntity"></param>
-        public void EntityTransformUpdate(int entityId, NetTransform transform)
+        public void EntityTransformUpdate(int entityId, NetTransform transform, int stateId, ByteString data)
         {
             var entity = EntityManager.Instance.GetEntity(entityId);
             if (entity == null) return;
@@ -148,11 +148,16 @@ namespace GameServer.Unit
             entity.Direction = transform.Direction.ToVector3();
             EntityRefreshPosition(entity);
 
-            var res = new EntityTransformSyncResponse() { EntityId = entityId };
-            res.Transform = transform;
+            var response = new EntityTransformSyncResponse
+            {
+                EntityId = entityId,
+                Transform = transform,
+                StateId = stateId,
+                Data = data
+            };
 
             // 向所有角色广播新实体的状态更新
-            PlayerManager.Broadcast(res, entity);
+            PlayerManager.Broadcast(response, entity);
         }
     }
 }

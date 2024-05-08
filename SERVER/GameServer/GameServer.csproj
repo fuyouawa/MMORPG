@@ -40,9 +40,4 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="$(SolutionDir)\..\Tools\syncc\syncc &quot;117.72.68.24&quot; $(TargetDir)" />
-  </Target>
-
 </Project>
