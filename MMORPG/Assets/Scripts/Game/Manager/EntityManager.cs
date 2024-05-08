@@ -55,7 +55,7 @@ public class EntityManager : MonoBehaviour, IController, ICanSendEvent
         var position = response.Transform.Position.ToVector3();
         var rotation = Quaternion.Euler(response.Transform.Direction.ToVector3());
         var entity = _entityManager.GetEntityDict(false)[entityId];
-
+        Debug.Assert(entity.EntityId == entityId);
         var data = new EntityTransformSyncData
         {
             Entity = entity,
@@ -64,6 +64,7 @@ public class EntityManager : MonoBehaviour, IController, ICanSendEvent
             StateId = response.StateId,
             Data = response.Data.ToByteArray()
         };
+        Debug.Log($"同步:{data}");
 
         entity.HandleNetworkSync(data);
     }

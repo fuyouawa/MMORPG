@@ -11,7 +11,8 @@ public enum LaunchStatus
     InitNetwork,
     WaitForJoinMap,
     InitMap,
-    ExitGame
+    ExitMap,
+    ApplicationQuit
 }
 
 public class LaunchController : MonoBehaviour, IController
@@ -32,7 +33,8 @@ public class LaunchController : MonoBehaviour, IController
         FSM.AddState(LaunchStatus.InitNetwork, new InitNetworkState(FSM, this));
         FSM.AddState(LaunchStatus.WaitForJoinMap, new WaitForJoinMapState(FSM, this));
         FSM.AddState(LaunchStatus.InitMap, new InitMapState(FSM, this));
-        FSM.AddState(LaunchStatus.ExitGame, new ExitGameState(FSM, this));
+        FSM.AddState(LaunchStatus.ExitMap, new ExitMapState(FSM, this));
+        FSM.AddState(LaunchStatus.ApplicationQuit, new ApplicationQuitState(FSM, this));
 
         FSM.StartState(LaunchStatus.InitLog);
     }
@@ -44,6 +46,7 @@ public class LaunchController : MonoBehaviour, IController
 
     protected void OnApplicationQuit()
     {
-        FSM.ChangeState(LaunchStatus.ExitGame);
+        FSM.ChangeState(LaunchStatus.ApplicationQuit);
+        FSM.Clear();
     }
 }

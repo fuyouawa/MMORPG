@@ -865,7 +865,7 @@ MonoBehaviour:
     Transitions:
     - Label: "\u56DE\u5230Idle"
       StateConditions:
-      - FullMethodName: LocalHeroKnightIdle/CanMovement
+      - FullMethodName: LocalHeroKnightWalking/ReachIdleThreshold
         Not: 1
       - FullMethodName: LocalHeroKnightWalking/FinishInertia
         Not: 0

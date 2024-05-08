@@ -31,6 +31,8 @@ public class CharacterController : MonoBehaviour, IController
     [ChildGameObjectsOnly]
     public GameObject[] AdditionalAbilityNodes;
 
+    public bool IsMine => Entity.IsMine;
+
     public Rigidbody Rigidbody { get; private set; }
     public CapsuleCollider Collider { get; private set; }
 
@@ -55,6 +57,7 @@ public class CharacterController : MonoBehaviour, IController
 
     public void NetworkUploadTransform(int stateId, byte[] data)
     {
+        Debug.Assert(IsMine);
         _newtwork.SendToServer(new EntityTransformSyncRequest()
         {
             EntityId = Entity.EntityId,
