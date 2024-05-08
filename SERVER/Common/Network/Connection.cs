@@ -162,9 +162,9 @@ namespace Common.Network
                 {
                     var size = await _socket.ReadInt32Async();
                     Debug.Assert(size >= NetConfig.PacketHeaderSize && size < NetConfig.MaxPacketSize);
-                    var msgID = await _socket.ReadInt32Async();
+                    var msgId = await _socket.ReadInt32Async();
                     var buffer = await _socket.ReadAsync(size - NetConfig.PacketHeaderSize);
-                    PacketReceived?.Invoke(this, new PacketReceivedEventArgs(new Packet(msgID, buffer)));
+                    PacketReceived?.Invoke(this, new PacketReceivedEventArgs(new Packet(msgId, buffer)));
                 }
             }
             catch (Exception ex)
