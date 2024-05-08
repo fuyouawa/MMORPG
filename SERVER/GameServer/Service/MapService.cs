@@ -31,7 +31,6 @@ namespace Service
 
         public void OnHandle(NetChannel sender, EntityTransformSyncRequest request)
         {
-            Log.Debug($"同步: {request.EntityId} : {request.Transform.Position} : {request.StateId}");
             sender.User?.Player?.Map?.EntityTransformUpdate(request.EntityId, request.Transform, request.StateId, request.Data);
         }
 
