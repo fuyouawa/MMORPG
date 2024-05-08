@@ -16,7 +16,6 @@ public class WaitForJoinMapState : AbstractState<LaunchStatus, LaunchController>
 
     private void OnEnterSpace(JoinedMapEvent e)
     {
-        //TODO 有个未知原因的有时调用多次的bug
         mFSM.ChangeState(LaunchStatus.InitMap);
     }
 
