@@ -10,6 +10,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace GameServer.Manager
 {
@@ -75,6 +76,7 @@ namespace GameServer.Manager
         /// <param name="sender"></param>
         public void Broadcast(Google.Protobuf.IMessage msg, Entity? sender = null)
         {
+            Log.Debug($"{sender.EntityId}请求同步");
             if (sender == null)
             {
                 lock (_playerDict)
@@ -82,7 +84,7 @@ namespace GameServer.Manager
                     foreach (var player in _playerDict.Values)
                     {
                         if (sender != null && player.EntityId == sender.EntityId) continue;
-                        player.User.Channel.Send(msg, null);
+                        player.User.Channel.Send(msg);
                     }
                 }
             }
@@ -91,8 +93,9 @@ namespace GameServer.Manager
                 var list = _map.GetEntityViewEntityList(sender, e => e.EntityType == EntityType.Player);
                 foreach (var entity in list)
                 {
-                    var player = entity as Player;
-                    player?.User.Channel.Send(msg, null);
+                    var player = (Player)entity;
+                    Log.Debug($"响应{sender.EntityId}的同步请求, 广播给:{player.EntityId}");
+                    player.User.Channel.Send(msg);
                 }
             }
         }
