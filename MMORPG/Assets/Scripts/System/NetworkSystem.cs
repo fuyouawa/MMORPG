@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace MMORPG
@@ -29,7 +30,7 @@ namespace MMORPG
         private NetSession _session;
         private Dictionary<Type, Delegate> _eventMsgHandlers = new();
 
-        ////TODO ¸ßË®Î»´¦Àí
+        ////TODO é«˜æ°´ä½å¤„ç†
         private LinkedList<IMessage> _messageList = new();
 
         public async Task<T> ReceiveAsync<T>() where T : class, IMessage
@@ -72,6 +73,7 @@ namespace MMORPG
         private void OnPacketReceived(object sender, PacketReceivedEventArgs e)
         {
             var msgType = e.Packet.Message.GetType();
+            Logger.Info("114514", msgType.Name);
             if (ProtoManager.IsEvent(msgType))
             {
                 _eventMsgHandlers[msgType]?.DynamicInvoke(new object[] { e.Packet.Message });
@@ -88,8 +90,8 @@ namespace MMORPG
             var box = this.GetSystem<IBoxSystem>();
             while (true)
             {
-                // ÏÔÊ¾Ğı×ª¼ÓÔØ¿ò
-                box.ShowSpinner("Á¬½Ó·şÎñÆ÷ÖĞ......");
+                // æ˜¾ç¤ºæ—‹è½¬åŠ è½½æ¡†
+                box.ShowSpinner("è¿æ¥æœåŠ¡å™¨ä¸­......");
                 try
                 {
                     socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -99,9 +101,9 @@ namespace MMORPG
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error("Network", ex, $"Á¬½Ó·şÎñÆ÷Ê±³öÏÖ´íÎó:{ex.Message}");
+                    Logger.Error("Network", ex, $"è¿æ¥æœåŠ¡å™¨æ—¶å‡ºç°é”™è¯¯:{ex.Message}");
                     box.CloseSpinner();
-                    await box.ShowMessageAsync("´íÎó", $"Á¬½Ó·şÎñÆ÷Ê§°Ü:{ex}", "ÖØĞÂÁ¬½Ó");
+                    await box.ShowMessageAsync("é”™è¯¯", $"è¿æ¥æœåŠ¡å™¨å¤±è´¥:{ex}", "é‡æ–°è¿æ¥");
                     continue;
                 }
             }
@@ -110,6 +112,12 @@ namespace MMORPG
 
         protected override void OnInit()
         {
+            this.RegisterEvent<ApplicationQuitEvent>(OnApplicationQuit);
+        }
+
+        private void OnApplicationQuit(ApplicationQuitEvent e)
+        {
+            Close();
         }
 
         IUnRegister INetworkSystem.ReceiveEvent<TMessage>(Action<TMessage> onReceived)

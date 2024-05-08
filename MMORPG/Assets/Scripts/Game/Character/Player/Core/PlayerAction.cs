@@ -34,19 +34,26 @@ public class PlayerAction
         OwnerStateId = stateId;
         IsMine = OwnerState.Brain.CharacterController.Entity.IsMine;
 
-        LocalAbility = OwnerState.Brain.GetAttachLocalAbilities().First(x => x.GetType().Name == LocalAbilityName);
-        RemoteAbility = OwnerState.Brain.GetAttachRemoteAbilities().First(x => x.GetType().Name == RemoteAbilityName);
+        if (IsMine)
+        {
+            LocalAbility = OwnerState.Brain.GetAttachLocalAbilities().First(x => x.GetType().Name == LocalAbilityName);
 
-        LocalAbility.OwnerState = state;
-        LocalAbility.Brain = state.Brain;
-        LocalAbility.OwnerStateId = stateId;
+            LocalAbility.OwnerState = state;
+            LocalAbility.Brain = state.Brain;
+            LocalAbility.OwnerStateId = stateId;
 
-        RemoteAbility.OwnerState = state;
-        RemoteAbility.Brain = state.Brain;
-        RemoteAbility.OwnerStateId = stateId;
+            LocalAbility.OnStateInit();
+        }
+        else
+        {
+            RemoteAbility = OwnerState.Brain.GetAttachRemoteAbilities().First(x => x.GetType().Name == RemoteAbilityName);
 
-        LocalAbility.OnStateInit();
-        RemoteAbility.OnStateInit();
+            RemoteAbility.OwnerState = state;
+            RemoteAbility.Brain = state.Brain;
+            RemoteAbility.OwnerStateId = stateId;
+
+            RemoteAbility.OnStateInit();
+        }
     }
 
     public void Enter()
