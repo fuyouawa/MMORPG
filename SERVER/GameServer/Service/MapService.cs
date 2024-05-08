@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Proto.Event;
+using Serilog;
 
 namespace Service
 {
@@ -30,7 +31,8 @@ namespace Service
 
         public void OnHandle(NetChannel sender, EntityTransformSyncRequest request)
         {
-            sender.User?.Player?.Map?.EntityTransformUpdate(request.EntityId, request.Transform);
+            Log.Debug($"同步: {request.EntityId} : {request.Transform.Position} : {request.StateId}");
+            sender.User?.Player?.Map?.EntityTransformUpdate(request.EntityId, request.Transform, request.StateId, request.Data);
         }
 
     }
