@@ -29,6 +29,8 @@ public class PlayerState
 
     public PlayerBrain Brain { get; set; }
 
+    public bool IsMine => Brain.IsMine;
+
     public void Initialize(PlayerBrain brain, int stateId)
     {
         Brain = brain;
@@ -53,6 +55,10 @@ public class PlayerState
     public void Update()
     {
         Actions.ForEach(x => x.Update());
+        if (IsMine)
+        {
+            Transitions.ForEach(x => x.Evaluate());
+        }
     }
 
     public void FixedUpdate()
@@ -68,11 +74,6 @@ public class PlayerState
     public void Exit()
     {
         Actions.ForEach(x => x.Exit());
-    }
-
-    public void EvaluateTransitions()
-    {
-        Transitions.ForEach(x => x.Evaluate());
     }
 
 #if UNITY_EDITOR

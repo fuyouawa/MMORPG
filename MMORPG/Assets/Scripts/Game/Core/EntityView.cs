@@ -68,6 +68,7 @@ public sealed class EntityView : MonoBehaviour, IController
 
     public void HandleNetworkSync(EntityTransformSyncData data)
     {
+        Debug.Assert(data.Entity == this);
         OnTransformSync?.Invoke(data);
     }
 }

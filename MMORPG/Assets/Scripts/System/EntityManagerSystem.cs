@@ -57,29 +57,12 @@ public interface IEntityManagerSystem : ISystem
 
 public class EntityManagerSystem : AbstractSystem, IEntityManagerSystem
 {
-    public Dictionary<int, EntityView> _mineEntityDict { get; } = new();
-    public Dictionary<int, EntityView> _notMineEntityDict { get; } = new();
+    private readonly Dictionary<int, EntityView> _mineEntityDict = new();
+    private readonly Dictionary<int, EntityView> _notMineEntityDict = new();
 
     public Dictionary<int, EntityView> GetEntityDict(bool isMine)
     {
         return isMine ? _mineEntityDict : _notMineEntityDict;
-    }
-
-    public void RegisterNewEntity(EntityView entity)
-    {
-        Debug.Assert(
-            !(_mineEntityDict.ContainsKey(entity.EntityId) ||
-            _notMineEntityDict.ContainsKey(entity.EntityId)));
-
-        if (entity.IsMine)
-        {
-            _mineEntityDict[entity.EntityId] = entity;
-        }
-        else
-        {
-            _notMineEntityDict[entity.EntityId] = entity;
-        }
-        this.SendEvent(new EntityEnterEvent(entity));
     }
 
     public EntityView SpawnEntity(EntityView prefab, int entityId, Vector3 position, Quaternion rotation, bool isMine)
@@ -111,6 +94,13 @@ public class EntityManagerSystem : AbstractSystem, IEntityManagerSystem
     {
         this.GetSystem<INetworkSystem>().ReceiveEvent<EntityEnterResponse>(OnEntityEnterReceived);
         this.GetSystem<INetworkSystem>().ReceiveEvent<EntityTransformSyncResponse>(OnEntitySyncReceived);
+        this.RegisterEvent<ApplicationQuitEvent>(OnApplicationQuit);
+    }
+
+    private void OnApplicationQuit(ApplicationQuitEvent e)
+    {
+        _mineEntityDict.Clear();
+        _notMineEntityDict.Clear();
     }
 
     private void OnEntityEnterReceived(EntityEnterResponse response)

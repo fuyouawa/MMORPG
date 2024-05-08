@@ -36,6 +36,8 @@ public class PlayerBrain : MonoBehaviour
 
     public RemotePlayerAbility[] GetAttachRemoteAbilities() => GetAttachAbilities<RemotePlayerAbility>();
 
+    public bool IsMine => CharacterController.Entity.IsMine;
+
     private TAbility[] GetAttachAbilities<TAbility>() where TAbility : PlayerAbility
     {
 #if UNITY_EDITOR
@@ -79,6 +81,7 @@ public class PlayerBrain : MonoBehaviour
 
     private void OnTransformEntitySync(EntityTransformSyncData data)
     {
+        Debug.Assert(!CharacterController.Entity.IsMine);
         var state = States[data.StateId];
         Debug.Assert(state != null);
         if (state != CurrentState)
@@ -102,7 +105,6 @@ public class PlayerBrain : MonoBehaviour
         if (States.Length == 0) return;
         UpdateInputValues();
         CurrentState?.Update();
-        CurrentState?.EvaluateTransitions();
     }
     
     private void FixedUpdate()

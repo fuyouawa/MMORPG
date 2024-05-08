@@ -37,6 +37,7 @@ public class RemoteHeroKnightWalking : RemotePlayerAbility
     {
         var d = MessagePackSerializer.Deserialize<WalkStateSyncData>(data.Data);
         _moveDirection = d.MoveDirection;
+        Debug.Log($"{data.Position} : {data.Rotation} : {d.MoveDirection}");
         _targetSyncPosition = data.Position;
         _targetSyncRotation = data.Rotation;
     }

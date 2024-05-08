@@ -1,4 +1,5 @@
 using QFramework;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public interface IMapManagerSystem : ISystem
@@ -36,5 +37,12 @@ public class MapManagerSystem : AbstractSystem, IMapManagerSystem
 
     protected override void OnInit()
     {
+        this.RegisterEvent<ApplicationQuitEvent>(OnApplicationQuit);
+    }
+
+    private void OnApplicationQuit(ApplicationQuitEvent e)
+    {
+        if (IsInMap)
+            ExitMap();
     }
 }
