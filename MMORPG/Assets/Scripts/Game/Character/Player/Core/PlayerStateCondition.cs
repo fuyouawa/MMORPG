@@ -37,7 +37,7 @@ namespace MMORPG.Game
         {
             OwnerTransition = transition;
 
-            Debug.Assert(FullMethodName.IsNullOrEmpty());
+            Debug.Assert(!FullMethodName.IsNullOrEmpty());
 
             var split = FullMethodName.Split('/');
             Debug.Assert(split.Length == 2);
