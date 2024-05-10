@@ -72,4 +72,10 @@ public class EntityManager : MonoBehaviour, IController, ICanSendEvent
     {
         return GameApp.Interface;
     }
+
+    void OnDestroy()
+    {
+        _resLoader.Recycle2Cache();
+        _resLoader = null;
+    }
 }

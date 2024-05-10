@@ -11,6 +11,8 @@ public class PlayerBrain : MonoBehaviour
 {
     [Required]
     public CharacterController CharacterController;
+    [Required]
+    public PlayerAnimationController AnimationController;
 
 #if UNITY_EDITOR
     [SerializeField]

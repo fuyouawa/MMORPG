@@ -25,8 +25,6 @@ public class CharacterController : MonoBehaviour, IController
     [Title("Binding")]
     [Required]
     public Animator Animator;
-    [Required]
-    public CharacterAnimationController AnimationController;
     [Title("Action")]
     [ChildGameObjectsOnly]
     public GameObject[] AdditionalAbilityNodes;
