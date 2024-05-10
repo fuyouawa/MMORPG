@@ -1,52 +1,53 @@
 using QFramework;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public enum LaunchStatus
+namespace MMORPG.Game
 {
-    InitLog,
-    InitPlugins,
-    InitTool,
-    InitNetwork,
-    WaitForJoinMap,
-    InitMap,
-    ExitMap,
-    ApplicationQuit
-}
-
-public class LaunchController : MonoBehaviour, IController
-{
-    public FSM<LaunchStatus> FSM = new();
-
-    private void Awake()
+    public enum LaunchStatus
     {
-        DontDestroyOnLoad(this);
+        InitLog,
+        InitPlugins,
+        InitTool,
+        InitNetwork,
+        WaitForJoinMap,
+        InitMap,
+        ExitMap,
+        ApplicationQuit
     }
 
-    private void Start()
+    public class LaunchController : MonoBehaviour, IController
     {
-        Logger.Info("Launch", "开始生命周期");
-        FSM.AddState(LaunchStatus.InitLog, new InitLogState(FSM, this));
-        FSM.AddState(LaunchStatus.InitPlugins, new InitPluginsState(FSM, this));
-        FSM.AddState(LaunchStatus.InitTool, new InitToolState(FSM, this));
-        FSM.AddState(LaunchStatus.InitNetwork, new InitNetworkState(FSM, this));
-        FSM.AddState(LaunchStatus.WaitForJoinMap, new WaitForJoinMapState(FSM, this));
-        FSM.AddState(LaunchStatus.InitMap, new InitMapState(FSM, this));
-        FSM.AddState(LaunchStatus.ExitMap, new ExitMapState(FSM, this));
-        FSM.AddState(LaunchStatus.ApplicationQuit, new ApplicationQuitState(FSM, this));
+        public FSM<LaunchStatus> FSM = new();
 
-        FSM.StartState(LaunchStatus.InitLog);
-    }
+        private void Awake()
+        {
+            DontDestroyOnLoad(this);
+        }
 
-    public IArchitecture GetArchitecture()
-    {
-        return GameApp.Interface;
-    }
+        private void Start()
+        {
+            Tool.Log.Info("Launch", "开始生命周期");
+            FSM.AddState(LaunchStatus.InitLog, new InitLogState(FSM, this));
+            FSM.AddState(LaunchStatus.InitPlugins, new InitPluginsState(FSM, this));
+            FSM.AddState(LaunchStatus.InitTool, new InitToolState(FSM, this));
+            FSM.AddState(LaunchStatus.InitNetwork, new InitNetworkState(FSM, this));
+            FSM.AddState(LaunchStatus.WaitForJoinMap, new WaitForJoinMapState(FSM, this));
+            FSM.AddState(LaunchStatus.InitMap, new InitMapState(FSM, this));
+            FSM.AddState(LaunchStatus.ExitMap, new ExitMapState(FSM, this));
+            FSM.AddState(LaunchStatus.ApplicationQuit, new ApplicationQuitState(FSM, this));
 
-    protected void OnApplicationQuit()
-    {
-        FSM.ChangeState(LaunchStatus.ApplicationQuit);
-        FSM.Clear();
+            FSM.StartState(LaunchStatus.InitLog);
+        }
+
+        public IArchitecture GetArchitecture()
+        {
+            return GameApp.Interface;
+        }
+
+        protected void OnApplicationQuit()
+        {
+            FSM.ChangeState(LaunchStatus.ApplicationQuit);
+            FSM.Clear();
+        }
     }
 }

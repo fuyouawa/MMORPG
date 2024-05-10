@@ -1,9 +1,7 @@
-﻿using Common.Proto.Base;
-using Common.Proto.Entity;
-using Common.Proto.Player;
+using Common.Proto.Base;
 using UnityEngine;
 
-namespace Tool
+namespace MMORPG.Tool
 {
     public static class ProtoExtension
     {

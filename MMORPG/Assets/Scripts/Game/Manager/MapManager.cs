@@ -1,13 +1,13 @@
 using Common.Proto.Player;
 using Common.Tool;
 using QFramework;
-using System.Threading.Tasks;
+using MMORPG.System;
+using MMORPG.Tool;
 using ThirdPersonCamera;
-using Tool;
 using UnityEngine;
 
 
-namespace MMORPG
+namespace MMORPG.Game
 {
     /// <summary>
     /// 地图控制器
@@ -43,12 +43,12 @@ namespace MMORPG
             box.CloseSpinner();
             if (response.Error != Common.Proto.Base.NetError.Success)
             {
-                Logger.Error("Network", $"JoinMap Error:{response.Error.GetInfo().Description}");
+                Tool.Log.Error("Network", $"JoinMap Error:{response.Error.GetInfo().Description}");
                 //TODO Error处理
                 return;
             }
 
-            Logger.Info("Network", $"JoinMap Success, MineId:{response.EntityId}");
+            Tool.Log.Info("Network", $"JoinMap Success, MineId:{response.EntityId}");
             _playerManager.SetMineId(response.EntityId);
 
             var entity = _entityManager.SpawnEntity(

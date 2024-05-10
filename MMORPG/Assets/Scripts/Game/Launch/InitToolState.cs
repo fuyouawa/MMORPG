@@ -1,27 +1,25 @@
 using QFramework;
-using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MMORPG.Tool;
 using UnityEngine;
 
-public class InitToolState : AbstractState<LaunchStatus, LaunchController>, IController
+namespace MMORPG.Game
 {
-    public InitToolState(FSM<LaunchStatus> fsm, LaunchController target) : base(fsm, target)
+    public class InitToolState : AbstractState<LaunchStatus, LaunchController>, IController
     {
-    }
+        public InitToolState(FSM<LaunchStatus> fsm, LaunchController target) : base(fsm, target)
+        {
+        }
 
-    protected override void OnEnter()
-    {
-        Logger.Info("Launch", "初始化工具");
-        new GameObject(nameof(UIToolController)).AddComponent<UIToolController>();
-        mFSM.ChangeState(LaunchStatus.InitNetwork);
-    }
+        protected override void OnEnter()
+        {
+            Tool.Log.Info("Launch", "初始化工具");
+            new GameObject(nameof(UIToolController)).AddComponent<UIToolController>();
+            mFSM.ChangeState(LaunchStatus.InitNetwork);
+        }
 
-    public IArchitecture GetArchitecture()
-    {
-        return GameApp.Interface;
+        public IArchitecture GetArchitecture()
+        {
+            return GameApp.Interface;
+        }
     }
 }

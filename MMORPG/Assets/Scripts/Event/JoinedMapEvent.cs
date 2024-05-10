@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-public class JoinedMapEvent
+namespace MMORPG.Event
 {
-    public int MapId { get; }
-
-    public JoinedMapEvent(int mapId)
+    public class JoinedMapEvent
     {
-        MapId = mapId;
+        public int MapId { get; }
+
+        public JoinedMapEvent(int mapId)
+        {
+            MapId = mapId;
+        }
     }
 }

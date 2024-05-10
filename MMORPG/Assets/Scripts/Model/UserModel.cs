@@ -1,38 +1,38 @@
 using QFramework;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-/// <summary>
-/// µ±Ç°µÇÂ¼ÓÃ»§µÄÕËºÅĞÅÏ¢
-/// </summary>
-public interface IUserModel : IModel
+namespace MMORPG.Model
 {
-    public int UserId { get; }
-    public string Username { get; }
-    public void SetUsername(string username);
-    public void SetUserId(int userId);
-}
-
-public class UserModel : AbstractModel, IUserModel
-{
-    private int _userId;
-    public int UserId => _userId;
-
-    private string _username;
-    public string Username => _username;
-
-    public void SetUserId(int userId)
+    /// <summary>
+    /// å½“å‰ç™»å½•ç”¨æˆ·çš„è´¦å·ä¿¡æ¯
+    /// </summary>
+    public interface IUserModel : IModel
     {
-        _userId = userId;
+        public int UserId { get; }
+        public string Username { get; }
+        public void SetUsername(string username);
+        public void SetUserId(int userId);
     }
 
-    public void SetUsername(string username)
+    public class UserModel : AbstractModel, IUserModel
     {
-        _username = username;
-    }
+        private int _userId;
+        public int UserId => _userId;
 
-    protected override void OnInit()
-    {
+        private string _username;
+        public string Username => _username;
+
+        public void SetUserId(int userId)
+        {
+            _userId = userId;
+        }
+
+        public void SetUsername(string username)
+        {
+            _username = username;
+        }
+
+        protected override void OnInit()
+        {
+        }
     }
 }

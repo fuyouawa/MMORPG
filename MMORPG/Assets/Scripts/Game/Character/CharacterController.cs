@@ -1,76 +1,77 @@
-using System.Collections;
-using System.Collections.Generic;
 using Common.Proto.Event;
 using Google.Protobuf;
-using MMORPG;
+using MMORPG.System;
+using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;
-using Tool;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public enum CharacterType
+namespace MMORPG.Game
 {
-    Player,
-    Enemy
-}
-
-public class CharacterController : MonoBehaviour, IController
-{
-    [Required]
-    public EntityView Entity;
-    public CharacterType CharacterType;
-    public float RotationLerp = 0.2f;
-    public float MoveLerp = 0.2f;
-    [Title("Binding")]
-    [Required]
-    public Animator Animator;
-    [Title("Action")]
-    [ChildGameObjectsOnly]
-    public GameObject[] AdditionalAbilityNodes;
-
-    public bool IsMine => Entity.IsMine;
-
-    public Rigidbody Rigidbody { get; private set; }
-    public CapsuleCollider Collider { get; private set; }
-
-    private INetworkSystem _newtwork;
-
-    private void Awake()
+    public enum CharacterType
     {
-        _newtwork = this.GetSystem<INetworkSystem>();
-        Rigidbody = GetComponent<Rigidbody>();
-        Collider = GetComponent<CapsuleCollider>();
+        Player,
+        Enemy
     }
 
-    public void SmoothRotate(Quaternion targetRotation)
+    public class CharacterController : MonoBehaviour, IController
     {
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationLerp);
-    }
+        [Required]
+        public EntityView Entity;
+        public CharacterType CharacterType;
+        public float RotationLerp = 0.2f;
+        public float MoveLerp = 0.2f;
+        [Title("Binding")]
+        [Required]
+        public Animator Animator;
+        [Title("Action")]
+        [ChildGameObjectsOnly]
+        public GameObject[] AdditionalAbilityNodes;
 
-    public void SmoothMove(Vector3 position)
-    {
-        transform.position = Vector3.Lerp(transform.position, position, MoveLerp);
-    }
+        public bool IsMine => Entity.IsMine;
 
-    public void NetworkUploadTransform(int stateId, byte[] data)
-    {
-        Debug.Assert(IsMine);
-        _newtwork.SendToServer(new EntityTransformSyncRequest()
+        public Rigidbody Rigidbody { get; private set; }
+        public CapsuleCollider Collider { get; private set; }
+
+        private INetworkSystem _newtwork;
+
+        private void Awake()
         {
-            EntityId = Entity.EntityId,
-            Transform = new()
+            _newtwork = this.GetSystem<INetworkSystem>();
+            Rigidbody = GetComponent<Rigidbody>();
+            Collider = GetComponent<CapsuleCollider>();
+        }
+
+        public void SmoothRotate(Quaternion targetRotation)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationLerp);
+        }
+
+        public void SmoothMove(Vector3 position)
+        {
+            transform.position = Vector3.Lerp(transform.position, position, MoveLerp);
+        }
+
+        public void NetworkUploadTransform(int stateId, byte[] data)
+        {
+            Debug.Assert(IsMine);
+            _newtwork.SendToServer(new EntityTransformSyncRequest()
             {
-                Direction = transform.rotation.eulerAngles.ToNetVector3(),
-                Position = transform.position.ToNetVector3()
-            },
-            StateId = stateId,
-            Data = data == null ? ByteString.Empty : ByteString.CopyFrom(data)
-        });
+                EntityId = Entity.EntityId,
+                Transform = new()
+                {
+                    Direction = transform.rotation.eulerAngles.ToNetVector3(),
+                    Position = transform.position.ToNetVector3()
+                },
+                StateId = stateId,
+                Data = data == null ? ByteString.Empty : ByteString.CopyFrom(data)
+            });
+        }
+
+        public IArchitecture GetArchitecture()
+        {
+            return GameApp.Interface;
+        }
     }
 
-    public IArchitecture GetArchitecture()
-    {
-        return GameApp.Interface;
-    }
 }

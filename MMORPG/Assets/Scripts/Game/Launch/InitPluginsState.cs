@@ -1,39 +1,37 @@
 using PimDeWitte.UnityMainThreadDispatcher;
 using QFramework;
-using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MessagePack;
 using MessagePack.Resolvers;
+using MMORPG.Tool;
 using UnityEngine;
 
-public class InitPluginsState : AbstractState<LaunchStatus, LaunchController>, IController
+namespace MMORPG.Game
 {
-    public InitPluginsState(FSM<LaunchStatus> fsm, LaunchController target) : base(fsm, target)
+    public class InitPluginsState : AbstractState<LaunchStatus, LaunchController>, IController
     {
-    }
+        public InitPluginsState(FSM<LaunchStatus> fsm, LaunchController target) : base(fsm, target)
+        {
+        }
 
-    protected override void OnEnter()
-    {
-        Logger.Info("Launch", "初始化插件");
-        ResKit.Init();
-        new GameObject(nameof(UnityMainThreadDispatcher)).AddComponent<UnityMainThreadDispatcher>();
+        protected override void OnEnter()
+        {
+            Tool.Log.Info("Launch", "初始化插件");
+            ResKit.Init();
+            new GameObject(nameof(UnityMainThreadDispatcher)).AddComponent<UnityMainThreadDispatcher>();
 
-        MessagePackSerializer.DefaultOptions = MessagePackSerializerOptions.Standard
-            .WithCompression(MessagePackCompression.Lz4BlockArray)
-            .WithResolver(CompositeResolver.Create(
-                new[] { new Vector2Formatter() },
-                new[] { StandardResolver.Instance })
-            );
+            MessagePackSerializer.DefaultOptions = MessagePackSerializerOptions.Standard
+                .WithCompression(MessagePackCompression.Lz4BlockArray)
+                .WithResolver(CompositeResolver.Create(
+                    new[] { new Vector2Formatter() },
+                    new[] { StandardResolver.Instance })
+                );
 
-        mFSM.ChangeState(LaunchStatus.InitTool);
-    }
+            mFSM.ChangeState(LaunchStatus.InitTool);
+        }
 
-    public IArchitecture GetArchitecture()
-    {
-        return GameApp.Interface;
+        public IArchitecture GetArchitecture()
+        {
+            return GameApp.Interface;
+        }
     }
 }

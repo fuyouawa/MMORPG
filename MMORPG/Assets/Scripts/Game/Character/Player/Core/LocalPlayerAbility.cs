@@ -3,13 +3,17 @@ using System.Linq;
 using System.Reflection;
 using QFramework;
 
-public class LocalPlayerAbility : PlayerAbility
+namespace MMORPG.Game
 {
-    public virtual IEnumerable<MethodInfo> GetStateConditions()
+    public class LocalPlayerAbility : PlayerAbility
     {
-        return from method in GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
-            where method.HasAttribute<StateConditionAttribute>()
-            select method;
-    }
+        public virtual IEnumerable<MethodInfo> GetStateConditions()
+        {
+            return from method in GetType()
+                    .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
+                where method.HasAttribute<StateConditionAttribute>()
+                select method;
+        }
 
+    }
 }

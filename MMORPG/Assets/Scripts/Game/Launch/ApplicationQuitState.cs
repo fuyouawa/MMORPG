@@ -1,28 +1,27 @@
-using MMORPG;
 using QFramework;
-using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MMORPG.Tool;
 
-public class ApplicationQuitEvent {}
-
-public class ApplicationQuitState : AbstractState<LaunchStatus, LaunchController>, IController, ICanSendEvent
+namespace MMORPG.Game
 {
-    public ApplicationQuitState(FSM<LaunchStatus> fsm, LaunchController target) : base(fsm, target)
+    public class ApplicationQuitEvent
     {
     }
 
-    protected override void OnEnter()
+    public class ApplicationQuitState : AbstractState<LaunchStatus, LaunchController>, IController, ICanSendEvent
     {
-        Logger.Info("Launch", "程序退出");
-        this.SendEvent(new ApplicationQuitEvent());
-    }
+        public ApplicationQuitState(FSM<LaunchStatus> fsm, LaunchController target) : base(fsm, target)
+        {
+        }
 
-    public IArchitecture GetArchitecture()
-    {
-        return GameApp.Interface;
+        protected override void OnEnter()
+        {
+            Tool.Log.Info("Launch", "程序退出");
+            this.SendEvent(new ApplicationQuitEvent());
+        }
+
+        public IArchitecture GetArchitecture()
+        {
+            return GameApp.Interface;
+        }
     }
 }
