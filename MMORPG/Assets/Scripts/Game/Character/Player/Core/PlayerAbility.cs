@@ -6,7 +6,7 @@ using System.Reflection;
 using QFramework;
 using UnityEngine;
 
-public class PlayerAbility : MonoBehaviour
+public abstract class PlayerAbility : MonoBehaviour
 {
     public PlayerState OwnerState { get; set; }
     public PlayerBrain Brain { get; set; }

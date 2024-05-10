@@ -60,5 +60,11 @@ namespace MMORPG
 
             Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
         }
+
+        void OnDestroy()
+        {
+            _resLoader.Recycle2Cache();
+            _resLoader = null;
+        }
     }
 }

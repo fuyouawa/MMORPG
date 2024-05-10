@@ -39,15 +39,6 @@ public sealed class EntityView : MonoBehaviour, IController
         {
             character.Animator = gameObject.GetComponentInChildren<Animator>();
         }
-
-        if (character.Animator != null)
-        {
-            if (!character.Animator.gameObject.TryGetComponent(out character.AnimationController))
-            {
-                character.AnimationController =
-                    character.Animator.gameObject.AddComponent<CharacterAnimationController>();
-            }
-        }
     }
 #endif
 

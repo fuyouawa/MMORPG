@@ -1,4 +1,4 @@
-﻿using MMORPG;
+using MMORPG;
 using QFramework;
 using System;
 using System.Collections.Generic;
@@ -34,5 +34,11 @@ public class PlayerManager : MonoBehaviour, IController
     public IArchitecture GetArchitecture()
     {
         return GameApp.Interface;
+    }
+
+    void OnDestroy()
+    {
+        _resLoader.Recycle2Cache();
+        _resLoader = null;
     }
 }
