@@ -25,6 +25,7 @@ namespace MMORPG.Game
 
         // public string StartStateName = string.Empty;
 
+        [InfoBox("Error occur in States!", InfoMessageType.Error, "CheckStatesHasError")]
         [InfoBox("Empty state machine is meaningless", InfoMessageType.Warning, "IsEmptyStates")]
         [InfoBox("The state machine name cannot be the same!", InfoMessageType.Error, "HasRepeatStateName")]
         [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "Name")]
@@ -93,7 +94,7 @@ namespace MMORPG.Game
 
         private void Start()
         {
-            if (States.Length == 0) return;
+            if (States.IsNullOrEmpty()) return;
             InitStates();
             ChangeState(States[0]);
             StartCoroutine(NetworkFixedUpdate());
@@ -101,14 +102,14 @@ namespace MMORPG.Game
 
         private void Update()
         {
-            if (States.Length == 0) return;
+            if (States.IsNullOrEmpty()) return;
             UpdateInputValues();
             CurrentState?.Update();
         }
 
         private void FixedUpdate()
         {
-            if (States.Length == 0) return;
+            if (States.IsNullOrEmpty()) return;
             CurrentState?.FixedUpdate();
         }
 
@@ -162,6 +163,11 @@ namespace MMORPG.Game
         private bool HasRepeatStateName => States.GroupBy(x => x.Name).Any(g => g.Count() > 1);
 
         private bool IsEmptyStates => States.Length == 0;
+
+        private bool CheckStatesHasError()
+        {
+            return States.Any(x => x.HasError());
+        }
 #endif
     }
 
