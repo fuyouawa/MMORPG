@@ -843,6 +843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterController: {fileID: 224805171054128564}
+  AnimationController: {fileID: 2781993986776610642}
   _currentStateName: NONE
   States:
   - Name: Idle
@@ -854,20 +855,20 @@ MonoBehaviour:
       StateConditions:
       - FullMethodName: LocalHeroKnightIdle/CanMovement
         Not: 0
-      - FullMethodName: LocalHeroKnightWalking/ReachIdleThreshold
+      - FullMethodName: LocalHeroKnightMovement/ReachIdleThreshold
         Not: 0
       TrueStateName: Walking
       FalseStateName: 
   - Name: Walking
     Actions:
-    - LocalAbilityName: LocalHeroKnightWalking
-      RemoteAbilityName: RemoteHeroKnightWalking
+    - LocalAbilityName: LocalHeroKnightMovement
+      RemoteAbilityName: RemoteHeroKnightMovement
     Transitions:
     - Label: "\u56DE\u5230Idle"
       StateConditions:
-      - FullMethodName: LocalHeroKnightWalking/ReachIdleThreshold
+      - FullMethodName: LocalHeroKnightMovement/ReachIdleThreshold
         Not: 1
-      - FullMethodName: LocalHeroKnightWalking/FinishInertia
+      - FullMethodName: LocalHeroKnightMovement/FinishInertia
         Not: 0
       TrueStateName: Idle
       FalseStateName: 
@@ -2325,7 +2326,6 @@ MonoBehaviour:
   RotationLerp: 0.2
   MoveLerp: 0.2
   Animator: {fileID: 1201144034948401517}
-  AnimationController: {fileID: 2781993986776610642}
   AdditionalAbilityNodes:
   - {fileID: 1952149207982524674}
   - {fileID: 171388820641581816}
@@ -2702,6 +2702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: {fileID: 6023422151166410460}
+  MoveAcceleration: 3
 --- !u!1 &7249225087750854683
 GameObject:
   m_ObjectHideFlags: 0

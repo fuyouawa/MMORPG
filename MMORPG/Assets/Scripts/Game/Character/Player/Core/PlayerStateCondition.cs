@@ -64,8 +64,12 @@ public class PlayerStateCondition
         var total = new ValueDropdownList<string>() { { "None Condition", string.Empty } };
         if (OwnerTransition?.OwnerState != null)
         {
+            var abilities = OwnerTransition.OwnerState.Brain.GetAttachLocalAbilities();
+            if (abilities == null)
+                return total;
+
             total.AddRange(
-                from ability in OwnerTransition.OwnerState.Brain.GetAttachLocalAbilities()
+                from ability in abilities
                 from condition in ability.GetStateConditions()
                 let name = $"{ability.GetType().Name}/{condition.Name}"
                 select new ValueDropdownItem<string>(
@@ -89,7 +93,7 @@ public class PlayerStateCondition
         var objectName = split[0];
         var methodName = split[1];
 
-        var methodObject = OwnerTransition.OwnerState.Brain.GetAttachLocalAbilities()
+        var methodObject = OwnerTransition.OwnerState.Brain.GetAttachLocalAbilities()?
             .FirstOrDefault(x => x.GetType().Name == objectName);
         if (methodObject == null)
             return true;
