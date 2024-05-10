@@ -1,3 +1,7 @@
-public class RemoteHeroKnightIdle : RemotePlayerAbility
+namespace MMORPG.Game
 {
+    public class RemoteHeroKnightIdle : RemotePlayerAbility
+    {
+    }
+
 }

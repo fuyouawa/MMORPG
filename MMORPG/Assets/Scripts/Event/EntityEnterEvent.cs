@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+using MMORPG.Game;
 
-public class EntityEnterEvent
+namespace MMORPG.Event
 {
-    public EntityView Entity { get; }
-
-    public EntityEnterEvent(EntityView entity)
+    public class EntityEnterEvent
     {
-        Entity = entity;
+        public EntityView Entity { get; }
+
+        public EntityEnterEvent(EntityView entity)
+        {
+            Entity = entity;
+        }
     }
 }

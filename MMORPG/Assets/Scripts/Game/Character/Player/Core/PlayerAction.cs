@@ -1,192 +1,203 @@
 using System;
 using System.Collections;
 using System.Linq;
-using NUnit.Framework;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-[Serializable]
-public class PlayerAction
+namespace MMORPG.Game
 {
-    [InfoBox("Invalid ability!", InfoMessageType.Error, "CheckLocalAbilityNameInvalid")]
-    [VerticalGroup("Local Ability")]
-    [ValueDropdown("GetLocalAbilityDropdown")]
-    [HideLabel]
-    public string LocalAbilityName = string.Empty;
+    [Serializable]
 
-    [InfoBox("Invalid ability!", InfoMessageType.Error, "CheckRemoteAbilityNameInvalid")]
-    [VerticalGroup("Remote Ability")]
-    [ValueDropdown("GetRemoteAbilityDropdown")]
-    [HideLabel]
-    public string RemoteAbilityName = string.Empty;
-
-    public LocalPlayerAbility LocalAbility {get; private set; }
-    public RemotePlayerAbility RemoteAbility { get; private set; }
-    public PlayerState OwnerState { get; set; }
-    public int OwnerStateId { get; set; }
-
-    public bool IsMine { get; private set; }
-
-    public void Initialize(PlayerState state, int stateId)
+    public class PlayerAction
     {
-        OwnerState = state;
-        OwnerStateId = stateId;
-        IsMine = OwnerState.Brain.CharacterController.Entity.IsMine;
+        [InfoBox("Invalid ability!", InfoMessageType.Error, "CheckLocalAbilityNameInvalid")]
+        [VerticalGroup("Local Ability")]
+        [ValueDropdown("GetLocalAbilityDropdown")]
+        [HideLabel]
+        public string LocalAbilityName = string.Empty;
 
-        if (IsMine)
+        [InfoBox("Invalid ability!", InfoMessageType.Error, "CheckRemoteAbilityNameInvalid")]
+        [VerticalGroup("Remote Ability")]
+        [ValueDropdown("GetRemoteAbilityDropdown")]
+        [HideLabel]
+        public string RemoteAbilityName = string.Empty;
+
+        public LocalPlayerAbility LocalAbility { get; private set; }
+        public RemotePlayerAbility RemoteAbility { get; private set; }
+        public PlayerState OwnerState { get; set; }
+        public int OwnerStateId { get; set; }
+
+        public bool IsMine { get; private set; }
+
+        public void Initialize(PlayerState state, int stateId)
         {
-            LocalAbility = OwnerState.Brain.GetAttachLocalAbilities().First(x => x.GetType().Name == LocalAbilityName);
+            OwnerState = state;
+            OwnerStateId = stateId;
+            IsMine = OwnerState.Brain.CharacterController.Entity.IsMine;
 
-            LocalAbility.OwnerState = state;
-            LocalAbility.Brain = state.Brain;
-            LocalAbility.OwnerStateId = stateId;
+            if (IsMine)
+            {
+                LocalAbility = OwnerState.Brain.GetAttachLocalAbilities()
+                    .First(x => x.GetType().Name == LocalAbilityName);
 
-            LocalAbility.OnStateInit();
+                LocalAbility.OwnerState = state;
+                LocalAbility.Brain = state.Brain;
+                LocalAbility.OwnerStateId = stateId;
+
+                LocalAbility.OnStateInit();
+            }
+            else
+            {
+                RemoteAbility = OwnerState.Brain.GetAttachRemoteAbilities()
+                    .First(x => x.GetType().Name == RemoteAbilityName);
+
+                RemoteAbility.OwnerState = state;
+                RemoteAbility.Brain = state.Brain;
+                RemoteAbility.OwnerStateId = stateId;
+
+                RemoteAbility.OnStateInit();
+            }
         }
-        else
+
+        public void Enter()
         {
-            RemoteAbility = OwnerState.Brain.GetAttachRemoteAbilities().First(x => x.GetType().Name == RemoteAbilityName);
-
-            RemoteAbility.OwnerState = state;
-            RemoteAbility.Brain = state.Brain;
-            RemoteAbility.OwnerStateId = stateId;
-
-            RemoteAbility.OnStateInit();
+            if (IsMine)
+            {
+                LocalAbility.OwnerState = OwnerState;
+                LocalAbility.Brain = OwnerState.Brain;
+                LocalAbility.OwnerStateId = OwnerStateId;
+                LocalAbility.OnStateEnter();
+            }
+            else
+            {
+                RemoteAbility.OwnerState = OwnerState;
+                RemoteAbility.Brain = OwnerState.Brain;
+                RemoteAbility.OwnerStateId = OwnerStateId;
+                RemoteAbility.OnStateEnter();
+            }
         }
-    }
 
-    public void Enter()
-    {
-        if (IsMine)
+        public void Update()
         {
-            LocalAbility.OwnerState = OwnerState;
-            LocalAbility.Brain = OwnerState.Brain;
-            LocalAbility.OwnerStateId = OwnerStateId;
-            LocalAbility.OnStateEnter();
+            AssertCheck();
+            if (IsMine)
+                LocalAbility.OnStateUpdate();
+            else
+                RemoteAbility.OnStateUpdate();
         }
-        else
+
+        public void FixedUpdate()
         {
-            RemoteAbility.OwnerState = OwnerState;
-            RemoteAbility.Brain = OwnerState.Brain;
-            RemoteAbility.OwnerStateId = OwnerStateId;
-            RemoteAbility.OnStateEnter();
+            AssertCheck();
+            if (IsMine)
+                LocalAbility.OnStateFixedUpdate();
+            else
+                RemoteAbility.OnStateFixedUpdate();
         }
-    }
 
-    public void Update()
-    {
-        AssertCheck();
-        if (IsMine)
-            LocalAbility.OnStateUpdate();
-        else
-            RemoteAbility.OnStateUpdate();
-    }
-
-    public void FixedUpdate()
-    {
-        AssertCheck();
-        if (IsMine)
-            LocalAbility.OnStateFixedUpdate();
-        else
-            RemoteAbility.OnStateFixedUpdate();
-    }
-
-    public void NetworkFixedUpdate()
-    {
-        AssertCheck();
-        if (IsMine)
-            LocalAbility.OnStateNetworkFixedUpdate();
-        else
-            RemoteAbility.OnStateNetworkFixedUpdate();
-    }
-
-    public void Exit()
-    {
-        AssertCheck();
-        if (IsMine)
-            LocalAbility.OnStateExit();
-        else
-            RemoteAbility.OnStateExit();
-    }
-
-    public void TransformEntitySync(EntityTransformSyncData data)
-    {
-        Debug.Assert(!IsMine);
-        AssertCheck();
-        RemoteAbility.OnStateNetworkSyncTransform(data);
-    }
-
-    public void AssertCheck()
-    {
-        Debug.Assert(IsMine == OwnerState.Brain.CharacterController.Entity.IsMine);
-        if (IsMine)
+        public void NetworkFixedUpdate()
         {
-            Debug.Assert(LocalAbility.OwnerState == OwnerState);
-            Debug.Assert(LocalAbility.Brain == OwnerState.Brain);
-            Debug.Assert(LocalAbility.OwnerStateId == OwnerStateId);
+            AssertCheck();
+            if (IsMine)
+                LocalAbility.OnStateNetworkFixedUpdate();
+            else
+                RemoteAbility.OnStateNetworkFixedUpdate();
         }
-        else
+
+        public void Exit()
         {
-            Debug.Assert(RemoteAbility.OwnerState == OwnerState);
-            Debug.Assert(RemoteAbility.Brain == OwnerState.Brain);
-            Debug.Assert(RemoteAbility.OwnerStateId == OwnerStateId);
+            AssertCheck();
+            if (IsMine)
+                LocalAbility.OnStateExit();
+            else
+                RemoteAbility.OnStateExit();
         }
-    }
+
+        public void TransformEntitySync(EntityTransformSyncData data)
+        {
+            Debug.Assert(!IsMine);
+            AssertCheck();
+            RemoteAbility.OnStateNetworkSyncTransform(data);
+        }
+
+        public void AssertCheck()
+        {
+            Debug.Assert(IsMine == OwnerState.Brain.CharacterController.Entity.IsMine);
+            if (IsMine)
+            {
+                Debug.Assert(LocalAbility.OwnerState == OwnerState);
+                Debug.Assert(LocalAbility.Brain == OwnerState.Brain);
+                Debug.Assert(LocalAbility.OwnerStateId == OwnerStateId);
+            }
+            else
+            {
+                Debug.Assert(RemoteAbility.OwnerState == OwnerState);
+                Debug.Assert(RemoteAbility.Brain == OwnerState.Brain);
+                Debug.Assert(RemoteAbility.OwnerStateId == OwnerStateId);
+            }
+        }
 
 #if UNITY_EDITOR
-    private IEnumerable GetLocalAbilityDropdown()
-    {
-        var total = new ValueDropdownList<string> { { "None Local Ability", string.Empty } };
-        if (OwnerState?.Brain != null)
+        private IEnumerable GetLocalAbilityDropdown()
         {
-            var abilities = OwnerState.Brain.GetAttachLocalAbilities();
-            if (abilities == null)
-                return total;
-            total.AddRange(abilities.Select((x, i) =>
-                new ValueDropdownItem<string>($"{i} - {x.GetType().Name}", x.GetType().Name))
-            );
+            var total = new ValueDropdownList<string> { { "None Local Ability", string.Empty } };
+            if (OwnerState?.Brain != null)
+            {
+                var abilities = OwnerState.Brain.GetAttachLocalAbilities();
+                if (abilities == null)
+                    return total;
+                total.AddRange(abilities.Select((x, i) =>
+                    new ValueDropdownItem<string>($"{i} - {x.GetType().Name}", x.GetType().Name))
+                );
+            }
+
+            return total;
         }
-        return total;
-    }
-    private IEnumerable GetRemoteAbilityDropdown()
-    {
-        var total = new ValueDropdownList<string> { { "None Remote Ability", string.Empty } };
-        if (OwnerState?.Brain != null)
+
+        private IEnumerable GetRemoteAbilityDropdown()
         {
-            var abilities = OwnerState.Brain.GetAttachRemoteAbilities();
-            if (abilities == null)
-                return total;
-            total.AddRange(abilities.Select((x, i) =>
-                new ValueDropdownItem<string>($"{i} - {x.GetType().Name}", x.GetType().Name))
-            );
+            var total = new ValueDropdownList<string> { { "None Remote Ability", string.Empty } };
+            if (OwnerState?.Brain != null)
+            {
+                var abilities = OwnerState.Brain.GetAttachRemoteAbilities();
+                if (abilities == null)
+                    return total;
+                total.AddRange(abilities.Select((x, i) =>
+                    new ValueDropdownItem<string>($"{i} - {x.GetType().Name}", x.GetType().Name))
+                );
+            }
+
+            return total;
         }
-        return total;
-    }
 
 
-    private bool CheckLocalAbilityNameInvalid()
-    {
-        if (OwnerState?.Brain == null)
+        private bool CheckLocalAbilityNameInvalid()
+        {
+            if (OwnerState?.Brain == null)
+                return false;
+            if (LocalAbilityName == string.Empty)
+                return true;
+            var ability = OwnerState.Brain.GetAttachLocalAbilities()
+                ?.FirstOrDefault(x => x.GetType().Name == LocalAbilityName);
+            if (ability == null)
+                return true;
             return false;
-        if (LocalAbilityName == string.Empty)
-            return true;
-        var ability = OwnerState.Brain.GetAttachLocalAbilities()?.FirstOrDefault(x => x.GetType().Name == LocalAbilityName);
-        if (ability == null)
-            return true;
-        return false;
-    }
+        }
 
 
-    private bool CheckRemoteAbilityNameInvalid()
-    {
-        if (OwnerState?.Brain == null)
+        private bool CheckRemoteAbilityNameInvalid()
+        {
+            if (OwnerState?.Brain == null)
+                return false;
+            if (RemoteAbilityName == string.Empty)
+                return true;
+            var ability = OwnerState.Brain.GetAttachRemoteAbilities()
+                ?.FirstOrDefault(x => x.GetType().Name == RemoteAbilityName);
+            if (ability == null)
+                return true;
             return false;
-        if (RemoteAbilityName == string.Empty)
-            return true;
-        var ability = OwnerState.Brain.GetAttachRemoteAbilities()?.FirstOrDefault(x => x.GetType().Name == RemoteAbilityName);
-        if (ability == null)
-            return true;
-        return false;
-    }
+        }
 #endif
+    }
+
 }

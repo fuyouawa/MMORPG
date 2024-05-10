@@ -1,48 +1,52 @@
+using MMORPG.Event;
+using MMORPG.Game;
 using QFramework;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public interface IMapManagerSystem : ISystem
+namespace MMORPG.System
 {
-    public int MapId { get; }
-    public bool IsInMap { get; }
-
-    public void JoinedMap(int mapId);
-    public void ExitMap();
-}
-
-public class MapManagerSystem : AbstractSystem, IMapManagerSystem
-{
-    private int _mapId = 0;
-    private bool _isInMap = false;
-    public int MapId => _mapId;
-    public bool IsInMap => _isInMap;
-
-    public void JoinedMap(int mapId)
+    public interface IMapManagerSystem : ISystem
     {
-        Debug.Assert(!_isInMap);
-        Logger.Info("Game", $"加入地图:{mapId}");
-        _mapId = mapId;
-        this.SendEvent(new JoinedMapEvent(mapId));
+        public int MapId { get; }
+        public bool IsInMap { get; }
+
+        public void JoinedMap(int mapId);
+        public void ExitMap();
     }
 
-    public void ExitMap()
+    public class MapManagerSystem : AbstractSystem, IMapManagerSystem
     {
-        Debug.Assert(_isInMap);
-        Logger.Info("Game", $"退出地图:{_mapId}");
-        _mapId = 0;
-        _isInMap = false;
-        //TODO 发送事件
-    }
+        private int _mapId = 0;
+        private bool _isInMap = false;
+        public int MapId => _mapId;
+        public bool IsInMap => _isInMap;
 
-    protected override void OnInit()
-    {
-        this.RegisterEvent<ApplicationQuitEvent>(OnApplicationQuit);
-    }
+        public void JoinedMap(int mapId)
+        {
+            Debug.Assert(!_isInMap);
+            Tool.Log.Info("Game", $"加入地图:{mapId}");
+            _mapId = mapId;
+            this.SendEvent(new JoinedMapEvent(mapId));
+        }
 
-    private void OnApplicationQuit(ApplicationQuitEvent e)
-    {
-        if (IsInMap)
-            ExitMap();
+        public void ExitMap()
+        {
+            Debug.Assert(_isInMap);
+            Tool.Log.Info("Game", $"退出地图:{_mapId}");
+            _mapId = 0;
+            _isInMap = false;
+            //TODO 发送事件
+        }
+
+        protected override void OnInit()
+        {
+            this.RegisterEvent<ApplicationQuitEvent>(OnApplicationQuit);
+        }
+
+        private void OnApplicationQuit(ApplicationQuitEvent e)
+        {
+            if (IsInMap)
+                ExitMap();
+        }
     }
 }

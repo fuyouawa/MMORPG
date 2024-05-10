@@ -1,18 +1,22 @@
 using UnityEngine;
 
-public class LocalHeroKnightIdle : LocalPlayerAbility
+namespace MMORPG.Game
 {
-    public override void OnStateEnter()
+    public class LocalHeroKnightIdle : LocalPlayerAbility
     {
-        Brain.CharacterController.NetworkUploadTransform(OwnerStateId, null);
+        public override void OnStateEnter()
+        {
+            Brain.CharacterController.NetworkUploadTransform(OwnerStateId, null);
 
-        Brain.AnimationController.Movement = false;
-        Brain.AnimationController.SmoothMoveDirection(Vector2.zero);
+            Brain.AnimationController.Movement = false;
+            Brain.AnimationController.SmoothMoveDirection(Vector2.zero);
+        }
+
+        [StateCondition]
+        public bool CanMovement()
+        {
+            return true;
+        }
     }
 
-    [StateCondition]
-    public bool CanMovement()
-    {
-        return true;
-    }
 }
