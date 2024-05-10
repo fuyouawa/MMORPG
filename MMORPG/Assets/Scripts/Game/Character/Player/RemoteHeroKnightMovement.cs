@@ -14,6 +14,7 @@ namespace MMORPG.Game
             _targetSyncPosition = transform.position;
             _targetSyncRotation = transform.rotation;
             Brain.AnimationController.DisableAnimatorMove();
+            Brain.AnimationController.Movement = true;
         }
 
         public override void OnStateUpdate()
@@ -33,7 +34,9 @@ namespace MMORPG.Game
 
         public override void OnStateExit()
         {
+            Brain.AnimationController.Movement = false;
         }
+
         private void SyncMove()
         {
             Brain.CharacterController.SmoothMove(_targetSyncPosition);
