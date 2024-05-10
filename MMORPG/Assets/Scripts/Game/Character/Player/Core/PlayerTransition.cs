@@ -48,16 +48,16 @@ namespace MMORPG.Game
             {
                 condition.Initialize(this);
             }
-            if (TrueStateName.IsNullOrEmpty())
+            if (!TrueStateName.IsNullOrEmpty())
             {
                 TrueState = OwnerState.Brain.GetState(TrueStateName);
-                Debug.Assert(TrueState != null, "TrueState != null");
+                Debug.Assert(TrueState != null);
             }
 
-            if (FalseStateName.IsNullOrEmpty())
+            if (!FalseStateName.IsNullOrEmpty())
             {
                 FalseState = OwnerState.Brain.GetState(FalseStateName);
-                Debug.Assert(FalseState != null, "FalseState != null");
+                Debug.Assert(FalseState != null);
             }
         }
 

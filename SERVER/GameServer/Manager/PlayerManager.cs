@@ -76,7 +76,6 @@ namespace GameServer.Manager
         /// <param name="sender"></param>
         public void Broadcast(Google.Protobuf.IMessage msg, Entity? sender = null)
         {
-            Log.Debug($"{sender.EntityId}请求同步");
             if (sender == null)
             {
                 lock (_playerDict)

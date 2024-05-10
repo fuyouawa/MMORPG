@@ -59,8 +59,6 @@ namespace MMORPG.Game
                 StateId = response.StateId,
                 Data = response.Data.ToByteArray()
             };
-            Debug.Log($"同步:{data}");
-
             entity.HandleNetworkSync(data);
         }
 
