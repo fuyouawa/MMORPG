@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -175,7 +176,7 @@ namespace MMORPG.Game
         {
             if (OwnerState?.Brain == null)
                 return false;
-            if (LocalAbilityName == string.Empty)
+            if (LocalAbilityName.IsNullOrEmpty())
                 return true;
             var ability = OwnerState.Brain.GetAttachLocalAbilities()
                 ?.FirstOrDefault(x => x.GetType().Name == LocalAbilityName);
@@ -189,13 +190,18 @@ namespace MMORPG.Game
         {
             if (OwnerState?.Brain == null)
                 return false;
-            if (RemoteAbilityName == string.Empty)
+            if (RemoteAbilityName.IsNullOrEmpty())
                 return true;
             var ability = OwnerState.Brain.GetAttachRemoteAbilities()
                 ?.FirstOrDefault(x => x.GetType().Name == RemoteAbilityName);
             if (ability == null)
                 return true;
             return false;
+        }
+
+        public bool HasError()
+        {
+            return CheckLocalAbilityNameInvalid() || CheckRemoteAbilityNameInvalid();
         }
 #endif
     }

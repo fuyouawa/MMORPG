@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System;
 using System.Collections;
+using QFramework;
 using UnityEngine;
 
 namespace MMORPG.Game
@@ -36,7 +37,7 @@ namespace MMORPG.Game
         {
             OwnerTransition = transition;
 
-            Debug.Assert(FullMethodName != string.Empty, "FullMethodName != string.Empty");
+            Debug.Assert(FullMethodName.IsNullOrEmpty());
 
             var split = FullMethodName.Split('/');
             Debug.Assert(split.Length == 2);
@@ -49,8 +50,8 @@ namespace MMORPG.Game
             _methodInfo = _methodObject.GetType().GetMethod(methodName,
                 BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
 
-            Debug.Assert(_methodInfo != null, "_methodInfo != null");
-            Debug.Assert(_methodInfo.ReturnType == typeof(bool), "_methodInfo.ReturnType == typeof(bool)");
+            Debug.Assert(_methodInfo != null);
+            Debug.Assert(_methodInfo.ReturnType == typeof(bool));
 
             _method = () =>
             {
@@ -105,6 +106,11 @@ namespace MMORPG.Game
             if (methodInfo == null)
                 return true;
             return false;
+        }
+
+        public bool HasError()
+        {
+            return CheckMethodNameInvalid();
         }
 #endif
     }

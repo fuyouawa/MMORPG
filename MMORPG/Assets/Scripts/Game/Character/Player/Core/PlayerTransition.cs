@@ -14,6 +14,7 @@ namespace MMORPG.Game
         public string Label = "TODO";
 #endif
 
+        [InfoBox("Error occur in StateConditions!", InfoMessageType.Error, "CheckStateConditionsHasError")]
         [InfoBox("StateConditions cannot be empty!", InfoMessageType.Error, "IsEmptyStateConditions")]
         [TableList(AlwaysExpanded = true)]
         public PlayerStateCondition[] StateConditions;
@@ -47,13 +48,13 @@ namespace MMORPG.Game
             {
                 condition.Initialize(this);
             }
-            if (TrueStateName != string.Empty)
+            if (TrueStateName.IsNullOrEmpty())
             {
                 TrueState = OwnerState.Brain.GetState(TrueStateName);
                 Debug.Assert(TrueState != null, "TrueState != null");
             }
 
-            if (FalseStateName != string.Empty)
+            if (FalseStateName.IsNullOrEmpty())
             {
                 FalseState = OwnerState.Brain.GetState(FalseStateName);
                 Debug.Assert(FalseState != null, "FalseState != null");
@@ -87,8 +88,8 @@ namespace MMORPG.Game
 
 
 #if UNITY_EDITOR
-        private bool IsEmptyStateConditions => StateConditions == null || StateConditions.Length == 0;
-        private bool IsTrueOrFalseStateEmpty => TrueStateName == string.Empty && FalseStateName == string.Empty;
+        private bool IsEmptyStateConditions => StateConditions.IsNullOrEmpty();
+        private bool IsTrueOrFalseStateEmpty => TrueStateName.IsNullOrEmpty() && FalseStateName.IsNullOrEmpty();
 
         [OnInspectorGUI]
         private void OnInspectorGUI()
@@ -104,7 +105,7 @@ namespace MMORPG.Game
             {
                 total.AddRange((
                     from state in OwnerState.Brain.States
-                    select state.Name == string.Empty ? "EMPTY" : state.Name
+                    select state.Name.IsNullOrEmpty() ? "EMPTY" : state.Name
                 ).Select((x, i) => new ValueDropdownItem<string>($"{i} - {x}", x)));
             }
 
@@ -124,15 +125,29 @@ namespace MMORPG.Game
 
         private bool CheckTrueStateNameInvalid()
         {
-            if (TrueStateName == string.Empty || OwnerState?.Brain == null)
+            if (TrueStateName.IsNullOrEmpty() || OwnerState?.Brain == null)
                 return false;
             return OwnerState.Brain.GetState(TrueStateName) == null;
         }
         private bool CheckFalseStateNameInvalid()
         {
-            if (FalseStateName == string.Empty || OwnerState?.Brain == null)
+            if (FalseStateName.IsNullOrEmpty() || OwnerState?.Brain == null)
                 return false;
             return OwnerState.Brain.GetState(FalseStateName) == null;
+        }
+
+        private bool CheckStateConditionsHasError()
+        {
+            return StateConditions.Any(x => x.HasError());
+        }
+
+        public bool HasError()
+        {
+            return CheckStateConditionsHasError() ||
+                   CheckTrueStateNameInvalid() ||
+                   CheckFalseStateNameInvalid() ||
+                   IsEmptyStateConditions ||
+                   IsTrueOrFalseStateEmpty;
         }
 #endif
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using QFramework;
 using Sirenix.OdinInspector;
 
@@ -10,11 +11,13 @@ namespace MMORPG.Game
         [Required("The status name cannot be empty!")]
         public string Name = "TODO";
 
+        [InfoBox("Error occur in Actions!", InfoMessageType.Error, "CheckActionsHasError")]
         [InfoBox("Actions cannot be empty!", InfoMessageType.Error, "IsEmptyActions")]
         [TabGroup("Actions")]
         [TableList(AlwaysExpanded = true)]
         public PlayerAction[] Actions;
 
+        [InfoBox("Error occur in Transitions!", InfoMessageType.Error, "CheckTransitionsHasError")]
         [InfoBox("Transitions cannot be empty!", InfoMessageType.Error, "IsEmptyTransitions")]
         [TabGroup("Transitions")]
         [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "Label")]
@@ -82,8 +85,23 @@ namespace MMORPG.Game
             Actions?.ForEach(x => x.OwnerState = this);
         }
 
-        private bool IsEmptyActions => Actions == null || Actions.Length == 0;
-        private bool IsEmptyTransitions => Transitions == null || Transitions.Length == 0;
+        private bool IsEmptyActions => Actions.IsNullOrEmpty();
+        private bool IsEmptyTransitions => Transitions.IsNullOrEmpty();
+
+        private bool CheckActionsHasError()
+        {
+            return Actions.Any(x => x.HasError());
+        }
+
+        private bool CheckTransitionsHasError()
+        {
+            return Transitions.Any(x => x.HasError());
+        }
+
+        public bool HasError()
+        {
+            return CheckActionsHasError() || CheckTransitionsHasError() || IsEmptyActions || IsEmptyTransitions;
+        }
 #endif
     }
 
