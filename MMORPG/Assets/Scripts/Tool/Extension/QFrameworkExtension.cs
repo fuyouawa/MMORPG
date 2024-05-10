@@ -1,18 +1,14 @@
-﻿using PimDeWitte.UnityMainThreadDispatcher;
+using PimDeWitte.UnityMainThreadDispatcher;
 using QFramework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-public static class QFrameworkExtension
+namespace MMORPG.Tool
 {
-    public static IUnRegister RegisterEventInUnityThread<T>(this ICanRegisterEvent self, Action<T> onEvent)
+    public static class QFrameworkExtension
     {
-        return self.RegisterEvent<T>(e =>
+        public static IUnRegister RegisterEventInUnityThread<T>(this ICanRegisterEvent self, Action<T> onEvent)
         {
-            UnityMainThreadDispatcher.Instance().Enqueue(() => onEvent(e));
-        });
+            return self.RegisterEvent<T>(e => { UnityMainThreadDispatcher.Instance().Enqueue(() => onEvent(e)); });
+        }
     }
 }

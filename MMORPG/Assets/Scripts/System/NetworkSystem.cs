@@ -1,17 +1,16 @@
 using Common.Network;
-using Common.Proto.Player;
 using Common.Tool;
 using Google.Protobuf;
 using QFramework;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
+using MMORPG.Game;
+using MMORPG.Tool;
 using UnityEngine;
 
-namespace MMORPG
+namespace MMORPG.System
 {
     public interface INetworkSystem : ISystem
     {
@@ -73,7 +72,7 @@ namespace MMORPG
         private void OnPacketReceived(object sender, PacketReceivedEventArgs e)
         {
             var msgType = e.Packet.Message.GetType();
-            Logger.Info("114514", msgType.Name);
+            Tool.Log.Info("114514", msgType.Name);
             if (ProtoManager.IsEvent(msgType))
             {
                 _eventMsgHandlers[msgType]?.DynamicInvoke(new object[] { e.Packet.Message });
@@ -101,7 +100,7 @@ namespace MMORPG
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error("Network", ex, $"连接服务器时出现错误:{ex.Message}");
+                    Tool.Log.Error("Network", ex, $"连接服务器时出现错误:{ex.Message}");
                     box.CloseSpinner();
                     await box.ShowMessageAsync("错误", $"连接服务器失败:{ex}", "重新连接");
                     continue;

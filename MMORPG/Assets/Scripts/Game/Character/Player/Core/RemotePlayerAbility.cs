@@ -1,8 +1,12 @@
-public class RemotePlayerAbility : PlayerAbility
+namespace MMORPG.Game
 {
-    public virtual void OnStateNetworkSyncTransform(EntityTransformSyncData data)
+    public class RemotePlayerAbility : PlayerAbility
     {
-        Brain.CharacterController.SmoothMove(data.Position);
-        Brain.CharacterController.SmoothRotate(data.Rotation);
+        public virtual void OnStateNetworkSyncTransform(EntityTransformSyncData data)
+        {
+            Brain.CharacterController.SmoothMove(data.Position);
+            Brain.CharacterController.SmoothRotate(data.Rotation);
+        }
     }
+
 }
