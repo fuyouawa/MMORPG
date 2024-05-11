@@ -39,7 +39,7 @@ namespace MMORPG.Game
                 var position = netEntity.Transform.Position.ToVector3();
                 var rotation = Quaternion.Euler(netEntity.Transform.Direction.ToVector3());
                 //TODO 根据Entity加载对应的Prefab
-                _entityManager.SpawnEntity(_resLoader.LoadSync<EntityView>("HeroKnightMale"), entityId, position,
+                _entityManager.SpawnEntity(_resLoader.LoadSync<EntityView>("HeroKnightMale Melee"), entityId, position,
                     rotation, false);
             }
         }
