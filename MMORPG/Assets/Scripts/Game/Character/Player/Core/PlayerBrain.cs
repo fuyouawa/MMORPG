@@ -35,8 +35,6 @@ namespace MMORPG.Game
 
         public GameInputControls InputControls { get; private set; }
 
-        public Vector2 CurrentMovementDirection { get; private set; }
-
         public LocalPlayerAbility[] GetAttachLocalAbilities() => GetAttachAbilities<LocalPlayerAbility>();
 
         public RemotePlayerAbility[] GetAttachRemoteAbilities() => GetAttachAbilities<RemotePlayerAbility>();
@@ -103,7 +101,6 @@ namespace MMORPG.Game
         private void Update()
         {
             if (States.IsNullOrEmpty()) return;
-            UpdateInputValues();
             CurrentState?.Update();
         }
 
@@ -143,12 +140,6 @@ namespace MMORPG.Game
                     ChangeState(condition ? transition.TrueState : transition.FalseState);
                 };
             });
-        }
-
-
-        private void UpdateInputValues()
-        {
-            CurrentMovementDirection = InputControls.Player.Move.ReadValue<Vector2>();
         }
 
 
