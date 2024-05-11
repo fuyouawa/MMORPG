@@ -2,7 +2,7 @@
 using Common.Tool;
 using GameServer.Db;
 using GameServer.Tool;
-using GameServer.Unit;
+using GameServer.Model;
 using Google.Protobuf.Collections;
 using System;
 using System.Collections.Generic;
@@ -93,8 +93,8 @@ namespace GameServer.Manager
                 foreach (var entity in list)
                 {
                     var player = (Player)entity;
-                    Log.Debug($"响应{sender.EntityId}的同步请求, 广播给:{player.EntityId}");
                     player.User.Channel.Send(msg);
+                    Log.Debug($"响应{sender.EntityId}的同步请求, 广播给:{player.EntityId}");
                 }
             }
         }
