@@ -8,7 +8,7 @@ namespace AOI
         static void Main(string[] args)
         {
             var zone = new AoiZone(.001f, .001f);
-            var area = new Vector2(3, 3);
+            var area = new Vector2(1, 1);
 
             // 添加500个玩家。
 
@@ -42,7 +42,7 @@ namespace AOI
     
             // 更新key为50的坐标。
     
-            var entity = zone.Refresh(3, 4, 4, new Vector2(3, 3), out enters);
+            var entity = zone.Refresh(3, 4, 4, new Vector2(1, 1), out enters);
 
 
             Console.WriteLine("---------------离开玩家范围的玩家列表--------------");

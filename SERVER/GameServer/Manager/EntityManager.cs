@@ -1,6 +1,6 @@
 ﻿using Common.Network;
 using Common.Tool;
-using GameServer.Unit;
+using GameServer.Model;
 using GameServer.Network;
 using System;
 using System.Collections.Concurrent;

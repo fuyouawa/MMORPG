@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Common.Proto.Base;
 using Common.Proto.Character;
 using Common.Proto.Entity;
-using GameServer.Unit;
+using GameServer.Model;
 
 namespace GameServer.Tool
 {

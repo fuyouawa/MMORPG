@@ -1,7 +1,7 @@
 ﻿using Common.Tool;
 using GameServer.Network;
 using GameServer.Tool;
-using GameServer.Unit;
+using GameServer.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
