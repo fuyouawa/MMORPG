@@ -19,8 +19,8 @@ namespace MMORPG.Game
         [Required]
         public EntityView Entity;
         public CharacterType CharacterType;
-        public float RotationLerp = 0.2f;
-        public float MoveLerp = 0.2f;
+        public float RotationSmooth = 10f;
+        public float MoveSmooth = 10f;
         [Title("Binding")]
         [Required]
         public Animator Animator;
@@ -35,21 +35,65 @@ namespace MMORPG.Game
 
         private INetworkSystem _newtwork;
 
+        private Vector3 _targetPosition;
+        private Quaternion _targetRotation;
+
+        private bool _needMove = false;
+        private bool _needRotate = false;
+
         private void Awake()
         {
             _newtwork = this.GetSystem<INetworkSystem>();
             Rigidbody = GetComponent<Rigidbody>();
             Collider = GetComponent<CapsuleCollider>();
+            _targetRotation = transform.rotation;
+            _targetPosition = transform.position;
+        }
+
+        private void Update()
+        {
+            if (_needMove)
+            {
+                if (Vector3.Distance(transform.position, _targetPosition).Abs() > MoveSmooth * Time.deltaTime)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, _targetPosition, MoveSmooth * Time.deltaTime);
+                }
+                else
+                {
+                    transform.position = _targetPosition;
+                    _needMove = false;
+                }
+            }
+
+            if (_needRotate)
+            {
+                if (Quaternion.Dot(transform.rotation, _targetRotation).Abs() < 0.95f)
+                {
+                    transform.rotation = Quaternion.Lerp(transform.rotation, _targetRotation, RotationSmooth * Time.deltaTime);
+                }
+                else
+                {
+                    transform.rotation = _targetRotation;
+                    _needRotate = false;
+                }
+            }
         }
 
         public void SmoothRotate(Quaternion targetRotation)
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationLerp);
+            _needRotate = true;
+            _targetRotation = targetRotation;
         }
 
         public void SmoothMove(Vector3 position)
         {
-            transform.position = Vector3.Lerp(transform.position, position, MoveLerp);
+            _needMove = true;
+            _targetPosition = position;
+        }
+
+        public void SmoothMoveDirection(Vector3 direction)
+        {
+            _targetPosition += direction;
         }
 
         public void NetworkUploadTransform(int stateId, byte[] data)
