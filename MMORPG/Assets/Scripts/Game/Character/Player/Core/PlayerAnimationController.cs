@@ -70,8 +70,10 @@ namespace MMORPG.Game
         }
 
 
+        private Transform _playerMoveAnimatorBlendTreeView;
         void Awake()
         {
+            _playerMoveAnimatorBlendTreeView = GameObject.Find("PlayerMoveAnimatorBlendTreeView").transform;
             _animator = GetComponent<Animator>();
             _machine = new(this, gameObject, _animator);
             _machine.Run();
@@ -81,6 +83,7 @@ namespace MMORPG.Game
         void Update()
         {
             Moving();
+            _playerMoveAnimatorBlendTreeView.localPosition = MovementDirection * 50;
         }
 
         public void EnableAnimatorMove()
