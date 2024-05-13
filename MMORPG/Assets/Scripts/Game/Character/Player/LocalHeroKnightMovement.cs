@@ -17,14 +17,10 @@ namespace MMORPG.Game
         public float BackIdleThreshold = 0.5f;
 
         private Vector2 _moveDirection;
-        private Vector2 _inputDirection;
         private bool _prevMoveForward;
         private bool? _forwardSidle;
 
-        private void Update()
-        {
-            _inputDirection = Brain.InputControls.Player.Move.ReadValue<Vector2>();
-        }
+        private Vector2 InputDirection => Brain.InputControls.Player.Move.ReadValue<Vector2>();
 
         public override void OnStateInit()
         {
@@ -56,7 +52,7 @@ namespace MMORPG.Game
         [StateCondition]
         public bool ReachIdleThreshold()
         {
-            return _inputDirection.magnitude > IdleThreshold;
+            return InputDirection.magnitude > IdleThreshold;
         }
 
         [StateCondition]
@@ -67,18 +63,18 @@ namespace MMORPG.Game
 
         private void ControlMove()
         {
-            _inputDirection = Brain.InputControls.Player.Move.ReadValue<Vector2>();
-            TransformMoveDirection();
+            var dir = InputDirection;
+            TransformMoveDirection(dir);
             if (_prevMoveForward)
             {
-                if (_inputDirection.y < -0.5f)
+                if (dir.y < -0.5f)
                 {
                     _prevMoveForward = false;
                 }
             }
             else
             {
-                if (_inputDirection.y > 0.5f)
+                if (dir.y > 0.5f)
                 {
                     _prevMoveForward = true;
                 }
@@ -99,12 +95,12 @@ namespace MMORPG.Game
             Brain.CharacterController.SmoothRotate(targetRotation);
         }
 
-        private void TransformMoveDirection()
+        private void TransformMoveDirection(Vector2 dir)
         {
-            _moveDirection = _inputDirection;
+            _moveDirection = dir;
 
-            var xMove = !Mathf.Approximately(_inputDirection.x, 0);
-            var yMove = !Mathf.Approximately(_inputDirection.y, 0);
+            var xMove = !Mathf.Approximately(dir.x, 0);
+            var yMove = !Mathf.Approximately(dir.y, 0);
 
             if ((!xMove && yMove) || (xMove && yMove))
             {
