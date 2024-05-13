@@ -7,7 +7,7 @@ namespace MMORPG.Game
 {
     public class PlayerAnimationController : MonoBehaviour
     {
-        public GameObject Owner;
+        public PlayerBrain Brain { get; set; }
 
         [Title("Move Switch")]
         public float MoveSwitchVelocity = 3f;
@@ -37,8 +37,6 @@ namespace MMORPG.Game
         private Vector2 _targetMoveDirection;
 
         private AnimatorMachine _machine;
-
-        private float _currentMoveSwitchVelocity;
 
         private static readonly float s_moveExtraRectCoefficient = 0.7f;
         private static readonly float s_moveExtraMaxAcceleration = 6;
@@ -77,13 +75,23 @@ namespace MMORPG.Game
             _animator = GetComponent<Animator>();
             _machine = new(this, gameObject, _animator);
             _machine.Run();
-            _currentMoveSwitchVelocity = MoveSwitchVelocity;
+        }
+
+        void Start()
+        {
+            if (Brain.IsMine)
+            {
+                _playerMoveAnimatorBlendTreeView = GameObject.Find("PlayerMoveAnimatorBlendTreeView").transform;
+            }
         }
 
         void Update()
         {
             Moving();
-            _playerMoveAnimatorBlendTreeView.localPosition = MovementDirection * 50;
+            if (Brain.IsMine)
+            {
+                _playerMoveAnimatorBlendTreeView.localPosition = MovementDirection * 50;
+            }
         }
 
         public void EnableAnimatorMove()
@@ -107,14 +115,12 @@ namespace MMORPG.Game
                     targetMoveDir = Vector2.zero;
                 }
 
-                _currentMoveSwitchVelocity += Time.deltaTime * MoveSwitchAcceleration;
                 var velocity = MoveSwitchVelocity + GetExtraAccelerationCoefficient(MovementDirection);
                 MovementDirection = Vector2.MoveTowards(MovementDirection, targetMoveDir, velocity * Time.deltaTime);
             }
             else
             {
                 MovementDirection = _targetMoveDirection;
-                _currentMoveSwitchVelocity = MoveSwitchVelocity;
             }
         }
 
@@ -122,10 +128,9 @@ namespace MMORPG.Game
         {
             if (_animatorMove)
             {
-                Owner.transform.position += _animator.deltaPosition;
-                Owner.transform.rotation *= _animator.deltaRotation;
+                Brain.CharacterController.MoveDirection(_animator.deltaPosition);
+                Brain.CharacterController.RelativeRotate(_animator.deltaRotation);
             }
         }
     }
-
 }
