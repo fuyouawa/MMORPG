@@ -13,6 +13,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using GameServer.Model;
 
 namespace GameServer.Service
 {
@@ -65,6 +66,7 @@ namespace GameServer.Service
             };
             var player = map.PlayerManager.NewPlayer(sender.User, pos, Vector3.Zero, dbCharacter.Name);
             sender.User.SetPlayer(player);
+            player.ViewRange = Player.DefaultViewRange;
             map.EntityEnter(player);
             var res = new JoinMapResponse()
             {
@@ -73,8 +75,8 @@ namespace GameServer.Service
                 MapId = dbCharacter.MapId,
                 Transform = ProtoHelper.ToNetTransform(player.Position, player.Direction),
             };
-            Log.Debug($"{sender.ChannelName}进入游戏成功");
             sender.Send(res, null);
+            Log.Debug($"{sender.ChannelName}进入游戏成功");
         }
 
     }
