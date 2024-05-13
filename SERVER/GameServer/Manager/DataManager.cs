@@ -20,16 +20,16 @@ namespace GameServer.Manager
 
         private DataManager()
         {
-            MapDict = Load<Dictionary<int, MapDefine>>("Data/MapDefine.json");
-            UnitDict = Load<Dictionary<int, UnitDefine>>("Data/UnitDefine.json");
-            SpawnDict = Load<Dictionary<int, SpawnDefine>>("Data/SpawnDefine.json");
-            ItemDict = Load<Dictionary<int, ItemDefine>>("Data/ItemDefine.json");
-            SkillDict = Load<Dictionary<int, SkillDefine>>("Data/SkillDefine.json");
+            MapDict = Load<Dictionary<int, MapDefine>>("Data/Json/MapDefine.json");
+            UnitDict = Load<Dictionary<int, UnitDefine>>("Data/Json/UnitDefine.json");
+            SpawnDict = Load<Dictionary<int, SpawnDefine>>("Data/Json/SpawnDefine.json");
+            ItemDict = Load<Dictionary<int, ItemDefine>>("Data/Json/ItemDefine.json");
+            //SkillDict = Load<Dictionary<int, SkillDefine>>("Data/Json/SkillDefine.json");
         }
 
         private T Load<T>(string jsonPath)
         {
-            var content = JsonHelper.LoadJsonFromFile(jsonPath);
+            var content = ResourceHelper.LoadFile(jsonPath);
             Debug.Assert(content != null);
             var obj = JsonConvert.DeserializeObject<T>(content);
             Debug.Assert(obj != null);

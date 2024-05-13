@@ -49,6 +49,8 @@ namespace GameServer.Model
         {
             Log.Information($"实体进入场景:{entity.EntityId}");
 
+            entity.Map = this;
+
             lock (_aoiZone)
             {
                 Vector2 range = new (entity.ViewRange, entity.ViewRange);
@@ -104,6 +106,8 @@ namespace GameServer.Model
             {
                 _aoiZone.Exit(entity.EntityId);
             }
+
+            entity.Map = null;
         }
 
         public void EntityRefreshPosition(Entity entity)
@@ -159,6 +163,12 @@ namespace GameServer.Model
 
             // 向所有角色广播新实体的状态更新
             PlayerManager.Broadcast(response, entity);
+        }
+
+
+        public void Update()
+        {
+            MonsterManager.Update();
         }
     }
 }
