@@ -108,7 +108,7 @@ namespace MMORPG.Game
 
         }
 
-        // 判断物体是否被遮挡
+        // 判断物体是否处于摄像机拍摄的角度中
         private bool IsInView(GameObject go)
         {
             var worldPos = go.transform.position;
@@ -116,7 +116,6 @@ namespace MMORPG.Game
             Vector2 viewPos = Camera.main.WorldToViewportPoint(worldPos);
             Vector2 dir = (worldPos - cameraTransform.position).normalized;
             float dot = Vector3.Dot(cameraTransform.forward, dir);
-
             return dot > 0 &&
                    viewPos.x >= 0 &&
                    viewPos.x <= 1 &&
