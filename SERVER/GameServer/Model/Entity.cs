@@ -12,6 +12,7 @@ namespace GameServer.Model
     {
         public EntityType EntityType;
         public int EntityId;
+        public Map? Map;
         public Vector3 Position;
         public Vector3 Direction;
         public float ViewRange;
