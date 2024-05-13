@@ -17,10 +17,10 @@ namespace GameServer.Model
 {
     public class Monster : Actor
     {
-        private Vector3 _moveCurrentPos;
+        private Vector3 _moveCurrentPos ;
         private Vector3 _moveTargetPos;
         private MonsterAi _ai;
-        private Random _random;
+        private Random _random = new();
 
         public Vector3 InitPos;
         public Actor? ChasingTarget;
@@ -29,7 +29,6 @@ namespace GameServer.Model
         {
             InitPos = initPos;
             _ai = new(this);
-            _random = new();
         }
 
         public override void Update()
