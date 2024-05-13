@@ -2,7 +2,7 @@
 using Common.Proto.Player;
 using Common.Proto.Event.Map;
 using GameServer.Manager;
-using GameServer.Unit;
+using GameServer.Model;
 using GameServer.Network;
 using GameServer.Tool;
 using System;
