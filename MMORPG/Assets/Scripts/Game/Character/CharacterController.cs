@@ -116,6 +116,43 @@ namespace MMORPG.Game
         {
             return GameApp.Interface;
         }
+
+        private void OnGUI()
+        {
+            if (!IsInView(gameObject))
+            {
+                return;
+            }
+
+            float height = 2f;
+            var camera = Camera.main;
+            var pos = new Vector3(transform.position.x, transform.position.y + height, transform.position.z);
+            Vector2 uiPos = camera.WorldToScreenPoint(pos);
+            uiPos = new(uiPos.x, Screen.height - uiPos.y);
+
+            Vector2 nameSize = GUI.skin.label.CalcSize(new("帅比"));
+            GUI.color = Color.yellow;
+
+            var rect = new Rect(uiPos.x - (nameSize.x / 2), uiPos.y - nameSize.y, nameSize.x, nameSize.y);
+            GUI.Label(rect, "帅比");
+
+        }
+
+        // 判断物体是否被遮挡
+        private bool IsInView(GameObject go)
+        {
+            var worldPos = go.transform.position;
+            var cameraTransform = Camera.main.transform;
+            Vector2 viewPos = Camera.main.WorldToViewportPoint(worldPos);
+            Vector2 dir = (worldPos - cameraTransform.position).normalized;
+            float dot = Vector3.Dot(cameraTransform.forward, dir);
+
+            return dot > 0 &&
+                   viewPos.x >= 0 &&
+                   viewPos.x <= 1 &&
+                   viewPos.y >= 0 &&
+                   viewPos.y <= 1;
+        }
     }
 
 }

@@ -10,12 +10,13 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using GameServer.Tool;
-using GameServer.Unit;
+using GameServer.Model;
 using System.Threading.Channels;
 using System.Diagnostics;
 using Common.Tool;
 using System.Xml.Linq;
 using Serilog;
+using NetConfig = Common.Network.NetConfig;
 
 namespace GameServer
 {
@@ -61,18 +62,18 @@ namespace GameServer
             sender.ConnectionClosed += OnConnectionClosed;
             sender.LastActiveTime = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
 
-            _connectionCleanupTimer.AddTask(10000, (task) =>
+            _connectionCleanupTimer.AddTask(ChannelConfig.CleanupMs, (task) =>
             {
                 var now = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond; ;
                 var duration = now - sender.LastActiveTime;
-                if (duration > 10000)
+                if (duration > ChannelConfig.CleanupMs)
                 {
                     // sender已关闭也不会产生错误
                     sender.Close();
                 }
                 else
                 {
-                    _connectionCleanupTimer.AddTask(10000, task.Action);
+                    _connectionCleanupTimer.AddTask(ChannelConfig.CleanupMs, task.Action);
                 }
             });
 
