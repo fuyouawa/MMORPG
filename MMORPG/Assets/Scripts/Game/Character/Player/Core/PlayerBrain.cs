@@ -71,6 +71,7 @@ namespace MMORPG.Game
 
         private void Awake()
         {
+            AnimationController.Brain = this;
             CurrentState = null;
             InputControls = new();
             if (States.Length == 0) return;
