@@ -16,12 +16,11 @@ namespace GameServer.Manager
     /// </summary>
     public class MonsterManager
     {
-        private Dictionary<int, Monster> _monsterDict;
+        private Dictionary<int, Monster> _monsterDict = new ();
         private Map _map;
 
         public MonsterManager(Map map)
         {
-            _monsterDict = new();
             _map = map;
         }
 
@@ -37,7 +36,18 @@ namespace GameServer.Manager
                 Speed = 5,
             };
             EntityManager.Instance.AddEntity(monster);
+
+            lock (_monsterDict)
+            {
+                _monsterDict.Add(monster.EntityId, monster);
+            }
+
             return monster;
+        }
+
+        public void Update()
+        {
+
         }
     }
 }

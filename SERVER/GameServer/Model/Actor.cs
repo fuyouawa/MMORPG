@@ -16,7 +16,6 @@ namespace GameServer.Model
     public class Actor : Entity
     {
         public ActorState State;
-        public Map? Map;
         public string Name;
         public int Speed;
         public int Level;
