@@ -39,6 +39,9 @@ namespace MMORPG.Game
 
         public RemotePlayerAbility[] GetAttachRemoteAbilities() => GetAttachAbilities<RemotePlayerAbility>();
 
+        public Vector2 GetMoveInput() => InputControls.Player.Move.ReadValue<Vector2>();
+        public bool IsPressingRun() => InputControls.Player.Run.inProgress;
+
         public bool IsMine => CharacterController.Entity.IsMine;
 
         private TAbility[] GetAttachAbilities<TAbility>() where TAbility : PlayerAbility

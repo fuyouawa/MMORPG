@@ -2,6 +2,7 @@ using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Game
 {
@@ -11,16 +12,15 @@ namespace MMORPG.Game
 
         [Title("Move Switch")]
         public float MoveSwitchVelocity = 3f;
-        public float MoveSwitchAcceleration = 3f;
-
-        private Animator _animator;
-        private bool _animatorMove = true;
 
         [AnimatorParam]
-        public bool Movement { get; set; }
+        public bool Walking { get; set; }
 
         [AnimatorParam]
         public bool Running { get; set; }
+
+        [AnimatorParam]
+        public bool Moving => Walking || Running;
 
         [AnimatorParam]
         public float HoriMovementDirection { get; set; }
@@ -40,32 +40,28 @@ namespace MMORPG.Game
         private Vector2 _targetMoveDirection;
 
         private AnimatorMachine _machine;
+        private Animator _animator;
+        private bool _animatorMove = true;
 
-        private static readonly float s_moveExtraMaxAcceleration = 6;
-        private static readonly float s_runExtraMaxAcceleration = 12;
 
-        private static readonly Circle s_moveExtraAccelerationArea = new(0.7f);
+        private static readonly float s_moveExtraMaxAcceleration = 9;
 
-        private static readonly Circle s_runExtraAccelerationArea = new(1.4f);
+        private static readonly Circle s_moveExtraAccelerationArea = new(0.8f);
 
-        private float GetExtraAccelerationCoefficient(Vector2 pos)
+        private float GetMoveExtraAcceleration(Vector2 point)
         {
-            var maxAcceleration = Running ? s_runExtraMaxAcceleration : s_moveExtraMaxAcceleration;
-            var accelerationRect = Running ? s_moveExtraAccelerationArea : s_runExtraAccelerationArea;
-            var bound = Running ? 2 : 1;
-
-            if (pos.x.Abs() < 0.01f && pos.y.Abs() < 0.01f)
-                return maxAcceleration;
-            if (!accelerationRect.Contains(pos))
+            if (point.x.Abs() < 0.01f && point.y.Abs() < 0.01f)
+                return s_moveExtraMaxAcceleration;
+            if (!s_moveExtraAccelerationArea.Contains(point))
                 return 0;
-            var stdPos = pos * (bound / accelerationRect.Radius);
+            var stdPos = point * (1 / s_moveExtraAccelerationArea.Radius);
 
             // var E = new Vector2((stdPos.x / stdPos.y).Abs(), 1);
             // var radio = 1 / E.magnitude;
             // var len = stdPos.magnitude * radio;
             var len = stdPos.magnitude;
 
-            return (1 - len) * maxAcceleration;
+            return (1 - len) * s_moveExtraMaxAcceleration;
         }
 
         public void SmoothMoveDirection(Vector2 dir)
@@ -74,8 +70,6 @@ namespace MMORPG.Game
         }
 
 
-        private Transform _playerMoveAnimatorBlendTreePoint;
-        private RectTransform _playerMoveAnimatorBlendTreeViewAccelerationArea;
         void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -83,24 +77,15 @@ namespace MMORPG.Game
             _machine.Run();
         }
 
-        void Start()
-        {
-            if (Brain.IsMine)
-            {
-                _playerMoveAnimatorBlendTreePoint = GameObject.Find("PlayerMoveAnimatorBlendTreePoint").transform;
-                _playerMoveAnimatorBlendTreeViewAccelerationArea = GameObject.Find("PlayerMoveAnimatorBlendTreeViewAccelerationArea").GetComponent<RectTransform>();
-            }
-        }
-
         void Update()
         {
-            Moving();
-            if (Brain.IsMine)
-            {
-                var influence = (Running ? s_runExtraAccelerationArea.Radius : s_moveExtraAccelerationArea.Radius);
-                _playerMoveAnimatorBlendTreePoint.localPosition = MovementDirection * 25;
-                _playerMoveAnimatorBlendTreeViewAccelerationArea.sizeDelta = new Vector2(50, 50) * influence;
-            }
+            Move();
+        }
+
+        private void Move()
+        {
+            var velocity = MoveSwitchVelocity + GetMoveExtraAcceleration(MovementDirection);
+            MovementDirection = Vector2.MoveTowards(MovementDirection, _targetMoveDirection, velocity * Time.deltaTime);
         }
 
         public void EnableAnimatorMove()
@@ -113,24 +98,23 @@ namespace MMORPG.Game
             _animatorMove = false;
         }
 
-        private void Moving()
+        public void StartWalking()
         {
-            if (Vector2.Distance(MovementDirection, _targetMoveDirection) > 0.1f)
-            {
-                var targetMoveDir = _targetMoveDirection;
-                if (_targetMoveDirection.y * VertMovementDirection < -0.1f ||
-                     _targetMoveDirection.x * HoriMovementDirection < -0.1f)
-                {
-                    targetMoveDir = Vector2.zero;
-                }
+            Walking = true;
+            Running = false;
+        }
 
-                var velocity = MoveSwitchVelocity + GetExtraAccelerationCoefficient(MovementDirection);
-                MovementDirection = Vector2.MoveTowards(MovementDirection, targetMoveDir, velocity * Time.deltaTime);
-            }
-            else
-            {
-                MovementDirection = _targetMoveDirection;
-            }
+
+        public void StartRunning()
+        {
+            Walking = false;
+            Running = true;
+        }
+
+        public void StopMovement()
+        {
+            Walking = false;
+            Running = false;
         }
 
         private void OnAnimatorMove()
