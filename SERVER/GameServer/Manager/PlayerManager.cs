@@ -65,7 +65,6 @@ namespace GameServer.Manager
             {
                 _playerDict.Remove(player.EntityId);
             }
-            player.Map = null;
         }
 
         /// <summary>
