@@ -27,17 +27,17 @@ namespace Common.Proto.Event.Map {
             "ChVNYXAvRW50aXR5RW50ZXIucHJvdG8SFkNvbW1vbi5Qcm90by5FdmVudC5N",
             "YXAaF0VudGl0eS9FbnRpdHlUeXBlLnByb3RvGhlFbnRpdHkvTmV0VHJhbnNm",
             "b3JtLnByb3RvIicKEkVudGl0eUVudGVyUmVxdWVzdBIRCgllbnRpdHlfaWQY",
-            "ASADKAUikAEKD0VudGl0eUVudGVyRGF0YRIRCgllbnRpdHlfaWQYASABKAUS",
+            "ASADKAUiogEKD0VudGl0eUVudGVyRGF0YRIRCgllbnRpdHlfaWQYASABKAUS",
             "NAoLZW50aXR5X3R5cGUYAiABKA4yHy5Db21tb24uUHJvdG8uRW50aXR5LkVu",
-            "dGl0eVR5cGUSNAoJdHJhbnNmb3JtGAMgASgLMiEuQ29tbW9uLlByb3RvLkVu",
-            "dGl0eS5OZXRUcmFuc2Zvcm0iTQoTRW50aXR5RW50ZXJSZXNwb25zZRI2CgVk",
-            "YXRhcxgBIAMoCzInLkNvbW1vbi5Qcm90by5FdmVudC5NYXAuRW50aXR5RW50",
-            "ZXJEYXRhYgZwcm90bzM="));
+            "dGl0eVR5cGUSEAoIdW5pdF90aWQYAyABKAUSNAoJdHJhbnNmb3JtGAQgASgL",
+            "MiEuQ29tbW9uLlByb3RvLkVudGl0eS5OZXRUcmFuc2Zvcm0iTQoTRW50aXR5",
+            "RW50ZXJSZXNwb25zZRI2CgVkYXRhcxgBIAMoCzInLkNvbW1vbi5Qcm90by5F",
+            "dmVudC5NYXAuRW50aXR5RW50ZXJEYXRhYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Entity.EntityTypeReflection.Descriptor, global::Common.Proto.Entity.NetTransformReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.Map.EntityEnterRequest), global::Common.Proto.Event.Map.EntityEnterRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.Map.EntityEnterData), global::Common.Proto.Event.Map.EntityEnterData.Parser, new[]{ "EntityId", "EntityType", "Transform" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.Map.EntityEnterData), global::Common.Proto.Event.Map.EntityEnterData.Parser, new[]{ "EntityId", "EntityType", "UnitTid", "Transform" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.Map.EntityEnterResponse), global::Common.Proto.Event.Map.EntityEnterResponse.Parser, new[]{ "Datas" }, null, null, null, null)
           }));
     }
@@ -45,6 +45,7 @@ namespace Common.Proto.Event.Map {
 
   }
   #region Messages
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityEnterRequest : pb::IMessage<EntityEnterRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -225,6 +226,7 @@ namespace Common.Proto.Event.Map {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityEnterData : pb::IMessage<EntityEnterData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -261,6 +263,7 @@ namespace Common.Proto.Event.Map {
     public EntityEnterData(EntityEnterData other) : this() {
       entityId_ = other.entityId_;
       entityType_ = other.entityType_;
+      unitTid_ = other.unitTid_;
       transform_ = other.transform_ != null ? other.transform_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -295,8 +298,20 @@ namespace Common.Proto.Event.Map {
       }
     }
 
+    /// <summary>Field number for the "unit_tid" field.</summary>
+    public const int UnitTidFieldNumber = 3;
+    private int unitTid_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int UnitTid {
+      get { return unitTid_; }
+      set {
+        unitTid_ = value;
+      }
+    }
+
     /// <summary>Field number for the "transform" field.</summary>
-    public const int TransformFieldNumber = 3;
+    public const int TransformFieldNumber = 4;
     private global::Common.Proto.Entity.NetTransform transform_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -324,6 +339,7 @@ namespace Common.Proto.Event.Map {
       }
       if (EntityId != other.EntityId) return false;
       if (EntityType != other.EntityType) return false;
+      if (UnitTid != other.UnitTid) return false;
       if (!object.Equals(Transform, other.Transform)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -334,6 +350,7 @@ namespace Common.Proto.Event.Map {
       int hash = 1;
       if (EntityId != 0) hash ^= EntityId.GetHashCode();
       if (EntityType != global::Common.Proto.Entity.EntityType.Player) hash ^= EntityType.GetHashCode();
+      if (UnitTid != 0) hash ^= UnitTid.GetHashCode();
       if (transform_ != null) hash ^= Transform.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -361,8 +378,12 @@ namespace Common.Proto.Event.Map {
         output.WriteRawTag(16);
         output.WriteEnum((int) EntityType);
       }
+      if (UnitTid != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(UnitTid);
+      }
       if (transform_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteMessage(Transform);
       }
       if (_unknownFields != null) {
@@ -383,8 +404,12 @@ namespace Common.Proto.Event.Map {
         output.WriteRawTag(16);
         output.WriteEnum((int) EntityType);
       }
+      if (UnitTid != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(UnitTid);
+      }
       if (transform_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteMessage(Transform);
       }
       if (_unknownFields != null) {
@@ -402,6 +427,9 @@ namespace Common.Proto.Event.Map {
       }
       if (EntityType != global::Common.Proto.Entity.EntityType.Player) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) EntityType);
+      }
+      if (UnitTid != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(UnitTid);
       }
       if (transform_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Transform);
@@ -423,6 +451,9 @@ namespace Common.Proto.Event.Map {
       }
       if (other.EntityType != global::Common.Proto.Entity.EntityType.Player) {
         EntityType = other.EntityType;
+      }
+      if (other.UnitTid != 0) {
+        UnitTid = other.UnitTid;
       }
       if (other.transform_ != null) {
         if (transform_ == null) {
@@ -453,7 +484,11 @@ namespace Common.Proto.Event.Map {
             EntityType = (global::Common.Proto.Entity.EntityType) input.ReadEnum();
             break;
           }
-          case 26: {
+          case 24: {
+            UnitTid = input.ReadInt32();
+            break;
+          }
+          case 34: {
             if (transform_ == null) {
               Transform = new global::Common.Proto.Entity.NetTransform();
             }
@@ -483,7 +518,11 @@ namespace Common.Proto.Event.Map {
             EntityType = (global::Common.Proto.Entity.EntityType) input.ReadEnum();
             break;
           }
-          case 26: {
+          case 24: {
+            UnitTid = input.ReadInt32();
+            break;
+          }
+          case 34: {
             if (transform_ == null) {
               Transform = new global::Common.Proto.Entity.NetTransform();
             }
@@ -497,6 +536,7 @@ namespace Common.Proto.Event.Map {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityEnterResponse : pb::IMessage<EntityEnterResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
