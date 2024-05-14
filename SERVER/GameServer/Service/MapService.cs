@@ -25,8 +25,8 @@ namespace Service
         {
             var player = sender.User?.Player;
             if (player?.Map == null) return;
-            player.Map.EntityLeave(player);
             player.Map.PlayerManager.RemovePlayer(player);
+            player.Map.EntityLeave(player);
         }
 
         public void OnHandle(NetChannel sender, EntityTransformSyncRequest request)
