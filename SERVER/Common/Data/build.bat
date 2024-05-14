@@ -13,6 +13,9 @@ for /f "delims=" %%i in ('dir /b /a-d /s %EXCEL_FOLDER%\*.xlsx') do (
 @SET DEST_FOLDER_1=..\..\GameServer\bin\Debug\net6.0\Data\Json
 @SET DEST_FOLDER_2=..\..\..\MMORPG\Assets\Resources\Json
 
+md %DEST_FOLDER_1%
+md %DEST_FOLDER_2%
+
 @ECHO Copying JSON files to destination folder %DEST_FOLDER% ...
 for /r %JSON_FOLDER% %%i in (*.json) do (
     @echo   copying %%~nxi 
