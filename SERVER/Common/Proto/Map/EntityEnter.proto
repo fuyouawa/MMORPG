@@ -11,7 +11,8 @@ message EntityEnterRequest {
 message EntityEnterData {
     int32 entity_id = 1;
     Entity.EntityType entity_type = 2;
-    Entity.NetTransform transform = 3;
+    int32 unit_tid = 3;
+    Entity.NetTransform transform = 4;
 }
 
 message EntityEnterResponse {
