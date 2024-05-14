@@ -9,6 +9,8 @@ namespace MMORPG.Game
     {
         [Key(0)]
         public Vector2 MoveDirection { get; set; }
+        [Key(1)]
+        public bool IsWalkingOrRunning { get; set; }
     }
 
     public class LocalHeroKnightMovement : LocalPlayerAbility
@@ -17,10 +19,6 @@ namespace MMORPG.Game
         public float BackIdleThreshold = 0.5f;
 
         private Vector2 _moveDirection;
-        private bool _prevMoveForward;
-        private bool? _forwardSidle;
-
-        private Vector2 InputDirection => Brain.InputControls.Player.Move.ReadValue<Vector2>();
 
         public override void OnStateInit()
         {
@@ -29,8 +27,6 @@ namespace MMORPG.Game
         public override void OnStateEnter()
         {
             Brain.AnimationController.EnableAnimatorMove();
-            Brain.AnimationController.Movement = true;
-            _forwardSidle = false;
         }
 
         public override void OnStateUpdate()
@@ -40,19 +36,23 @@ namespace MMORPG.Game
 
         public override void OnStateNetworkFixedUpdate()
         {
-            var d = new WalkStateSyncData() { MoveDirection = _moveDirection };
+            var d = new WalkStateSyncData()
+            {
+                MoveDirection = _moveDirection,
+                IsWalkingOrRunning = Brain.AnimationController.Walking
+            };
             Brain.CharacterController.NetworkUploadTransform(OwnerStateId, MessagePackSerializer.Serialize(d));
         }
 
         public override void OnStateExit()
         {
-            Brain.AnimationController.Movement = false;
+            Brain.AnimationController.StopMovement();
         }
 
         [StateCondition]
         public bool ReachIdleThreshold()
         {
-            return InputDirection.magnitude > IdleThreshold;
+            return Brain.GetMoveInput().magnitude > IdleThreshold;
         }
 
         [StateCondition]
@@ -63,26 +63,16 @@ namespace MMORPG.Game
 
         private void ControlMove()
         {
-            var dir = InputDirection;
-            TransformMoveDirection(dir);
-            if (_prevMoveForward)
+            if (Brain.IsPressingRun())
             {
-                if (dir.y < -0.5f)
-                {
-                    _prevMoveForward = false;
-                }
+                Brain.AnimationController.StartRunning();
             }
             else
             {
-                if (dir.y > 0.5f)
-                {
-                    _prevMoveForward = true;
-                }
+                Brain.AnimationController.StartWalking();
             }
-            if (Brain.InputControls.Player.Run.inProgress)
-            {
-                _moveDirection *= 2;
-            }
+
+            _moveDirection = Brain.GetMoveInput();
             Brain.AnimationController.SmoothMoveDirection(_moveDirection);
             ForwardCamera();
         }
@@ -93,24 +83,6 @@ namespace MMORPG.Game
             cameraForward.y = 0;
             var targetRotation = Quaternion.LookRotation(cameraForward, Vector3.up);
             Brain.CharacterController.SmoothRotate(targetRotation);
-        }
-
-        private void TransformMoveDirection(Vector2 dir)
-        {
-            _moveDirection = dir;
-
-            var xMove = !Mathf.Approximately(dir.x, 0);
-            var yMove = !Mathf.Approximately(dir.y, 0);
-
-            if ((!xMove && yMove) || (xMove && yMove))
-            {
-                _forwardSidle = null;
-                return;
-            }
-
-            _forwardSidle ??= _prevMoveForward;
-
-            _moveDirection.y = _forwardSidle == true ? 0.33f : -0.33f;
         }
     }
 

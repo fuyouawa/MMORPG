@@ -14,7 +14,6 @@ namespace MMORPG.Game
             _targetSyncPosition = transform.position;
             _targetSyncRotation = transform.rotation;
             Brain.AnimationController.DisableAnimatorMove();
-            Brain.AnimationController.Movement = true;
         }
 
         public override void OnStateUpdate()
@@ -28,13 +27,16 @@ namespace MMORPG.Game
             _moveDirection = d.MoveDirection;
             _targetSyncPosition = data.Position;
             _targetSyncRotation = data.Rotation;
-
+            if (d.IsWalkingOrRunning)
+                Brain.AnimationController.StartWalking();
+            else
+                Brain.AnimationController.StartRunning();
             Brain.AnimationController.SmoothMoveDirection(_moveDirection);
         }
 
         public override void OnStateExit()
         {
-            Brain.AnimationController.Movement = false;
+            Brain.AnimationController.Walking = false;
         }
 
         private void SyncMove()
