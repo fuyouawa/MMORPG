@@ -13,6 +13,16 @@ namespace MMORPG.Game
         [Title("Move Switch")]
         public float MoveSwitchVelocity = 3f;
 
+        [Title("Animation Speed")]
+
+        [ShowInInspector]
+        [AnimatorStateSpeed("Walking")]
+        public float WalkSpeed { get; set; } = 1f;
+
+        [ShowInInspector]
+        [AnimatorStateSpeed("Running")]
+        public float RunSpeed { get; set; } = 1.3f;
+
         [AnimatorParam]
         public bool Walking { get; set; }
 
@@ -79,6 +89,7 @@ namespace MMORPG.Game
 
         void Update()
         {
+            
             Move();
         }
 

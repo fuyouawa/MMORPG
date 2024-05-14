@@ -25,6 +25,22 @@ namespace MMORPG.Tool
             AutoName = false;
         }
     }
+    [AttributeUsage(AttributeTargets.Property)]
+    public class AnimatorStateSpeedAttribute : Attribute
+    {
+        public int LayerIndex;
+        public string State;
+
+        public AnimatorStateSpeedAttribute(int layerIndex, string state)
+        {
+            LayerIndex = layerIndex;
+            State = state;
+        }
+        public AnimatorStateSpeedAttribute(string state)
+            : this(0, state)
+        {
+        }
+    }
 
     public struct AnimatorTrigger
     {
@@ -34,12 +50,14 @@ namespace MMORPG.Tool
 
     public class AnimatorParamsAutoUpdater : MonoBehaviour
     {
-        private static Dictionary<Type, PropertyInfo[]> s_paramsInfoCache = new();
+        private static Dictionary<Type, PropertyInfo[]> s_paramsPropertiesCache = new();
+        private static Dictionary<Type, PropertyInfo[]> s_stateSpeedPropertiesCache = new();
 
         public Animator CurrentAnimator { get; private set; }
         public object Target { get; private set; }
 
-        private PropertyInfo[] _paramsInfo;
+        private PropertyInfo[] _paramsProperties;
+        private PropertyInfo[] _stateSpeedProperties;
 
         public bool Running { get; private set; }
         private bool _prepareStop = false;
@@ -48,19 +66,36 @@ namespace MMORPG.Tool
         {
             Target = target;
             CurrentAnimator = animator;
-            InitParamsInfo();
+            InitParamsProperties();
+            InitStateSpeedProperties();
         }
 
-        private void InitParamsInfo()
+        private void InitStateSpeedProperties()
         {
             var type = Target.GetType();
-            if (s_paramsInfoCache.TryGetValue(type, out _paramsInfo))
+            if (s_stateSpeedPropertiesCache.TryGetValue(type, out _stateSpeedProperties))
                 return;
-            _paramsInfo =
+            _stateSpeedProperties =
+                (from field in type.GetProperties(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public)
+                    where field.HasAttribute<AnimatorStateSpeedAttribute>()
+                    select field).ToArray();
+            _stateSpeedProperties.ForEach(param =>
+            {
+                Debug.Assert(param.PropertyType == typeof(float), "AnimatorClipSpeed的类型必须是float");
+            });
+            s_stateSpeedPropertiesCache[type] = _stateSpeedProperties;
+        }
+
+        private void InitParamsProperties()
+        {
+            var type = Target.GetType();
+            if (s_paramsPropertiesCache.TryGetValue(type, out _paramsProperties))
+                return;
+            _paramsProperties =
                 (from field in type.GetProperties(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public)
                     where field.HasAttribute<AnimatorParamAttribute>()
                     select field).ToArray();
-            _paramsInfo.ForEach(param =>
+            _paramsProperties.ForEach(param =>
             {
                 Debug.Assert(
                     param.PropertyType == typeof(bool) ||
@@ -69,12 +104,29 @@ namespace MMORPG.Tool
                     param.PropertyType == typeof(AnimatorTrigger),
                     "AnimatorParam的类型必须是bool || float || int || AnimatorTrigger!");
             });
-            s_paramsInfoCache[type] = _paramsInfo;
+            s_paramsPropertiesCache[type] = _paramsProperties;
         }
 
         private void Update()
         {
-            UpdateAnimator();
+            if (!Running) return;
+
+            UpdateParams();
+            UpdateStateSpeeds();
+        }
+
+        private void UpdateStateSpeeds()
+        {
+            foreach (var prop in _stateSpeedProperties)
+            {
+                var attr = prop.GetAttribute<AnimatorStateSpeedAttribute>();
+
+                var curState = CurrentAnimator.GetCurrentAnimatorStateInfo(attr.LayerIndex);
+                if (curState.IsName(attr.State))
+                {
+                    CurrentAnimator.speed = (float)prop.GetValue(Target);
+                }
+            }
         }
 
         public void Run()
@@ -92,16 +144,15 @@ namespace MMORPG.Tool
             _prepareStop = true;
         }
 
-        public void UpdateAnimator()
+        public void UpdateParams()
         {
-            if (!Running) return;
 
-            foreach (var paramInfo in _paramsInfo)
+            foreach (var prop in _paramsProperties)
             {
-                var attr = paramInfo.GetAttribute<AnimatorParamAttribute>();
-                var paramName = attr.AutoName ? paramInfo.Name : attr.Name;
+                var attr = prop.GetAttribute<AnimatorParamAttribute>();
+                var paramName = attr.AutoName ? prop.Name : attr.Name;
                 var paramId = Animator.StringToHash(paramName);
-                var value = paramInfo.GetValue(Target);
+                var value = prop.GetValue(Target);
 
                 if (value is float f)
                 {
@@ -136,7 +187,7 @@ namespace MMORPG.Tool
 
         private void OnApplicationQuit()
         {
-            s_paramsInfoCache.Clear();
+            s_paramsPropertiesCache.Clear();
         }
     }
 
