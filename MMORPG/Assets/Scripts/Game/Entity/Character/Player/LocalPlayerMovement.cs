@@ -13,7 +13,7 @@ namespace MMORPG.Game
         public bool IsWalkingOrRunning { get; set; }
     }
 
-    public class LocalHeroKnightMovement : LocalPlayerAbility
+    public class LocalPlayerMovement : LocalPlayerAbility
     {
         public float IdleThreshold = 0.05f;
         public float BackIdleThreshold = 0.5f;

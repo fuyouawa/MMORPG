@@ -1,16 +1,8 @@
 using UnityEngine;
 
-public class MeleeWeapon : MonoBehaviour
+namespace MMORPG.Game
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class MeleeWeapon : Weapon
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
