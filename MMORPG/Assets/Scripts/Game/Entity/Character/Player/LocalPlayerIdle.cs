@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MMORPG.Game
 {
-    public class LocalHeroKnightIdle : LocalPlayerAbility
+    public class LocalPlayerIdle : LocalPlayerAbility
     {
         public override void OnStateEnter()
         {
