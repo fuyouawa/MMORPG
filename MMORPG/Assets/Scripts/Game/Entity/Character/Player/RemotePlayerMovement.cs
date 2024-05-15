@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MMORPG.Game
 {
-    public class RemoteHeroKnightMovement : RemotePlayerAbility
+    public class RemotePlayerMovement : RemotePlayerAbility
     {
         private Vector3 _targetSyncPosition;
         private Quaternion _targetSyncRotation;
