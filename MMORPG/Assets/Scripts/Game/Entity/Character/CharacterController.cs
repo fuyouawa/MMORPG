@@ -8,25 +8,15 @@ using UnityEngine;
 
 namespace MMORPG.Game
 {
-    public enum CharacterType
-    {
-        Player,
-        Enemy
-    }
-
     public class CharacterController : MonoBehaviour, IController
     {
         [Required]
         public EntityView Entity;
-        public CharacterType CharacterType;
         public float RotationSmooth = 10f;
         public float MoveSmooth = 10f;
         [Title("Binding")]
         [Required]
         public Animator Animator;
-        [Title("Action")]
-        [ChildGameObjectsOnly]
-        public GameObject[] AdditionalAbilityNodes;
 
         public bool IsMine => Entity.IsMine;
 

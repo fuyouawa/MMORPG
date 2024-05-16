@@ -50,15 +50,16 @@ namespace MMORPG.Game
         }
 
         [StateCondition]
-        public bool ReachIdleThreshold()
+        public bool CheckStartMove()
         {
             return Brain.GetMoveInput().magnitude > IdleThreshold;
         }
 
         [StateCondition]
-        public bool ReachBackIdleThreshold()
+        public bool CheckStopMove()
         {
-            return Brain.AnimationController.MovementDirection.magnitude < BackIdleThreshold;
+            return !CheckStartMove() &&
+                   Brain.AnimationController.MovementDirection.magnitude < BackIdleThreshold;
         }
 
         private void ControlMove()
