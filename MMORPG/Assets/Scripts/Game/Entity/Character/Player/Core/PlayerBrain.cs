@@ -36,6 +36,9 @@ namespace MMORPG.Game
 
         public PlayerState CurrentState { get; private set; }
 
+        [Title("Binding")]
+        public GameObject[] AdditionalAbilityNodes;
+
         public GameInputControls InputControls { get; private set; }
 
         public LocalPlayerAbility[] GetAttachLocalAbilities() => GetAttachAbilities<LocalPlayerAbility>();
@@ -51,7 +54,7 @@ namespace MMORPG.Game
         {
             var total = new List<TAbility>();
             total.AddRange(GetComponents<TAbility>());
-            foreach (var node in CharacterController.AdditionalAbilityNodes)
+            foreach (var node in AdditionalAbilityNodes)
             {
                 total.AddRange(node.GetComponents<TAbility>());
             }

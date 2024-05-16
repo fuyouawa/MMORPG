@@ -43,7 +43,10 @@ namespace MMORPG.System
         private void OnEntityEnter(EntityEnterEvent e)
         {
             Debug.Assert(!_playerDict.ContainsKey(e.Entity.EntityId));
-            _playerDict[e.Entity.EntityId] = e.Entity;
+            if (e.Entity.EntityType == EntityType.Player)
+            {
+                _playerDict[e.Entity.EntityId] = e.Entity;
+            }
         }
     }
 }

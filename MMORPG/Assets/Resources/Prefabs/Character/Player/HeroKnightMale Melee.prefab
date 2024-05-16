@@ -889,7 +889,7 @@ MonoBehaviour:
       StateConditions:
       - FullMethodName: LocalPlayerIdle/CanMovement
         Not: 0
-      - FullMethodName: LocalPlayerMovement/ReachIdleThreshold
+      - FullMethodName: LocalPlayerMovement/CheckStartMove
         Not: 0
       TrueStateName: Movement
       FalseStateName: 
@@ -900,12 +900,15 @@ MonoBehaviour:
     Transitions:
     - Label: "\u56DE\u5230Idle"
       StateConditions:
-      - FullMethodName: LocalPlayerMovement/ReachIdleThreshold
+      - FullMethodName: LocalPlayerMovement/CheckStartMove
         Not: 1
-      - FullMethodName: LocalPlayerMovement/ReachBackIdleThreshold
+      - FullMethodName: LocalPlayerMovement/CheckStopMove
         Not: 0
       TrueStateName: Idle
       FalseStateName: 
+  AdditionalAbilityNodes:
+  - {fileID: 1952149207982524674}
+  - {fileID: 171388820641581816}
 --- !u!114 &6871216913282456529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2471,6 +2474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d0d6199698ca14f8a321bd826d945b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EntityType: 0
 --- !u!114 &224805171054128564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2484,13 +2488,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Entity: {fileID: 9049836981437204500}
-  CharacterType: 0
   RotationSmooth: 10
   MoveSmooth: 10
   Animator: {fileID: 1201144034948401517}
-  AdditionalAbilityNodes:
-  - {fileID: 1952149207982524674}
-  - {fileID: 171388820641581816}
 --- !u!1 &6072385525174587162
 GameObject:
   m_ObjectHideFlags: 0
