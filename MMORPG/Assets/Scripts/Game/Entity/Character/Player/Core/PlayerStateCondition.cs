@@ -85,7 +85,7 @@ namespace MMORPG.Game
 
         private bool CheckMethodNameInvalid()
         {
-            if (OwnerTransition?.OwnerState == null)
+            if (OwnerTransition?.OwnerState?.Brain == null)
                 return false;
 
             if (FullMethodName == string.Empty)
