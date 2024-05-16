@@ -131,6 +131,7 @@ namespace MMORPG.Game
         {
             Walking = false;
             Running = false;
+            MovementDirection = Vector2.zero;
         }
 
         private void OnAnimatorMove()
