@@ -1,5 +1,8 @@
+using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Game
 {
@@ -9,37 +12,27 @@ namespace MMORPG.Game
         public float DropComboDelay = 1f;
         public float ComboCoolTime = 1f;
 
-        [ReadOnly]
-        [ShowInInspector]
-        public int CurrentWeaponIndex { get; private set; }
 
         [ReadOnly]
         public Weapon[] Weapons;
+
+        public int CurrentWeaponIndex { get; private set; }
 
         public Weapon CurrentWeapon => Weapons[CurrentWeaponIndex];
 
         public PlayerBrain OwnerBrain { get; private set; }
 
-        private float _timeSinceComboFinished;
-        private float _timeSinceLastWeaponStopped;
+        private float _timeSinceComboFinished = -float.MaxValue;
+        private float _timeSinceLastWeaponStopped = -float.MaxValue;
         private bool _inComboCooling;
         private bool _inCombo;
+        private bool _fireInNextWeapon = false;
 
-        public Weapon[] GetAttachedWeapons()
-        {
-            return GetComponents<Weapon>();
-        }
-
-        protected virtual void Awake()
-        {
-        }
 
         protected virtual void Start()
         {
             Initialization();
         }
-
-
 
         protected virtual void Update()
         {
@@ -52,7 +45,24 @@ namespace MMORPG.Game
         protected virtual void Initialization()
         {
             Weapons = GetComponents<Weapon>();
+            OwnerBrain = Weapons[0].Brain;
+            OwnerBrain.InputControls.Player.Fire.started += OnFireStarted;
+            OwnerBrain.HandleWeapon.OnWeaponChanged += OnWeaponChanged;
+            Weapons.ForEach(x =>
+            {
+                x.OnWeaponStarted += OnWeaponStarted;
+                x.OnWeaponStopped += OnWeaponStopped;
+            });
             InitializeUnusedWeapons();
+        }
+
+        protected virtual void OnWeaponChanged(Weapon current, Weapon previous)
+        {
+            if (_fireInNextWeapon)
+            {
+                current.WeaponInputStart();
+                _fireInNextWeapon = false;
+            }
         }
 
         protected virtual void InitializeUnusedWeapons()
@@ -68,17 +78,19 @@ namespace MMORPG.Game
 
         protected virtual void ResetCombo()
         {
+            Debug.Log(CurrentWeaponIndex);
             if (Weapons.Length > 1)
             {
-                if (_inCombo && DroppableCombo && Time.time - _timeSinceLastWeaponStopped < ComboCoolTime)
+                if (_inCombo && DroppableCombo && Time.time - _timeSinceLastWeaponStopped > ComboCoolTime)
                 {
                     _inCombo = false;
+                    Debug.Log("CCC");
                     CurrentWeaponIndex = 0;
                     OwnerBrain.HandleWeapon.ChangeWeapon(CurrentWeapon, true);
                 }
             }
 
-            if (_inComboCooling && Time.time - _timeSinceComboFinished < ComboCoolTime)
+            if (_inComboCooling && Time.time - _timeSinceComboFinished > ComboCoolTime)
             {
                 Weapons[0].PreventFire = false;
                 _inComboCooling = false;
@@ -92,6 +104,17 @@ namespace MMORPG.Game
         protected virtual void OnWeaponStopped(Weapon weapon)
         {
             ProceedToNextCombo();
+        }
+
+        protected virtual void OnFireStarted(InputAction.CallbackContext obj)
+        {
+            if (Weapons.Length > 1)
+            {
+                if (CurrentWeapon.TryInterrupt())
+                {
+                    _fireInNextWeapon = true;
+                }
+            }
         }
 
         protected virtual void ProceedToNextCombo()
