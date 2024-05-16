@@ -8,7 +8,7 @@ namespace MMORPG.Game
 {
     public class PlayerAnimationController : MonoBehaviour
     {
-        public PlayerBrain Brain { get; set; }
+        public PlayerBrain Brain { get; private set; }
 
         [Title("Move Switch")]
         public float MoveSwitchVelocity = 3f;
@@ -50,7 +50,7 @@ namespace MMORPG.Game
         private Vector2 _targetMoveDirection;
 
         private AnimatorMachine _machine;
-        private Animator _animator;
+        public Animator Animator { get; private set; }
         private bool _animatorMove = true;
 
 
@@ -79,11 +79,16 @@ namespace MMORPG.Game
             _targetMoveDirection = dir;
         }
 
+        public void Setup(PlayerBrain brain)
+        {
+            Brain = brain;
+        }
+
 
         void Awake()
         {
-            _animator = GetComponent<Animator>();
-            _machine = new(this, gameObject, _animator);
+            Animator = GetComponent<Animator>();
+            _machine = new(this, gameObject, Animator);
             _machine.Run();
         }
 
@@ -132,8 +137,8 @@ namespace MMORPG.Game
         {
             if (_animatorMove)
             {
-                Brain.CharacterController.MoveDirection(_animator.deltaPosition);
-                Brain.CharacterController.RelativeRotate(_animator.deltaRotation);
+                Brain.CharacterController.MoveDirection(Animator.deltaPosition);
+                Brain.CharacterController.RelativeRotate(Animator.deltaRotation);
             }
         }
     }

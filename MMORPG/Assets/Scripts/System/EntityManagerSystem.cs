@@ -1,12 +1,15 @@
+using System;
 using Common.Proto.Event;
 using Common.Proto.Event.Map;
 using QFramework;
 using System.Collections.Generic;
+using System.Linq;
 using MMORPG.Event;
 using MMORPG.Game;
 using MMORPG.Tool;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
+using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.System
 {
@@ -43,9 +46,10 @@ namespace MMORPG.System
         public EntityView SpawnEntity(
             EntityView prefab,
             int entityId,
+            EntityType type,
+            bool isMine,
             Vector3 position,
-            Quaternion rotation,
-            bool isMine);
+            Quaternion rotation);
 
         public Dictionary<int, EntityView> GetEntityDict(bool isMine);
     }
@@ -61,8 +65,13 @@ namespace MMORPG.System
             return isMine ? _mineEntityDict : _notMineEntityDict;
         }
 
-        public EntityView SpawnEntity(EntityView prefab, int entityId, Vector3 position, Quaternion rotation,
-            bool isMine)
+        public EntityView SpawnEntity(
+            EntityView prefab,
+            int entityId,
+            EntityType type,
+            bool isMine,
+            Vector3 position,
+            Quaternion rotation)
         {
             Debug.Assert(
                 !(_mineEntityDict.ContainsKey(entityId) ||
@@ -70,9 +79,7 @@ namespace MMORPG.System
 
             var entity = GameObject.Instantiate(prefab, position, rotation);
             entity.transform.SetPositionAndRotation(position, rotation);
-
-            entity.SetEntityId(entityId);
-            entity.SetIsMine(isMine);
+            entity.Initialize(entityId, type, isMine);
 
             if (entity.IsMine)
             {

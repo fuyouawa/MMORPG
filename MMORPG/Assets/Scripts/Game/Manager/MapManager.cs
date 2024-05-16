@@ -52,11 +52,12 @@ namespace MMORPG.Game
             _playerManager.SetMineId(response.EntityId);
 
             var entity = _entityManager.SpawnEntity(
-                _resLoader.LoadSync<EntityView>("HeroKnightMale Melee"),
+                _resLoader.LoadSync<EntityView>("HeroKnightMale Melee"),    //TODO 角色生成
                 response.EntityId,
+                EntityType.Player,
+                true,
                 response.Transform.Position.ToVector3(),
-                Quaternion.Euler(response.Transform.Direction.ToVector3()),
-                true);
+                Quaternion.Euler(response.Transform.Direction.ToVector3()));
 
             Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
         }
