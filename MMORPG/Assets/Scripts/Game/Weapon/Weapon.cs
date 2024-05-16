@@ -12,14 +12,18 @@ namespace MMORPG.Game
 {
     public class Weapon : MonoBehaviour
     {
-        [FoldoutGroup("Id")]
-        [Required]
-        public string WeaponName = "TODO";
-
         [FoldoutGroup("Use")]
         public float DelayBeforeUse;
         [FoldoutGroup("Use")]
         public float TimeBetweenUses = 1f;
+
+#if UNITY_EDITOR
+        [FoldoutGroup("Position")]
+        [LabelText("Debug In Editor")]
+        public bool PositionDebugInEditor = false;
+#endif
+        [FoldoutGroup("Position")]
+        public Vector3 WeaponAttachmentOffset;
 
         [FoldoutGroup("Animator Parameter Names")]
         public string StartAnimationParam;
