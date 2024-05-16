@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 3431953656517451838}
   - component: {fileID: 3431953656516405398}
   - component: {fileID: 4583171314925258674}
+  - component: {fileID: 5041783172149265619}
+  - component: {fileID: 8468523934581620176}
+  - component: {fileID: -2277860004881890715}
   m_Layer: 0
   m_Name: "\u51F0\u7FBD\u5251"
   m_TagString: Untagged
@@ -101,7 +104,77 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DelayBeforeUse: 0
   TimeBetweenUses: 1
-  StartAnimationParam: 
+  TriggerMode: 0
+  PositionDebugInEditor: 0
+  WeaponAttachmentOffset: {x: 0, y: 0, z: 0}
+  ModifyMovementWhileAttacking: 1
+  MovementMultiplier: 0
+  PreventAllMovementWhileInUse: 0
+  StartAnimationParam: Combo1
+  InitializeOnStart: 1
+  Interruptable: 1
+  InterruptDelay: 0.2
+--- !u!114 &5041783172149265619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431953656518405142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc7d97bad277194b9c67e943d2024fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DelayBeforeUse: 0
+  TimeBetweenUses: 1
+  TriggerMode: 0
+  PositionDebugInEditor: 0
+  WeaponAttachmentOffset: {x: 0, y: 0, z: 0}
+  ModifyMovementWhileAttacking: 1
+  MovementMultiplier: 0
+  PreventAllMovementWhileInUse: 0
+  StartAnimationParam: Combo2
+  InitializeOnStart: 1
+  Interruptable: 1
+  InterruptDelay: 0.6
+--- !u!114 &8468523934581620176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431953656518405142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc7d97bad277194b9c67e943d2024fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DelayBeforeUse: 0
+  TimeBetweenUses: 1
+  TriggerMode: 0
+  PositionDebugInEditor: 0
+  WeaponAttachmentOffset: {x: 0, y: 0, z: 0}
+  ModifyMovementWhileAttacking: 1
+  MovementMultiplier: 0
+  PreventAllMovementWhileInUse: 0
+  StartAnimationParam: Combo3
   InitializeOnStart: 1
   Interruptable: 0
   InterruptDelay: 0
+--- !u!114 &-2277860004881890715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431953656518405142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d31d52cc686284faf5c28a016be185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DroppableCombo: 1
+  DropComboDelay: 1.5
+  ComboCoolTime: 1
+  Weapons: []

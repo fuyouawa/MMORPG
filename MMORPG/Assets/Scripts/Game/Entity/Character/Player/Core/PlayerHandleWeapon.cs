@@ -49,7 +49,7 @@ namespace MMORPG.Game
             }
         }
 
-        private void Awake()
+        private void Start()
         {
             if (Brain.IsMine)
             {
@@ -64,6 +64,8 @@ namespace MMORPG.Game
         private void Update()
         {
             UpdateWeaponAttachmentTransform();
+
+            Debug.Log(CurrentWeapon?.StartAnimationParam);
         }
 
         public void Setup(PlayerBrain brain)
@@ -112,7 +114,10 @@ namespace MMORPG.Game
                     WeaponAttachment.transform.position + newWeapon.WeaponAttachmentOffset,
                     WeaponAttachment.transform.rotation);
             }
-
+            else
+            {
+                CurrentWeapon = newWeapon;
+            }
             CurrentWeapon.transform.parent = WeaponAttachment.transform;
             CurrentWeapon.transform.localPosition = newWeapon.WeaponAttachmentOffset;
             CurrentWeapon.Setup(Brain);
@@ -121,13 +126,9 @@ namespace MMORPG.Game
 
         private void OnFireStarted(InputAction.CallbackContext obj)
         {
-            if (CurrentWeapon.FSM.CurrentStateId is Weapon.WeaponState.Idle)
+            if (CurrentWeapon.FSM.CurrentStateId is Weapon.WeaponStates.Idle)
             {
                 CurrentWeapon.WeaponInputStart();
-            }
-            else
-            {
-                CurrentWeapon.TryInterrupt();
             }
         }
     }
