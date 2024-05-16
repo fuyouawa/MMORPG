@@ -12,7 +12,7 @@ namespace MMORPG.Game
     public class PlayerStateCondition
     {
         [InfoBox("Invalid method!", InfoMessageType.Error, "CheckMethodNameInvalid")]
-        [ValueDropdown("GetAllStateConditions")]
+        [ValueDropdown("GetStateConditionsDropdown")]
         [VerticalGroup("Method")]
         [HideLabel]
         public string FullMethodName = string.Empty;
@@ -62,7 +62,7 @@ namespace MMORPG.Game
 
 
 #if UNITY_EDITOR
-        private IEnumerable GetAllStateConditions()
+        private IEnumerable GetStateConditionsDropdown()
         {
             var total = new ValueDropdownList<string>() { { "None Condition", string.Empty } };
             if (OwnerTransition?.OwnerState != null)

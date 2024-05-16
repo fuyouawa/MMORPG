@@ -7,7 +7,6 @@ using UnityEngine.InputSystem.XR;
 using UnityEngine.TextCore.Text;
 using static MMORPG.Game.Weapon;
 using static UnityEngine.ParticleSystem;
-using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Game
 {
@@ -25,6 +24,23 @@ namespace MMORPG.Game
         [FoldoutGroup("Animator Parameter Names")]
         public string StartAnimationParam;
 
+        [FoldoutGroup("Settings")]
+        public bool InitializeOnStart = true;
+        [FoldoutGroup("Settings")]
+        public bool Interruptable = false;
+        [FoldoutGroup("Settings")]
+        public float InterruptDelay;
+
+        public bool CanInterrupt
+        {
+            get
+            {
+                if (!Interruptable || FSM.CurrentStateId is WeaponState.Idle or WeaponState.Stop or WeaponState.Interrupted)
+                    return false;
+                return Time.time - _lastTurnWeaponOnAt > InterruptDelay;
+            }
+        }
+
         private float _lastTurnWeaponOnAt = -float.MaxValue;
         private float _lastShootRequestAt = -float.MaxValue;
         private float _delayBeforeUseCounter;
@@ -40,21 +56,30 @@ namespace MMORPG.Game
             DelayBeforeUse,
             Use,
             DelayBetweenUses,
-            Stop
+            Stop,
+            Interrupted
         }
 
         public FSM<WeaponState> FSM { get; set; } = new();
 
-        public event Action OnWeaponStart;
-        public event Action OnWeaponStop;
+        public event Action<Weapon> OnWeaponStarted;
+        public event Action<Weapon> OnWeaponStopped;
 
-        protected virtual void Awake()
+        private bool _initialized = false;
+
+        protected virtual void Start()
         {
-            InitFSM();
+            if (InitializeOnStart)
+            {
+                Initialize();
+            }
         }
 
         protected virtual void Update()
         {
+            if (!_initialized) return;
+
+            UpdateAnimator();
             FSM.Update();
         }
 
@@ -64,6 +89,14 @@ namespace MMORPG.Game
             Brain = brain;
         }
 
+        public virtual void Initialize()
+        {
+            if (_initialized) return;
+            _initialized = true;
+
+            InitFSM();
+        }
+
         public virtual void WeaponInputStart()
         {
             if (FSM.CurrentStateId == WeaponState.Idle)
@@ -71,6 +104,15 @@ namespace MMORPG.Game
                 _triggerReleased = false;
                 TurnWeaponOn();
             }
+        }
+        public virtual void WeaponInputReleased()
+        {
+
+        }
+
+        public virtual void WeaponInputStop()
+        {
+            _triggerReleased = true;
         }
 
         public virtual void TurnWeaponOn()
@@ -82,7 +124,7 @@ namespace MMORPG.Game
             _lastTurnWeaponOnAt = Time.time;
 
             FSM.ChangeState(WeaponState.Start);
-            OnWeaponStart?.Invoke();
+            OnWeaponStarted?.Invoke(this);
         }
 
         public virtual void TurnWeaponOff()
@@ -93,7 +135,17 @@ namespace MMORPG.Game
             }
             _triggerReleased = true;
             FSM.ChangeState(WeaponState.Stop);
-            OnWeaponStop?.Invoke();
+            OnWeaponStopped?.Invoke(this);
+        }
+
+        public virtual bool TryInterrupt()
+        {
+            if (CanInterrupt)
+            {
+                FSM.ChangeState(WeaponState.Interrupted);
+                return true;
+            }
+            return false;
         }
 
 
@@ -105,6 +157,7 @@ namespace MMORPG.Game
             FSM.State(WeaponState.Use).OnUpdate(CaseWeaponUse);
             FSM.State(WeaponState.DelayBetweenUses).OnUpdate(CaseWeaponDelayBetweenUses);
             FSM.State(WeaponState.Stop).OnUpdate(CaseWeaponStop);
+            FSM.State(WeaponState.Interrupted).OnUpdate(CaseWeaponInterrupted);
 
             FSM.StartState(WeaponState.Idle);
         }
@@ -170,6 +223,12 @@ namespace MMORPG.Game
             }
         }
 
+        protected virtual void CaseWeaponInterrupted()
+        {
+            TurnWeaponOff();
+            FSM.ChangeState(WeaponState.Idle);
+        }
+
         protected virtual void CaseWeaponStop()
         {
             FSM.ChangeState(WeaponState.Idle);
@@ -183,6 +242,11 @@ namespace MMORPG.Game
         protected virtual void WeaponUse()
         {
             //TODO
+        }
+
+        protected virtual void UpdateAnimator()
+        {
+            Brain.AnimationController.Animator.SetBool(StartAnimationParam, FSM.CurrentStateId == WeaponState.Start);
         }
     }
 }

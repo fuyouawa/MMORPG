@@ -33,19 +33,23 @@ namespace MMORPG.Game
 
         private void OnEntityEnterReceived(EntityEnterResponse response)
         {
-            foreach (var netEntity in response.Datas)
+            foreach (var data in response.Datas)
             {
-                var entityId = netEntity.EntityId;
-                var position = netEntity.Transform.Position.ToVector3();
-                var rotation = Quaternion.Euler(netEntity.Transform.Direction.ToVector3());
-                //TODO 根据Entity加载对应的Prefab
-
+                var entityId = data.EntityId;
+                var position = data.Transform.Position.ToVector3();
+                var rotation = Quaternion.Euler(data.Transform.Direction.ToVector3());
+                
                 var dataManager = this.GetSystem<IDataManagerSystem>();
 
                 //var unit = dataManager.GetUnitDefine();
 
-                _entityManager.SpawnEntity(_resLoader.LoadSync<EntityView>("HeroKnightMale Melee"), entityId, position,
-                    rotation, false);
+                _entityManager.SpawnEntity(
+                    _resLoader.LoadSync<EntityView>("HeroKnightMale Melee"), //TODO 根据data加载对应的Prefab
+                    entityId,
+                    (EntityType)data.EntityType,
+                    false,
+                    position,
+                    rotation);
             }
         }
 
