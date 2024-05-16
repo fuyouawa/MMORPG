@@ -6,6 +6,7 @@ using MMORPG.Global;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace MMORPG.Game
 {
@@ -15,6 +16,8 @@ namespace MMORPG.Game
         public CharacterController CharacterController;
         [Required]
         public PlayerAnimationController AnimationController;
+
+        public PlayerHandleWeapon HandleWeapon;
 
 #if UNITY_EDITOR
         [SerializeField]
@@ -74,9 +77,17 @@ namespace MMORPG.Game
 
         private void Awake()
         {
-            AnimationController.Brain = this;
+#if UNITY_EDITOR
+            if (CheckStatesHasError())
+            {
+                UnityEditor.EditorUtility.DisplayDialog("错误", "Player的PlayerBrain中的状态机有错误还未处理!", "确定");
+                UnityEditor.EditorApplication.isPlaying = false;
+                return;
+            }
+#endif
+            AnimationController.Setup(this);
+            HandleWeapon?.Setup(this);
             CurrentState = null;
-            InputControls = new();
             if (States.Length == 0) return;
             CharacterController.Entity.OnTransformSync += OnTransformEntitySync;
         }
@@ -96,6 +107,11 @@ namespace MMORPG.Game
 
         private void Start()
         {
+            if (IsMine)
+            {
+                InputControls = new();
+                InputControls.Enable();
+            }
             if (States.IsNullOrEmpty()) return;
             InitStates();
             ChangeState(States[0]);
@@ -126,26 +142,26 @@ namespace MMORPG.Game
 
         private void OnEnable()
         {
-            InputControls.Enable();
+            InputControls?.Enable();
         }
 
         private void OnDisable()
         {
-            InputControls.Disable();
+            InputControls?.Disable();
         }
 
         private void InitStates()
         {
             States.ForEach((x, i) =>
             {
-                x.Initialize(this, i);
+                x.Setup(this, i);
+                x.Initialize();
                 x.OnTransitionEvaluated += (transition, condition) =>
                 {
                     ChangeState(condition ? transition.TrueState : transition.FalseState);
                 };
             });
         }
-
 
 
 #if UNITY_EDITOR

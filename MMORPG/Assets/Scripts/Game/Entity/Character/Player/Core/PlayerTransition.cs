@@ -24,13 +24,13 @@ namespace MMORPG.Game
         [InfoBox("Invalid state!", InfoMessageType.Error, "CheckTrueStateNameInvalid")]
         [TitleGroup("Branch")]
         [LabelText("TrueState")]
-        [ValueDropdown("GetAllStateNames")]
+        [ValueDropdown("GetStateNameDropdown")]
         public string TrueStateName = string.Empty;
 
         [InfoBox("Invalid state!", InfoMessageType.Error, "CheckFalseStateNameInvalid")]
         [TitleGroup("Branch")]
         [LabelText("FalseState")]
-        [ValueDropdown("GetAllStateNames")]
+        [ValueDropdown("GetStateNameDropdown")]
         public string FalseStateName = string.Empty;
 
         public PlayerState TrueState { get; private set; }
@@ -40,9 +40,13 @@ namespace MMORPG.Game
 
         public event Action<bool> OnEvaluated;
 
-        public void Initialize(PlayerState state)
+        public void Setup(PlayerState state)
         {
             OwnerState = state;
+        }
+
+        public void Initialize()
+        {
             Debug.Assert(StateConditions.Length > 0);
             foreach (var condition in StateConditions)
             {
@@ -97,7 +101,7 @@ namespace MMORPG.Game
             StateConditions?.ForEach(x => x.OwnerTransition = this);
         }
 
-        private IEnumerable GetAllStateNames()
+        private IEnumerable GetStateNameDropdown()
         {
             var total = new ValueDropdownList<string> { { "None State", string.Empty } };
 

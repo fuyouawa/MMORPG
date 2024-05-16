@@ -30,20 +30,23 @@ namespace MMORPG.Game
 
         public bool IsMine { get; private set; }
 
-        public void Initialize(PlayerState state, int stateId)
+        public void Setup(PlayerState state, int stateId)
         {
             OwnerState = state;
             OwnerStateId = stateId;
             IsMine = OwnerState.Brain.CharacterController.Entity.IsMine;
+        }
 
+        public void Initialize()
+        {
             if (IsMine)
             {
                 LocalAbility = OwnerState.Brain.GetAttachLocalAbilities()
                     .First(x => x.GetType().Name == LocalAbilityName);
 
-                LocalAbility.OwnerState = state;
-                LocalAbility.Brain = state.Brain;
-                LocalAbility.OwnerStateId = stateId;
+                LocalAbility.OwnerState = OwnerState;
+                LocalAbility.Brain = OwnerState.Brain;
+                LocalAbility.OwnerStateId = OwnerStateId;
 
                 LocalAbility.OnStateInit();
             }
@@ -52,9 +55,9 @@ namespace MMORPG.Game
                 RemoteAbility = OwnerState.Brain.GetAttachRemoteAbilities()
                     .First(x => x.GetType().Name == RemoteAbilityName);
 
-                RemoteAbility.OwnerState = state;
-                RemoteAbility.Brain = state.Brain;
-                RemoteAbility.OwnerStateId = stateId;
+                RemoteAbility.OwnerState = OwnerState;
+                RemoteAbility.Brain = OwnerState.Brain;
+                RemoteAbility.OwnerStateId = OwnerStateId;
 
                 RemoteAbility.OnStateInit();
             }

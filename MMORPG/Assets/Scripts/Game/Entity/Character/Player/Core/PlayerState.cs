@@ -32,19 +32,25 @@ namespace MMORPG.Game
 
         public bool IsMine => Brain.IsMine;
 
-        public void Initialize(PlayerBrain brain, int stateId)
+        public void Setup(PlayerBrain brain, int stateId)
         {
             Brain = brain;
             StateId = stateId;
+        }
+
+        public void Initialize()
+        {
             foreach (var transition in Transitions)
             {
-                transition.Initialize(this);
+                transition.Setup(this);
+                transition.Initialize();
                 transition.OnEvaluated += condition => OnTransitionEvaluated?.Invoke(transition, condition);
             }
 
             foreach (var action in Actions)
             {
-                action.Initialize(this, stateId);
+                action.Setup(this, StateId);
+                action.Initialize();
             }
         }
 

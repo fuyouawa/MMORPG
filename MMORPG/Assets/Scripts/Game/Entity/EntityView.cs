@@ -1,4 +1,5 @@
 using System;
+using MMORPG.System;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEditor;
@@ -6,20 +7,38 @@ using UnityEngine;
 
 namespace MMORPG.Game
 {
+    public enum EntityType
+    {
+        Player
+    }
+
     public sealed class EntityView : MonoBehaviour, IController
     {
-        [SerializeField]
+        [ShowInInspector]
         [ReadOnly]
-        private int _entityId;
-        [SerializeField]
+        public int EntityId { get; private set; }
+
+        [ShowInInspector]
         [ReadOnly]
-        private bool _isMine;
+        public EntityType EntityType { get; private set; }
+
+        [ShowInInspector]
+        [ReadOnly]
+        public bool IsMine { get; private set; }
 
         public event Action<EntityTransformSyncData> OnTransformSync;
 
-        public int EntityId => _entityId;
+        private bool _initialized = false;
 
-        public bool IsMine => _isMine;
+        public void Initialize(int entityId, EntityType type, bool isMine)
+        {
+            Debug.Assert(!_initialized);
+            _initialized = true;
+            EntityId = entityId;
+            EntityType = type;
+            IsMine = isMine;
+        }
+
 
 #if UNITY_EDITOR
         [Button]
@@ -38,16 +57,6 @@ namespace MMORPG.Game
             }
         }
 #endif
-
-        public void SetEntityId(int entityId)
-        {
-            _entityId = entityId;
-        }
-
-        public void SetIsMine(bool isMine)
-        {
-            _isMine = isMine;
-        }
 
         public IArchitecture GetArchitecture()
         {
