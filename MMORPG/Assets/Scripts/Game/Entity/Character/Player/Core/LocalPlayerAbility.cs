@@ -15,5 +15,6 @@ namespace MMORPG.Game
                 select method;
         }
 
+        public virtual bool OnStateCondition() { return true; }
     }
 }

@@ -889,8 +889,6 @@ MonoBehaviour:
       StateConditions:
       - FullMethodName: LocalPlayerIdle/CanMovement
         Not: 0
-      - FullMethodName: LocalPlayerMovement/CheckStartMove
-        Not: 0
       TrueStateName: Movement
       FalseStateName: 
   - Name: Movement
@@ -900,8 +898,6 @@ MonoBehaviour:
     Transitions:
     - Label: "\u56DE\u5230Idle"
       StateConditions:
-      - FullMethodName: LocalPlayerMovement/CheckStartMove
-        Not: 1
       - FullMethodName: LocalPlayerMovement/CheckStopMove
         Not: 0
       TrueStateName: Idle

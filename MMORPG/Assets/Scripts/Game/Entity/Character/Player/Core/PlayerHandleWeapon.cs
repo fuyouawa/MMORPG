@@ -1,8 +1,9 @@
 using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
- namespace MMORPG.Game
+namespace MMORPG.Game
 {
     public enum HandleWeaponMode
     {
@@ -24,6 +25,11 @@ using UnityEngine;
         public Transform LeftHandTarget;
         public Transform RightHandTarget;
 
+        public delegate void WeaponChangedHandler(Weapon current, Weapon previous);
+        public event WeaponChangedHandler OnWeaponChanged;
+
+        public PlayerBrain Brain { get; private set; }
+
         [Button]
         private void UpdateWeaponAttachmentTransform()
         {
@@ -43,13 +49,12 @@ using UnityEngine;
             }
         }
 
-        public delegate void WeaponChangedHandler(Weapon current, Weapon previous);
-        public event WeaponChangedHandler OnWeaponChanged;
-
-        public PlayerBrain Brain { get; private set; }
-
         private void Awake()
         {
+            if (Brain.IsMine)
+            {
+                Brain.InputControls.Player.Fire.started += OnFireStarted;
+            }
             if (InitialWeapon)
             {
                 ChangeWeapon(InitialWeapon);
@@ -59,6 +64,11 @@ using UnityEngine;
         private void Update()
         {
             UpdateWeaponAttachmentTransform();
+        }
+
+        public void Setup(PlayerBrain brain)
+        {
+            Brain = brain;
         }
 
         public void ChangeWeapon(Weapon newWeapon, bool combo = false)
@@ -84,6 +94,16 @@ using UnityEngine;
             OnWeaponChanged?.Invoke(newWeapon, tmp);
         }
 
+        public void ShootStart()
+        {
+            CurrentWeapon.WeaponInputStart();
+        }
+
+        public void ShootStop()
+        {
+            CurrentWeapon.WeaponInputStop();
+        }
+
         private void InstantiateWeapon(Weapon newWeapon, bool combo)
         {
             if (!combo)
@@ -99,9 +119,16 @@ using UnityEngine;
             CurrentWeapon.Initialize();
         }
 
-        public void Setup(PlayerBrain brain)
+        private void OnFireStarted(InputAction.CallbackContext obj)
         {
-            Brain = brain;
+            if (CurrentWeapon.FSM.CurrentStateId is Weapon.WeaponState.Idle)
+            {
+                CurrentWeapon.WeaponInputStart();
+            }
+            else
+            {
+                CurrentWeapon.TryInterrupt();
+            }
         }
     }
 }
