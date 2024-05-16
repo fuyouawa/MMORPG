@@ -7,7 +7,7 @@ namespace MMORPG.Game
         public override void OnStateEnter()
         {
             Brain.CharacterController.NetworkUploadTransform(OwnerStateId, null);
-            Brain.AnimationController.SmoothMoveDirection(Vector2.zero);
+            Brain.AnimationController.StopMovement();
         }
 
         [StateCondition]

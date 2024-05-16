@@ -7,6 +7,7 @@ namespace MMORPG.Game
     {
         public bool DroppableCombo = true;
         public float DropComboDelay = 1f;
+        public float ComboCoolTime = 1f;
 
         [ReadOnly]
         [ShowInInspector]
@@ -19,7 +20,9 @@ namespace MMORPG.Game
 
         public PlayerBrain OwnerBrain { get; private set; }
 
+        private float _timeSinceComboFinished;
         private float _timeSinceLastWeaponStopped;
+        private bool _inComboCooling;
         private bool _inCombo;
 
         public Weapon[] GetAttachedWeapons()
@@ -67,23 +70,23 @@ namespace MMORPG.Game
         {
             if (Weapons.Length > 1)
             {
-                if (_inCombo && DroppableCombo)
+                if (_inCombo && DroppableCombo && Time.time - _timeSinceLastWeaponStopped < ComboCoolTime)
                 {
-                    _timeSinceLastWeaponStopped += Time.deltaTime;
-                    if (_timeSinceLastWeaponStopped > DropComboDelay)
-                    {
-                        _inCombo = false;
-
-                        CurrentWeaponIndex = 0;
-                        OwnerBrain.HandleWeapon.ChangeWeapon(CurrentWeapon);
-                    }
+                    _inCombo = false;
+                    CurrentWeaponIndex = 0;
+                    OwnerBrain.HandleWeapon.ChangeWeapon(CurrentWeapon, true);
                 }
+            }
+
+            if (_inComboCooling && Time.time - _timeSinceComboFinished < ComboCoolTime)
+            {
+                Weapons[0].PreventFire = false;
+                _inComboCooling = false;
             }
         }
 
         protected virtual void OnWeaponStarted(Weapon weapon)
         {
-            _inCombo = false;
         }
 
         protected virtual void OnWeaponStopped(Weapon weapon)
@@ -94,23 +97,28 @@ namespace MMORPG.Game
         protected virtual void ProceedToNextCombo()
         {
             OwnerBrain = CurrentWeapon.Brain;
+            Debug.Assert(OwnerBrain != null);
 
-            if (OwnerBrain != null)
+            if (Weapons.Length > 1)
             {
-                if (Weapons.Length > 1)
+                var newIndex = 0;
+                if (CurrentWeaponIndex < Weapons.Length - 1)
                 {
-                    var newIndex = 0;
-                    if (CurrentWeaponIndex < Weapons.Length - 1)
-                    {
-                        newIndex = CurrentWeaponIndex + 1;
-                    }
-
+                    newIndex = CurrentWeaponIndex + 1;
                     _inCombo = true;
-                    _timeSinceLastWeaponStopped = 0f;
-
-                    CurrentWeaponIndex = newIndex;
-                    OwnerBrain.HandleWeapon.ChangeWeapon(CurrentWeapon);
                 }
+                else
+                {
+                    _timeSinceComboFinished = Time.time;
+                    Weapons[0].PreventFire = true;
+                    _inComboCooling = true;
+                    _inCombo = false;
+                }
+
+                _timeSinceLastWeaponStopped = Time.time;
+
+                CurrentWeaponIndex = newIndex;
+                OwnerBrain.HandleWeapon.ChangeWeapon(CurrentWeapon, true);
             }
         }
     }

@@ -46,11 +46,9 @@ namespace MMORPG.Game
 
         public override void OnStateExit()
         {
-            Brain.AnimationController.StopMovement();
         }
 
-        [StateCondition]
-        public bool CheckStartMove()
+        public override bool OnStateCondition()
         {
             return Brain.GetMoveInput().magnitude > IdleThreshold;
         }
@@ -58,8 +56,7 @@ namespace MMORPG.Game
         [StateCondition]
         public bool CheckStopMove()
         {
-            return !CheckStartMove() &&
-                   Brain.AnimationController.MovementDirection.magnitude < BackIdleThreshold;
+            return !OnStateCondition() && Brain.AnimationController.MovementDirection.magnitude < BackIdleThreshold;
         }
 
         private void ControlMove()

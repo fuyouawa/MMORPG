@@ -25,6 +25,11 @@ namespace MMORPG.Game
         [FoldoutGroup("Position")]
         public Vector3 WeaponAttachmentOffset;
 
+        [FoldoutGroup("Movement")]
+        public bool ModifyMovementWhileAttacking = false;
+        public float MovementMultiplier = 0f;
+        public bool PreventAllMovementWhileInUse = false;
+
         [FoldoutGroup("Animator Parameter Names")]
         public string StartAnimationParam;
 
@@ -44,6 +49,8 @@ namespace MMORPG.Game
                 return Time.time - _lastTurnWeaponOnAt > InterruptDelay;
             }
         }
+
+        public bool PreventFire = false;
 
         private float _lastTurnWeaponOnAt = -float.MaxValue;
         private float _lastShootRequestAt = -float.MaxValue;
@@ -103,7 +110,7 @@ namespace MMORPG.Game
 
         public virtual void WeaponInputStart()
         {
-            if (FSM.CurrentStateId == WeaponState.Idle)
+            if (FSM.CurrentStateId == WeaponState.Idle && !PreventFire)
             {
                 _triggerReleased = false;
                 TurnWeaponOn();
@@ -121,7 +128,7 @@ namespace MMORPG.Game
 
         public virtual void TurnWeaponOn()
         {
-            if (Time.time - _lastTurnWeaponOnAt < TimeBetweenUses)
+            if (Time.time - _lastTurnWeaponOnAt < TimeBetweenUses || PreventFire)
             {
                 return;
             }
@@ -250,7 +257,10 @@ namespace MMORPG.Game
 
         protected virtual void UpdateAnimator()
         {
-            Brain.AnimationController.Animator.SetBool(StartAnimationParam, FSM.CurrentStateId == WeaponState.Start);
+            if (!StartAnimationParam.IsNullOrEmpty())
+            {
+                Brain.AnimationController.Animator.SetBool(StartAnimationParam, FSM.CurrentStateId == WeaponState.Start);
+            }
         }
     }
 }

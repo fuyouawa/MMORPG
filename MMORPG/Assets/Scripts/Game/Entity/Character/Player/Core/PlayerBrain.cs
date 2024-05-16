@@ -61,16 +61,24 @@ namespace MMORPG.Game
             return total.ToArray();
         }
 
-        public void ChangeState(PlayerState state)
+        public bool ChangeState(PlayerState state)
         {
             Debug.Assert(state != null);
             Debug.Assert(States.Contains(state));
+            if (IsMine)
+            {
+                if (state.Actions.Any(action => !action.LocalAbility.OnStateCondition()))
+                {
+                    return false;
+                }
+            }
             CurrentState?.Exit();
             CurrentState = state;
 #if UNITY_EDITOR
             _currentStateName = CurrentState.Name;
 #endif
             CurrentState.Enter();
+            return true;
         }
 
         public PlayerState GetState(string stateName)
