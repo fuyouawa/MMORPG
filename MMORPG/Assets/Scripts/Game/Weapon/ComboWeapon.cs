@@ -78,13 +78,11 @@ namespace MMORPG.Game
 
         protected virtual void ResetCombo()
         {
-            Debug.Log(CurrentWeaponIndex);
             if (Weapons.Length > 1)
             {
-                if (_inCombo && DroppableCombo && Time.time - _timeSinceLastWeaponStopped > ComboCoolTime)
+                if (_inCombo && DroppableCombo && Time.time - _timeSinceLastWeaponStopped > DropComboDelay)
                 {
                     _inCombo = false;
-                    Debug.Log("CCC");
                     CurrentWeaponIndex = 0;
                     OwnerBrain.HandleWeapon.ChangeWeapon(CurrentWeapon, true);
                 }
@@ -119,8 +117,7 @@ namespace MMORPG.Game
 
         protected virtual void ProceedToNextCombo()
         {
-            OwnerBrain = CurrentWeapon.Brain;
-            Debug.Assert(OwnerBrain != null);
+            Debug.Assert(OwnerBrain == CurrentWeapon.Brain);
 
             if (Weapons.Length > 1)
             {
