@@ -64,8 +64,6 @@ namespace MMORPG.Game
         private void Update()
         {
             UpdateWeaponAttachmentTransform();
-
-            Debug.Log(CurrentWeapon?.StartAnimationParam);
         }
 
         public void Setup(PlayerBrain brain)
@@ -94,16 +92,6 @@ namespace MMORPG.Game
                 CurrentWeapon = null;
             }
             OnWeaponChanged?.Invoke(newWeapon, tmp);
-        }
-
-        public void ShootStart()
-        {
-            CurrentWeapon.WeaponInputStart();
-        }
-
-        public void ShootStop()
-        {
-            CurrentWeapon.WeaponInputStop();
         }
 
         private void InstantiateWeapon(Weapon newWeapon, bool combo)
