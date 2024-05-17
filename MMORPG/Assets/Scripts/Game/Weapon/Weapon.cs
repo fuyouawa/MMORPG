@@ -116,7 +116,6 @@ namespace MMORPG.Game
 
         public virtual void WeaponInputStart()
         {
-            Debug.Log($"Trigger {StartAnimationParam}");
             if (FSM.CurrentStateId == WeaponStates.Idle && !PreventFire)
             {
                 _triggerReleased = false;
