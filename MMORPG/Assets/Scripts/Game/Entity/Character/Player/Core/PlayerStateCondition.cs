@@ -21,9 +21,6 @@ namespace MMORPG.Game
 
         public PlayerTransition OwnerTransition { get; set; }
 
-        public string MethodName =>
-            FullMethodName == string.Empty ? string.Empty : FullMethodName.Split('/')[1];
-
         private object _methodObject;
         private MethodInfo _methodInfo;
 
@@ -48,10 +45,11 @@ namespace MMORPG.Game
                 .First(x => x.GetType().Name == objectName);
 
             _methodInfo = _methodObject.GetType().GetMethod(methodName,
-                BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
             Debug.Assert(_methodInfo != null);
             Debug.Assert(_methodInfo.ReturnType == typeof(bool));
+            Debug.Assert(_methodInfo.GetParameters().Length == 0);
 
             _method = () =>
             {
@@ -70,14 +68,16 @@ namespace MMORPG.Game
                 var abilities = OwnerTransition.OwnerState.Brain.GetAttachLocalAbilities();
                 if (abilities == null)
                     return total;
-
-                total.AddRange(
-                    from ability in abilities
-                    from condition in ability.GetStateConditions()
-                    let name = $"{ability.GetType().Name}/{condition.Name}"
-                    select new ValueDropdownItem<string>(
-                        $"{name}{(condition.ReturnType == typeof(bool) ? "" : " - ERROR")}", name)
-                );
+                foreach (var ability in abilities)
+                {
+                    foreach (var condition in ability.GetStateConditions())
+                    {
+                        var attr = condition.GetAttribute<StateConditionAttribute>();
+                        var methodPath = $"{ability.GetType().Name}/{condition.Name}";
+                        var displayName = $"{ability.GetType().Name}/{condition.Name}";
+                        total.Add(displayName, methodPath);
+                    }
+                }
             }
 
             return total;

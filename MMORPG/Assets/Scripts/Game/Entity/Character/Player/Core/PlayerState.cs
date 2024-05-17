@@ -111,6 +111,11 @@ namespace MMORPG.Game
 #endif
     }
 
-    public class StateConditionAttribute : Attribute { }
+    public class StateConditionAttribute : Attribute
+    {
+        public StateConditionAttribute()
+        {
+        }
+    }
 
 }

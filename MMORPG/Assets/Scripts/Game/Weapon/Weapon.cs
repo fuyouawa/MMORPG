@@ -24,20 +24,30 @@ namespace MMORPG.Game
 #if UNITY_EDITOR
         [FoldoutGroup("Position")]
         [LabelText("Debug In Editor")]
-        public bool PositionDebugInEditor = false;
+        public bool PositionDebugInEditor = false;  //TODO PositionDebugInEditor
 #endif
         [FoldoutGroup("Position")]
         public Vector3 WeaponAttachmentOffset;
 
         [FoldoutGroup("Movement")]
-        public bool ModifyMovementWhileAttacking = false;
+        public bool ModifyMovementWhileAttacking = false;   //TODO ModifyMovementWhileAttacking
         [FoldoutGroup("Movement")]
-        public float MovementMultiplier = 0f;
+        public float MovementMultiplier = 1f;       //TODO MovementMultiplier
         [FoldoutGroup("Movement")]
         public bool PreventAllMovementWhileInUse = false;
 
         [FoldoutGroup("Animator Parameter Names")]
-        public string StartAnimationParam;
+        public string IdleAnimationParameter;
+        [FoldoutGroup("Animator Parameter Names")]
+        public string StartAnimationParameter;
+        [FoldoutGroup("Animator Parameter Names")]
+        public string DelayBeforeUseAnimationParameter;
+        [FoldoutGroup("Animator Parameter Names")]
+        public string UseAnimationParameter;
+        [FoldoutGroup("Animator Parameter Names")]
+        public string DelayBetweenUsesAnimationParameter;
+        [FoldoutGroup("Animator Parameter Names")]
+        public string StopAnimationParameter;
 
         [FoldoutGroup("Settings")]
         public bool InitializeOnStart = true;
@@ -194,6 +204,8 @@ namespace MMORPG.Game
             {
                 StartCoroutine(ShootRequestCo());
             }
+
+            Brain.PreventMovement = PreventAllMovementWhileInUse;
         }
 
         protected virtual void CaseWeaponDelayBeforeUse()
@@ -253,6 +265,7 @@ namespace MMORPG.Game
         protected virtual void CaseWeaponStop()
         {
             FSM.ChangeState(WeaponStates.Idle);
+            Brain.PreventMovement = false;
         }
 
         protected virtual void ShootRequest()
@@ -267,10 +280,23 @@ namespace MMORPG.Game
 
         protected virtual void UpdateAnimator()
         {
-            if (!StartAnimationParam.IsNullOrEmpty())
-            {
-                Brain.AnimationController.Animator.SetBool(StartAnimationParam, FSM.CurrentStateId == WeaponStates.Start);
-            }
+            if (!IdleAnimationParameter.IsNullOrEmpty())
+                Brain.AnimationController.Animator.SetBool(IdleAnimationParameter, FSM.CurrentStateId == WeaponStates.Idle);
+
+            if (!StartAnimationParameter.IsNullOrEmpty())
+                Brain.AnimationController.Animator.SetBool(StartAnimationParameter, FSM.CurrentStateId == WeaponStates.Start);
+
+            if (!DelayBeforeUseAnimationParameter.IsNullOrEmpty())
+                Brain.AnimationController.Animator.SetBool(DelayBeforeUseAnimationParameter, FSM.CurrentStateId == WeaponStates.DelayBeforeUse);
+
+            if (!UseAnimationParameter.IsNullOrEmpty())
+                Brain.AnimationController.Animator.SetBool(UseAnimationParameter, FSM.CurrentStateId == WeaponStates.Use);
+
+            if (!DelayBetweenUsesAnimationParameter.IsNullOrEmpty())
+                Brain.AnimationController.Animator.SetBool(DelayBetweenUsesAnimationParameter, FSM.CurrentStateId == WeaponStates.DelayBetweenUses);
+
+            if (!StopAnimationParameter.IsNullOrEmpty())
+                Brain.AnimationController.Animator.SetBool(StopAnimationParameter, FSM.CurrentStateId == WeaponStates.Stop);
         }
     }
 }

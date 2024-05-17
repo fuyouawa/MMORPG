@@ -124,7 +124,6 @@ namespace MMORPG.System
 
         private void OnEntitySyncReceived(EntityTransformSyncResponse response)
         {
-            Tool.Log.Info("Game", $"实体({response.EntityId})同步");
             this.SendEvent(new NetworkEntitySyncEvent(
                 response.EntityId,
                 response.Transform.Position.ToVector3(),

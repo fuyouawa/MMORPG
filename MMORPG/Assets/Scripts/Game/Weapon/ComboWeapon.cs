@@ -46,7 +46,10 @@ namespace MMORPG.Game
         {
             Weapons = GetComponents<Weapon>();
             OwnerBrain = Weapons[0].Brain;
-            OwnerBrain.InputControls.Player.Fire.started += OnFireStarted;
+            if (OwnerBrain.IsMine)
+            {
+                OwnerBrain.InputControls.Player.Fire.started += OnFireStarted;
+            }
             OwnerBrain.HandleWeapon.OnWeaponChanged += OnWeaponChanged;
             Weapons.ForEach(x =>
             {
