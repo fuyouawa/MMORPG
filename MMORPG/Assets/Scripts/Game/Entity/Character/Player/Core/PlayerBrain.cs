@@ -50,6 +50,8 @@ namespace MMORPG.Game
 
         public bool IsMine => CharacterController.Entity.IsMine;
 
+        public bool PreventMovement = false;
+
         private TAbility[] GetAttachAbilities<TAbility>() where TAbility : PlayerAbility
         {
             var total = new List<TAbility>();
@@ -65,13 +67,6 @@ namespace MMORPG.Game
         {
             Debug.Assert(state != null);
             Debug.Assert(States.Contains(state));
-            if (IsMine)
-            {
-                if (state.Actions.Any(action => !action.LocalAbility.OnStateCondition()))
-                {
-                    return false;
-                }
-            }
             CurrentState?.Exit();
             CurrentState = state;
 #if UNITY_EDITOR
