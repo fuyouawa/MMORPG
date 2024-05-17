@@ -31,7 +31,10 @@ namespace MMORPG.Game
 
         public override void OnStateUpdate()
         {
-            ControlMove();
+            if (!Brain.PreventMovement)
+            {
+                ControlMove();
+            }
         }
 
         public override void OnStateNetworkFixedUpdate()
@@ -48,15 +51,16 @@ namespace MMORPG.Game
         {
         }
 
-        public override bool OnStateCondition()
+        [StateCondition]
+        public bool MoveInputReachIdleThreshold()
         {
             return Brain.GetMoveInput().magnitude > IdleThreshold;
         }
 
         [StateCondition]
-        public bool CheckStopMove()
+        public bool VelocityReachBackIdleThreshold()
         {
-            return !OnStateCondition() && Brain.AnimationController.MovementDirection.magnitude < BackIdleThreshold;
+            return Brain.AnimationController.MovementDirection.magnitude < BackIdleThreshold;
         }
 
         private void ControlMove()

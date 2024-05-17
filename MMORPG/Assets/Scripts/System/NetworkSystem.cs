@@ -72,7 +72,6 @@ namespace MMORPG.System
         private void OnPacketReceived(object sender, PacketReceivedEventArgs e)
         {
             var msgType = e.Packet.Message.GetType();
-            Tool.Log.Info("Network", $"收到数据包:{msgType.Name}");
             if (ProtoManager.IsEvent(msgType))
             {
                 _eventMsgHandlers[msgType]?.DynamicInvoke(new object[] { e.Packet.Message });

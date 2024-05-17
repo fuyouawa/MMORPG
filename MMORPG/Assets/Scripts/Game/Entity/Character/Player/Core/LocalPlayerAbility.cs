@@ -14,7 +14,5 @@ namespace MMORPG.Game
                 where method.HasAttribute<StateConditionAttribute>()
                 select method;
         }
-
-        public virtual bool OnStateCondition() { return true; }
     }
 }

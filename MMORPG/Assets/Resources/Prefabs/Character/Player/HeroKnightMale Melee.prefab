@@ -889,6 +889,8 @@ MonoBehaviour:
       StateConditions:
       - FullMethodName: LocalPlayerIdle/CanMovement
         Not: 0
+      - FullMethodName: LocalPlayerMovement/MoveInputReachIdleThreshold
+        Not: 0
       TrueStateName: Movement
       FalseStateName: 
   - Name: Movement
@@ -898,13 +900,16 @@ MonoBehaviour:
     Transitions:
     - Label: "\u56DE\u5230Idle"
       StateConditions:
-      - FullMethodName: LocalPlayerMovement/CheckStopMove
+      - FullMethodName: LocalPlayerMovement/MoveInputReachIdleThreshold
+        Not: 1
+      - FullMethodName: LocalPlayerMovement/VelocityReachBackIdleThreshold
         Not: 0
       TrueStateName: Idle
       FalseStateName: 
   AdditionalAbilityNodes:
   - {fileID: 1952149207982524674}
   - {fileID: 171388820641581816}
+  PreventMovement: 0
 --- !u!114 &6871216913282456529
 MonoBehaviour:
   m_ObjectHideFlags: 0
