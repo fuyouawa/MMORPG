@@ -8,7 +8,6 @@ using UnityEngine;
 namespace MMORPG.Game
 {
     [Serializable]
-
     public class PlayerAction
     {
         [InfoBox("Invalid ability!", InfoMessageType.Error, "CheckLocalAbilityNameInvalid")]

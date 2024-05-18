@@ -298,5 +298,10 @@ namespace MMORPG.Game
             if (!StopAnimationParameter.IsNullOrEmpty())
                 Brain.AnimationController.Animator.SetBool(StopAnimationParameter, FSM.CurrentStateId == WeaponStates.Stop);
         }
+
+        protected virtual void OnDestroy()
+        {
+            FSM.Clear();
+        }
     }
 }
