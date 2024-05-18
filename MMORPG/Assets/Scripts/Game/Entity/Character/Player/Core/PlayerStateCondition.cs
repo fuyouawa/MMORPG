@@ -63,7 +63,7 @@ namespace MMORPG.Game
         private IEnumerable GetStateConditionsDropdown()
         {
             var total = new ValueDropdownList<string>() { { "None Condition", string.Empty } };
-            if (OwnerTransition?.OwnerState != null)
+            if (OwnerTransition?.OwnerState?.Brain != null)
             {
                 var abilities = OwnerTransition.OwnerState.Brain.GetAttachLocalAbilities();
                 if (abilities == null)
