@@ -62,8 +62,8 @@ namespace GameServer.Service
                     return;
                 }
 
-                var newDbCharacter = new DbCharacter(request.Name, request.JobId, 100, 100, 1, 0,
-                    MapManager.Instance.InitMapId, 0, sender.User.UserId);
+                var newDbCharacter = new DbCharacter(request.Name, sender.User.UserId, request.UnitId, MapManager.Instance.InitMapId, 100, 100, 1,
+                    0, 0);
                 var insertCount = SqlDb.Connection.Insert(newDbCharacter).ExecuteAffrows();
                 if (insertCount <= 0)
                 {
@@ -94,7 +94,7 @@ namespace GameServer.Service
                 {
                     CharacterId = character.Id,
                     Name = character.Name,
-                    JobId = character.JobId,
+                    UnitId = character.UnitId,
                     Level = character.Level,
                     Exp = character.Exp,
                     MapId = character.MapId,

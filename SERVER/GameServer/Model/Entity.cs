@@ -11,6 +11,7 @@ namespace GameServer.Model
     public class Entity
     {
         public EntityType EntityType;
+        public int UnitId;
         public int EntityId;
         public Map? Map;
         public Vector3 Position;

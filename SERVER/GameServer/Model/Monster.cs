@@ -17,7 +17,9 @@ namespace GameServer.Model
 {
     public class Monster : Actor
     {
-        private Vector3 _moveCurrentPos ;
+        public static readonly float DefaultViewRange = 100;
+
+        private Vector3 _moveCurrentPos;
         private Vector3 _moveTargetPos;
         private MonsterAi _ai;
         private Random _random = new();

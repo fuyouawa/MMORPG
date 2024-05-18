@@ -21,18 +21,15 @@ namespace GameServer.Manager
     /// </summary>
     public class EntityManager : Singleton<EntityManager>
     {
-        private int _serialNum;
-        private Dictionary<int, Entity> _entityDict;
+        private int _serialNum = 0;
+        private Dictionary<int, Entity> _entityDict = new();
 
-        public Tool.Time Time;
+        public Tool.Time Time = new();
 
-        EntityManager()
+        EntityManager() { }
+        public void Init()
         {
-            _serialNum = 0;
-            _entityDict = new();
-
             CenterTimer.Instance.Register(100, UpdateAllEntity);
-            Time = new();
         }
 
         private void UpdateAllEntity()
