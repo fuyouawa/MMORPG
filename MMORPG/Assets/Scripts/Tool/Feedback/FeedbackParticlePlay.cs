@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace MMORPG.Tool
 {
+    [AddFeedbackMenu("Particle/ParticlePlay")]
     public class FeedbackParticlePlay : Feedback
     {
         public enum Modes
