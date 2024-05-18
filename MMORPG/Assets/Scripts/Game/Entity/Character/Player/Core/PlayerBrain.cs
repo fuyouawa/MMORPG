@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MMORPG.Global;
+using MMORPG.Tool;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -38,6 +40,8 @@ namespace MMORPG.Game
 
         [Title("Binding")]
         public GameObject[] AdditionalAbilityNodes;
+        [Space]
+        public GameObject[] FeedbackNodes;
 
         public GameInputControls InputControls { get; private set; }
 
@@ -45,12 +49,22 @@ namespace MMORPG.Game
 
         public RemotePlayerAbility[] GetAttachRemoteAbilities() => GetAttachAbilities<RemotePlayerAbility>();
 
+        public FeedbackManager[] GetAttachFeedbacks()
+        {
+            if (FeedbackNodes.IsNullOrEmpty())
+                return Array.Empty<FeedbackManager>();
+
+            var total = new List<FeedbackManager>();
+            FeedbackNodes.ForEach(x => total.AddRange(x.GetComponentsInChildren<FeedbackManager>()));
+            return total.ToArray();
+        }
+
         public Vector2 GetMoveInput() => InputControls.Player.Move.ReadValue<Vector2>();
         public bool IsPressingRun() => InputControls.Player.Run.inProgress;
 
         public bool IsMine => CharacterController.Entity.IsMine;
 
-        public bool PreventMovement = false;
+        public bool PreventMovement { get; set; } = false;
 
         private TAbility[] GetAttachAbilities<TAbility>() where TAbility : PlayerAbility
         {

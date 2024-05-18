@@ -80,5 +80,30 @@ namespace MMORPG.Tool
         {
             Feedbacks.ForEach(x => x.OnDestroy());
         }
+#if UNITY_EDITOR
+        [HorizontalGroup(Title = "Test (Runtime only)")]
+        [Button]
+        private void TestPlay()
+        {
+            if (!UnityEditor.EditorApplication.isPlaying)
+            {
+                UnityEditor.EditorUtility.DisplayDialog("错误", "只能在运行时测试!", "确定");
+                return;
+            }
+            PlayFeedbacks();
+        }
+
+        [HorizontalGroup]
+        [Button]
+        private void TestStop()
+        {
+            if (!UnityEditor.EditorApplication.isPlaying)
+            {
+                UnityEditor.EditorUtility.DisplayDialog("错误", "只能在运行时测试!", "确定");
+                return;
+            }
+            StopFeedbacks();
+        }
+#endif
     }
 }

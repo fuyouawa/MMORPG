@@ -34,8 +34,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 921126111132558133}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3431953656517451838
@@ -117,9 +116,16 @@ MonoBehaviour:
   UseAnimationParameter: 
   DelayBetweenUsesAnimationParameter: 
   StopAnimationParameter: 
-  InitializeOnStart: 1
+  FindFeedbackByName: 1
+  WeaponStartFeedbackName: Combo1_Feedback
+  WeaponUsedFeedbackName: 
+  WeaponStopFeedbackName: 
+  WeaponStartFeedback: {fileID: 0}
+  WeaponUsedFeedback: {fileID: 0}
+  WeaponStopFeedback: {fileID: 0}
+  InitializeOnStart: 0
   Interruptable: 1
-  InterruptDelay: 0.2
+  InterruptDelay: 0.3
 --- !u!114 &5041783172149265619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +152,14 @@ MonoBehaviour:
   UseAnimationParameter: 
   DelayBetweenUsesAnimationParameter: 
   StopAnimationParameter: 
-  InitializeOnStart: 1
+  FindFeedbackByName: 1
+  WeaponStartFeedbackName: Combo2_Feedback
+  WeaponUsedFeedbackName: 
+  WeaponStopFeedbackName: 
+  WeaponStartFeedback: {fileID: 0}
+  WeaponUsedFeedback: {fileID: 0}
+  WeaponStopFeedback: {fileID: 0}
+  InitializeOnStart: 0
   Interruptable: 1
   InterruptDelay: 0.6
 --- !u!114 &8468523934581620176
@@ -175,7 +188,14 @@ MonoBehaviour:
   UseAnimationParameter: 
   DelayBetweenUsesAnimationParameter: 
   StopAnimationParameter: 
-  InitializeOnStart: 1
+  FindFeedbackByName: 1
+  WeaponStartFeedbackName: Combo3_Feedback
+  WeaponUsedFeedbackName: 
+  WeaponStopFeedbackName: 
+  WeaponStartFeedback: {fileID: 0}
+  WeaponUsedFeedback: {fileID: 0}
+  WeaponStopFeedback: {fileID: 0}
+  InitializeOnStart: 0
   Interruptable: 0
   InterruptDelay: 0
 --- !u!114 &-2277860004881890715
@@ -194,178 +214,3 @@ MonoBehaviour:
   DropComboDelay: 1.5
   ComboCoolTime: 1
   Weapons: []
---- !u!1 &5749246667356561979
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9046904181842873895}
-  - component: {fileID: 9202994325836680014}
-  m_Layer: 0
-  m_Name: Combo1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9046904181842873895
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5749246667356561979}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 921126111132558133}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9202994325836680014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5749246667356561979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca1321627d62964085ea62d89ebeb49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: Feedbacks
-      Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[MMORPG.Tool.Feedback, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 1|MMORPG.Tool.FeedbackParticlePlay, Assembly-CSharp
-    - Name: Label
-      Entry: 1
-      Data: Feedback
-    - Name: InitializeMode
-      Entry: 3
-      Data: 1
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0
-    - Name: Duration
-      Entry: 4
-      Data: 1
-    - Name: LocalPosition
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: LocalRotation
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: LocalScale
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: FSM
-      Entry: 7
-      Data: 2|QFramework.FSM`1[[MMORPG.Tool.FeedbackStates, Assembly-CSharp]], QFramework.CoreKit
-    - Name: FrameCountOfCurrentState
-      Entry: 3
-      Data: 1
-    - Name: SecondsOfCurrentState
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-  AutoPlayOnStart: 0
-  AutoPlayOnEnable: 0
---- !u!1 &7119924713112138536
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 921126111132558133}
-  m_Layer: 0
-  m_Name: Feedbacks
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &921126111132558133
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7119924713112138536}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 9046904181842873895}
-  m_Father: {fileID: 3431953656518740712}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

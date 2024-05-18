@@ -1,3 +1,4 @@
+using System;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -12,7 +13,8 @@ namespace MMORPG.Game
         public float DropComboDelay = 1f;
         public float ComboCoolTime = 1f;
 
-
+        [InfoBox("Automatically gets all weapons attached to the current GameObject.")]
+        [InfoBox("Do not make \"InitializeOnStart\" true on any Weapon!", InfoMessageType.Warning)]
         [ReadOnly]
         public Weapon[] Weapons;
 
@@ -28,35 +30,35 @@ namespace MMORPG.Game
         private bool _inCombo;
         private bool _fireInNextWeapon = false;
 
-
-        protected virtual void Start()
+        private void Awake()
         {
-            Initialization();
+            Weapons.ForEach(x =>
+            {
+                if (x.InitializeOnStart)
+                    throw new Exception("Do not make \"InitializeOnStart\" true on any Weapon!");
+            });
         }
 
-        protected virtual void Update()
-        {
-            ResetCombo();
-        }
-
-        /// <summary>
-        /// Grabs all Weapon components and initializes them
-        /// </summary>
-        protected virtual void Initialization()
+        private void Start()
         {
             Weapons = GetComponents<Weapon>();
-            OwnerBrain = Weapons[0].Brain;
-            if (OwnerBrain.IsMine)
-            {
-                OwnerBrain.InputControls.Player.Fire.started += OnFireStarted;
-            }
-            OwnerBrain.HandleWeapon.OnWeaponChanged += OnWeaponChanged;
             Weapons.ForEach(x =>
             {
                 x.OnWeaponStarted += OnWeaponStarted;
                 x.OnWeaponStopped += OnWeaponStopped;
             });
-            InitializeUnusedWeapons();
+            OwnerBrain = Weapons[0].Brain;
+            Debug.Assert(OwnerBrain != null);
+            if (OwnerBrain.IsMine)
+            {
+                OwnerBrain.InputControls.Player.Fire.started += OnFireStarted;
+            }
+            OwnerBrain.HandleWeapon.OnWeaponChanged += OnWeaponChanged;
+        }
+
+        private void Update()
+        {
+            ResetCombo();
         }
 
         protected virtual void OnWeaponChanged(Weapon current, Weapon previous)
@@ -65,17 +67,6 @@ namespace MMORPG.Game
             {
                 current.WeaponInputStart();
                 _fireInNextWeapon = false;
-            }
-        }
-
-        protected virtual void InitializeUnusedWeapons()
-        {
-            for (int i = 0; i < Weapons.Length; i++)
-            {
-                if (i != CurrentWeaponIndex)
-                {
-                    Weapons[i].Setup(CurrentWeapon.Brain);
-                }
             }
         }
 
