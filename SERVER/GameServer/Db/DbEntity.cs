@@ -31,30 +31,30 @@ namespace GameServer.Db
     {
         [Column(IsIdentity = true, IsPrimary = true)]
         public int Id { get; set; }
-        public int JobId { get; set; }
+        public int UserId { get; set; }
+        public int UnitId { get; set; }
+        public int MapId { get; set; }
         public string Name { get; set; }
         public int Hp { get; set; }
         public int Mp { get; set; }
         public int Level { get; set; }
         public int Exp { get; set; }
-        public int MapId { get; set; }
         public int X { get; set; } = 0;
         public int Y { get; set; } = 0;
         public int Z { get; set; } = 0;
         public long Gold { get; set; }
-        public int UserId { get; set; }
 
-        public DbCharacter(string name, int jobId, int hp, int mp, int level, int exp, int mapId, long gold, int userId)
+        public DbCharacter(string name, int userId, int unitId, int mapId, int hp, int mp, int level, int exp, long gold)
         {
             Name = name;
-            JobId = jobId;
+            UserId = userId;
+            UnitId = unitId;
+            MapId = mapId;
             Hp = hp;
             Mp = mp;
             Level = level;
             Exp = exp;
-            MapId = mapId;
             Gold = gold;
-            UserId = userId;
         }
     }
 }

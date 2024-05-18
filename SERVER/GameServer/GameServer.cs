@@ -15,6 +15,7 @@ using System.Threading.Channels;
 using System.Diagnostics;
 using Common.Tool;
 using System.Xml.Linq;
+using GameServer.Manager;
 using Serilog;
 using NetConfig = Common.Network.NetConfig;
 
@@ -37,6 +38,18 @@ namespace GameServer
         public async Task Run()
         {
             Log.Information("[Server] 开启服务器");
+
+            Log.Information("[Server] 开始初始化Manager...");
+
+            DataManager.Instance.Init();
+            Log.Information("[Server] DataManager初始化完成");
+            MapManager.Instance.Init();
+            Log.Information("[Server] MapManager初始化完成");
+            UserManager.Instance.Init();
+            Log.Information("[Server] UserManager初始化完成");
+            EntityManager.Instance.Init();
+            Log.Information("[Server] EntityManager初始化完成");
+
             _serverSocket.Listen();
             //_connectionCleanupTimer.Start();
 

@@ -28,6 +28,7 @@ namespace GameServer.Model
 
         public PlayerManager PlayerManager;
         public MonsterManager MonsterManager;
+        public SpawnManager SpawnManager;
 
         private AoiZone _aoiZone;
 
@@ -36,10 +37,11 @@ namespace GameServer.Model
             MapId = mapId;
             Name = name;
 
+            _aoiZone = new(.001f, .001f);
+
             PlayerManager = new(this);
             MonsterManager = new(this);
-
-            _aoiZone = new(.001f, .001f);
+            SpawnManager = new(this);
         }
 
         /// <summary>
@@ -61,6 +63,7 @@ namespace GameServer.Model
             res.Datas.Add(new EntityEnterData()
             {
                 EntityId = entity.EntityId,
+                UnitId = entity.UnitId,
                 EntityType = entity.EntityType,
                 Transform = ProtoHelper.ToNetTransform(entity.Position, entity.Direction),
             });
@@ -80,6 +83,7 @@ namespace GameServer.Model
                     {
                         EntityId = viewEntity.EntityId,
                         EntityType = viewEntity.EntityType,
+                        UnitId = viewEntity.UnitId,
                         Transform = ProtoHelper.ToNetTransform(viewEntity.Position, viewEntity.Direction),
                     });
                 }
@@ -97,9 +101,11 @@ namespace GameServer.Model
 
             // 向能观察到实体的角色广播实体离开场景
             // 实际上直接广播是向当前entity的关注实体广播而非关注当前entity的实体
-            // 这点是还没处理的，未来考虑维护一下实体与关注该实体的角色
-            var res = new EntityLeaveResponse();
-            res.EntityId = entity.EntityId;
+            // 如果所有实体的视野范围一致则没有这个问题，但如果不一致的话，需要考虑另行维护
+            var res = new EntityLeaveResponse()
+            {
+                EntityId = entity.EntityId,
+            };
             PlayerManager.Broadcast(res, entity);
 
             lock (_aoiZone)

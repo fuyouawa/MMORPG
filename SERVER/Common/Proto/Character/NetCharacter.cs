@@ -25,14 +25,14 @@ namespace Common.Proto.Character {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChxDaGFyYWN0ZXIvTmV0Q2hhcmFjdGVyLnByb3RvEhZDb21tb24uUHJvdG8u",
-            "Q2hhcmFjdGVyIpQBCgxOZXRDaGFyYWN0ZXISFAoMY2hhcmFjdGVyX2lkGAEg",
-            "ASgFEgwKBG5hbWUYAiABKAkSDgoGbWFwX2lkGAMgASgFEg0KBWxldmVsGAQg",
-            "ASgFEg4KBmpvYl9pZBgFIAEoBRILCgNleHAYBiABKAMSDAoEZ29sZBgHIAEo",
-            "AxIKCgJocBgIIAEoBRIKCgJtcBgJIAEoBWIGcHJvdG8z"));
+            "Q2hhcmFjdGVyIpUBCgxOZXRDaGFyYWN0ZXISFAoMY2hhcmFjdGVyX2lkGAEg",
+            "ASgFEg8KB3VuaXRfaWQYAiABKAUSDAoEbmFtZRgDIAEoCRIOCgZtYXBfaWQY",
+            "BCABKAUSDQoFbGV2ZWwYBSABKAUSCwoDZXhwGAYgASgDEgwKBGdvbGQYByAB",
+            "KAMSCgoCaHAYCCABKAUSCgoCbXAYCSABKAViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Character.NetCharacter), global::Common.Proto.Character.NetCharacter.Parser, new[]{ "CharacterId", "Name", "MapId", "Level", "JobId", "Exp", "Gold", "Hp", "Mp" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Character.NetCharacter), global::Common.Proto.Character.NetCharacter.Parser, new[]{ "CharacterId", "UnitId", "Name", "MapId", "Level", "Exp", "Gold", "Hp", "Mp" }, null, null, null, null)
           }));
     }
     #endregion
@@ -75,10 +75,10 @@ namespace Common.Proto.Character {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public NetCharacter(NetCharacter other) : this() {
       characterId_ = other.characterId_;
+      unitId_ = other.unitId_;
       name_ = other.name_;
       mapId_ = other.mapId_;
       level_ = other.level_;
-      jobId_ = other.jobId_;
       exp_ = other.exp_;
       gold_ = other.gold_;
       hp_ = other.hp_;
@@ -104,8 +104,20 @@ namespace Common.Proto.Character {
       }
     }
 
+    /// <summary>Field number for the "unit_id" field.</summary>
+    public const int UnitIdFieldNumber = 2;
+    private int unitId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int UnitId {
+      get { return unitId_; }
+      set {
+        unitId_ = value;
+      }
+    }
+
     /// <summary>Field number for the "name" field.</summary>
-    public const int NameFieldNumber = 2;
+    public const int NameFieldNumber = 3;
     private string name_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -117,7 +129,7 @@ namespace Common.Proto.Character {
     }
 
     /// <summary>Field number for the "map_id" field.</summary>
-    public const int MapIdFieldNumber = 3;
+    public const int MapIdFieldNumber = 4;
     private int mapId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -129,7 +141,7 @@ namespace Common.Proto.Character {
     }
 
     /// <summary>Field number for the "level" field.</summary>
-    public const int LevelFieldNumber = 4;
+    public const int LevelFieldNumber = 5;
     private int level_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -137,18 +149,6 @@ namespace Common.Proto.Character {
       get { return level_; }
       set {
         level_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "job_id" field.</summary>
-    public const int JobIdFieldNumber = 5;
-    private int jobId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int JobId {
-      get { return jobId_; }
-      set {
-        jobId_ = value;
       }
     }
 
@@ -216,10 +216,10 @@ namespace Common.Proto.Character {
         return true;
       }
       if (CharacterId != other.CharacterId) return false;
+      if (UnitId != other.UnitId) return false;
       if (Name != other.Name) return false;
       if (MapId != other.MapId) return false;
       if (Level != other.Level) return false;
-      if (JobId != other.JobId) return false;
       if (Exp != other.Exp) return false;
       if (Gold != other.Gold) return false;
       if (Hp != other.Hp) return false;
@@ -232,10 +232,10 @@ namespace Common.Proto.Character {
     public override int GetHashCode() {
       int hash = 1;
       if (CharacterId != 0) hash ^= CharacterId.GetHashCode();
+      if (UnitId != 0) hash ^= UnitId.GetHashCode();
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (MapId != 0) hash ^= MapId.GetHashCode();
       if (Level != 0) hash ^= Level.GetHashCode();
-      if (JobId != 0) hash ^= JobId.GetHashCode();
       if (Exp != 0L) hash ^= Exp.GetHashCode();
       if (Gold != 0L) hash ^= Gold.GetHashCode();
       if (Hp != 0) hash ^= Hp.GetHashCode();
@@ -262,21 +262,21 @@ namespace Common.Proto.Character {
         output.WriteRawTag(8);
         output.WriteInt32(CharacterId);
       }
+      if (UnitId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(UnitId);
+      }
       if (Name.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteString(Name);
       }
       if (MapId != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(32);
         output.WriteInt32(MapId);
       }
       if (Level != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(Level);
-      }
-      if (JobId != 0) {
         output.WriteRawTag(40);
-        output.WriteInt32(JobId);
+        output.WriteInt32(Level);
       }
       if (Exp != 0L) {
         output.WriteRawTag(48);
@@ -308,21 +308,21 @@ namespace Common.Proto.Character {
         output.WriteRawTag(8);
         output.WriteInt32(CharacterId);
       }
+      if (UnitId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(UnitId);
+      }
       if (Name.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteString(Name);
       }
       if (MapId != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(32);
         output.WriteInt32(MapId);
       }
       if (Level != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(Level);
-      }
-      if (JobId != 0) {
         output.WriteRawTag(40);
-        output.WriteInt32(JobId);
+        output.WriteInt32(Level);
       }
       if (Exp != 0L) {
         output.WriteRawTag(48);
@@ -353,6 +353,9 @@ namespace Common.Proto.Character {
       if (CharacterId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(CharacterId);
       }
+      if (UnitId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(UnitId);
+      }
       if (Name.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
@@ -361,9 +364,6 @@ namespace Common.Proto.Character {
       }
       if (Level != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Level);
-      }
-      if (JobId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(JobId);
       }
       if (Exp != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Exp);
@@ -392,6 +392,9 @@ namespace Common.Proto.Character {
       if (other.CharacterId != 0) {
         CharacterId = other.CharacterId;
       }
+      if (other.UnitId != 0) {
+        UnitId = other.UnitId;
+      }
       if (other.Name.Length != 0) {
         Name = other.Name;
       }
@@ -400,9 +403,6 @@ namespace Common.Proto.Character {
       }
       if (other.Level != 0) {
         Level = other.Level;
-      }
-      if (other.JobId != 0) {
-        JobId = other.JobId;
       }
       if (other.Exp != 0L) {
         Exp = other.Exp;
@@ -435,20 +435,20 @@ namespace Common.Proto.Character {
             CharacterId = input.ReadInt32();
             break;
           }
-          case 18: {
+          case 16: {
+            UnitId = input.ReadInt32();
+            break;
+          }
+          case 26: {
             Name = input.ReadString();
             break;
           }
-          case 24: {
+          case 32: {
             MapId = input.ReadInt32();
             break;
           }
-          case 32: {
-            Level = input.ReadInt32();
-            break;
-          }
           case 40: {
-            JobId = input.ReadInt32();
+            Level = input.ReadInt32();
             break;
           }
           case 48: {
@@ -486,20 +486,20 @@ namespace Common.Proto.Character {
             CharacterId = input.ReadInt32();
             break;
           }
-          case 18: {
+          case 16: {
+            UnitId = input.ReadInt32();
+            break;
+          }
+          case 26: {
             Name = input.ReadString();
             break;
           }
-          case 24: {
+          case 32: {
             MapId = input.ReadInt32();
             break;
           }
-          case 32: {
-            Level = input.ReadInt32();
-            break;
-          }
           case 40: {
-            JobId = input.ReadInt32();
+            Level = input.ReadInt32();
             break;
           }
           case 48: {

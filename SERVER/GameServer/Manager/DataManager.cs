@@ -18,7 +18,9 @@ namespace GameServer.Manager
         public Dictionary<int, ItemDefine> ItemDict;
         public Dictionary<int, SkillDefine> SkillDict;
 
-        private DataManager()
+        DataManager() { }
+
+        public void Init()
         {
             MapDict = Load<Dictionary<int, MapDefine>>("Data/Json/MapDefine.json");
             UnitDict = Load<Dictionary<int, UnitDefine>>("Data/Json/UnitDefine.json");
