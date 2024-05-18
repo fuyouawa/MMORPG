@@ -40,11 +40,10 @@ namespace MMORPG.Game
                 var rotation = Quaternion.Euler(data.Transform.Direction.ToVector3());
                 
                 var dataManager = this.GetSystem<IDataManagerSystem>();
-
-                //var unit = dataManager.GetUnitDefine();
+                var unitDefine = dataManager.GetUnitDefine(data.UnitId);
 
                 _entityManager.SpawnEntity(
-                    _resLoader.LoadSync<EntityView>("HeroKnightMale Melee"), //TODO 根据data加载对应的Prefab
+                    _resLoader.LoadSync<EntityView>(unitDefine.Resource), //TODO 根据data加载对应的Prefab
                     entityId,
                     (EntityType)data.EntityType,
                     false,

@@ -9,7 +9,7 @@
 public class SkillDefine
 {
 	public int ID; // 编号
-	public int TID; // 单位类型
+	public int UnitID; // 单位类型
 	public int Code; // 技能码
 	public string Name; // 技能名称
 	public string Description; // 技能描述

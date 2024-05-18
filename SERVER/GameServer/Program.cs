@@ -24,9 +24,6 @@ namespace GameServer
             //var character = new DbCharacter("jj", 1, 1, 1, 1, 1, 1, 1, 1);
             //SqlDb.Connection.Insert(character).ExecuteAffrows();
             GameServer server = new(NetConfig.ServerPort);
-
-            var values = DataManager.Instance.MapDict.Values;
-
             await server.Run();
         }
 

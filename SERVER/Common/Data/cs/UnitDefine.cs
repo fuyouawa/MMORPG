@@ -8,7 +8,7 @@
 
 public class UnitDefine
 {
-	public int TID; // 单位类型
+	public int ID; // 单位类型
 	public string Name; // 名称
 	public string Resource; // 模型资源
 	public string Kind; // 类别

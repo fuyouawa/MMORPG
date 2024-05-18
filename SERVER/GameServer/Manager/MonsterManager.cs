@@ -24,15 +24,17 @@ namespace GameServer.Manager
             _map = map;
         }
 
-        public Monster NewMonster(Vector3 pos, Vector3 dire, string name)
+        public Monster NewMonster(int unitId, Vector3 pos, Vector3 dire, string name)
         {
             var monster = new Monster(_map, name, pos)
             {
                 EntityId = EntityManager.Instance.NewEntityId(),
                 EntityType = EntityType.Monster,
+                UnitId = unitId,
                 Position = pos,
                 Direction = dire,
-                
+                ViewRange = Monster.DefaultViewRange,
+
                 Speed = 5,
             };
             EntityManager.Instance.AddEntity(monster);
@@ -41,7 +43,7 @@ namespace GameServer.Manager
             {
                 _monsterDict.Add(monster.EntityId, monster);
             }
-
+            _map.EntityEnter(monster);
             return monster;
         }
 

@@ -64,10 +64,8 @@ namespace GameServer.Service
                 Y = dbCharacter.Y,
                 Z = dbCharacter.Z,
             };
-            var player = map.PlayerManager.NewPlayer(sender.User, pos, Vector3.Zero, dbCharacter.Name);
+            var player = map.PlayerManager.NewPlayer(sender.User, dbCharacter.UnitId, pos, Vector3.Zero, dbCharacter.Name);
             sender.User.SetPlayer(player);
-            player.ViewRange = Player.DefaultViewRange;
-            map.EntityEnter(player);
             var res = new JoinMapResponse()
             {
                 Error = NetError.Success,
