@@ -63,6 +63,7 @@ namespace MMORPG.Game
 
         private void Update()
         {
+            Debug.Log(CurrentWeapon?.StartAnimationParameter);
             UpdateWeaponAttachmentTransform();
         }
 
@@ -109,12 +110,13 @@ namespace MMORPG.Game
             CurrentWeapon.transform.parent = WeaponAttachment.transform;
             CurrentWeapon.transform.localPosition = newWeapon.WeaponAttachmentOffset;
             CurrentWeapon.Setup(Brain);
-            CurrentWeapon.Initialize();
+            if (!CurrentWeapon.InitializeOnStart)
+                CurrentWeapon.Initialize();
         }
 
         private void OnFireStarted(InputAction.CallbackContext obj)
         {
-            if (CurrentWeapon.FSM.CurrentStateId is Weapon.WeaponStates.Idle)
+            if (CurrentWeapon.FSM.CurrentStateId is WeaponStates.Idle)
             {
                 CurrentWeapon.WeaponInputStart();
             }

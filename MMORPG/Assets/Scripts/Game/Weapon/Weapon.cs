@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Linq;
+using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -10,6 +12,17 @@ using static UnityEngine.ParticleSystem;
 
 namespace MMORPG.Game
 {
+    public enum WeaponStates
+    {
+        Idle,
+        Start,
+        DelayBeforeUse,
+        Use,
+        DelayBetweenUses,
+        Stop,
+        Interrupted
+    }
+
     public class Weapon : MonoBehaviour
     {
         public enum TriggerModes { SemiAuto, Auto }
@@ -49,8 +62,31 @@ namespace MMORPG.Game
         [FoldoutGroup("Animator Parameter Names")]
         public string StopAnimationParameter;
 
+        [FoldoutGroup("Feedbacks")]
+        public bool FindFeedbackByName = false;
+
+        [FoldoutGroup("Feedbacks")]
+        [ShowIf("FindFeedbackByName")]
+        public string WeaponStartFeedbackName;
+        [FoldoutGroup("Feedbacks")]
+        [ShowIf("FindFeedbackByName")]
+        public string WeaponUsedFeedbackName;
+        [FoldoutGroup("Feedbacks")]
+        [ShowIf("FindFeedbackByName")]
+        public string WeaponStopFeedbackName;
+
+        [FoldoutGroup("Feedbacks")]
+        [HideIf("FindFeedbackByName")]
+        public FeedbackManager WeaponStartFeedback;
+        [FoldoutGroup("Feedbacks")]
+        [HideIf("FindFeedbackByName")]
+        public FeedbackManager WeaponUsedFeedback;
+        [FoldoutGroup("Feedbacks")]
+        [HideIf("FindFeedbackByName")]
+        public FeedbackManager WeaponStopFeedback;
+
         [FoldoutGroup("Settings")]
-        public bool InitializeOnStart = true;
+        public bool InitializeOnStart = false;
         [FoldoutGroup("Settings")]
         public bool Interruptable = false;
         [FoldoutGroup("Settings")]
@@ -76,23 +112,13 @@ namespace MMORPG.Game
 
         public PlayerBrain Brain { get; private set; }
 
-        public enum WeaponStates
-        {
-            Idle,
-            Start,
-            DelayBeforeUse,
-            Use,
-            DelayBetweenUses,
-            Stop,
-            Interrupted
-        }
-
         public FSM<WeaponStates> FSM { get; set; } = new();
 
+        public event Action<Weapon> OnWeaponInitialized;
         public event Action<Weapon> OnWeaponStarted;
         public event Action<Weapon> OnWeaponStopped;
 
-        private bool _initialized = false;
+        public bool IsInitialized { get; private set; }
 
         protected virtual void Start()
         {
@@ -104,7 +130,7 @@ namespace MMORPG.Game
 
         protected virtual void Update()
         {
-            if (!_initialized) return;
+            if (!IsInitialized) return;
 
             UpdateAnimator();
             FSM.Update();
@@ -118,10 +144,24 @@ namespace MMORPG.Game
 
         public virtual void Initialize()
         {
-            if (_initialized) return;
-            _initialized = true;
+            if (IsInitialized) return;
+            IsInitialized = true;
+
+            if (FindFeedbackByName)
+            {
+                var feedbacks = Brain.GetAttachFeedbacks();
+
+                if (WeaponStartFeedbackName.IsNotNullAndEmpty())
+                    WeaponStartFeedback = feedbacks.FirstOrDefault(x => x.name == WeaponStartFeedbackName);
+                if (WeaponUsedFeedbackName.IsNotNullAndEmpty())
+                    WeaponUsedFeedback = feedbacks.FirstOrDefault(x => x.name == WeaponUsedFeedbackName);
+                if (WeaponStopFeedbackName.IsNotNullAndEmpty())
+                    WeaponStopFeedback = feedbacks.FirstOrDefault(x => x.name == WeaponStopFeedbackName);
+            }
 
             InitFSM();
+
+            OnWeaponInitialized?.Invoke(this);
         }
 
         public virtual void WeaponInputStart()
@@ -195,6 +235,7 @@ namespace MMORPG.Game
 
         protected virtual void CaseWeaponStart()
         {
+            WeaponStartFeedback?.PlayFeedbacks();
             if (DelayBeforeUse > 0)
             {
                 _delayBeforeUseCounter = DelayBeforeUse;
@@ -264,6 +305,7 @@ namespace MMORPG.Game
 
         protected virtual void CaseWeaponStop()
         {
+            WeaponStopFeedback?.PlayFeedbacks();
             FSM.ChangeState(WeaponStates.Idle);
             Brain.PreventMovement = false;
         }
@@ -275,7 +317,7 @@ namespace MMORPG.Game
 
         protected virtual void WeaponUse()
         {
-            //TODO
+            WeaponUsedFeedback?.PlayFeedbacks();
         }
 
         protected virtual void UpdateAnimator()
