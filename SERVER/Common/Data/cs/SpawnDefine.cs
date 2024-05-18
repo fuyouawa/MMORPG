@@ -12,7 +12,7 @@ public class SpawnDefine
 	public int MapId; // 地图ID
 	public string Pos; // 刷怪位置
 	public string Dir; // 刷怪方向
-	public int TID; // 单位类型
+	public int UnitID; // 单位类型
 	public int Level; // 单位等级
 	public int Period; // 刷怪周期（秒）
 }

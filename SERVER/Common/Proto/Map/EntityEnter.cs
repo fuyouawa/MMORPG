@@ -27,17 +27,17 @@ namespace Common.Proto.Event.Map {
             "ChVNYXAvRW50aXR5RW50ZXIucHJvdG8SFkNvbW1vbi5Qcm90by5FdmVudC5N",
             "YXAaF0VudGl0eS9FbnRpdHlUeXBlLnByb3RvGhlFbnRpdHkvTmV0VHJhbnNm",
             "b3JtLnByb3RvIicKEkVudGl0eUVudGVyUmVxdWVzdBIRCgllbnRpdHlfaWQY",
-            "ASADKAUiogEKD0VudGl0eUVudGVyRGF0YRIRCgllbnRpdHlfaWQYASABKAUS",
+            "ASADKAUioQEKD0VudGl0eUVudGVyRGF0YRIRCgllbnRpdHlfaWQYASABKAUS",
             "NAoLZW50aXR5X3R5cGUYAiABKA4yHy5Db21tb24uUHJvdG8uRW50aXR5LkVu",
-            "dGl0eVR5cGUSEAoIdW5pdF90aWQYAyABKAUSNAoJdHJhbnNmb3JtGAQgASgL",
-            "MiEuQ29tbW9uLlByb3RvLkVudGl0eS5OZXRUcmFuc2Zvcm0iTQoTRW50aXR5",
-            "RW50ZXJSZXNwb25zZRI2CgVkYXRhcxgBIAMoCzInLkNvbW1vbi5Qcm90by5F",
-            "dmVudC5NYXAuRW50aXR5RW50ZXJEYXRhYgZwcm90bzM="));
+            "dGl0eVR5cGUSDwoHdW5pdF9pZBgDIAEoBRI0Cgl0cmFuc2Zvcm0YBCABKAsy",
+            "IS5Db21tb24uUHJvdG8uRW50aXR5Lk5ldFRyYW5zZm9ybSJNChNFbnRpdHlF",
+            "bnRlclJlc3BvbnNlEjYKBWRhdGFzGAEgAygLMicuQ29tbW9uLlByb3RvLkV2",
+            "ZW50Lk1hcC5FbnRpdHlFbnRlckRhdGFiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Entity.EntityTypeReflection.Descriptor, global::Common.Proto.Entity.NetTransformReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.Map.EntityEnterRequest), global::Common.Proto.Event.Map.EntityEnterRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.Map.EntityEnterData), global::Common.Proto.Event.Map.EntityEnterData.Parser, new[]{ "EntityId", "EntityType", "UnitTid", "Transform" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.Map.EntityEnterData), global::Common.Proto.Event.Map.EntityEnterData.Parser, new[]{ "EntityId", "EntityType", "UnitId", "Transform" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.Map.EntityEnterResponse), global::Common.Proto.Event.Map.EntityEnterResponse.Parser, new[]{ "Datas" }, null, null, null, null)
           }));
     }
@@ -263,7 +263,7 @@ namespace Common.Proto.Event.Map {
     public EntityEnterData(EntityEnterData other) : this() {
       entityId_ = other.entityId_;
       entityType_ = other.entityType_;
-      unitTid_ = other.unitTid_;
+      unitId_ = other.unitId_;
       transform_ = other.transform_ != null ? other.transform_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -298,15 +298,15 @@ namespace Common.Proto.Event.Map {
       }
     }
 
-    /// <summary>Field number for the "unit_tid" field.</summary>
-    public const int UnitTidFieldNumber = 3;
-    private int unitTid_;
+    /// <summary>Field number for the "unit_id" field.</summary>
+    public const int UnitIdFieldNumber = 3;
+    private int unitId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int UnitTid {
-      get { return unitTid_; }
+    public int UnitId {
+      get { return unitId_; }
       set {
-        unitTid_ = value;
+        unitId_ = value;
       }
     }
 
@@ -339,7 +339,7 @@ namespace Common.Proto.Event.Map {
       }
       if (EntityId != other.EntityId) return false;
       if (EntityType != other.EntityType) return false;
-      if (UnitTid != other.UnitTid) return false;
+      if (UnitId != other.UnitId) return false;
       if (!object.Equals(Transform, other.Transform)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -350,7 +350,7 @@ namespace Common.Proto.Event.Map {
       int hash = 1;
       if (EntityId != 0) hash ^= EntityId.GetHashCode();
       if (EntityType != global::Common.Proto.Entity.EntityType.Player) hash ^= EntityType.GetHashCode();
-      if (UnitTid != 0) hash ^= UnitTid.GetHashCode();
+      if (UnitId != 0) hash ^= UnitId.GetHashCode();
       if (transform_ != null) hash ^= Transform.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -378,9 +378,9 @@ namespace Common.Proto.Event.Map {
         output.WriteRawTag(16);
         output.WriteEnum((int) EntityType);
       }
-      if (UnitTid != 0) {
+      if (UnitId != 0) {
         output.WriteRawTag(24);
-        output.WriteInt32(UnitTid);
+        output.WriteInt32(UnitId);
       }
       if (transform_ != null) {
         output.WriteRawTag(34);
@@ -404,9 +404,9 @@ namespace Common.Proto.Event.Map {
         output.WriteRawTag(16);
         output.WriteEnum((int) EntityType);
       }
-      if (UnitTid != 0) {
+      if (UnitId != 0) {
         output.WriteRawTag(24);
-        output.WriteInt32(UnitTid);
+        output.WriteInt32(UnitId);
       }
       if (transform_ != null) {
         output.WriteRawTag(34);
@@ -428,8 +428,8 @@ namespace Common.Proto.Event.Map {
       if (EntityType != global::Common.Proto.Entity.EntityType.Player) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) EntityType);
       }
-      if (UnitTid != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(UnitTid);
+      if (UnitId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(UnitId);
       }
       if (transform_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Transform);
@@ -452,8 +452,8 @@ namespace Common.Proto.Event.Map {
       if (other.EntityType != global::Common.Proto.Entity.EntityType.Player) {
         EntityType = other.EntityType;
       }
-      if (other.UnitTid != 0) {
-        UnitTid = other.UnitTid;
+      if (other.UnitId != 0) {
+        UnitId = other.UnitId;
       }
       if (other.transform_ != null) {
         if (transform_ == null) {
@@ -485,7 +485,7 @@ namespace Common.Proto.Event.Map {
             break;
           }
           case 24: {
-            UnitTid = input.ReadInt32();
+            UnitId = input.ReadInt32();
             break;
           }
           case 34: {
@@ -519,7 +519,7 @@ namespace Common.Proto.Event.Map {
             break;
           }
           case 24: {
-            UnitTid = input.ReadInt32();
+            UnitId = input.ReadInt32();
             break;
           }
           case 34: {

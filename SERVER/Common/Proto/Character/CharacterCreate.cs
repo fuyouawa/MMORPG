@@ -26,15 +26,15 @@ namespace Common.Proto.Character {
           string.Concat(
             "Ch9DaGFyYWN0ZXIvQ2hhcmFjdGVyQ3JlYXRlLnByb3RvEhZDb21tb24uUHJv",
             "dG8uQ2hhcmFjdGVyGhNCYXNlL05ldEVycm9yLnByb3RvGhxDaGFyYWN0ZXIv",
-            "TmV0Q2hhcmFjdGVyLnByb3RvIjYKFkNoYXJhY3RlckNyZWF0ZVJlcXVlc3QS",
-            "DAoEbmFtZRgBIAEoCRIOCgZqb2JfaWQYAiABKAUifgoXQ2hhcmFjdGVyQ3Jl",
-            "YXRlUmVzcG9uc2USKgoFZXJyb3IYASABKA4yGy5Db21tb24uUHJvdG8uQmFz",
-            "ZS5OZXRFcnJvchI3CgljaGFyYWN0ZXIYAyABKAsyJC5Db21tb24uUHJvdG8u",
-            "Q2hhcmFjdGVyLk5ldENoYXJhY3RlcmIGcHJvdG8z"));
+            "TmV0Q2hhcmFjdGVyLnByb3RvIjcKFkNoYXJhY3RlckNyZWF0ZVJlcXVlc3QS",
+            "DAoEbmFtZRgBIAEoCRIPCgd1bml0X2lkGAIgASgFIn4KF0NoYXJhY3RlckNy",
+            "ZWF0ZVJlc3BvbnNlEioKBWVycm9yGAEgASgOMhsuQ29tbW9uLlByb3RvLkJh",
+            "c2UuTmV0RXJyb3ISNwoJY2hhcmFjdGVyGAMgASgLMiQuQ29tbW9uLlByb3Rv",
+            "LkNoYXJhY3Rlci5OZXRDaGFyYWN0ZXJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Base.NetErrorReflection.Descriptor, global::Common.Proto.Character.NetCharacterReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Character.CharacterCreateRequest), global::Common.Proto.Character.CharacterCreateRequest.Parser, new[]{ "Name", "JobId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Character.CharacterCreateRequest), global::Common.Proto.Character.CharacterCreateRequest.Parser, new[]{ "Name", "UnitId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Character.CharacterCreateResponse), global::Common.Proto.Character.CharacterCreateResponse.Parser, new[]{ "Error", "Character" }, null, null, null, null)
           }));
     }
@@ -78,7 +78,7 @@ namespace Common.Proto.Character {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CharacterCreateRequest(CharacterCreateRequest other) : this() {
       name_ = other.name_;
-      jobId_ = other.jobId_;
+      unitId_ = other.unitId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -100,15 +100,15 @@ namespace Common.Proto.Character {
       }
     }
 
-    /// <summary>Field number for the "job_id" field.</summary>
-    public const int JobIdFieldNumber = 2;
-    private int jobId_;
+    /// <summary>Field number for the "unit_id" field.</summary>
+    public const int UnitIdFieldNumber = 2;
+    private int unitId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int JobId {
-      get { return jobId_; }
+    public int UnitId {
+      get { return unitId_; }
       set {
-        jobId_ = value;
+        unitId_ = value;
       }
     }
 
@@ -128,7 +128,7 @@ namespace Common.Proto.Character {
         return true;
       }
       if (Name != other.Name) return false;
-      if (JobId != other.JobId) return false;
+      if (UnitId != other.UnitId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -137,7 +137,7 @@ namespace Common.Proto.Character {
     public override int GetHashCode() {
       int hash = 1;
       if (Name.Length != 0) hash ^= Name.GetHashCode();
-      if (JobId != 0) hash ^= JobId.GetHashCode();
+      if (UnitId != 0) hash ^= UnitId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -160,9 +160,9 @@ namespace Common.Proto.Character {
         output.WriteRawTag(10);
         output.WriteString(Name);
       }
-      if (JobId != 0) {
+      if (UnitId != 0) {
         output.WriteRawTag(16);
-        output.WriteInt32(JobId);
+        output.WriteInt32(UnitId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -178,9 +178,9 @@ namespace Common.Proto.Character {
         output.WriteRawTag(10);
         output.WriteString(Name);
       }
-      if (JobId != 0) {
+      if (UnitId != 0) {
         output.WriteRawTag(16);
-        output.WriteInt32(JobId);
+        output.WriteInt32(UnitId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -195,8 +195,8 @@ namespace Common.Proto.Character {
       if (Name.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
-      if (JobId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(JobId);
+      if (UnitId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(UnitId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -213,8 +213,8 @@ namespace Common.Proto.Character {
       if (other.Name.Length != 0) {
         Name = other.Name;
       }
-      if (other.JobId != 0) {
-        JobId = other.JobId;
+      if (other.UnitId != 0) {
+        UnitId = other.UnitId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -236,7 +236,7 @@ namespace Common.Proto.Character {
             break;
           }
           case 16: {
-            JobId = input.ReadInt32();
+            UnitId = input.ReadInt32();
             break;
           }
         }
@@ -259,7 +259,7 @@ namespace Common.Proto.Character {
             break;
           }
           case 16: {
-            JobId = input.ReadInt32();
+            UnitId = input.ReadInt32();
             break;
           }
         }

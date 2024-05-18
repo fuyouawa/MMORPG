@@ -9,6 +9,7 @@ namespace MMORPG.Game
         protected override void Init()
         {
             this.RegisterSystem<IBoxSystem>(new BoxSystem());
+            this.RegisterSystem<IDataManagerSystem>(new DataManagerSystem());
             this.RegisterSystem<IEntityManagerSystem>(new EntityManagerSystem());
             this.RegisterSystem<IMapManagerSystem>(new MapManagerSystem());
             this.RegisterSystem<INetworkSystem>(new NetworkSystem());

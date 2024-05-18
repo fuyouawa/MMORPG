@@ -30,18 +30,19 @@ namespace GameServer.Manager
         }
 
         /// <summary>
-        /// 从地图中创建玩家
+        /// 创建玩家
         /// </summary>
         /// <returns></returns>
-        public Player NewPlayer(User user, Vector3 pos, Vector3 dire, string name)
+        public Player NewPlayer(User user, int unitId, Vector3 pos, Vector3 dire, string name)
         {
             var player = new Player(_map, name, user)
             {
                 EntityId = EntityManager.Instance.NewEntityId(),
                 EntityType = EntityType.Player,
+                UnitId = unitId,
                 Position = pos,
                 Direction = dire,
-
+                ViewRange = Player.DefaultViewRange,
                 Speed = 5,
             };
             EntityManager.Instance.AddEntity(player);
@@ -50,12 +51,12 @@ namespace GameServer.Manager
             {
                 _playerDict.Add(player.EntityId, player);
             }
-
+            _map.EntityEnter(player);
             return player;
         }
 
         /// <summary>
-        /// 从地图中删除玩家
+        /// 删除玩家
         /// </summary>
         /// <param name="player"></param>
         public void RemovePlayer(Player player)
