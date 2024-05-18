@@ -3,10 +3,19 @@ using System.Collections;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Tool
 {
+    public class AddFeedbackMenuAttribute : Attribute
+    {
+        public string Path;
+
+        public AddFeedbackMenuAttribute(string path)
+        {
+            Path = path;
+        }
+    }
+
     public enum FeedbackStates
     {
         Idle,
@@ -171,7 +180,7 @@ namespace MMORPG.Tool
 #if UNITY_EDITOR
         private string GetLabel()
         {
-            return $"{Label} ({Duration}s)";
+            return $"{Label} ({DelayBeforePlay}s + {Duration}s)";
         }
 #endif
     }
