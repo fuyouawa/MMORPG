@@ -8,7 +8,7 @@
 
 public class MapDefine
 {
-	public int SID; // 场景编号
+	public int ID; // 场景编号
 	public string Name; // 名称
 	public string Resource; // 资源
 	public string Kind; // 类型

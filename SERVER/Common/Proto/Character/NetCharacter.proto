@@ -4,10 +4,10 @@ package Common.Proto.Character;
 
 message NetCharacter {
     int32 character_id = 1;
-    string name = 2;
-    int32 map_id = 3;
-    int32 level = 4;
-    int32 job_id = 5;
+    int32 unit_id = 2;
+    string name = 3;
+    int32 map_id = 4;
+    int32 level = 5;
     int64 exp = 6;
     int64 gold = 7;
     int32 hp = 8;
