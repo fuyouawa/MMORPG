@@ -19,12 +19,16 @@ namespace GameServer.Manager
     {
         public readonly int InitMapId = 1;
 
-        private Dictionary<int, Map> _mapDict;
+        private Dictionary<int, Map> _mapDict = new();
 
-        MapManager()
+        MapManager() { }
+
+        public void Init()
         {
-            _mapDict = new();
-            var noviceVillage = NewMap(InitMapId, "新手村");
+            foreach (var mapDefine in DataManager.Instance.MapDict)
+            {
+                NewMap(mapDefine.Value.ID, mapDefine.Value.Name);
+            }
         }
 
         public Map NewMap(int mapId, string name)

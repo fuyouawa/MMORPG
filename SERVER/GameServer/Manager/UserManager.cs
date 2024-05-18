@@ -21,6 +21,8 @@ namespace GameServer.Manager
 
         UserManager() { }
 
+        public void Init() { }
+
         public User NewUser(NetChannel channel, string username, int userId)
         {
             var user = new User(channel, username, userId);
