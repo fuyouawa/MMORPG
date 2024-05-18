@@ -35,15 +35,9 @@ namespace MMORPG.Tool
         [FoldoutGroup("Feedback Settings")]
         public float DelayBeforePlay;
         [FoldoutGroup("Feedback Settings")]
+        public bool HasDuration = true;
+        [FoldoutGroup("Feedback Settings")]
         public float Duration = 1f;
-
-        [Title("Local Transform")]
-        [FoldoutGroup("Feedback Settings")]
-        public Vector3 LocalPosition;
-        [FoldoutGroup("Feedback Settings")]
-        public Vector3 LocalRotation;
-        [FoldoutGroup("Feedback Settings")]
-        public Vector3 LocalScale = Vector3.one;
 
         public GameObject Owner { get; private set; }
         public FeedbackManager OwnerManager { get; private set; }
@@ -107,13 +101,17 @@ namespace MMORPG.Tool
             FSM.ChangeState(FeedbackStates.Stop);
         }
 
-        protected virtual void Initialize()
+        public virtual void Initialize()
         {
+            if (IsInitialized) return;
+            IsInitialized = true;
+
+            FSM ??= new();
+
             FSM.State(FeedbackStates.Idle);
 
             FSM.State(FeedbackStates.Start).OnEnter(() =>
             {
-                OnFeedbackStart();
                 FSM.ChangeState(FeedbackStates.DelayBeforePlay);
             });
 
@@ -123,11 +121,12 @@ namespace MMORPG.Tool
 
             FSM.State(FeedbackStates.Stop).OnEnter(() =>
             {
-                if (FSM.CurrentStateId is FeedbackStates.Idle or FeedbackStates.Stop)
+                if (FSM.CurrentStateId is FeedbackStates.Idle)
                     return;
                 OnFeedbackStop();
                 FSM.ChangeState(FeedbackStates.Idle);
             });
+
             FSM.StartState(FeedbackStates.Idle);
 
             OnFeedbackInit();
@@ -135,14 +134,7 @@ namespace MMORPG.Tool
 
         protected virtual void CaseFeedbackPlaying()
         {
-            if (Time.time - TimeSinceFeedbackStart < Duration)
-            {
-                OnFeedbackPlaying();
-            }
-            else
-            {
-                FSM.ChangeState(FeedbackStates.Stop);
-            }
+            OnFeedbackPlaying();
         }
 
 
@@ -151,14 +143,16 @@ namespace MMORPG.Tool
             yield return new WaitForSeconds(DelayBeforePlay);
             TimeSinceFeedbackStart = Time.time;
             OnFeedbackStart();
+            StartCoroutine(DurationCoroutine());
             FSM.ChangeState(FeedbackStates.Playing);
         }
 
-        protected virtual void ApplyTransform(Transform transform)
+        protected virtual IEnumerator DurationCoroutine()
         {
-            transform.SetParent(OwnerManager.transform);
-            transform.SetLocalPositionAndRotation(LocalPosition, Quaternion.Euler(LocalRotation));
-            transform.localScale = LocalScale;
+            yield return new WaitForSeconds(Duration);
+            if (FSM.CurrentStateId is FeedbackStates.Idle or FeedbackStates.Stop)
+                yield break;
+            FSM.ChangeState(FeedbackStates.Stop);
         }
 
         protected virtual void OnFeedbackInit() { }
@@ -171,7 +165,7 @@ namespace MMORPG.Tool
 
         public virtual void OnDestroy()
         {
-            FSM.Clear();
+            FSM?.Clear();
         }
 
 #if UNITY_EDITOR
