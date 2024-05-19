@@ -17,7 +17,7 @@ namespace GameServer.Model
 {
     public class Monster : Actor
     {
-        public static readonly float DefaultViewRange = 100;
+        //public static readonly float DefaultViewRange = 100;
 
         private Vector3 _moveCurrentPos;
         private Vector3 _moveTargetPos;
