@@ -44,8 +44,7 @@ namespace MMORPG.Tool
         [FoldoutGroup("Feedback Settings")]
         public float DelayBeforePlay;
 
-        public GameObject Owner { get; private set; }
-        public FeedbackManager OwnerManager { get; private set; }
+        public FeedbackManager Owner { get; private set; }
 
         public FSM<FeedbackStates> FSM { get; set; } = new();
 
@@ -74,15 +73,14 @@ namespace MMORPG.Tool
             FSM.Update();
         }
 
-        public virtual void Setup(GameObject owner, FeedbackManager ownerManager)
+        public virtual void Setup(FeedbackManager owner)
         {
             Owner = owner;
-            OwnerManager = ownerManager;
         }
 
         public void StartCoroutine(IEnumerator routine)
         {
-            OwnerManager.StartCoroutine(routine);
+            Owner.StartCoroutine(routine);
         }
 
         public virtual void Play()
@@ -181,7 +179,7 @@ namespace MMORPG.Tool
 #if UNITY_EDITOR
         private string GetLabel()
         {
-            return $"{Label} ({DelayBeforePlay}s + {GetDuration()}s)";
+            return $"{Label} ({DelayBeforePlay:0.00}s + {GetDuration():0.00}s)";
         }
 #endif
     }
