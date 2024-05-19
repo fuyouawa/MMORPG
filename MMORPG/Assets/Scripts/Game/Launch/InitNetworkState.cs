@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using QFramework;
 using MMORPG.System;
 
@@ -15,7 +16,7 @@ namespace MMORPG.Game
             Tool.Log.Info("Launch", "初始化网络");
             var net = this.GetSystem<INetworkSystem>();
             await net.ConnectAsync();
-            net.StartAsync();
+            Task.Run(net.StartAsync);
             mFSM.ChangeState(LaunchStatus.WaitForJoinMap);
         }
 

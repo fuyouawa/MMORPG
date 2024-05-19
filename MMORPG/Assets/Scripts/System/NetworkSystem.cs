@@ -8,13 +8,18 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using MMORPG.Game;
 using MMORPG.Tool;
+using PimDeWitte.UnityMainThreadDispatcher;
 using UnityEngine;
+using static MMORPG.System.INetworkSystem;
 
 namespace MMORPG.System
 {
     public interface INetworkSystem : ISystem
     {
-        public IUnRegister ReceiveEvent<TMessage>(Action<TMessage> onReceived) where TMessage : class, IMessage;
+        public delegate void ReceivedEventHandler<in TMessage>(TMessage response) where TMessage : class, IMessage;
+
+        public IUnRegister ReceiveEvent<TMessage>(ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage;
+        public IUnRegister ReceiveEventInUnityThread<TMessage>(ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage;
 
         public Task ConnectAsync();
         public void Close();
@@ -118,22 +123,26 @@ namespace MMORPG.System
             Close();
         }
 
-        IUnRegister INetworkSystem.ReceiveEvent<TMessage>(Action<TMessage> onReceived)
+        public IUnRegister ReceiveEvent<TMessage>(ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage
         {
             var type = typeof(TMessage);
-            if (!_eventMsgHandlers.ContainsKey(type))
-            {
-                _eventMsgHandlers[type] = null;
-            }
-            _eventMsgHandlers[type] = (_eventMsgHandlers[type] as Action<TMessage>) + onReceived;
+            _eventMsgHandlers.TryAdd(type, null);
+            _eventMsgHandlers[type] = (_eventMsgHandlers[type] as ReceivedEventHandler<TMessage>) + onReceived;
             return new CustomUnRegister(() => UnReceiveEvent(onReceived));
         }
 
-        private void UnReceiveEvent<TMessage>(Action<TMessage> onReceived)
+        public IUnRegister ReceiveEventInUnityThread<TMessage>(ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage
+        {
+            return ReceiveEvent<TMessage>(x =>
+                UnityMainThreadDispatcher.Instance().Enqueue(() => onReceived(x))
+            );
+        }
+
+        private void UnReceiveEvent<TMessage>(ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage
         {
             var type = typeof(TMessage);
             Debug.Assert(_eventMsgHandlers.ContainsKey(type));
-            _eventMsgHandlers[type] = (_eventMsgHandlers[type] as Action<TMessage>) - onReceived;
+            _eventMsgHandlers[type] = (_eventMsgHandlers[type] as ReceivedEventHandler<TMessage>) - onReceived;
         }
 
         public void Close()

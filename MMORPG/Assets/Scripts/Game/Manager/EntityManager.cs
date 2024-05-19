@@ -4,6 +4,7 @@ using QFramework;
 using MMORPG.System;
 using MMORPG.Tool;
 using UnityEngine;
+using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Game
 {
@@ -25,10 +26,16 @@ namespace MMORPG.Game
         {
             _entityManager = this.GetSystem<IEntityManagerSystem>();
 
-            this.GetSystem<INetworkSystem>().ReceiveEvent<EntityEnterResponse>(OnEntityEnterReceived)
+            this.GetSystem<INetworkSystem>().ReceiveEventInUnityThread<EntityEnterResponse>(OnEntityEnterReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
-            this.GetSystem<INetworkSystem>().ReceiveEvent<EntityTransformSyncResponse>(OnEntitySyncReceived)
+            this.GetSystem<INetworkSystem>().ReceiveEventInUnityThread<EntityLeaveResponse>(OnEntityLeaveReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
+            this.GetSystem<INetworkSystem>().ReceiveEventInUnityThread<EntityTransformSyncResponse>(OnEntitySyncReceived)
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
+        }
+
+        private void OnEntityLeaveReceived(EntityLeaveResponse response)
+        {
         }
 
         private void OnEntityEnterReceived(EntityEnterResponse response)

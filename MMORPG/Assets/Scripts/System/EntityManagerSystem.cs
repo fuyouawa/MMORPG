@@ -51,6 +51,8 @@ namespace MMORPG.System
             Vector3 position,
             Quaternion rotation);
 
+        public void LeaveEntity(int entityId);
+
         public Dictionary<int, EntityView> GetEntityDict(bool isMine);
     }
 
@@ -59,6 +61,10 @@ namespace MMORPG.System
     {
         private readonly Dictionary<int, EntityView> _mineEntityDict = new();
         private readonly Dictionary<int, EntityView> _notMineEntityDict = new();
+
+        public void LeaveEntity(int entityId)
+        {
+        }
 
         public Dictionary<int, EntityView> GetEntityDict(bool isMine)
         {
