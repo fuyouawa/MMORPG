@@ -5,7 +5,7 @@ using QFramework;
 using MMORPG.System;
 using UnityEngine.SceneManagement;
 
-namespace MMORPG.Game
+namespace MMORPG.Command
 {
     public class LoginCommand : AbstractCommand
     {

@@ -1,3 +1,4 @@
+using MMORPG.Command;
 using MMORPG.Game;
 using MMORPG.System;
 using UnityEngine;
@@ -46,7 +47,7 @@ namespace MMORPG.UI
             var op = SceneManager.LoadSceneAsync("Space1Scene");
             op.completed += _ =>
             {
-                this.GetSystem<IMapManagerSystem>().JoinedMap(mapId);
+                this.SendCommand(new JoinMapCommand(mapId));
             };
         }
 
