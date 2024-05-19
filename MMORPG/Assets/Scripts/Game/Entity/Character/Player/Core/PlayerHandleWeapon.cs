@@ -14,6 +14,7 @@ namespace MMORPG.Game
     public class PlayerHandleWeapon : MonoBehaviour
     {
         [Title("Weapon")]
+        [AssetsOnly]
         public Weapon InitialWeapon;
 
         [ReadOnly]
@@ -79,7 +80,7 @@ namespace MMORPG.Game
                 CurrentWeapon.TurnWeaponOff();
                 if (!combo)
                 {
-                    //TODO 销毁武器
+                    Destroy(CurrentWeapon.gameObject);
                 }
             }
 

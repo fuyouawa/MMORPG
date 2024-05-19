@@ -390,135 +390,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &1133929093370020264
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5898673387785950897}
-  - component: {fileID: 7543779557005651758}
-  m_Layer: 0
-  m_Name: Combo1_Sound
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5898673387785950897
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1133929093370020264}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7998275794646653581}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &7543779557005651758
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1133929093370020264}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5d312acdcfc52864ab5a08b14ba93b1b, type: 3}
-  m_Resource: {fileID: 8300000, guid: 5d312acdcfc52864ab5a08b14ba93b1b, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1233231523968472991
 GameObject:
   m_ObjectHideFlags: 0
@@ -80699,7 +80570,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 4865950127427736656}
-    - {fileID: 4476775249407705735}
+    - {fileID: 8300000, guid: 3d13a8f3bd19d964c8b6cbc00b6c813d, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -80776,22 +80647,19 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 3|MMORPG.Tool.FeedbackAudioSource, Assembly-CSharp
+      Data: 3|MMORPG.Tool.FeedbackSound, Assembly-CSharp
     - Name: Label
       Entry: 1
-      Data: "\u97F3\u6548"
+      Data: Feedback
     - Name: InitializeMode
       Entry: 3
       Data: 1
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0.8
-    - Name: TargetAudioSource
+    - Name: Sfx
       Entry: 10
       Data: 1
-    - Name: Mode
-      Entry: 3
-      Data: 0
     - Name: RandomSfx
       Entry: 7
       Data: 4|UnityEngine.AudioClip[], UnityEngine.AudioModule
@@ -80804,6 +80672,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: PlayMethod
+      Entry: 3
+      Data: 0
+    - Name: PoolSize
+      Entry: 3
+      Data: 10
+    - Name: StopSoundOnFeedbackStop
+      Entry: 5
+      Data: true
     - Name: MinVolume
       Entry: 4
       Data: 1
@@ -80817,6 +80694,54 @@ MonoBehaviour:
       Entry: 4
       Data: 1
     - Name: SfxAudioMixerGroup
+      Entry: 6
+      Data: 
+    - Name: Priority
+      Entry: 3
+      Data: 128
+    - Name: PanStereo
+      Entry: 4
+      Data: 0
+    - Name: SpatialBlend
+      Entry: 4
+      Data: 0
+    - Name: DopplerLevel
+      Entry: 4
+      Data: 1
+    - Name: Spread
+      Entry: 3
+      Data: 0
+    - Name: RolloffMode
+      Entry: 3
+      Data: 0
+    - Name: MinDistance
+      Entry: 4
+      Data: 1
+    - Name: MaxDistance
+      Entry: 4
+      Data: 500
+    - Name: UseCustomRolloffCurve
+      Entry: 5
+      Data: false
+    - Name: CustomRolloffCurve
+      Entry: 6
+      Data: 
+    - Name: UseSpatialBlendCurve
+      Entry: 5
+      Data: false
+    - Name: SpatialBlendCurve
+      Entry: 6
+      Data: 
+    - Name: UseReverbZoneMixCurve
+      Entry: 5
+      Data: false
+    - Name: ReverbZoneMixCurve
+      Entry: 6
+      Data: 
+    - Name: UseSpreadCurve
+      Entry: 5
+      Data: false
+    - Name: SpreadCurve
       Entry: 6
       Data: 
     - Name: 
@@ -95677,135 +95602,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8088405284912040873}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5052774239314234704
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6929728635301197848}
-  - component: {fileID: 4476775249407705735}
-  m_Layer: 0
-  m_Name: Combo3_Sound
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6929728635301197848
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5052774239314234704}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7998275794646653581}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &4476775249407705735
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5052774239314234704}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3d13a8f3bd19d964c8b6cbc00b6c813d, type: 3}
-  m_Resource: {fileID: 8300000, guid: 3d13a8f3bd19d964c8b6cbc00b6c813d, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &5079939292334876436
 GameObject:
   m_ObjectHideFlags: 0
@@ -105921,7 +105717,6 @@ Transform:
   - {fileID: 890314551262170839}
   - {fileID: 204620109946203986}
   - {fileID: 8942558685178153681}
-  - {fileID: 7998275794646653581}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &8811326963983664298
@@ -106146,7 +105941,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 3566229314517168031}
-    - {fileID: 7543779557005651758}
+    - {fileID: 8300000, guid: 5d312acdcfc52864ab5a08b14ba93b1b, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -106223,7 +106018,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 3|MMORPG.Tool.FeedbackAudioSource, Assembly-CSharp
+      Data: 3|MMORPG.Tool.FeedbackSound, Assembly-CSharp
     - Name: Label
       Entry: 1
       Data: "\u97F3\u6548"
@@ -106233,12 +106028,9 @@ MonoBehaviour:
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0.3
-    - Name: TargetAudioSource
+    - Name: Sfx
       Entry: 10
       Data: 1
-    - Name: Mode
-      Entry: 3
-      Data: 0
     - Name: RandomSfx
       Entry: 7
       Data: 4|UnityEngine.AudioClip[], UnityEngine.AudioModule
@@ -106251,6 +106043,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: PlayMethod
+      Entry: 3
+      Data: 0
+    - Name: PoolSize
+      Entry: 3
+      Data: 10
+    - Name: StopSoundOnFeedbackStop
+      Entry: 5
+      Data: true
     - Name: MinVolume
       Entry: 4
       Data: 1
@@ -106264,6 +106065,54 @@ MonoBehaviour:
       Entry: 4
       Data: 1
     - Name: SfxAudioMixerGroup
+      Entry: 6
+      Data: 
+    - Name: Priority
+      Entry: 3
+      Data: 128
+    - Name: PanStereo
+      Entry: 4
+      Data: 0
+    - Name: SpatialBlend
+      Entry: 4
+      Data: 0
+    - Name: DopplerLevel
+      Entry: 4
+      Data: 1
+    - Name: Spread
+      Entry: 3
+      Data: 0
+    - Name: RolloffMode
+      Entry: 3
+      Data: 0
+    - Name: MinDistance
+      Entry: 4
+      Data: 1
+    - Name: MaxDistance
+      Entry: 4
+      Data: 500
+    - Name: UseCustomRolloffCurve
+      Entry: 5
+      Data: false
+    - Name: CustomRolloffCurve
+      Entry: 6
+      Data: 
+    - Name: UseSpatialBlendCurve
+      Entry: 5
+      Data: false
+    - Name: SpatialBlendCurve
+      Entry: 6
+      Data: 
+    - Name: UseReverbZoneMixCurve
+      Entry: 5
+      Data: false
+    - Name: ReverbZoneMixCurve
+      Entry: 6
+      Data: 
+    - Name: UseSpreadCurve
+      Entry: 5
+      Data: false
+    - Name: SpreadCurve
       Entry: 6
       Data: 
     - Name: 
@@ -111382,135 +111231,6 @@ Transform:
   - {fileID: 8618747755062179381}
   m_Father: {fileID: 607033078932886102}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7132903985735408638
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7608251732037844697}
-  - component: {fileID: 5978583182890743280}
-  m_Layer: 0
-  m_Name: Combo2_Sound
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7608251732037844697
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7132903985735408638}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7998275794646653581}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &5978583182890743280
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7132903985735408638}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4726ef687d0f59e42bfbbeac0e8a1fce, type: 3}
-  m_Resource: {fileID: 8300000, guid: 4726ef687d0f59e42bfbbeac0e8a1fce, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &7194672956322385563
 GameObject:
   m_ObjectHideFlags: 0
@@ -116573,40 +116293,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!1 &7619772985436709374
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7998275794646653581}
-  m_Layer: 0
-  m_Name: Sounds
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7998275794646653581
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7619772985436709374}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.2146327, y: -1.0838138, z: 1.9660434}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5898673387785950897}
-  - {fileID: 7608251732037844697}
-  - {fileID: 6929728635301197848}
-  m_Father: {fileID: 2429740359941644855}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7665732481079919491
 GameObject:
   m_ObjectHideFlags: 0
@@ -117031,7 +116717,7 @@ MonoBehaviour:
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 3965320441237862755}
-    - {fileID: 5978583182890743280}
+    - {fileID: 8300000, guid: 4726ef687d0f59e42bfbbeac0e8a1fce, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -117108,22 +116794,19 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 3|MMORPG.Tool.FeedbackAudioSource, Assembly-CSharp
+      Data: 3|MMORPG.Tool.FeedbackSound, Assembly-CSharp
     - Name: Label
       Entry: 1
-      Data: "\u97F3\u6548"
+      Data: Feedback
     - Name: InitializeMode
       Entry: 3
       Data: 1
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0.1
-    - Name: TargetAudioSource
+    - Name: Sfx
       Entry: 10
       Data: 1
-    - Name: Mode
-      Entry: 3
-      Data: 0
     - Name: RandomSfx
       Entry: 7
       Data: 4|UnityEngine.AudioClip[], UnityEngine.AudioModule
@@ -117136,6 +116819,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: PlayMethod
+      Entry: 3
+      Data: 0
+    - Name: PoolSize
+      Entry: 3
+      Data: 10
+    - Name: StopSoundOnFeedbackStop
+      Entry: 5
+      Data: true
     - Name: MinVolume
       Entry: 4
       Data: 1
@@ -117149,6 +116841,54 @@ MonoBehaviour:
       Entry: 4
       Data: 1
     - Name: SfxAudioMixerGroup
+      Entry: 6
+      Data: 
+    - Name: Priority
+      Entry: 3
+      Data: 128
+    - Name: PanStereo
+      Entry: 4
+      Data: 0
+    - Name: SpatialBlend
+      Entry: 4
+      Data: 0
+    - Name: DopplerLevel
+      Entry: 4
+      Data: 1
+    - Name: Spread
+      Entry: 3
+      Data: 0
+    - Name: RolloffMode
+      Entry: 3
+      Data: 0
+    - Name: MinDistance
+      Entry: 4
+      Data: 1
+    - Name: MaxDistance
+      Entry: 4
+      Data: 500
+    - Name: UseCustomRolloffCurve
+      Entry: 5
+      Data: false
+    - Name: CustomRolloffCurve
+      Entry: 6
+      Data: 
+    - Name: UseSpatialBlendCurve
+      Entry: 5
+      Data: false
+    - Name: SpatialBlendCurve
+      Entry: 6
+      Data: 
+    - Name: UseReverbZoneMixCurve
+      Entry: 5
+      Data: false
+    - Name: ReverbZoneMixCurve
+      Entry: 6
+      Data: 
+    - Name: UseSpreadCurve
+      Entry: 5
+      Data: false
+    - Name: SpreadCurve
       Entry: 6
       Data: 
     - Name: 
