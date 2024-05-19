@@ -13,6 +13,22 @@ namespace AOI
         public HashSet<long> ViewEntityBak;
         public IEnumerable<long> Move => ViewEntity.Union(ViewEntityBak);
         public IEnumerable<long> Leave => ViewEntityBak.Except(ViewEntity);
+        public IEnumerable<long> Enter
+        {
+            get
+            {
+                var enters = new List<long>();
+                foreach (var entity in ViewEntity)
+                {
+                    if (!ViewEntityBak.Contains(entity))
+                    {
+                        enters.Add(entity);
+                    }
+                }
+                return enters;
+            }
+        }
+
 
         public AoiEntity(long key)
         {
