@@ -58,7 +58,7 @@ namespace MMORPG.Tool
         {
             Feedbacks?.ForEach(x =>
             {
-                x.Setup(Owner, this);
+                x.Setup(this);
                 x.Awake();
             });
         }
@@ -81,6 +81,10 @@ namespace MMORPG.Tool
         public void StopFeedbacks()
         {
             Feedbacks?.ForEach(x => x.Stop());
+        }
+        public virtual void ProxyDestroy(GameObject gameObjectToDestroy, float delay)
+        {
+            Destroy(gameObjectToDestroy, delay);
         }
 
         protected virtual void OnDestroy()

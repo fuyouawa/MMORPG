@@ -5,7 +5,7 @@ using QFramework;
 using MMORPG.System;
 
 
-namespace MMORPG.Game
+namespace MMORPG.Command
 {
     public class RegisterCommand : AbstractCommand
     {
