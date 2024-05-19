@@ -14,6 +14,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using Google.Protobuf;
+using Ubiety.Dns.Core;
 
 namespace GameServer.Model
 {
@@ -102,10 +103,8 @@ namespace GameServer.Model
             // 向能观察到实体的角色广播实体离开场景
             // 实际上直接广播是向当前entity的关注实体广播而非关注当前entity的实体
             // 如果所有实体的视野范围一致则没有这个问题，但如果不一致的话，需要考虑另行维护
-            var res = new EntityLeaveResponse()
-            {
-                EntityId = entity.EntityId,
-            };
+            var res = new EntityLeaveResponse();
+            res.EntityIds.Add(entity.EntityId);
             PlayerManager.Broadcast(res, entity);
 
             lock (_aoiZone)
@@ -116,19 +115,98 @@ namespace GameServer.Model
             entity.Map = null;
         }
 
+        /// <summary>
+        /// 同步实体位置并向能观察到该实体的玩家广播消息
+        /// </summary>
+        /// <param name="entity"></param>
         public void EntityRefreshPosition(Entity entity)
         {
+            Vector2 range = new(entity.ViewRange, entity.ViewRange);
+            AoiEntity aoiEntity;
+            IEnumerable<long> enters;
+            IEnumerable<long> leaves;
             lock (_aoiZone)
             {
-                Vector2 range = new(entity.ViewRange, entity.ViewRange);
-                var aoiEntity = _aoiZone.Refresh(entity.EntityId, entity.Position.X, entity.Position.Z, range);
-                foreach (var leaveEntity in aoiEntity.Leave)
+                aoiEntity = _aoiZone.Refresh(entity.EntityId, entity.Position.X, entity.Position.Z, range);
+                enters = aoiEntity.Enter;
+                leaves = aoiEntity.Leave;
+            }
+
+            // 已假定所有实体的视距范围一致
+
+            // 新进入当前实体范围内的实体如果是玩家，则向其通知有实体加入
+            var enterRes = new EntityEnterResponse();
+            enterRes.Datas.Add(new EntityEnterData()
+            {
+                EntityId = entity.EntityId,
+                UnitId = entity.UnitId,
+                EntityType = entity.EntityType,
+                Transform = ProtoHelper.ToNetTransform(entity.Position, entity.Direction),
+            });
+            foreach (var entityId in enters)
+            {
+                var enterEntity = EntityManager.Instance.GetEntity((int)entityId);
+                if (enterEntity.EntityType != EntityType.Player)
                 {
-                    
+                    continue;
                 }
+                var player = enterEntity as Player;
+                player.User.Channel.Send(enterRes);
+            }
+
+            // 如果移动的是玩家，还需要向该玩家通知所有新加入视野范围的实体
+            if (entity.EntityType == EntityType.Player && enters.Any())
+            {
+                var player = entity as Player;
+                enterRes.Datas.Clear();
+                foreach (var entityId in enters)
+                {
+                    var enterEntity = EntityManager.Instance.GetEntity((int)entityId);
+                    enterRes.Datas.Add(new EntityEnterData()
+                    {
+                        EntityId = enterEntity.EntityId,
+                        UnitId = enterEntity.UnitId,
+                        EntityType = enterEntity.EntityType,
+                        Transform = ProtoHelper.ToNetTransform(enterEntity.Position, enterEntity.Direction),
+                    });
+                }
+                player.User.Channel.Send(enterRes);
+            }
+
+            // 退出当前实体范围内的实体如果是玩家，则向其通知有实体退出
+            var leaveRes = new EntityLeaveResponse();
+            leaveRes.EntityIds.Add(entity.EntityId);
+            foreach (var entityId in leaves)
+            {
+                var leaveEntity = EntityManager.Instance.GetEntity((int)entityId);
+                if (leaveEntity.EntityType != EntityType.Player)
+                {
+                    continue;
+                }
+                var player = leaveEntity as Player;
+                player.User.Channel.Send(leaveRes);
+            }
+
+            // 如果移动的是玩家，还需要向该玩家通知所有退出视野范围的实体
+            if (entity.EntityType == EntityType.Player && leaves.Any())
+            {
+                var player = entity as Player;
+                leaveRes.EntityIds.Clear();
+                foreach (var entityId in leaves)
+                {
+                    var leaveEntity = EntityManager.Instance.GetEntity((int)entityId);
+                    leaveRes.EntityIds.Add(leaveEntity.EntityId);
+                }
+                player.User.Channel.Send(leaveRes);
             }
         }
 
+        /// <summary>
+        /// 获取指定实体视距范围内实体并按条件过滤
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public List<Entity> GetEntityViewEntityList(Entity entity, Predicate<Entity>? condition = null)
         {
             var entityList = new List<Entity>();
@@ -148,7 +226,7 @@ namespace GameServer.Model
         }
 
         /// <summary>
-        /// 根据网络实体对象更新实体并广播
+        /// 根据网络实体对象更新实体并广播新状态
         /// </summary>
         public void EntityTransformUpdate(int entityId, NetTransform transform, int stateId, ByteString data)
         {
@@ -171,7 +249,34 @@ namespace GameServer.Model
             PlayerManager.Broadcast(response, entity);
         }
 
+        /// <summary>
+        /// 根据服务器实体对象更新实体并广播新状态
+        /// </summary>
+        public void EntityUpdate(int entityId, int stateId)
+        {
+            var entity = EntityManager.Instance.GetEntity(entityId);
+            if (entity == null) return;
+            EntityRefreshPosition(entity);
 
+            var response = new EntityTransformSyncResponse
+            {
+                EntityId = entityId,
+                Transform = new()
+                {
+                    Direction = entity.Position.ToNetVector3(),
+                    Position = entity.Direction.ToNetVector3()
+                },
+                StateId = stateId,
+                Data = null
+            };
+
+            // 向所有角色广播新实体的状态更新
+            PlayerManager.Broadcast(response, entity);
+        }
+
+        /// <summary>
+        /// Map的每帧更新
+        /// </summary>
         public void Update()
         {
             MonsterManager.Update();
