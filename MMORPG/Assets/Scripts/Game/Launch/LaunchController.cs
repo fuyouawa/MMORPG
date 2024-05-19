@@ -10,8 +10,7 @@ namespace MMORPG.Game
         InitTool,
         InitNetwork,
         WaitForJoinMap,
-        InitMap,
-        ExitMap,
+        Playing,
         ApplicationQuit
     }
 
@@ -32,8 +31,7 @@ namespace MMORPG.Game
             FSM.AddState(LaunchStatus.InitTool, new InitToolState(FSM, this));
             FSM.AddState(LaunchStatus.InitNetwork, new InitNetworkState(FSM, this));
             FSM.AddState(LaunchStatus.WaitForJoinMap, new WaitForJoinMapState(FSM, this));
-            FSM.AddState(LaunchStatus.InitMap, new InitMapState(FSM, this));
-            FSM.AddState(LaunchStatus.ExitMap, new ExitMapState(FSM, this));
+            FSM.AddState(LaunchStatus.Playing, new PlayingState(FSM, this));
             FSM.AddState(LaunchStatus.ApplicationQuit, new ApplicationQuitState(FSM, this));
 
             FSM.StartState(LaunchStatus.InitLog);

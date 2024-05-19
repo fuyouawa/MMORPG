@@ -14,6 +14,7 @@ namespace MMORPG.Tool
         public enum Modes { Play, Pause, UnPause, Stop }
 
         [FoldoutGroup("Audio Source")]
+        [Required]
         public AudioSource TargetAudioSource;
         [FoldoutGroup("Audio Source")]
         public Modes Mode = Modes.Play;

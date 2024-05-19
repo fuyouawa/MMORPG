@@ -7,6 +7,7 @@ using System.Linq;
 using MMORPG.Event;
 using MMORPG.Game;
 using MMORPG.Tool;
+using PimDeWitte.UnityMainThreadDispatcher;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 using NotImplementedException = System.NotImplementedException;
@@ -51,7 +52,10 @@ namespace MMORPG.System
             Vector3 position,
             Quaternion rotation);
 
+        public void LeaveEntity(int entityId);
+
         public Dictionary<int, EntityView> GetEntityDict(bool isMine);
+        public EntityView GetEntityById(int entityId);
     }
 
 
@@ -60,9 +64,28 @@ namespace MMORPG.System
         private readonly Dictionary<int, EntityView> _mineEntityDict = new();
         private readonly Dictionary<int, EntityView> _notMineEntityDict = new();
 
+        public void LeaveEntity(int entityId)
+        {
+            var entity = GetEntityById(entityId);
+            var suc = (entity.IsMine ? _mineEntityDict : _notMineEntityDict).Remove(entity.EntityId);
+            Debug.Assert(suc);
+            this.SendEvent(new EntityLeaveEvent(entity));
+            // 主要为了延迟下一帧调用, 以便可以先处理EntityLeaveEvent再Destroy
+            UnityMainThreadDispatcher.Instance().Enqueue(() => GameObject.Destroy(entity.gameObject));
+        }
+
         public Dictionary<int, EntityView> GetEntityDict(bool isMine)
         {
             return isMine ? _mineEntityDict : _notMineEntityDict;
+        }
+
+        public EntityView GetEntityById(int entityId)
+        {
+            if (_mineEntityDict.TryGetValue(entityId, out var entity))
+                return entity;
+            if (!_notMineEntityDict.TryGetValue(entityId, out entity))
+                throw new Exception("未注册过的entityId!");
+            return entity;
         }
 
         public EntityView SpawnEntity(
@@ -99,10 +122,10 @@ namespace MMORPG.System
         {
             this.GetSystem<INetworkSystem>().ReceiveEvent<EntityEnterResponse>(OnEntityEnterReceived);
             this.GetSystem<INetworkSystem>().ReceiveEvent<EntityTransformSyncResponse>(OnEntitySyncReceived);
-            this.RegisterEvent<ApplicationQuitEvent>(OnApplicationQuit);
+            this.RegisterEvent<ExitedMapEvent>(OnExitedMap);
         }
 
-        private void OnApplicationQuit(ApplicationQuitEvent e)
+        private void OnExitedMap(ExitedMapEvent e)
         {
             _mineEntityDict.Clear();
             _notMineEntityDict.Clear();

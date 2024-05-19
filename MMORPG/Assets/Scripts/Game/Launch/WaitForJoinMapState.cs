@@ -13,7 +13,7 @@ namespace MMORPG.Game
 
         private void OnEnterSpace(JoinedMapEvent e)
         {
-            mFSM.ChangeState(LaunchStatus.InitMap);
+            mFSM.ChangeState(LaunchStatus.Playing);
         }
 
         protected override void OnEnter()
