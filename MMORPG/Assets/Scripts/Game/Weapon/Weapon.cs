@@ -49,6 +49,7 @@ namespace MMORPG.Game
         [FoldoutGroup("Movement")]
         public bool PreventAllMovementWhileInUse = false;
 
+        //TODO 动画丢失的bug
         [FoldoutGroup("Animator Parameter Names")]
         public string IdleAnimationParameter;
         [FoldoutGroup("Animator Parameter Names")]

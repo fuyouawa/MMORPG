@@ -216,7 +216,6 @@ namespace MMORPG.Tool
                 }
             }
 
-            //TODO Debug.Assert
             Debug.Assert(!_updater.Running);
 
             if (_updater.CurrentAnimator != _animator || _updater.Target != _target)

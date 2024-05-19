@@ -54,7 +54,7 @@ namespace MMORPG.Game
                 var unitDefine = dataManager.GetUnitDefine(data.UnitId);
 
                 _entityManager.SpawnEntity(
-                    _resLoader.LoadSync<EntityView>(unitDefine.Resource), //TODO 根据data加载对应的Prefab
+                    _resLoader.LoadSync<EntityView>(unitDefine.Resource),
                     entityId,
                     (EntityType)data.EntityType,
                     false,
