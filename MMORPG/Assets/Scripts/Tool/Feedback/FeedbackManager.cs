@@ -21,7 +21,7 @@ namespace MMORPG.Tool
 
         [ValueDropdown("GetFeedbacksDropdown")]
         [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "GetLabel")]
-        public List<Feedback> Feedbacks = new();
+        public Feedback[] Feedbacks = Array.Empty<Feedback>();
 
 #if UNITY_EDITOR
         private static Type[] s_allFeedbackTypes;
@@ -56,7 +56,7 @@ namespace MMORPG.Tool
 
         private void Awake()
         {
-            Feedbacks.ForEach(x =>
+            Feedbacks?.ForEach(x =>
             {
                 x.Setup(Owner, this);
                 x.Awake();
@@ -65,30 +65,30 @@ namespace MMORPG.Tool
 
         private void Start()
         {
-            Feedbacks.ForEach(x => x.Start());
+            Feedbacks?.ForEach(x => x.Start());
 ;       }
 
         private void Update()
         {
-            Feedbacks.ForEach(x => x.Update());
+            Feedbacks?.ForEach(x => x.Update());
         }
 
         public void PlayFeedbacks()
         {
-            Feedbacks.ForEach(x => x.Play());
+            Feedbacks?.ForEach(x => x.Play());
         }
 
         public void StopFeedbacks()
         {
-            Feedbacks.ForEach(x => x.Stop());
+            Feedbacks?.ForEach(x => x.Stop());
         }
 
         protected virtual void OnDestroy()
         {
-            Feedbacks.ForEach(x => x.OnDestroy());
+            Feedbacks?.ForEach(x => x.OnDestroy());
         }
 #if UNITY_EDITOR
-        [HorizontalGroup(Title = "Test (Runtime only)")]
+        [HorizontalGroup(Title = "Test (Only in Playing)")]
         [Button]
         private void TestPlay()
         {

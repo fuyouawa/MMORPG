@@ -43,10 +43,6 @@ namespace MMORPG.Tool
         [Title("Time")]
         [FoldoutGroup("Feedback Settings")]
         public float DelayBeforePlay;
-        [FoldoutGroup("Feedback Settings")]
-        public bool HasDuration = true;
-        [FoldoutGroup("Feedback Settings")]
-        public float Duration = 1f;
 
         public GameObject Owner { get; private set; }
         public FeedbackManager OwnerManager { get; private set; }
@@ -158,7 +154,7 @@ namespace MMORPG.Tool
 
         protected virtual IEnumerator DurationCoroutine()
         {
-            yield return new WaitForSeconds(Duration);
+            yield return new WaitForSeconds(GetDuration());
             if (FSM.CurrentStateId is FeedbackStates.Idle or FeedbackStates.Stop)
                 yield break;
             FSM.ChangeState(FeedbackStates.Stop);
@@ -177,10 +173,15 @@ namespace MMORPG.Tool
             FSM?.Clear();
         }
 
+        protected virtual float GetDuration()
+        {
+            return 0;
+        }
+
 #if UNITY_EDITOR
         private string GetLabel()
         {
-            return $"{Label} ({DelayBeforePlay}s + {Duration}s)";
+            return $"{Label} ({DelayBeforePlay}s + {GetDuration()}s)";
         }
 #endif
     }
