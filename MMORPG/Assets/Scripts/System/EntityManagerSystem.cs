@@ -7,6 +7,7 @@ using System.Linq;
 using MMORPG.Event;
 using MMORPG.Game;
 using MMORPG.Tool;
+using PimDeWitte.UnityMainThreadDispatcher;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 using NotImplementedException = System.NotImplementedException;
@@ -68,7 +69,9 @@ namespace MMORPG.System
             var entity = GetEntityById(entityId);
             var suc = (entity.IsMine ? _mineEntityDict : _notMineEntityDict).Remove(entity.EntityId);
             Debug.Assert(suc);
-            GameObject.Destroy(entity.gameObject);
+            this.SendEvent(new EntityLeaveEvent(entity));
+            // 主要为了延迟下一帧调用, 以便可以先处理EntityLeaveEvent再Destroy
+            UnityMainThreadDispatcher.Instance().Enqueue(() => GameObject.Destroy(entity.gameObject));
         }
 
         public Dictionary<int, EntityView> GetEntityDict(bool isMine)
@@ -119,10 +122,10 @@ namespace MMORPG.System
         {
             this.GetSystem<INetworkSystem>().ReceiveEvent<EntityEnterResponse>(OnEntityEnterReceived);
             this.GetSystem<INetworkSystem>().ReceiveEvent<EntityTransformSyncResponse>(OnEntitySyncReceived);
-            this.RegisterEvent<ApplicationQuitEvent>(OnApplicationQuit);
+            this.RegisterEvent<ExitedMapEvent>(OnExitedMap);
         }
 
-        private void OnApplicationQuit(ApplicationQuitEvent e)
+        private void OnExitedMap(ExitedMapEvent e)
         {
             _mineEntityDict.Clear();
             _notMineEntityDict.Clear();
