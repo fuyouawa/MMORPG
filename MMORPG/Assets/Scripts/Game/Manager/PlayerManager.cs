@@ -1,3 +1,4 @@
+using MMORPG.Event;
 using QFramework;
 using MMORPG.System;
 using UnityEngine;
@@ -10,22 +11,10 @@ namespace MMORPG.Game
         private IEntityManagerSystem _entityManager;
         private ResLoader _resLoader = ResLoader.Allocate();
 
-        //private void Awake()
-        //{
-        //    _entityManager = this.GetSystem<IEntityManagerSystem>();
-        //    this.RegisterEventInUnityThread<NetworkEntityEnterEvent>(OnNetworkPlayerEnter)
-        //        .UnRegisterWhenGameObjectDestroyed(gameObject);
-        //}
-
-        //private void OnNetworkPlayerEnter(NetworkEntityEnterEvent e)
-        //{
-        //    var player = Instantiate(_resLoader.LoadSync<NetworkEntity>("DogPBR"));
-        //    player.transform.position = e.Position;
-        //    player.transform.rotation = e.Rotation;
-
-        //    _entityManager.RegisterEntity(e.EntityId, player, new() { IsMine = false });
-        //    this.SendCommand(new PlayerJoinedCommand(player));
-        //}
+        private void Awake()
+        {
+            _entityManager = this.GetSystem<IEntityManagerSystem>();
+        }
 
         public IArchitecture GetArchitecture()
         {
