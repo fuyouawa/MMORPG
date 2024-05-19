@@ -21,6 +21,7 @@ namespace MMORPG.Tool
         public int EmitCount = 100;
 
         [FoldoutGroup("Bound Particles")]
+        [Required]
         public ParticleSystem BoundParticleSystem;
         [FoldoutGroup("Bound Particles")]
         public ParticleSystem[] RandomParticleSystems = Array.Empty<ParticleSystem>();
@@ -56,7 +57,7 @@ namespace MMORPG.Tool
 
         protected override void OnFeedbackStart()
         {
-            PlayParticles(OwnerManager.transform.position);
+            PlayParticles(Owner.transform.position);
         }
 
         protected override void OnFeedbackStop()

@@ -4,6 +4,7 @@ using QFramework;
 using MMORPG.System;
 using MMORPG.Tool;
 using UnityEngine;
+using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Game
 {
@@ -25,10 +26,20 @@ namespace MMORPG.Game
         {
             _entityManager = this.GetSystem<IEntityManagerSystem>();
 
-            this.GetSystem<INetworkSystem>().ReceiveEvent<EntityEnterResponse>(OnEntityEnterReceived)
+            this.GetSystem<INetworkSystem>().ReceiveEventInUnityThread<EntityEnterResponse>(OnEntityEnterReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
-            this.GetSystem<INetworkSystem>().ReceiveEvent<EntityTransformSyncResponse>(OnEntitySyncReceived)
+            this.GetSystem<INetworkSystem>().ReceiveEventInUnityThread<EntityLeaveResponse>(OnEntityLeaveReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
+            this.GetSystem<INetworkSystem>().ReceiveEventInUnityThread<EntityTransformSyncResponse>(OnEntitySyncReceived)
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
+        }
+
+        private void OnEntityLeaveReceived(EntityLeaveResponse response)
+        {
+            foreach (var id in response.EntityIds)
+            {
+                _entityManager.LeaveEntity(id);
+            }
         }
 
         private void OnEntityEnterReceived(EntityEnterResponse response)
@@ -43,7 +54,7 @@ namespace MMORPG.Game
                 var unitDefine = dataManager.GetUnitDefine(data.UnitId);
 
                 _entityManager.SpawnEntity(
-                    _resLoader.LoadSync<EntityView>(unitDefine.Resource), //TODO 根据data加载对应的Prefab
+                    _resLoader.LoadSync<EntityView>(unitDefine.Resource),
                     entityId,
                     (EntityType)data.EntityType,
                     false,
