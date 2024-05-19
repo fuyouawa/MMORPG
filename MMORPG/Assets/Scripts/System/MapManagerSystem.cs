@@ -35,6 +35,7 @@ namespace MMORPG.System
             Tool.Log.Info("Game", $"退出地图:{_mapId}");
             _mapId = 0;
             _isInMap = false;
+            //TODO 发送退出地图网络请求
             //TODO 发送事件
         }
 

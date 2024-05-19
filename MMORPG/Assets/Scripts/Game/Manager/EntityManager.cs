@@ -36,6 +36,10 @@ namespace MMORPG.Game
 
         private void OnEntityLeaveReceived(EntityLeaveResponse response)
         {
+            foreach (var id in response.EntityIds)
+            {
+                _entityManager.LeaveEntity(id);
+            }
         }
 
         private void OnEntityEnterReceived(EntityEnterResponse response)

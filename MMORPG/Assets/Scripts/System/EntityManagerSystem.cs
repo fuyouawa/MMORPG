@@ -54,6 +54,7 @@ namespace MMORPG.System
         public void LeaveEntity(int entityId);
 
         public Dictionary<int, EntityView> GetEntityDict(bool isMine);
+        public EntityView GetEntityById(int entityId);
     }
 
 
@@ -64,11 +65,24 @@ namespace MMORPG.System
 
         public void LeaveEntity(int entityId)
         {
+            var entity = GetEntityById(entityId);
+            var suc = (entity.IsMine ? _mineEntityDict : _notMineEntityDict).Remove(entity.EntityId);
+            Debug.Assert(suc);
+            GameObject.Destroy(entity.gameObject);
         }
 
         public Dictionary<int, EntityView> GetEntityDict(bool isMine)
         {
             return isMine ? _mineEntityDict : _notMineEntityDict;
+        }
+
+        public EntityView GetEntityById(int entityId)
+        {
+            if (_mineEntityDict.TryGetValue(entityId, out var entity))
+                return entity;
+            if (!_notMineEntityDict.TryGetValue(entityId, out entity))
+                throw new Exception("未注册过的entityId!");
+            return entity;
         }
 
         public EntityView SpawnEntity(
