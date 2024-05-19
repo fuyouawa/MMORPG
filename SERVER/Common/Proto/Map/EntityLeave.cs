@@ -25,14 +25,14 @@ namespace Common.Proto.Event.Map {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChVNYXAvRW50aXR5TGVhdmUucHJvdG8SFkNvbW1vbi5Qcm90by5FdmVudC5N",
-            "YXAiJwoSRW50aXR5TGVhdmVSZXF1ZXN0EhEKCWVudGl0eV9pZBgBIAEoBSIo",
-            "ChNFbnRpdHlMZWF2ZVJlc3BvbnNlEhEKCWVudGl0eV9pZBgBIAEoBWIGcHJv",
-            "dG8z"));
+            "YXAiJwoSRW50aXR5TGVhdmVSZXF1ZXN0EhEKCWVudGl0eV9pZBgBIAEoBSIp",
+            "ChNFbnRpdHlMZWF2ZVJlc3BvbnNlEhIKCmVudGl0eV9pZHMYASADKAViBnBy",
+            "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.Map.EntityLeaveRequest), global::Common.Proto.Event.Map.EntityLeaveRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.Map.EntityLeaveResponse), global::Common.Proto.Event.Map.EntityLeaveResponse.Parser, new[]{ "EntityId" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.Map.EntityLeaveResponse), global::Common.Proto.Event.Map.EntityLeaveResponse.Parser, new[]{ "EntityIds" }, null, null, null, null)
           }));
     }
     #endregion
@@ -264,7 +264,7 @@ namespace Common.Proto.Event.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EntityLeaveResponse(EntityLeaveResponse other) : this() {
-      entityId_ = other.entityId_;
+      entityIds_ = other.entityIds_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -274,16 +274,15 @@ namespace Common.Proto.Event.Map {
       return new EntityLeaveResponse(this);
     }
 
-    /// <summary>Field number for the "entity_id" field.</summary>
-    public const int EntityIdFieldNumber = 1;
-    private int entityId_;
+    /// <summary>Field number for the "entity_ids" field.</summary>
+    public const int EntityIdsFieldNumber = 1;
+    private static readonly pb::FieldCodec<int> _repeated_entityIds_codec
+        = pb::FieldCodec.ForInt32(10);
+    private readonly pbc::RepeatedField<int> entityIds_ = new pbc::RepeatedField<int>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int EntityId {
-      get { return entityId_; }
-      set {
-        entityId_ = value;
-      }
+    public pbc::RepeatedField<int> EntityIds {
+      get { return entityIds_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -301,7 +300,7 @@ namespace Common.Proto.Event.Map {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (EntityId != other.EntityId) return false;
+      if(!entityIds_.Equals(other.entityIds_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -309,7 +308,7 @@ namespace Common.Proto.Event.Map {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (EntityId != 0) hash ^= EntityId.GetHashCode();
+      hash ^= entityIds_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -328,10 +327,7 @@ namespace Common.Proto.Event.Map {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (EntityId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(EntityId);
-      }
+      entityIds_.WriteTo(output, _repeated_entityIds_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -342,10 +338,7 @@ namespace Common.Proto.Event.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (EntityId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(EntityId);
-      }
+      entityIds_.WriteTo(ref output, _repeated_entityIds_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -356,9 +349,7 @@ namespace Common.Proto.Event.Map {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (EntityId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(EntityId);
-      }
+      size += entityIds_.CalculateSize(_repeated_entityIds_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -371,9 +362,7 @@ namespace Common.Proto.Event.Map {
       if (other == null) {
         return;
       }
-      if (other.EntityId != 0) {
-        EntityId = other.EntityId;
-      }
+      entityIds_.Add(other.entityIds_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -389,8 +378,9 @@ namespace Common.Proto.Event.Map {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 10:
           case 8: {
-            EntityId = input.ReadInt32();
+            entityIds_.AddEntriesFrom(input, _repeated_entityIds_codec);
             break;
           }
         }
@@ -408,8 +398,9 @@ namespace Common.Proto.Event.Map {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
+          case 10:
           case 8: {
-            EntityId = input.ReadInt32();
+            entityIds_.AddEntriesFrom(ref input, _repeated_entityIds_codec);
             break;
           }
         }
