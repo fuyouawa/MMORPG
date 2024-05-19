@@ -8,7 +8,7 @@ namespace GameServer.Model
 {
     public class Player : Actor
     {
-        public static readonly float DefaultViewRange = 100;
+        //public static readonly float DefaultViewRange = 100;
 
         public User User;
         public int CharacterId;
