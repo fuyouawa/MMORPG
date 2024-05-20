@@ -236,7 +236,7 @@ namespace MMORPG.Game
 
         protected virtual void CaseWeaponStart()
         {
-            WeaponStartFeedback?.PlayFeedbacks();
+            WeaponStartFeedback?.Play();
             if (DelayBeforeUse > 0)
             {
                 _delayBeforeUseCounter = DelayBeforeUse;
@@ -306,7 +306,7 @@ namespace MMORPG.Game
 
         protected virtual void CaseWeaponStop()
         {
-            WeaponStopFeedback?.PlayFeedbacks();
+            WeaponStopFeedback?.Play();
             FSM.ChangeState(WeaponStates.Idle);
             Brain.PreventMovement = false;
         }
@@ -318,7 +318,7 @@ namespace MMORPG.Game
 
         protected virtual void WeaponUse()
         {
-            WeaponUsedFeedback?.PlayFeedbacks();
+            WeaponUsedFeedback?.Play();
         }
 
         protected virtual void UpdateAnimator()
