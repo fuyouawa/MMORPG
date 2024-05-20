@@ -42,12 +42,12 @@ namespace MMORPG.Tool
         private AudioClip _randomClip;
         private float _duration;
 
-        protected override float GetDuration()
+        public override float GetDuration()
         {
             return _duration;
         }
 
-        protected override void OnFeedbackStart()
+        protected override void OnFeedbackPlay()
         {
             switch (Mode)
             {

@@ -127,7 +127,7 @@ namespace MMORPG.Tool
             return _tempAudioSource;
         }
 
-        protected override void OnFeedbackStart()
+        protected override void OnFeedbackPlay()
         {
             if (Sfx != null)
             {
@@ -149,7 +149,7 @@ namespace MMORPG.Tool
             }
         }
 
-        protected override float GetDuration()
+        public override float GetDuration()
         {
             if (Sfx != null)
             {
