@@ -64,7 +64,6 @@ namespace MMORPG.Game
 
         private void Update()
         {
-            Debug.Log(CurrentWeapon?.StartAnimationParameter);
             UpdateWeaponAttachmentTransform();
         }
 

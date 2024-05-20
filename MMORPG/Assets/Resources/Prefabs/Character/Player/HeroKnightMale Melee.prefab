@@ -111,6 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2873ee7a448c43042ba84f770c2cee3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnterAbilityFeedback: {fileID: 0}
+  ExitAbilityFeedback: {fileID: 0}
 --- !u!114 &5991820956586231828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,6 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f79b878922d36ba4fb4ca47491c1e0cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnterAbilityFeedback: {fileID: 0}
+  ExitAbilityFeedback: {fileID: 0}
 --- !u!1 &284044486536489920
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,6 +158,192 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9162639045243292746}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &576179504020121677
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 189010334653391765}
+  - component: {fileID: 2370554753991957036}
+  m_Layer: 0
+  m_Name: Run_Feedback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &189010334653391765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576179504020121677}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 204620109946203986}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2370554753991957036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576179504020121677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fb458d4bea0fa48b80327cec288cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 8300000, guid: 3bf2bd23e8e6377469c5e1819ce811d7, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Feedbacks
+      Entry: 7
+      Data: 0|MMORPG.Tool.Feedback[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 1|MMORPG.Tool.FeedbackSound, Assembly-CSharp
+    - Name: Enable
+      Entry: 5
+      Data: true
+    - Name: Label
+      Entry: 1
+      Data: "\u8D70\u8DEF"
+    - Name: DelayBeforePlay
+      Entry: 4
+      Data: 0
+    - Name: Loop
+      Entry: 5
+      Data: true
+    - Name: LimitLoopCount
+      Entry: 5
+      Data: false
+    - Name: LoopCount
+      Entry: 3
+      Data: 1
+    - Name: DelayBetweenLoop
+      Entry: 4
+      Data: 0
+    - Name: Sfx
+      Entry: 10
+      Data: 0
+    - Name: RandomSfx
+      Entry: 7
+      Data: 2|UnityEngine.AudioClip[], UnityEngine.AudioModule
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PlayMethod
+      Entry: 3
+      Data: 0
+    - Name: PoolSize
+      Entry: 3
+      Data: 10
+    - Name: StopSoundOnFeedbackStop
+      Entry: 5
+      Data: true
+    - Name: MinVolume
+      Entry: 4
+      Data: 1
+    - Name: MaxVolume
+      Entry: 4
+      Data: 1
+    - Name: MinPitch
+      Entry: 4
+      Data: 1
+    - Name: MaxPitch
+      Entry: 4
+      Data: 1
+    - Name: SfxAudioMixerGroup
+      Entry: 6
+      Data: 
+    - Name: Priority
+      Entry: 3
+      Data: 128
+    - Name: PanStereo
+      Entry: 4
+      Data: 0
+    - Name: SpatialBlend
+      Entry: 4
+      Data: 0
+    - Name: DopplerLevel
+      Entry: 4
+      Data: 1
+    - Name: Spread
+      Entry: 3
+      Data: 0
+    - Name: RolloffMode
+      Entry: 3
+      Data: 0
+    - Name: MinDistance
+      Entry: 4
+      Data: 1
+    - Name: MaxDistance
+      Entry: 4
+      Data: 500
+    - Name: UseCustomRolloffCurve
+      Entry: 5
+      Data: false
+    - Name: CustomRolloffCurve
+      Entry: 6
+      Data: 
+    - Name: UseSpatialBlendCurve
+      Entry: 5
+      Data: false
+    - Name: SpatialBlendCurve
+      Entry: 6
+      Data: 
+    - Name: UseReverbZoneMixCurve
+      Entry: 5
+      Data: false
+    - Name: ReverbZoneMixCurve
+      Entry: 6
+      Data: 
+    - Name: UseSpreadCurve
+      Entry: 5
+      Data: false
+    - Name: SpreadCurve
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  InitializationMode: 2
+  AutoInitialization: 1
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
 --- !u!1 &884816792351883935
 GameObject:
   m_ObjectHideFlags: 0
@@ -5665,6 +5855,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af74f38f0a0b0cf47b49e47f62e2336d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnterAbilityFeedback: {fileID: 0}
+  ExitAbilityFeedback: {fileID: 0}
 --- !u!114 &5844382415902207706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5677,7 +5869,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9185e79d9210d06409b54f4a5a90294f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IdleThreshold: 0.05
+  EnterAbilityFeedback: {fileID: 0}
+  ExitAbilityFeedback: {fileID: 0}
   BackIdleThreshold: 0.5
 --- !u!1 &2031200277136639676
 GameObject:
@@ -5804,7 +5997,7 @@ MonoBehaviour:
       StateConditions:
       - FullMethodName: LocalPlayerIdle/CanMovement
         Not: 0
-      - FullMethodName: LocalPlayerMovement/MoveInputReachIdleThreshold
+      - FullMethodName: LocalPlayerMovement/PressingMove
         Not: 0
       TrueStateName: Movement
       FalseStateName: 
@@ -5813,12 +6006,18 @@ MonoBehaviour:
     - LocalAbilityName: LocalPlayerMovement
       RemoteAbilityName: RemotePlayerMovement
     Transitions:
-    - Label: "\u56DE\u5230Idle"
+    - Label: "\u56E0\u901F\u5EA6\u4F4E\u800C\u56DE\u5230Idle"
       StateConditions:
-      - FullMethodName: LocalPlayerMovement/MoveInputReachIdleThreshold
+      - FullMethodName: LocalPlayerMovement/PressingMove
         Not: 1
-      - FullMethodName: LocalPlayerMovement/VelocityReachBackIdleThreshold
+      - FullMethodName: LocalPlayerMovement/BackIdleVelocity
         Not: 0
+      TrueStateName: Idle
+      FalseStateName: 
+    - Label: "\u56E0\u65E0\u6CD5\u79FB\u52A8\u800C\u56DE\u5230Idle"
+      StateConditions:
+      - FullMethodName: LocalPlayerIdle/CanMovement
+        Not: 1
       TrueStateName: Idle
       FalseStateName: 
   AdditionalAbilityNodes:
@@ -5826,6 +6025,7 @@ MonoBehaviour:
   - {fileID: 171388820641581816}
   FeedbackNodes:
   - {fileID: 6877277931194703591}
+  PreventMovement: 0
 --- !u!114 &6871216913282456529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80562,7 +80762,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4575902896710758101}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca1321627d62964085ea62d89ebeb49, type: 3}
+  m_Script: {fileID: 11500000, guid: c4fb458d4bea0fa48b80327cec288cf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -80585,21 +80785,33 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 1|MMORPG.Tool.FeedbackParticlePlay, Assembly-CSharp
+    - Name: Enable
+      Entry: 5
+      Data: true
     - Name: Label
       Entry: 1
       Data: "\u5200\u5149"
-    - Name: InitializeMode
-      Entry: 3
-      Data: 1
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0.8
+    - Name: Loop
+      Entry: 5
+      Data: false
+    - Name: LimitLoopCount
+      Entry: 5
+      Data: true
+    - Name: LoopCount
+      Entry: 3
+      Data: 1
+    - Name: DelayBetweenLoop
+      Entry: 4
+      Data: 1
     - Name: Mode
       Entry: 3
       Data: 0
     - Name: EmitCount
       Entry: 3
-      Data: 0
+      Data: 100
     - Name: BoundParticleSystem
       Entry: 10
       Data: 0
@@ -80623,10 +80835,10 @@ MonoBehaviour:
       Data: false
     - Name: StopSystemOnInit
       Entry: 5
-      Data: false
+      Data: true
     - Name: DeclaredDuration
       Entry: 4
-      Data: 0.5
+      Data: 0
     - Name: ForceSimulationSpeed
       Entry: 5
       Data: false
@@ -80635,10 +80847,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 0.1
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -80648,15 +80860,27 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 3|MMORPG.Tool.FeedbackSound, Assembly-CSharp
+    - Name: Enable
+      Entry: 5
+      Data: true
     - Name: Label
       Entry: 1
-      Data: Feedback
-    - Name: InitializeMode
-      Entry: 3
-      Data: 1
+      Data: "\u97F3\u6548"
     - Name: DelayBeforePlay
       Entry: 4
-      Data: 0.8
+      Data: 0.7
+    - Name: Loop
+      Entry: 5
+      Data: false
+    - Name: LimitLoopCount
+      Entry: 5
+      Data: true
+    - Name: LoopCount
+      Entry: 3
+      Data: 1
+    - Name: DelayBetweenLoop
+      Entry: 4
+      Data: 1
     - Name: Sfx
       Entry: 10
       Data: 1
@@ -80753,8 +80977,12 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  InitializationMode: 2
+  AutoInitialization: 1
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
 --- !u!1 &4623857883831697367
 GameObject:
   m_ObjectHideFlags: 0
@@ -105892,6 +106120,192 @@ Transform:
   - {fileID: 598150688536836229}
   m_Father: {fileID: 6148392014985172994}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6665857463537944884
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 899194400635972477}
+  - component: {fileID: 4769104135306738409}
+  m_Layer: 0
+  m_Name: Walk_Feedback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &899194400635972477
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6665857463537944884}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 204620109946203986}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4769104135306738409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6665857463537944884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fb458d4bea0fa48b80327cec288cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 8300000, guid: 938d32378af68c2458b125d48761421a, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Feedbacks
+      Entry: 7
+      Data: 0|MMORPG.Tool.Feedback[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 1|MMORPG.Tool.FeedbackSound, Assembly-CSharp
+    - Name: Enable
+      Entry: 5
+      Data: true
+    - Name: Label
+      Entry: 1
+      Data: "\u8D70\u8DEF"
+    - Name: DelayBeforePlay
+      Entry: 4
+      Data: 0
+    - Name: Loop
+      Entry: 5
+      Data: true
+    - Name: LimitLoopCount
+      Entry: 5
+      Data: false
+    - Name: LoopCount
+      Entry: 3
+      Data: 1
+    - Name: DelayBetweenLoop
+      Entry: 4
+      Data: 0
+    - Name: Sfx
+      Entry: 10
+      Data: 0
+    - Name: RandomSfx
+      Entry: 7
+      Data: 2|UnityEngine.AudioClip[], UnityEngine.AudioModule
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: PlayMethod
+      Entry: 3
+      Data: 0
+    - Name: PoolSize
+      Entry: 3
+      Data: 10
+    - Name: StopSoundOnFeedbackStop
+      Entry: 5
+      Data: true
+    - Name: MinVolume
+      Entry: 4
+      Data: 1
+    - Name: MaxVolume
+      Entry: 4
+      Data: 1
+    - Name: MinPitch
+      Entry: 4
+      Data: 1
+    - Name: MaxPitch
+      Entry: 4
+      Data: 1
+    - Name: SfxAudioMixerGroup
+      Entry: 6
+      Data: 
+    - Name: Priority
+      Entry: 3
+      Data: 128
+    - Name: PanStereo
+      Entry: 4
+      Data: 0
+    - Name: SpatialBlend
+      Entry: 4
+      Data: 0
+    - Name: DopplerLevel
+      Entry: 4
+      Data: 1
+    - Name: Spread
+      Entry: 3
+      Data: 0
+    - Name: RolloffMode
+      Entry: 3
+      Data: 0
+    - Name: MinDistance
+      Entry: 4
+      Data: 1
+    - Name: MaxDistance
+      Entry: 4
+      Data: 500
+    - Name: UseCustomRolloffCurve
+      Entry: 5
+      Data: false
+    - Name: CustomRolloffCurve
+      Entry: 6
+      Data: 
+    - Name: UseSpatialBlendCurve
+      Entry: 5
+      Data: false
+    - Name: SpatialBlendCurve
+      Entry: 6
+      Data: 
+    - Name: UseReverbZoneMixCurve
+      Entry: 5
+      Data: false
+    - Name: ReverbZoneMixCurve
+      Entry: 6
+      Data: 
+    - Name: UseSpreadCurve
+      Entry: 5
+      Data: false
+    - Name: SpreadCurve
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  InitializationMode: 2
+  AutoInitialization: 1
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
 --- !u!1 &6670715276727017272
 GameObject:
   m_ObjectHideFlags: 0
@@ -105933,7 +106347,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6670715276727017272}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca1321627d62964085ea62d89ebeb49, type: 3}
+  m_Script: {fileID: 11500000, guid: c4fb458d4bea0fa48b80327cec288cf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -105956,21 +106370,33 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 1|MMORPG.Tool.FeedbackParticlePlay, Assembly-CSharp
+    - Name: Enable
+      Entry: 5
+      Data: true
     - Name: Label
       Entry: 1
       Data: "\u5200\u5149"
-    - Name: InitializeMode
-      Entry: 3
-      Data: 1
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0.4
+    - Name: Loop
+      Entry: 5
+      Data: false
+    - Name: LimitLoopCount
+      Entry: 5
+      Data: true
+    - Name: LoopCount
+      Entry: 3
+      Data: 1
+    - Name: DelayBetweenLoop
+      Entry: 4
+      Data: 1
     - Name: Mode
       Entry: 3
       Data: 0
     - Name: EmitCount
       Entry: 3
-      Data: 0
+      Data: 100
     - Name: BoundParticleSystem
       Entry: 10
       Data: 0
@@ -105994,10 +106420,10 @@ MonoBehaviour:
       Data: false
     - Name: StopSystemOnInit
       Entry: 5
-      Data: false
+      Data: true
     - Name: DeclaredDuration
       Entry: 4
-      Data: 0.5
+      Data: 0
     - Name: ForceSimulationSpeed
       Entry: 5
       Data: false
@@ -106006,10 +106432,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 0.1
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -106019,15 +106445,27 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 3|MMORPG.Tool.FeedbackSound, Assembly-CSharp
+    - Name: Enable
+      Entry: 5
+      Data: true
     - Name: Label
       Entry: 1
       Data: "\u97F3\u6548"
-    - Name: InitializeMode
-      Entry: 3
-      Data: 1
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0.3
+    - Name: Loop
+      Entry: 5
+      Data: false
+    - Name: LimitLoopCount
+      Entry: 5
+      Data: true
+    - Name: LoopCount
+      Entry: 3
+      Data: 1
+    - Name: DelayBetweenLoop
+      Entry: 4
+      Data: 1
     - Name: Sfx
       Entry: 10
       Data: 1
@@ -106124,8 +106562,12 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  InitializationMode: 2
+  AutoInitialization: 1
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
 --- !u!1 &6710520580799211426
 GameObject:
   m_ObjectHideFlags: 0
@@ -111165,6 +111607,8 @@ Transform:
   - {fileID: 8513331395475986189}
   - {fileID: 4751401169624539978}
   - {fileID: 4143111463651130784}
+  - {fileID: 899194400635972477}
+  - {fileID: 189010334653391765}
   m_Father: {fileID: 2429740359941644855}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7043817481160811206
@@ -111301,6 +111745,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSwitchVelocity: 3
+  WalkingFeedbacks: {fileID: 4769104135306738409}
+  RunningFeedbacks: {fileID: 2370554753991957036}
 --- !u!1 &7249225087750854683
 GameObject:
   m_ObjectHideFlags: 0
@@ -116709,7 +117155,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8789923965141974367}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca1321627d62964085ea62d89ebeb49, type: 3}
+  m_Script: {fileID: 11500000, guid: c4fb458d4bea0fa48b80327cec288cf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -116732,21 +117178,33 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 1|MMORPG.Tool.FeedbackParticlePlay, Assembly-CSharp
+    - Name: Enable
+      Entry: 5
+      Data: true
     - Name: Label
       Entry: 1
       Data: "\u5200\u5149"
-    - Name: InitializeMode
-      Entry: 3
-      Data: 1
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0.1
+    - Name: Loop
+      Entry: 5
+      Data: false
+    - Name: LimitLoopCount
+      Entry: 5
+      Data: true
+    - Name: LoopCount
+      Entry: 3
+      Data: 1
+    - Name: DelayBetweenLoop
+      Entry: 4
+      Data: 1
     - Name: Mode
       Entry: 3
       Data: 0
     - Name: EmitCount
       Entry: 3
-      Data: 0
+      Data: 100
     - Name: BoundParticleSystem
       Entry: 10
       Data: 0
@@ -116770,10 +117228,10 @@ MonoBehaviour:
       Data: false
     - Name: StopSystemOnInit
       Entry: 5
-      Data: false
+      Data: true
     - Name: DeclaredDuration
       Entry: 4
-      Data: 0.5
+      Data: 0
     - Name: ForceSimulationSpeed
       Entry: 5
       Data: false
@@ -116782,10 +117240,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 0.1
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -116795,15 +117253,27 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 3|MMORPG.Tool.FeedbackSound, Assembly-CSharp
+    - Name: Enable
+      Entry: 5
+      Data: true
     - Name: Label
       Entry: 1
-      Data: Feedback
-    - Name: InitializeMode
-      Entry: 3
-      Data: 1
+      Data: "\u97F3\u6548"
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0.1
+    - Name: Loop
+      Entry: 5
+      Data: false
+    - Name: LimitLoopCount
+      Entry: 5
+      Data: true
+    - Name: LoopCount
+      Entry: 3
+      Data: 1
+    - Name: DelayBetweenLoop
+      Entry: 4
+      Data: 1
     - Name: Sfx
       Entry: 10
       Data: 1
@@ -116900,8 +117370,12 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  InitializationMode: 2
+  AutoInitialization: 1
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
 --- !u!1 &8815542384085112077
 GameObject:
   m_ObjectHideFlags: 0

@@ -64,7 +64,7 @@ namespace MMORPG.Game
 
         public bool IsMine => CharacterController.Entity.IsMine;
 
-        public bool PreventMovement { get; set; } = false;
+        public bool PreventMovement = false;
 
         private TAbility[] GetAttachAbilities<TAbility>() where TAbility : PlayerAbility
         {
