@@ -15,7 +15,6 @@ namespace MMORPG.Game
 
     public class LocalPlayerMovement : LocalPlayerAbility
     {
-        public float IdleThreshold = 0.05f;
         public float BackIdleThreshold = 0.5f;
 
         private Vector2 _moveDirection;
@@ -52,13 +51,13 @@ namespace MMORPG.Game
         }
 
         [StateCondition]
-        public bool MoveInputReachIdleThreshold()
+        public bool PressingMove()
         {
-            return Brain.GetMoveInput().magnitude > IdleThreshold;
+            return Brain.GetMoveInput().magnitude > 0.5f;
         }
 
         [StateCondition]
-        public bool VelocityReachBackIdleThreshold()
+        public bool BackIdleVelocity()
         {
             return Brain.AnimationController.MovementDirection.magnitude < BackIdleThreshold;
         }
@@ -67,11 +66,17 @@ namespace MMORPG.Game
         {
             if (Brain.IsPressingRun())
             {
-                Brain.AnimationController.StartRunning();
+                if (!Brain.AnimationController.Running)
+                {
+                    Brain.AnimationController.StartRunning();
+                }
             }
             else
             {
-                Brain.AnimationController.StartWalking();
+                if (!Brain.AnimationController.Walking)
+                {
+                    Brain.AnimationController.StartWalking();
+                }
             }
 
             _moveDirection = Brain.GetMoveInput();

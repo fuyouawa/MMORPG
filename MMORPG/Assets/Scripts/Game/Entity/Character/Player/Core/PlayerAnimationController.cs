@@ -13,8 +13,11 @@ namespace MMORPG.Game
         [Title("Move Switch")]
         public float MoveSwitchVelocity = 3f;
 
-        [Title("Animation Speed")]
+        [Title("Feedbacks")]
+        public FeedbackManager WalkingFeedbacks;
+        public FeedbackManager RunningFeedbacks;
 
+        [Title("Animation Speed")]
         [ShowInInspector]
         [AnimatorStateSpeed("Walking")]
         public float WalkSpeed { get; set; } = 1f;
@@ -94,7 +97,6 @@ namespace MMORPG.Game
 
         void Update()
         {
-            
             Move();
         }
 
@@ -118,6 +120,8 @@ namespace MMORPG.Game
         {
             Walking = true;
             Running = false;
+            RunningFeedbacks?.Stop();
+            WalkingFeedbacks?.Play();
         }
 
 
@@ -125,6 +129,8 @@ namespace MMORPG.Game
         {
             Walking = false;
             Running = true;
+            WalkingFeedbacks?.Stop();
+            RunningFeedbacks?.Play();
         }
 
         public void StopMovement()
@@ -132,6 +138,8 @@ namespace MMORPG.Game
             Walking = false;
             Running = false;
             MovementDirection = Vector2.zero;
+            WalkingFeedbacks?.Stop();
+            RunningFeedbacks?.Stop();
         }
 
         private void OnAnimatorMove()
