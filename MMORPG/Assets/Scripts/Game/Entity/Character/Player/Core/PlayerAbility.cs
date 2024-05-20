@@ -1,9 +1,16 @@
+using MMORPG.Tool;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace MMORPG.Game
 {
     public abstract class PlayerAbility : MonoBehaviour
     {
+        [FoldoutGroup("Feedbacks")]
+        public FeedbackManager EnterAbilityFeedback;
+        [FoldoutGroup("Feedbacks")]
+        public FeedbackManager ExitAbilityFeedback;
+
         public PlayerState OwnerState { get; set; }
         public PlayerBrain Brain { get; set; }
         public int OwnerStateId { get; set; }

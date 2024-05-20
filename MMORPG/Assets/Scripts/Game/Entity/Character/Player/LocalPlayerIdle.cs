@@ -13,7 +13,7 @@ namespace MMORPG.Game
         [StateCondition]
         public bool CanMovement()
         {
-            return true;
+            return !Brain.PreventMovement;
         }
     }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -69,6 +70,7 @@ namespace MMORPG.Game
                 LocalAbility.OwnerState = OwnerState;
                 LocalAbility.Brain = OwnerState.Brain;
                 LocalAbility.OwnerStateId = OwnerStateId;
+                LocalAbility.EnterAbilityFeedback?.Play();
                 LocalAbility.OnStateEnter();
             }
             else
@@ -76,6 +78,7 @@ namespace MMORPG.Game
                 RemoteAbility.OwnerState = OwnerState;
                 RemoteAbility.Brain = OwnerState.Brain;
                 RemoteAbility.OwnerStateId = OwnerStateId;
+                RemoteAbility.EnterAbilityFeedback?.Play();
                 RemoteAbility.OnStateEnter();
             }
         }
@@ -111,9 +114,15 @@ namespace MMORPG.Game
         {
             AssertCheck();
             if (IsMine)
+            {
+                LocalAbility.ExitAbilityFeedback?.Play();
                 LocalAbility.OnStateExit();
+            }
             else
+            {
+                RemoteAbility.ExitAbilityFeedback?.Play();
                 RemoteAbility.OnStateExit();
+            }
         }
 
         public void TransformEntitySync(EntityTransformSyncData data)

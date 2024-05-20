@@ -42,7 +42,7 @@ namespace MMORPG.Tool
 
         private ParticleSystem.EmitParams _emitParams;
 
-        protected override float GetDuration()
+        public override float GetDuration()
         {
             return DeclaredDuration;
         }
@@ -55,7 +55,7 @@ namespace MMORPG.Tool
             }
         }
 
-        protected override void OnFeedbackStart()
+        protected override void OnFeedbackPlay()
         {
             PlayParticles(Owner.transform.position);
         }
