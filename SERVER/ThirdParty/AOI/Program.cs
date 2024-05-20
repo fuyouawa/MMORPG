@@ -37,7 +37,7 @@ namespace AOI
             foreach (var aoiKey in enters)
             {
                 var findEntity = zone[aoiKey];
-                Console.WriteLine($"X:{findEntity.X.Value} Y:{findEntity.Y.Value}");
+                Console.WriteLine($"entity:{aoiKey} X:{findEntity.X.Value} Y:{findEntity.Y.Value}");
             }
     
             // 更新key为3的坐标。
