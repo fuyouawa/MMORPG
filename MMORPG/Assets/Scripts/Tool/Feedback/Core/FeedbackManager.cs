@@ -105,6 +105,7 @@ namespace MMORPG.Tool
 
         public void Stop()
         {
+            Debug.Assert(IsInitialized);
             Feedbacks?.ForEach(x => x.Stop());
             CoroutineHelper.StopAllCoroutines();
         }
@@ -124,7 +125,12 @@ namespace MMORPG.Tool
             Feedbacks?.ForEach(x => x.OnDrawGizmosSelected());
         }
 
-        protected virtual void Initialize()
+        protected virtual void OnDrawGizmos()
+        {
+            Feedbacks?.ForEach(x => x.OnDrawGizmos());
+        }
+
+        public virtual void Initialize()
         {
             if (IsInitialized) return;
             IsInitialized = true;

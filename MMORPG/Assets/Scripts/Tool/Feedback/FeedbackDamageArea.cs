@@ -1,7 +1,9 @@
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace MMORPG.Tool
 {
@@ -48,13 +50,35 @@ namespace MMORPG.Tool
         [FoldoutGroup("Damage Caused")]
         public float MaxDamageCaused = 10f;
         [FoldoutGroup("Damage Caused")]
-        public DamageOnTouch.KnockBackStyles KnockBack;
-        [FoldoutGroup("Damage Caused")]
-        public Vector3 KnockBackForce = new(10, 2, 0);
-        [FoldoutGroup("Damage Caused")]
-        public DamageOnTouch.KnockBackDirections KnockBackDirection = DamageOnTouch.KnockBackDirections.BasedOnOwnerPosition;
+        public DamageOnTouch.TriggerAndCollisionMask TriggerFilter;
         [FoldoutGroup("Damage Caused")]
         public float InvincibilityDuration = 0.5f;
+        [FoldoutGroup("Damage Caused")]
+        public DamageOnTouch.DamageDirections DamageDirectionMode;
+        [FoldoutGroup("Damage Caused")]
+        public List<GameObject> IgnoredGameObjects = new();
+
+        [FoldoutGroup("Damage over time")]
+        public bool RepeatDamageOverTime = false;
+
+        [FoldoutGroup("Damage over time")]
+        [ShowIf("RepeatDamageOverTime")]
+        public int AmountOfRepeats = 3;
+
+        [FoldoutGroup("Damage over time")]
+        [ShowIf("RepeatDamageOverTime")]
+        public float DurationBetweenRepeats = 1f;
+
+        [FoldoutGroup("Damage over time")]
+        [ShowIf("RepeatDamageOverTime")]
+        public bool DamageOverTimeInterruptible = true;
+
+        [FoldoutGroup("Damage Events")]
+        public UnityEvent<Health> HitDamageableEvent = new();
+        [FoldoutGroup("Damage Events")]
+        public UnityEvent<Collider> HitNonDamageableEvent = new();
+        [FoldoutGroup("Damage Events")]
+        public UnityEvent<Collider> HitAnythingEvent = new();
 
         protected Collider _damageAreaCollider;
         protected bool _attackInProgress = false;
@@ -122,16 +146,20 @@ namespace MMORPG.Tool
             }
 
             _damageOnTouch = _damageArea.AddComponent<DamageOnTouch>();
-            _damageOnTouch.SetGizmoSize(AreaSize);
-            _damageOnTouch.SetGizmoOffset(AreaOffset);
             _damageOnTouch.TargetLayerMask = TargetLayerMask;
             _damageOnTouch.MinDamageCaused = MinDamageCaused;
             _damageOnTouch.MaxDamageCaused = MaxDamageCaused;
-            _damageOnTouch.DamageDirectionMode = DamageOnTouch.DamageDirections.BasedOnOwnerPosition;
-            _damageOnTouch.DamageCausedKnockBackType = KnockBack;
-            _damageOnTouch.DamageCausedKnockbackForce = KnockBackForce;
-            _damageOnTouch.DamageCausedKnockBackDirection = KnockBackDirection;
+            _damageOnTouch.TriggerFilter = TriggerFilter;
             _damageOnTouch.InvincibilityDuration = InvincibilityDuration;
+            _damageOnTouch.DamageDirectionMode = DamageDirectionMode;
+            _damageOnTouch.IgnoredGameObjects = IgnoredGameObjects;
+            _damageOnTouch.RepeatDamageOverTime = RepeatDamageOverTime;
+            _damageOnTouch.AmountOfRepeats = AmountOfRepeats;
+            _damageOnTouch.DurationBetweenRepeats = DurationBetweenRepeats;
+            _damageOnTouch.DamageOverTimeInterruptible = DamageOverTimeInterruptible;
+            _damageOnTouch.HitDamageableEvent = HitDamageableEvent;
+            _damageOnTouch.HitNonDamageableEvent = HitNonDamageableEvent;
+            _damageOnTouch.HitAnythingEvent = HitAnythingEvent;
         }
 
         protected override void OnFeedbackPlay()
