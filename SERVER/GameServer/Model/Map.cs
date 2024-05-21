@@ -1,4 +1,4 @@
-﻿using AOI;
+﻿using Aoi;
 using Common.Proto.Entity;
 using Common.Proto.Event;
 using Common.Proto.Event.Map;
@@ -31,14 +31,14 @@ namespace GameServer.Model
         public MonsterManager MonsterManager;
         public SpawnManager SpawnManager;
 
-        private AoiZone _aoiZone;
+        private AoiWord _aoiWord;
 
         public Map(int mapId, string name)
         {
             MapId = mapId;
             Name = name;
 
-            _aoiZone = new(.001f, .001f);
+            _aoiWord = new(20);
 
             PlayerManager = new(this);
             MonsterManager = new(this);
@@ -54,10 +54,11 @@ namespace GameServer.Model
 
             entity.Map = this;
 
-            lock (_aoiZone)
+            //List<int> 
+            lock (_aoiWord)
             {
                 Vector2 range = new (entity.ViewRange, entity.ViewRange);
-                _aoiZone.Enter(entity.EntityId, entity.Position.X, entity.Position.Z, range, out var enters);
+                _aoiWord.Enter(entity.EntityId, entity.Position.X, entity.Position.Z, out var enters);
             }
 
             var res = new EntityEnterResponse();
@@ -107,9 +108,9 @@ namespace GameServer.Model
             res.EntityIds.Add(entity.EntityId);
             PlayerManager.Broadcast(res, entity);
 
-            lock (_aoiZone)
+            lock (_aoiWord)
             {
-                _aoiZone.Exit(entity.EntityId);
+                _aoiWord.Leave(entity.EntityId, out var leaveList);
             }
 
             entity.Map = null;
@@ -122,14 +123,11 @@ namespace GameServer.Model
         public void EntityRefreshPosition(Entity entity)
         {
             Vector2 range = new(entity.ViewRange, entity.ViewRange);
-            AoiEntity aoiEntity;
-            IEnumerable<long> enters;
-            IEnumerable<long> leaves;
-            lock (_aoiZone)
+            List<int> enters;
+            List<int> leaves;
+            lock (_aoiWord)
             {
-                aoiEntity = _aoiZone.Refresh(entity.EntityId, entity.Position.X, entity.Position.Z, range);
-                enters = aoiEntity.Enter;
-                leaves = aoiEntity.Leave;
+                _aoiWord.Refresh(entity.EntityId, entity.Position.X, entity.Position.Z, out enters, out leaves);
             }
 
             // 已假定所有实体的视距范围一致
@@ -143,61 +141,71 @@ namespace GameServer.Model
                 EntityType = entity.EntityType,
                 Transform = ProtoHelper.ToNetTransform(entity.Position, entity.Direction),
             });
-            foreach (var entityId in enters)
+            if (enters != null)
             {
-                var enterEntity = EntityManager.Instance.GetEntity((int)entityId);
-                if (enterEntity.EntityType != EntityType.Player)
-                {
-                    continue;
-                }
-                var player = enterEntity as Player;
-                player.User.Channel.Send(enterRes);
-            }
-
-            // 如果移动的是玩家，还需要向该玩家通知所有新加入视野范围的实体
-            if (entity.EntityType == EntityType.Player && enters.Any())
-            {
-                var player = entity as Player;
-                enterRes.Datas.Clear();
                 foreach (var entityId in enters)
                 {
                     var enterEntity = EntityManager.Instance.GetEntity((int)entityId);
-                    enterRes.Datas.Add(new EntityEnterData()
+                    if (enterEntity.EntityType != EntityType.Player)
                     {
-                        EntityId = enterEntity.EntityId,
-                        UnitId = enterEntity.UnitId,
-                        EntityType = enterEntity.EntityType,
-                        Transform = ProtoHelper.ToNetTransform(enterEntity.Position, enterEntity.Direction),
-                    });
-                }
-                player.User.Channel.Send(enterRes);
-            }
+                        continue;
+                    }
 
-            // 退出当前实体范围内的实体如果是玩家，则向其通知有实体退出
-            var leaveRes = new EntityLeaveResponse();
-            leaveRes.EntityIds.Add(entity.EntityId);
-            foreach (var entityId in leaves)
-            {
-                var leaveEntity = EntityManager.Instance.GetEntity((int)entityId);
-                if (leaveEntity.EntityType != EntityType.Player)
+                    var player = enterEntity as Player;
+                    player.User.Channel.Send(enterRes);
+                }
+
+                // 如果移动的是玩家，还需要向该玩家通知所有新加入视野范围的实体
+                if (entity.EntityType == EntityType.Player && enters.Any())
                 {
-                    continue;
+                    var player = entity as Player;
+                    enterRes.Datas.Clear();
+                    foreach (var entityId in enters)
+                    {
+                        var enterEntity = EntityManager.Instance.GetEntity((int)entityId);
+                        enterRes.Datas.Add(new EntityEnterData()
+                        {
+                            EntityId = enterEntity.EntityId,
+                            UnitId = enterEntity.UnitId,
+                            EntityType = enterEntity.EntityType,
+                            Transform = ProtoHelper.ToNetTransform(enterEntity.Position, enterEntity.Direction),
+                        });
+                    }
+
+                    player.User.Channel.Send(enterRes);
                 }
-                var player = leaveEntity as Player;
-                player.User.Channel.Send(leaveRes);
             }
 
-            // 如果移动的是玩家，还需要向该玩家通知所有退出视野范围的实体
-            if (entity.EntityType == EntityType.Player && leaves.Any())
+            if (leaves != null)
             {
-                var player = entity as Player;
-                leaveRes.EntityIds.Clear();
+                // 退出当前实体范围内的实体如果是玩家，则向其通知有实体退出
+                var leaveRes = new EntityLeaveResponse();
+                leaveRes.EntityIds.Add(entity.EntityId);
                 foreach (var entityId in leaves)
                 {
                     var leaveEntity = EntityManager.Instance.GetEntity((int)entityId);
-                    leaveRes.EntityIds.Add(leaveEntity.EntityId);
+                    if (leaveEntity.EntityType != EntityType.Player)
+                    {
+                        continue;
+                    }
+
+                    var player = leaveEntity as Player;
+                    player.User.Channel.Send(leaveRes);
                 }
-                player.User.Channel.Send(leaveRes);
+
+                // 如果移动的是玩家，还需要向该玩家通知所有退出视野范围的实体
+                if (entity.EntityType == EntityType.Player && leaves.Any())
+                {
+                    var player = entity as Player;
+                    leaveRes.EntityIds.Clear();
+                    foreach (var entityId in leaves)
+                    {
+                        var leaveEntity = EntityManager.Instance.GetEntity((int)entityId);
+                        leaveRes.EntityIds.Add(leaveEntity.EntityId);
+                    }
+
+                    player.User.Channel.Send(leaveRes);
+                }
             }
         }
 
@@ -210,9 +218,9 @@ namespace GameServer.Model
         public List<Entity> GetEntityViewEntityList(Entity entity, Predicate<Entity>? condition = null)
         {
             var entityList = new List<Entity>();
-            lock (_aoiZone)
+            lock (_aoiWord)
             {
-                var viewEntityIdSet = _aoiZone[entity.EntityId].ViewEntity;
+                var viewEntityIdSet = _aoiWord.GetViewEntityList(entity.EntityId);
                 foreach (var viewEntityId in viewEntityIdSet)
                 {
                     var viewEntity = EntityManager.Instance.GetEntity((int)viewEntityId);
