@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MMORPG.Tool
 {
-    public static class TransformExtension
+    public static class UnityExtension
     {
         public static Transform FindIncludeAllChildren(
             this Transform transform,
@@ -32,6 +32,12 @@ namespace MMORPG.Tool
             }
 
             return FindChildRecursive(transform, name);
+        }
+
+
+        public static bool Contain(this LayerMask layerMask, int layer)
+        {
+            return ((1 << layer) & layerMask) != 0;
         }
     }
 }
