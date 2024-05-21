@@ -28,9 +28,10 @@ namespace MMORPG.Tool
 
         [FoldoutGroup("Settings")]
         public bool CanPlay = true;
-
         [FoldoutGroup("Settings")]
-        public bool CanPlayWhileAlreadyPlaying = true;
+        public bool CanPlayWhileAlreadyPlaying = false;
+        [FoldoutGroup("Settings")]
+        public bool StopAllCoroutinesWhenStop = true;
 
         [Required]
         [LabelText("$GetFeedbacksLabel")]
@@ -107,7 +108,8 @@ namespace MMORPG.Tool
         {
             Debug.Assert(IsInitialized);
             Feedbacks?.ForEach(x => x.Stop());
-            CoroutineHelper.StopAllCoroutines();
+            if (StopAllCoroutinesWhenStop)
+                CoroutineHelper.StopAllCoroutines();
         }
 
         public virtual void ProxyDestroy(GameObject gameObjectToDestroy, float delay)

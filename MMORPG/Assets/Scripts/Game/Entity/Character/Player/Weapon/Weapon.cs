@@ -113,7 +113,7 @@ namespace MMORPG.Game
 
         public PlayerBrain Brain { get; private set; }
 
-        public FSM<WeaponStates> FSM { get; set; } = new();
+        public FSM<WeaponStates> FSM { get; set; }
 
         public event Action<Weapon> OnWeaponInitialized;
         public event Action<Weapon> OnWeaponStarted;
@@ -223,6 +223,8 @@ namespace MMORPG.Game
 
         protected virtual void InitFSM()
         {
+            FSM ??= new();
+
             FSM.State(WeaponStates.Idle).OnUpdate(CaseWeaponIdle);
             FSM.State(WeaponStates.Start).OnUpdate(CaseWeaponStart);
             FSM.State(WeaponStates.DelayBeforeUse).OnUpdate(CaseWeaponDelayBeforeUse);
