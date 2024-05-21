@@ -1,39 +1,38 @@
-using System.Collections;
 using Sirenix.OdinInspector;
-using System.Diagnostics;
-using MMORPG.Tool;
+using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace MMORPG.Game
+namespace MMORPG.Tool
 {
-    public class MeleeWeapon : Weapon
+    [AddFeedbackMenu("Area/Damage Area")]
+    public class FeedbackDamageArea : Feedback
     {
-        public enum MeleeDamageAreaShapes { Box, Sphere }
-        public enum MeleeDamageAreaModes { Generated, Existing }
+        public enum DamageAreaShapes { Box, Sphere }
+        public enum DamageAreaModes { Generated, Existing }
 
         [FoldoutGroup("Damage Area")]
-        public MeleeDamageAreaModes MeleeDamageAreaMode = MeleeDamageAreaModes.Generated;
+        public DamageAreaModes DamageAreaMode = DamageAreaModes.Generated;
 
         [FoldoutGroup("Damage Area")]
-        [ShowIf("MeleeDamageAreaMode", MeleeDamageAreaModes.Generated)]
-        public MeleeDamageAreaShapes DamageAreaShape = MeleeDamageAreaShapes.Box;
+        [ShowIf("DamageAreaMode", DamageAreaModes.Generated)]
+        public DamageAreaShapes DamageAreaShape = DamageAreaShapes.Box;
 
         [FoldoutGroup("Damage Area")]
-        [ShowIf("MeleeDamageAreaMode", MeleeDamageAreaModes.Generated)]
+        [ShowIf("DamageAreaMode", DamageAreaModes.Generated)]
         [LabelText("Debug In Editor")]
         public bool DebugDamageAreaInEditor = false;
 
         [FoldoutGroup("Damage Area")]
-        [ShowIf("MeleeDamageAreaMode", MeleeDamageAreaModes.Generated)]
+        [ShowIf("DamageAreaMode", DamageAreaModes.Generated)]
         public Vector3 AreaOffset = Vector3.zero;
 
         [FoldoutGroup("Damage Area")]
-        [ShowIf("MeleeDamageAreaMode", MeleeDamageAreaModes.Generated)]
+        [ShowIf("DamageAreaMode", DamageAreaModes.Generated)]
         public Vector3 AreaSize = Vector3.one;
 
         [FoldoutGroup("Damage Area")]
-        [ShowIf("MeleeDamageAreaMode", MeleeDamageAreaModes.Existing)]
+        [ShowIf("DamageAreaMode", DamageAreaModes.Existing)]
         public DamageOnTouch ExistingDamageArea;
 
 
@@ -51,13 +50,11 @@ namespace MMORPG.Game
         [FoldoutGroup("Damage Caused")]
         public DamageOnTouch.KnockBackStyles KnockBack;
         [FoldoutGroup("Damage Caused")]
-        public Vector3 KnockbackForce = new(10, 2, 0);
+        public Vector3 KnockBackForce = new(10, 2, 0);
         [FoldoutGroup("Damage Caused")]
         public DamageOnTouch.KnockBackDirections KnockBackDirection = DamageOnTouch.KnockBackDirections.BasedOnOwnerPosition;
         [FoldoutGroup("Damage Caused")]
         public float InvincibilityDuration = 0.5f;
-        [FoldoutGroup("Damage Caused")]
-        public bool CanDamageOwner = false;
 
         protected Collider _damageAreaCollider;
         protected bool _attackInProgress = false;
@@ -66,31 +63,26 @@ namespace MMORPG.Game
         protected DamageOnTouch _damageOnTouch;
         protected GameObject _damageArea;
 
-
-        /// <summary>
-        /// Initialization
-        /// </summary>
-        public override void Initialize()
+        protected override void OnFeedbackInit()
         {
-            base.Initialize();
-
             if (_damageArea == null)
             {
                 CreateDamageArea();
                 DisableDamageArea();
             }
-            if (Brain != null)
+            if (Owner != null)
             {
-                _damageOnTouch.Owner = Brain.gameObject;
+                _damageOnTouch.Owner = Owner.gameObject;
             }
         }
+
 
         /// <summary>
         /// Creates the damage area.
         /// </summary>
         protected virtual void CreateDamageArea()
         {
-            if ((MeleeDamageAreaMode == MeleeDamageAreaModes.Existing) && (ExistingDamageArea != null))
+            if ((DamageAreaMode == DamageAreaModes.Existing) && (ExistingDamageArea != null))
             {
                 _damageArea = ExistingDamageArea.gameObject;
                 _damageAreaCollider = _damageArea.gameObject.GetComponent<Collider>();
@@ -99,14 +91,14 @@ namespace MMORPG.Game
             }
 
             _damageArea = new GameObject();
-            _damageArea.name = this.name + "DamageArea";
-            _damageArea.transform.position = this.transform.position;
-            _damageArea.transform.rotation = this.transform.rotation;
-            _damageArea.transform.SetParent(this.transform);
+            _damageArea.name = nameof(DamageOnTouch);
+            _damageArea.transform.position = Transform.position;
+            _damageArea.transform.rotation = Transform.rotation;
+            _damageArea.transform.SetParent(Transform);
             _damageArea.transform.localScale = Vector3.one;
-            _damageArea.layer = this.gameObject.layer;
+            _damageArea.layer = Owner.gameObject.layer;
 
-            if (DamageAreaShape == MeleeDamageAreaShapes.Box)
+            if (DamageAreaShape == DamageAreaShapes.Box)
             {
                 _boxCollider = _damageArea.AddComponent<BoxCollider>();
                 _boxCollider.center = AreaOffset;
@@ -114,22 +106,19 @@ namespace MMORPG.Game
                 _damageAreaCollider = _boxCollider;
                 _damageAreaCollider.isTrigger = true;
             }
-            if (DamageAreaShape == MeleeDamageAreaShapes.Sphere)
+            if (DamageAreaShape == DamageAreaShapes.Sphere)
             {
                 _sphereCollider = _damageArea.AddComponent<SphereCollider>();
-                _sphereCollider.transform.position = this.transform.position + this.transform.rotation * AreaOffset;
+                _sphereCollider.transform.position = Transform.position + Transform.rotation * AreaOffset;
                 _sphereCollider.radius = AreaSize.x / 2;
                 _damageAreaCollider = _sphereCollider;
                 _damageAreaCollider.isTrigger = true;
             }
 
-            if ((DamageAreaShape == MeleeDamageAreaShapes.Box) || (DamageAreaShape == MeleeDamageAreaShapes.Sphere))
+            if ((DamageAreaShape == DamageAreaShapes.Box) || (DamageAreaShape == DamageAreaShapes.Sphere))
             {
                 Rigidbody rigidBody = _damageArea.AddComponent<Rigidbody>();
                 rigidBody.isKinematic = true;
-
-                //TODO 暂时不知道MMRagdollerIgnore是啥玩意
-                // rigidBody.gameObject.AddComponent<MMRagdollerIgnore>();
             }
 
             _damageOnTouch = _damageArea.AddComponent<DamageOnTouch>();
@@ -140,35 +129,17 @@ namespace MMORPG.Game
             _damageOnTouch.MaxDamageCaused = MaxDamageCaused;
             _damageOnTouch.DamageDirectionMode = DamageOnTouch.DamageDirections.BasedOnOwnerPosition;
             _damageOnTouch.DamageCausedKnockBackType = KnockBack;
-            _damageOnTouch.DamageCausedKnockbackForce = KnockbackForce;
+            _damageOnTouch.DamageCausedKnockbackForce = KnockBackForce;
             _damageOnTouch.DamageCausedKnockBackDirection = KnockBackDirection;
             _damageOnTouch.InvincibilityDuration = InvincibilityDuration;
-            // _damageOnTouch.HitDamageableFeedback = HitDamageableFeedback;
-            // _damageOnTouch.HitNonDamageableFeedback = HitNonDamageableFeedback;
-            // _damageOnTouch.TriggerFilter = TriggerFilter;
-
-            if (!CanDamageOwner && (Brain != null))
-            {
-                _damageOnTouch.IgnoreGameObject(Brain.CharacterController.gameObject);
-            }
         }
 
-        /// <summary>
-        /// When the weapon is used, we trigger our attack routine
-        /// </summary>
-        protected override void WeaponUse()
+        protected override void OnFeedbackPlay()
         {
-            base.WeaponUse();
-            StartCoroutine(MeleeWeaponAttack());
+            StartCoroutine(ProcessDamageCo());
         }
 
-        
-
-        /// <summary>
-        /// Triggers an attack, turning the damage area on and then off
-        /// </summary>
-        /// <returns>The weapon attack.</returns>
-        protected virtual IEnumerator MeleeWeaponAttack()
+        protected virtual IEnumerator ProcessDamageCo()
         {
             if (_attackInProgress) { yield break; }
 
@@ -180,9 +151,6 @@ namespace MMORPG.Game
             _attackInProgress = false;
         }
 
-        /// <summary>
-        /// Enables the damage area.
-        /// </summary>
         protected virtual void EnableDamageArea()
         {
             if (_damageAreaCollider != null)
@@ -191,10 +159,6 @@ namespace MMORPG.Game
             }
         }
 
-
-        /// <summary>
-        /// Disables the damage area.
-        /// </summary>
         protected virtual void DisableDamageArea()
         {
             if (_damageAreaCollider != null)
@@ -203,12 +167,10 @@ namespace MMORPG.Game
             }
         }
 
-        /// <summary>
-        /// When selected, we draw a bunch of gizmos
-        /// </summary>
-        protected virtual void OnDrawGizmosSelected()
+#if UNITY_EDITOR
+        public override void OnDrawGizmosSelected()
         {
-            if (!Application.isPlaying)
+            if (!Application.isPlaying && Owner != null)
             {
                 DrawGizmos();
             }
@@ -218,22 +180,23 @@ namespace MMORPG.Game
         {
             if (DebugDamageAreaInEditor)
             {
-                if (MeleeDamageAreaMode == MeleeDamageAreaModes.Existing)
+                if (DamageAreaMode == DamageAreaModes.Existing)
                 {
                     return;
                 }
 
-                if (DamageAreaShape == MeleeDamageAreaShapes.Box)
+                if (DamageAreaShape == DamageAreaShapes.Box)
                 {
-                    Gizmos.DrawWireCube(this.transform.position + AreaOffset, AreaSize);
+                    Gizmos.DrawWireCube(Transform.position + AreaOffset, AreaSize);
                 }
 
-                if (DamageAreaShape == MeleeDamageAreaShapes.Sphere)
+                if (DamageAreaShape == DamageAreaShapes.Sphere)
                 {
-                    Gizmos.DrawWireSphere(this.transform.position + AreaOffset, AreaSize.x / 2);
+                    Gizmos.DrawWireSphere(Transform.position + AreaOffset, AreaSize.x / 2);
                 }
             }
         }
+#endif
 
         /// <summary>
         /// On disable we set our flag to false
