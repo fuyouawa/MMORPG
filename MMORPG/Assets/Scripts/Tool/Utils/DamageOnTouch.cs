@@ -1,9 +1,8 @@
 using System;
 using UnityEngine;
 
-namespace MMORPG.Game
+namespace MMORPG.Tool
 {
-    //TODO DamageOnTouch
     public class DamageOnTouch : MonoBehaviour
     {
         [Flags]
@@ -16,13 +15,13 @@ namespace MMORPG.Game
             All = OnTriggerEnter | OnTriggerStay,
         }
 
-        public enum KnockbackStyles
+        public enum KnockBackStyles
         {
             NoKnockback,
             AddForce
         }
 
-        public enum KnockbackDirections
+        public enum KnockBackDirections
         {
             BasedOnOwnerPosition,
             BasedOnSpeed,
@@ -37,15 +36,15 @@ namespace MMORPG.Game
             BasedOnScriptDirection
         }
 
-        public PlayerBrain Brain { get; set; }
-        public TriggerAndCollisionMask TriggerFilter = TriggerAndCollisionMask.All;
+        public GameObject Owner;
+        public TriggerAndCollisionMask TriggerFilter;
         public LayerMask TargetLayerMask;
         public float MinDamageCaused;
         public float MaxDamageCaused;
         public DamageDirections DamageDirectionMode;
-        public KnockbackStyles DamageCausedKnockbackType;
+        public KnockBackStyles DamageCausedKnockBackType;
         public Vector3 DamageCausedKnockbackForce;
-        public KnockbackDirections DamageCausedKnockbackDirection;
+        public KnockBackDirections DamageCausedKnockBackDirection;
         public float InvincibilityDuration;
 
         public void SetGizmoSize(Vector3 areaSize)
