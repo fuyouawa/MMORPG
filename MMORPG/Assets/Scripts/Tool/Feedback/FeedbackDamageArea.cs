@@ -14,6 +14,8 @@ namespace MMORPG.Tool
         public enum DamageAreaModes { Generated, Existing }
 
         [FoldoutGroup("Damage Area")]
+        public GameObject OwnerGameObject;
+        [FoldoutGroup("Damage Area")]
         public DamageAreaModes DamageAreaMode = DamageAreaModes.Generated;
 
         [FoldoutGroup("Damage Area")]
@@ -37,12 +39,6 @@ namespace MMORPG.Tool
         [ShowIf("DamageAreaMode", DamageAreaModes.Existing)]
         public DamageOnTouch ExistingDamageArea;
 
-
-        [FoldoutGroup("Damage Area Timing")]
-        public float InitialDelay = 0f;
-        [FoldoutGroup("Damage Area Timing")]
-        public float ActiveDuration = 1f;
-
         [FoldoutGroup("Damage Caused")]
         public LayerMask TargetLayerMask;
         [FoldoutGroup("Damage Caused")]
@@ -50,11 +46,13 @@ namespace MMORPG.Tool
         [FoldoutGroup("Damage Caused")]
         public float MaxDamageCaused = 10f;
         [FoldoutGroup("Damage Caused")]
-        public DamageOnTouch.TriggerAndCollisionMask TriggerFilter;
-        [FoldoutGroup("Damage Caused")]
         public float InvincibilityDuration = 0.5f;
         [FoldoutGroup("Damage Caused")]
         public DamageOnTouch.DamageDirections DamageDirectionMode;
+        [FoldoutGroup("Damage Caused")]
+        public bool IgnoreOwnerGameObject = true;
+        [FoldoutGroup("Damage Caused")]
+        public float ActiveDuration = 1f;
         [FoldoutGroup("Damage Caused")]
         public List<GameObject> IgnoredGameObjects = new();
 
@@ -74,7 +72,7 @@ namespace MMORPG.Tool
         public bool DamageOverTimeInterruptible = true;
 
         [FoldoutGroup("Damage Events")]
-        public UnityEvent<Health> HitDamageableEvent = new();
+        public UnityEvent<AbstractHealth> HitDamageableEvent = new();
         [FoldoutGroup("Damage Events")]
         public UnityEvent<Collider> HitNonDamageableEvent = new();
         [FoldoutGroup("Damage Events")]
@@ -87,6 +85,11 @@ namespace MMORPG.Tool
         protected DamageOnTouch _damageOnTouch;
         protected GameObject _damageArea;
 
+        public override float GetDuration()
+        {
+            return ActiveDuration;
+        }
+
         protected override void OnFeedbackInit()
         {
             if (_damageArea == null)
@@ -98,8 +101,9 @@ namespace MMORPG.Tool
             {
                 _damageOnTouch.Owner = Owner.gameObject;
             }
+            if (IgnoreOwnerGameObject && OwnerGameObject)
+                IgnoredGameObjects.Add(OwnerGameObject);
         }
-
 
         /// <summary>
         /// Creates the damage area.
@@ -114,42 +118,51 @@ namespace MMORPG.Tool
                 return;
             }
 
-            _damageArea = new GameObject();
-            _damageArea.name = nameof(DamageOnTouch);
-            _damageArea.transform.position = Transform.position;
-            _damageArea.transform.rotation = Transform.rotation;
+            _damageArea = new()
+            {
+                name = nameof(DamageOnTouch),
+                transform =
+                {
+                    position = Transform.position,
+                    rotation = Transform.rotation,
+                    localScale = Vector3.one
+                }
+            };
+
             _damageArea.transform.SetParent(Transform);
-            _damageArea.transform.localScale = Vector3.one;
             _damageArea.layer = Owner.gameObject.layer;
 
-            if (DamageAreaShape == DamageAreaShapes.Box)
+            switch (DamageAreaShape)
             {
-                _boxCollider = _damageArea.AddComponent<BoxCollider>();
-                _boxCollider.center = AreaOffset;
-                _boxCollider.size = AreaSize;
-                _damageAreaCollider = _boxCollider;
-                _damageAreaCollider.isTrigger = true;
-            }
-            if (DamageAreaShape == DamageAreaShapes.Sphere)
-            {
-                _sphereCollider = _damageArea.AddComponent<SphereCollider>();
-                _sphereCollider.transform.position = Transform.position + Transform.rotation * AreaOffset;
-                _sphereCollider.radius = AreaSize.x / 2;
-                _damageAreaCollider = _sphereCollider;
-                _damageAreaCollider.isTrigger = true;
+                case DamageAreaShapes.Box:
+                    _boxCollider = _damageArea.AddComponent<BoxCollider>();
+                    _boxCollider.center = AreaOffset;
+                    _boxCollider.size = AreaSize;
+                    _damageAreaCollider = _boxCollider;
+                    _damageAreaCollider.isTrigger = true;
+                    break;
+                case DamageAreaShapes.Sphere:
+                    _sphereCollider = _damageArea.AddComponent<SphereCollider>();
+                    _sphereCollider.transform.position = Transform.position + Transform.rotation * AreaOffset;
+                    _sphereCollider.radius = AreaSize.x / 2;
+                    _damageAreaCollider = _sphereCollider;
+                    _damageAreaCollider.isTrigger = true;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
-            if ((DamageAreaShape == DamageAreaShapes.Box) || (DamageAreaShape == DamageAreaShapes.Sphere))
+            if (DamageAreaShape is DamageAreaShapes.Box or DamageAreaShapes.Sphere)
             {
-                Rigidbody rigidBody = _damageArea.AddComponent<Rigidbody>();
+                var rigidBody = _damageArea.AddComponent<Rigidbody>();
                 rigidBody.isKinematic = true;
             }
 
             _damageOnTouch = _damageArea.AddComponent<DamageOnTouch>();
+            _damageOnTouch.InitialOnStart = false;
             _damageOnTouch.TargetLayerMask = TargetLayerMask;
             _damageOnTouch.MinDamageCaused = MinDamageCaused;
             _damageOnTouch.MaxDamageCaused = MaxDamageCaused;
-            _damageOnTouch.TriggerFilter = TriggerFilter;
             _damageOnTouch.InvincibilityDuration = InvincibilityDuration;
             _damageOnTouch.DamageDirectionMode = DamageDirectionMode;
             _damageOnTouch.IgnoredGameObjects = IgnoredGameObjects;
@@ -160,6 +173,8 @@ namespace MMORPG.Tool
             _damageOnTouch.HitDamageableEvent = HitDamageableEvent;
             _damageOnTouch.HitNonDamageableEvent = HitNonDamageableEvent;
             _damageOnTouch.HitAnythingEvent = HitAnythingEvent;
+
+            _damageOnTouch.Initialize();
         }
 
         protected override void OnFeedbackPlay()
@@ -169,14 +184,9 @@ namespace MMORPG.Tool
 
         protected virtual IEnumerator ProcessDamageCo()
         {
-            if (_attackInProgress) { yield break; }
-
-            _attackInProgress = true;
-            yield return new WaitForSeconds(InitialDelay);
             EnableDamageArea();
             yield return new WaitForSeconds(ActiveDuration);
             DisableDamageArea();
-            _attackInProgress = false;
         }
 
         protected virtual void EnableDamageArea()
