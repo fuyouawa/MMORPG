@@ -85,11 +85,6 @@ namespace Aoi
         {
             Debug.Assert(_entittDict.ContainsKey(entity));
 
-            //if (!_entittDict.TryGetValue(entity, out var aoiEntity))
-            //{
-            //    leaveList = null;
-            //    return;
-            //}
             var aoiEntity = _entittDict[entity];
             var zone = _zoneDict[aoiEntity.ZoneKey];
             ZoneKeyToZonePoint(aoiEntity.ZoneKey, out var x, out var y);
@@ -101,6 +96,8 @@ namespace Aoi
                 ZonePointToZoneKey(curZonePoint.X, curZonePoint.Y, out var curZoneKey);
                 AddZoneEntitysToList(entity, curZoneKey, leaveList);
             }
+
+            // 待清理区域中的实体
             foreach (var pendingZoneKey in aoiEntity.PendingZoneKeySet)
             {
                 var pendingZone = _zoneDict[pendingZoneKey];
@@ -184,7 +181,7 @@ namespace Aoi
                 {
                     ZoneKeyToZonePoint(pendingZoneKey, out var pendingZoneX, out var pendingZoneY);
                     var distance = GetZoneDistance(newZoneX, newZoneY, pendingZoneX, pendingZoneY);
-                    if (distance > 2 || distance <= 1)
+                    if (distance != 2)
                     {
                         var pendingZone = _zoneDict[pendingZoneKey];
                         // 移动后可能会将PendingZone划入九宫格的范围，划入九宫格的则不会离开当前视野
@@ -197,7 +194,7 @@ namespace Aoi
                     }
                 }
 
-                // 添加实体到LeaveList
+                // 添加原先九宫格的实体到LeaveList
                 foreach (var oldViewZonePoint in oldViewZoneArray)
                 {
                     ZonePointToZoneKey(oldViewZonePoint.X, oldViewZonePoint.Y, out var curZoneKey);
