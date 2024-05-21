@@ -10,16 +10,16 @@ namespace Aoi
 {
     public class AoiWord
     {
+        public struct Vector2Int
+        {
+            public int X, Y;
+        }
+
         public class AoiEntity
         {
             public UInt64 ZoneKey;
             // 间距为2的待清理区域
             public HashSet<UInt64> PendingZoneKeySet;
-        }
-
-        public struct Vector2Int
-        {
-            public int X, Y;
         }
 
         public class AoiZone
@@ -103,11 +103,12 @@ namespace Aoi
             }
             foreach (var pendingZoneKey in aoiEntity.PendingZoneKeySet)
             {
-                AddZoneEntitysToList(entity, pendingZoneKey, leaveList);
+                var pendingZone = _zoneDict[pendingZoneKey];
+                AddZoneEntitysToList(entity, pendingZone, leaveList);
+                pendingZone.PendingEntitySet.Remove(entity);
             }
 
             zone.Leave(entity, leaveList);
-
             _entittDict.Remove(entity);
         }
 
@@ -117,7 +118,7 @@ namespace Aoi
         /// <param name="entity"></param>
         /// <param name="newPos"></param>
         /// <returns></returns>
-        public bool Refresh(int entity, float x, float y, out List<int>? leaveList, out List<int>? enterList)
+        public bool Refresh(int entity, float x, float y, out List<int>? enterList, out List<int>? leaveList)
         {
             Debug.Assert(_entittDict.ContainsKey(entity));
 
@@ -132,6 +133,16 @@ namespace Aoi
                 leaveList = new();
                 enterList = new();
                 PointToZonePoint(x, y, out var newZoneX, out var newZoneY);
+
+                //Console.WriteLine($"实体{entity}跨边界移动：[{minX}, {minY}] -> [{newZoneX}, {newZoneY}]");
+                //Console.WriteLine($"OldPendingZone：");
+                //foreach (var pendingZoneKey in aoiEntity.PendingZoneKeySet)
+                //{
+                //    ZoneKeyToZonePoint(pendingZoneKey, out var pendingZoneX, out var pendingZoneY);
+                //    Console.Write($"[{pendingZoneX}, {pendingZoneY}]，");
+                //}
+                //Console.WriteLine();
+
                 var oldZone = _zoneDict[aoiEntity.ZoneKey];
                 oldZone.Leave(entity, leaveList);
 
@@ -146,26 +157,26 @@ namespace Aoi
 
                 // 添加实体到EnterList
                 // 如果在原先的zone中不存在，则是新加入到观察列表的区域
-                foreach (var newZonePoint in newViewZoneArray)
+                foreach (var newViewZonePoint in newViewZoneArray)
                 {
                     bool exist = false;
-                    foreach (var zonePoint in oldViewZoneArray)
+                    foreach (var oldViewZonePoint in oldViewZoneArray)
                     {
-                        if (newZonePoint.X == zonePoint.X && newZonePoint.Y == zonePoint.Y)
+                        if (newViewZonePoint.X == oldViewZonePoint.X && newViewZonePoint.Y == oldViewZonePoint.Y)
                         {
                             exist = true;
                             break;
                         }
                     }
+                    ZonePointToZoneKey(newViewZonePoint.X, newViewZonePoint.Y, out var newViewZoneKey);
                     if (!exist)
                     {
                         // 如果已经存在于PendingZone，也跳过
-                        exist = aoiEntity.PendingZoneKeySet.Contains(newZoneKey);
+                        exist = aoiEntity.PendingZoneKeySet.Contains(newViewZoneKey);
                     }
                     if (exist == false)
                     {
-                        ZonePointToZoneKey(newZonePoint.X, newZonePoint.Y, out var zoneKey);
-                        AddZoneEntitysToList(entity, zoneKey, enterList);
+                        AddZoneEntitysToList(entity, newViewZoneKey, enterList);
                     }
                 }
                 // 首先跨边界移动可能出现PendingZone需要清除的情况，根据距离清除
@@ -187,10 +198,10 @@ namespace Aoi
                 }
 
                 // 添加实体到LeaveList
-                foreach (var oldZonePoint in oldViewZoneArray)
+                foreach (var oldViewZonePoint in oldViewZoneArray)
                 {
-                    ZonePointToZoneKey(oldZonePoint.X, oldZonePoint.Y, out var curZoneKey);
-                    var distance = GetZoneDistance(newZoneX, newZoneY, oldZonePoint.X, oldZonePoint.Y);
+                    ZonePointToZoneKey(oldViewZonePoint.X, oldViewZonePoint.Y, out var curZoneKey);
+                    var distance = GetZoneDistance(newZoneX, newZoneY, oldViewZonePoint.X, oldViewZonePoint.Y);
                     // 将距离为2的Zone添加到Pending中
                     if (distance == 2)
                     {
@@ -231,6 +242,17 @@ namespace Aoi
             }
 
             return viewList;
+        }
+
+
+        private AoiZone CreateZone(UInt64 zoneKey)
+        {
+            if (!_zoneDict.TryGetValue(zoneKey, out var newZone))
+            {
+                newZone = new();
+                _zoneDict[zoneKey] = newZone;
+            }
+            return newZone;
         }
 
         /// <summary>
@@ -324,17 +346,5 @@ namespace Aoi
             if (!_zoneDict.TryGetValue(zoneKey, out var zone)) return;
             AddZoneEntitysToList(excludeEntity, zone, list);
         }
-
-        private AoiZone CreateZone(UInt64 zoneKey)
-        {
-            if (!_zoneDict.TryGetValue(zoneKey, out var newZone))
-            {
-                newZone = new();
-                _zoneDict[zoneKey] = newZone;
-            }
-            return newZone;
-        }
-
     }
-
 }
