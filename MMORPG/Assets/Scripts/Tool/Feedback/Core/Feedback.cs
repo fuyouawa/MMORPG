@@ -53,6 +53,8 @@ namespace MMORPG.Tool
         public FeedbackManager Owner { get; private set; }
         public bool IsPlaying { get; private set; }
 
+        public Transform Transform => Owner.transform;
+
         protected bool IsInitialized = false;
         protected int CurrentLoopCount;
 
@@ -127,6 +129,8 @@ namespace MMORPG.Tool
             stop:
             Stop();
         }
+
+        public virtual void OnDrawGizmosSelected() {}
 
         protected virtual void OnFeedbackInit() { }
 
