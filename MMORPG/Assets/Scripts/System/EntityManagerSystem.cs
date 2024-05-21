@@ -84,7 +84,7 @@ namespace MMORPG.System
             if (_mineEntityDict.TryGetValue(entityId, out var entity))
                 return entity;
             if (!_notMineEntityDict.TryGetValue(entityId, out entity))
-                throw new Exception("未注册过的entityId!");
+                throw new Exception($"未注册过的entityId:{entityId}!");
             return entity;
         }
 
