@@ -9,30 +9,17 @@ namespace MMORPG.Tool
 {
     public class DamageOnTouch : MonoBehaviour
     {
-        [Flags]
-        public enum TriggerAndCollisionMask
-        {
-            IgnoreAll = 0,
-            OnTriggerEnter = 1 << 0,
-            OnTriggerStay = 1 << 1,
-
-            All = OnTriggerEnter | OnTriggerStay,
-        }
-
         public enum DamageDirections
         {
             BasedOnOwnerPosition,
             BasedOnVelocity
         }
 
-        [Title("Binding")]
         public GameObject Owner;
-
-        [Title("Settings")]
-        public TriggerAndCollisionMask TriggerFilter = TriggerAndCollisionMask.All;
-        public LayerMask TargetLayerMask;
+        public bool InitialOnStart = true;
 
         [Title("Damage Caused")]
+        public LayerMask TargetLayerMask;
         public float MinDamageCaused = 10f;
         public float MaxDamageCaused = 10f;
         public DamageDirections DamageDirectionMode;
@@ -49,23 +36,30 @@ namespace MMORPG.Tool
         public bool DamageOverTimeInterruptible = true;
 
         [Title("Events")]
-        public UnityEvent<Health> HitDamageableEvent = new();
+        public UnityEvent<AbstractHealth> HitDamageableEvent = new();
         public UnityEvent<Collider> HitNonDamageableEvent = new();
         public UnityEvent<Collider> HitAnythingEvent = new();
 
-        protected Health CollidingHealth;
-        protected Vector3 DamageDirection;
-        protected Vector3 LastDamagePosition;
+        public bool IsInitialized { get; private set; }
+
         protected BoxCollider BoxCollider;
         protected SphereCollider SphereCollider;
+
+        protected AbstractHealth CollidingHealth;
+        protected Vector3 DamageDirection;
+        protected Vector3 LastDamagePosition;
+
 
         private Color _gizmosColor;
         private Vector3 _lastDamagePosition;
 
         public virtual void Initialize()
         {
-            TryGetComponent(out BoxCollider);
-            TryGetComponent(out SphereCollider);
+            if (IsInitialized) return;
+            IsInitialized = true;
+
+            BoxCollider = GetComponent<BoxCollider>();
+            SphereCollider = GetComponent<SphereCollider>();
 
             _gizmosColor = Color.red;
             _gizmosColor.a = 0.25f;
@@ -76,6 +70,14 @@ namespace MMORPG.Tool
             if (!IgnoredGameObjects.Contains(obj))
             {
                 IgnoredGameObjects.Add(obj);
+            }
+        }
+
+        protected virtual void Start()
+        {
+            if (InitialOnStart)
+            {
+                Initialize();
             }
         }
 
@@ -116,15 +118,8 @@ namespace MMORPG.Tool
             }
         }
 
-        protected virtual void OnTriggerStay(Collider collider)
-        {
-            if (0 == (TriggerFilter & TriggerAndCollisionMask.OnTriggerStay)) return;
-            Colliding(collider);
-        }
-
         protected virtual void OnTriggerEnter(Collider collider)
         {
-            if (0 == (TriggerFilter & TriggerAndCollisionMask.OnTriggerEnter)) return;
             Colliding(collider);
         }
 
@@ -139,15 +134,12 @@ namespace MMORPG.Tool
                 return;
             }
 
-            CollidingHealth = collider.gameObject.GetComponentInChildren<Health>();
+            CollidingHealth = collider.gameObject.GetComponentInChildren<AbstractHealth>();
 
             // if what we're colliding with is damageable
             if (CollidingHealth != null)
             {
-                if (CollidingHealth.CurrentHealth > 0)
-                {
-                    OnCollideWithDamageable(CollidingHealth);
-                }
+                OnCollideWithDamageable(CollidingHealth);
             }
             else // if what we're colliding with can't be damaged
             {
@@ -174,7 +166,7 @@ namespace MMORPG.Tool
         /// Describes what happens when colliding with a damageable object
         /// </summary>
         /// <param name="health">Health.</param>
-        protected virtual void OnCollideWithDamageable(Health health)
+        protected virtual void OnCollideWithDamageable(AbstractHealth health)
         {
             CollidingHealth = health;
 
