@@ -230,15 +230,15 @@ MonoBehaviour:
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0
-    - Name: Loop
-      Entry: 5
-      Data: true
-    - Name: LimitLoopCount
+    - Name: LoopPlay
       Entry: 5
       Data: false
-    - Name: LoopCount
+    - Name: LimitLoopAmount
+      Entry: 5
+      Data: false
+    - Name: AmountOfLoop
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
@@ -80794,15 +80794,15 @@ MonoBehaviour:
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0.8
-    - Name: Loop
+    - Name: LoopPlay
       Entry: 5
       Data: false
-    - Name: LimitLoopCount
+    - Name: LimitLoopAmount
       Entry: 5
-      Data: true
-    - Name: LoopCount
+      Data: false
+    - Name: AmountOfLoop
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
@@ -80869,15 +80869,15 @@ MonoBehaviour:
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0.7
-    - Name: Loop
+    - Name: LoopPlay
       Entry: 5
       Data: false
-    - Name: LimitLoopCount
+    - Name: LimitLoopAmount
       Entry: 5
-      Data: true
-    - Name: LoopCount
+      Data: false
+    - Name: AmountOfLoop
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
@@ -106192,15 +106192,15 @@ MonoBehaviour:
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0
-    - Name: Loop
-      Entry: 5
-      Data: true
-    - Name: LimitLoopCount
+    - Name: LoopPlay
       Entry: 5
       Data: false
-    - Name: LoopCount
+    - Name: LimitLoopAmount
+      Entry: 5
+      Data: false
+    - Name: AmountOfLoop
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
@@ -106379,15 +106379,15 @@ MonoBehaviour:
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0.4
-    - Name: Loop
+    - Name: LoopPlay
       Entry: 5
       Data: false
-    - Name: LimitLoopCount
+    - Name: LimitLoopAmount
       Entry: 5
-      Data: true
-    - Name: LoopCount
+      Data: false
+    - Name: AmountOfLoop
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
@@ -106454,15 +106454,15 @@ MonoBehaviour:
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0.3
-    - Name: Loop
+    - Name: LoopPlay
       Entry: 5
       Data: false
-    - Name: LimitLoopCount
+    - Name: LimitLoopAmount
       Entry: 5
-      Data: true
-    - Name: LoopCount
+      Data: false
+    - Name: AmountOfLoop
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
@@ -106568,15 +106568,15 @@ MonoBehaviour:
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0
-    - Name: Loop
+    - Name: LoopPlay
       Entry: 5
       Data: false
-    - Name: LimitLoopCount
+    - Name: LimitLoopAmount
       Entry: 5
-      Data: true
-    - Name: LoopCount
+      Data: false
+    - Name: AmountOfLoop
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
@@ -106643,30 +106643,118 @@ MonoBehaviour:
     - Name: MaxDamageCaused
       Entry: 4
       Data: 10
-    - Name: KnockBack
-      Entry: 3
-      Data: 0
-    - Name: KnockBackForce
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 10
-    - Name: 
-      Entry: 4
-      Data: 2
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: KnockBackDirection
+    - Name: TriggerFilter
       Entry: 3
       Data: 0
     - Name: InvincibilityDuration
       Entry: 4
       Data: 0.5
+    - Name: DamageDirectionMode
+      Entry: 3
+      Data: 0
+    - Name: IgnoredGameObjects
+      Entry: 7
+      Data: 6|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RepeatDamageOverTime
+      Entry: 5
+      Data: false
+    - Name: AmountOfRepeats
+      Entry: 3
+      Data: 0
+    - Name: DurationBetweenRepeats
+      Entry: 4
+      Data: 0
+    - Name: DamageOverTimeInterruptible
+      Entry: 5
+      Data: false
+    - Name: HitDamageableEvent
+      Entry: 7
+      Data: 7|UnityEngine.Events.UnityEvent`1[[MMORPG.Tool.Health, Assembly-CSharp]],
+        UnityEngine.CoreModule
+    - Name: m_PersistentCalls
+      Entry: 7
+      Data: 8|UnityEngine.Events.PersistentCallGroup, UnityEngine.CoreModule
+    - Name: m_Calls
+      Entry: 7
+      Data: 9|System.Collections.Generic.List`1[[UnityEngine.Events.PersistentCall,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: HitNonDamageableEvent
+      Entry: 7
+      Data: 10|UnityEngine.Events.UnityEvent`1[[UnityEngine.Collider, UnityEngine.PhysicsModule]],
+        UnityEngine.CoreModule
+    - Name: m_PersistentCalls
+      Entry: 7
+      Data: 11|UnityEngine.Events.PersistentCallGroup, UnityEngine.CoreModule
+    - Name: m_Calls
+      Entry: 7
+      Data: 12|System.Collections.Generic.List`1[[UnityEngine.Events.PersistentCall,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: HitAnythingEvent
+      Entry: 7
+      Data: 13|UnityEngine.Events.UnityEvent`1[[UnityEngine.Collider, UnityEngine.PhysicsModule]],
+        UnityEngine.CoreModule
+    - Name: m_PersistentCalls
+      Entry: 7
+      Data: 14|UnityEngine.Events.PersistentCallGroup, UnityEngine.CoreModule
+    - Name: m_Calls
+      Entry: 7
+      Data: 15|System.Collections.Generic.List`1[[UnityEngine.Events.PersistentCall,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -117301,15 +117389,15 @@ MonoBehaviour:
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0.1
-    - Name: Loop
+    - Name: LoopPlay
       Entry: 5
       Data: false
-    - Name: LimitLoopCount
+    - Name: LimitLoopAmount
       Entry: 5
-      Data: true
-    - Name: LoopCount
+      Data: false
+    - Name: AmountOfLoop
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
@@ -117376,15 +117464,15 @@ MonoBehaviour:
     - Name: DelayBeforePlay
       Entry: 4
       Data: 0.1
-    - Name: Loop
+    - Name: LoopPlay
       Entry: 5
       Data: false
-    - Name: LimitLoopCount
+    - Name: LimitLoopAmount
       Entry: 5
-      Data: true
-    - Name: LoopCount
+      Data: false
+    - Name: AmountOfLoop
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1

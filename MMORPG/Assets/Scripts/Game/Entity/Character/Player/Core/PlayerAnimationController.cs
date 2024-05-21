@@ -95,6 +95,12 @@ namespace MMORPG.Game
             _machine.Run();
         }
 
+        void Start()
+        {
+            WalkingFeedbacks?.Initialize();
+            RunningFeedbacks?.Initialize();
+        }
+
         void Update()
         {
             Move();

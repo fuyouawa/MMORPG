@@ -158,6 +158,10 @@ namespace MMORPG.Game
                     WeaponUsedFeedback = feedbacks.FirstOrDefault(x => x.name == WeaponUsedFeedbackName);
                 if (WeaponStopFeedbackName.IsNotNullAndEmpty())
                     WeaponStopFeedback = feedbacks.FirstOrDefault(x => x.name == WeaponStopFeedbackName);
+
+                WeaponStartFeedback?.Initialize();
+                WeaponUsedFeedback?.Initialize();
+                WeaponStopFeedback?.Initialize();
             }
 
             InitFSM();

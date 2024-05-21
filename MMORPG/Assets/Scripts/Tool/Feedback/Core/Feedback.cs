@@ -36,18 +36,18 @@ namespace MMORPG.Tool
 
         [FoldoutGroup("Feedback Settings")]
         [Title("Loop")]
-        public bool Loop = false;
+        public bool LoopPlay = false;
 
         [FoldoutGroup("Feedback Settings")]
-        [ShowIf("Loop")]
-        public bool LimitLoopCount = true;
+        [ShowIf("LoopPlay")]
+        public bool LimitLoopAmount = true;
 
         [FoldoutGroup("Feedback Settings")]
-        [ShowIf("@Loop && LimitLoopCount")]
-        public int LoopCount = 1;
+        [ShowIf("@LoopPlay && LimitLoopAmount")]
+        public int AmountOfLoop = 1;
 
         [FoldoutGroup("Feedback Settings")]
-        [ShowIf("Loop")]
+        [ShowIf("LoopPlay")]
         public float DelayBetweenLoop = 0f;
 
         public FeedbackManager Owner { get; private set; }
@@ -60,9 +60,9 @@ namespace MMORPG.Tool
 
         public virtual void Reset()
         {
-            if (Loop && LimitLoopCount)
+            if (LoopPlay && LimitLoopAmount)
             {
-                CurrentLoopCount = LoopCount;
+                CurrentLoopCount = AmountOfLoop;
             }
             OnFeedbackReset();
         }
@@ -115,9 +115,9 @@ namespace MMORPG.Tool
                 Stop();
                 yield break;
             }
-            if (Loop)
+            if (LoopPlay)
             {
-                if (LimitLoopCount)
+                if (LimitLoopAmount)
                 {
                     if (CurrentLoopCount == 0)
                         goto stop;
@@ -129,6 +129,8 @@ namespace MMORPG.Tool
             stop:
             Stop();
         }
+
+        public virtual void OnDrawGizmos() {}
 
         public virtual void OnDrawGizmosSelected() {}
 
@@ -169,9 +171,9 @@ namespace MMORPG.Tool
 
             var timeDisplay = $"{DelayBeforePlay:0.00}s + {GetDuration():0.00}s";
             var enableDisplay = Enable ? "" : " [Disable]";
-            if (Loop)
+            if (LoopPlay)
             {
-                var loopCountDisplay = LimitLoopCount ? LoopCount.ToString() : "\u221e";
+                var loopCountDisplay = LimitLoopAmount ? AmountOfLoop.ToString() : "\u221e";
                 if (DelayBetweenLoop > float.Epsilon)
                 {
                     timeDisplay += $" + {DelayBetweenLoop:0.00}s";
