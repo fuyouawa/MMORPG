@@ -119,6 +119,11 @@ namespace MMORPG.Tool
             Feedbacks?.ForEach(x => x.OnDestroy());
         }
 
+        protected virtual void OnDrawGizmosSelected()
+        {
+            Feedbacks?.ForEach(x => x.OnDrawGizmosSelected());
+        }
+
         protected virtual void Initialize()
         {
             if (IsInitialized) return;
@@ -133,6 +138,12 @@ namespace MMORPG.Tool
 
 
 #if UNITY_EDITOR
+        [OnInspectorInit]
+        private void OnInspectorInit()
+        {
+            Feedbacks.ForEach(x => x.Setup(this));
+        }
+
         [HorizontalGroup(Title = "Test (Only in Playing)")]
         [Button]
         private void TestPlay()
@@ -166,20 +177,22 @@ namespace MMORPG.Tool
                 select t).ToArray();
         }
 
-        public IEnumerable GetFeedbacksDropdown()
+        private IEnumerable GetFeedbacksDropdown()
         {
             var total = new ValueDropdownList<Feedback>();
             foreach (var type in s_allFeedbackTypes)
             {
                 var attr = type.GetAttribute<AddFeedbackMenuAttribute>();
                 Debug.Assert(attr != null);
-                total.Add(attr.Path, (Feedback)Activator.CreateInstance(type));
+                var inst = (Feedback)Activator.CreateInstance(type);
+                inst.Setup(this);
+                total.Add(attr.Path, inst);
             }
 
             return total;
         }
 
-        public string GetFeedbacksLabel()
+        private string GetFeedbacksLabel()
         {
             return $"Feedbacks {(CanPlay ? "" : "[Can't Play]")}";
         }
