@@ -350,7 +350,7 @@ namespace MMORPG.Game
 
         protected virtual void OnDestroy()
         {
-            FSM.Clear();
+            FSM?.Clear();
         }
     }
 }

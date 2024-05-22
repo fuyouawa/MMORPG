@@ -17,6 +17,7 @@ namespace MMORPG.Game
     {
         private IPlayerManagerSystem _playerManager;
         private IEntityManagerSystem _entityManager;
+        private IDataManagerSystem _dataManager;
         private ResLoader _resLoader = ResLoader.Allocate();
 
         public IArchitecture GetArchitecture()
@@ -28,6 +29,7 @@ namespace MMORPG.Game
         {
             _playerManager = this.GetSystem<IPlayerManagerSystem>();
             _entityManager = this.GetSystem<IEntityManagerSystem>();
+            _dataManager = this.GetSystem<IDataManagerSystem>();
         }
 
         async void Start()
@@ -51,8 +53,10 @@ namespace MMORPG.Game
             Tool.Log.Info("Network", $"JoinMap Success, MineId:{response.EntityId}");
             _playerManager.SetMineId(response.EntityId);
 
+            var unitDefine = _dataManager.GetUnitDefine(response.UnitId);
+
             var entity = _entityManager.SpawnEntity(
-                _resLoader.LoadSync<EntityView>("HeroKnightMale Melee"),    //TODO 角色生成
+                _resLoader.LoadSync<EntityView>(unitDefine.Resource),    //TODO 角色生成
                 response.EntityId,
                 EntityType.Player,
                 true,

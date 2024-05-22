@@ -9,10 +9,16 @@ namespace MMORPG.Tool
     {
         public bool Invulnerable { get; private set; }
 
+        protected List<Coroutine> DamageOverTimeCoroutines;
 
-        protected List<Coroutine> DamageOverTimeCoroutines = new();
+        protected List<Coroutine> InterruptibleDamageOverTimeCoroutines;
 
-        protected List<Coroutine> InterruptibleDamageOverTimeCoroutines = new();
+        protected virtual void Awake()
+        {
+            Invulnerable = true;
+            DamageOverTimeCoroutines = new();
+            InterruptibleDamageOverTimeCoroutines = new();
+        }
 
         public virtual bool CanTakeDamageThisFrame()
         {
