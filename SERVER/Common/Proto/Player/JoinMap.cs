@@ -26,23 +26,22 @@ namespace Common.Proto.Player {
           string.Concat(
             "ChRQbGF5ZXIvSm9pbk1hcC5wcm90bxITQ29tbW9uLlByb3RvLlBsYXllchoT",
             "QmFzZS9OZXRFcnJvci5wcm90bxoZRW50aXR5L05ldFRyYW5zZm9ybS5wcm90",
-            "byImCg5Kb2luTWFwUmVxdWVzdBIUCgxjaGFyYWN0ZXJfaWQYASABKAUilgEK",
+            "byImCg5Kb2luTWFwUmVxdWVzdBIUCgxjaGFyYWN0ZXJfaWQYASABKAUipwEK",
             "D0pvaW5NYXBSZXNwb25zZRIqCgVlcnJvchgBIAEoDjIbLkNvbW1vbi5Qcm90",
             "by5CYXNlLk5ldEVycm9yEhEKCWVudGl0eV9pZBgCIAEoBRIOCgZtYXBfaWQY",
-            "AyABKAUSNAoJdHJhbnNmb3JtGAQgASgLMiEuQ29tbW9uLlByb3RvLkVudGl0",
-            "eS5OZXRUcmFuc2Zvcm1iBnByb3RvMw=="));
+            "AyABKAUSDwoHdW5pdF9pZBgEIAEoBRI0Cgl0cmFuc2Zvcm0YBSABKAsyIS5D",
+            "b21tb24uUHJvdG8uRW50aXR5Lk5ldFRyYW5zZm9ybWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Base.NetErrorReflection.Descriptor, global::Common.Proto.Entity.NetTransformReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.JoinMapRequest), global::Common.Proto.Player.JoinMapRequest.Parser, new[]{ "CharacterId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.JoinMapResponse), global::Common.Proto.Player.JoinMapResponse.Parser, new[]{ "Error", "EntityId", "MapId", "Transform" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.JoinMapResponse), global::Common.Proto.Player.JoinMapResponse.Parser, new[]{ "Error", "EntityId", "MapId", "UnitId", "Transform" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class JoinMapRequest : pb::IMessage<JoinMapRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -232,7 +231,6 @@ namespace Common.Proto.Player {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class JoinMapResponse : pb::IMessage<JoinMapResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -270,6 +268,7 @@ namespace Common.Proto.Player {
       error_ = other.error_;
       entityId_ = other.entityId_;
       mapId_ = other.mapId_;
+      unitId_ = other.unitId_;
       transform_ = other.transform_ != null ? other.transform_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -316,8 +315,20 @@ namespace Common.Proto.Player {
       }
     }
 
+    /// <summary>Field number for the "unit_id" field.</summary>
+    public const int UnitIdFieldNumber = 4;
+    private int unitId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int UnitId {
+      get { return unitId_; }
+      set {
+        unitId_ = value;
+      }
+    }
+
     /// <summary>Field number for the "transform" field.</summary>
-    public const int TransformFieldNumber = 4;
+    public const int TransformFieldNumber = 5;
     private global::Common.Proto.Entity.NetTransform transform_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -346,6 +357,7 @@ namespace Common.Proto.Player {
       if (Error != other.Error) return false;
       if (EntityId != other.EntityId) return false;
       if (MapId != other.MapId) return false;
+      if (UnitId != other.UnitId) return false;
       if (!object.Equals(Transform, other.Transform)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -357,6 +369,7 @@ namespace Common.Proto.Player {
       if (Error != global::Common.Proto.Base.NetError.Success) hash ^= Error.GetHashCode();
       if (EntityId != 0) hash ^= EntityId.GetHashCode();
       if (MapId != 0) hash ^= MapId.GetHashCode();
+      if (UnitId != 0) hash ^= UnitId.GetHashCode();
       if (transform_ != null) hash ^= Transform.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -388,8 +401,12 @@ namespace Common.Proto.Player {
         output.WriteRawTag(24);
         output.WriteInt32(MapId);
       }
+      if (UnitId != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(UnitId);
+      }
       if (transform_ != null) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteMessage(Transform);
       }
       if (_unknownFields != null) {
@@ -414,8 +431,12 @@ namespace Common.Proto.Player {
         output.WriteRawTag(24);
         output.WriteInt32(MapId);
       }
+      if (UnitId != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(UnitId);
+      }
       if (transform_ != null) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteMessage(Transform);
       }
       if (_unknownFields != null) {
@@ -436,6 +457,9 @@ namespace Common.Proto.Player {
       }
       if (MapId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(MapId);
+      }
+      if (UnitId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(UnitId);
       }
       if (transform_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Transform);
@@ -460,6 +484,9 @@ namespace Common.Proto.Player {
       }
       if (other.MapId != 0) {
         MapId = other.MapId;
+      }
+      if (other.UnitId != 0) {
+        UnitId = other.UnitId;
       }
       if (other.transform_ != null) {
         if (transform_ == null) {
@@ -494,7 +521,11 @@ namespace Common.Proto.Player {
             MapId = input.ReadInt32();
             break;
           }
-          case 34: {
+          case 32: {
+            UnitId = input.ReadInt32();
+            break;
+          }
+          case 42: {
             if (transform_ == null) {
               Transform = new global::Common.Proto.Entity.NetTransform();
             }
@@ -528,7 +559,11 @@ namespace Common.Proto.Player {
             MapId = input.ReadInt32();
             break;
           }
-          case 34: {
+          case 32: {
+            UnitId = input.ReadInt32();
+            break;
+          }
+          case 42: {
             if (transform_ == null) {
               Transform = new global::Common.Proto.Entity.NetTransform();
             }

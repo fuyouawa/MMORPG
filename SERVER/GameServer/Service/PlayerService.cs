@@ -71,6 +71,7 @@ namespace GameServer.Service
                 Error = NetError.Success,
                 EntityId = player.EntityId,
                 MapId = dbCharacter.MapId,
+                UnitId = dbCharacter.UnitId,
                 Transform = ProtoHelper.ToNetTransform(player.Position, player.Direction),
             };
             sender.Send(res, null);

@@ -80747,7 +80747,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4575902896710758101}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -80772,6 +80772,8 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 4865950127427736656}
     - {fileID: 8300000, guid: 3d13a8f3bd19d964c8b6cbc00b6c813d, type: 3}
+    - {fileID: 1201144034948401517}
+    - {fileID: 6023422151166410460}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -80782,7 +80784,7 @@ MonoBehaviour:
       Data: 0|MMORPG.Tool.Feedback[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 4
     - Name: 
       Entry: 7
       Data: 1|MMORPG.Tool.FeedbackParticlePlay, Assembly-CSharp
@@ -80969,6 +80971,184 @@ MonoBehaviour:
     - Name: SpreadCurve
       Entry: 6
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|MMORPG.Tool.FeedbackTriggerAnimatorParam, Assembly-CSharp
+    - Name: Enable
+      Entry: 5
+      Data: true
+    - Name: Label
+      Entry: 1
+      Data: "\u89E6\u53D1\u52A8\u753B"
+    - Name: DelayBeforePlay
+      Entry: 4
+      Data: 0
+    - Name: LoopPlay
+      Entry: 5
+      Data: false
+    - Name: LimitLoopAmount
+      Entry: 5
+      Data: true
+    - Name: AmountOfLoop
+      Entry: 3
+      Data: 1
+    - Name: DelayBetweenLoop
+      Entry: 4
+      Data: 0
+    - Name: TargetAnimator
+      Entry: 10
+      Data: 2
+    - Name: ExtraAnimators
+      Entry: 7
+      Data: 6|UnityEngine.Animator[], UnityEngine.AnimationModule
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: TriggerLikeBool
+      Entry: 5
+      Data: false
+    - Name: ParameterName
+      Entry: 1
+      Data: Combo3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|MMORPG.Tool.FeedbackDamageArea, Assembly-CSharp
+    - Name: Enable
+      Entry: 5
+      Data: true
+    - Name: Label
+      Entry: 1
+      Data: "\u4F24\u5BB3\u533A\u57DF"
+    - Name: DelayBeforePlay
+      Entry: 4
+      Data: 0.7
+    - Name: LoopPlay
+      Entry: 5
+      Data: false
+    - Name: LimitLoopAmount
+      Entry: 5
+      Data: true
+    - Name: AmountOfLoop
+      Entry: 3
+      Data: 1
+    - Name: DelayBetweenLoop
+      Entry: 4
+      Data: 0
+    - Name: DamageAreaMode
+      Entry: 3
+      Data: 0
+    - Name: CustomLayer
+      Entry: 5
+      Data: false
+    - Name: LayerName
+      Entry: 6
+      Data: 
+    - Name: DamageAreaShape
+      Entry: 3
+      Data: 0
+    - Name: AreaOffset
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: -0.5
+    - Name: 
+      Entry: 4
+      Data: 1.18
+    - Name: 
+      Entry: 4
+      Data: 0.35
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: AreaSize
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 2.08
+    - Name: 
+      Entry: 4
+      Data: 2.07
+    - Name: 
+      Entry: 4
+      Data: 2.93
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ExistingDamageArea
+      Entry: 6
+      Data: 
+    - Name: TriggerMask
+      Entry: 3
+      Data: 1
+    - Name: TargetLayerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: OwnerGameObject
+      Entry: 10
+      Data: 3
+    - Name: MinDamageCaused
+      Entry: 4
+      Data: 10
+    - Name: MaxDamageCaused
+      Entry: 4
+      Data: 10
+    - Name: ExtraInvincibilityDuration
+      Entry: 4
+      Data: 0
+    - Name: DamageDirectionMode
+      Entry: 3
+      Data: 0
+    - Name: ActiveDuration
+      Entry: 4
+      Data: 0.4
+    - Name: IgnoreOwnerGameObject
+      Entry: 5
+      Data: true
+    - Name: IgnoredGameObjects
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RepeatDamageOverTime
+      Entry: 5
+      Data: false
+    - Name: AmountOfRepeats
+      Entry: 3
+      Data: 3
+    - Name: DurationBetweenRepeats
+      Entry: 4
+      Data: 1
+    - Name: DamageOverTimeInterruptible
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 
@@ -106374,6 +106554,7 @@ MonoBehaviour:
     - {fileID: 3566229314517168031}
     - {fileID: 8300000, guid: 5d312acdcfc52864ab5a08b14ba93b1b, type: 3}
     - {fileID: 6023422151166410460}
+    - {fileID: 1201144034948401517}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -106384,7 +106565,7 @@ MonoBehaviour:
       Data: 0|MMORPG.Tool.Feedback[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
       Data: 1|MMORPG.Tool.FeedbackParticlePlay, Assembly-CSharp
@@ -106598,9 +106779,6 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
-    - Name: OwnerGameObject
-      Entry: 10
-      Data: 2
     - Name: DamageAreaMode
       Entry: 3
       Data: 0
@@ -106613,9 +106791,6 @@ MonoBehaviour:
     - Name: DamageAreaShape
       Entry: 3
       Data: 0
-    - Name: DebugDamageAreaInEditor
-      Entry: 5
-      Data: true
     - Name: AreaOffset
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -106661,6 +106836,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: OwnerGameObject
+      Entry: 10
+      Data: 2
     - Name: MinDamageCaused
       Entry: 4
       Data: 10
@@ -106673,12 +106851,12 @@ MonoBehaviour:
     - Name: DamageDirectionMode
       Entry: 3
       Data: 0
-    - Name: IgnoreOwnerGameObject
-      Entry: 5
-      Data: true
     - Name: ActiveDuration
       Entry: 4
       Data: 0.4
+    - Name: IgnoreOwnerGameObject
+      Entry: 5
+      Data: true
     - Name: IgnoredGameObjects
       Entry: 7
       Data: 6|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
@@ -106704,6 +106882,54 @@ MonoBehaviour:
     - Name: DamageOverTimeInterruptible
       Entry: 5
       Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|MMORPG.Tool.FeedbackTriggerAnimatorParam, Assembly-CSharp
+    - Name: Enable
+      Entry: 5
+      Data: true
+    - Name: Label
+      Entry: 1
+      Data: "\u89E6\u53D1\u52A8\u753B"
+    - Name: DelayBeforePlay
+      Entry: 4
+      Data: 0
+    - Name: LoopPlay
+      Entry: 5
+      Data: false
+    - Name: LimitLoopAmount
+      Entry: 5
+      Data: true
+    - Name: AmountOfLoop
+      Entry: 3
+      Data: 1
+    - Name: DelayBetweenLoop
+      Entry: 4
+      Data: 0
+    - Name: TargetAnimator
+      Entry: 10
+      Data: 3
+    - Name: ExtraAnimators
+      Entry: 7
+      Data: 8|UnityEngine.Animator[], UnityEngine.AnimationModule
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: TriggerLikeBool
+      Entry: 5
+      Data: false
+    - Name: ParameterName
+      Entry: 1
+      Data: Combo1
     - Name: 
       Entry: 8
       Data: 
@@ -117377,7 +117603,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8789923965141974367}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -117402,6 +117628,8 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 3965320441237862755}
     - {fileID: 8300000, guid: 4726ef687d0f59e42bfbbeac0e8a1fce, type: 3}
+    - {fileID: 1201144034948401517}
+    - {fileID: 6023422151166410460}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -117412,7 +117640,7 @@ MonoBehaviour:
       Data: 0|MMORPG.Tool.Feedback[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 4
     - Name: 
       Entry: 7
       Data: 1|MMORPG.Tool.FeedbackParticlePlay, Assembly-CSharp
@@ -117599,6 +117827,184 @@ MonoBehaviour:
     - Name: SpreadCurve
       Entry: 6
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|MMORPG.Tool.FeedbackTriggerAnimatorParam, Assembly-CSharp
+    - Name: Enable
+      Entry: 5
+      Data: true
+    - Name: Label
+      Entry: 1
+      Data: "\u89E6\u53D1\u52A8\u753B"
+    - Name: DelayBeforePlay
+      Entry: 4
+      Data: 0
+    - Name: LoopPlay
+      Entry: 5
+      Data: false
+    - Name: LimitLoopAmount
+      Entry: 5
+      Data: true
+    - Name: AmountOfLoop
+      Entry: 3
+      Data: 1
+    - Name: DelayBetweenLoop
+      Entry: 4
+      Data: 0
+    - Name: TargetAnimator
+      Entry: 10
+      Data: 2
+    - Name: ExtraAnimators
+      Entry: 7
+      Data: 6|UnityEngine.Animator[], UnityEngine.AnimationModule
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: TriggerLikeBool
+      Entry: 5
+      Data: false
+    - Name: ParameterName
+      Entry: 1
+      Data: Combo2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|MMORPG.Tool.FeedbackDamageArea, Assembly-CSharp
+    - Name: Enable
+      Entry: 5
+      Data: true
+    - Name: Label
+      Entry: 1
+      Data: "\u4F24\u5BB3\u533A\u57DF"
+    - Name: DelayBeforePlay
+      Entry: 4
+      Data: 0.1
+    - Name: LoopPlay
+      Entry: 5
+      Data: false
+    - Name: LimitLoopAmount
+      Entry: 5
+      Data: true
+    - Name: AmountOfLoop
+      Entry: 3
+      Data: 1
+    - Name: DelayBetweenLoop
+      Entry: 4
+      Data: 0
+    - Name: DamageAreaMode
+      Entry: 3
+      Data: 0
+    - Name: CustomLayer
+      Entry: 5
+      Data: false
+    - Name: LayerName
+      Entry: 6
+      Data: 
+    - Name: DamageAreaShape
+      Entry: 3
+      Data: 0
+    - Name: AreaOffset
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1.25
+    - Name: 
+      Entry: 4
+      Data: 0.6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: AreaSize
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1.4
+    - Name: 
+      Entry: 4
+      Data: 2.39
+    - Name: 
+      Entry: 4
+      Data: 1.41
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ExistingDamageArea
+      Entry: 6
+      Data: 
+    - Name: TriggerMask
+      Entry: 3
+      Data: 1
+    - Name: TargetLayerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: OwnerGameObject
+      Entry: 10
+      Data: 3
+    - Name: MinDamageCaused
+      Entry: 4
+      Data: 10
+    - Name: MaxDamageCaused
+      Entry: 4
+      Data: 10
+    - Name: ExtraInvincibilityDuration
+      Entry: 4
+      Data: 0
+    - Name: DamageDirectionMode
+      Entry: 3
+      Data: 0
+    - Name: ActiveDuration
+      Entry: 4
+      Data: 0.3
+    - Name: IgnoreOwnerGameObject
+      Entry: 5
+      Data: true
+    - Name: IgnoredGameObjects
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RepeatDamageOverTime
+      Entry: 5
+      Data: false
+    - Name: AmountOfRepeats
+      Entry: 3
+      Data: 3
+    - Name: DurationBetweenRepeats
+      Entry: 4
+      Data: 1
+    - Name: DamageOverTimeInterruptible
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 

@@ -14,8 +14,6 @@ namespace MMORPG.Tool
         public enum DamageAreaModes { Generated, Existing }
 
         [FoldoutGroup("Damage Area")]
-        public GameObject OwnerGameObject;
-        [FoldoutGroup("Damage Area")]
         public DamageAreaModes DamageAreaMode = DamageAreaModes.Generated;
         [FoldoutGroup("Damage Area")]
         public bool CustomLayer = false;
@@ -27,11 +25,6 @@ namespace MMORPG.Tool
         [FoldoutGroup("Damage Area")]
         [ShowIf("DamageAreaMode", DamageAreaModes.Generated)]
         public DamageAreaShapes DamageAreaShape = DamageAreaShapes.Box;
-
-        [FoldoutGroup("Damage Area")]
-        [ShowIf("DamageAreaMode", DamageAreaModes.Generated)]
-        [LabelText("Debug In Editor")]
-        public bool DebugDamageAreaInEditor = false;
 
         [FoldoutGroup("Damage Area")]
         [ShowIf("DamageAreaMode", DamageAreaModes.Generated)]
@@ -50,6 +43,8 @@ namespace MMORPG.Tool
         [FoldoutGroup("Damage Caused")]
         public LayerMask TargetLayerMask;
         [FoldoutGroup("Damage Caused")]
+        public GameObject OwnerGameObject;
+        [FoldoutGroup("Damage Caused")]
         public float MinDamageCaused = 10f;
         [FoldoutGroup("Damage Caused")]
         public float MaxDamageCaused = 10f;
@@ -58,9 +53,9 @@ namespace MMORPG.Tool
         [FoldoutGroup("Damage Caused")]
         public DamageOnTouch.DamageDirections DamageDirectionMode;
         [FoldoutGroup("Damage Caused")]
-        public bool IgnoreOwnerGameObject = true;
-        [FoldoutGroup("Damage Caused")]
         public float ActiveDuration = 1f;
+        [FoldoutGroup("Damage Caused")]
+        public bool IgnoreOwnerGameObject = true;
         [FoldoutGroup("Damage Caused")]
         public List<GameObject> IgnoredGameObjects = new();
 
@@ -227,22 +222,19 @@ namespace MMORPG.Tool
 
         protected virtual void DrawGizmos()
         {
-            if (DebugDamageAreaInEditor)
+            if (DamageAreaMode == DamageAreaModes.Existing)
             {
-                if (DamageAreaMode == DamageAreaModes.Existing)
-                {
-                    return;
-                }
+                return;
+            }
 
-                if (DamageAreaShape == DamageAreaShapes.Box)
-                {
-                    Gizmos.DrawWireCube(Transform.position + AreaOffset, AreaSize);
-                }
+            if (DamageAreaShape == DamageAreaShapes.Box)
+            {
+                Gizmos.DrawWireCube(Transform.position + AreaOffset, AreaSize);
+            }
 
-                if (DamageAreaShape == DamageAreaShapes.Sphere)
-                {
-                    Gizmos.DrawWireSphere(Transform.position + AreaOffset, AreaSize.x / 2);
-                }
+            if (DamageAreaShape == DamageAreaShapes.Sphere)
+            {
+                Gizmos.DrawWireSphere(Transform.position + AreaOffset, AreaSize.x / 2);
             }
         }
 
