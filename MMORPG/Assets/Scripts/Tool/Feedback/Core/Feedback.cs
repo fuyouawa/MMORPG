@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace MMORPG.Tool
 {
@@ -50,6 +51,10 @@ namespace MMORPG.Tool
         [FoldoutGroup("Feedback Settings")]
         [ShowIf("LoopPlay")]
         public float DelayBetweenLoop = 0f;
+
+        [FoldoutGroup("Feedback Settings")]
+        [HideReferenceObjectPicker]
+        public UnityValueGetter<bool> EnableIf;
 
         public FeedbackManager Owner { get; private set; }
         public bool IsPlaying { get; private set; }
