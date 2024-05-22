@@ -98,5 +98,10 @@ namespace GameServer.Manager
                 }
             }
         }
+
+        public void Update()
+        {
+
+        }
     }
 }
