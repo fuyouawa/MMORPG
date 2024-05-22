@@ -64,7 +64,6 @@ namespace GameServer.Model
             //List<int> 
             lock (_aoiWord)
             {
-                Vector2 range = new (entity.ViewRange, entity.ViewRange);
                 _aoiWord.Enter(entity.EntityId, entity.Position.X, entity.Position.Z, out var enters);
             }
 
@@ -129,7 +128,6 @@ namespace GameServer.Model
         /// <param name="entity"></param>
         public void EntityRefreshPosition(Entity entity)
         {
-            Vector2 range = new(entity.ViewRange, entity.ViewRange);
             List<int> enters;
             List<int> leaves;
             lock (_aoiWord)
