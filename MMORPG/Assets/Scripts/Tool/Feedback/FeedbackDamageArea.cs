@@ -129,7 +129,7 @@ namespace MMORPG.Tool
                 var layer = LayerMask.NameToLayer(LayerName);
                 if (layer == -1)
                 {
-                    throw new Exception("Invalid layer name!");
+                    throw new Exception($"Invalid layer name({LayerName})!");
                 }
                 _damageArea.layer = layer;
             }
