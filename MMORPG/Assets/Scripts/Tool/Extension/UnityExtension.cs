@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace MMORPG.Tool
@@ -38,6 +39,20 @@ namespace MMORPG.Tool
         public static bool Contain(this LayerMask layerMask, int layer)
         {
             return ((1 << layer) & layerMask) != 0;
+        }
+
+        public static bool HasParam(this Animator animator, string name)
+        {
+            return animator.parameters.FirstOrDefault(x => x.name == name) != null;
+        }
+
+        public static bool HasParam(this Animator animator, string name, AnimatorControllerParameterType typeCheck)
+        {
+            foreach (var parameter in animator.parameters)
+            {
+                
+            }
+            return animator.parameters.FirstOrDefault(x => x.name == name && x.type == typeCheck) != null;
         }
     }
 }

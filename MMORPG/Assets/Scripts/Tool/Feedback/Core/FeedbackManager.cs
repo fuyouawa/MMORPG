@@ -194,6 +194,7 @@ namespace MMORPG.Tool
                 Debug.Assert(attr != null);
                 var inst = (Feedback)Activator.CreateInstance(type);
                 inst.Setup(this);
+                inst.Label = type.Name.StartsWith("Feedback") ? type.Name[8..] : type.Name;
                 total.Add(attr.Path, inst);
             }
 

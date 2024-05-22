@@ -146,7 +146,6 @@ namespace MMORPG.Game
         public virtual void Initialize()
         {
             if (IsInitialized) return;
-            IsInitialized = true;
 
             if (FindFeedbackByName)
             {
@@ -167,6 +166,8 @@ namespace MMORPG.Game
             InitFSM();
 
             OnWeaponInitialized?.Invoke(this);
+
+            IsInitialized = true;
         }
 
         public virtual void WeaponInputStart()

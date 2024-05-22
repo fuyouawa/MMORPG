@@ -208,6 +208,22 @@ namespace MMORPG.Tool
                 return $"{Label} ({timeDisplay}){enableDisplay}";
             }
         }
+
+        [HorizontalGroup]
+        [Button("Play")]
+        [DisableInEditorMode]
+        private void TestPlay()
+        {
+            Play();
+        }
+
+        [HorizontalGroup]
+        [Button("Stop")]
+        [DisableInEditorMode]
+        private void TestStop()
+        {
+            Stop();
+        }
 #endif
     }
 }
