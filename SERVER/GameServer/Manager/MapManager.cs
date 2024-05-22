@@ -31,6 +31,14 @@ namespace GameServer.Manager
             }
         }
 
+        public void Update()
+        {
+            foreach (var map in _mapDict.Values)
+            {
+                map.Update();
+            }
+        }
+
         public Map NewMap(int mapId, string name)
         {
             var map = new Map(mapId, name);
