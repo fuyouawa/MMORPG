@@ -24,11 +24,6 @@ namespace GameServer.Tool
 
         public void AddState(TStateId stateId, IFSMState state)
         {
-            if (CurrentStateId is null)
-            {
-                CurrentStateId = stateId;
-                CurrentState = state;
-            }
             _statusDict[stateId] = state;
         }
 

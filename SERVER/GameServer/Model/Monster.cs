@@ -40,6 +40,8 @@ namespace GameServer.Model
                 return;
             }
 
+            _ai.Update();
+
             if (State == ActorState.Move)
             {
                 if (_moveTargetPos == _moveCurrentPos)
@@ -50,7 +52,7 @@ namespace GameServer.Model
 
                 var direction = (_moveTargetPos - _moveCurrentPos).Normalize();
                 Direction = direction.ToEulerAngles() * new Vector3(0, 1, 0);
-                float distance = Speed * EntityManager.Instance.Time.DeltaTime;
+                float distance = Speed * Time.DeltaTime;
                 if (Vector3.Distance(_moveTargetPos, _moveCurrentPos) < distance)
                 {
                     // 走到了目的地
@@ -81,6 +83,7 @@ namespace GameServer.Model
             if (_moveTargetPos != targetPos)
             {
                 _moveTargetPos = targetPos;
+                _moveTargetPos.Y = InitPos.Y;
                 _moveCurrentPos = Position;
             }
         }
