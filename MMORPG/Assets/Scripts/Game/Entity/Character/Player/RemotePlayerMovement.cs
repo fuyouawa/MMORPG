@@ -28,9 +28,19 @@ namespace MMORPG.Game
             _targetSyncPosition = data.Position;
             _targetSyncRotation = data.Rotation;
             if (d.IsWalkingOrRunning)
-                Brain.AnimationController.StartWalking();
+            {
+                if (!Brain.AnimationController.Walking)
+                {
+                    Brain.AnimationController.StartWalking();
+                }
+            }
             else
-                Brain.AnimationController.StartRunning();
+            {
+                if (!Brain.AnimationController.Running)
+                {
+                    Brain.AnimationController.StartRunning();
+                }
+            }
             Brain.AnimationController.SmoothMoveDirection(_moveDirection);
         }
 

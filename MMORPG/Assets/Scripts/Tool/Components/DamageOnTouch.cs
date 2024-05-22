@@ -177,7 +177,7 @@ namespace MMORPG.Tool
 
             if (IgnoredGameObjects.Contains(collider)) { return false; }
 
-            if (TargetLayerMask.Contain(collider.layer)) { return false; }
+            if (!TargetLayerMask.Contain(collider.layer)) { return false; }
 
             return true;
         }

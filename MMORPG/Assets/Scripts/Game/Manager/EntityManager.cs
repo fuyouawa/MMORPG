@@ -20,11 +20,13 @@ namespace MMORPG.Game
     public class EntityManager : MonoBehaviour, IController, ICanSendEvent
     {
         private IEntityManagerSystem _entityManager;
+        private IDataManagerSystem _dataManager;
         private ResLoader _resLoader = ResLoader.Allocate();
 
         private void Awake()
         {
             _entityManager = this.GetSystem<IEntityManagerSystem>();
+            _dataManager = this.GetSystem<IDataManagerSystem>();
 
             this.GetSystem<INetworkSystem>().ReceiveEventInUnityThread<EntityEnterResponse>(OnEntityEnterReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
@@ -50,8 +52,7 @@ namespace MMORPG.Game
                 var position = data.Transform.Position.ToVector3();
                 var rotation = Quaternion.Euler(data.Transform.Direction.ToVector3());
                 
-                var dataManager = this.GetSystem<IDataManagerSystem>();
-                var unitDefine = dataManager.GetUnitDefine(data.UnitId);
+                var unitDefine = _dataManager.GetUnitDefine(data.UnitId);
 
                 _entityManager.SpawnEntity(
                     _resLoader.LoadSync<EntityView>(unitDefine.Resource),
