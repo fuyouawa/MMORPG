@@ -42,7 +42,6 @@ namespace GameServer.Manager
                 UnitId = unitId,
                 Position = pos,
                 Direction = dire,
-                ViewRange = Player.DefaultViewRange,
                 Speed = 5,
             };
             EntityManager.Instance.AddEntity(player);

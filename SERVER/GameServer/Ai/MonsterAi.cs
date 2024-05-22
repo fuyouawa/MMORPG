@@ -99,9 +99,9 @@ namespace GameServer.Ai
                     var nextDistance = Vector3.Distance(nextEntity.Position, monster.Position);
                     return minDistance < nextDistance ? minEntity : nextEntity;
                 });
-                // 若玩家位于怪物的视野范围内
+                // 若玩家位于怪物的追击范围内
                 if (nearestPlayer != null &&
-                    Vector3.Distance(nearestPlayer.Position, monster.Position) <= monster.ViewRange)
+                    Vector3.Distance(nearestPlayer.Position, monster.Position) <= _target.ChaseRange)
                 {
                     // 切换为追击状态
                     monster.ChasingTarget = nearestPlayer as Actor;
@@ -147,7 +147,7 @@ namespace GameServer.Ai
 
                 float d1 = Vector3.Distance(monster.Position, monster.InitPos); // 自身与出生点的距离
                 float d2 = Vector3.Distance(monster.Position, monster.ChasingTarget.Position);  // 自身与目标的距离
-                if (d1 > _target.ChaseRange || d2 > monster.ViewRange)
+                if (d1 > _target.ChaseRange || d2 > _target.ChaseRange)
                 {
                     _fsm.ChangeState(MonsterAiState.Goback);
                     return;

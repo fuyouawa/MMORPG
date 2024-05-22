@@ -10,15 +10,12 @@ namespace GameServer.Model
 {
     public class Entity
     {
-        public static readonly float DefaultViewRange = 20.0f;
-
         public EntityType EntityType;
         public int UnitId;
         public int EntityId;
         public Map? Map;
         public Vector3 Position;
         public Vector3 Direction;
-        public float ViewRange;
 
         public virtual void Update() { }
     }
