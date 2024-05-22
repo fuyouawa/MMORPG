@@ -9,6 +9,16 @@ namespace MMORPG.Tool
 {
     public class DamageOnTouch : MonoBehaviour
     {
+        [Flags]
+        public enum TriggerMasks
+        {
+            IgnoreAll = 0,
+            OnTriggerEnter = 1 << 0,
+            OnTriggerStay = 1 << 1,
+
+            All = OnTriggerEnter | OnTriggerStay
+        }
+
         public enum DamageDirections
         {
             BasedOnOwnerPosition,
@@ -19,11 +29,12 @@ namespace MMORPG.Tool
         public bool InitialOnStart = true;
 
         [Title("Damage Caused")]
+        public TriggerMasks TriggerMask = TriggerMasks.OnTriggerEnter;
         public LayerMask TargetLayerMask;
         public float MinDamageCaused = 10f;
         public float MaxDamageCaused = 10f;
         public DamageDirections DamageDirectionMode;
-        public float InvincibilityDuration;
+        public float ExtraInvincibilityDuration;
         public List<GameObject> IgnoredGameObjects = new();
 
         [Title("Damage over time")]
@@ -118,8 +129,17 @@ namespace MMORPG.Tool
             }
         }
 
+        protected virtual void OnTriggerStay(Collider collider)
+        {
+            if ((TriggerMask & TriggerMasks.OnTriggerStay) == 0) return;
+
+            Colliding(collider);
+        }
+
         protected virtual void OnTriggerEnter(Collider collider)
         {
+            if ((TriggerMask & TriggerMasks.OnTriggerEnter) == 0) return;
+
             Colliding(collider);
         }
 
@@ -185,7 +205,7 @@ namespace MMORPG.Tool
                     CollidingHealth.DamageOverTime(
                         randomDamage,
                         gameObject,
-                        InvincibilityDuration,
+                        ExtraInvincibilityDuration,
                         DamageDirection,
                         AmountOfRepeats,
                         DurationBetweenRepeats,
@@ -196,7 +216,7 @@ namespace MMORPG.Tool
                     CollidingHealth.Damage(
                         randomDamage,
                         gameObject,
-                        InvincibilityDuration,
+                        ExtraInvincibilityDuration,
                         DamageDirection);
                 }
             }

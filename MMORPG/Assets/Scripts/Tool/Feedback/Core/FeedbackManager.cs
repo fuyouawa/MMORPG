@@ -153,26 +153,26 @@ namespace MMORPG.Tool
         }
 
         [HorizontalGroup(Title = "Test (Only in Playing)")]
-        [Button]
+        [Button("Init")]
+        [DisableIf("@IsInitialized || !UnityEditor.EditorApplication.isPlaying")]
+        private void TestInit()
+        {
+            Initialize();
+        }
+
+        [HorizontalGroup]
+        [Button("Play")]
+        [DisableInEditorMode]
         private void TestPlay()
         {
-            if (!UnityEditor.EditorApplication.isPlaying)
-            {
-                UnityEditor.EditorUtility.DisplayDialog("错误", "只能在运行时测试!", "确定");
-                return;
-            }
             Play();
         }
 
         [HorizontalGroup]
-        [Button]
+        [Button("Stop")]
+        [DisableInEditorMode]
         private void TestStop()
         {
-            if (!UnityEditor.EditorApplication.isPlaying)
-            {
-                UnityEditor.EditorUtility.DisplayDialog("错误", "只能在运行时测试!", "确定");
-                return;
-            }
             Stop();
         }
 

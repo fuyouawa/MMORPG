@@ -40,13 +40,16 @@ namespace MMORPG.Tool
         public DamageOnTouch ExistingDamageArea;
 
         [FoldoutGroup("Damage Caused")]
+        public DamageOnTouch.TriggerMasks TriggerMask = DamageOnTouch.TriggerMasks.OnTriggerEnter;
+        [FoldoutGroup("Damage Caused")]
         public LayerMask TargetLayerMask;
         [FoldoutGroup("Damage Caused")]
         public float MinDamageCaused = 10f;
         [FoldoutGroup("Damage Caused")]
         public float MaxDamageCaused = 10f;
         [FoldoutGroup("Damage Caused")]
-        public float InvincibilityDuration = 0.5f;
+        [Tooltip("额外无敌时间")]
+        public float ExtraInvincibilityDuration = 0f;
         [FoldoutGroup("Damage Caused")]
         public DamageOnTouch.DamageDirections DamageDirectionMode;
         [FoldoutGroup("Damage Caused")]
@@ -70,13 +73,6 @@ namespace MMORPG.Tool
         [FoldoutGroup("Damage over time")]
         [ShowIf("RepeatDamageOverTime")]
         public bool DamageOverTimeInterruptible = true;
-
-        [FoldoutGroup("Damage Events")]
-        public UnityEvent<AbstractHealth> HitDamageableEvent = new();
-        [FoldoutGroup("Damage Events")]
-        public UnityEvent<Collider> HitNonDamageableEvent = new();
-        [FoldoutGroup("Damage Events")]
-        public UnityEvent<Collider> HitAnythingEvent = new();
 
         protected Collider _damageAreaCollider;
         protected bool _attackInProgress = false;
@@ -160,19 +156,17 @@ namespace MMORPG.Tool
 
             _damageOnTouch = _damageArea.AddComponent<DamageOnTouch>();
             _damageOnTouch.InitialOnStart = false;
+            _damageOnTouch.TriggerMask = TriggerMask;
             _damageOnTouch.TargetLayerMask = TargetLayerMask;
             _damageOnTouch.MinDamageCaused = MinDamageCaused;
             _damageOnTouch.MaxDamageCaused = MaxDamageCaused;
-            _damageOnTouch.InvincibilityDuration = InvincibilityDuration;
+            _damageOnTouch.ExtraInvincibilityDuration = ExtraInvincibilityDuration;
             _damageOnTouch.DamageDirectionMode = DamageDirectionMode;
             _damageOnTouch.IgnoredGameObjects = IgnoredGameObjects;
             _damageOnTouch.RepeatDamageOverTime = RepeatDamageOverTime;
             _damageOnTouch.AmountOfRepeats = AmountOfRepeats;
             _damageOnTouch.DurationBetweenRepeats = DurationBetweenRepeats;
             _damageOnTouch.DamageOverTimeInterruptible = DamageOverTimeInterruptible;
-            _damageOnTouch.HitDamageableEvent = HitDamageableEvent;
-            _damageOnTouch.HitNonDamageableEvent = HitNonDamageableEvent;
-            _damageOnTouch.HitAnythingEvent = HitAnythingEvent;
 
             _damageOnTouch.Initialize();
         }
