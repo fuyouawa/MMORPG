@@ -17,6 +17,12 @@ namespace MMORPG.Tool
         public GameObject OwnerGameObject;
         [FoldoutGroup("Damage Area")]
         public DamageAreaModes DamageAreaMode = DamageAreaModes.Generated;
+        [FoldoutGroup("Damage Area")]
+        public bool CustomLayer = false;
+        [FoldoutGroup("Damage Area")]
+        [ShowIf("CustomLayer")]
+        [InfoBox("Invalid layer name!", InfoMessageType.Error, "CheckLayerNameInvalid")]
+        public string LayerName;
 
         [FoldoutGroup("Damage Area")]
         [ShowIf("DamageAreaMode", DamageAreaModes.Generated)]
@@ -48,7 +54,6 @@ namespace MMORPG.Tool
         [FoldoutGroup("Damage Caused")]
         public float MaxDamageCaused = 10f;
         [FoldoutGroup("Damage Caused")]
-        [Tooltip("额外无敌时间")]
         public float ExtraInvincibilityDuration = 0f;
         [FoldoutGroup("Damage Caused")]
         public DamageOnTouch.DamageDirections DamageDirectionMode;
@@ -116,7 +121,7 @@ namespace MMORPG.Tool
 
             _damageArea = new()
             {
-                name = nameof(DamageOnTouch),
+                name = "Damage Area",
                 transform =
                 {
                     position = Transform.position,
@@ -124,9 +129,21 @@ namespace MMORPG.Tool
                     localScale = Vector3.one
                 }
             };
+            if (CustomLayer)
+            {
+                var layer = LayerMask.NameToLayer(LayerName);
+                if (layer == -1)
+                {
+                    throw new Exception("Invalid layer name!");
+                }
+                _damageArea.layer = layer;
+            }
+            else
+            {
+                _damageArea.layer = Owner.gameObject.layer;
+            }
 
             _damageArea.transform.SetParent(Transform);
-            _damageArea.layer = Owner.gameObject.layer;
 
             switch (DamageAreaShape)
             {
@@ -227,6 +244,16 @@ namespace MMORPG.Tool
                     Gizmos.DrawWireSphere(Transform.position + AreaOffset, AreaSize.x / 2);
                 }
             }
+        }
+
+        private bool CheckLayerNameInvalid()
+        {
+            if (CustomLayer)
+            {
+                return LayerMask.NameToLayer(LayerName) == -1;
+            }
+
+            return false;
         }
 #endif
 
