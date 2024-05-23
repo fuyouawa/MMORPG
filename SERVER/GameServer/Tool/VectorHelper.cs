@@ -10,19 +10,22 @@ namespace GameServer.Tool
 {
     public static class VectorHelper
     {
+        /// <summary>
+        /// 方向向量转欧拉角
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <returns></returns>
         public static Vector3 ToEulerAngles(this Vector3 direction)
         {
             const float rad2Deg = 57.29578f;
+            var num = MathF.Sqrt(
+                (direction.X * direction.X + direction.Z * direction.Z) /
+                (direction.X * direction.X + direction.Y * direction.Y + direction.Z * direction.Z)
+            );
             var eulerAngles = new Vector3
             {
                 // Anglex = arc cos(sqrt((x^2 + z^2) / (x^2 + y^2 + z^2)))
-                X = MathF.Acos(
-                    MathF.Sqrt(
-                        (direction.X * direction.X + direction.Z * direction.Z) /
-                        (direction.X * direction.X + direction.Y * direction.Y + direction.Z * direction.Z)
-                    )
-                    * rad2Deg
-                )
+                X = MathF.Acos(num) * rad2Deg
             };
 
             if (direction.Y > 0) eulerAngles.X = 360 - eulerAngles.X;
@@ -37,12 +40,14 @@ namespace GameServer.Tool
             return eulerAngles;
         }
 
-        public static Vector3 Normalize(this Vector3 value)
+        public static Vector3 Normalized(this Vector3 value)
         {
-            var num = (float)Math.Sqrt(value.X * value.X + value.Y * value.Y + value.Z * value.Z);
-            if (num > 1E-05f)
+            var length = (float)Math.Sqrt((double)value.X * (double)value.X + 
+                                          (double)value.Y * (double)value.Y + 
+                                          (double)value.Z * (double)value.Z);
+            if (length > 1E-05f)
             {
-                return value / num;
+                return value / length;
             }
             return Vector3.Zero;
         }

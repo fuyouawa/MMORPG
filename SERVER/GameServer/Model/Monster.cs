@@ -40,17 +40,18 @@ namespace GameServer.Model
                     return;
                 }
 
-                var direction = (_moveTargetPos - _moveCurrentPos).Normalize();
+                var direction = (_moveTargetPos - _moveCurrentPos).Normalized();
                 Direction = direction.ToEulerAngles() * new Vector3(0, 1, 0);
                 float distance = Speed * Time.DeltaTime;
-                if (Vector3.Distance(_moveTargetPos, _moveCurrentPos) < distance)
+                if (Vector3.Distance(_moveTargetPos, _moveCurrentPos) <= distance)
                 {
-                    // 走到了目的地
+                    // 本次移动能到达目的地
                     _moveCurrentPos = _moveTargetPos;
                     MoveStop();
                 }
                 else
                 {
+                    // 向这个方向移动指定距离
                     _moveCurrentPos += distance * direction;
                 }
                 Position = _moveCurrentPos;
@@ -58,6 +59,7 @@ namespace GameServer.Model
 
                 var res = new EntityTransformSyncResponse() { 
                     EntityId = EntityId,
+                    //StateId = ,
                     Transform = ProtoHelper.ToNetTransform(Position, Direction)
                 };
                 Map.PlayerManager.Broadcast(res, this);
@@ -87,7 +89,7 @@ namespace GameServer.Model
         {
             float x = _random.NextSingle() * 2f - 1f;
             float z = _random.NextSingle() * 2f - 1f;
-            Vector3 direction = new Vector3(x, 0, z).Normalize();
+            Vector3 direction = new Vector3(x, 0, z).Normalized();
             return InitPos + direction * range * _random.NextSingle();
         }
     } 
