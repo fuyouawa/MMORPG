@@ -40,7 +40,7 @@ namespace MMORPG.Tool
             public CheckModes CheckMode = CheckModes.OnStart;
             public bool Negative;
             [HideLabel]
-            public UnityValueGetter<bool> Getter;
+            public InlineValuePicker<bool> Getter;
         }
 
         [FoldoutGroup("Feedback Settings")]

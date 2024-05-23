@@ -14,8 +14,9 @@ using UnityEngine;
 
 namespace MMORPG.Tool
 {
+    //TODO InlineValuePicker
     [Serializable]
-    public struct UnityValueGetter<T>
+    public class InlineValuePicker<T>
     {
         // public GameObject TargetGameObject;
 
@@ -27,10 +28,15 @@ namespace MMORPG.Tool
         // }
         // public MemberGetter Getter;
 
-        [HorizontalGroup] [HideLabel] [SerializeField]
-        private GameObject _targetGameObject;
+        [HorizontalGroup]
+        [HideLabel]
+        [SerializeField]
+        private GameObject _targetObject;
 
-        [HorizontalGroup] [HideLabel] [ValueDropdown("GetTargetGameObjectValueGetterDropdown")] [SerializeField]
+        [HorizontalGroup]
+        [HideLabel]
+        [ValueDropdown("GetTargetGameObjectValueGetterDropdown")]
+        [SerializeField]
         private string _memberPath;
 
         public enum SimpleMemberTypes
@@ -46,53 +52,56 @@ namespace MMORPG.Tool
 
         private Func<object, T> _getter;
 
-        private static readonly string PropertyEnd = "{ get; }";
-        private static readonly string MethodEnd = "{ get; }";
+        private static readonly string FieldEnd = $" [Field {typeof(T).Name}]";
+        private static readonly string PropertyEnd = $" [Property {typeof(T).Name}]";
+        private static readonly string MethodEnd = $" [Method {typeof(T).Name}]";
         private static readonly BindingFlags BindingFlags = BindingFlags.Instance | BindingFlags.Public;
 
         public void Initialize()
         {
-            if (_targetGameObject == null || _memberPath.IsNullOrEmpty())
-                return;
-
-            var split = _memberPath.Split('/');
-            Debug.Assert(split.Length == 2);
-            var targetName = split[0];
-            var memberName = split[1];
-
-            Target = _targetGameObject.GetComponents<Component>().FirstOrDefault(x => x.GetType().Name == targetName);
-            Debug.Assert(Target);
-            if (memberName.EndsWith(PropertyEnd))
-            {
-                MemberType = SimpleMemberTypes.Property;
-                var property = Target.GetType().GetProperty(memberName[..^PropertyEnd.Length], BindingFlags);
-                Debug.Assert(property != null);
-                _getter = obj => (T)property.GetValue(obj);
-                Member = property;
-            }
-            else if (memberName.EndsWith(MethodEnd))
-            {
-                memberName = memberName[..^MethodEnd.Length];
-                MemberType = SimpleMemberTypes.Method;
-                var method = Target.GetType().GetMethod(memberName[..^PropertyEnd.Length], BindingFlags);
-                Debug.Assert(method != null);
-                _getter = obj => (T)method.Invoke(obj, null);
-                Member = method;
-            }
-            else
-            {
-                MemberType = SimpleMemberTypes.Field;
-                var field = Target.GetType().GetField(memberName, BindingFlags);
-                Debug.Assert(field != null);
-                _getter = obj => (T)field.GetValue(obj);
-                Member = field;
-            }
+            // if (_targetObject == null || _memberPath.IsNullOrEmpty())
+            //     return;
+            //
+            // var split = _memberPath.Split('/');
+            // Debug.Assert(split.Length == 2);
+            // var targetName = split[0];
+            // var memberName = split[1];
+            //
+            // Target = _targetObject.GetComponents<Component>().FirstOrDefault(x => x.GetType().Name == targetName);
+            // Debug.Assert(Target);
+            // if (memberName.EndsWith(PropertyEnd))
+            // {
+            //     MemberType = SimpleMemberTypes.Property;
+            //     var property = Target.GetType().GetProperty(memberName[..^PropertyEnd.Length], BindingFlags);
+            //     Debug.Assert(property != null);
+            //     _getter = obj => (T)property.GetValue(obj);
+            //     Member = property;
+            // }
+            // else if (memberName.EndsWith(MethodEnd))
+            // {
+            //     MemberType = SimpleMemberTypes.Method;
+            //     var method = Target.GetType().GetMethod(memberName[..^PropertyEnd.Length], BindingFlags);
+            //     Debug.Assert(method != null);
+            //     _getter = obj => (T)method.Invoke(obj, null);
+            //     Member = method;
+            // }
+            // else if (memberName.EndsWith(FieldEnd))
+            // {
+            //     MemberType = SimpleMemberTypes.Field;
+            //     var field = Target.GetType().GetField(memberName[..^FieldEnd.Length], BindingFlags);
+            //     Debug.Assert(field != null);
+            //     _getter = obj => (T)field.GetValue(obj);
+            //     Member = field;
+            // }
+            // else
+            //     throw new Exception(); //TODO Error
         }
 
 
         public T GetValue()
         {
-            return _getter(Target);
+            // return _getter(Target);
+            throw new NotImplementedException();
         }
 
 
@@ -100,15 +109,15 @@ namespace MMORPG.Tool
         public IEnumerable GetTargetGameObjectValueGetterDropdown()
         {
             var total = new ValueDropdownList<string>() { { "None", string.Empty } };
-            if (_targetGameObject == null)
+            if (_targetObject == null)
                 return total;
-            foreach (var component in _targetGameObject.GetComponents<Component>())
+            foreach (var component in _targetObject.GetComponents<Component>())
             {
                 var compName = component.GetType().Name;
                 foreach (var field in component.GetType().GetFields(BindingFlags)
                              .Where(x => x.FieldType == typeof(T)))
                 {
-                    total.Add($"{compName}/{field.Name}", $"{compName}/{field.Name}");
+                    total.Add($"{compName}/{field.Name}{FieldEnd}", $"{compName}/{field.Name}");
                 }
 
                 foreach (var property in component.GetType().GetProperties(BindingFlags)
