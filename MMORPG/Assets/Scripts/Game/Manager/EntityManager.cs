@@ -1,10 +1,9 @@
-using Common.Proto.Event;
-using Common.Proto.Event.Map;
+using Common.Proto.EventLike;
+using Common.Proto.EventLike.Map;
 using QFramework;
 using MMORPG.System;
 using MMORPG.Tool;
 using UnityEngine;
-using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Game
 {
@@ -28,11 +27,11 @@ namespace MMORPG.Game
             _entityManager = this.GetSystem<IEntityManagerSystem>();
             _dataManager = this.GetSystem<IDataManagerSystem>();
 
-            this.GetSystem<INetworkSystem>().ReceiveEventInUnityThread<EntityEnterResponse>(OnEntityEnterReceived)
+            this.GetSystem<INetworkSystem>().ReceiveEventLikeInUnityThread<EntityEnterResponse>(OnEntityEnterReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
-            this.GetSystem<INetworkSystem>().ReceiveEventInUnityThread<EntityLeaveResponse>(OnEntityLeaveReceived)
+            this.GetSystem<INetworkSystem>().ReceiveEventLikeInUnityThread<EntityLeaveResponse>(OnEntityLeaveReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
-            this.GetSystem<INetworkSystem>().ReceiveEventInUnityThread<EntityTransformSyncResponse>(OnEntitySyncReceived)
+            this.GetSystem<INetworkSystem>().ReceiveEventLikeInUnityThread<EntityTransformSyncResponse>(OnEntitySyncReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 

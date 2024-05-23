@@ -1,38 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Common.Tool
 {
     public static class ProtoManager
     {
-        private static readonly Type[] _sortedProtoTypes;
+        public static IEnumerable<Type> AllProtoType;
 
-        private static readonly HashSet<Type> _eventProtoTypes;
+        private static readonly Type[] s_sortedProtoTypes;
+
+        private static readonly HashSet<Type> s_eventProtoTypes;
 
         static ProtoManager()
         {
-            _sortedProtoTypes = Meta.AllProtoType.OrderBy(t => t.Name).ToArray();
+            AllProtoType = from t in Assembly.GetExecutingAssembly().GetTypes()
+                where typeof(Google.Protobuf.IMessage).IsAssignableFrom(t)
+                select t;
 
-            _eventProtoTypes = (from type in _sortedProtoTypes
-                                 where type.Namespace.StartsWith("Common.Proto.Event")
+            s_sortedProtoTypes = AllProtoType.OrderBy(t => t.Name).ToArray();
+
+            s_eventProtoTypes = (from type in s_sortedProtoTypes
+                                 where type.Namespace.StartsWith("Common.Proto.EventLike")
                                  select type).ToHashSet();
         }
 
         public static int TypeToID(Type type)
         {
-            return Array.IndexOf(_sortedProtoTypes, type);
+            return Array.IndexOf(s_sortedProtoTypes, type);
         }
 
         public static Type IDToType(int id)
         {
-            return _sortedProtoTypes[id];
+            return s_sortedProtoTypes[id];
         }
 
-        public static bool IsEvent(Type type)
+        public static bool IsEventLike(Type type)
         {
-            return _eventProtoTypes.Contains(type);
+            return s_eventProtoTypes.Contains(type);
         }
     }
 }

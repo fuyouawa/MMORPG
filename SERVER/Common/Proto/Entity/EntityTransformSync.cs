@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Event {
+namespace Common.Proto.EventLike {
 
   /// <summary>Holder for reflection information generated from Entity/EntityTransformSync.proto</summary>
   public static partial class EntityTransformSyncReflection {
@@ -24,20 +24,20 @@ namespace Common.Proto.Event {
     static EntityTransformSyncReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CiBFbnRpdHkvRW50aXR5VHJhbnNmb3JtU3luYy5wcm90bxISQ29tbW9uLlBy",
-            "b3RvLkV2ZW50GhlFbnRpdHkvTmV0VHJhbnNmb3JtLnByb3RvIoUBChpFbnRp",
-            "dHlUcmFuc2Zvcm1TeW5jUmVxdWVzdBIRCgllbnRpdHlfaWQYASABKAUSNAoJ",
-            "dHJhbnNmb3JtGAIgASgLMiEuQ29tbW9uLlByb3RvLkVudGl0eS5OZXRUcmFu",
-            "c2Zvcm0SEAoIc3RhdGVfaWQYAyABKAUSDAoEZGF0YRgEIAEoDCKGAQobRW50",
-            "aXR5VHJhbnNmb3JtU3luY1Jlc3BvbnNlEhEKCWVudGl0eV9pZBgBIAEoBRI0",
-            "Cgl0cmFuc2Zvcm0YAiABKAsyIS5Db21tb24uUHJvdG8uRW50aXR5Lk5ldFRy",
-            "YW5zZm9ybRIQCghzdGF0ZV9pZBgDIAEoBRIMCgRkYXRhGAQgASgMYgZwcm90",
-            "bzM="));
+            "CiBFbnRpdHkvRW50aXR5VHJhbnNmb3JtU3luYy5wcm90bxIWQ29tbW9uLlBy",
+            "b3RvLkV2ZW50TGlrZRoZRW50aXR5L05ldFRyYW5zZm9ybS5wcm90byKFAQoa",
+            "RW50aXR5VHJhbnNmb3JtU3luY1JlcXVlc3QSEQoJZW50aXR5X2lkGAEgASgF",
+            "EjQKCXRyYW5zZm9ybRgCIAEoCzIhLkNvbW1vbi5Qcm90by5FbnRpdHkuTmV0",
+            "VHJhbnNmb3JtEhAKCHN0YXRlX2lkGAMgASgFEgwKBGRhdGEYBCABKAwihgEK",
+            "G0VudGl0eVRyYW5zZm9ybVN5bmNSZXNwb25zZRIRCgllbnRpdHlfaWQYASAB",
+            "KAUSNAoJdHJhbnNmb3JtGAIgASgLMiEuQ29tbW9uLlByb3RvLkVudGl0eS5O",
+            "ZXRUcmFuc2Zvcm0SEAoIc3RhdGVfaWQYAyABKAUSDAoEZGF0YRgEIAEoDGIG",
+            "cHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Entity.NetTransformReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.EntityTransformSyncRequest), global::Common.Proto.Event.EntityTransformSyncRequest.Parser, new[]{ "EntityId", "Transform", "StateId", "Data" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Event.EntityTransformSyncResponse), global::Common.Proto.Event.EntityTransformSyncResponse.Parser, new[]{ "EntityId", "Transform", "StateId", "Data" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.EventLike.EntityTransformSyncRequest), global::Common.Proto.EventLike.EntityTransformSyncRequest.Parser, new[]{ "EntityId", "Transform", "StateId", "Data" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.EventLike.EntityTransformSyncResponse), global::Common.Proto.EventLike.EntityTransformSyncResponse.Parser, new[]{ "EntityId", "Transform", "StateId", "Data" }, null, null, null, null)
           }));
     }
     #endregion
@@ -58,7 +58,7 @@ namespace Common.Proto.Event {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Event.EntityTransformSyncReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Common.Proto.EventLike.EntityTransformSyncReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -367,7 +367,7 @@ namespace Common.Proto.Event {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Event.EntityTransformSyncReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Common.Proto.EventLike.EntityTransformSyncReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
