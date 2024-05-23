@@ -1,7 +1,5 @@
-using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace MMORPG.Game
 {
@@ -112,7 +110,7 @@ namespace MMORPG.Game
 
         public void ShootStart()
         {
-            if (CurrentWeapon == null || CurrentWeapon.FSM.CurrentStateId != WeaponStates.Idle)
+            if (CurrentWeapon == null)
             {
                 return;
             }
