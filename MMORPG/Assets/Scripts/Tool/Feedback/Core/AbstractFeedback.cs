@@ -40,13 +40,13 @@ namespace MMORPG.Tool
             public CheckModes CheckMode = CheckModes.OnStart;
             public bool Negative;
             [HideLabel]
-            public UnityValueGetter<bool> Getter = new();
+            public UnityValueGetter<bool> Getter;
         }
 
         [FoldoutGroup("Feedback Settings")]
         public bool Enable = true;
         [FoldoutGroup("Feedback Settings")]
-        public string Label = "Feedback";
+        public string Label;
 
         [FoldoutGroup("Feedback Settings")]
         [Title("Time")]
@@ -70,7 +70,10 @@ namespace MMORPG.Tool
 
         [FoldoutGroup("Feedback Settings")]
         [Title("Enable Condition")]
+        public bool ActiveEnableCheck = false;
+        [FoldoutGroup("Feedback Settings")]
         [HideReferenceObjectPicker]
+        [EnableIf("ActiveEnableCheck")]
         public Condition DisableIf = new();
 
         public FeedbacksManager Owner { get; private set; }
@@ -83,6 +86,30 @@ namespace MMORPG.Tool
 
         private List<Coroutine> _feedbackPlayCoroutines;
         private List<Coroutine> _durationCoroutineList;
+
+        public virtual void Awake()
+        {
+            if (ActiveEnableCheck && DisableIf.CheckMode == Condition.CheckModes.OnAwake)
+            {
+                CheckEnable();
+            }
+        }
+
+        public virtual void Start()
+        {
+            if (ActiveEnableCheck && DisableIf.CheckMode == Condition.CheckModes.OnStart)
+            {
+                CheckEnable();
+            }
+        }
+
+        public virtual void Update()
+        {
+            if (ActiveEnableCheck && DisableIf.CheckMode == Condition.CheckModes.OnUpdate)
+            {
+                CheckEnable();
+            }
+        }
 
         public virtual void Reset()
         {
@@ -133,6 +160,9 @@ namespace MMORPG.Tool
 
             _durationCoroutineList ??= new();
             _feedbackPlayCoroutines ??= new();
+
+            if(ActiveEnableCheck)
+                DisableIf.Getter.Initialize();
 
             OnFeedbackInit();
         }
@@ -207,6 +237,17 @@ namespace MMORPG.Tool
         protected void StopAllCoroutine()
         {
             Owner.CoroutineHelper.StopAllCoroutines();
+        }
+
+        protected virtual void CheckEnable()
+        {
+            if (ActiveEnableCheck)
+            {
+                var b = DisableIf.Getter.GetValue();
+                if (DisableIf.Negative)
+                    b = !b;
+                Enable = b;
+            }
         }
 
 #if UNITY_EDITOR
