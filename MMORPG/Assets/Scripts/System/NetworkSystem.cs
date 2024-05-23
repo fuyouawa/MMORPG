@@ -16,10 +16,10 @@ namespace MMORPG.System
 {
     public interface INetworkSystem : ISystem
     {
-        public delegate void ReceivedEventHandler<in TMessage>(TMessage response) where TMessage : class, IMessage;
+        public delegate void ReceivedEventLikeEventHandler<in TMessage>(TMessage response) where TMessage : class, IMessage;
 
-        public IUnRegister ReceiveEvent<TMessage>(ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage;
-        public IUnRegister ReceiveEventInUnityThread<TMessage>(ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage;
+        public IUnRegister ReceiveEventLike<TMessage>(ReceivedEventLikeEventHandler<TMessage> onReceived) where TMessage : class, IMessage;
+        public IUnRegister ReceiveEventLikeInUnityThread<TMessage>(ReceivedEventLikeEventHandler<TMessage> onReceived) where TMessage : class, IMessage;
 
         public Task ConnectAsync();
         public void Close();
@@ -32,7 +32,7 @@ namespace MMORPG.System
     public class NetworkSystem : AbstractSystem, INetworkSystem
     {
         private NetSession _session;
-        private Dictionary<Type, Delegate> _eventMsgHandlers = new();
+        private Dictionary<Type, Delegate> _eventLikeMessageHandlers = new();
 
         ////TODO 高水位处理
         private LinkedList<IMessage> _messageList = new();
@@ -77,9 +77,9 @@ namespace MMORPG.System
         private void OnPacketReceived(object sender, PacketReceivedEventArgs e)
         {
             var msgType = e.Packet.Message.GetType();
-            if (ProtoManager.IsEvent(msgType))
+            if (ProtoManager.IsEventLike(msgType))
             {
-                _eventMsgHandlers[msgType]?.DynamicInvoke(new object[] { e.Packet.Message });
+                _eventLikeMessageHandlers[msgType]?.DynamicInvoke(new object[] { e.Packet.Message });
             }
             else
             {
@@ -123,26 +123,26 @@ namespace MMORPG.System
             Close();
         }
 
-        public IUnRegister ReceiveEvent<TMessage>(ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage
+        public IUnRegister ReceiveEventLike<TMessage>(ReceivedEventLikeEventHandler<TMessage> onReceived) where TMessage : class, IMessage
         {
             var type = typeof(TMessage);
-            _eventMsgHandlers.TryAdd(type, null);
-            _eventMsgHandlers[type] = (_eventMsgHandlers[type] as ReceivedEventHandler<TMessage>) + onReceived;
+            _eventLikeMessageHandlers.TryAdd(type, null);
+            _eventLikeMessageHandlers[type] = (_eventLikeMessageHandlers[type] as ReceivedEventLikeEventHandler<TMessage>) + onReceived;
             return new CustomUnRegister(() => UnReceiveEvent(onReceived));
         }
 
-        public IUnRegister ReceiveEventInUnityThread<TMessage>(ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage
+        public IUnRegister ReceiveEventLikeInUnityThread<TMessage>(ReceivedEventLikeEventHandler<TMessage> onReceived) where TMessage : class, IMessage
         {
-            return ReceiveEvent<TMessage>(x =>
+            return ReceiveEventLike<TMessage>(x =>
                 UnityMainThreadDispatcher.Instance().Enqueue(() => onReceived(x))
             );
         }
 
-        private void UnReceiveEvent<TMessage>(ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage
+        private void UnReceiveEvent<TMessage>(ReceivedEventLikeEventHandler<TMessage> onReceived) where TMessage : class, IMessage
         {
             var type = typeof(TMessage);
-            Debug.Assert(_eventMsgHandlers.ContainsKey(type));
-            _eventMsgHandlers[type] = (_eventMsgHandlers[type] as ReceivedEventHandler<TMessage>) - onReceived;
+            Debug.Assert(_eventLikeMessageHandlers.ContainsKey(type));
+            _eventLikeMessageHandlers[type] = (_eventLikeMessageHandlers[type] as ReceivedEventLikeEventHandler<TMessage>) - onReceived;
         }
 
         public void Close()
