@@ -22,7 +22,7 @@ namespace MMORPG.Game
 
         public Weapon CurrentWeapon => Weapons[CurrentWeaponIndex];
 
-        public PlayerBrain OwnerBrain { get; private set; }
+        public CharacterController Owner { get; private set; }
 
         private float _timeSinceComboFinished = -float.MaxValue;
         private float _timeSinceLastWeaponStopped = -float.MaxValue;
@@ -46,14 +46,11 @@ namespace MMORPG.Game
             {
                 x.OnWeaponStarted += OnWeaponStarted;
                 x.OnWeaponStopped += OnWeaponStopped;
+                x.OnWeaponTryInterrupt += OnWeaponTryInterrupt;
             });
-            OwnerBrain = Weapons[0].Brain;
-            Debug.Assert(OwnerBrain != null);
-            if (OwnerBrain.IsMine)
-            {
-                OwnerBrain.InputControls.Player.Fire.started += OnFireStarted;
-            }
-            OwnerBrain.HandleWeapon.OnWeaponChanged += OnWeaponChanged;
+            Owner = Weapons[0].Owner;
+            Debug.Assert(Owner != null);
+            Owner.HandleWeapon.OnWeaponChanged += OnWeaponChanged;
         }
 
         private void Update()
@@ -78,7 +75,7 @@ namespace MMORPG.Game
                 {
                     _inCombo = false;
                     CurrentWeaponIndex = 0;
-                    OwnerBrain.HandleWeapon.ChangeWeapon(CurrentWeapon, true);
+                    Owner.HandleWeapon.ChangeWeapon(CurrentWeapon, true);
                 }
             }
 
@@ -98,7 +95,7 @@ namespace MMORPG.Game
             ProceedToNextCombo();
         }
 
-        protected virtual void OnFireStarted(InputAction.CallbackContext obj)
+        protected virtual void OnWeaponTryInterrupt(Weapon weapon)
         {
             if (Weapons.Length > 1)
             {
@@ -111,7 +108,7 @@ namespace MMORPG.Game
 
         protected virtual void ProceedToNextCombo()
         {
-            Debug.Assert(OwnerBrain == CurrentWeapon.Brain);
+            Debug.Assert(Owner == CurrentWeapon.Owner);
 
             if (Weapons.Length > 1)
             {
@@ -132,7 +129,7 @@ namespace MMORPG.Game
                 _timeSinceLastWeaponStopped = Time.time;
 
                 CurrentWeaponIndex = newIndex;
-                OwnerBrain.HandleWeapon.ChangeWeapon(CurrentWeapon, true);
+                Owner.HandleWeapon.ChangeWeapon(CurrentWeapon, true);
             }
         }
     }

@@ -8,7 +8,7 @@ using UnityEngine.Events;
 namespace MMORPG.Tool
 {
     [AddFeedbackMenu("Area/Damage Area")]
-    public class FeedbackDamageArea : Feedback
+    public class FeedbackDamageArea : AbstractFeedback
     {
         public enum DamageAreaShapes { Box, Sphere }
         public enum DamageAreaModes { Generated, Existing }
@@ -186,6 +186,10 @@ namespace MMORPG.Tool
         protected override void OnFeedbackPlay()
         {
             StartCoroutine(ProcessDamageCo());
+        }
+
+        protected override void OnFeedbackStop()
+        {
         }
 
         protected virtual IEnumerator ProcessDamageCo()

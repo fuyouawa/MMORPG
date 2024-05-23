@@ -11,7 +11,7 @@ namespace MMORPG.Game
         RightHand
     }
 
-    public class PlayerHandleWeapon : MonoBehaviour
+    public class CharacterHandleWeapon : MonoBehaviour
     {
         [Title("Weapon")]
         [AssetsOnly]
@@ -29,7 +29,7 @@ namespace MMORPG.Game
         public delegate void WeaponChangedHandler(Weapon current, Weapon previous);
         public event WeaponChangedHandler OnWeaponChanged;
 
-        public PlayerBrain Brain { get; private set; }
+        public CharacterController Owner { get; private set; }
 
         [Button]
         private void UpdateWeaponAttachmentTransform()
@@ -52,10 +52,6 @@ namespace MMORPG.Game
 
         private void Start()
         {
-            if (Brain.IsMine)
-            {
-                Brain.InputControls.Player.Fire.started += OnFireStarted;
-            }
             if (InitialWeapon)
             {
                 ChangeWeapon(InitialWeapon);
@@ -67,9 +63,9 @@ namespace MMORPG.Game
             UpdateWeaponAttachmentTransform();
         }
 
-        public void Setup(PlayerBrain brain)
+        public void Setup(CharacterController owner)
         {
-            Brain = brain;
+            Owner = owner;
         }
 
         public void ChangeWeapon(Weapon newWeapon, bool combo = false)
@@ -109,17 +105,18 @@ namespace MMORPG.Game
             }
             CurrentWeapon.transform.parent = WeaponAttachment.transform;
             CurrentWeapon.transform.localPosition = newWeapon.WeaponAttachmentOffset;
-            CurrentWeapon.Setup(Brain);
+            CurrentWeapon.Setup(Owner);
             if (!CurrentWeapon.InitializeOnStart)
                 CurrentWeapon.Initialize();
         }
 
-        private void OnFireStarted(InputAction.CallbackContext obj)
+        public void ShootStart()
         {
-            if (CurrentWeapon.FSM.CurrentStateId is WeaponStates.Idle)
+            if (CurrentWeapon == null || CurrentWeapon.FSM.CurrentStateId != WeaponStates.Idle)
             {
-                CurrentWeapon.WeaponInputStart();
+                return;
             }
+            CurrentWeapon.WeaponInputStart();
         }
     }
 }

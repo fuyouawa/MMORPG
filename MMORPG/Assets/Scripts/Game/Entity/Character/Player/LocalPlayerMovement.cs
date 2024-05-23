@@ -21,19 +21,16 @@ namespace MMORPG.Game
 
         public override void OnStateInit()
         {
+            Brain.AnimationController.EnableAnimatorMove();
         }
 
         public override void OnStateEnter()
         {
-            Brain.AnimationController.EnableAnimatorMove();
         }
 
         public override void OnStateUpdate()
         {
-            if (!Brain.PreventMovement)
-            {
-                ControlMove();
-            }
+            ControlMove();
         }
 
         public override void OnStateNetworkFixedUpdate()
