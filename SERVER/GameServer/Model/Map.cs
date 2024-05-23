@@ -1,20 +1,11 @@
 ﻿using Aoi;
 using Common.Proto.Entity;
-using Common.Proto.Event;
-using Common.Proto.Event.Map;
-using GameServer.Db;
+using Common.Proto.EventLike;
+using Common.Proto.EventLike.Map;
 using GameServer.Manager;
 using GameServer.Tool;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using Google.Protobuf;
-using Ubiety.Dns.Core;
 
 namespace GameServer.Model
 {

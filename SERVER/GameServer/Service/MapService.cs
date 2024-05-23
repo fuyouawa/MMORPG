@@ -1,17 +1,6 @@
 ﻿using Common.Network;
-using Common.Proto.Player;
-using Common.Proto.Event.Map;
-using GameServer.Manager;
-using GameServer.Model;
 using GameServer.Network;
-using GameServer.Tool;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Common.Proto.Event;
-using Serilog;
+using Common.Proto.EventLike;
 
 namespace Service
 {

@@ -53,7 +53,7 @@ namespace MMORPG.Tool
             Owner = owner;
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (!TryGetComponent(out FeedbacksCoroutineHelper coroutineHelper))
             {
@@ -64,14 +64,18 @@ namespace MMORPG.Tool
             {
                 Initialize();
             }
+
+            Feedbacks.ForEach(x => x.Awake());
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             if (InitializationMode == InitializationModes.Start)
             {
                 Initialize();
             }
+
+            Feedbacks.ForEach(x => x.Start());
 
             if (AutoPlayOnStart)
             {
@@ -79,7 +83,12 @@ namespace MMORPG.Tool
             }
         }
 
-        private void OnEnable()
+        protected virtual void Update()
+        {
+            Feedbacks.ForEach(x => x.Update());
+        }
+
+        protected virtual void OnEnable()
         {
             if (AutoPlayOnEnable)
             {
@@ -87,7 +96,7 @@ namespace MMORPG.Tool
             }
         }
 
-        public void Play()
+        public virtual void Play()
         {
             if (!IsInitialized && AutoInitialization)
             {
@@ -102,7 +111,7 @@ namespace MMORPG.Tool
             Feedbacks?.ForEach(x => x.Play());
         }
 
-        public void Stop()
+        public virtual void Stop()
         {
             Debug.Assert(IsInitialized);
             Feedbacks?.ForEach(x => x.Stop());

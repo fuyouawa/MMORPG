@@ -1,17 +1,7 @@
-﻿using Common.Proto.Entity;
-using Common.Proto.Event;
-using Common.Proto.Event.Map;
+﻿using Common.Proto.EventLike;
 using GameServer.Ai;
-using GameServer.Manager;
-using GameServer.System;
 using GameServer.Tool;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace GameServer.Model
 {
