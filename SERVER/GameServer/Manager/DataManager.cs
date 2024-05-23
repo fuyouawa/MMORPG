@@ -18,7 +18,7 @@ namespace GameServer.Manager
         public Dictionary<int, ItemDefine> ItemDict;
         public Dictionary<int, SkillDefine> SkillDict;
 
-        DataManager() { }
+        private DataManager() { }
 
         public void Init()
         {

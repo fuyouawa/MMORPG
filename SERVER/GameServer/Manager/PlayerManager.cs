@@ -42,7 +42,6 @@ namespace GameServer.Manager
                 UnitId = unitId,
                 Position = pos,
                 Direction = dire,
-                ViewRange = Player.DefaultViewRange,
                 Speed = 5,
             };
             EntityManager.Instance.AddEntity(player);
@@ -97,6 +96,11 @@ namespace GameServer.Manager
                     Log.Debug($"响应{sender.EntityId}的同步请求, 广播给:{player.EntityId}");
                 }
             }
+        }
+
+        public void Update()
+        {
+
         }
     }
 }
