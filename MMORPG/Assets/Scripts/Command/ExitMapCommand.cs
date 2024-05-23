@@ -1,4 +1,4 @@
-using Common.Proto.Event.Map;
+using Common.Proto.EventLike.Map;
 using MMORPG.Event;
 using MMORPG.Model;
 using MMORPG.System;
