@@ -14,8 +14,8 @@ namespace MMORPG.Game
         public float MoveSwitchVelocity = 3f;
 
         [Title("Feedbacks")]
-        public FeedbackManager WalkingFeedbacks;
-        public FeedbackManager RunningFeedbacks;
+        public FeedbacksManager WalkingFeedbacks;
+        public FeedbacksManager RunningFeedbacks;
 
         [Title("Animation Speed")]
         [ShowInInspector]
@@ -54,6 +54,9 @@ namespace MMORPG.Game
 
         private AnimatorMachine _machine;
         public Animator Animator { get; private set; }
+
+        [SerializeField]
+        [ReadOnly]
         private bool _animatorMove = true;
 
 

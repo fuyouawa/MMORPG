@@ -18,13 +18,29 @@ namespace MMORPG.Tool
         }
     }
 
-    public abstract class Feedback
+    public abstract class AbstractFeedback
     {
         public enum InitializeModes
         {
             Awake,
             Start,
             FirstPlay
+        }
+
+        [Serializable]
+        public class Condition
+        {
+            public enum CheckModes
+            {
+                OnAwake,
+                OnStart,
+                OnUpdate
+            }
+
+            public CheckModes CheckMode = CheckModes.OnStart;
+            public bool Negative;
+            [HideLabel]
+            public UnityValueGetter<bool> Getter = new();
         }
 
         [FoldoutGroup("Feedback Settings")]
@@ -53,10 +69,11 @@ namespace MMORPG.Tool
         public float DelayBetweenLoop = 0f;
 
         [FoldoutGroup("Feedback Settings")]
+        [Title("Enable Condition")]
         [HideReferenceObjectPicker]
-        public UnityValueGetter<bool> EnableIf;
+        public Condition DisableIf = new();
 
-        public FeedbackManager Owner { get; private set; }
+        public FeedbacksManager Owner { get; private set; }
         public bool IsPlaying { get; private set; }
 
         public Transform Transform => Owner.transform;
@@ -102,7 +119,7 @@ namespace MMORPG.Tool
             OnFeedbackStop();
         }
 
-        public virtual void Setup(FeedbackManager owner)
+        public virtual void Setup(FeedbacksManager owner)
         {
             Owner = owner;
         }
@@ -161,9 +178,9 @@ namespace MMORPG.Tool
 
         protected virtual void OnFeedbackReset() { }
 
-        protected virtual void OnFeedbackPlay() { }
+        protected abstract void OnFeedbackPlay();
 
-        protected virtual void OnFeedbackStop() { }
+        protected abstract void OnFeedbackStop();
 
         public virtual void OnDestroy() {}
 

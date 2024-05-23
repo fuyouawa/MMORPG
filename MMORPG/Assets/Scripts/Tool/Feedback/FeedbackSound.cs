@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 namespace MMORPG.Tool
 {
     [AddFeedbackMenu("Audio/Sound")]
-    public class FeedbackSound : Feedback
+    public class FeedbackSound : AbstractFeedback
     {
 
         public enum PlayMethods { Cached, OnDemand, Pool }

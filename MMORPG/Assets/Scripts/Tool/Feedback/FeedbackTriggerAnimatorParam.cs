@@ -7,7 +7,7 @@ using UnityEngine;
 namespace MMORPG.Tool
 {
     [AddFeedbackMenu("Animator/Trigger Parameter")]
-    public class FeedbackTriggerAnimatorParam : Feedback
+    public class FeedbackTriggerAnimatorParam : AbstractFeedback
     {
         [FoldoutGroup("Trigger Param")]
         [Required]
@@ -54,6 +54,10 @@ namespace MMORPG.Tool
             {
                 StartCoroutine(TriggerLikeBoolCo());
             }
+        }
+
+        protected override void OnFeedbackStop()
+        {
         }
 
         protected virtual IEnumerator TriggerLikeBoolCo()

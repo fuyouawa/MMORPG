@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Reflection;
 
 namespace MMORPG.Tool
 {
@@ -47,5 +49,15 @@ namespace MMORPG.Tool
         //     if (type.IsValueType)
         //         return 
         // }
+
+        public static bool HasAttribute<T>(this MethodInfo method, bool inherit = false) where T : Attribute
+        {
+            return method.GetCustomAttributes(typeof(T), inherit).Any();
+        }
+
+        public static bool HasAttribute<T>(this Type type, bool inherit = false) where T : Attribute
+        {
+            return type.GetCustomAttributes(typeof(T), inherit).Any();
+        }
     }
 }

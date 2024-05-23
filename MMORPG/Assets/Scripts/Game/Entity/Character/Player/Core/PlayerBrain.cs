@@ -7,6 +7,7 @@ using MMORPG.Tool;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace MMORPG.Game
 {
@@ -16,8 +17,6 @@ namespace MMORPG.Game
         public CharacterController CharacterController;
         [Required]
         public PlayerAnimationController AnimationController;
-
-        public PlayerHandleWeapon HandleWeapon;
 
 #if UNITY_EDITOR
         [SerializeField]
@@ -38,8 +37,6 @@ namespace MMORPG.Game
 
         [Title("Binding")]
         public GameObject[] AdditionalAbilityNodes;
-        [Space]
-        public GameObject[] FeedbackNodes;
 
         public GameInputControls InputControls { get; private set; }
 
@@ -47,22 +44,10 @@ namespace MMORPG.Game
 
         public RemotePlayerAbility[] GetAttachRemoteAbilities() => GetAttachAbilities<RemotePlayerAbility>();
 
-        public FeedbackManager[] GetAttachFeedbacks()
-        {
-            if (FeedbackNodes.IsNullOrEmpty())
-                return Array.Empty<FeedbackManager>();
-
-            var total = new List<FeedbackManager>();
-            FeedbackNodes.ForEach(x => total.AddRange(x.GetComponentsInChildren<FeedbackManager>()));
-            return total.ToArray();
-        }
-
         public Vector2 GetMoveInput() => InputControls.Player.Move.ReadValue<Vector2>();
         public bool IsPressingRun() => InputControls.Player.Run.inProgress;
 
         public bool IsMine => CharacterController.Entity.IsMine;
-
-        public bool PreventMovement = false;
 
         private TAbility[] GetAttachAbilities<TAbility>() where TAbility : PlayerAbility
         {
@@ -104,7 +89,6 @@ namespace MMORPG.Game
             }
 #endif
             AnimationController.Setup(this);
-            HandleWeapon?.Setup(this);
             CurrentState = null;
             if (States.Length == 0) return;
             CharacterController.Entity.OnTransformSync += OnTransformEntitySync;
@@ -129,11 +113,18 @@ namespace MMORPG.Game
             {
                 InputControls = new();
                 InputControls.Enable();
+
+                InputControls.Player.Fire.started += OnFireStarted;
             }
             if (States.IsNullOrEmpty()) return;
             InitStates();
             ChangeState(States[0]);
             StartCoroutine(NetworkFixedUpdate());
+        }
+
+        private void OnFireStarted(InputAction.CallbackContext obj)
+        {
+            CharacterController.HandleWeapon.ShootStart();
         }
 
         private void Update()

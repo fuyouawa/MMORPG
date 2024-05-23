@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 namespace MMORPG.Tool
 {
     [AddFeedbackMenu("Particle/ParticlePlay")]
-    public class FeedbackParticlePlay : Feedback
+    public class FeedbackParticlePlay : AbstractFeedback
     {
         public enum Modes { Play, Stop, Pause, Emit }
 

@@ -70,7 +70,7 @@ namespace MMORPG.Game
                 LocalAbility.OwnerState = OwnerState;
                 LocalAbility.Brain = OwnerState.Brain;
                 LocalAbility.OwnerStateId = OwnerStateId;
-                LocalAbility.EnterAbilityFeedback?.Play();
+                LocalAbility.EnterAbilityFeedbacks?.Play();
                 LocalAbility.OnStateEnter();
             }
             else
@@ -78,7 +78,7 @@ namespace MMORPG.Game
                 RemoteAbility.OwnerState = OwnerState;
                 RemoteAbility.Brain = OwnerState.Brain;
                 RemoteAbility.OwnerStateId = OwnerStateId;
-                RemoteAbility.EnterAbilityFeedback?.Play();
+                RemoteAbility.EnterAbilityFeedbacks?.Play();
                 RemoteAbility.OnStateEnter();
             }
         }
@@ -115,12 +115,12 @@ namespace MMORPG.Game
             AssertCheck();
             if (IsMine)
             {
-                LocalAbility.ExitAbilityFeedback?.Play();
+                LocalAbility.ExitAbilityFeedbacks?.Play();
                 LocalAbility.OnStateExit();
             }
             else
             {
-                RemoteAbility.ExitAbilityFeedback?.Play();
+                RemoteAbility.ExitAbilityFeedbacks?.Play();
                 RemoteAbility.OnStateExit();
             }
         }

@@ -111,8 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2873ee7a448c43042ba84f770c2cee3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnterAbilityFeedback: {fileID: 0}
-  ExitAbilityFeedback: {fileID: 0}
+  EnterAbilityFeedbacks: {fileID: 0}
+  ExitAbilityFeedbacks: {fileID: 0}
 --- !u!114 &5991820956586231828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,8 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f79b878922d36ba4fb4ca47491c1e0cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnterAbilityFeedback: {fileID: 0}
-  ExitAbilityFeedback: {fileID: 0}
+  EnterAbilityFeedbacks: {fileID: 0}
+  ExitAbilityFeedbacks: {fileID: 0}
 --- !u!1 &284044486536489920
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +214,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: Feedbacks
       Entry: 7
-      Data: 0|MMORPG.Tool.Feedback[], Assembly-CSharp
+      Data: 0|MMORPG.Tool.AbstractFeedback[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -242,7 +242,7 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
-    - Name: EnableIf
+    - Name: DisableIf
       Entry: 6
       Data: 
     - Name: Sfx
@@ -5859,8 +5859,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af74f38f0a0b0cf47b49e47f62e2336d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnterAbilityFeedback: {fileID: 0}
-  ExitAbilityFeedback: {fileID: 0}
+  EnterAbilityFeedbacks: {fileID: 0}
+  ExitAbilityFeedbacks: {fileID: 0}
 --- !u!114 &5844382415902207706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5873,8 +5873,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9185e79d9210d06409b54f4a5a90294f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnterAbilityFeedback: {fileID: 0}
-  ExitAbilityFeedback: {fileID: 0}
+  EnterAbilityFeedbacks: {fileID: 0}
+  ExitAbilityFeedbacks: {fileID: 0}
   BackIdleThreshold: 0.5
 --- !u!1 &2031200277136639676
 GameObject:
@@ -5950,7 +5950,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6292130008949261289}
   - component: {fileID: 7091071014800430655}
-  - component: {fileID: 6871216913282456529}
   m_Layer: 7
   m_Name: Brain
   m_TagString: Untagged
@@ -5989,7 +5988,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterController: {fileID: 224805171054128564}
   AnimationController: {fileID: 4954828431879033574}
-  HandleWeapon: {fileID: 6871216913282456529}
   _currentStateName: NONE
   States:
   - Name: Idle
@@ -6027,26 +6025,6 @@ MonoBehaviour:
   AdditionalAbilityNodes:
   - {fileID: 1952149207982524674}
   - {fileID: 171388820641581816}
-  FeedbackNodes:
-  - {fileID: 6877277931194703591}
-  PreventMovement: 0
---- !u!114 &6871216913282456529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2171411346159416896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b33450dc9d26be4db1fca6f8d22500a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitialWeapon: {fileID: 4583171314925258674, guid: 1ca1a09e06a19cd4890490ec6b00937d, type: 3}
-  WeaponAttachment: {fileID: 890314551262170839}
-  HandleMode: 1
-  LeftHandTarget: {fileID: 0}
-  RightHandTarget: {fileID: 884816792351515745}
 --- !u!1 &2310682434579117045
 GameObject:
   m_ObjectHideFlags: 0
@@ -80784,7 +80762,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: Feedbacks
       Entry: 7
-      Data: 0|MMORPG.Tool.Feedback[], Assembly-CSharp
+      Data: 0|MMORPG.Tool.AbstractFeedback[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 4
@@ -80812,7 +80790,7 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
-    - Name: EnableIf
+    - Name: DisableIf
       Entry: 6
       Data: 
     - Name: Mode
@@ -80890,7 +80868,7 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
-    - Name: EnableIf
+    - Name: DisableIf
       Entry: 6
       Data: 
     - Name: Sfx
@@ -81007,7 +80985,7 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
-    - Name: EnableIf
+    - Name: DisableIf
       Entry: 6
       Data: 
     - Name: TargetAnimator
@@ -81058,17 +81036,8 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
-    - Name: EnableIf
-      Entry: 7
-      Data: 8|MMORPG.Tool.UnityValueGetter`1[[System.Boolean, mscorlib]], Assembly-CSharp
-    - Name: _targetGameObject
-      Entry: 10
-      Data: 3
-    - Name: _memberName
-      Entry: 1
-      Data: EntityView/IsMine
-    - Name: 
-      Entry: 8
+    - Name: DisableIf
+      Entry: 6
       Data: 
     - Name: DamageAreaMode
       Entry: 3
@@ -81150,7 +81119,7 @@ MonoBehaviour:
       Data: true
     - Name: IgnoredGameObjects
       Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
+      Data: 8|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
         mscorlib
     - Name: 
       Entry: 12
@@ -106127,6 +106096,7 @@ GameObject:
   - component: {fileID: 9049836981437204500}
   - component: {fileID: 224805171054128564}
   - component: {fileID: 6532541089558292842}
+  - component: {fileID: 6349372569880267187}
   m_Layer: 7
   m_Name: HeroKnightMale Melee
   m_TagString: Untagged
@@ -106263,6 +106233,8 @@ MonoBehaviour:
   RotationSmooth: 10
   MoveSmooth: 10
   Animator: {fileID: 1201144034948401517}
+  HandleWeapon: {fileID: 6349372569880267187}
+  PreventMovement: 0
 --- !u!114 &6532541089558292842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106276,6 +106248,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Entity: {fileID: 9049836981437204500}
+--- !u!114 &6349372569880267187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6023422151166410460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b33450dc9d26be4db1fca6f8d22500a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialWeapon: {fileID: 4583171314925258674, guid: 1ca1a09e06a19cd4890490ec6b00937d, type: 3}
+  WeaponAttachment: {fileID: 890314551262170839}
+  HandleMode: 1
+  LeftHandTarget: {fileID: 0}
+  RightHandTarget: {fileID: 884816792351515745}
 --- !u!1 &6072385525174587162
 GameObject:
   m_ObjectHideFlags: 0
@@ -106396,7 +106385,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: Feedbacks
       Entry: 7
-      Data: 0|MMORPG.Tool.Feedback[], Assembly-CSharp
+      Data: 0|MMORPG.Tool.AbstractFeedback[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
@@ -106424,7 +106413,7 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
-    - Name: EnableIf
+    - Name: DisableIf
       Entry: 6
       Data: 
     - Name: Sfx
@@ -106589,7 +106578,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: Feedbacks
       Entry: 7
-      Data: 0|MMORPG.Tool.Feedback[], Assembly-CSharp
+      Data: 0|MMORPG.Tool.AbstractFeedback[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 4
@@ -106617,7 +106606,7 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
-    - Name: EnableIf
+    - Name: DisableIf
       Entry: 6
       Data: 
     - Name: Mode
@@ -106695,7 +106684,7 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
-    - Name: EnableIf
+    - Name: DisableIf
       Entry: 6
       Data: 
     - Name: Sfx
@@ -106812,8 +106801,29 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
-    - Name: EnableIf
-      Entry: 6
+    - Name: DisableIf
+      Entry: 7
+      Data: 6|MMORPG.Tool.AbstractFeedback+Condition, Assembly-CSharp
+    - Name: CheckMode
+      Entry: 3
+      Data: 1
+    - Name: Negative
+      Entry: 5
+      Data: true
+    - Name: Getter
+      Entry: 7
+      Data: MMORPG.Tool.UnityValueGetter`1[[System.Boolean, mscorlib]], Assembly-CSharp
+    - Name: _targetGameObject
+      Entry: 10
+      Data: 2
+    - Name: _memberPath
+      Entry: 1
+      Data: EntityView/IsMine
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: DamageAreaMode
       Entry: 3
@@ -106895,7 +106905,7 @@ MonoBehaviour:
       Data: true
     - Name: IgnoredGameObjects
       Entry: 7
-      Data: 6|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
+      Data: 7|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
         mscorlib
     - Name: 
       Entry: 12
@@ -106923,7 +106933,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 7|MMORPG.Tool.FeedbackTriggerAnimatorParam, Assembly-CSharp
+      Data: 8|MMORPG.Tool.FeedbackTriggerAnimatorParam, Assembly-CSharp
     - Name: Enable
       Entry: 5
       Data: true
@@ -106945,17 +106955,8 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
-    - Name: EnableIf
-      Entry: 7
-      Data: 8|MMORPG.Tool.UnityValueGetter`1[[System.Boolean, mscorlib]], Assembly-CSharp
-    - Name: _targetGameObject
-      Entry: 10
-      Data: 2
-    - Name: _memberName
-      Entry: 1
-      Data: EntityView/IsMine
-    - Name: 
-      Entry: 8
+    - Name: DisableIf
+      Entry: 6
       Data: 
     - Name: TargetAnimator
       Entry: 10
@@ -112173,6 +112174,7 @@ MonoBehaviour:
   MoveSwitchVelocity: 3
   WalkingFeedbacks: {fileID: 4769104135306738409}
   RunningFeedbacks: {fileID: 2370554753991957036}
+  _animatorMove: 1
 --- !u!1 &7249225087750854683
 GameObject:
   m_ObjectHideFlags: 0
@@ -117685,7 +117687,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: Feedbacks
       Entry: 7
-      Data: 0|MMORPG.Tool.Feedback[], Assembly-CSharp
+      Data: 0|MMORPG.Tool.AbstractFeedback[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 4
@@ -117713,7 +117715,7 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
-    - Name: EnableIf
+    - Name: DisableIf
       Entry: 6
       Data: 
     - Name: Mode
@@ -117791,7 +117793,7 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
-    - Name: EnableIf
+    - Name: DisableIf
       Entry: 6
       Data: 
     - Name: Sfx
@@ -117908,7 +117910,7 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
-    - Name: EnableIf
+    - Name: DisableIf
       Entry: 6
       Data: 
     - Name: TargetAnimator
@@ -117959,17 +117961,8 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
-    - Name: EnableIf
-      Entry: 7
-      Data: 8|MMORPG.Tool.UnityValueGetter`1[[System.Boolean, mscorlib]], Assembly-CSharp
-    - Name: _targetGameObject
-      Entry: 10
-      Data: 3
-    - Name: _memberName
-      Entry: 1
-      Data: EntityView/IsMine
-    - Name: 
-      Entry: 8
+    - Name: DisableIf
+      Entry: 6
       Data: 
     - Name: DamageAreaMode
       Entry: 3
@@ -118051,7 +118044,7 @@ MonoBehaviour:
       Data: true
     - Name: IgnoredGameObjects
       Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
+      Data: 8|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
         mscorlib
     - Name: 
       Entry: 12

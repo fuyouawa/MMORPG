@@ -9,9 +9,7 @@ using UnityEngine;
 
 namespace MMORPG.Tool
 {
-    public class FeedbackCoroutineHelper : MonoBehaviour { }
-
-    public class FeedbackManager : SerializedMonoBehaviour
+    public class FeedbacksManager : SerializedMonoBehaviour
     {
         public enum InitializationModes { Script, Awake, Start }
         [FoldoutGroup("Settings")]
@@ -38,12 +36,12 @@ namespace MMORPG.Tool
         [LabelWidth(250)]
         [ValueDropdown("GetFeedbacksDropdown")]
         [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "GetLabel")]
-        public Feedback[] Feedbacks = Array.Empty<Feedback>();
+        public AbstractFeedback[] Feedbacks = Array.Empty<AbstractFeedback>();
 
         public GameObject Owner { get; private set; }
         public bool IsInitialized { get; private set; }
 
-        public FeedbackCoroutineHelper CoroutineHelper { get; private set; }
+        public FeedbacksCoroutineHelper CoroutineHelper { get; private set; }
 
         public bool CheckIsPlaying()
         {
@@ -57,9 +55,9 @@ namespace MMORPG.Tool
 
         private void Awake()
         {
-            if (!TryGetComponent(out FeedbackCoroutineHelper coroutineHelper))
+            if (!TryGetComponent(out FeedbacksCoroutineHelper coroutineHelper))
             {
-                coroutineHelper = gameObject.AddComponent<FeedbackCoroutineHelper>();
+                coroutineHelper = gameObject.AddComponent<FeedbacksCoroutineHelper>();
             }
             CoroutineHelper = coroutineHelper;
             if (InitializationMode == InitializationModes.Awake)
@@ -178,21 +176,21 @@ namespace MMORPG.Tool
 
         private static Type[] s_allFeedbackTypes;
 
-        static FeedbackManager()
+        static FeedbacksManager()
         {
             s_allFeedbackTypes = (from t in Assembly.GetExecutingAssembly().GetTypes()
-                where typeof(Feedback).IsAssignableFrom(t) && t != typeof(Feedback) && t.HasAttribute<AddFeedbackMenuAttribute>()
+                where typeof(AbstractFeedback).IsAssignableFrom(t) && t != typeof(AbstractFeedback) && t.HasAttribute<AddFeedbackMenuAttribute>()
                 select t).ToArray();
         }
 
         private IEnumerable GetFeedbacksDropdown()
         {
-            var total = new ValueDropdownList<Feedback>();
+            var total = new ValueDropdownList<AbstractFeedback>();
             foreach (var type in s_allFeedbackTypes)
             {
                 var attr = type.GetAttribute<AddFeedbackMenuAttribute>();
                 Debug.Assert(attr != null);
-                var inst = (Feedback)Activator.CreateInstance(type);
+                var inst = (AbstractFeedback)Activator.CreateInstance(type);
                 inst.Setup(this);
                 inst.Label = type.Name.StartsWith("Feedback") ? type.Name[8..] : type.Name;
                 total.Add(attr.Path, inst);
@@ -207,4 +205,5 @@ namespace MMORPG.Tool
         }
 #endif
     }
+    public class FeedbacksCoroutineHelper : MonoBehaviour { }
 }

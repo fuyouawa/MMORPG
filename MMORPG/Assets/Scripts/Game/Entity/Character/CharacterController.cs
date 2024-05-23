@@ -18,7 +18,11 @@ namespace MMORPG.Game
         [Required]
         public Animator Animator;
 
+        public CharacterHandleWeapon HandleWeapon;
+
         public bool IsMine => Entity.IsMine;
+
+        public bool PreventMovement = false;
 
         public Rigidbody Rigidbody { get; private set; }
         public CapsuleCollider Collider { get; private set; }
@@ -30,6 +34,8 @@ namespace MMORPG.Game
             _newtwork = this.GetSystem<INetworkSystem>();
             Rigidbody = GetComponent<Rigidbody>();
             Collider = GetComponent<CapsuleCollider>();
+
+            HandleWeapon?.Setup(this);
         }
 
         private void Update()
@@ -43,11 +49,13 @@ namespace MMORPG.Game
 
         public void SmoothMove(Vector3 position)
         {
+            if (PreventMovement) return;
             transform.position = Vector3.Lerp(transform.position, position, MoveSmooth * Time.deltaTime);
         }
 
         public void MoveDirection(Vector3 direction)
         {
+            if (PreventMovement) return;
             transform.position += direction;
         }
 

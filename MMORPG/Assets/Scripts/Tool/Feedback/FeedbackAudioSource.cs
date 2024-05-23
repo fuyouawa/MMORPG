@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 namespace MMORPG.Tool
 {
     [AddFeedbackMenu("Audio/Audio Source")]
-    public class FeedbackAudioSource : Feedback
+    public class FeedbackAudioSource : AbstractFeedback
     {
         public enum Modes { Play, Pause, UnPause, Stop }
 

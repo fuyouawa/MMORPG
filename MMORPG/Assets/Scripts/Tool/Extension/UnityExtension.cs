@@ -48,10 +48,6 @@ namespace MMORPG.Tool
 
         public static bool HasParam(this Animator animator, string name, AnimatorControllerParameterType typeCheck)
         {
-            foreach (var parameter in animator.parameters)
-            {
-                
-            }
             return animator.parameters.FirstOrDefault(x => x.name == name && x.type == typeCheck) != null;
         }
     }
