@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace GameServer.Tool
 {
-    public class Time
+    public static class Time
     {
-        private long _startTime = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
-        private long _lastTick = 0;
+        private static long _startTime = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
+        private static long _lastTick = 0;
 
         //TODO time命名
-        public float time { get; private set; }
-        public float DeltaTime { get; private set; }
+        public static float time { get; private set; }
+        public static float DeltaTime { get; private set; }
 
-        public void Tick()
+        public static void Tick()
         {
             var now = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
             time = (now - _startTime) * 0.001f;

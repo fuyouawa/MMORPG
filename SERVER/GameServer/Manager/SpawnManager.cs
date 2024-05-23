@@ -10,6 +10,7 @@ using GameServer.Tool;
 using Serilog;
 using Newtonsoft.Json;
 using System.Reflection.Metadata;
+using System.Data;
 
 namespace GameServer.Manager
 {
@@ -20,16 +21,21 @@ namespace GameServer.Manager
     {
         public SpawnManager SpawnManager;
         public SpawnDefine SpawnDefine;
+        public Monster? Monster;
 
         public Spawner(SpawnManager manager, SpawnDefine define)
         {
             SpawnManager = manager;
             SpawnDefine = define;
-            var pos = ParseVector3(define.Pos);
-            var dire = ParseVector3(define.Dir);
+        }
 
-            // 构造时不应该刷怪，这时Map还没构造完成，应该等到主动调用
-            SpawnManager.Map.MonsterManager.NewMonster(define.UnitID, pos, dire, DataHelper.GetUnitDefine(define.UnitID).Name);
+        public void Update()
+        {
+            if (Monster != null) return;
+            // 在这里就可以判断怪物是否死亡，复活倒计时等等
+            var pos = ParseVector3(SpawnDefine.Pos);
+            var dire = ParseVector3(SpawnDefine.Dir);
+            Monster = SpawnManager.Map.MonsterManager.NewMonster(SpawnDefine.UnitID, pos, dire, DataHelper.GetUnitDefine(SpawnDefine.UnitID).Name);
         }
 
         private Vector3 ParseVector3(string str)
@@ -60,11 +66,12 @@ namespace GameServer.Manager
             }
         }
 
-        private void Spawn()
+        public void Update()
         {
-
-
-            //_map.MonsterManager.NewMonster();
+            foreach (var rule in Rules)
+            {
+                rule.Update();
+            }
         }
     }
 }

@@ -24,17 +24,12 @@ namespace GameServer.Manager
         private int _serialNum = 0;
         private Dictionary<int, Entity> _entityDict = new();
 
-        public Tool.Time Time = new();
+        private EntityManager() { }
 
-        EntityManager() { }
-        public void Init()
-        {
-            CenterTimer.Instance.Register(100, UpdateAllEntity);
-        }
+        public void Init() { }
 
-        private void UpdateAllEntity()
+        public void Update()
         {
-            Time.Tick();
             foreach (Entity entity in _entityDict.Values)
             {
                 entity.Update();

@@ -32,7 +32,7 @@ namespace Service
         public void OnHandle(NetChannel sender, EntityTransformSyncRequest request)
         {
             //Log.Debug($"{request.EntityId}请求同步: Pos:{request.Transform.Position} | Id:{request.StateId}");
-            sender.User?.Player?.Map?.EntityTransformUpdate(request.EntityId, request.Transform, request.StateId, request.Data);
+            sender.User?.Player?.Map?.EntityTransformSync(request.EntityId, request.Transform, request.StateId, request.Data);
         }
 
     }

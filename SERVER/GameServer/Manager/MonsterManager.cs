@@ -33,7 +33,6 @@ namespace GameServer.Manager
                 UnitId = unitId,
                 Position = pos,
                 Direction = dire,
-                ViewRange = Monster.DefaultViewRange,
 
                 Speed = 5,
             };
