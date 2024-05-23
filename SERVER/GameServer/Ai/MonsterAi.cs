@@ -49,9 +49,9 @@ namespace GameServer.Ai
             public Random Random = new();
 
             // 相对于出生点的活动范围
-            public float WalkRange = 100f;
+            public float WalkRange = 10f;
             // 相对于出生点的追击范围
-            public float ChaseRange = 100f;
+            public float ChaseRange = 10f;
             // 攻击范围
             public float AttackRange = 1f;
 
@@ -88,25 +88,23 @@ namespace GameServer.Ai
 
                 // 查找怪物视野范围内距离怪物最近的玩家
                 var list = monster.Map?.GetEntityViewEntityList(monster, e => e.EntityType == EntityType.Player);
-                if (list == null || !list.Any())
+                if (list != null && list.Any())
                 {
-                    return;
-                }
-
-                var nearestPlayer = list.Aggregate((minEntity, nextEntity) =>
-                {
-                    var minDistance = Vector3.Distance(minEntity.Position, monster.Position);
-                    var nextDistance = Vector3.Distance(nextEntity.Position, monster.Position);
-                    return minDistance < nextDistance ? minEntity : nextEntity;
-                });
-                // 若玩家位于怪物的追击范围内
-                if (nearestPlayer != null &&
-                    Vector3.Distance(nearestPlayer.Position, monster.Position) <= _target.ChaseRange)
-                {
-                    // 切换为追击状态
-                    monster.ChasingTarget = nearestPlayer as Actor;
-                    _fsm.ChangeState(MonsterAiState.Chase);
-                    return;
+                    var nearestPlayer = list.Aggregate((minEntity, nextEntity) =>
+                    {
+                        var minDistance = Vector3.Distance(minEntity.Position, monster.Position);
+                        var nextDistance = Vector3.Distance(nextEntity.Position, monster.Position);
+                        return minDistance < nextDistance ? minEntity : nextEntity;
+                    });
+                    // 若玩家位于怪物的追击范围内
+                    if (nearestPlayer != null &&
+                        Vector3.Distance(nearestPlayer.Position, monster.Position) <= _target.ChaseRange)
+                    {
+                        // 切换为追击状态
+                        monster.ChasingTarget = nearestPlayer as Actor;
+                        _fsm.ChangeState(MonsterAiState.Chase);
+                        return;
+                    }
                 }
 
                 if (monster.State != ActorState.Idle) return;
@@ -132,14 +130,14 @@ namespace GameServer.Ai
             public override void OnUpdate()
             {
                 var monster = _target.Monster;
-                if (monster.ChasingTarget == null || monster.ChasingTarget.IsDeath())
+                if (monster.ChasingTarget == null)// || monster.ChasingTarget.IsDeath())
                 {
                     _fsm.ChangeState(MonsterAiState.Goback);
                     return;
                 }
 
                 var player = monster.ChasingTarget as Player;
-                if (player != null && !player.IsOnline())
+                if (player == null || !player.IsOnline())
                 {
                     _fsm.ChangeState(MonsterAiState.Goback);
                     return;
@@ -163,7 +161,7 @@ namespace GameServer.Ai
                 }
                 else
                 {
-                    monster.MoveTo(monster.Position);
+                    monster.MoveTo(player.Position);
                 }
             }
         }
