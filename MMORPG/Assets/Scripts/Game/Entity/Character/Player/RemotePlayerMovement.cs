@@ -9,11 +9,15 @@ namespace MMORPG.Game
         private Quaternion _targetSyncRotation;
         private Vector2 _moveDirection;
 
+        public override void OnStateInit()
+        {
+            Brain.AnimationController.DisableAnimatorMove();
+        }
+
         public override void OnStateEnter()
         {
             _targetSyncPosition = transform.position;
             _targetSyncRotation = transform.rotation;
-            Brain.AnimationController.DisableAnimatorMove();
         }
 
         public override void OnStateUpdate()

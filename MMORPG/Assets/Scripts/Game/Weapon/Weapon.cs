@@ -78,13 +78,13 @@ namespace MMORPG.Game
 
         [FoldoutGroup("Feedbacks")]
         [HideIf("FindFeedbackByName")]
-        public FeedbackManager WeaponStartFeedback;
+        public FeedbacksManager WeaponStartFeedbacks;
         [FoldoutGroup("Feedbacks")]
         [HideIf("FindFeedbackByName")]
-        public FeedbackManager WeaponUsedFeedback;
+        public FeedbacksManager WeaponUsedFeedbacks;
         [FoldoutGroup("Feedbacks")]
         [HideIf("FindFeedbackByName")]
-        public FeedbackManager WeaponStopFeedback;
+        public FeedbacksManager WeaponStopFeedbacks;
 
         [FoldoutGroup("Settings")]
         public bool InitializeOnStart = false;
@@ -111,12 +111,13 @@ namespace MMORPG.Game
         private float _delayBetweenUsesCounter;
         private bool _triggerReleased;
 
-        public PlayerBrain Brain { get; private set; }
+        public CharacterController Owner { get; private set; }
 
         public FSM<WeaponStates> FSM { get; set; }
 
         public event Action<Weapon> OnWeaponInitialized;
         public event Action<Weapon> OnWeaponStarted;
+        public event Action<Weapon> OnWeaponTryInterrupt;
         public event Action<Weapon> OnWeaponStopped;
 
         public bool IsInitialized { get; private set; }
@@ -138,9 +139,9 @@ namespace MMORPG.Game
         }
 
 
-        public virtual void Setup(PlayerBrain brain)
+        public virtual void Setup(CharacterController owner)
         {
-            Brain = brain;
+            Owner = owner;
         }
 
         public virtual void Initialize()
@@ -149,18 +150,34 @@ namespace MMORPG.Game
 
             if (FindFeedbackByName)
             {
-                var feedbacks = Brain.GetAttachFeedbacks();
+                var feedbacks = Owner.GetComponentsInChildren<FeedbacksManager>();
 
                 if (WeaponStartFeedbackName.IsNotNullAndEmpty())
-                    WeaponStartFeedback = feedbacks.FirstOrDefault(x => x.name == WeaponStartFeedbackName);
-                if (WeaponUsedFeedbackName.IsNotNullAndEmpty())
-                    WeaponUsedFeedback = feedbacks.FirstOrDefault(x => x.name == WeaponUsedFeedbackName);
-                if (WeaponStopFeedbackName.IsNotNullAndEmpty())
-                    WeaponStopFeedback = feedbacks.FirstOrDefault(x => x.name == WeaponStopFeedbackName);
+                {
+                    WeaponStartFeedbacks = feedbacks.FirstOrDefault(x => x.name == WeaponStartFeedbackName);
+                    if (WeaponStartFeedbacks == null)
+                        throw new Exception($"Invalid WeaponStartFeedbackName({WeaponStartFeedbackName})");
+                    WeaponStartFeedbacks.Setup(gameObject);
+                    WeaponStartFeedbacks.Initialize();
+                }
 
-                WeaponStartFeedback?.Initialize();
-                WeaponUsedFeedback?.Initialize();
-                WeaponStopFeedback?.Initialize();
+                if (WeaponUsedFeedbackName.IsNotNullAndEmpty())
+                {
+                    WeaponUsedFeedbacks = feedbacks.FirstOrDefault(x => x.name == WeaponUsedFeedbackName);
+                    if (WeaponUsedFeedbacks == null)
+                        throw new Exception($"Invalid WeaponUsedFeedbackName({WeaponUsedFeedbackName})");
+                    WeaponUsedFeedbacks.Setup(gameObject);
+                    WeaponUsedFeedbacks.Initialize();
+                }
+
+                if (WeaponStopFeedbackName.IsNotNullAndEmpty())
+                {
+                    WeaponStopFeedbacks = feedbacks.FirstOrDefault(x => x.name == WeaponStopFeedbackName);
+                    if (WeaponStopFeedbacks == null)
+                        throw new Exception($"Invalid WeaponStopFeedbackName({WeaponStopFeedbackName})");
+                    WeaponStopFeedbacks.Setup(gameObject);
+                    WeaponStopFeedbacks.Initialize();
+                }
             }
 
             InitFSM();
@@ -172,10 +189,17 @@ namespace MMORPG.Game
 
         public virtual void WeaponInputStart()
         {
-            if (FSM.CurrentStateId == WeaponStates.Idle && !PreventFire)
+            if (FSM.CurrentStateId == WeaponStates.Idle)
             {
-                _triggerReleased = false;
-                TurnWeaponOn();
+                if (!PreventFire)
+                {
+                    _triggerReleased = false;
+                    TurnWeaponOn();
+                }
+            }
+            else
+            {
+                OnWeaponTryInterrupt?.Invoke(this);
             }
         }
         public virtual void WeaponInputReleased()
@@ -243,7 +267,7 @@ namespace MMORPG.Game
 
         protected virtual void CaseWeaponStart()
         {
-            WeaponStartFeedback?.Play();
+            WeaponStartFeedbacks?.Play();
             if (DelayBeforeUse > 0)
             {
                 _delayBeforeUseCounter = DelayBeforeUse;
@@ -254,7 +278,7 @@ namespace MMORPG.Game
                 StartCoroutine(ShootRequestCo());
             }
 
-            Brain.PreventMovement = PreventAllMovementWhileInUse;
+            Owner.PreventMovement = PreventAllMovementWhileInUse;
         }
 
         protected virtual void CaseWeaponDelayBeforeUse()
@@ -313,9 +337,9 @@ namespace MMORPG.Game
 
         protected virtual void CaseWeaponStop()
         {
-            WeaponStopFeedback?.Play();
+            WeaponStopFeedbacks?.Play();
             FSM.ChangeState(WeaponStates.Idle);
-            Brain.PreventMovement = false;
+            Owner.PreventMovement = false;
         }
 
         protected virtual void ShootRequest()
@@ -325,28 +349,28 @@ namespace MMORPG.Game
 
         protected virtual void WeaponUse()
         {
-            WeaponUsedFeedback?.Play();
+            WeaponUsedFeedbacks?.Play();
         }
 
         protected virtual void UpdateAnimator()
         {
             if (!IdleAnimationParameter.IsNullOrEmpty())
-                Brain.AnimationController.Animator.SetBool(IdleAnimationParameter, FSM.CurrentStateId == WeaponStates.Idle);
+                Owner.Animator.SetBool(IdleAnimationParameter, FSM.CurrentStateId == WeaponStates.Idle);
 
             if (!StartAnimationParameter.IsNullOrEmpty())
-                Brain.AnimationController.Animator.SetBool(StartAnimationParameter, FSM.CurrentStateId == WeaponStates.Start);
+                Owner.Animator.SetBool(StartAnimationParameter, FSM.CurrentStateId == WeaponStates.Start);
 
             if (!DelayBeforeUseAnimationParameter.IsNullOrEmpty())
-                Brain.AnimationController.Animator.SetBool(DelayBeforeUseAnimationParameter, FSM.CurrentStateId == WeaponStates.DelayBeforeUse);
+                Owner.Animator.SetBool(DelayBeforeUseAnimationParameter, FSM.CurrentStateId == WeaponStates.DelayBeforeUse);
 
             if (!UseAnimationParameter.IsNullOrEmpty())
-                Brain.AnimationController.Animator.SetBool(UseAnimationParameter, FSM.CurrentStateId == WeaponStates.Use);
+                Owner.Animator.SetBool(UseAnimationParameter, FSM.CurrentStateId == WeaponStates.Use);
 
             if (!DelayBetweenUsesAnimationParameter.IsNullOrEmpty())
-                Brain.AnimationController.Animator.SetBool(DelayBetweenUsesAnimationParameter, FSM.CurrentStateId == WeaponStates.DelayBetweenUses);
+                Owner.Animator.SetBool(DelayBetweenUsesAnimationParameter, FSM.CurrentStateId == WeaponStates.DelayBetweenUses);
 
             if (!StopAnimationParameter.IsNullOrEmpty())
-                Brain.AnimationController.Animator.SetBool(StopAnimationParameter, FSM.CurrentStateId == WeaponStates.Stop);
+                Owner.Animator.SetBool(StopAnimationParameter, FSM.CurrentStateId == WeaponStates.Stop);
         }
 
         protected virtual void OnDestroy()

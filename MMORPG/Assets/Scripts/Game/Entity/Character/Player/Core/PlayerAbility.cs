@@ -7,9 +7,9 @@ namespace MMORPG.Game
     public abstract class PlayerAbility : MonoBehaviour
     {
         [FoldoutGroup("Feedbacks")]
-        public FeedbackManager EnterAbilityFeedback;
+        public FeedbacksManager EnterAbilityFeedbacks;
         [FoldoutGroup("Feedbacks")]
-        public FeedbackManager ExitAbilityFeedback;
+        public FeedbacksManager ExitAbilityFeedbacks;
 
         public PlayerState OwnerState { get; set; }
         public PlayerBrain Brain { get; set; }
