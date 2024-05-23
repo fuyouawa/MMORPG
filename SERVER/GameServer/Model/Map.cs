@@ -45,6 +45,13 @@ namespace GameServer.Model
             SpawnManager = new(this);
         }
 
+        public void Update()
+        {
+            PlayerManager.Update();
+            MonsterManager.Update();
+            SpawnManager.Update();
+        }
+
         /// <summary>
         /// 广播实体进入场景
         /// </summary>
@@ -57,7 +64,6 @@ namespace GameServer.Model
             //List<int> 
             lock (_aoiWord)
             {
-                Vector2 range = new (entity.ViewRange, entity.ViewRange);
                 _aoiWord.Enter(entity.EntityId, entity.Position.X, entity.Position.Z, out var enters);
             }
 
@@ -122,7 +128,6 @@ namespace GameServer.Model
         /// <param name="entity"></param>
         public void EntityRefreshPosition(Entity entity)
         {
-            Vector2 range = new(entity.ViewRange, entity.ViewRange);
             List<int> enters;
             List<int> leaves;
             lock (_aoiWord)
@@ -236,7 +241,7 @@ namespace GameServer.Model
         /// <summary>
         /// 根据网络实体对象更新实体并广播新状态
         /// </summary>
-        public void EntityTransformUpdate(int entityId, NetTransform transform, int stateId, ByteString data)
+        public void EntityTransformSync(int entityId, NetTransform transform, int stateId, ByteString data)
         {
             var entity = EntityManager.Instance.GetEntity(entityId);
             if (entity == null) return;
@@ -260,7 +265,7 @@ namespace GameServer.Model
         /// <summary>
         /// 根据服务器实体对象更新实体并广播新状态
         /// </summary>
-        public void EntityUpdate(int entityId, int stateId)
+        public void EntitySync(int entityId, int stateId)
         {
             var entity = EntityManager.Instance.GetEntity(entityId);
             if (entity == null) return;
@@ -282,12 +287,5 @@ namespace GameServer.Model
             PlayerManager.Broadcast(response, entity);
         }
 
-        /// <summary>
-        /// Map的每帧更新
-        /// </summary>
-        public void Update()
-        {
-            MonsterManager.Update();
-        }
     }
 }

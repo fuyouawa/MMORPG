@@ -49,10 +49,11 @@ namespace GameServer
             Log.Information("[Server] UserManager初始化完成");
             EntityManager.Instance.Init();
             Log.Information("[Server] EntityManager初始化完成");
+            UpdateManager.Instance.Init();
+            Log.Information("[Server] UpdateManager初始化完成");
 
             _serverSocket.Listen();
             //_connectionCleanupTimer.Start();
-
             while (true)
             {
                 var socket = await _serverSocket.AcceptAsync();
