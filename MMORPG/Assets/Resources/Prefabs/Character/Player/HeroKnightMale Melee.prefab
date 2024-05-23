@@ -242,6 +242,9 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
+    - Name: ActiveEnableCheck
+      Entry: 5
+      Data: false
     - Name: DisableIf
       Entry: 6
       Data: 
@@ -80790,6 +80793,9 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
+    - Name: ActiveEnableCheck
+      Entry: 5
+      Data: false
     - Name: DisableIf
       Entry: 6
       Data: 
@@ -80868,6 +80874,9 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
+    - Name: ActiveEnableCheck
+      Entry: 5
+      Data: false
     - Name: DisableIf
       Entry: 6
       Data: 
@@ -80985,6 +80994,9 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
+    - Name: ActiveEnableCheck
+      Entry: 5
+      Data: false
     - Name: DisableIf
       Entry: 6
       Data: 
@@ -81036,6 +81048,9 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
+    - Name: ActiveEnableCheck
+      Entry: 5
+      Data: false
     - Name: DisableIf
       Entry: 6
       Data: 
@@ -106413,6 +106428,9 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
+    - Name: ActiveEnableCheck
+      Entry: 5
+      Data: false
     - Name: DisableIf
       Entry: 6
       Data: 
@@ -106571,6 +106589,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 5d312acdcfc52864ab5a08b14ba93b1b, type: 3}
     - {fileID: 6023422151166410460}
     - {fileID: 1201144034948401517}
+    - {fileID: 224805171054128564}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -106581,7 +106600,7 @@ MonoBehaviour:
       Data: 0|MMORPG.Tool.AbstractFeedback[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 7
       Data: 1|MMORPG.Tool.FeedbackParticlePlay, Assembly-CSharp
@@ -106606,6 +106625,9 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
+    - Name: ActiveEnableCheck
+      Entry: 5
+      Data: false
     - Name: DisableIf
       Entry: 6
       Data: 
@@ -106684,6 +106706,9 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
+    - Name: ActiveEnableCheck
+      Entry: 5
+      Data: false
     - Name: DisableIf
       Entry: 6
       Data: 
@@ -106801,6 +106826,9 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
+    - Name: ActiveEnableCheck
+      Entry: 5
+      Data: false
     - Name: DisableIf
       Entry: 7
       Data: 6|MMORPG.Tool.AbstractFeedback+Condition, Assembly-CSharp
@@ -106812,13 +106840,13 @@ MonoBehaviour:
       Data: true
     - Name: Getter
       Entry: 7
-      Data: MMORPG.Tool.UnityValueGetter`1[[System.Boolean, mscorlib]], Assembly-CSharp
-    - Name: _targetGameObject
-      Entry: 10
-      Data: 2
+      Data: 7|MMORPG.Tool.InlineValuePicker`1[[System.Boolean, mscorlib]], Assembly-CSharp
+    - Name: _targetObject
+      Entry: 6
+      Data: 
     - Name: _memberPath
-      Entry: 1
-      Data: EntityView/IsMine
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -106905,7 +106933,7 @@ MonoBehaviour:
       Data: true
     - Name: IgnoredGameObjects
       Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
+      Data: 8|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
         mscorlib
     - Name: 
       Entry: 12
@@ -106933,7 +106961,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 8|MMORPG.Tool.FeedbackTriggerAnimatorParam, Assembly-CSharp
+      Data: 9|MMORPG.Tool.FeedbackTriggerAnimatorParam, Assembly-CSharp
     - Name: Enable
       Entry: 5
       Data: true
@@ -106955,6 +106983,9 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
+    - Name: ActiveEnableCheck
+      Entry: 5
+      Data: false
     - Name: DisableIf
       Entry: 6
       Data: 
@@ -106963,7 +106994,7 @@ MonoBehaviour:
       Data: 3
     - Name: ExtraAnimators
       Entry: 7
-      Data: 9|UnityEngine.Animator[], UnityEngine.AnimationModule
+      Data: 10|UnityEngine.Animator[], UnityEngine.AnimationModule
     - Name: 
       Entry: 12
       Data: 0
@@ -106979,6 +107010,78 @@ MonoBehaviour:
     - Name: ParameterName
       Entry: 1
       Data: Combo1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 11|MMORPG.Tool.FeedbackGameObjectSetValue, Assembly-CSharp
+    - Name: Enable
+      Entry: 5
+      Data: true
+    - Name: Label
+      Entry: 1
+      Data: GameObjectSetValue
+    - Name: DelayBeforePlay
+      Entry: 4
+      Data: 0
+    - Name: LoopPlay
+      Entry: 5
+      Data: false
+    - Name: LimitLoopAmount
+      Entry: 5
+      Data: true
+    - Name: AmountOfLoop
+      Entry: 3
+      Data: 1
+    - Name: DelayBetweenLoop
+      Entry: 4
+      Data: 0
+    - Name: ActiveEnableCheck
+      Entry: 5
+      Data: false
+    - Name: DisableIf
+      Entry: 7
+      Data: 12|MMORPG.Tool.AbstractFeedback+Condition, Assembly-CSharp
+    - Name: CheckMode
+      Entry: 3
+      Data: 1
+    - Name: Negative
+      Entry: 5
+      Data: false
+    - Name: Getter
+      Entry: 7
+      Data: 13|MMORPG.Tool.InlineValuePicker`1[[System.Boolean, mscorlib]], Assembly-CSharp
+    - Name: _targetObject
+      Entry: 6
+      Data: 
+    - Name: _memberPath
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ValuePicker
+      Entry: 7
+      Data: 14|MMORPG.Tool.ValuePicker, Assembly-CSharp
+    - Name: TargetObject
+      Entry: 10
+      Data: 2
+    - Name: Component
+      Entry: 10
+      Data: 4
+    - Name: MemberTypeMasks
+      Entry: 3
+      Data: 0
+    - Name: Member
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -117715,6 +117818,9 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
+    - Name: ActiveEnableCheck
+      Entry: 5
+      Data: false
     - Name: DisableIf
       Entry: 6
       Data: 
@@ -117793,6 +117899,9 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 1
+    - Name: ActiveEnableCheck
+      Entry: 5
+      Data: false
     - Name: DisableIf
       Entry: 6
       Data: 
@@ -117910,6 +118019,9 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
+    - Name: ActiveEnableCheck
+      Entry: 5
+      Data: false
     - Name: DisableIf
       Entry: 6
       Data: 
@@ -117961,6 +118073,9 @@ MonoBehaviour:
     - Name: DelayBetweenLoop
       Entry: 4
       Data: 0
+    - Name: ActiveEnableCheck
+      Entry: 5
+      Data: false
     - Name: DisableIf
       Entry: 6
       Data: 
