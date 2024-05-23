@@ -1,4 +1,4 @@
-using Common.Proto.Event;
+using Common.Proto.EventLike;
 using Google.Protobuf;
 using MMORPG.System;
 using MMORPG.Tool;
