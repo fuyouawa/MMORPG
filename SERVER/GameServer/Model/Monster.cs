@@ -43,6 +43,13 @@ namespace GameServer.Model
                 var direction = (_moveTargetPos - _moveCurrentPos).Normalized();
                 Direction = direction.ToEulerAngles() * new Vector3(0, 1, 0);
                 float distance = Speed * Time.DeltaTime;
+
+                var res = new EntityTransformSyncResponse()
+                {
+                    EntityId = EntityId,
+                    StateId = (int)State,
+                    Transform = ProtoHelper.ToNetTransform(Position, Direction)
+                };
                 if (Vector3.Distance(_moveTargetPos, _moveCurrentPos) <= distance)
                 {
                     // 本次移动能到达目的地
@@ -56,12 +63,6 @@ namespace GameServer.Model
                 }
                 Position = _moveCurrentPos;
                 Map.EntityRefreshPosition(this);
-
-                var res = new EntityTransformSyncResponse() { 
-                    EntityId = EntityId,
-                    //StateId = ,
-                    Transform = ProtoHelper.ToNetTransform(Position, Direction)
-                };
                 Map.PlayerManager.Broadcast(res, this);
             }
         }
