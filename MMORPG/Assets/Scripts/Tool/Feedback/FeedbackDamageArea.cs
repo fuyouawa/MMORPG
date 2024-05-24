@@ -12,7 +12,7 @@ namespace MMORPG.Tool
     {
         public enum DamageAreaShapes { Box, Sphere }
         public enum DamageAreaModes { Generated, Existing }
-
+        
         [FoldoutGroup("Damage Area")]
         public DamageAreaModes DamageAreaMode = DamageAreaModes.Generated;
         [FoldoutGroup("Damage Area")]
