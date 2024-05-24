@@ -205,145 +205,12 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 8300000, guid: 3bf2bd23e8e6377469c5e1819ce811d7, type: 3}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: Feedbacks
-      Entry: 7
-      Data: 0|MMORPG.Tool.AbstractFeedback[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 1|MMORPG.Tool.FeedbackSound, Assembly-CSharp
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Label
-      Entry: 1
-      Data: "\u8D70\u8DEF"
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0
-    - Name: LoopPlay
-      Entry: 5
-      Data: false
-    - Name: LimitLoopAmount
-      Entry: 5
-      Data: false
-    - Name: AmountOfLoop
-      Entry: 3
-      Data: 0
-    - Name: DelayBetweenLoop
-      Entry: 4
-      Data: 0
-    - Name: ActiveEnableCheck
-      Entry: 5
-      Data: false
-    - Name: DisableIf
-      Entry: 6
-      Data: 
-    - Name: Sfx
-      Entry: 10
-      Data: 0
-    - Name: RandomSfx
-      Entry: 7
-      Data: 2|UnityEngine.AudioClip[], UnityEngine.AudioModule
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: PlayMethod
-      Entry: 3
-      Data: 0
-    - Name: PoolSize
-      Entry: 3
-      Data: 10
-    - Name: StopSoundOnFeedbackStop
-      Entry: 5
-      Data: true
-    - Name: MinVolume
-      Entry: 4
-      Data: 1
-    - Name: MaxVolume
-      Entry: 4
-      Data: 1
-    - Name: MinPitch
-      Entry: 4
-      Data: 1
-    - Name: MaxPitch
-      Entry: 4
-      Data: 1
-    - Name: SfxAudioMixerGroup
-      Entry: 6
-      Data: 
-    - Name: Priority
-      Entry: 3
-      Data: 128
-    - Name: PanStereo
-      Entry: 4
-      Data: 0
-    - Name: SpatialBlend
-      Entry: 4
-      Data: 0
-    - Name: DopplerLevel
-      Entry: 4
-      Data: 1
-    - Name: Spread
-      Entry: 3
-      Data: 0
-    - Name: RolloffMode
-      Entry: 3
-      Data: 0
-    - Name: MinDistance
-      Entry: 4
-      Data: 1
-    - Name: MaxDistance
-      Entry: 4
-      Data: 500
-    - Name: UseCustomRolloffCurve
-      Entry: 5
-      Data: false
-    - Name: CustomRolloffCurve
-      Entry: 6
-      Data: 
-    - Name: UseSpatialBlendCurve
-      Entry: 5
-      Data: false
-    - Name: SpatialBlendCurve
-      Entry: 6
-      Data: 
-    - Name: UseReverbZoneMixCurve
-      Entry: 5
-      Data: false
-    - Name: ReverbZoneMixCurve
-      Entry: 6
-      Data: 
-    - Name: UseSpreadCurve
-      Entry: 5
-      Data: false
-    - Name: SpreadCurve
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   InitializationMode: 2
   AutoInitialization: 1
   AutoPlayOnStart: 0
@@ -351,6 +218,74 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopAllCoroutinesWhenStop: 1
+  Feedbacks:
+  - rid: 1878086261005090947
+  references:
+    version: 2
+    RefIds:
+    - rid: 1878086261005090947
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u8D70\u8DEF"
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 0
+        DelayBetweenLoop: 0
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 0
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        Sfx: {fileID: 8300000, guid: 3bf2bd23e8e6377469c5e1819ce811d7, type: 3}
+        RandomSfx: []
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!1 &884816792351883935
 GameObject:
   m_ObjectHideFlags: 0
@@ -80753,419 +80688,12 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 4865950127427736656}
-    - {fileID: 8300000, guid: 3d13a8f3bd19d964c8b6cbc00b6c813d, type: 3}
-    - {fileID: 1201144034948401517}
-    - {fileID: 6023422151166410460}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: Feedbacks
-      Entry: 7
-      Data: 0|MMORPG.Tool.AbstractFeedback[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 7
-      Data: 1|MMORPG.Tool.FeedbackParticlePlay, Assembly-CSharp
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Label
-      Entry: 1
-      Data: "\u5200\u5149"
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0.8
-    - Name: LoopPlay
-      Entry: 5
-      Data: false
-    - Name: LimitLoopAmount
-      Entry: 5
-      Data: false
-    - Name: AmountOfLoop
-      Entry: 3
-      Data: 0
-    - Name: DelayBetweenLoop
-      Entry: 4
-      Data: 1
-    - Name: ActiveEnableCheck
-      Entry: 5
-      Data: false
-    - Name: DisableIf
-      Entry: 6
-      Data: 
-    - Name: Mode
-      Entry: 3
-      Data: 0
-    - Name: EmitCount
-      Entry: 3
-      Data: 100
-    - Name: BoundParticleSystem
-      Entry: 10
-      Data: 0
-    - Name: RandomParticleSystems
-      Entry: 7
-      Data: 2|UnityEngine.ParticleSystem[], UnityEngine.ParticleSystemModule
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MoveToPosition
-      Entry: 5
-      Data: false
-    - Name: ActivateOnPlay
-      Entry: 5
-      Data: false
-    - Name: StopSystemOnInit
-      Entry: 5
-      Data: true
-    - Name: DeclaredDuration
-      Entry: 4
-      Data: 0
-    - Name: ForceSimulationSpeed
-      Entry: 5
-      Data: false
-    - Name: ForcedSimulationSpeed
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0.1
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 3|MMORPG.Tool.FeedbackSound, Assembly-CSharp
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Label
-      Entry: 1
-      Data: "\u97F3\u6548"
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0.7
-    - Name: LoopPlay
-      Entry: 5
-      Data: false
-    - Name: LimitLoopAmount
-      Entry: 5
-      Data: false
-    - Name: AmountOfLoop
-      Entry: 3
-      Data: 0
-    - Name: DelayBetweenLoop
-      Entry: 4
-      Data: 1
-    - Name: ActiveEnableCheck
-      Entry: 5
-      Data: false
-    - Name: DisableIf
-      Entry: 6
-      Data: 
-    - Name: Sfx
-      Entry: 10
-      Data: 1
-    - Name: RandomSfx
-      Entry: 7
-      Data: 4|UnityEngine.AudioClip[], UnityEngine.AudioModule
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: PlayMethod
-      Entry: 3
-      Data: 0
-    - Name: PoolSize
-      Entry: 3
-      Data: 10
-    - Name: StopSoundOnFeedbackStop
-      Entry: 5
-      Data: true
-    - Name: MinVolume
-      Entry: 4
-      Data: 1
-    - Name: MaxVolume
-      Entry: 4
-      Data: 1
-    - Name: MinPitch
-      Entry: 4
-      Data: 1
-    - Name: MaxPitch
-      Entry: 4
-      Data: 1
-    - Name: SfxAudioMixerGroup
-      Entry: 6
-      Data: 
-    - Name: Priority
-      Entry: 3
-      Data: 128
-    - Name: PanStereo
-      Entry: 4
-      Data: 0
-    - Name: SpatialBlend
-      Entry: 4
-      Data: 0
-    - Name: DopplerLevel
-      Entry: 4
-      Data: 1
-    - Name: Spread
-      Entry: 3
-      Data: 0
-    - Name: RolloffMode
-      Entry: 3
-      Data: 0
-    - Name: MinDistance
-      Entry: 4
-      Data: 1
-    - Name: MaxDistance
-      Entry: 4
-      Data: 500
-    - Name: UseCustomRolloffCurve
-      Entry: 5
-      Data: false
-    - Name: CustomRolloffCurve
-      Entry: 6
-      Data: 
-    - Name: UseSpatialBlendCurve
-      Entry: 5
-      Data: false
-    - Name: SpatialBlendCurve
-      Entry: 6
-      Data: 
-    - Name: UseReverbZoneMixCurve
-      Entry: 5
-      Data: false
-    - Name: ReverbZoneMixCurve
-      Entry: 6
-      Data: 
-    - Name: UseSpreadCurve
-      Entry: 5
-      Data: false
-    - Name: SpreadCurve
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 5|MMORPG.Tool.FeedbackTriggerAnimatorParam, Assembly-CSharp
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Label
-      Entry: 1
-      Data: "\u89E6\u53D1\u52A8\u753B"
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0
-    - Name: LoopPlay
-      Entry: 5
-      Data: false
-    - Name: LimitLoopAmount
-      Entry: 5
-      Data: true
-    - Name: AmountOfLoop
-      Entry: 3
-      Data: 1
-    - Name: DelayBetweenLoop
-      Entry: 4
-      Data: 0
-    - Name: ActiveEnableCheck
-      Entry: 5
-      Data: false
-    - Name: DisableIf
-      Entry: 6
-      Data: 
-    - Name: TargetAnimator
-      Entry: 10
-      Data: 2
-    - Name: ExtraAnimators
-      Entry: 7
-      Data: 6|UnityEngine.Animator[], UnityEngine.AnimationModule
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: TriggerLikeBool
-      Entry: 5
-      Data: false
-    - Name: ParameterName
-      Entry: 1
-      Data: Combo3
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 7|MMORPG.Tool.FeedbackDamageArea, Assembly-CSharp
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Label
-      Entry: 1
-      Data: "\u4F24\u5BB3\u533A\u57DF"
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0.7
-    - Name: LoopPlay
-      Entry: 5
-      Data: false
-    - Name: LimitLoopAmount
-      Entry: 5
-      Data: true
-    - Name: AmountOfLoop
-      Entry: 3
-      Data: 1
-    - Name: DelayBetweenLoop
-      Entry: 4
-      Data: 0
-    - Name: ActiveEnableCheck
-      Entry: 5
-      Data: false
-    - Name: DisableIf
-      Entry: 6
-      Data: 
-    - Name: DamageAreaMode
-      Entry: 3
-      Data: 0
-    - Name: CustomLayer
-      Entry: 5
-      Data: false
-    - Name: LayerName
-      Entry: 6
-      Data: 
-    - Name: DamageAreaShape
-      Entry: 3
-      Data: 0
-    - Name: AreaOffset
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: -0.5
-    - Name: 
-      Entry: 4
-      Data: 1.18
-    - Name: 
-      Entry: 4
-      Data: 0.35
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: AreaSize
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2.08
-    - Name: 
-      Entry: 4
-      Data: 2.07
-    - Name: 
-      Entry: 4
-      Data: 2.93
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ExistingDamageArea
-      Entry: 6
-      Data: 
-    - Name: TriggerMask
-      Entry: 3
-      Data: 1
-    - Name: TargetLayerMask
-      Entry: 7
-      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: OwnerGameObject
-      Entry: 10
-      Data: 3
-    - Name: MinDamageCaused
-      Entry: 4
-      Data: 10
-    - Name: MaxDamageCaused
-      Entry: 4
-      Data: 10
-    - Name: ExtraInvincibilityDuration
-      Entry: 4
-      Data: 0
-    - Name: DamageDirectionMode
-      Entry: 3
-      Data: 0
-    - Name: ActiveDuration
-      Entry: 4
-      Data: 0.4
-    - Name: IgnoreOwnerGameObject
-      Entry: 5
-      Data: true
-    - Name: IgnoredGameObjects
-      Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: RepeatDamageOverTime
-      Entry: 5
-      Data: false
-    - Name: AmountOfRepeats
-      Entry: 3
-      Data: 3
-    - Name: DurationBetweenRepeats
-      Entry: 4
-      Data: 1
-    - Name: DamageOverTimeInterruptible
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   InitializationMode: 2
   AutoInitialization: 1
   AutoPlayOnStart: 0
@@ -81173,6 +80701,165 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopAllCoroutinesWhenStop: 1
+  Feedbacks:
+  - rid: 1878086261005090942
+  - rid: 1878086261005090943
+  - rid: 1878086261005090944
+  - rid: 1878086261005090945
+  references:
+    version: 2
+    RefIds:
+    - rid: 1878086261005090942
+      type: {class: FeedbackParticlePlay, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u5200\u5149"
+        DelayBeforePlay: 0.8
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 0
+        DelayBetweenLoop: 1
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 0
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        Mode: 0
+        EmitCount: 100
+        BoundParticleSystem: {fileID: 4865950127427736656}
+        RandomParticleSystems: []
+        MoveToPosition: 0
+        ActivateOnPlay: 0
+        StopSystemOnInit: 1
+        DeclaredDuration: 0
+        ForceSimulationSpeed: 0
+        ForcedSimulationSpeed: {x: 0.1, y: 1}
+    - rid: 1878086261005090943
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u97F3\u6548"
+        DelayBeforePlay: 0.7
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 0
+        DelayBetweenLoop: 1
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 0
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        Sfx: {fileID: 8300000, guid: 3d13a8f3bd19d964c8b6cbc00b6c813d, type: 3}
+        RandomSfx: []
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    - rid: 1878086261005090944
+      type: {class: FeedbackTriggerAnimatorParam, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u89E6\u53D1\u52A8\u753B"
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 1
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 0
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        TargetAnimator: {fileID: 1201144034948401517}
+        ExtraAnimators: []
+        TriggerLikeBool: 0
+        ParameterName: Combo3
+    - rid: 1878086261005090945
+      type: {class: FeedbackDamageArea, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u4F24\u5BB3\u533A\u57DF"
+        DelayBeforePlay: 0.7
+        LoopPlay: 0
+        LimitLoopAmount: 1
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 0
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        DamageAreaMode: 0
+        CustomLayer: 0
+        LayerName: 
+        DamageAreaShape: 0
+        AreaOffset: {x: -0.5, y: 1.18, z: 0.35}
+        AreaSize: {x: 2.08, y: 2.07, z: 2.93}
+        ExistingDamageArea: {fileID: 0}
+        TriggerMask: 1
+        TargetLayerMask:
+          serializedVersion: 2
+          m_Bits: 0
+        OwnerGameObject: {fileID: 6023422151166410460}
+        MinDamageCaused: 10
+        MaxDamageCaused: 10
+        ExtraInvincibilityDuration: 0
+        DamageDirectionMode: 0
+        ActiveDuration: 0.4
+        IgnoreOwnerGameObject: 1
+        IgnoredGameObjects: []
+        RepeatDamageOverTime: 0
+        AmountOfRepeats: 3
+        DurationBetweenRepeats: 1
+        DamageOverTimeInterruptible: 1
 --- !u!1 &4623857883831697367
 GameObject:
   m_ObjectHideFlags: 0
@@ -106391,145 +106078,12 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 8300000, guid: 938d32378af68c2458b125d48761421a, type: 3}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: Feedbacks
-      Entry: 7
-      Data: 0|MMORPG.Tool.AbstractFeedback[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 1|MMORPG.Tool.FeedbackSound, Assembly-CSharp
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Label
-      Entry: 1
-      Data: "\u8D70\u8DEF"
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0
-    - Name: LoopPlay
-      Entry: 5
-      Data: false
-    - Name: LimitLoopAmount
-      Entry: 5
-      Data: false
-    - Name: AmountOfLoop
-      Entry: 3
-      Data: 0
-    - Name: DelayBetweenLoop
-      Entry: 4
-      Data: 0
-    - Name: ActiveEnableCheck
-      Entry: 5
-      Data: false
-    - Name: DisableIf
-      Entry: 6
-      Data: 
-    - Name: Sfx
-      Entry: 10
-      Data: 0
-    - Name: RandomSfx
-      Entry: 7
-      Data: 2|UnityEngine.AudioClip[], UnityEngine.AudioModule
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: PlayMethod
-      Entry: 3
-      Data: 0
-    - Name: PoolSize
-      Entry: 3
-      Data: 10
-    - Name: StopSoundOnFeedbackStop
-      Entry: 5
-      Data: true
-    - Name: MinVolume
-      Entry: 4
-      Data: 1
-    - Name: MaxVolume
-      Entry: 4
-      Data: 1
-    - Name: MinPitch
-      Entry: 4
-      Data: 1
-    - Name: MaxPitch
-      Entry: 4
-      Data: 1
-    - Name: SfxAudioMixerGroup
-      Entry: 6
-      Data: 
-    - Name: Priority
-      Entry: 3
-      Data: 128
-    - Name: PanStereo
-      Entry: 4
-      Data: 0
-    - Name: SpatialBlend
-      Entry: 4
-      Data: 0
-    - Name: DopplerLevel
-      Entry: 4
-      Data: 1
-    - Name: Spread
-      Entry: 3
-      Data: 0
-    - Name: RolloffMode
-      Entry: 3
-      Data: 0
-    - Name: MinDistance
-      Entry: 4
-      Data: 1
-    - Name: MaxDistance
-      Entry: 4
-      Data: 500
-    - Name: UseCustomRolloffCurve
-      Entry: 5
-      Data: false
-    - Name: CustomRolloffCurve
-      Entry: 6
-      Data: 
-    - Name: UseSpatialBlendCurve
-      Entry: 5
-      Data: false
-    - Name: SpatialBlendCurve
-      Entry: 6
-      Data: 
-    - Name: UseReverbZoneMixCurve
-      Entry: 5
-      Data: false
-    - Name: ReverbZoneMixCurve
-      Entry: 6
-      Data: 
-    - Name: UseSpreadCurve
-      Entry: 5
-      Data: false
-    - Name: SpreadCurve
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   InitializationMode: 2
   AutoInitialization: 1
   AutoPlayOnStart: 0
@@ -106537,6 +106091,74 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopAllCoroutinesWhenStop: 1
+  Feedbacks:
+  - rid: 1878086261005090946
+  references:
+    version: 2
+    RefIds:
+    - rid: 1878086261005090946
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u8D70\u8DEF"
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 0
+        DelayBetweenLoop: 0
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 0
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        Sfx: {fileID: 8300000, guid: 938d32378af68c2458b125d48761421a, type: 3}
+        RandomSfx: []
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!1 &6670715276727017272
 GameObject:
   m_ObjectHideFlags: 0
@@ -106584,513 +106206,12 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 3566229314517168031}
-    - {fileID: 8300000, guid: 5d312acdcfc52864ab5a08b14ba93b1b, type: 3}
-    - {fileID: 6023422151166410460}
-    - {fileID: 1201144034948401517}
-    - {fileID: 224805171054128564}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: Feedbacks
-      Entry: 7
-      Data: 0|MMORPG.Tool.AbstractFeedback[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 5
-    - Name: 
-      Entry: 7
-      Data: 1|MMORPG.Tool.FeedbackParticlePlay, Assembly-CSharp
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Label
-      Entry: 1
-      Data: "\u5200\u5149"
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0.4
-    - Name: LoopPlay
-      Entry: 5
-      Data: false
-    - Name: LimitLoopAmount
-      Entry: 5
-      Data: false
-    - Name: AmountOfLoop
-      Entry: 3
-      Data: 0
-    - Name: DelayBetweenLoop
-      Entry: 4
-      Data: 1
-    - Name: ActiveEnableCheck
-      Entry: 5
-      Data: false
-    - Name: DisableIf
-      Entry: 6
-      Data: 
-    - Name: Mode
-      Entry: 3
-      Data: 0
-    - Name: EmitCount
-      Entry: 3
-      Data: 100
-    - Name: BoundParticleSystem
-      Entry: 10
-      Data: 0
-    - Name: RandomParticleSystems
-      Entry: 7
-      Data: 2|UnityEngine.ParticleSystem[], UnityEngine.ParticleSystemModule
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MoveToPosition
-      Entry: 5
-      Data: false
-    - Name: ActivateOnPlay
-      Entry: 5
-      Data: false
-    - Name: StopSystemOnInit
-      Entry: 5
-      Data: true
-    - Name: DeclaredDuration
-      Entry: 4
-      Data: 0
-    - Name: ForceSimulationSpeed
-      Entry: 5
-      Data: false
-    - Name: ForcedSimulationSpeed
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0.1
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 3|MMORPG.Tool.FeedbackSound, Assembly-CSharp
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Label
-      Entry: 1
-      Data: "\u97F3\u6548"
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0.3
-    - Name: LoopPlay
-      Entry: 5
-      Data: false
-    - Name: LimitLoopAmount
-      Entry: 5
-      Data: false
-    - Name: AmountOfLoop
-      Entry: 3
-      Data: 0
-    - Name: DelayBetweenLoop
-      Entry: 4
-      Data: 1
-    - Name: ActiveEnableCheck
-      Entry: 5
-      Data: false
-    - Name: DisableIf
-      Entry: 6
-      Data: 
-    - Name: Sfx
-      Entry: 10
-      Data: 1
-    - Name: RandomSfx
-      Entry: 7
-      Data: 4|UnityEngine.AudioClip[], UnityEngine.AudioModule
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: PlayMethod
-      Entry: 3
-      Data: 0
-    - Name: PoolSize
-      Entry: 3
-      Data: 10
-    - Name: StopSoundOnFeedbackStop
-      Entry: 5
-      Data: true
-    - Name: MinVolume
-      Entry: 4
-      Data: 1
-    - Name: MaxVolume
-      Entry: 4
-      Data: 1
-    - Name: MinPitch
-      Entry: 4
-      Data: 1
-    - Name: MaxPitch
-      Entry: 4
-      Data: 1
-    - Name: SfxAudioMixerGroup
-      Entry: 6
-      Data: 
-    - Name: Priority
-      Entry: 3
-      Data: 128
-    - Name: PanStereo
-      Entry: 4
-      Data: 0
-    - Name: SpatialBlend
-      Entry: 4
-      Data: 0
-    - Name: DopplerLevel
-      Entry: 4
-      Data: 1
-    - Name: Spread
-      Entry: 3
-      Data: 0
-    - Name: RolloffMode
-      Entry: 3
-      Data: 0
-    - Name: MinDistance
-      Entry: 4
-      Data: 1
-    - Name: MaxDistance
-      Entry: 4
-      Data: 500
-    - Name: UseCustomRolloffCurve
-      Entry: 5
-      Data: false
-    - Name: CustomRolloffCurve
-      Entry: 6
-      Data: 
-    - Name: UseSpatialBlendCurve
-      Entry: 5
-      Data: false
-    - Name: SpatialBlendCurve
-      Entry: 6
-      Data: 
-    - Name: UseReverbZoneMixCurve
-      Entry: 5
-      Data: false
-    - Name: ReverbZoneMixCurve
-      Entry: 6
-      Data: 
-    - Name: UseSpreadCurve
-      Entry: 5
-      Data: false
-    - Name: SpreadCurve
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 5|MMORPG.Tool.FeedbackDamageArea, Assembly-CSharp
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Label
-      Entry: 1
-      Data: "\u4F24\u5BB3\u533A\u57DF"
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0.3
-    - Name: LoopPlay
-      Entry: 5
-      Data: false
-    - Name: LimitLoopAmount
-      Entry: 5
-      Data: false
-    - Name: AmountOfLoop
-      Entry: 3
-      Data: 0
-    - Name: DelayBetweenLoop
-      Entry: 4
-      Data: 0
-    - Name: ActiveEnableCheck
-      Entry: 5
-      Data: false
-    - Name: DisableIf
-      Entry: 7
-      Data: 6|MMORPG.Tool.AbstractFeedback+Condition, Assembly-CSharp
-    - Name: CheckMode
-      Entry: 3
-      Data: 1
-    - Name: Negative
-      Entry: 5
-      Data: true
-    - Name: Getter
-      Entry: 7
-      Data: 7|MMORPG.Tool.InlineValuePicker`1[[System.Boolean, mscorlib]], Assembly-CSharp
-    - Name: _targetObject
-      Entry: 6
-      Data: 
-    - Name: _memberPath
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: DamageAreaMode
-      Entry: 3
-      Data: 0
-    - Name: CustomLayer
-      Entry: 5
-      Data: true
-    - Name: LayerName
-      Entry: 1
-      Data: Weapon
-    - Name: DamageAreaShape
-      Entry: 3
-      Data: 0
-    - Name: AreaOffset
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 1.04
-    - Name: 
-      Entry: 4
-      Data: 1.23
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: AreaSize
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 2.66
-    - Name: 
-      Entry: 4
-      Data: 1.56
-    - Name: 
-      Entry: 4
-      Data: 1.67
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ExistingDamageArea
-      Entry: 6
-      Data: 
-    - Name: TriggerMask
-      Entry: 3
-      Data: 1
-    - Name: TargetLayerMask
-      Entry: 7
-      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
-    - Name: 
-      Entry: 3
-      Data: 384
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: OwnerGameObject
-      Entry: 10
-      Data: 2
-    - Name: MinDamageCaused
-      Entry: 4
-      Data: 10
-    - Name: MaxDamageCaused
-      Entry: 4
-      Data: 10
-    - Name: ExtraInvincibilityDuration
-      Entry: 4
-      Data: 0
-    - Name: DamageDirectionMode
-      Entry: 3
-      Data: 0
-    - Name: ActiveDuration
-      Entry: 4
-      Data: 0.4
-    - Name: IgnoreOwnerGameObject
-      Entry: 5
-      Data: true
-    - Name: IgnoredGameObjects
-      Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: RepeatDamageOverTime
-      Entry: 5
-      Data: false
-    - Name: AmountOfRepeats
-      Entry: 3
-      Data: 0
-    - Name: DurationBetweenRepeats
-      Entry: 4
-      Data: 0
-    - Name: DamageOverTimeInterruptible
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 9|MMORPG.Tool.FeedbackTriggerAnimatorParam, Assembly-CSharp
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Label
-      Entry: 1
-      Data: "\u89E6\u53D1\u52A8\u753B"
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0
-    - Name: LoopPlay
-      Entry: 5
-      Data: false
-    - Name: LimitLoopAmount
-      Entry: 5
-      Data: true
-    - Name: AmountOfLoop
-      Entry: 3
-      Data: 1
-    - Name: DelayBetweenLoop
-      Entry: 4
-      Data: 0
-    - Name: ActiveEnableCheck
-      Entry: 5
-      Data: false
-    - Name: DisableIf
-      Entry: 6
-      Data: 
-    - Name: TargetAnimator
-      Entry: 10
-      Data: 3
-    - Name: ExtraAnimators
-      Entry: 7
-      Data: 10|UnityEngine.Animator[], UnityEngine.AnimationModule
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: TriggerLikeBool
-      Entry: 5
-      Data: false
-    - Name: ParameterName
-      Entry: 1
-      Data: Combo1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 11|MMORPG.Tool.FeedbackGameObjectSetValue, Assembly-CSharp
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Label
-      Entry: 1
-      Data: GameObjectSetValue
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0
-    - Name: LoopPlay
-      Entry: 5
-      Data: false
-    - Name: LimitLoopAmount
-      Entry: 5
-      Data: true
-    - Name: AmountOfLoop
-      Entry: 3
-      Data: 1
-    - Name: DelayBetweenLoop
-      Entry: 4
-      Data: 0
-    - Name: ActiveEnableCheck
-      Entry: 5
-      Data: false
-    - Name: DisableIf
-      Entry: 7
-      Data: 12|MMORPG.Tool.AbstractFeedback+Condition, Assembly-CSharp
-    - Name: CheckMode
-      Entry: 3
-      Data: 1
-    - Name: Negative
-      Entry: 5
-      Data: false
-    - Name: Getter
-      Entry: 7
-      Data: 13|MMORPG.Tool.InlineValuePicker`1[[System.Boolean, mscorlib]], Assembly-CSharp
-    - Name: _targetObject
-      Entry: 6
-      Data: 
-    - Name: _memberPath
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ValuePicker
-      Entry: 7
-      Data: 14|MMORPG.Tool.ValuePicker, Assembly-CSharp
-    - Name: TargetObject
-      Entry: 10
-      Data: 2
-    - Name: Component
-      Entry: 10
-      Data: 4
-    - Name: MemberTypeMasks
-      Entry: 3
-      Data: 0
-    - Name: Member
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   InitializationMode: 2
   AutoInitialization: 1
   AutoPlayOnStart: 0
@@ -107098,6 +106219,165 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopAllCoroutinesWhenStop: 1
+  Feedbacks:
+  - rid: 1878086261005090933
+  - rid: 1878086261005090934
+  - rid: 1878086261005090935
+  - rid: 1878086261005090936
+  references:
+    version: 2
+    RefIds:
+    - rid: 1878086261005090933
+      type: {class: FeedbackParticlePlay, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u5200\u5149"
+        DelayBeforePlay: 0.4
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 0
+        DelayBetweenLoop: 1
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 0
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        Mode: 0
+        EmitCount: 100
+        BoundParticleSystem: {fileID: 3566229314517168031}
+        RandomParticleSystems: []
+        MoveToPosition: 0
+        ActivateOnPlay: 0
+        StopSystemOnInit: 1
+        DeclaredDuration: 0
+        ForceSimulationSpeed: 0
+        ForcedSimulationSpeed: {x: 0.1, y: 1}
+    - rid: 1878086261005090934
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u97F3\u6548"
+        DelayBeforePlay: 0.3
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 0
+        DelayBetweenLoop: 1
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 0
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        Sfx: {fileID: 8300000, guid: 5d312acdcfc52864ab5a08b14ba93b1b, type: 3}
+        RandomSfx: []
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    - rid: 1878086261005090935
+      type: {class: FeedbackDamageArea, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u4F24\u5BB3\u533A\u57DF"
+        DelayBeforePlay: 0.3
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 0
+        DelayBetweenLoop: 0
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 1
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        DamageAreaMode: 0
+        CustomLayer: 1
+        LayerName: Weapon
+        DamageAreaShape: 0
+        AreaOffset: {x: 0, y: 1.04, z: 1.23}
+        AreaSize: {x: 2.66, y: 1.56, z: 1.67}
+        ExistingDamageArea: {fileID: 0}
+        TriggerMask: 1
+        TargetLayerMask:
+          serializedVersion: 2
+          m_Bits: 384
+        OwnerGameObject: {fileID: 6023422151166410460}
+        MinDamageCaused: 10
+        MaxDamageCaused: 10
+        ExtraInvincibilityDuration: 0
+        DamageDirectionMode: 0
+        ActiveDuration: 0.4
+        IgnoreOwnerGameObject: 1
+        IgnoredGameObjects: []
+        RepeatDamageOverTime: 0
+        AmountOfRepeats: 0
+        DurationBetweenRepeats: 0
+        DamageOverTimeInterruptible: 0
+    - rid: 1878086261005090936
+      type: {class: FeedbackTriggerAnimatorParam, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u89E6\u53D1\u52A8\u753B"
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 1
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 0
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        TargetAnimator: {fileID: 1201144034948401517}
+        ExtraAnimators: []
+        TriggerLikeBool: 0
+        ParameterName: Combo1
 --- !u!1 &6710520580799211426
 GameObject:
   m_ObjectHideFlags: 0
@@ -117778,419 +117058,12 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 3965320441237862755}
-    - {fileID: 8300000, guid: 4726ef687d0f59e42bfbbeac0e8a1fce, type: 3}
-    - {fileID: 1201144034948401517}
-    - {fileID: 6023422151166410460}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: Feedbacks
-      Entry: 7
-      Data: 0|MMORPG.Tool.AbstractFeedback[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 7
-      Data: 1|MMORPG.Tool.FeedbackParticlePlay, Assembly-CSharp
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Label
-      Entry: 1
-      Data: "\u5200\u5149"
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0.1
-    - Name: LoopPlay
-      Entry: 5
-      Data: false
-    - Name: LimitLoopAmount
-      Entry: 5
-      Data: false
-    - Name: AmountOfLoop
-      Entry: 3
-      Data: 0
-    - Name: DelayBetweenLoop
-      Entry: 4
-      Data: 1
-    - Name: ActiveEnableCheck
-      Entry: 5
-      Data: false
-    - Name: DisableIf
-      Entry: 6
-      Data: 
-    - Name: Mode
-      Entry: 3
-      Data: 0
-    - Name: EmitCount
-      Entry: 3
-      Data: 100
-    - Name: BoundParticleSystem
-      Entry: 10
-      Data: 0
-    - Name: RandomParticleSystems
-      Entry: 7
-      Data: 2|UnityEngine.ParticleSystem[], UnityEngine.ParticleSystemModule
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MoveToPosition
-      Entry: 5
-      Data: false
-    - Name: ActivateOnPlay
-      Entry: 5
-      Data: false
-    - Name: StopSystemOnInit
-      Entry: 5
-      Data: true
-    - Name: DeclaredDuration
-      Entry: 4
-      Data: 0
-    - Name: ForceSimulationSpeed
-      Entry: 5
-      Data: false
-    - Name: ForcedSimulationSpeed
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0.1
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 3|MMORPG.Tool.FeedbackSound, Assembly-CSharp
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Label
-      Entry: 1
-      Data: "\u97F3\u6548"
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0.1
-    - Name: LoopPlay
-      Entry: 5
-      Data: false
-    - Name: LimitLoopAmount
-      Entry: 5
-      Data: false
-    - Name: AmountOfLoop
-      Entry: 3
-      Data: 0
-    - Name: DelayBetweenLoop
-      Entry: 4
-      Data: 1
-    - Name: ActiveEnableCheck
-      Entry: 5
-      Data: false
-    - Name: DisableIf
-      Entry: 6
-      Data: 
-    - Name: Sfx
-      Entry: 10
-      Data: 1
-    - Name: RandomSfx
-      Entry: 7
-      Data: 4|UnityEngine.AudioClip[], UnityEngine.AudioModule
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: PlayMethod
-      Entry: 3
-      Data: 0
-    - Name: PoolSize
-      Entry: 3
-      Data: 10
-    - Name: StopSoundOnFeedbackStop
-      Entry: 5
-      Data: true
-    - Name: MinVolume
-      Entry: 4
-      Data: 1
-    - Name: MaxVolume
-      Entry: 4
-      Data: 1
-    - Name: MinPitch
-      Entry: 4
-      Data: 1
-    - Name: MaxPitch
-      Entry: 4
-      Data: 1
-    - Name: SfxAudioMixerGroup
-      Entry: 6
-      Data: 
-    - Name: Priority
-      Entry: 3
-      Data: 128
-    - Name: PanStereo
-      Entry: 4
-      Data: 0
-    - Name: SpatialBlend
-      Entry: 4
-      Data: 0
-    - Name: DopplerLevel
-      Entry: 4
-      Data: 1
-    - Name: Spread
-      Entry: 3
-      Data: 0
-    - Name: RolloffMode
-      Entry: 3
-      Data: 0
-    - Name: MinDistance
-      Entry: 4
-      Data: 1
-    - Name: MaxDistance
-      Entry: 4
-      Data: 500
-    - Name: UseCustomRolloffCurve
-      Entry: 5
-      Data: false
-    - Name: CustomRolloffCurve
-      Entry: 6
-      Data: 
-    - Name: UseSpatialBlendCurve
-      Entry: 5
-      Data: false
-    - Name: SpatialBlendCurve
-      Entry: 6
-      Data: 
-    - Name: UseReverbZoneMixCurve
-      Entry: 5
-      Data: false
-    - Name: ReverbZoneMixCurve
-      Entry: 6
-      Data: 
-    - Name: UseSpreadCurve
-      Entry: 5
-      Data: false
-    - Name: SpreadCurve
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 5|MMORPG.Tool.FeedbackTriggerAnimatorParam, Assembly-CSharp
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Label
-      Entry: 1
-      Data: "\u89E6\u53D1\u52A8\u753B"
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0
-    - Name: LoopPlay
-      Entry: 5
-      Data: false
-    - Name: LimitLoopAmount
-      Entry: 5
-      Data: true
-    - Name: AmountOfLoop
-      Entry: 3
-      Data: 1
-    - Name: DelayBetweenLoop
-      Entry: 4
-      Data: 0
-    - Name: ActiveEnableCheck
-      Entry: 5
-      Data: false
-    - Name: DisableIf
-      Entry: 6
-      Data: 
-    - Name: TargetAnimator
-      Entry: 10
-      Data: 2
-    - Name: ExtraAnimators
-      Entry: 7
-      Data: 6|UnityEngine.Animator[], UnityEngine.AnimationModule
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: TriggerLikeBool
-      Entry: 5
-      Data: false
-    - Name: ParameterName
-      Entry: 1
-      Data: Combo2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 7|MMORPG.Tool.FeedbackDamageArea, Assembly-CSharp
-    - Name: Enable
-      Entry: 5
-      Data: true
-    - Name: Label
-      Entry: 1
-      Data: "\u4F24\u5BB3\u533A\u57DF"
-    - Name: DelayBeforePlay
-      Entry: 4
-      Data: 0.1
-    - Name: LoopPlay
-      Entry: 5
-      Data: false
-    - Name: LimitLoopAmount
-      Entry: 5
-      Data: true
-    - Name: AmountOfLoop
-      Entry: 3
-      Data: 1
-    - Name: DelayBetweenLoop
-      Entry: 4
-      Data: 0
-    - Name: ActiveEnableCheck
-      Entry: 5
-      Data: false
-    - Name: DisableIf
-      Entry: 6
-      Data: 
-    - Name: DamageAreaMode
-      Entry: 3
-      Data: 0
-    - Name: CustomLayer
-      Entry: 5
-      Data: false
-    - Name: LayerName
-      Entry: 6
-      Data: 
-    - Name: DamageAreaShape
-      Entry: 3
-      Data: 0
-    - Name: AreaOffset
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 1.25
-    - Name: 
-      Entry: 4
-      Data: 0.6
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: AreaSize
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.4
-    - Name: 
-      Entry: 4
-      Data: 2.39
-    - Name: 
-      Entry: 4
-      Data: 1.41
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ExistingDamageArea
-      Entry: 6
-      Data: 
-    - Name: TriggerMask
-      Entry: 3
-      Data: 1
-    - Name: TargetLayerMask
-      Entry: 7
-      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: OwnerGameObject
-      Entry: 10
-      Data: 3
-    - Name: MinDamageCaused
-      Entry: 4
-      Data: 10
-    - Name: MaxDamageCaused
-      Entry: 4
-      Data: 10
-    - Name: ExtraInvincibilityDuration
-      Entry: 4
-      Data: 0
-    - Name: DamageDirectionMode
-      Entry: 3
-      Data: 0
-    - Name: ActiveDuration
-      Entry: 4
-      Data: 0.3
-    - Name: IgnoreOwnerGameObject
-      Entry: 5
-      Data: true
-    - Name: IgnoredGameObjects
-      Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: RepeatDamageOverTime
-      Entry: 5
-      Data: false
-    - Name: AmountOfRepeats
-      Entry: 3
-      Data: 3
-    - Name: DurationBetweenRepeats
-      Entry: 4
-      Data: 1
-    - Name: DamageOverTimeInterruptible
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   InitializationMode: 2
   AutoInitialization: 1
   AutoPlayOnStart: 0
@@ -118198,6 +117071,165 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopAllCoroutinesWhenStop: 1
+  Feedbacks:
+  - rid: 1878086261005090938
+  - rid: 1878086261005090939
+  - rid: 1878086261005090940
+  - rid: 1878086261005090941
+  references:
+    version: 2
+    RefIds:
+    - rid: 1878086261005090938
+      type: {class: FeedbackParticlePlay, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u5200\u5149"
+        DelayBeforePlay: 0.1
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 0
+        DelayBetweenLoop: 1
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 0
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        Mode: 0
+        EmitCount: 100
+        BoundParticleSystem: {fileID: 3965320441237862755}
+        RandomParticleSystems: []
+        MoveToPosition: 0
+        ActivateOnPlay: 0
+        StopSystemOnInit: 1
+        DeclaredDuration: 0
+        ForceSimulationSpeed: 0
+        ForcedSimulationSpeed: {x: 0.1, y: 1}
+    - rid: 1878086261005090939
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u97F3\u6548"
+        DelayBeforePlay: 0.1
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 0
+        DelayBetweenLoop: 1
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 0
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        Sfx: {fileID: 8300000, guid: 4726ef687d0f59e42bfbbeac0e8a1fce, type: 3}
+        RandomSfx: []
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    - rid: 1878086261005090940
+      type: {class: FeedbackTriggerAnimatorParam, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u89E6\u53D1\u52A8\u753B"
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 1
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 0
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        TargetAnimator: {fileID: 1201144034948401517}
+        ExtraAnimators: []
+        TriggerLikeBool: 0
+        ParameterName: Combo2
+    - rid: 1878086261005090941
+      type: {class: FeedbackDamageArea, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u4F24\u5BB3\u533A\u57DF"
+        DelayBeforePlay: 0.1
+        LoopPlay: 0
+        LimitLoopAmount: 1
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 0
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        DamageAreaMode: 0
+        CustomLayer: 0
+        LayerName: 
+        DamageAreaShape: 0
+        AreaOffset: {x: 0, y: 1.25, z: 0.6}
+        AreaSize: {x: 1.4, y: 2.39, z: 1.41}
+        ExistingDamageArea: {fileID: 0}
+        TriggerMask: 1
+        TargetLayerMask:
+          serializedVersion: 2
+          m_Bits: 0
+        OwnerGameObject: {fileID: 6023422151166410460}
+        MinDamageCaused: 10
+        MaxDamageCaused: 10
+        ExtraInvincibilityDuration: 0
+        DamageDirectionMode: 0
+        ActiveDuration: 0.3
+        IgnoreOwnerGameObject: 1
+        IgnoredGameObjects: []
+        RepeatDamageOverTime: 0
+        AmountOfRepeats: 3
+        DurationBetweenRepeats: 1
+        DamageOverTimeInterruptible: 1
 --- !u!1 &8815542384085112077
 GameObject:
   m_ObjectHideFlags: 0

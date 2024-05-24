@@ -46,6 +46,7 @@ namespace MMORPG.Tool
             Method
         }
 
+
         public Component Target { get; private set; }
         public MemberInfo Member { get; private set; }
         public SimpleMemberTypes MemberType { get; private set; }
