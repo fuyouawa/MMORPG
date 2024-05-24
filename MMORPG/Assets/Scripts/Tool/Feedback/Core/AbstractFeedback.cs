@@ -17,7 +17,8 @@ namespace MMORPG.Tool
             Path = path;
         }
     }
-
+    
+    [Serializable]
     public abstract class AbstractFeedback
     {
         public enum InitializeModes

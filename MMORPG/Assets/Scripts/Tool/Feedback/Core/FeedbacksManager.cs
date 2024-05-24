@@ -30,12 +30,12 @@ namespace MMORPG.Tool
         public bool CanPlayWhileAlreadyPlaying = false;
         [FoldoutGroup("Settings")]
         public bool StopAllCoroutinesWhenStop = true;
-
-        [Required]
+        
         [LabelText("$GetFeedbacksLabel")]
         [LabelWidth(250)]
         [ValueDropdown("GetFeedbacksDropdown")]
         [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "GetLabel")]
+        [SerializeReference]
         public AbstractFeedback[] Feedbacks = Array.Empty<AbstractFeedback>();
 
         public GameObject Owner { get; private set; }

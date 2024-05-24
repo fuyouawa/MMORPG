@@ -1,4 +1,5 @@
 
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -11,6 +12,12 @@ namespace MMORPG.Tool
         [HideReferenceObjectPicker]
         [HideLabel]
         public ValuePicker ValuePicker = new();
+
+        protected override void OnFeedbackInit()
+        {
+            ValuePicker.Initialize();
+            Debug.Assert(ValuePicker.IsValid);
+        }
 
         protected override void OnFeedbackPlay()
         {
