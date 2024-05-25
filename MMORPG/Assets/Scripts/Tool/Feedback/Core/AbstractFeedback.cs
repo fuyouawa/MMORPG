@@ -201,6 +201,8 @@ namespace MMORPG.Tool
             Stop();
         }
 
+        public virtual void OnValidate() {}
+
         public virtual void OnDrawGizmos() {}
 
         public virtual void OnDrawGizmosSelected() {}
