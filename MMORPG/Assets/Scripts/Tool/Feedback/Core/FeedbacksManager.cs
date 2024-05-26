@@ -36,7 +36,6 @@ namespace MMORPG.Tool
         [ValueDropdown("GetFeedbacksDropdown")]
         [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "GetLabel")]
         [SerializeReference]
-        [DisableInPlayMode]
         public AbstractFeedback[] Feedbacks = Array.Empty<AbstractFeedback>();
 
         public GameObject Owner { get; private set; }
