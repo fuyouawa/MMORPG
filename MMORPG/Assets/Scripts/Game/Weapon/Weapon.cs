@@ -278,7 +278,8 @@ namespace MMORPG.Game
                 StartCoroutine(ShootRequestCo());
             }
 
-            Owner.PreventMovement = PreventAllMovementWhileInUse;
+            if (PreventAllMovementWhileInUse)
+                Owner.PreventMovement();
         }
 
         protected virtual void CaseWeaponDelayBeforeUse()
@@ -339,7 +340,7 @@ namespace MMORPG.Game
         {
             WeaponStopFeedbacks?.Play();
             FSM.ChangeState(WeaponStates.Idle);
-            Owner.PreventMovement = false;
+            Owner.StopPreventMovement();
         }
 
         protected virtual void ShootRequest()
