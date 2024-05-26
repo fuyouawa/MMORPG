@@ -80706,6 +80706,7 @@ MonoBehaviour:
   - rid: 1878086261005090943
   - rid: 1878086261005090944
   - rid: 1878086261005090945
+  - rid: 1878086261005091105
   references:
     version: 2
     RefIds:
@@ -80860,6 +80861,36 @@ MonoBehaviour:
         AmountOfRepeats: 3
         DurationBetweenRepeats: 1
         DamageOverTimeInterruptible: 1
+    - rid: 1878086261005091105
+      type: {class: FeedbackGameObjectInvokeMethod, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u505C\u6B62\u79FB\u52A8"
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 1
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 0
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        Picker:
+          TargetObject: {fileID: 6023422151166410460}
+          TargetComponent: {fileID: 224805171054128564}
+          TargetMemberName: PreventMovement(Single delay)
+          IncludeSpecial: 0
+          LimitParam: 0
+          ParamCount: 3
+        ParameterInputs:
+        - IntegralValue: 0
+          FloatingPointValue: 0.5
+          BooleanValue: 0
+          StringValue: 
+          UnityObjectValue: {fileID: 0}
 --- !u!1 &4623857883831697367
 GameObject:
   m_ObjectHideFlags: 0
@@ -105936,7 +105967,6 @@ MonoBehaviour:
   MoveSmooth: 10
   Animator: {fileID: 1201144034948401517}
   HandleWeapon: {fileID: 6349372569880267187}
-  PreventMovement: 0
 --- !u!114 &6532541089558292842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106224,7 +106254,7 @@ MonoBehaviour:
   - rid: 1878086261005090934
   - rid: 1878086261005090935
   - rid: 1878086261005090936
-  - rid: 1878086261005091004
+  - rid: 1878086261005091089
   references:
     version: 2
     RefIds:
@@ -106379,11 +106409,11 @@ MonoBehaviour:
         ExtraAnimators: []
         TriggerLikeBool: 0
         ParameterName: Combo1
-    - rid: 1878086261005091004
-      type: {class: FeedbackGameObjectSetValue, ns: MMORPG.Tool, asm: Assembly-CSharp}
+    - rid: 1878086261005091089
+      type: {class: FeedbackGameObjectInvokeMethod, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        Enable: 0
-        Label: "\u963B\u6B62\u79FB\u52A8"
+        Enable: 1
+        Label: "\u505C\u6B62\u79FB\u52A8"
         DelayBeforePlay: 0
         LoopPlay: 0
         LimitLoopAmount: 1
@@ -106399,16 +106429,16 @@ MonoBehaviour:
         Picker:
           TargetObject: {fileID: 6023422151166410460}
           TargetComponent: {fileID: 224805171054128564}
-          IncludePrivate: 0
-          TargetMemberName: Field/PreventMovement
-        Setter:
-          IntegralValue: 0
-          FloatingPointValue: 0
-          BooleanValue: 1
+          TargetMemberName: PreventMovement(Single delay)
+          IncludeSpecial: 0
+          LimitParam: 0
+          ParamCount: 3
+        ParameterInputs:
+        - IntegralValue: 0
+          FloatingPointValue: 0.5
+          BooleanValue: 0
           StringValue: 
           UnityObjectValue: {fileID: 0}
-        Mode: 0
-        RecoveryTime: 0.3
 --- !u!1 &6710520580799211426
 GameObject:
   m_ObjectHideFlags: 0
@@ -117107,6 +117137,7 @@ MonoBehaviour:
   - rid: 1878086261005090939
   - rid: 1878086261005090940
   - rid: 1878086261005090941
+  - rid: 1878086261005091103
   references:
     version: 2
     RefIds:
@@ -117261,6 +117292,36 @@ MonoBehaviour:
         AmountOfRepeats: 3
         DurationBetweenRepeats: 1
         DamageOverTimeInterruptible: 1
+    - rid: 1878086261005091103
+      type: {class: FeedbackGameObjectInvokeMethod, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        Enable: 1
+        Label: "\u505C\u6B62\u79FB\u52A8"
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 1
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        ActiveEnableCheck: 0
+        DisableIf:
+          CheckMode: 1
+          Negative: 0
+          Getter:
+            _targetObject: {fileID: 0}
+            _memberPath: 
+        Picker:
+          TargetObject: {fileID: 6023422151166410460}
+          TargetComponent: {fileID: 224805171054128564}
+          TargetMemberName: PreventMovement(Single delay)
+          IncludeSpecial: 0
+          LimitParam: 0
+          ParamCount: 3
+        ParameterInputs:
+        - IntegralValue: 0
+          FloatingPointValue: 0.6
+          BooleanValue: 0
+          StringValue: 
+          UnityObjectValue: {fileID: 0}
 --- !u!1 &8815542384085112077
 GameObject:
   m_ObjectHideFlags: 0

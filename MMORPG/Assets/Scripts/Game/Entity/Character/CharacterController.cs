@@ -1,3 +1,4 @@
+using System.Collections;
 using Common.Proto.EventLike;
 using Google.Protobuf;
 using MMORPG.System;
@@ -22,12 +23,13 @@ namespace MMORPG.Game
 
         public bool IsMine => Entity.IsMine;
 
-        public bool PreventMovement = false;
+        public bool IsPreventingMovement { get; private set; }
 
         public Rigidbody Rigidbody { get; private set; }
         public CapsuleCollider Collider { get; private set; }
 
         private INetworkSystem _newtwork;
+
 
         private void Awake()
         {
@@ -49,13 +51,13 @@ namespace MMORPG.Game
 
         public void SmoothMove(Vector3 position)
         {
-            if (PreventMovement) return;
+            if (IsPreventingMovement) return;
             transform.position = Vector3.Lerp(transform.position, position, MoveSmooth * Time.deltaTime);
         }
 
         public void MoveDirection(Vector3 direction)
         {
-            if (PreventMovement) return;
+            if (IsPreventingMovement) return;
             transform.position += direction;
         }
 
@@ -83,6 +85,29 @@ namespace MMORPG.Game
         public IArchitecture GetArchitecture()
         {
             return GameApp.Interface;
+        }
+
+        protected Coroutine PreventMovementCoroutine;
+
+        public void PreventMovement(float delay = float.MaxValue)
+        {
+            if (PreventMovementCoroutine != null)
+                StopCoroutine(PreventMovementCoroutine);
+            PreventMovementCoroutine = StartCoroutine(PreventMovementCo(delay));
+        }
+
+        public void StopPreventMovement()
+        {
+            if (PreventMovementCoroutine != null)
+                StopCoroutine(PreventMovementCoroutine);
+            IsPreventingMovement = false;
+        }
+
+        protected virtual IEnumerator PreventMovementCo(float delay)
+        {
+            IsPreventingMovement = true;
+            yield return new WaitForSeconds(delay);
+            IsPreventingMovement = false;
         }
 
         private void OnGUI()

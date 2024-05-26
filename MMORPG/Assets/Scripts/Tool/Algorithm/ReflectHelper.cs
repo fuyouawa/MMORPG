@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using Unity.VisualScripting;
 
 namespace MMORPG.Tool
 {
@@ -53,6 +56,29 @@ namespace MMORPG.Tool
         public static bool IsUnityObject(Type type)
         {
             return typeof(UnityEngine.Object).IsAssignableFrom(type);
+        }
+
+        public static bool IsVisualType(Type type)
+        {
+            return type.IsPrimitive || IsUnityObject(type);
+        }
+
+        public static MethodInfo FindMethodByName(Type targetType, string methodName, IEnumerable<string> parameterDecls, BindingFlags bindingFlags)
+        {
+            var paramTypesName = parameterDecls.Select(param => param.Trim().Split(' ')[0]).ToArray();
+
+            var method = targetType.GetMethods(bindingFlags).FirstOrDefault(x =>
+            {
+                if (x.Name != methodName)
+                    return false;
+                var parameters = x.GetParameters();
+                if (parameters.Length != paramTypesName.Length)
+                    return false;
+                return !parameters
+                    .Where((t, i) => t.ParameterType.Name != paramTypesName[i])
+                    .Any();
+            });
+            return method;
         }
     }
 }
