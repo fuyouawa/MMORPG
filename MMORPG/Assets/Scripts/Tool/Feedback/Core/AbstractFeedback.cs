@@ -74,9 +74,6 @@ namespace MMORPG.Tool
         protected bool IsInitialized = false;
         protected int CurrentLoopCount;
 
-        private List<Coroutine> _feedbackPlayCoroutines;
-        private List<Coroutine> _durationCoroutineList;
-
         public virtual void Awake()
         {
         }
@@ -102,21 +99,11 @@ namespace MMORPG.Tool
         {
             Reset();
             IsPlaying = true;
-            _feedbackPlayCoroutines.Add(StartCoroutine(FeedbackPlayCo()));
+            StartCoroutine(FeedbackPlayCo());
         }
 
         public virtual void Stop()
         {
-            if (_feedbackPlayCoroutines.IsNotNullAndEmpty())
-            {
-                _feedbackPlayCoroutines.ForEach(StopCoroutine);
-                _feedbackPlayCoroutines.Clear();
-            }
-            if (_durationCoroutineList.IsNotNullAndEmpty())
-            {
-                _durationCoroutineList.ForEach(StopCoroutine);
-                _durationCoroutineList.Clear();
-            }
             if (!IsPlaying)
                 return;
             IsPlaying = false;
@@ -133,9 +120,6 @@ namespace MMORPG.Tool
             if (IsInitialized) return;
             IsInitialized = true;
 
-            _durationCoroutineList ??= new();
-            _feedbackPlayCoroutines ??= new();
-
             OnFeedbackInit();
         }
 
@@ -143,7 +127,7 @@ namespace MMORPG.Tool
         protected virtual IEnumerator FeedbackPlayCo()
         {
             yield return new WaitForSeconds(DelayBeforePlay);
-            _durationCoroutineList.Add(StartCoroutine(DurationCoroutine()));
+            StartCoroutine(DurationCoroutine());
             OnFeedbackPlay();
         }
 
@@ -160,7 +144,7 @@ namespace MMORPG.Tool
                         goto stop;
                     CurrentLoopCount--;
                 }
-                _feedbackPlayCoroutines.Add(StartCoroutine(FeedbackPlayCo()));
+                StartCoroutine(FeedbackPlayCo());
                 yield break;
             }
             stop:
