@@ -238,15 +238,24 @@ namespace MMORPG.Tool
         public bool AutoInitialization = true;
 
         [FoldoutGroup("Settings")]
+        [Tooltip("在Start时自动Play一次")]
         public bool AutoPlayOnStart;
         [FoldoutGroup("Settings")]
+        [Tooltip("在OnEnable时自动Play一次")]
         public bool AutoPlayOnEnable;
 
         [FoldoutGroup("Settings")]
+        [Tooltip("是否可以Play")]
         public bool CanPlay = true;
         [FoldoutGroup("Settings")]
+        [Tooltip("在当前Play还没结束时是否可以开始新的Play")]
         public bool CanPlayWhileAlreadyPlaying = false;
         [FoldoutGroup("Settings")]
+        [ShowIf("CanPlayWhileAlreadyPlaying")]
+        [Tooltip("在当前Play还没结束时, 如果有新的Play, 是否要结束当前Play")]
+        public bool StopCurrentPlayIfNewPlay = true;
+        [FoldoutGroup("Settings")]
+        [Tooltip("当Play结束时, 是否要停止所有在Feedback中开启的Coroutines")]
         public bool StopAllCoroutinesWhenStop = true;
 
         [LabelText("Feedbacks")]
@@ -330,11 +339,16 @@ namespace MMORPG.Tool
                 Initialize();
             }
 
-            if (!CanPlayWhileAlreadyPlaying)
+            if (!CanPlay) return;
+
+            if (CheckIsPlaying())
             {
-                if (CheckIsPlaying())
+                if (!CanPlayWhileAlreadyPlaying)
                     return;
+                if (StopCurrentPlayIfNewPlay)
+                    Stop();
             }
+
             foreach (var item in FeedbackItems)
             {
                 item.Play();
