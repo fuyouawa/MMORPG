@@ -11,7 +11,7 @@ namespace MMORPG.Game
     [Serializable]
     public class PlayerStateCondition
     {
-        [InfoBox("Invalid method!", InfoMessageType.Error, "CheckMethodNameInvalid")]
+        [InfoBox("无效函数!", InfoMessageType.Error, "CheckMethodNameInvalid")]
         [ValueDropdown("GetStateConditionsDropdown")]
         [VerticalGroup("Method")]
         [HideLabel]
@@ -72,7 +72,6 @@ namespace MMORPG.Game
                 {
                     foreach (var condition in ability.GetStateConditions())
                     {
-                        var attr = condition.GetAttribute<StateConditionAttribute>();
                         var methodPath = $"{ability.GetType().Name}/{condition.Name}";
                         var displayName = $"{ability.GetType().Name}/{condition.Name}";
                         total.Add(displayName, methodPath);

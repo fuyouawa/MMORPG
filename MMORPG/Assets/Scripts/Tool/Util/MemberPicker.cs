@@ -1,5 +1,4 @@
 using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor.Validation;
 using System;
 using System.Collections;
 using System.Linq;
@@ -11,18 +10,15 @@ namespace MMORPG.Tool
     public class MemberPicker
     {
         [PropertyOrder(0)]
-        [Required]
         [LabelText("@TargetObjectLabel")]
         public GameObject TargetObject;
 
         [PropertyOrder(10)]
-        [Required]
         [LabelText("@TargetComponentLabel")]
         [ValueDropdown("GetTargetComponentsDropdown")]
         public Component TargetComponent;
 
         [PropertyOrder(20)]
-        [Required]
         [LabelText("@TargetMemberLabel")]
         [ValueDropdown("GetComponentMemberNamesDropdown")]
         public string TargetMemberName = string.Empty;
@@ -33,14 +29,10 @@ namespace MMORPG.Tool
         public virtual string TargetComponentLabel => "Target Component";
         public virtual string TargetObjectLabel => "Target Object";
         public virtual string TargetMemberLabel => "Target Member";
-        public virtual bool ShowIncludePrivateInInspector { get; set; } = true;
-
-        protected Func<MemberInfo, bool> ExtraMemberFilter;
 
         public MemberPicker(BindingFlags memberBindingFlags = BindingFlags.Instance | BindingFlags.Public)
         {
             MemberBindingFlags = memberBindingFlags;
-            ExtraMemberFilter = _ => true;
         }
 
         public virtual void Initialize()
@@ -86,16 +78,6 @@ namespace MMORPG.Tool
 
         }
 
-        public virtual void StartExtraMemberFilter(Func<MemberInfo, bool> filter)
-        {
-            ExtraMemberFilter = filter;
-        }
-
-        public virtual void StopExtraMemberFilter()
-        {
-            ExtraMemberFilter = _ => true;
-        }
-
 #if UNITY_EDITOR
 
 
@@ -118,7 +100,6 @@ namespace MMORPG.Tool
 
             total.AddRange(TargetComponent.GetType().GetMembers(MemberBindingFlags)
                 .Where(MemberFilter)
-                .Where(ExtraMemberFilter)
                 .Select(MemberDropdownSelector));
             return total;
         }

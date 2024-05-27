@@ -15,7 +15,7 @@ using UnityEngine;
 namespace MMORPG.Tool
 {
     [Serializable]
-    public class ValuePicker : MemberPicker
+    public class ValueGetter : MemberPicker
     {
         public object GetRawValue(object obj)
         {
@@ -47,11 +47,11 @@ namespace MMORPG.Tool
     }
 
     [Serializable]
-    public class ValuePicker<TReturn> : ValuePicker
+    public class ValueGetter<TReturn> : ValueGetter
     {
-        public TReturn GetRawValue(object obj)
+        public new TReturn GetRawValue(object obj)
         {
-            return GetRawValue(obj);
+            return (TReturn)base.GetRawValue(obj);
         }
 
 #if UNITY_EDITOR
