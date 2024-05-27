@@ -17,7 +17,20 @@ namespace MMORPG.Tool
             Path = path;
         }
     }
-    
+
+    public class FeedbackHelpAttribute : Attribute
+    {
+        public string Message;
+        public string Details;
+
+        public FeedbackHelpAttribute(string message, string details)
+        {
+            Message = message;
+            Details = details;
+        }
+    }
+
+
     [Serializable]
     public abstract class AbstractFeedback
     {
@@ -27,27 +40,6 @@ namespace MMORPG.Tool
             Start,
             FirstPlay
         }
-
-        [Serializable]
-        public class Condition
-        {
-            public enum CheckModes
-            {
-                OnAwake,
-                OnStart,
-                OnUpdate
-            }
-
-            public CheckModes CheckMode = CheckModes.OnStart;
-            public bool Negative;
-            [HideLabel]
-            public InlineValuePicker<bool> Getter;
-        }
-
-        [FoldoutGroup("Feedback Settings")]
-        public bool Enable = true;
-        [FoldoutGroup("Feedback Settings")]
-        public string Label;
 
         [FoldoutGroup("Feedback Settings")]
         [Title("Time")]
@@ -69,14 +61,6 @@ namespace MMORPG.Tool
         [ShowIf("LoopPlay")]
         public float DelayBetweenLoop = 0f;
 
-        [FoldoutGroup("Feedback Settings")]
-        [Title("Enable Condition")]
-        public bool ActiveEnableCheck = false;
-        [FoldoutGroup("Feedback Settings")]
-        [HideReferenceObjectPicker]
-        [EnableIf("ActiveEnableCheck")]
-        public Condition DisableIf = new();
-
         public FeedbacksManager Owner { get; private set; }
         public bool IsPlaying { get; private set; }
 
@@ -90,26 +74,14 @@ namespace MMORPG.Tool
 
         public virtual void Awake()
         {
-            if (ActiveEnableCheck && DisableIf.CheckMode == Condition.CheckModes.OnAwake)
-            {
-                CheckEnable();
-            }
         }
 
         public virtual void Start()
         {
-            if (ActiveEnableCheck && DisableIf.CheckMode == Condition.CheckModes.OnStart)
-            {
-                CheckEnable();
-            }
         }
 
         public virtual void Update()
         {
-            if (ActiveEnableCheck && DisableIf.CheckMode == Condition.CheckModes.OnUpdate)
-            {
-                CheckEnable();
-            }
         }
 
         public virtual void Reset()
@@ -123,7 +95,6 @@ namespace MMORPG.Tool
 
         public virtual void Play()
         {
-            if (!Enable) return;
             Reset();
             IsPlaying = true;
             _feedbackPlayCoroutines.Add(StartCoroutine(FeedbackPlayCo()));
@@ -154,16 +125,11 @@ namespace MMORPG.Tool
 
         public virtual void Initialize()
         {
-            if (!Enable) return;
-
             if (IsInitialized) return;
             IsInitialized = true;
 
             _durationCoroutineList ??= new();
             _feedbackPlayCoroutines ??= new();
-
-            if(ActiveEnableCheck)
-                DisableIf.Getter.Initialize();
 
             OnFeedbackInit();
         }
@@ -181,11 +147,6 @@ namespace MMORPG.Tool
             yield return new WaitForSeconds(GetDuration());
             if (!IsPlaying)
                 yield break;
-            if (!Enable)
-            {
-                Stop();
-                yield break;
-            }
             if (LoopPlay)
             {
                 if (LimitLoopAmount)
@@ -200,8 +161,6 @@ namespace MMORPG.Tool
             stop:
             Stop();
         }
-
-        public virtual void OnValidate() {}
 
         public virtual void OnDrawGizmos() {}
 
@@ -242,54 +201,10 @@ namespace MMORPG.Tool
             Owner.CoroutineHelper.StopAllCoroutines();
         }
 
-        protected virtual void CheckEnable()
-        {
-            if (ActiveEnableCheck)
-            {
-                var b = DisableIf.Getter.GetValue();
-                if (DisableIf.Negative)
-                    b = !b;
-                Enable = b;
-            }
-        }
-
 #if UNITY_EDITOR
-        private string GetLabel()
-        {
-            var duration = GetDuration();
-
-            var timeDisplay = $"{DelayBeforePlay:0.00}s + {GetDuration():0.00}s";
-            var enableDisplay = Enable ? "" : " [Disable]";
-            if (LoopPlay)
-            {
-                var loopCountDisplay = LimitLoopAmount ? AmountOfLoop.ToString() : "\u221e";
-                if (DelayBetweenLoop > float.Epsilon)
-                {
-                    timeDisplay += $" + {DelayBetweenLoop:0.00}s";
-                }
-                return $"{Label} ({timeDisplay}) x {loopCountDisplay}{enableDisplay}";
-            }
-            else
-            {
-                return $"{Label} ({timeDisplay}){enableDisplay}";
-            }
-        }
-
-        [HorizontalGroup]
-        [Button("Play")]
-        [DisableInEditorMode]
-        private void TestPlay()
-        {
-            Play();
-        }
-
-        [HorizontalGroup]
-        [Button("Stop")]
-        [DisableInEditorMode]
-        private void TestStop()
-        {
-            Stop();
-        }
+        public virtual void OnValidate() { }
+        public virtual void OnInspectorInit() { }
+        public virtual void OnInspectorGUI() {}
 #endif
     }
 }
