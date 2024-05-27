@@ -6,7 +6,8 @@ using UnityEngine;
 
 namespace MMORPG.Tool
 {
-    [AddFeedbackMenu("Animator/Trigger Parameter")]
+    [FeedbackHelp("这个Feedback用于在Play Feedback时触发指定Animator的Trigger参数")]
+    [AddFeedbackMenu("Animator/Trigger Parameter", "触发Trigger参数")]
     public class FeedbackTriggerAnimatorParam : AbstractFeedback
     {
         [FoldoutGroup("Trigger Param")]
@@ -17,10 +18,11 @@ namespace MMORPG.Tool
         public Animator[] ExtraAnimators = Array.Empty<Animator>();
 
         [FoldoutGroup("Trigger Param")]
-        [Tooltip("Use the bool to simulate the Trigger effect, set to true and set to false in the next frame")]
+        [Tooltip("使用Bool参数模拟Trigger的效果, 在Play Feedback时设为True, 然后在下一帧设为False")]
         public bool TriggerLikeBool = false;
 
         [FoldoutGroup("Trigger Param")]
+        [Tooltip("要进行触发的Trigger参数名称")]
         public string ParameterName;
 
         protected int ParamId;
