@@ -8,7 +8,8 @@ using Random = UnityEngine.Random;
 
 namespace MMORPG.Tool
 {
-    [AddFeedbackMenu("Particle/ParticlePlay")]
+    [FeedbackHelp("这个Feedback用于在Play Feedback时播放场景中指定的ParticleSystem")]
+    [AddFeedbackMenu("Particle/ParticlePlay", "播放粒子")]
     public class FeedbackParticlePlay : AbstractFeedback
     {
         public enum Modes { Play, Stop, Pause, Emit }
