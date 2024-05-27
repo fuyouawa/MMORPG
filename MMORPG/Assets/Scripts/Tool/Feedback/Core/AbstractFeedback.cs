@@ -11,22 +11,22 @@ namespace MMORPG.Tool
     public class AddFeedbackMenuAttribute : Attribute
     {
         public string Path;
+        public string Comment;
 
-        public AddFeedbackMenuAttribute(string path)
+        public AddFeedbackMenuAttribute(string path, string comment = null)
         {
             Path = path;
+            Comment = comment;
         }
     }
 
     public class FeedbackHelpAttribute : Attribute
     {
         public string Message;
-        public string Details;
 
-        public FeedbackHelpAttribute(string message, string details)
+        public FeedbackHelpAttribute(string message)
         {
             Message = message;
-            Details = details;
         }
     }
 
@@ -43,22 +43,27 @@ namespace MMORPG.Tool
 
         [FoldoutGroup("Feedback Settings")]
         [Title("Time")]
+        [Tooltip("在正式Play前经过多少时间的延迟(s)")]
         public float DelayBeforePlay;
 
         [FoldoutGroup("Feedback Settings")]
         [Title("Loop")]
+        [Tooltip("是否要循环Play")]
         public bool LoopPlay = false;
 
         [FoldoutGroup("Feedback Settings")]
         [ShowIf("LoopPlay")]
-        public bool LimitLoopAmount = true;
+        [Tooltip("是否限制循环Play的次数")]
+        public bool LimitLoopAmount = false;
 
         [FoldoutGroup("Feedback Settings")]
         [ShowIf("@LoopPlay && LimitLoopAmount")]
+        [Tooltip("循环Play的次数")]
         public int AmountOfLoop = 1;
 
         [FoldoutGroup("Feedback Settings")]
         [ShowIf("LoopPlay")]
+        [Tooltip("每次循环Play的间隔")]
         public float DelayBetweenLoop = 0f;
 
         public FeedbacksManager Owner { get; private set; }

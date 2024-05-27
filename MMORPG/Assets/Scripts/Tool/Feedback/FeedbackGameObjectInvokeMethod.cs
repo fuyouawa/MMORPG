@@ -5,7 +5,8 @@ using UnityEngine;
 
 namespace MMORPG.Tool
 {
-    [AddFeedbackMenu("GameObject/Invoke Method")]
+    [FeedbackHelp("这个Feedback用于选择GameObject上的一个函数, 填写参数(如果有)然后在Play Feedback时调用")]
+    [AddFeedbackMenu("GameObject/Invoke Method", "调用函数")]
     public class FeedbackGameObjectInvokeMethod : AbstractFeedback
     {
         [Required]

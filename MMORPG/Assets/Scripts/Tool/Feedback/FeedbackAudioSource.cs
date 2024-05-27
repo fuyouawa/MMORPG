@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 
 namespace MMORPG.Tool
 {
+    [FeedbackHelp("这个Feedback用于在Play Feedback时播放场景中指定的AudioSource")]
     [AddFeedbackMenu("Audio/Audio Source")]
     public class FeedbackAudioSource : AbstractFeedback
     {

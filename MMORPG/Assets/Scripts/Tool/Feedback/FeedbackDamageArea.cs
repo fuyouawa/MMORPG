@@ -7,7 +7,8 @@ using UnityEngine.Events;
 
 namespace MMORPG.Tool
 {
-    [AddFeedbackMenu("Area/Damage Area")]
+    [FeedbackHelp("这个Feedback用于配置一块伤害区域, 当Play Feedback时检测伤害区域内拥有AbstractHealth并且满足配置要求的物体, 对其造成伤害")]
+    [AddFeedbackMenu("Area/Damage Area", "伤害区域")]
     public class FeedbackDamageArea : AbstractFeedback
     {
         public enum DamageAreaShapes { Box, Sphere }

@@ -216,12 +216,79 @@ MonoBehaviour:
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
   CanPlay: 1
-  CanPlayWhileAlreadyPlaying: 1
+  CanPlayWhileAlreadyPlaying: 0
   StopAllCoroutinesWhenStop: 1
-  FeedbackItems: []
+  FeedbackItems:
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: "\u8DD1\u6B65\u97F3\u6548"
+    ActiveEnablePredicate: 0
+    DisableIf:
+      Mode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091283
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 1878086261005091283
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 1
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        Sfx: {fileID: 8300000, guid: 3bf2bd23e8e6377469c5e1819ce811d7, type: 3}
+        RandomSfx: []
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!1 &884816792351883935
 GameObject:
   m_ObjectHideFlags: 0
@@ -80641,9 +80708,9 @@ MonoBehaviour:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
     Enable: 1
     Label: "\u5200\u5149"
-    ActiveEnableCheck: 0
+    ActiveEnablePredicate: 0
     DisableIf:
-      CheckMode: 1
+      Mode: 1
       Negative: 0
       Picker:
         TargetObject: {fileID: 0}
@@ -80654,9 +80721,9 @@ MonoBehaviour:
   - FeedbackName: MMORPG.Tool.FeedbackSound
     Enable: 1
     Label: "\u97F3\u6548"
-    ActiveEnableCheck: 0
+    ActiveEnablePredicate: 0
     DisableIf:
-      CheckMode: 1
+      Mode: 1
       Negative: 0
       Picker:
         TargetObject: {fileID: 0}
@@ -80667,9 +80734,9 @@ MonoBehaviour:
   - FeedbackName: MMORPG.Tool.FeedbackDamageArea
     Enable: 1
     Label: "\u4F24\u5BB3\u533A\u57DF"
-    ActiveEnableCheck: 0
+    ActiveEnablePredicate: 0
     DisableIf:
-      CheckMode: 1
+      Mode: 1
       Negative: 0
       Picker:
         TargetObject: {fileID: 0}
@@ -80680,9 +80747,9 @@ MonoBehaviour:
   - FeedbackName: MMORPG.Tool.FeedbackTriggerAnimatorParam
     Enable: 1
     Label: "\u89E6\u53D1\u52A8\u753B"
-    ActiveEnableCheck: 0
+    ActiveEnablePredicate: 0
     DisableIf:
-      CheckMode: 1
+      Mode: 1
       Negative: 0
       Picker:
         TargetObject: {fileID: 0}
@@ -80693,9 +80760,9 @@ MonoBehaviour:
   - FeedbackName: MMORPG.Tool.FeedbackGameObjectInvokeMethod
     Enable: 1
     Label: "\u505C\u6B62\u79FB\u52A8"
-    ActiveEnableCheck: 0
+    ActiveEnablePredicate: 0
     DisableIf:
-      CheckMode: 1
+      Mode: 1
       Negative: 0
       Picker:
         TargetObject: {fileID: 0}
@@ -106070,12 +106137,79 @@ MonoBehaviour:
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
   CanPlay: 1
-  CanPlayWhileAlreadyPlaying: 1
+  CanPlayWhileAlreadyPlaying: 0
   StopAllCoroutinesWhenStop: 1
-  FeedbackItems: []
+  FeedbackItems:
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: "\u8D70\u8DEF\u97F3\u6548"
+    ActiveEnablePredicate: 0
+    DisableIf:
+      Mode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091282
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 1878086261005091282
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 1
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        Sfx: {fileID: 8300000, guid: 938d32378af68c2458b125d48761421a, type: 3}
+        RandomSfx: []
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!1 &6670715276727017272
 GameObject:
   m_ObjectHideFlags: 0
@@ -106140,9 +106274,9 @@ MonoBehaviour:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
     Enable: 1
     Label: "\u5200\u5149"
-    ActiveEnableCheck: 1
+    ActiveEnablePredicate: 1
     DisableIf:
-      CheckMode: 1
+      Mode: 1
       Negative: 0
       Picker:
         TargetObject: {fileID: 6023422151166410460}
@@ -106153,9 +106287,9 @@ MonoBehaviour:
   - FeedbackName: MMORPG.Tool.FeedbackSound
     Enable: 1
     Label: "\u97F3\u6548"
-    ActiveEnableCheck: 0
+    ActiveEnablePredicate: 0
     DisableIf:
-      CheckMode: 1
+      Mode: 1
       Negative: 0
       Picker:
         TargetObject: {fileID: 0}
@@ -106166,9 +106300,9 @@ MonoBehaviour:
   - FeedbackName: MMORPG.Tool.FeedbackDamageArea
     Enable: 1
     Label: "\u4F24\u5BB3\u533A\u57DF"
-    ActiveEnableCheck: 0
+    ActiveEnablePredicate: 0
     DisableIf:
-      CheckMode: 1
+      Mode: 1
       Negative: 0
       Picker:
         TargetObject: {fileID: 0}
@@ -106179,9 +106313,9 @@ MonoBehaviour:
   - FeedbackName: MMORPG.Tool.FeedbackTriggerAnimatorParam
     Enable: 1
     Label: "\u89E6\u53D1\u52A8\u753B"
-    ActiveEnableCheck: 0
+    ActiveEnablePredicate: 0
     DisableIf:
-      CheckMode: 1
+      Mode: 1
       Negative: 0
       Picker:
         TargetObject: {fileID: 0}
@@ -106192,9 +106326,9 @@ MonoBehaviour:
   - FeedbackName: MMORPG.Tool.FeedbackGameObjectInvokeMethod
     Enable: 1
     Label: "\u505C\u6B62\u79FB\u52A8"
-    ActiveEnableCheck: 0
+    ActiveEnablePredicate: 0
     DisableIf:
-      CheckMode: 1
+      Mode: 1
       Negative: 0
       Picker:
         TargetObject: {fileID: 0}
@@ -117038,9 +117172,9 @@ MonoBehaviour:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
     Enable: 1
     Label: "\u5200\u5149"
-    ActiveEnableCheck: 0
+    ActiveEnablePredicate: 0
     DisableIf:
-      CheckMode: 1
+      Mode: 1
       Negative: 0
       Picker:
         TargetObject: {fileID: 0}
@@ -117051,9 +117185,9 @@ MonoBehaviour:
   - FeedbackName: MMORPG.Tool.FeedbackSound
     Enable: 1
     Label: "\u97F3\u6548"
-    ActiveEnableCheck: 0
+    ActiveEnablePredicate: 0
     DisableIf:
-      CheckMode: 1
+      Mode: 1
       Negative: 0
       Picker:
         TargetObject: {fileID: 0}
@@ -117064,9 +117198,9 @@ MonoBehaviour:
   - FeedbackName: MMORPG.Tool.FeedbackDamageArea
     Enable: 1
     Label: "\u4F24\u5BB3\u533A\u57DF"
-    ActiveEnableCheck: 0
+    ActiveEnablePredicate: 0
     DisableIf:
-      CheckMode: 1
+      Mode: 1
       Negative: 0
       Picker:
         TargetObject: {fileID: 0}
@@ -117077,9 +117211,9 @@ MonoBehaviour:
   - FeedbackName: MMORPG.Tool.FeedbackTriggerAnimatorParam
     Enable: 1
     Label: "\u89E6\u53D1\u52A8\u753B"
-    ActiveEnableCheck: 0
+    ActiveEnablePredicate: 0
     DisableIf:
-      CheckMode: 1
+      Mode: 1
       Negative: 0
       Picker:
         TargetObject: {fileID: 0}
@@ -117090,9 +117224,9 @@ MonoBehaviour:
   - FeedbackName: MMORPG.Tool.FeedbackGameObjectInvokeMethod
     Enable: 1
     Label: "\u505C\u6B62\u79FB\u52A8"
-    ActiveEnableCheck: 0
+    ActiveEnablePredicate: 0
     DisableIf:
-      CheckMode: 1
+      Mode: 1
       Negative: 0
       Picker:
         TargetObject: {fileID: 0}

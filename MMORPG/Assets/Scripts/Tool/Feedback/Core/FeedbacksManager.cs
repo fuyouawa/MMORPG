@@ -14,33 +14,39 @@ namespace MMORPG.Tool
         [Serializable]
         public class Condition
         {
-            public enum CheckModes
+            public enum Modes
             {
                 OnAwake,
                 OnStart,
                 OnUpdate
             }
 
-            public CheckModes CheckMode = CheckModes.OnStart;
+            [Tooltip("OnAwake: 在Awake时判定\nOnStart: 在Start时判定\nOnUpdate: 每帧判定")]
+            public Modes Mode = Modes.OnStart;
+            [Tooltip("是否将判定结果取反")]
             public bool Negative;
             [HideLabel]
             public ValuePicker<bool> Picker;
         }
-        [DetailedInfoBox("@_help.Message", "@_help.Details", VisibleIf = "ShowDetailedInfoBox")]
+        [Information("@_help.Message", VisibleIf = "ShowInfoBox")]
         [HideLabel]
         [ValueDropdown("GetFeedbackNamesDropdown")]
         public string FeedbackName = string.Empty;
 
+        [Tooltip("是否有效")]
         [HideIf("@Feedback == null")]
         public bool Enable = true;
 
+        [Tooltip("只在编辑器中有用, 指定Feedback的名称")]
         [HideIf("@Feedback == null")]
-        public string Label = "Feedback";
+        public string Label;
 
+        [Tooltip("是否启动运行时Enable判定")]
         [HideIf("@Feedback == null")]
-        public bool ActiveEnableCheck = false;
+        public bool ActiveEnablePredicate = false;
 
-        [ShowIf("ActiveEnableCheck")]
+        [Tooltip("选择一个变量或者函数, 用于在运行时判定是否要Disable")]
+        [ShowIf("ActiveEnablePredicate")]
         [HideReferenceObjectPicker]
         public Condition DisableIf = new();
 
@@ -129,7 +135,8 @@ namespace MMORPG.Tool
             foreach (var kv in s_allFeedbackTypes)
             {
                 var attr = kv.Value.GetCustomAttribute<AddFeedbackMenuAttribute>();
-                s_allFeedbackDropdownItems.Add(attr.Path, kv.Value.FullName);
+                var comment = string.IsNullOrEmpty(attr.Comment) ? string.Empty : $"\t## {attr.Comment}";
+                s_allFeedbackDropdownItems.Add($"{attr.Path}{comment}", kv.Value.FullName);
             }
         }
 
@@ -141,8 +148,8 @@ namespace MMORPG.Tool
 
         private string GetLabel()
         {
-            if (Feedback == null)
-                return "Feedback";
+            if (Feedback == null || string.IsNullOrEmpty(Label))
+                return "TODO";
             var duration = Feedback.GetDuration();
 
             var timeDisplay = $"{Feedback.DelayBeforePlay:0.00}s + {duration:0.00}s";
@@ -163,7 +170,7 @@ namespace MMORPG.Tool
 
         private FeedbackHelpAttribute _help;
 
-        private bool ShowDetailedInfoBox()
+        private bool ShowInfoBox()
         {
             return Feedback != null && _help != null;
         }
@@ -184,8 +191,14 @@ namespace MMORPG.Tool
             {
                 if ((Feedback == null || Feedback.GetType().FullName != FeedbackName) && Owner != null)
                 {
-                    Feedback = (AbstractFeedback)Activator.CreateInstance(s_allFeedbackTypes[FeedbackName]);
+                    var type = s_allFeedbackTypes[FeedbackName];
+                    Feedback = (AbstractFeedback)Activator.CreateInstance(type);
                     Feedback.Setup(Owner);
+                    if (string.IsNullOrEmpty(Label))
+                    {
+                        var attr = type.GetCustomAttribute<AddFeedbackMenuAttribute>();
+                        Label = attr.Path.Split('/').Last();
+                    }
                 }
             }
             else
@@ -245,9 +258,11 @@ namespace MMORPG.Tool
 
         public FeedbacksCoroutineHelper CoroutineHelper { get; private set; }
 
+        public float TimeSinceLastPlay { get; private set; }
+
         public bool CheckIsPlaying()
         {
-            return false;
+            return !FeedbackItems.Any(x => !x.Feedback.IsPlaying);
         }
 
         public void Setup(GameObject owner)
@@ -324,6 +339,7 @@ namespace MMORPG.Tool
             {
                 item.Play();
             }
+            TimeSinceLastPlay = Time.time;
         }
 
         public virtual void Stop()
