@@ -51,7 +51,7 @@
 //                 return;
 //             OriginValue = Picker.GetTargetValue();
 //
-//             Picker.SetTargetValue(Object.GetObjectValue());
+//             Picker.SetTargetValue(Object.GetRawValue());
 //             if (Mode == ValueSetMode.Temporary)
 //                 StartCoroutine(TemporaryCo());
 //         }
@@ -82,7 +82,7 @@
 //         {
 //             if (Picker.IsValid && Picker.TargetMember != null)
 //             {
-//                 Object.Setup(ReflectHelper.GetMemberValueType(Picker.TargetMember));
+//                 Object.Setup(ReflectHelper.GetGeneralMemberValueType(Picker.TargetMember));
 //             }
 //         }
 // #endif

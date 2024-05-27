@@ -62,7 +62,7 @@ namespace MMORPG.Tool
             ObjectType = type;
         }
 
-        public object GetObjectValue()
+        public object GetRawValue()
         {
             return _propertyType switch
             {

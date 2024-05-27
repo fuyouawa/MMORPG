@@ -50,12 +50,12 @@ namespace MMORPG.Tool
         //         return 
         // }
 
-        public static bool HasAttribute<T>(this MethodInfo method, bool inherit = false) where T : Attribute
+        public static bool HasCustomAttribute<T>(this MethodInfo method, bool inherit = false) where T : Attribute
         {
             return method.GetCustomAttributes(typeof(T), inherit).Any();
         }
 
-        public static bool HasAttribute<T>(this Type type, bool inherit = false) where T : Attribute
+        public static bool HasCustomAttribute<T>(this Type type, bool inherit = false) where T : Attribute
         {
             return type.GetCustomAttributes(typeof(T), inherit).Any();
         }
