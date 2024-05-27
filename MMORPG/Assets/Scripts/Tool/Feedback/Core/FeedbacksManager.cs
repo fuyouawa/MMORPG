@@ -26,7 +26,7 @@ namespace MMORPG.Tool
             [Tooltip("是否将判定结果取反")]
             public bool Negative;
             [HideLabel]
-            public ValuePicker<bool> Picker;
+            public ValueGetter<bool> Getter;
         }
         [Information("@_help.Message", VisibleIf = "ShowInfoBox")]
         [HideLabel]

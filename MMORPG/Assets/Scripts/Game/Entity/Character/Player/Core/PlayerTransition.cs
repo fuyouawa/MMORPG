@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -14,20 +15,20 @@ namespace MMORPG.Game
         public string Label = "TODO";
 #endif
 
-        [InfoBox("Error occur in StateConditions!", InfoMessageType.Error, "CheckStateConditionsHasError")]
-        [InfoBox("StateConditions cannot be empty!", InfoMessageType.Error, "IsEmptyStateConditions")]
+        [InfoBox("StateConditions中有报错还没处理!", InfoMessageType.Error, "CheckStateConditionsHasError")]
+        [InfoBox("StateConditions不能为空!", InfoMessageType.Error, "IsEmptyStateConditions")]
         [TableList(AlwaysExpanded = true)]
         public PlayerStateCondition[] StateConditions;
 
-        [InfoBox("At least one of the \"TrueState\" and \"FalseState\" is not empty!", InfoMessageType.Error, "IsTrueOrFalseStateEmpty")]
+        [InfoBox("\"TrueState\"和\"FalseState\"至少有一个不能为空!", InfoMessageType.Error, "IsTrueOrFalseStateEmpty")]
 
-        [InfoBox("Invalid state!", InfoMessageType.Error, "CheckTrueStateNameInvalid")]
+        [InfoBox("无效状态!", InfoMessageType.Error, "CheckTrueStateNameInvalid")]
         [TitleGroup("Branch")]
         [LabelText("TrueState")]
         [ValueDropdown("GetStateNameDropdown")]
         public string TrueStateName = string.Empty;
 
-        [InfoBox("Invalid state!", InfoMessageType.Error, "CheckFalseStateNameInvalid")]
+        [InfoBox("无效状态!", InfoMessageType.Error, "CheckFalseStateNameInvalid")]
         [TitleGroup("Branch")]
         [LabelText("FalseState")]
         [ValueDropdown("GetStateNameDropdown")]
