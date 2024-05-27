@@ -129,10 +129,9 @@ namespace MMORPG.Tool
             return true;
         }
 
-
         protected virtual ValueDropdownItem<string> MemberDropdownSelector(MemberInfo member)
         {
-            return new($"{member.MemberType}/{ReflectHelper.GetMemberValueType(member).Name}/{member.Name}",
+            return new($"{member.MemberType}/{ReflectHelper.GetGeneralMemberValueType(member).Name}/{member.Name}",
                 $"{member.MemberType}/{member.Name}");
         }
 #endif

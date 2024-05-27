@@ -8,7 +8,7 @@ namespace MMORPG.Tool
 {
     public static class ReflectHelper
     {
-        public static Type GetMemberValueType(MemberInfo member)
+        public static Type GetGeneralMemberValueType(MemberInfo member)
         {
             return member switch
             {
@@ -79,6 +79,11 @@ namespace MMORPG.Tool
                     .Any();
             });
             return method;
+        }
+
+        public static bool IsGeneralMember(MemberInfo member)
+        {
+            return member.MemberType is MemberTypes.Field or MemberTypes.Method or MemberTypes.Property;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace MMORPG.Tool
 
         protected override void OnFeedbackPlay()
         {
-            Picker.TargetMethod.Invoke(Picker.TargetComponent, ParameterInputs.Select(x => x.GetObjectValue()).ToArray());
+            Picker.TargetMethod.Invoke(Picker.TargetComponent, ParameterInputs.Select(x => x.GetRawValue()).ToArray());
         }
 
         protected override void OnFeedbackStop()
@@ -48,8 +48,7 @@ namespace MMORPG.Tool
 #if UNITY_EDITOR
         private string _prevMethodName;
 
-        [OnInspectorGUI]
-        protected virtual void OnInspectorGUI()
+        public override void OnInspectorGUI()
         {
             if (Picker.TargetMemberName != _prevMethodName)
             {

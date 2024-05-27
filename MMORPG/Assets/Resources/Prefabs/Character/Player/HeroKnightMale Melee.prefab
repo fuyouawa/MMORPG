@@ -218,74 +218,10 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopAllCoroutinesWhenStop: 1
-  Feedbacks:
-  - rid: 1878086261005090947
+  FeedbackItems: []
   references:
     version: 2
-    RefIds:
-    - rid: 1878086261005090947
-      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
-      data:
-        Enable: 1
-        Label: "\u8D70\u8DEF"
-        DelayBeforePlay: 0
-        LoopPlay: 0
-        LimitLoopAmount: 0
-        AmountOfLoop: 0
-        DelayBetweenLoop: 0
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
-        Sfx: {fileID: 8300000, guid: 3bf2bd23e8e6377469c5e1819ce811d7, type: 3}
-        RandomSfx: []
-        PlayMethod: 0
-        PoolSize: 10
-        StopSoundOnFeedbackStop: 1
-        MinVolume: 1
-        MaxVolume: 1
-        MinPitch: 1
-        MaxPitch: 1
-        SfxAudioMixerGroup: {fileID: 0}
-        Priority: 128
-        PanStereo: 0
-        SpatialBlend: 0
-        DopplerLevel: 1
-        Spread: 0
-        RolloffMode: 0
-        MinDistance: 1
-        MaxDistance: 500
-        UseCustomRolloffCurve: 0
-        CustomRolloffCurve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        UseSpatialBlendCurve: 0
-        SpatialBlendCurve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        UseReverbZoneMixCurve: 0
-        ReverbZoneMixCurve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        UseSpreadCurve: 0
-        SpreadCurve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
+    RefIds: []
 --- !u!1 &884816792351883935
 GameObject:
   m_ObjectHideFlags: 0
@@ -80701,32 +80637,83 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopAllCoroutinesWhenStop: 1
-  Feedbacks:
-  - rid: 1878086261005090942
-  - rid: 1878086261005090943
-  - rid: 1878086261005090944
-  - rid: 1878086261005090945
-  - rid: 1878086261005091105
+  FeedbackItems:
+  - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
+    Enable: 1
+    Label: "\u5200\u5149"
+    ActiveEnableCheck: 0
+    DisableIf:
+      CheckMode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091191
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: "\u97F3\u6548"
+    ActiveEnableCheck: 0
+    DisableIf:
+      CheckMode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091192
+  - FeedbackName: MMORPG.Tool.FeedbackDamageArea
+    Enable: 1
+    Label: "\u4F24\u5BB3\u533A\u57DF"
+    ActiveEnableCheck: 0
+    DisableIf:
+      CheckMode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091194
+  - FeedbackName: MMORPG.Tool.FeedbackTriggerAnimatorParam
+    Enable: 1
+    Label: "\u89E6\u53D1\u52A8\u753B"
+    ActiveEnableCheck: 0
+    DisableIf:
+      CheckMode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091195
+  - FeedbackName: MMORPG.Tool.FeedbackGameObjectInvokeMethod
+    Enable: 1
+    Label: "\u505C\u6B62\u79FB\u52A8"
+    ActiveEnableCheck: 0
+    DisableIf:
+      CheckMode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091196
   references:
     version: 2
     RefIds:
-    - rid: 1878086261005090942
+    - rid: 1878086261005091191
       type: {class: FeedbackParticlePlay, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        Enable: 1
-        Label: "\u5200\u5149"
         DelayBeforePlay: 0.8
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 0
         DelayBetweenLoop: 1
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
         Mode: 0
         EmitCount: 100
         BoundParticleSystem: {fileID: 4865950127427736656}
@@ -80737,23 +80724,14 @@ MonoBehaviour:
         DeclaredDuration: 0
         ForceSimulationSpeed: 0
         ForcedSimulationSpeed: {x: 0.1, y: 1}
-    - rid: 1878086261005090943
+    - rid: 1878086261005091192
       type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        Enable: 1
-        Label: "\u97F3\u6548"
         DelayBeforePlay: 0.7
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 0
         DelayBetweenLoop: 1
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
         Sfx: {fileID: 8300000, guid: 3d13a8f3bd19d964c8b6cbc00b6c813d, type: 3}
         RandomSfx: []
         PlayMethod: 0
@@ -80800,44 +80778,14 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    - rid: 1878086261005090944
-      type: {class: FeedbackTriggerAnimatorParam, ns: MMORPG.Tool, asm: Assembly-CSharp}
-      data:
-        Enable: 1
-        Label: "\u89E6\u53D1\u52A8\u753B"
-        DelayBeforePlay: 0
-        LoopPlay: 0
-        LimitLoopAmount: 1
-        AmountOfLoop: 1
-        DelayBetweenLoop: 0
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
-        TargetAnimator: {fileID: 1201144034948401517}
-        ExtraAnimators: []
-        TriggerLikeBool: 0
-        ParameterName: Combo3
-    - rid: 1878086261005090945
+    - rid: 1878086261005091194
       type: {class: FeedbackDamageArea, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        Enable: 1
-        Label: "\u4F24\u5BB3\u533A\u57DF"
         DelayBeforePlay: 0.7
         LoopPlay: 0
         LimitLoopAmount: 1
         AmountOfLoop: 1
         DelayBetweenLoop: 0
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
         DamageAreaMode: 0
         CustomLayer: 0
         LayerName: 
@@ -80861,23 +80809,26 @@ MonoBehaviour:
         AmountOfRepeats: 3
         DurationBetweenRepeats: 1
         DamageOverTimeInterruptible: 1
-    - rid: 1878086261005091105
-      type: {class: FeedbackGameObjectInvokeMethod, ns: MMORPG.Tool, asm: Assembly-CSharp}
+    - rid: 1878086261005091195
+      type: {class: FeedbackTriggerAnimatorParam, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        Enable: 1
-        Label: "\u505C\u6B62\u79FB\u52A8"
         DelayBeforePlay: 0
         LoopPlay: 0
         LimitLoopAmount: 1
         AmountOfLoop: 1
         DelayBetweenLoop: 0
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
+        TargetAnimator: {fileID: 1201144034948401517}
+        ExtraAnimators: []
+        TriggerLikeBool: 0
+        ParameterName: Combo3
+    - rid: 1878086261005091196
+      type: {class: FeedbackGameObjectInvokeMethod, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 1
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
         Picker:
           TargetObject: {fileID: 6023422151166410460}
           TargetComponent: {fileID: 224805171054128564}
@@ -106121,74 +106072,10 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopAllCoroutinesWhenStop: 1
-  Feedbacks:
-  - rid: 1878086261005090946
+  FeedbackItems: []
   references:
     version: 2
-    RefIds:
-    - rid: 1878086261005090946
-      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
-      data:
-        Enable: 1
-        Label: "\u8D70\u8DEF"
-        DelayBeforePlay: 0
-        LoopPlay: 0
-        LimitLoopAmount: 0
-        AmountOfLoop: 0
-        DelayBetweenLoop: 0
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
-        Sfx: {fileID: 8300000, guid: 938d32378af68c2458b125d48761421a, type: 3}
-        RandomSfx: []
-        PlayMethod: 0
-        PoolSize: 10
-        StopSoundOnFeedbackStop: 1
-        MinVolume: 1
-        MaxVolume: 1
-        MinPitch: 1
-        MaxPitch: 1
-        SfxAudioMixerGroup: {fileID: 0}
-        Priority: 128
-        PanStereo: 0
-        SpatialBlend: 0
-        DopplerLevel: 1
-        Spread: 0
-        RolloffMode: 0
-        MinDistance: 1
-        MaxDistance: 500
-        UseCustomRolloffCurve: 0
-        CustomRolloffCurve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        UseSpatialBlendCurve: 0
-        SpatialBlendCurve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        UseReverbZoneMixCurve: 0
-        ReverbZoneMixCurve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        UseSpreadCurve: 0
-        SpreadCurve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
+    RefIds: []
 --- !u!1 &6670715276727017272
 GameObject:
   m_ObjectHideFlags: 0
@@ -106249,32 +106136,83 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopAllCoroutinesWhenStop: 1
-  Feedbacks:
-  - rid: 1878086261005090933
-  - rid: 1878086261005090934
-  - rid: 1878086261005090935
-  - rid: 1878086261005090936
-  - rid: 1878086261005091089
+  FeedbackItems:
+  - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
+    Enable: 1
+    Label: "\u5200\u5149"
+    ActiveEnableCheck: 1
+    DisableIf:
+      CheckMode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 6023422151166410460}
+        TargetComponent: {fileID: 9049836981437204500}
+        TargetMemberName: Property/IsMine
+    Feedback:
+      rid: 1878086261005091166
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: "\u97F3\u6548"
+    ActiveEnableCheck: 0
+    DisableIf:
+      CheckMode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091175
+  - FeedbackName: MMORPG.Tool.FeedbackDamageArea
+    Enable: 1
+    Label: "\u4F24\u5BB3\u533A\u57DF"
+    ActiveEnableCheck: 0
+    DisableIf:
+      CheckMode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091169
+  - FeedbackName: MMORPG.Tool.FeedbackTriggerAnimatorParam
+    Enable: 1
+    Label: "\u89E6\u53D1\u52A8\u753B"
+    ActiveEnableCheck: 0
+    DisableIf:
+      CheckMode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091170
+  - FeedbackName: MMORPG.Tool.FeedbackGameObjectInvokeMethod
+    Enable: 1
+    Label: "\u505C\u6B62\u79FB\u52A8"
+    ActiveEnableCheck: 0
+    DisableIf:
+      CheckMode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091171
   references:
     version: 2
     RefIds:
-    - rid: 1878086261005090933
+    - rid: 1878086261005091166
       type: {class: FeedbackParticlePlay, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        Enable: 1
-        Label: "\u5200\u5149"
         DelayBeforePlay: 0.4
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 0
         DelayBetweenLoop: 1
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
         Mode: 0
         EmitCount: 100
         BoundParticleSystem: {fileID: 3566229314517168031}
@@ -106285,23 +106223,78 @@ MonoBehaviour:
         DeclaredDuration: 0
         ForceSimulationSpeed: 0
         ForcedSimulationSpeed: {x: 0.1, y: 1}
-    - rid: 1878086261005090934
+    - rid: 1878086261005091169
+      type: {class: FeedbackDamageArea, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0.3
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 0
+        DelayBetweenLoop: 0
+        DamageAreaMode: 0
+        CustomLayer: 1
+        LayerName: Weapon
+        DamageAreaShape: 0
+        AreaOffset: {x: 0, y: 1.04, z: 1.23}
+        AreaSize: {x: 2.66, y: 1.56, z: 1.67}
+        ExistingDamageArea: {fileID: 0}
+        TriggerMask: 1
+        TargetLayerMask:
+          serializedVersion: 2
+          m_Bits: 384
+        OwnerGameObject: {fileID: 6023422151166410460}
+        MinDamageCaused: 10
+        MaxDamageCaused: 10
+        ExtraInvincibilityDuration: 0
+        DamageDirectionMode: 0
+        ActiveDuration: 0.4
+        IgnoreOwnerGameObject: 1
+        IgnoredGameObjects: []
+        RepeatDamageOverTime: 0
+        AmountOfRepeats: 0
+        DurationBetweenRepeats: 0
+        DamageOverTimeInterruptible: 0
+    - rid: 1878086261005091170
+      type: {class: FeedbackTriggerAnimatorParam, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 1
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        TargetAnimator: {fileID: 1201144034948401517}
+        ExtraAnimators: []
+        TriggerLikeBool: 0
+        ParameterName: Combo1
+    - rid: 1878086261005091171
+      type: {class: FeedbackGameObjectInvokeMethod, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 1
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        Picker:
+          TargetObject: {fileID: 6023422151166410460}
+          TargetComponent: {fileID: 224805171054128564}
+          TargetMemberName: PreventMovement(Single delay)
+          IncludeSpecial: 0
+          LimitParam: 0
+          ParamCount: 3
+        ParameterInputs:
+        - IntegralValue: 0
+          FloatingPointValue: 0.5
+          BooleanValue: 0
+          StringValue: 
+          UnityObjectValue: {fileID: 0}
+    - rid: 1878086261005091175
       type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        Enable: 1
-        Label: "\u97F3\u6548"
         DelayBeforePlay: 0.3
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 0
         DelayBetweenLoop: 1
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
         Sfx: {fileID: 8300000, guid: 5d312acdcfc52864ab5a08b14ba93b1b, type: 3}
         RandomSfx: []
         PlayMethod: 0
@@ -106348,97 +106341,6 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    - rid: 1878086261005090935
-      type: {class: FeedbackDamageArea, ns: MMORPG.Tool, asm: Assembly-CSharp}
-      data:
-        Enable: 1
-        Label: "\u4F24\u5BB3\u533A\u57DF"
-        DelayBeforePlay: 0.3
-        LoopPlay: 0
-        LimitLoopAmount: 0
-        AmountOfLoop: 0
-        DelayBetweenLoop: 0
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 1
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
-        DamageAreaMode: 0
-        CustomLayer: 1
-        LayerName: Weapon
-        DamageAreaShape: 0
-        AreaOffset: {x: 0, y: 1.04, z: 1.23}
-        AreaSize: {x: 2.66, y: 1.56, z: 1.67}
-        ExistingDamageArea: {fileID: 0}
-        TriggerMask: 1
-        TargetLayerMask:
-          serializedVersion: 2
-          m_Bits: 384
-        OwnerGameObject: {fileID: 6023422151166410460}
-        MinDamageCaused: 10
-        MaxDamageCaused: 10
-        ExtraInvincibilityDuration: 0
-        DamageDirectionMode: 0
-        ActiveDuration: 0.4
-        IgnoreOwnerGameObject: 1
-        IgnoredGameObjects: []
-        RepeatDamageOverTime: 0
-        AmountOfRepeats: 0
-        DurationBetweenRepeats: 0
-        DamageOverTimeInterruptible: 0
-    - rid: 1878086261005090936
-      type: {class: FeedbackTriggerAnimatorParam, ns: MMORPG.Tool, asm: Assembly-CSharp}
-      data:
-        Enable: 1
-        Label: "\u89E6\u53D1\u52A8\u753B"
-        DelayBeforePlay: 0
-        LoopPlay: 0
-        LimitLoopAmount: 1
-        AmountOfLoop: 1
-        DelayBetweenLoop: 0
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
-        TargetAnimator: {fileID: 1201144034948401517}
-        ExtraAnimators: []
-        TriggerLikeBool: 0
-        ParameterName: Combo1
-    - rid: 1878086261005091089
-      type: {class: FeedbackGameObjectInvokeMethod, ns: MMORPG.Tool, asm: Assembly-CSharp}
-      data:
-        Enable: 1
-        Label: "\u505C\u6B62\u79FB\u52A8"
-        DelayBeforePlay: 0
-        LoopPlay: 0
-        LimitLoopAmount: 1
-        AmountOfLoop: 1
-        DelayBetweenLoop: 0
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
-        Picker:
-          TargetObject: {fileID: 6023422151166410460}
-          TargetComponent: {fileID: 224805171054128564}
-          TargetMemberName: PreventMovement(Single delay)
-          IncludeSpecial: 0
-          LimitParam: 0
-          ParamCount: 3
-        ParameterInputs:
-        - IntegralValue: 0
-          FloatingPointValue: 0.5
-          BooleanValue: 0
-          StringValue: 
-          UnityObjectValue: {fileID: 0}
 --- !u!1 &6710520580799211426
 GameObject:
   m_ObjectHideFlags: 0
@@ -117132,32 +117034,83 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopAllCoroutinesWhenStop: 1
-  Feedbacks:
-  - rid: 1878086261005090938
-  - rid: 1878086261005090939
-  - rid: 1878086261005090940
-  - rid: 1878086261005090941
-  - rid: 1878086261005091103
+  FeedbackItems:
+  - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
+    Enable: 1
+    Label: "\u5200\u5149"
+    ActiveEnableCheck: 0
+    DisableIf:
+      CheckMode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091181
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: "\u97F3\u6548"
+    ActiveEnableCheck: 0
+    DisableIf:
+      CheckMode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091182
+  - FeedbackName: MMORPG.Tool.FeedbackDamageArea
+    Enable: 1
+    Label: "\u4F24\u5BB3\u533A\u57DF"
+    ActiveEnableCheck: 0
+    DisableIf:
+      CheckMode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091184
+  - FeedbackName: MMORPG.Tool.FeedbackTriggerAnimatorParam
+    Enable: 1
+    Label: "\u89E6\u53D1\u52A8\u753B"
+    ActiveEnableCheck: 0
+    DisableIf:
+      CheckMode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091183
+  - FeedbackName: MMORPG.Tool.FeedbackGameObjectInvokeMethod
+    Enable: 1
+    Label: "\u505C\u6B62\u79FB\u52A8"
+    ActiveEnableCheck: 0
+    DisableIf:
+      CheckMode: 1
+      Negative: 0
+      Picker:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 1878086261005091185
   references:
     version: 2
     RefIds:
-    - rid: 1878086261005090938
+    - rid: 1878086261005091181
       type: {class: FeedbackParticlePlay, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        Enable: 1
-        Label: "\u5200\u5149"
         DelayBeforePlay: 0.1
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 0
         DelayBetweenLoop: 1
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
         Mode: 0
         EmitCount: 100
         BoundParticleSystem: {fileID: 3965320441237862755}
@@ -117168,23 +117121,14 @@ MonoBehaviour:
         DeclaredDuration: 0
         ForceSimulationSpeed: 0
         ForcedSimulationSpeed: {x: 0.1, y: 1}
-    - rid: 1878086261005090939
+    - rid: 1878086261005091182
       type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        Enable: 1
-        Label: "\u97F3\u6548"
         DelayBeforePlay: 0.1
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 0
         DelayBetweenLoop: 1
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
         Sfx: {fileID: 8300000, guid: 4726ef687d0f59e42bfbbeac0e8a1fce, type: 3}
         RandomSfx: []
         PlayMethod: 0
@@ -117231,44 +117175,26 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    - rid: 1878086261005090940
+    - rid: 1878086261005091183
       type: {class: FeedbackTriggerAnimatorParam, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        Enable: 1
-        Label: "\u89E6\u53D1\u52A8\u753B"
         DelayBeforePlay: 0
         LoopPlay: 0
         LimitLoopAmount: 1
         AmountOfLoop: 1
         DelayBetweenLoop: 0
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
         TargetAnimator: {fileID: 1201144034948401517}
         ExtraAnimators: []
         TriggerLikeBool: 0
         ParameterName: Combo2
-    - rid: 1878086261005090941
+    - rid: 1878086261005091184
       type: {class: FeedbackDamageArea, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        Enable: 1
-        Label: "\u4F24\u5BB3\u533A\u57DF"
         DelayBeforePlay: 0.1
         LoopPlay: 0
         LimitLoopAmount: 1
         AmountOfLoop: 1
         DelayBetweenLoop: 0
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
         DamageAreaMode: 0
         CustomLayer: 0
         LayerName: 
@@ -117292,23 +117218,14 @@ MonoBehaviour:
         AmountOfRepeats: 3
         DurationBetweenRepeats: 1
         DamageOverTimeInterruptible: 1
-    - rid: 1878086261005091103
+    - rid: 1878086261005091185
       type: {class: FeedbackGameObjectInvokeMethod, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        Enable: 1
-        Label: "\u505C\u6B62\u79FB\u52A8"
         DelayBeforePlay: 0
         LoopPlay: 0
         LimitLoopAmount: 1
         AmountOfLoop: 1
         DelayBetweenLoop: 0
-        ActiveEnableCheck: 0
-        DisableIf:
-          CheckMode: 1
-          Negative: 0
-          Getter:
-            _targetObject: {fileID: 0}
-            _memberPath: 
         Picker:
           TargetObject: {fileID: 6023422151166410460}
           TargetComponent: {fileID: 224805171054128564}
