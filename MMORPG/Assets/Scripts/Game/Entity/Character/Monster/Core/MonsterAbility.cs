@@ -7,7 +7,8 @@ namespace MMORPG.Game
 {
     public class MonsterAbility : MonoBehaviour
     {
-        
+        public MonsterBrain Brain;
+
     }
 
 }

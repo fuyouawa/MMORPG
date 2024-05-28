@@ -42,7 +42,8 @@ namespace GameServer.Manager
                 UnitId = unitId,
                 Position = pos,
                 Direction = dire,
-                Speed = 5,
+
+                //Speed = DataHelper.GetUnitDefine(unitId).Speed,
             };
             EntityManager.Instance.AddEntity(player);
 
@@ -51,6 +52,8 @@ namespace GameServer.Manager
                 _playerDict.Add(player.EntityId, player);
             }
             _map.EntityEnter(player);
+
+            player.Start();
             return player;
         }
 

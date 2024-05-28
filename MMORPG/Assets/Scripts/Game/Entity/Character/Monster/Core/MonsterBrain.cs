@@ -15,11 +15,14 @@ namespace MMORPG.Game
 {
     public class MonsterBrain : MonoBehaviour
     {
+        public Animator Animator;
+
         public enum States
         {
             None = 0,
-            Idle = 1,
-            Move = 2,
+            Idle,
+            Move,
+            Attack,
         }
         public FSM<States> FSM = new FSM<States>();
 
@@ -33,8 +36,14 @@ namespace MMORPG.Game
 
             }
 
-            public void OnUpdate()
+            protected override void OnEnter()
             {
+                
+            }
+
+            protected override void OnUpdate()
+            {
+                
             }
         }
 
@@ -43,6 +52,16 @@ namespace MMORPG.Game
             public MoveState(FSM<States> fsm, MonsterBrain target) : base(fsm, target)
             {
 
+            }
+
+            protected override void OnEnter()
+            {
+                mTarget.Animator.SetBool("Walking", true);
+            }
+
+            protected override void OnExit()
+            {
+                mTarget.Animator.SetBool("Walking", false);
             }
 
             protected override void OnUpdate()
@@ -63,6 +82,23 @@ namespace MMORPG.Game
             }
         }
 
+        public class AttackState : AbstractState<States, MonsterBrain>
+        {
+            public AttackState(FSM<States> fsm, MonsterBrain target) : base(fsm, target)
+            {
+
+            }
+
+            protected override void OnEnter()
+            {
+                mTarget.Animator.SetBool("Attack", true);
+            }
+
+            protected override void OnExit()
+            {
+                mTarget.Animator.SetBool("Attack", false);
+            }
+        }
 
         [Required]
         public CharacterController CharacterController;
@@ -92,6 +128,7 @@ namespace MMORPG.Game
         {
             FSM.AddState(States.Idle, new IdleState(FSM, this));
             FSM.AddState(States.Move, new MoveState(FSM, this));
+            FSM.AddState(States.Attack, new AttackState(FSM, this));
             FSM.StartState(States.Idle);
         }
 
