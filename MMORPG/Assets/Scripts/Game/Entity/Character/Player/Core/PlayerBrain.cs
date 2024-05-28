@@ -27,9 +27,9 @@ namespace MMORPG.Game
 
         // public string StartStateName = string.Empty;
 
-        [InfoBox("状态机中有报错还没处理!", InfoMessageType.Error, "CheckStatesHasError")]
-        [InfoBox("空状态机是没有意义的!", InfoMessageType.Warning, "IsEmptyStates")]
-        [InfoBox("不能有相同名称的状态!", InfoMessageType.Error, "HasRepeatStateName")]
+        [Information("状态机中有报错还没处理!", InfoMessageType.Error, "CheckStatesHasError")]
+        [Information("空状态机是没有意义的!", InfoMessageType.Warning, "IsEmptyStates")]
+        [Information("不能有相同名称的状态!", InfoMessageType.Error, "HasRepeatStateName")]
         [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "Name")]
         public PlayerState[] States;
 

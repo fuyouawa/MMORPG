@@ -5,13 +5,14 @@ using System;
 using System.Collections;
 using QFramework;
 using UnityEngine;
+using MMORPG.Tool;
 
 namespace MMORPG.Game
 {
     [Serializable]
     public class PlayerStateCondition
     {
-        [InfoBox("无效函数!", InfoMessageType.Error, "CheckMethodNameInvalid")]
+        [Information("无效函数!", InfoMessageType.Error, "CheckMethodNameInvalid")]
         [ValueDropdown("GetStateConditionsDropdown")]
         [VerticalGroup("Method")]
         [HideLabel]

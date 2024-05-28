@@ -15,20 +15,20 @@ namespace MMORPG.Game
         public string Label = "TODO";
 #endif
 
-        [InfoBox("StateConditions中有报错还没处理!", InfoMessageType.Error, "CheckStateConditionsHasError")]
-        [InfoBox("StateConditions不能为空!", InfoMessageType.Error, "IsEmptyStateConditions")]
+        [Information("StateConditions中有报错还没处理!", InfoMessageType.Error, "CheckStateConditionsHasError")]
+        [Information("StateConditions不能为空!", InfoMessageType.Error, "IsEmptyStateConditions")]
         [TableList(AlwaysExpanded = true)]
         public PlayerStateCondition[] StateConditions;
 
-        [InfoBox("\"TrueState\"和\"FalseState\"至少有一个不能为空!", InfoMessageType.Error, "IsTrueOrFalseStateEmpty")]
+        [Information("\"TrueState\"和\"FalseState\"至少有一个不能为空!", InfoMessageType.Error, "IsTrueOrFalseStateEmpty")]
 
-        [InfoBox("无效状态!", InfoMessageType.Error, "CheckTrueStateNameInvalid")]
+        [Information("无效状态!", InfoMessageType.Error, "CheckTrueStateNameInvalid")]
         [TitleGroup("Branch")]
         [LabelText("TrueState")]
         [ValueDropdown("GetStateNameDropdown")]
         public string TrueStateName = string.Empty;
 
-        [InfoBox("无效状态!", InfoMessageType.Error, "CheckFalseStateNameInvalid")]
+        [Information("无效状态!", InfoMessageType.Error, "CheckFalseStateNameInvalid")]
         [TitleGroup("Branch")]
         [LabelText("FalseState")]
         [ValueDropdown("GetStateNameDropdown")]
