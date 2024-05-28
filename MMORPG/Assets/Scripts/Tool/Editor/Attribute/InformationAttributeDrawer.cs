@@ -17,6 +17,7 @@ namespace MMORPG.Tool.Editor
         private ValueResolver<bool> _visibleIfResolver;
         private ValueResolver<string> _messageResolver;
         private ValueResolver<Color> _iconColorResolver;
+        private MessageType _messageType;
 
         protected override void Initialize()
         {
@@ -24,6 +25,13 @@ namespace MMORPG.Tool.Editor
             _messageResolver = ValueResolver.GetForString(base.Property, base.Attribute.Message);
             _iconColorResolver = ValueResolver.Get<Color>(base.Property, base.Attribute.IconColor, EditorStyles.label.normal.textColor);
             _drawMessageBox = _visibleIfResolver.GetValue();
+            _messageType = Attribute.MessageType switch
+            {
+                InfoMessageType.Info => MessageType.Info,
+                InfoMessageType.Warning => MessageType.Warning,
+                InfoMessageType.Error => MessageType.Error,
+                _ => MessageType.None
+            };
         }
 
         /// <summary>
@@ -63,17 +71,7 @@ namespace MMORPG.Tool.Editor
             if (_drawMessageBox)
             {
                 string value = _messageResolver.GetValue();
-                var type = Attribute.MessageType switch
-                {
-                    InfoMessageType.Info => MessageType.Info,
-                    InfoMessageType.Warning => MessageType.Warning,
-                    InfoMessageType.Error => MessageType.Error,
-                    _ => MessageType.None
-                };
-                SirenixEditorGUIHelper.PrivateMessageBox(
-                    value,
-                    type,
-                    SirenixGUIStylesHelper.MessageBox);
+                SirenixEditorGUI.MessageBox(value, _messageType, SirenixGUIStylesHelper.MessageBox, true);
             }
             if (base.Attribute.GUIAlwaysEnabled)
             {
