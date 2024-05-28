@@ -19,6 +19,12 @@ namespace GameServer.Service
         {
             if (sender.User == null)
                 return;
+
+            if (sender.User.Player != null)
+            {
+                sender.User.Player.Vaild = false;
+            }
+            
             UserManager.Instance.RemoveUser(sender.User);
         }
 

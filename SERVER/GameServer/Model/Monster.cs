@@ -23,38 +23,39 @@ namespace GameServer.Model
             _ai = new(this);
         }
 
+        public override void Start()
+        {
+            base.Start();
+            _ai.Start();
+        }
+
         public override void Update()
         {
+            base.Update();
+
             if (Map == null)
             {
                 return;
             }
-
             _ai.Update();
 
             if (State == ActorState.Move)
             {
                 if (_moveTargetPos == _moveCurrentPos)
                 {
-                    MoveStop();
+                    Idle();
                     return;
                 }
 
                 var direction = (_moveTargetPos - _moveCurrentPos).Normalized();
                 Direction = direction.ToEulerAngles() * new Vector3(0, 1, 0);
-                float distance = Speed * Time.DeltaTime;
-
-                var res = new EntityTransformSyncResponse()
-                {
-                    EntityId = EntityId,
-                    StateId = (int)State,
-                    Transform = ProtoHelper.ToNetTransform(Position, Direction)
-                };
+                //float distance = Speed * Time.DeltaTime;
+                float distance = 2 * Time.DeltaTime;
+                
                 if (Vector3.Distance(_moveTargetPos, _moveCurrentPos) <= distance)
                 {
                     // 本次移动能到达目的地
                     _moveCurrentPos = _moveTargetPos;
-                    MoveStop();
                 }
                 else
                 {
@@ -62,12 +63,18 @@ namespace GameServer.Model
                     _moveCurrentPos += distance * direction;
                 }
                 Position = _moveCurrentPos;
+                var res = new EntityTransformSyncResponse()
+                {
+                    EntityId = EntityId,
+                    StateId = (int)State,
+                    Transform = ProtoHelper.ToNetTransform(Position, Direction)
+                };
                 Map.EntityRefreshPosition(this);
                 Map.PlayerManager.Broadcast(res, this);
             }
         }
 
-        public void MoveTo(Vector3 targetPos)
+        public void Move(Vector3 targetPos)
         {
             if (State == ActorState.Idle)
             {
@@ -81,9 +88,31 @@ namespace GameServer.Model
             }
         }
 
-        public void MoveStop()
+        public void Idle()
         {
+            StateChange(ActorState.Idle);
+        }
+
+        public void Attack()
+        {
+            StateChange(ActorState.Attack);
             State = ActorState.Idle;
+        }
+
+        private void StateChange(ActorState state)
+        {
+            if (State == state) return;
+            State = state;
+            if (Map != null)
+            {
+                var res = new EntityTransformSyncResponse()
+                {
+                    EntityId = EntityId,
+                    StateId = (int)State,
+                    Transform = ProtoHelper.ToNetTransform(Position, Direction)
+                };
+                Map.PlayerManager.Broadcast(res, this);
+            }
         }
 
         public Vector3 RandomPointWithBirth(float range)

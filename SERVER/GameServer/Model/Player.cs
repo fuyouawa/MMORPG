@@ -23,12 +23,7 @@ namespace GameServer.Model
 
         public override void Update()
         {
-            
-        }
-
-        public bool IsOnline()
-        {
-            return true;
+            base.Update();
         }
     }
 }
