@@ -66,6 +66,9 @@ namespace MMORPG.Tool
         [Tooltip("每次循环Play的间隔")]
         public float DelayBetweenLoop = 0f;
 
+        public float TotalDuartion => DelayBeforePlay + GetDuration();
+        public float TimeSincePlay { get; private set; }
+
         public FeedbacksManager Owner { get; private set; }
         public bool IsPlaying { get; private set; }
 
@@ -99,6 +102,7 @@ namespace MMORPG.Tool
         {
             Reset();
             IsPlaying = true;
+            TimeSincePlay = Time.time;
             StartCoroutine(FeedbackPlayCo());
         }
 
@@ -144,7 +148,7 @@ namespace MMORPG.Tool
                         goto stop;
                     CurrentLoopCount--;
                 }
-                StartCoroutine(FeedbackPlayCo());
+                Play();
                 yield break;
             }
             stop:
@@ -163,7 +167,11 @@ namespace MMORPG.Tool
 
         protected abstract void OnFeedbackStop();
 
-        public virtual void OnDestroy() {}
+        public virtual void OnDestroy() { }
+
+        public virtual void OnEnable() { }
+
+        public virtual void OnDisable() { }
 
         public virtual float GetDuration()
         {
