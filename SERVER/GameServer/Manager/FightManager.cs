@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameServer.Ai
+namespace GameServer.Manager
 {
-    public abstract class AiBase
+    public class FightManager
     {
-        public abstract void Start();
-        public abstract void Update();
+        
     }
 }

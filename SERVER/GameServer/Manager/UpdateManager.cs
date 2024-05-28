@@ -19,7 +19,7 @@ namespace GameServer.Manager
 
         public void Init()
         {
-            CenterTimer.Instance.Register(1000 / Fps, Update);
+            Scheduler.Instance.Register(1000 / Fps, Update);
         }
 
         public void Update()
