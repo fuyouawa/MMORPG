@@ -49,7 +49,7 @@ namespace MMORPG.Tool
         [Tooltip("选择一个变量或者函数, 用于在运行时判定是否要Disable")]
         [ShowIf("ActiveEnablePredicate")]
         [HideReferenceObjectPicker]
-        public Condition DisableIf = new();
+        public Condition DisableIf = new(); //TODO DisableIf
 
         [BoxGroup("@FeedbackName"), HideLabel]
         [HideIf("@Feedback == null")]
