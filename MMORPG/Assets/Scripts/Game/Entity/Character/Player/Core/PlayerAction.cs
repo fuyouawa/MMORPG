@@ -11,13 +11,13 @@ namespace MMORPG.Game
     [Serializable]
     public class PlayerAction
     {
-        [InfoBox("无效Ability!", InfoMessageType.Error, "CheckLocalAbilityNameInvalid")]
+        [Information("无效Ability!", InfoMessageType.Error, "CheckLocalAbilityNameInvalid")]
         [VerticalGroup("Local Ability")]
         [ValueDropdown("GetLocalAbilityDropdown")]
         [HideLabel]
         public string LocalAbilityName = string.Empty;
 
-        [InfoBox("无效Ability!", InfoMessageType.Error, "CheckRemoteAbilityNameInvalid")]
+        [Information("无效Ability!", InfoMessageType.Error, "CheckRemoteAbilityNameInvalid")]
         [VerticalGroup("Remote Ability")]
         [ValueDropdown("GetRemoteAbilityDropdown")]
         [HideLabel]
