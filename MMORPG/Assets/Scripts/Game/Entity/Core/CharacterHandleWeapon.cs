@@ -5,6 +5,7 @@ namespace MMORPG.Game
 {
     public enum HandleWeaponMode
     {
+        NoWeapon,
         LeftHand,
         RightHand
     }
@@ -21,7 +22,9 @@ namespace MMORPG.Game
         [Title("Binding")]
         public Transform WeaponAttachment;
         public HandleWeaponMode HandleMode = HandleWeaponMode.RightHand;
+        [ShowIf("HandleMode", HandleWeaponMode.LeftHand)]
         public Transform LeftHandTarget;
+        [ShowIf("HandleMode", HandleWeaponMode.RightHand)]
         public Transform RightHandTarget;
 
         public delegate void WeaponChangedHandler(Weapon current, Weapon previous);
@@ -40,9 +43,11 @@ namespace MMORPG.Game
                         if (LeftHandTarget)
                             WeaponAttachment.SetPositionAndRotation(LeftHandTarget.position, LeftHandTarget.rotation);
                         break;
-                    default:
+                    case HandleWeaponMode.RightHand:
                         if (RightHandTarget)
                             WeaponAttachment.SetPositionAndRotation(RightHandTarget.position, RightHandTarget.rotation);
+                        break;
+                    default:
                         break;
                 }
             }
