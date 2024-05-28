@@ -124,7 +124,7 @@ namespace MMORPG.Game
 
         private void OnFireStarted(InputAction.CallbackContext obj)
         {
-            CharacterController.HandleWeapon.ShootStart();
+            CharacterController.HandleWeapon?.ShootStart();
         }
 
         private void Update()
