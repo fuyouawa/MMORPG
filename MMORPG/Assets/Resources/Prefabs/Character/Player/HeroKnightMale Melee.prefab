@@ -221,7 +221,7 @@ MonoBehaviour:
   StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackSound
-    Enable: 1
+    Active: 1
     Label: "\u8DD1\u6B65\u97F3\u6548"
     ActiveEnablePredicate: 0
     DisableIf:
@@ -80708,7 +80708,7 @@ MonoBehaviour:
   StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
-    Enable: 1
+    Active: 1
     Label: "\u5200\u5149"
     ActiveEnablePredicate: 0
     DisableIf:
@@ -80721,7 +80721,7 @@ MonoBehaviour:
     Feedback:
       rid: 1878086261005091191
   - FeedbackName: MMORPG.Tool.FeedbackSound
-    Enable: 1
+    Active: 1
     Label: "\u97F3\u6548"
     ActiveEnablePredicate: 0
     DisableIf:
@@ -80734,7 +80734,7 @@ MonoBehaviour:
     Feedback:
       rid: 1878086261005091192
   - FeedbackName: MMORPG.Tool.FeedbackDamageArea
-    Enable: 1
+    Active: 1
     Label: "\u4F24\u5BB3\u533A\u57DF"
     ActiveEnablePredicate: 0
     DisableIf:
@@ -80747,7 +80747,7 @@ MonoBehaviour:
     Feedback:
       rid: 1878086261005091194
   - FeedbackName: MMORPG.Tool.FeedbackTriggerAnimatorParam
-    Enable: 1
+    Active: 1
     Label: "\u89E6\u53D1\u52A8\u753B"
     ActiveEnablePredicate: 0
     DisableIf:
@@ -80760,7 +80760,7 @@ MonoBehaviour:
     Feedback:
       rid: 1878086261005091195
   - FeedbackName: MMORPG.Tool.FeedbackGameObjectInvokeMethod
-    Enable: 1
+    Active: 1
     Label: "\u505C\u6B62\u79FB\u52A8"
     ActiveEnablePredicate: 0
     DisableIf:
@@ -105873,7 +105873,6 @@ Transform:
   - {fileID: 9087934345694290826}
   - {fileID: 6292130008949261289}
   - {fileID: 890314551262170839}
-  - {fileID: 204620109946203986}
   - {fileID: 8942558685178153681}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -106014,7 +106013,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitialWeapon: {fileID: 7306660906642969721, guid: e927d5376ed4a004794bcdefe2983288, type: 3}
   WeaponAttachment: {fileID: 890314551262170839}
-  HandleMode: 1
+  HandleMode: 2
   LeftHandTarget: {fileID: 0}
   RightHandTarget: {fileID: 884816792351515745}
 --- !u!1 &6072385525174587162
@@ -106144,7 +106143,7 @@ MonoBehaviour:
   StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackSound
-    Enable: 1
+    Active: 1
     Label: "\u8D70\u8DEF\u97F3\u6548"
     ActiveEnablePredicate: 0
     DisableIf:
@@ -106276,7 +106275,7 @@ MonoBehaviour:
   StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
-    Enable: 1
+    Active: 1
     Label: "\u5200\u5149"
     ActiveEnablePredicate: 1
     DisableIf:
@@ -106289,7 +106288,7 @@ MonoBehaviour:
     Feedback:
       rid: 1878086261005091166
   - FeedbackName: MMORPG.Tool.FeedbackSound
-    Enable: 1
+    Active: 1
     Label: "\u97F3\u6548"
     ActiveEnablePredicate: 0
     DisableIf:
@@ -106302,7 +106301,7 @@ MonoBehaviour:
     Feedback:
       rid: 1878086261005091175
   - FeedbackName: MMORPG.Tool.FeedbackDamageArea
-    Enable: 1
+    Active: 1
     Label: "\u4F24\u5BB3\u533A\u57DF"
     ActiveEnablePredicate: 0
     DisableIf:
@@ -106315,7 +106314,7 @@ MonoBehaviour:
     Feedback:
       rid: 1878086261005091169
   - FeedbackName: MMORPG.Tool.FeedbackTriggerAnimatorParam
-    Enable: 1
+    Active: 1
     Label: "\u89E6\u53D1\u52A8\u753B"
     ActiveEnablePredicate: 0
     DisableIf:
@@ -106328,7 +106327,7 @@ MonoBehaviour:
     Feedback:
       rid: 1878086261005091170
   - FeedbackName: MMORPG.Tool.FeedbackGameObjectInvokeMethod
-    Enable: 1
+    Active: 1
     Label: "\u505C\u6B62\u79FB\u52A8"
     ActiveEnablePredicate: 0
     DisableIf:
@@ -111510,7 +111509,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6877277931194703591}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -111520,7 +111519,7 @@ Transform:
   - {fileID: 4143111463651130784}
   - {fileID: 899194400635972477}
   - {fileID: 189010334653391765}
-  m_Father: {fileID: 2429740359941644855}
+  m_Father: {fileID: 9087934345694290826}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7043817481160811206
 GameObject:
@@ -111619,6 +111618,7 @@ Transform:
   m_Children:
   - {fileID: 8550372530317908399}
   - {fileID: 1249248324390040188}
+  - {fileID: 204620109946203986}
   m_Father: {fileID: 2429740359941644855}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1201144034948401517
@@ -117175,7 +117175,7 @@ MonoBehaviour:
   StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
-    Enable: 1
+    Active: 1
     Label: "\u5200\u5149"
     ActiveEnablePredicate: 0
     DisableIf:
@@ -117188,7 +117188,7 @@ MonoBehaviour:
     Feedback:
       rid: 1878086261005091181
   - FeedbackName: MMORPG.Tool.FeedbackSound
-    Enable: 1
+    Active: 1
     Label: "\u97F3\u6548"
     ActiveEnablePredicate: 0
     DisableIf:
@@ -117201,7 +117201,7 @@ MonoBehaviour:
     Feedback:
       rid: 1878086261005091182
   - FeedbackName: MMORPG.Tool.FeedbackDamageArea
-    Enable: 1
+    Active: 1
     Label: "\u4F24\u5BB3\u533A\u57DF"
     ActiveEnablePredicate: 0
     DisableIf:
@@ -117214,7 +117214,7 @@ MonoBehaviour:
     Feedback:
       rid: 1878086261005091184
   - FeedbackName: MMORPG.Tool.FeedbackTriggerAnimatorParam
-    Enable: 1
+    Active: 1
     Label: "\u89E6\u53D1\u52A8\u753B"
     ActiveEnablePredicate: 0
     DisableIf:
@@ -117227,7 +117227,7 @@ MonoBehaviour:
     Feedback:
       rid: 1878086261005091183
   - FeedbackName: MMORPG.Tool.FeedbackGameObjectInvokeMethod
-    Enable: 1
+    Active: 1
     Label: "\u505C\u6B62\u79FB\u52A8"
     ActiveEnablePredicate: 0
     DisableIf:
