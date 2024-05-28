@@ -37,7 +37,7 @@ namespace MMORPG.Tool
         public bool StopAllCoroutinesWhenStop = true;
 
         [LabelText("Feedbacks")]
-        [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "GetLabel")]
+        [ListDrawerSettings(ShowIndexLabels = true)]
         public List<FeedbackItem> FeedbackItems = new();
 
         public GameObject Owner { get; private set; }
@@ -104,9 +104,22 @@ namespace MMORPG.Tool
 
         protected virtual void OnEnable()
         {
+            foreach (var item in FeedbackItems)
+            {
+                item.OnEnable();
+            }
+
             if (AutoPlayOnEnable)
             {
                 Play();
+            }
+        }
+
+        protected virtual void OnDisable()
+        {
+            foreach (var item in FeedbackItems)
+            {
+                item.OnDisable();
             }
         }
 

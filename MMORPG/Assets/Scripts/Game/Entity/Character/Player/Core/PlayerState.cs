@@ -97,12 +97,12 @@ namespace MMORPG.Game
 
         private bool CheckActionsHasError()
         {
-            return Actions.Any(x => x.HasError());
+            return Actions == null || Actions.Any(x => x.HasError());
         }
 
         private bool CheckTransitionsHasError()
         {
-            return Transitions.Any(x => x.HasError());
+            return Transitions == null || Transitions.Any(x => x.HasError());
         }
 
         public bool HasError()

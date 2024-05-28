@@ -2,6 +2,7 @@
 
 namespace MMORPG.Tool.Editor
 {
+    using Sirenix.OdinInspector;
     using Sirenix.OdinInspector.Editor;
     using Sirenix.OdinInspector.Editor.Validation;
     using Sirenix.OdinInspector.Editor.ValueResolvers;
@@ -62,9 +63,16 @@ namespace MMORPG.Tool.Editor
             if (_drawMessageBox)
             {
                 string value = _messageResolver.GetValue();
+                var type = Attribute.MessageType switch
+                {
+                    InfoMessageType.Info => MessageType.Info,
+                    InfoMessageType.Warning => MessageType.Warning,
+                    InfoMessageType.Error => MessageType.Error,
+                    _ => MessageType.None
+                };
                 SirenixEditorGUIHelper.PrivateMessageBox(
                     value,
-                    (MessageType)Attribute.MessageType,
+                    type,
                     SirenixGUIStylesHelper.MessageBox);
             }
             if (base.Attribute.GUIAlwaysEnabled)
@@ -101,8 +109,8 @@ namespace MMORPG.Tool.Editor
                 {
                     result.ResultType = Attribute.MessageType switch
                     {
-                        InformationType.Warning => ValidationResultType.Warning,
-                        InformationType.Error => ValidationResultType.Error,
+                        InfoMessageType.Warning => ValidationResultType.Warning,
+                        InfoMessageType.Error => ValidationResultType.Error,
                         _ => ValidationResultType.Valid
                     };
                     result.Message = _messageGetter.GetValue();

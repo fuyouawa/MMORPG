@@ -5943,10 +5943,6 @@ MonoBehaviour:
         Not: 0
       - FullMethodName: LocalPlayerMovement/PressingMove
         Not: 0
-      StateConditions2:
-      - TargetObject: {fileID: 1952149207982524674}
-        TargetComponent: {fileID: 997149082885639855}
-        TargetMemberName: Method/CanMovement
       TrueStateName: Movement
       FalseStateName: 
   - Name: Movement
@@ -5960,14 +5956,12 @@ MonoBehaviour:
         Not: 1
       - FullMethodName: LocalPlayerMovement/BackIdleVelocity
         Not: 0
-      StateConditions2: []
       TrueStateName: Idle
       FalseStateName: 
     - Label: "\u56E0\u65E0\u6CD5\u79FB\u52A8\u800C\u56DE\u5230Idle"
       StateConditions:
       - FullMethodName: LocalPlayerIdle/CanMovement
         Not: 1
-      StateConditions2: []
       TrueStateName: Idle
       FalseStateName: 
   AdditionalAbilityNodes:
