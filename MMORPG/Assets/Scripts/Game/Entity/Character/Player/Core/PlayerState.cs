@@ -12,14 +12,14 @@ namespace MMORPG.Game
         [Required("The status name cannot be empty!")]
         public string Name = "TODO";
 
-        [InfoBox("Actions中有报错还没处理!", InfoMessageType.Error, "CheckActionsHasError")]
-        [InfoBox("Actions不能为空!", InfoMessageType.Error, "IsEmptyActions")]
+        [Information("Actions中有报错还没处理!", InfoMessageType.Error, "CheckActionsHasError")]
+        [Information("Actions不能为空!", InfoMessageType.Error, "IsEmptyActions")]
         [TabGroup("Actions")]
         [TableList(AlwaysExpanded = true)]
         public PlayerAction[] Actions;
 
-        [InfoBox("Transitions中有报错还没处理!", InfoMessageType.Error, "CheckTransitionsHasError")]
-        [InfoBox("Transitions不能为空!", InfoMessageType.Error, "IsEmptyTransitions")]
+        [Information("Transitions中有报错还没处理!", InfoMessageType.Error, "CheckTransitionsHasError")]
+        [Information("Transitions不能为空!", InfoMessageType.Error, "IsEmptyTransitions")]
         [TabGroup("Transitions")]
         [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "Label")]
         public PlayerTransition[] Transitions;
