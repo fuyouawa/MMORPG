@@ -8,7 +8,6 @@ using System.Collections;
 
 namespace MMORPG.Tool
 {
-
     [Serializable]
     public class FeedbackItem
     {
@@ -29,14 +28,15 @@ namespace MMORPG.Tool
             [HideLabel]
             public ValueGetter<bool> Getter;
         }
-        [Information("@_help.Message", VisibleIf = "ShowInfoBox")]
+        [ShowIf("@Feedback == null")]
         [HideLabel]
         [ValueDropdown("GetFeedbackNamesDropdown")]
         public string FeedbackName = string.Empty;
 
+        [Information("@_help.Message", VisibleIf = "ShowInfoBox")]
         [Tooltip("是否有效")]
         [HideIf("@Feedback == null")]
-        public bool Enable = true;
+        public bool Active = true;
 
         [Tooltip("只在编辑器中有用, 指定Feedback的名称")]
         [HideIf("@Feedback == null")]
@@ -55,7 +55,6 @@ namespace MMORPG.Tool
         [HideIf("@Feedback == null")]
         [SerializeReference]
         [HideReferenceObjectPicker]
-        [EnableIf("Enable")]
         public AbstractFeedback Feedback;
 
         public FeedbacksManager Owner { get; private set; }
@@ -69,31 +68,31 @@ namespace MMORPG.Tool
 
         public void Awake()
         {
-            if (!Enable) return;
+            if (!Active) return;
             Feedback?.Awake();
         }
 
         public void Start()
         {
-            if (!Enable) return;
+            if (!Active) return;
             Feedback?.Start();
         }
 
         public void Update()
         {
-            if (!Enable) return;
+            if (!Active) return;
             Feedback?.Update();
         }
 
         public void Play()
         {
-            if (!Enable) return;
+            if (!Active) return;
             Feedback?.Play();
         }
 
         public void Stop()
         {
-            if (!Enable) return;
+            if (!Active) return;
             Feedback?.Stop();
         }
 
@@ -104,19 +103,31 @@ namespace MMORPG.Tool
 
         public void OnDrawGizmosSelected()
         {
-            if (!Enable) return;
+            if (!Active) return;
             Feedback?.OnDrawGizmosSelected();
         }
 
         public void OnDrawGizmos()
         {
-            if (!Enable) return;
+            if (!Active) return;
             Feedback?.OnDrawGizmos();
+        }
+
+        public void OnEnable()
+        {
+            if (!Active) return;
+            Feedback?.OnEnable();
+        }
+
+        public void OnDisable()
+        {
+            if (!Active) return;
+            Feedback?.OnDisable();
         }
 
         public void Initialize()
         {
-            if (!Enable) return;
+            if (!Active) return;
             Feedback?.Initialize();
         }
 
@@ -144,29 +155,6 @@ namespace MMORPG.Tool
         private IEnumerable GetFeedbackNamesDropdown()
         {
             return s_allFeedbackDropdownItems;
-        }
-
-
-        private string GetLabel()
-        {
-            if (Feedback == null || string.IsNullOrEmpty(Label))
-                return "TODO";
-            var duration = Feedback.GetDuration();
-
-            var timeDisplay = $"{Feedback.DelayBeforePlay:0.00}s + {duration:0.00}s";
-            if (Feedback.LoopPlay)
-            {
-                var loopCountDisplay = Feedback.LimitLoopAmount ? Feedback.AmountOfLoop.ToString() : "\u221e";
-                if (Feedback.DelayBetweenLoop > float.Epsilon)
-                {
-                    timeDisplay += $" + {Feedback.DelayBetweenLoop:0.00}s";
-                }
-                return $"{Label} ({timeDisplay}) x {loopCountDisplay}";
-            }
-            else
-            {
-                return $"{Label} ({timeDisplay})";
-            }
         }
 
         private FeedbackHelpAttribute _help;

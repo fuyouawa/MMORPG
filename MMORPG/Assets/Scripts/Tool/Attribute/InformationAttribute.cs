@@ -25,7 +25,7 @@ namespace MMORPG.Tool
     {
         public string Message;
 
-        public InformationType MessageType;
+        public InfoMessageType MessageType;
 
         public string VisibleIf;
 
@@ -36,25 +36,13 @@ namespace MMORPG.Tool
         public InformationAttribute(string message)
         {
             Message = message;
+            MessageType = InfoMessageType.Info;
         }
 
-        public InformationAttribute(string message, InformationType messageType = InformationType.Info, string visiableIf = null)
+        public InformationAttribute(string message, InfoMessageType messageType, string visiableIf = null)
         {
             Message = message;
             MessageType = messageType;
-            VisibleIf = visiableIf;
-        }
-
-        public InformationAttribute(string message, InfoMessageType messageType = InfoMessageType.Info, string visiableIf = null)
-        {
-            Message = message;
-            MessageType = messageType switch
-            {
-                InfoMessageType.Info => InformationType.Info,
-                InfoMessageType.Warning => InformationType.Warning,
-                InfoMessageType.Error => InformationType.Error,
-                _ => InformationType.None
-            };
             VisibleIf = visiableIf;
         }
     }
