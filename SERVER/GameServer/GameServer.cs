@@ -122,6 +122,7 @@ namespace GameServer
             CharacterService.Instance.HandleMessage(channel, e.Packet.Message);
             MapService.Instance.HandleMessage(channel, e.Packet.Message);
             PlayerService.Instance.HandleMessage(channel, e.Packet.Message);
+            FightService.Instance.HandleMessage(channel, e.Packet.Message);
         }
     }
 }

@@ -29,12 +29,15 @@ namespace GameServer.Model
         {
             Map = map;
             Name = name;
+            AttributeManager = new(this);
             SkillManager = new(this);
         }
 
         public override void Start()
         {
             base.Start();
+            AttributeManager.Start();
+            SkillManager.Start();
         }
 
         public override void Update()

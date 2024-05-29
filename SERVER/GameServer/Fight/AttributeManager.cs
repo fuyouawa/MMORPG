@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameServer.Model;
+using GameServer.Tool;
 
 namespace GameServer.Fight
 {
@@ -12,10 +14,17 @@ namespace GameServer.Fight
         public AttributeData Equip { get; private set; } = new();   // 装备总和
         public AttributeData Buff { get; private set; } = new();    // buff总和
         public AttributeData Final { get; private set; } = new();   // 最终总和
-        public int Level {get; private set; }
-
-        public AttributeManager(UnitDefine define)
+        public Actor Actor { get; private set; }
+        
+        public AttributeManager(Actor actor)
         {
+            Actor = actor;
+        }
+
+        public void Start()
+        {
+            var define = DataHelper.GetUnitDefine(Actor.UnitId);
+            var level = Actor.Level;
             var initial = new AttributeData()
             {
                 Speed = define.Speed,
@@ -34,9 +43,9 @@ namespace GameServer.Fight
 
             var growth = new AttributeData()
             {
-                Str = define.Gstr * Level - 1,
-                Int = define.Gint * Level - 1,
-                Agi = define.Gagi * Level - 1,
+                Str = define.Gstr * level - 1,
+                Int = define.Gint * level - 1,
+                Agi = define.Gagi * level - 1,
             };
 
             Basic.Add(initial);
