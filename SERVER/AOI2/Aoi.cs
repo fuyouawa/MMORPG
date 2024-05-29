@@ -224,6 +224,8 @@ namespace Aoi
 
         public List<int> GetViewEntityList(int entity)
         {
+            Debug.Assert(_entittDict.ContainsKey(entity));
+
             var viewList = new List<int>();
             var aoiEntity = _entittDict[entity];
             ZoneKeyToZonePoint(aoiEntity.ZoneKey, out var x, out var y);
