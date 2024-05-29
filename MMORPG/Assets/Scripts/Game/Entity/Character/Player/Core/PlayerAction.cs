@@ -70,7 +70,8 @@ namespace MMORPG.Game
                 LocalAbility.OwnerState = OwnerState;
                 LocalAbility.Brain = OwnerState.Brain;
                 LocalAbility.OwnerStateId = OwnerStateId;
-                LocalAbility.EnterAbilityFeedbacks?.Play();
+                if (LocalAbility.EnterAbilityFeedbacks != null)
+                    LocalAbility.EnterAbilityFeedbacks.Play();
                 LocalAbility.OnStateEnter();
             }
             else
@@ -78,7 +79,8 @@ namespace MMORPG.Game
                 RemoteAbility.OwnerState = OwnerState;
                 RemoteAbility.Brain = OwnerState.Brain;
                 RemoteAbility.OwnerStateId = OwnerStateId;
-                RemoteAbility.EnterAbilityFeedbacks?.Play();
+                if (RemoteAbility.EnterAbilityFeedbacks != null)
+                    RemoteAbility.EnterAbilityFeedbacks.Play();
                 RemoteAbility.OnStateEnter();
             }
         }
@@ -115,12 +117,14 @@ namespace MMORPG.Game
             AssertCheck();
             if (IsMine)
             {
-                LocalAbility.ExitAbilityFeedbacks?.Play();
+                if (LocalAbility.ExitAbilityFeedbacks != null)
+                    LocalAbility.ExitAbilityFeedbacks.Play();
                 LocalAbility.OnStateExit();
             }
             else
             {
-                RemoteAbility.ExitAbilityFeedbacks?.Play();
+                if (RemoteAbility.ExitAbilityFeedbacks != null)
+                    RemoteAbility.ExitAbilityFeedbacks.Play();
                 RemoteAbility.OnStateExit();
             }
         }
@@ -153,15 +157,14 @@ namespace MMORPG.Game
         private IEnumerable GetLocalAbilityDropdown()
         {
             var total = new ValueDropdownList<string> { { "None Local Ability", string.Empty } };
-            if (OwnerState?.Brain != null)
-            {
-                var abilities = OwnerState.Brain.GetAttachLocalAbilities();
-                if (abilities == null)
-                    return total;
-                total.AddRange(abilities.Select((x, i) =>
-                    new ValueDropdownItem<string>($"{i} - {x.GetType().Name}", x.GetType().Name))
-                );
-            }
+            if (OwnerState == null || OwnerState.Brain == null) return total;
+
+            var abilities = OwnerState.Brain.GetAttachLocalAbilities();
+            if (abilities == null)
+                return total;
+            total.AddRange(abilities.Select((x, i) =>
+                new ValueDropdownItem<string>($"{i} - {x.GetType().Name}", x.GetType().Name))
+            );
 
             return total;
         }
@@ -169,15 +172,14 @@ namespace MMORPG.Game
         private IEnumerable GetRemoteAbilityDropdown()
         {
             var total = new ValueDropdownList<string> { { "None Remote Ability", string.Empty } };
-            if (OwnerState?.Brain != null)
-            {
-                var abilities = OwnerState.Brain.GetAttachRemoteAbilities();
-                if (abilities == null)
-                    return total;
-                total.AddRange(abilities.Select((x, i) =>
-                    new ValueDropdownItem<string>($"{i} - {x.GetType().Name}", x.GetType().Name))
-                );
-            }
+            if (OwnerState == null || OwnerState.Brain == null) return total;
+
+            var abilities = OwnerState.Brain.GetAttachRemoteAbilities();
+            if (abilities == null)
+                return total;
+            total.AddRange(abilities.Select((x, i) =>
+                new ValueDropdownItem<string>($"{i} - {x.GetType().Name}", x.GetType().Name))
+            );
 
             return total;
         }
