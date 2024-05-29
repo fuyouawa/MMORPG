@@ -1,20 +1,23 @@
 using System;
+using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Game
 {
     public class ComboWeapon : MonoBehaviour
     {
+        [Tooltip("启动连招切换")]
         public bool DroppableCombo = true;
+        [Tooltip("连招判定间隔, 超过则切回第一个连招")]
         public float DropComboDelay = 1f;
+        [Tooltip("打完一整套连招后的冷却时间")]
         public float ComboCoolTime = 1f;
 
-        [InfoBox("Automatically gets all weapons attached to the current GameObject.")]
-        [InfoBox("Do not make \"InitializeOnStart\" true on any Weapon!", InfoMessageType.Warning)]
+        [Information("自动获取当前物体上所有的Weapon", GUIAlwaysEnabled = true)]
+        [Information("注意: 附加的每个Weapon不要启动\"InitializeOnStart\", 因为初始化是由ComboWeapon控制的!", InfoMessageType.Warning, GUIAlwaysEnabled = true)]
         [ReadOnly]
         public Weapon[] Weapons;
 
