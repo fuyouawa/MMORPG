@@ -53,6 +53,15 @@ namespace MMORPG.Game
             Debug.Assert(data.Entity == this);
             OnTransformSync?.Invoke(data);
         }
+
+#if UNITY_EDITOR
+        [Button]
+        private void BuildHealth()
+        {
+            var health = gameObject.GetOrAddComponent<Health>();
+            health.Entity = this;
+        }
+#endif
     }
 
 }
