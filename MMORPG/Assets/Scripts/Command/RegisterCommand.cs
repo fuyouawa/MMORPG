@@ -23,12 +23,12 @@ namespace MMORPG.Command
         protected override async void OnExecute()
         {
             var box = this.GetSystem<IBoxSystem>();
-            if (_username.Length < 4 || _username.Length > 12)
+            if (_username.Length is < 4 or > 12)
             {
                 box.ShowNotification("用户名长度必须在4-12字之间!");
                 return;
             }
-            if (_password.Length < 8 || _password.Length > 16)
+            if (_password.Length is < 8 or > 16)
             {
                 box.ShowNotification("密码长度必须在8-16字之间!");
                 return;

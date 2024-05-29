@@ -158,9 +158,9 @@ namespace MMORPG.Tool
             }
 
             float longest = 0f;
-            if ((RandomSfx != null) && (RandomSfx.Length > 0))
+            if (RandomSfx is { Length: > 0 })
             {
-                foreach (AudioClip clip in RandomSfx)
+                foreach (var clip in RandomSfx)
                 {
                     if ((clip != null) && (clip.length > longest))
                     {

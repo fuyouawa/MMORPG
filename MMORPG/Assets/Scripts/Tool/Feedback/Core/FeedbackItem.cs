@@ -26,7 +26,15 @@ namespace MMORPG.Tool
             [Tooltip("是否将判定结果取反")]
             public bool Negative;
             [HideLabel]
-            public ValueGetter<bool> Getter;
+            public ValueGetter<bool> Getter = new();
+
+            public bool GetPredicate()
+            {
+                if (Getter == null)
+                    return true;
+                var val = Getter.GetRawValue();
+                return Negative ? !val : val;
+            }
         }
         [ShowIf("@Feedback == null")]
         [HideLabel]
@@ -36,24 +44,20 @@ namespace MMORPG.Tool
 
         [Information("@_help.Message", VisibleIf = "ShowInfoBox")]
         [Tooltip("是否有效")]
-        [HideIf("@Feedback == null")]
-        public bool Active = true;
+        public bool Enable = true;
 
         [Tooltip("只在编辑器中有用, 指定Feedback的名称")]
-        [HideIf("@Feedback == null")]
         public string Label;
 
         [Tooltip("是否启动运行时Enable判定")]
-        [HideIf("@Feedback == null")]
         public bool ActiveEnablePredicate = false;
 
-        [Tooltip("选择一个变量或者函数, 用于在运行时判定是否要Disable")]
+        [Tooltip("选择一个变量或者函数, 用于在运行时判定是否要Enable")]
         [ShowIf("ActiveEnablePredicate")]
         [HideReferenceObjectPicker]
-        public Condition DisableIf = new(); //TODO DisableIf
+        public Condition EnableIf = new();
 
         [BoxGroup("@FeedbackName"), HideLabel]
-        [HideIf("@Feedback == null")]
         [SerializeReference]
         [HideReferenceObjectPicker]
         public AbstractFeedback Feedback;
@@ -69,31 +73,43 @@ namespace MMORPG.Tool
 
         public void Awake()
         {
-            if (!Active) return;
+            if (!Enable) return;
+            if (ActiveEnablePredicate && EnableIf is { Mode: Condition.Modes.OnAwake })
+            {
+                Enable = EnableIf.GetPredicate();
+            }
             Feedback?.Awake();
         }
 
         public void Start()
         {
-            if (!Active) return;
+            if (!Enable) return;
+            if (ActiveEnablePredicate && EnableIf is { Mode: Condition.Modes.OnStart })
+            {
+                Enable = EnableIf.GetPredicate();
+            }
             Feedback?.Start();
         }
 
         public void Update()
         {
-            if (!Active) return;
+            if (!Enable) return;
+            if (ActiveEnablePredicate && EnableIf is { Mode: Condition.Modes.OnUpdate })
+            {
+                Enable = EnableIf.GetPredicate();
+            }
             Feedback?.Update();
         }
 
         public void Play()
         {
-            if (!Active) return;
+            if (!Enable) return;
             Feedback?.Play();
         }
 
         public void Stop()
         {
-            if (!Active) return;
+            if (!Enable) return;
             Feedback?.Stop();
         }
 
@@ -104,31 +120,31 @@ namespace MMORPG.Tool
 
         public void OnDrawGizmosSelected()
         {
-            if (!Active) return;
+            if (!Enable) return;
             Feedback?.OnDrawGizmosSelected();
         }
 
         public void OnDrawGizmos()
         {
-            if (!Active) return;
+            if (!Enable) return;
             Feedback?.OnDrawGizmos();
         }
 
         public void OnEnable()
         {
-            if (!Active) return;
+            if (!Enable) return;
             Feedback?.OnEnable();
         }
 
         public void OnDisable()
         {
-            if (!Active) return;
+            if (!Enable) return;
             Feedback?.OnDisable();
         }
 
         public void Initialize()
         {
-            if (!Active) return;
+            if (!Enable) return;
             Feedback?.Initialize();
         }
 
