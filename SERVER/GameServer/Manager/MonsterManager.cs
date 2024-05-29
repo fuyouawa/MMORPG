@@ -1,5 +1,6 @@
 ﻿using Common.Proto.Entity;
 using GameServer.Model;
+using GameServer.Tool;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace GameServer.Manager
                 Position = pos,
                 Direction = dire,
 
-                Speed = 5,
+                //Speed = DataHelper.GetUnitDefine(unitId).Speed,
             };
             EntityManager.Instance.AddEntity(monster);
 
@@ -43,6 +44,8 @@ namespace GameServer.Manager
                 _monsterDict.Add(monster.EntityId, monster);
             }
             _map.EntityEnter(monster);
+
+            monster.Start();
             return monster;
         }
 

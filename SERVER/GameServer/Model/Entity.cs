@@ -13,10 +13,18 @@ namespace GameServer.Model
         public EntityType EntityType;
         public int UnitId;
         public int EntityId;
+        public bool Vaild = true;
         public Map? Map;
         public Vector3 Position;
         public Vector3 Direction;
 
+        public virtual void Start() { }
+
         public virtual void Update() { }
+
+        public virtual bool IsValid()
+        {
+            return Vaild;
+        }
     }
 }

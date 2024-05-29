@@ -26,7 +26,7 @@ namespace GameServer.Manager
             UnitDict = Load<Dictionary<int, UnitDefine>>("Data/Json/UnitDefine.json");
             SpawnDict = Load<Dictionary<int, SpawnDefine>>("Data/Json/SpawnDefine.json");
             ItemDict = Load<Dictionary<int, ItemDefine>>("Data/Json/ItemDefine.json");
-            //SkillDict = Load<Dictionary<int, SkillDefine>>("Data/Json/SkillDefine.json");
+            SkillDict = Load<Dictionary<int, SkillDefine>>("Data/Json/SkillDefine.json");
         }
 
         private T Load<T>(string jsonPath)

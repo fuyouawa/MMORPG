@@ -14,27 +14,27 @@ public class UnitDefine
 	public string Kind; // 类别
 	public string Decs; // 介绍
 	public int Speed; // 移动速度
-	public float HPMax; // 生命上限
-	public float MPMax; // 法力上限
+	public float MaxHp; // 生命上限
+	public float MaxMp; // 法力上限
 	public int InitLevel; // 初始等级
 	public int Energy; // 活力
-	public float AD; // 物攻
-	public float AP; // 魔攻
-	public float DEF; // 物防
-	public float MDEF; // 魔防
-	public float CRI; // 暴击率%
-	public float CRD; // 暴击伤害%
+	public float Ad; // 物攻
+	public float Ap; // 魔攻
+	public float Def; // 物防
+	public float Mdef; // 魔防
+	public float Cri; // 暴击率%
+	public float Crd; // 暴击伤害%
 	public float HitRate; // 命中率%
 	public float DodgeRate; // 闪避率
 	public float HpRegen; // 生命恢复/秒
 	public float HpSteal; // 伤害吸血%
-	public float STR; // 力量
-	public float INT; // 智力
-	public float AGI; // 敏捷
-	public float GSTR; // 力量成长
-	public float GINT; // 智力成长
-	public float GAGI; // 敏捷成长
-	public string AI; // AI名称
+	public float Str; // 力量
+	public float Int; // 智力
+	public float Agi; // 敏捷
+	public float Gstr; // 力量成长
+	public float Gint; // 智力成长
+	public float Gagi; // 敏捷成长
+	public string Ai; // Ai名称
 }
 
 

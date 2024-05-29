@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace GameServer.System
 {
-    public class CenterTimer : Singleton<CenterTimer>
+    public class Scheduler : Singleton<Scheduler>
     {
         private TimeWheel _timer;
 
-        private CenterTimer() 
+        private Scheduler() 
         {
             _timer = new();
             _timer.Start();
