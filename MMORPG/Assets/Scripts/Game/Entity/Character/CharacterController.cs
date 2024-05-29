@@ -145,6 +145,14 @@ namespace MMORPG.Game
                    viewPos.y >= 0 &&
                    viewPos.y <= 1;
         }
+
+#if UNITY_EDITOR
+        [Button]
+        private void BuildHandleWeapon()
+        {
+            HandleWeapon = gameObject.GetOrAddComponent<CharacterHandleWeapon>();
+        }
+#endif
     }
 
 }
