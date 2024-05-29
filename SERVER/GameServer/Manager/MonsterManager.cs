@@ -49,6 +49,11 @@ namespace GameServer.Manager
             return monster;
         }
 
+        public void Start()
+        {
+
+        }
+
         public void Update()
         {
 

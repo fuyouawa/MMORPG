@@ -26,7 +26,7 @@ namespace GameServer.Manager
 
         private EntityManager() { }
 
-        public void Init() { }
+        public void Start() { }
 
         public void Update()
         {

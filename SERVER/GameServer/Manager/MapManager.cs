@@ -23,7 +23,7 @@ namespace GameServer.Manager
 
         MapManager() { }
 
-        public void Init()
+        public void Start()
         {
             foreach (var mapDefine in DataManager.Instance.MapDict)
             {
@@ -46,6 +46,8 @@ namespace GameServer.Manager
             {
                 _mapDict.Add(mapId, map);
             }
+
+            map.Start();
             return map;
         }
 
