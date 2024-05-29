@@ -48,7 +48,7 @@ namespace MMORPG.Tool
             float progressBarWidthRadio = 0;
             float delayBeforePlayProgressBarWidthRadio = 0;
 
-            if (value.Feedback.IsPlaying)
+            if (value.Feedback != null && value.Feedback.IsPlaying)
             {
                 var playTime = Time.time - value.Feedback.TimeSincePlay;
                 if (value.Feedback.TotalDuartion != 0)
@@ -93,7 +93,7 @@ namespace MMORPG.Tool
             }
             SirenixEditorGUI.EndBox();
 
-            if (value.Feedback.IsPlaying)
+            if (value.Feedback != null && value.Feedback.IsPlaying)
             {
                 GUIHelper.RequestRepaint();
             }
