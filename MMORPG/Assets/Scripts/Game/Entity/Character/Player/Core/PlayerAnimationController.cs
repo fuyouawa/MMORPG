@@ -100,8 +100,10 @@ namespace MMORPG.Game
 
         void Start()
         {
-            WalkingFeedbacks?.Initialize();
-            RunningFeedbacks?.Initialize();
+            if (WalkingFeedbacks != null)
+                WalkingFeedbacks.Initialize();
+            if (RunningFeedbacks != null)
+                RunningFeedbacks.Initialize();
         }
 
         void Update()
@@ -129,8 +131,10 @@ namespace MMORPG.Game
         {
             Walking = true;
             Running = false;
-            RunningFeedbacks?.Stop();
-            WalkingFeedbacks?.Play();
+            if (RunningFeedbacks != null)
+                RunningFeedbacks.Stop();
+            if (WalkingFeedbacks != null)
+                WalkingFeedbacks.Play();
         }
 
 
@@ -138,8 +142,10 @@ namespace MMORPG.Game
         {
             Walking = false;
             Running = true;
-            WalkingFeedbacks?.Stop();
-            RunningFeedbacks?.Play();
+            if (WalkingFeedbacks != null)
+                WalkingFeedbacks.Stop();
+            if (RunningFeedbacks != null)
+                RunningFeedbacks.Play();
         }
 
         public void StopMovement()
@@ -147,8 +153,10 @@ namespace MMORPG.Game
             Walking = false;
             Running = false;
             MovementDirection = Vector2.zero;
-            WalkingFeedbacks?.Stop();
-            RunningFeedbacks?.Stop();
+            if (WalkingFeedbacks != null)
+                WalkingFeedbacks.Stop();
+            if (RunningFeedbacks != null)
+                RunningFeedbacks.Stop();
         }
 
         private void OnAnimatorMove()
