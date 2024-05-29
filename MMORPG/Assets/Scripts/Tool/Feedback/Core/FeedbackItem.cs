@@ -163,18 +163,24 @@ namespace MMORPG.Tool
         {
             return Feedback != null && _help != null;
         }
+        
 
-        public void OnValidate()
+        internal void OnSceneGUI()
+        {
+            Feedback?.OnSceneGUI();
+        }
+
+        internal void OnValidate()
         {
             Feedback?.OnValidate();
         }
 
-        public void OnInspectorInit()
+        internal void OnInspectorInit()
         {
             Feedback?.OnInspectorInit();
         }
 
-        public void OnInspectorGUI()
+        internal void OnInspectorGUI()
         {
             if (!string.IsNullOrEmpty(FeedbackName))
             {

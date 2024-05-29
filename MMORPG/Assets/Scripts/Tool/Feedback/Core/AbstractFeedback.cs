@@ -199,9 +199,10 @@ namespace MMORPG.Tool
         }
 
 #if UNITY_EDITOR
-        public virtual void OnValidate() { }
-        public virtual void OnInspectorInit() { }
+        public virtual void OnValidate() {}
+        public virtual void OnInspectorInit() {}
         public virtual void OnInspectorGUI() {}
+        public virtual void OnSceneGUI() {}
 #endif
     }
 }
