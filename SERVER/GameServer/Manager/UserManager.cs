@@ -21,7 +21,15 @@ namespace GameServer.Manager
 
         UserManager() { }
 
-        public void Init() { }
+        public void Start() { }
+
+        public void Update()
+        {
+            foreach (var user in _userDict.Values)
+            {
+                user.Update();
+            }
+        }
 
         public User NewUser(NetChannel channel, string username, int userId)
         {
@@ -30,6 +38,8 @@ namespace GameServer.Manager
             {
                 _userDict.Add(username, user);
             }
+
+            user.Start();
             return user;
         }
 

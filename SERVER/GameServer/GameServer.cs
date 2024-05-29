@@ -40,17 +40,8 @@ namespace GameServer
             Log.Information("[Server] 开启服务器");
 
             Log.Information("[Server] 开始初始化Manager...");
-
-            DataManager.Instance.Init();
-            Log.Information("[Server] DataManager初始化完成");
-            MapManager.Instance.Init();
-            Log.Information("[Server] MapManager初始化完成");
-            UserManager.Instance.Init();
-            Log.Information("[Server] UserManager初始化完成");
-            EntityManager.Instance.Init();
-            Log.Information("[Server] EntityManager初始化完成");
-            UpdateManager.Instance.Init();
-            Log.Information("[Server] UpdateManager初始化完成");
+            UpdateManager.Instance.Start();
+            Log.Information("[Server] Manager初始化完成");
 
             _serverSocket.Listen();
             //_connectionCleanupTimer.Start();

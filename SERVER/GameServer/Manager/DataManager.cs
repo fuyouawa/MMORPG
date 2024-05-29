@@ -20,7 +20,7 @@ namespace GameServer.Manager
 
         private DataManager() { }
 
-        public void Init()
+        public void Start()
         {
             MapDict = Load<Dictionary<int, MapDefine>>("Data/Json/MapDefine.json");
             UnitDict = Load<Dictionary<int, UnitDefine>>("Data/Json/UnitDefine.json");
@@ -28,6 +28,8 @@ namespace GameServer.Manager
             ItemDict = Load<Dictionary<int, ItemDefine>>("Data/Json/ItemDefine.json");
             SkillDict = Load<Dictionary<int, SkillDefine>>("Data/Json/SkillDefine.json");
         }
+
+        public void Update() { }
 
         private T Load<T>(string jsonPath)
         {

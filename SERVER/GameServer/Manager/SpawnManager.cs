@@ -23,19 +23,35 @@ namespace GameServer.Manager
         public SpawnDefine SpawnDefine;
         public Monster? Monster;
 
+        private bool _reviving;      // 复活中
+        private float _reviveTime;   // 复活时间
+
         public Spawner(SpawnManager manager, SpawnDefine define)
         {
             SpawnManager = manager;
             SpawnDefine = define;
         }
 
-        public void Update()
+        public void Start()
         {
-            if (Monster != null) return;
-            // 在这里就可以判断怪物是否死亡，复活倒计时等等
             var pos = ParseVector3(SpawnDefine.Pos);
             var dire = ParseVector3(SpawnDefine.Dir);
             Monster = SpawnManager.Map.MonsterManager.NewMonster(SpawnDefine.UnitID, pos, dire, DataHelper.GetUnitDefine(SpawnDefine.UnitID).Name);
+        }
+
+        public void Update()
+        {
+            if (Monster == null || !Monster.IsDeath()) return;
+            if (!_reviving)
+            {
+                _reviveTime = Time.time + SpawnDefine.Period;
+                _reviving = true;
+            }
+            if (_reviveTime <= Time.time)
+            {
+                Monster.Revive();
+                _reviving = false;
+            }
         }
 
         private Vector3 ParseVector3(string str)
@@ -52,25 +68,30 @@ namespace GameServer.Manager
     public class SpawnManager
     {
         public Map Map;
-        public List<Spawner> Rules = new();
+        private List<Spawner> _spawners = new();
 
         public SpawnManager(Map map)
         {
             Map = map;
+        }
 
+        public void Start()
+        {
             var rules = DataManager.Instance.SpawnDict.Values.Where(r => r.MapId == Map.MapId);
             foreach (var rule in rules)
             {
-                Rules.Add(new(this, rule));
+                var spawner = new Spawner(this, rule);
+                _spawners.Add(spawner);
+                spawner.Start();
                 Log.Information($"加载刷怪配置：{DataHelper.GetMapDefine(rule.MapId).Name}");
             }
         }
 
         public void Update()
         {
-            foreach (var rule in Rules)
+            foreach (var spawner in _spawners)
             {
-                rule.Update();
+                spawner.Update();
             }
         }
     }

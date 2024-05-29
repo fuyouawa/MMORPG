@@ -36,6 +36,13 @@ namespace GameServer.Model
             SpawnManager = new(this);
         }
 
+        public void Start()
+        {
+            PlayerManager.Start();
+            MonsterManager.Start();
+            SpawnManager.Start();
+        }
+
         public void Update()
         {
             PlayerManager.Update();
