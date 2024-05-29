@@ -31,6 +31,7 @@ namespace MMORPG.Tool
         [ShowIf("@Feedback == null")]
         [HideLabel]
         [ValueDropdown("GetFeedbackNamesDropdown")]
+        [Information("请选择一个Feedback", InfoMessageType.Error, VisibleIf = "NoneFeedbackName")]
         public string FeedbackName = string.Empty;
 
         [Information("@_help.Message", VisibleIf = "ShowInfoBox")]
@@ -135,6 +136,8 @@ namespace MMORPG.Tool
 #if UNITY_EDITOR
         private static Dictionary<string, Type> s_allFeedbackTypes;
         private static ValueDropdownList<string> s_allFeedbackDropdownItems = new();
+
+        private bool NoneFeedbackName => string.IsNullOrEmpty(FeedbackName);
 
         static FeedbackItem()
         {
