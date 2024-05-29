@@ -3,7 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEditor.IMGUI.Controls;
+#endif
 
 namespace MMORPG.Tool
 {
@@ -26,7 +30,9 @@ namespace MMORPG.Tool
         [FoldoutGroup("Damage Area")]
         [ShowIf("DamageAreaMode", DamageAreaModes.Generated)]
         public DamageAreaShapes DamageAreaShape = DamageAreaShapes.Box;
-
+        [FoldoutGroup("Damage Area")]
+        [ShowIf("DamageAreaMode", DamageAreaModes.Generated)]
+        public bool EditArea = false;
         [FoldoutGroup("Damage Area")]
         [ShowIf("DamageAreaMode", DamageAreaModes.Generated)]
         public Vector3 AreaOffset = Vector3.zero;
@@ -232,14 +238,48 @@ namespace MMORPG.Tool
                 return;
             }
 
-            if (DamageAreaShape == DamageAreaShapes.Box)
+            if (!EditArea)
             {
-                Gizmos.DrawWireCube(Transform.position + AreaOffset, AreaSize);
+                if (DamageAreaShape == DamageAreaShapes.Box)
+                {
+                    Gizmos.DrawWireCube(Transform.position + AreaOffset, AreaSize);
+                }
             }
 
             if (DamageAreaShape == DamageAreaShapes.Sphere)
             {
                 Gizmos.DrawWireSphere(Transform.position + AreaOffset, AreaSize.x / 2);
+            }
+        }
+
+        BoxBoundsHandle _boxBoundsHandle;
+
+        //TODO Sphere
+        public override void OnSceneGUI()
+        {
+            if (EditArea)
+            {
+                if (DamageAreaShape == DamageAreaShapes.Box)
+                {
+                    _boxBoundsHandle ??= new();
+                    _boxBoundsHandle.SetColor(Color.yellow);
+
+                    _boxBoundsHandle.center = Transform.position + AreaOffset;
+                    _boxBoundsHandle.size = AreaSize;
+
+                    EditorGUI.BeginChangeCheck();
+
+                    _boxBoundsHandle.DrawHandle();
+
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        // 如果检测到改变，记录变更并更新碰撞体的大小
+                        Undo.RecordObject(Owner, "Modify Collider");
+
+                        AreaSize = _boxBoundsHandle.size;
+                        AreaOffset = _boxBoundsHandle.center - Transform.position;
+                    }
+                }
             }
         }
 

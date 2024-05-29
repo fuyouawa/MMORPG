@@ -250,6 +250,14 @@ namespace MMORPG.Tool
         {
             Stop();
         }
+
+        public void OnSceneGUI()
+        {
+            foreach (var item in FeedbackItems)
+            {
+                item.OnSceneGUI();
+            }
+        }
 #endif
     }
     public class FeedbacksCoroutineHelper : MonoBehaviour { }
