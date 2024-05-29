@@ -7,16 +7,16 @@ namespace MMORPG.Tool
     [Serializable]
     public class ValueGetter : MemberPicker
     {
-        public object GetRawValue(object obj)
+        public object GetRawValue()
         {
             switch (TargetMember)
             {
                 case FieldInfo field:
-                    return field.GetValue(obj);
+                    return field.GetValue(TargetComponent);
                 case PropertyInfo property:
-                    return property.GetValue(obj);
+                    return property.GetValue(TargetComponent);
                 case MethodInfo method:
-                    return method.Invoke(obj, null);
+                    return method.Invoke(TargetComponent, null);
                 default:
                     throw new NotSupportedException();
             }
@@ -39,9 +39,9 @@ namespace MMORPG.Tool
     [Serializable]
     public class ValueGetter<TReturn> : ValueGetter
     {
-        public new TReturn GetRawValue(object obj)
+        public new TReturn GetRawValue()
         {
-            return (TReturn)base.GetRawValue(obj);
+            return (TReturn)base.GetRawValue();
         }
 
 #if UNITY_EDITOR

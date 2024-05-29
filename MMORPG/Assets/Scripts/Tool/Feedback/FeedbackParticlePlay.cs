@@ -113,17 +113,21 @@ namespace MMORPG.Tool
             switch (Mode)
             {
                 case Modes.Play:
-                    targetParticleSystem?.Play();
+                    if (targetParticleSystem != null)
+                        targetParticleSystem.Play();
                     break;
                 case Modes.Emit:
                     _emitParams.applyShapeToPosition = true;
-                    targetParticleSystem.Emit(_emitParams, EmitCount);
+                    if (targetParticleSystem != null)
+                        targetParticleSystem.Emit(_emitParams, EmitCount);
                     break;
                 case Modes.Stop:
-                    targetParticleSystem?.Stop();
+                    if (targetParticleSystem != null)
+                        targetParticleSystem.Stop();
                     break;
                 case Modes.Pause:
-                    targetParticleSystem?.Pause();
+                    if (targetParticleSystem != null)
+                        targetParticleSystem.Pause();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

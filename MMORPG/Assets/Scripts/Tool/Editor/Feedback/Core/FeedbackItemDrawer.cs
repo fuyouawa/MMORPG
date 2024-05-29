@@ -30,7 +30,7 @@ namespace MMORPG.Tool
                 height = EditorGUIUtility.singleLineHeight
             };
 
-            value.Active = EditorGUI.Toggle(buttonRect, value.Active);
+            value.Enable = EditorGUI.Toggle(buttonRect, value.Enable);
 
             base.Property.State.Expanded = SirenixEditorGUIHelper.Foldout(
                 headerRect,
@@ -80,7 +80,7 @@ namespace MMORPG.Tool
 
             SirenixEditorGUI.EndBoxHeader();
             GUILayout.Space(5);
-            using (new EditorGUI.DisabledScope(!value.Active))
+            using (new EditorGUI.DisabledScope(!value.Enable))
             {
                 if (SirenixEditorGUI.BeginFadeGroup(this, base.Property.State.Expanded))
                 {
