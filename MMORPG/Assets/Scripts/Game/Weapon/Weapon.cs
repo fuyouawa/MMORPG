@@ -28,28 +28,32 @@ namespace MMORPG.Game
         public enum TriggerModes { SemiAuto, Auto }
 
         [FoldoutGroup("Use")]
+        [Tooltip("当WeaponInputStart或者TurnWeaponOn后经过多少时间正式WeaponUse")]
         public float DelayBeforeUse;
         [FoldoutGroup("Use")]
+        [Tooltip("类似冷却时间")]
         public float TimeBetweenUses = 1f;
         [FoldoutGroup("Use")]
+        [Tooltip("SemiAuto: 当用完武器后就停止使用武器\nAuto: 当用完武器后继续使用武器, 直到手动调用WeaponInputStop或者TurnWeaponOff")]
         public TriggerModes TriggerMode = TriggerModes.Auto;
 
-#if UNITY_EDITOR
+// #if UNITY_EDITOR
+//         [FoldoutGroup("Position")]
+//         [LabelText("Debug In Editor")]
+//         public bool PositionDebugInEditor = false;  //TODO PositionDebugInEditor
+// #endif
         [FoldoutGroup("Position")]
-        [LabelText("Debug In Editor")]
-        public bool PositionDebugInEditor = false;  //TODO PositionDebugInEditor
-#endif
-        [FoldoutGroup("Position")]
+        [Tooltip("武器附加时的偏移, 一般在连招中使用")]
         public Vector3 WeaponAttachmentOffset;
 
+        // [FoldoutGroup("Movement")]
+        // public bool ModifyMovementWhileAttacking = false;   //TODO ModifyMovementWhileAttacking
+        // [FoldoutGroup("Movement")]
+        // public float MovementMultiplier = 1f;       //TODO MovementMultiplier
         [FoldoutGroup("Movement")]
-        public bool ModifyMovementWhileAttacking = false;   //TODO ModifyMovementWhileAttacking
-        [FoldoutGroup("Movement")]
-        public float MovementMultiplier = 1f;       //TODO MovementMultiplier
-        [FoldoutGroup("Movement")]
+        [Tooltip("当使用武器时阻止人物移动")]
         public bool PreventAllMovementWhileInUse = false;
 
-        //TODO 动画丢失的bug
         [FoldoutGroup("Animator Parameter Names")]
         public string IdleAnimationParameter;
         [FoldoutGroup("Animator Parameter Names")]
@@ -64,6 +68,7 @@ namespace MMORPG.Game
         public string StopAnimationParameter;
 
         [FoldoutGroup("Feedbacks")]
+        [Tooltip("当武器附加时, 根据Feedback的名称在拥有者(Owner)的子物体中找对应的Feedback")]
         public bool FindFeedbackByName = false;
 
         [FoldoutGroup("Feedbacks")]
@@ -89,17 +94,20 @@ namespace MMORPG.Game
         [FoldoutGroup("Settings")]
         public bool InitializeOnStart = false;
         [FoldoutGroup("Settings")]
-        public bool Interruptable = false;
+        [Tooltip("是否可以在武器使用时(包括冷却时)打断")]
+        public bool Interruptible = false;
         [FoldoutGroup("Settings")]
-        public float InterruptDelay;
+        [ShowIf("Interruptible")]
+        [Tooltip("经过多少时间后可以在武器使用时(包括冷却时)被打断")]
+        public float TimeBeforeInterruptible;
 
         public bool CanInterrupt
         {
             get
             {
-                if (!Interruptable || FSM.CurrentStateId is WeaponStates.Idle or WeaponStates.Stop or WeaponStates.Interrupted)
+                if (!Interruptible || FSM.CurrentStateId is WeaponStates.Idle or WeaponStates.Stop or WeaponStates.Interrupted)
                     return false;
-                return Time.time - _lastTurnWeaponOnAt > InterruptDelay;
+                return Time.time - _lastTurnWeaponOnAt > TimeBeforeInterruptible;
             }
         }
 
@@ -187,6 +195,11 @@ namespace MMORPG.Game
             IsInitialized = true;
         }
 
+        /// <summary>
+        /// <para>使用武器</para>
+        /// <para>1. 如果当前武器正在使用中, 会尝试打断(Interrupt)</para>
+        /// <para>2. 如果PreventFire为True, 会阻止使用</para>
+        /// </summary>
         public virtual void WeaponInputStart()
         {
             if (FSM.CurrentStateId == WeaponStates.Idle)
@@ -202,16 +215,20 @@ namespace MMORPG.Game
                 OnWeaponTryInterrupt?.Invoke(this);
             }
         }
-        public virtual void WeaponInputReleased()
-        {
 
-        }
-
+        /// <summary>
+        /// <para>停止武器使用</para>
+        /// <para>会在当前武器使用完(包括冷却完成)后才停止</para>
+        /// </summary>
         public virtual void WeaponInputStop()
         {
             _triggerReleased = true;
         }
 
+        /// <summary>
+        /// <para>直接使用武器</para>
+        /// <para>Tip: 推荐使用WeaponInputStart</para>
+        /// </summary>
         public virtual void TurnWeaponOn()
         {
             if (Time.time - _lastTurnWeaponOnAt < TimeBetweenUses || PreventFire)
@@ -224,6 +241,10 @@ namespace MMORPG.Game
             OnWeaponStarted?.Invoke(this);
         }
 
+        /// <summary>
+        /// <para>强行停止武器使用</para>
+        /// <para>Tip: 推荐使用WeaponInputStop</para>
+        /// </summary>
         public virtual void TurnWeaponOff()
         {
             if (FSM.CurrentStateId is WeaponStates.Idle or WeaponStates.Stop)
@@ -351,6 +372,10 @@ namespace MMORPG.Game
         protected virtual void WeaponUse()
         {
             WeaponUsedFeedbacks?.Play();
+        }
+
+        protected virtual void OnWeaponUse()
+        {
         }
 
         protected virtual void UpdateAnimator()
