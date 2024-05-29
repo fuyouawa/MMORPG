@@ -18,8 +18,8 @@ public class SkillDefine
 	public string Type; // 类别
 	public string Icon; // 技能图标
 	public string TargetType; // 目标类型
-	public float CD; // 冷却时间
-	public int SpellRange; // 施法距离
+	public float Cd; // 冷却时间
+	public float SpellRange; // 施法距离
 	public float IntonateTime; // 施法前摇
 	public int Cost; // 魔法消耗
 	public string Anim1; // 前摇动作
@@ -32,12 +32,12 @@ public class SkillDefine
 	public int Area; // 影响区域
 	public float Duration; // 持续时间
 	public float Interval; // 伤害间隔
-	public float[] HitDelay; // 命中延迟
-	public int[] BUFF; // 附加效果
-	public float AD; // 物理攻击
-	public float AP; // 法术攻击
-	public float ADC; // 物攻加成
-	public float APC; // 法攻加成
+	public string HitDelay; // 命中延迟
+	public string Buff; // 附加效果
+	public float Ad; // 物理攻击
+	public float Ap; // 法术攻击
+	public float Adc; // 物攻加成
+	public float Apc; // 法攻加成
 }
 
 
