@@ -1,4 +1,5 @@
-﻿using Aoi;
+﻿using System.Diagnostics;
+using Aoi;
 using Common.Proto.Entity;
 using Common.Proto.EventLike;
 using Common.Proto.EventLike.Map;
@@ -21,6 +22,7 @@ namespace GameServer.Model
         public PlayerManager PlayerManager;
         public MonsterManager MonsterManager;
         public SpawnManager SpawnManager;
+        public FightManager FightManager;
 
         private AoiWord _aoiWord;
 
@@ -34,6 +36,7 @@ namespace GameServer.Model
             PlayerManager = new(this);
             MonsterManager = new(this);
             SpawnManager = new(this);
+            FightManager = new(this);
         }
 
         public void Start()
@@ -41,6 +44,7 @@ namespace GameServer.Model
             PlayerManager.Start();
             MonsterManager.Start();
             SpawnManager.Start();
+            FightManager.Start();
         }
 
         public void Update()
@@ -48,6 +52,7 @@ namespace GameServer.Model
             PlayerManager.Update();
             MonsterManager.Update();
             SpawnManager.Update();
+            FightManager.Update();
         }
 
         /// <summary>
@@ -149,23 +154,26 @@ namespace GameServer.Model
                 foreach (var entityId in enters)
                 {
                     var enterEntity = EntityManager.Instance.GetEntity((int)entityId);
-                    if (enterEntity.EntityType != EntityType.Player)
+                    Debug.Assert(enterEntity != null);
+                    if (enterEntity == null || enterEntity.EntityType != EntityType.Player)
                     {
                         continue;
                     }
 
                     var player = enterEntity as Player;
-                    player.User.Channel.Send(enterRes);
+                    Debug.Assert(player != null);
+                    player?.User.Channel.Send(enterRes);
                 }
 
                 // 如果移动的是玩家，还需要向该玩家通知所有新加入视野范围的实体
                 if (entity.EntityType == EntityType.Player && enters.Any())
                 {
-                    var player = entity as Player;
                     enterRes.Datas.Clear();
                     foreach (var entityId in enters)
                     {
                         var enterEntity = EntityManager.Instance.GetEntity((int)entityId);
+                        Debug.Assert(enterEntity != null);
+                        if (enterEntity == null) continue;
                         enterRes.Datas.Add(new EntityEnterData()
                         {
                             EntityId = enterEntity.EntityId,
@@ -174,8 +182,9 @@ namespace GameServer.Model
                             Transform = ProtoHelper.ToNetTransform(enterEntity.Position, enterEntity.Direction),
                         });
                     }
-
-                    player.User.Channel.Send(enterRes);
+                    var player = entity as Player;
+                    Debug.Assert(player != null);
+                    player?.User.Channel.Send(enterRes);
                 }
             }
 
@@ -187,26 +196,30 @@ namespace GameServer.Model
                 foreach (var entityId in leaves)
                 {
                     var leaveEntity = EntityManager.Instance.GetEntity((int)entityId);
-                    if (leaveEntity.EntityType != EntityType.Player)
+                    Debug.Assert(leaveEntity != null);
+                    if (leaveEntity == null || leaveEntity.EntityType != EntityType.Player)
                     {
                         continue;
                     }
 
                     var player = leaveEntity as Player;
-                    player.User.Channel.Send(leaveRes);
+                    Debug.Assert(player != null);
+                    player?.User.Channel.Send(leaveRes);
                 }
 
                 // 如果移动的是玩家，还需要向该玩家通知所有退出视野范围的实体
                 if (entity.EntityType == EntityType.Player && leaves.Any())
                 {
-                    var player = entity as Player;
                     leaveRes.EntityIds.Clear();
                     foreach (var entityId in leaves)
                     {
                         var leaveEntity = EntityManager.Instance.GetEntity((int)entityId);
+                        Debug.Assert(leaveEntity != null);
+                        if (leaveEntity == null) continue;
                         leaveRes.EntityIds.Add(leaveEntity.EntityId);
                     }
-
+                    var player = entity as Player;
+                    Debug.Assert(player != null);
                     player.User.Channel.Send(leaveRes);
                 }
             }
