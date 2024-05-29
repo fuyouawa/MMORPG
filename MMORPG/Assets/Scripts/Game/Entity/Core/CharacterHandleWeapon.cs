@@ -14,12 +14,14 @@ namespace MMORPG.Game
     {
         [Title("Weapon")]
         [AssetsOnly]
+        [Tooltip("初始化时持有的武器")]
         public Weapon InitialWeapon;
 
         [ReadOnly]
         [ShowInInspector]
         public Weapon CurrentWeapon { get; private set; }
         [Title("Binding")]
+        [Tooltip("武器附加位置")]
         public Transform WeaponAttachment;
         public HandleWeaponMode HandleMode = HandleWeaponMode.RightHand;
         [ShowIf("HandleMode", HandleWeaponMode.LeftHand)]
@@ -71,6 +73,11 @@ namespace MMORPG.Game
             Owner = owner;
         }
 
+        /// <summary>
+        /// 改变持有武器
+        /// </summary>
+        /// <param name="newWeapon"></param>
+        /// <param name="combo">当前武器是否只是为了Combo切换</param>
         public void ChangeWeapon(Weapon newWeapon, bool combo = false)
         {
             if (CurrentWeapon)
@@ -113,6 +120,9 @@ namespace MMORPG.Game
                 CurrentWeapon.Initialize();
         }
 
+        /// <summary>
+        /// 使用武器
+        /// </summary>
         public void ShootStart()
         {
             if (CurrentWeapon == null)
