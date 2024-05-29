@@ -24,6 +24,10 @@ namespace GameServer.Model
             UserId = userId;
         }
 
+        public void Start() { }
+
+        public void Update() { }
+
         public void SetPlayer(Player player)
         {
             Player = player;

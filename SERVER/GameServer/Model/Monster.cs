@@ -11,7 +11,7 @@ namespace GameServer.Model
 
         private Vector3 _moveCurrentPos;
         private Vector3 _moveTargetPos;
-        private MonsterAi _ai;
+        private AiBase _ai;
         private Random _random = new();
 
         public Vector3 InitPos;
@@ -20,12 +20,21 @@ namespace GameServer.Model
         public Monster(Map map, string name, Vector3 initPos) : base(map, name)
         {
             InitPos = initPos;
-            _ai = new(this);
+            
+            //_ai = new(this);
         }
 
         public override void Start()
         {
             base.Start();
+
+            switch (DataHelper.GetUnitDefine(UnitId).Ai)
+            {
+                case "Monster":
+                    _ai = new MonsterAi(this);
+                    break;
+            }
+
             _ai.Start();
         }
 
@@ -74,6 +83,11 @@ namespace GameServer.Model
             }
         }
 
+        public void Revive()
+        {
+
+        }
+
         public void Move(Vector3 targetPos)
         {
             if (State == ActorState.Idle)
@@ -90,16 +104,16 @@ namespace GameServer.Model
 
         public void Idle()
         {
-            StateChange(ActorState.Idle);
+            ChangeState(ActorState.Idle);
         }
 
         public void Attack()
         {
-            StateChange(ActorState.Attack);
+            ChangeState(ActorState.Attack);
             State = ActorState.Idle;
         }
 
-        private void StateChange(ActorState state)
+        private void ChangeState(ActorState state)
         {
             if (State == state) return;
             State = state;

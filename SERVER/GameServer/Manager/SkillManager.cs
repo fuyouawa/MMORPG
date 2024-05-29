@@ -16,7 +16,10 @@ namespace GameServer.Manager
         public SkillManager(Actor actor)
         {
             _actor = actor;
+        }
 
+        public void Start()
+        {
             // 应该从数据库中读取，当前未设计，直接加载所有技能
             var list = DataManager.Instance.SkillDict.Values
                 .Where(s => s.UnitID == _actor.UnitId)
@@ -27,7 +30,7 @@ namespace GameServer.Manager
                 SkillList.Add(skill);
             }
         }
-        
+
         public void Update()
         {
             foreach (var skill in SkillList)

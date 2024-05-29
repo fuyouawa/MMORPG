@@ -21,6 +21,11 @@ namespace GameServer.Model
             User = user;
         }
 
+        public override void Start()
+        {
+            base.Start();
+        }
+
         public override void Update()
         {
             base.Update();
