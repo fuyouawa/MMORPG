@@ -22,10 +22,11 @@ namespace GameServer.Service
             var player = sender.User.Player;
             if (request.CastInfo.CasterId != player.EntityId)
             {
+
                 Log.Debug("施法者不匹配");
                 return;
             }
-            player.Map.FightManager.AddSkillCast(request.CastInfo);
+            player.Map.FightManager.AddCast(request.CastInfo);
         }
 
 

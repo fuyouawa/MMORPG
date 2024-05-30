@@ -3,11 +3,7 @@
 package Common.Proto.Fight;
 import "Base/NetVector3.proto";
 
-message SkillInfo {
-    int32 id = 1;
-}
-
-enum SkillCastResult {
+enum CastResult {
     SUCCESS = 0;        // 成功
     NOT_CAST = 1;       // 不可释放技能
     TARGET_INVAILD = 2; // 无效目标
@@ -18,23 +14,9 @@ enum SkillCastResult {
     COLLDOWN = 7;       // 冷却中
 }
 
-message SkillCastInfo {
+message CastInfo {
     int32 caster_id = 1;
     int32 skill_id = 2;
     int32 target_id = 3;
     Base.NetVector3 target_pos = 4;
-}
-
-message SpellRequest {
-    SkillCastInfo cast_info = 1;
-}
-
-message SpellFailResponse {
-    int32 caster_id = 1;
-    int32 skill_id = 2;
-    SkillCastResult reason = 3;
-}
-
-message SpellResponse {
-    repeated SkillCastInfo cast_info_arr = 1;
 }

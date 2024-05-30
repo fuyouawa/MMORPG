@@ -28,13 +28,15 @@ internal class Program
 
             Console.WriteLine($"{(-1) % 20 + 20}");
 
+            Dictionary<int, AoiWord.AoiEntity> dir = new();
+
             // 添加玩家
             int count = 3;
             for (var i = 1; i <= count; i++)
             {
                 for (var j = 1; j <= count; j++)
                 {
-                    zone.Enter((i - 1) * count + j, i, j, out var enterList);
+                    dir[(i - 1) * count + j] = zone.Enter((i - 1) * count + j, i, j, out var enterList);
                     Console.WriteLine($"---------------{(i - 1) * count + j}--------------");
                     foreach (var aoiKey in enterList)
                     {
@@ -57,7 +59,7 @@ internal class Program
             {
                 for (var j = 1; j <= count; j++)
                 {
-                    var viewEntity = zone.GetViewEntityList((i - 1) * count + j);
+                    var viewEntity = zone.GetFollowingEntityList(dir[(i - 1) * count + j]);
                     Console.WriteLine($"---------------{(i - 1) * count + j}--------------");
                     foreach (var aoiKey in viewEntity)
                     {
@@ -78,7 +80,7 @@ internal class Program
 
             {
                 Console.WriteLine($"---------------离开--------------");
-                zone.Leave(1, out var leaveList);
+                zone.Leave(dir[1], out var leaveList);
                 foreach (var aoiKey in leaveList)
                 {
                     //var findEntity = zone[aoiKey];

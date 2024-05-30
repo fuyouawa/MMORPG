@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Aoi
 {
+    /// <summary>
+    /// 基于九宫格的AOI系统
+    /// 非线程安全
+    /// </summary>
     public class AoiWord
     {
         public struct Vector2Int
@@ -17,9 +21,11 @@ namespace Aoi
 
         public class AoiEntity
         {
+            public int EntityId;
             public UInt64 ZoneKey;
             // 间距为2的待清理区域
             public HashSet<UInt64> PendingZoneKeySet;
+            public HashSet<int> ExtraFollowingSet;     // 超出AOI区域的额外关注目标
         }
 
         public class AoiZone
@@ -31,20 +37,20 @@ namespace Aoi
             public HashSet<int> PendingEntitySet = new();
 
             // 实体进入当前Zone
-            public void Enter(int entity)
+            public void Enter(AoiEntity aoiEntity)
             {
-                EntitySet.Add(entity);
+                EntitySet.Add(aoiEntity.EntityId);
             }
 
             // 实体离开当前Zone
-            public void Leave(int entity, List<int> leaveList)
+            public void Leave(AoiEntity aoiEntity, List<int> leaveList)
             {
                 // 在PendingZone中关注该区域的实体，选择向对方通知一下有实体离开，实际上当前实体可能观察不到对方实体
                 foreach (var pendingEntity in PendingEntitySet)
                 {
                     leaveList.Add(pendingEntity);
                 }
-                EntitySet.Remove(entity);
+                EntitySet.Remove(aoiEntity.EntityId);
             }
         }
 
@@ -57,20 +63,21 @@ namespace Aoi
             _zoneSize = zoneSize;
         }
 
-        public void Enter(int entity, float x, float y, out List<int> viewList)
+        public AoiEntity Enter(int entity, float x, float y, out List<int> viewList)
         {
             Debug.Assert(!_entittDict.ContainsKey(entity));
 
             PointToZonePoint(x, y, out var outX, out var outY);
             ZonePointToZoneKey(outX, outY, out var zoneKey);
-            _entittDict.Add(entity, new()
+            var aoiEntity = new AoiEntity()
             {
                 ZoneKey = zoneKey,
                 PendingZoneKeySet = new()
-            });
+            };
+            _entittDict.Add(entity, aoiEntity);
 
             var zone = CreateZone(zoneKey);
-            zone.Enter(entity);
+            zone.Enter(aoiEntity);
 
             viewList = new();
             var viewZoneArray = GetViewZoneArray(outX, outY);
@@ -79,13 +86,11 @@ namespace Aoi
                 ZonePointToZoneKey(curZonePoint.X, curZonePoint.Y, out var curZoneKey);
                 AddZoneEntitysToList(entity, curZoneKey, viewList);
             }
+            return aoiEntity;
         }
 
-        public void Leave(int entity, out List<int> leaveList)
+        public void Leave(AoiEntity aoiEntity, out List<int> leaveList)
         {
-            Debug.Assert(_entittDict.ContainsKey(entity));
-
-            var aoiEntity = _entittDict[entity];
             var zone = _zoneDict[aoiEntity.ZoneKey];
             ZoneKeyToZonePoint(aoiEntity.ZoneKey, out var x, out var y);
 
@@ -94,19 +99,19 @@ namespace Aoi
             foreach (var curZonePoint in viewZoneArray)
             {
                 ZonePointToZoneKey(curZonePoint.X, curZonePoint.Y, out var curZoneKey);
-                AddZoneEntitysToList(entity, curZoneKey, leaveList);
+                AddZoneEntitysToList(aoiEntity.EntityId, curZoneKey, leaveList);
             }
 
             // 待清理区域中的实体
             foreach (var pendingZoneKey in aoiEntity.PendingZoneKeySet)
             {
                 var pendingZone = _zoneDict[pendingZoneKey];
-                AddZoneEntitysToList(entity, pendingZone, leaveList);
-                pendingZone.PendingEntitySet.Remove(entity);
+                AddZoneEntitysToList(aoiEntity.EntityId, pendingZone, leaveList);
+                pendingZone.PendingEntitySet.Remove(aoiEntity.EntityId);
             }
 
-            zone.Leave(entity, leaveList);
-            _entittDict.Remove(entity);
+            zone.Leave(aoiEntity, leaveList);
+            _entittDict.Remove(aoiEntity.EntityId);
         }
 
         /// <summary>
@@ -115,11 +120,8 @@ namespace Aoi
         /// <param name="entity"></param>
         /// <param name="newPos"></param>
         /// <returns></returns>
-        public bool Refresh(int entity, float x, float y, out List<int>? enterList, out List<int>? leaveList)
+        public bool Refresh(AoiEntity aoiEntity, float x, float y, out List<int>? enterList, out List<int>? leaveList)
         {
-            Debug.Assert(_entittDict.ContainsKey(entity));
-
-            var aoiEntity = _entittDict[entity];
             ZoneKeyToZonePoint(aoiEntity.ZoneKey, out var minX, out var minY);
             int maxX = minX + _zoneSize;
             int maxY = minY + _zoneSize;
@@ -141,12 +143,12 @@ namespace Aoi
                 //Console.WriteLine();
 
                 var oldZone = _zoneDict[aoiEntity.ZoneKey];
-                oldZone.Leave(entity, leaveList);
+                oldZone.Leave(aoiEntity, leaveList);
 
                 ZonePointToZoneKey(newZoneX, newZoneY, out var newZoneKey);
 
                 var newZone = CreateZone(newZoneKey);
-                newZone.Enter(entity);
+                newZone.Enter(aoiEntity);
 
                 // 跨越边界，根据新的九宫格来确定离开视野范围以及新进入视野范围的实体
                 var oldViewZoneArray = GetViewZoneArray(minX, minY);
@@ -173,7 +175,7 @@ namespace Aoi
                     }
                     if (exist == false)
                     {
-                        AddZoneEntitysToList(entity, newViewZoneKey, enterList);
+                        AddZoneEntitysToList(aoiEntity.EntityId, newViewZoneKey, enterList);
                     }
                 }
                 // 首先跨边界移动可能出现PendingZone需要清除的情况，根据距离清除
@@ -187,10 +189,10 @@ namespace Aoi
                         // 移动后可能会将PendingZone划入九宫格的范围，划入九宫格的则不会离开当前视野
                         if (distance > 2)
                         {
-                            AddZoneEntitysToList(entity, pendingZone, leaveList);
+                            AddZoneEntitysToList(aoiEntity.EntityId, pendingZone, leaveList);
                         }
                         aoiEntity.PendingZoneKeySet.Remove(pendingZoneKey);
-                        pendingZone.PendingEntitySet.Remove(entity);
+                        pendingZone.PendingEntitySet.Remove(aoiEntity.EntityId);
                     }
                 }
 
@@ -204,12 +206,12 @@ namespace Aoi
                     {
                         aoiEntity.PendingZoneKeySet.Add(curZoneKey);
                         var curZone = CreateZone(curZoneKey);
-                        curZone.PendingEntitySet.Add(entity);
+                        curZone.PendingEntitySet.Add(aoiEntity.EntityId);
                     }
                     // 距离如果大于2就直接添加到LeaveList
                     else if (distance > 2)
                     {
-                        AddZoneEntitysToList(entity, curZoneKey, leaveList);
+                        AddZoneEntitysToList(aoiEntity.EntityId, curZoneKey, leaveList);
                     }
                 }
 
@@ -222,25 +224,44 @@ namespace Aoi
             return false;
         }
 
-        public List<int> GetViewEntityList(int entity)
+        public List<int> GetFollowingEntityList(AoiEntity aoiEntity)
         {
-            Debug.Assert(_entittDict.ContainsKey(entity));
-
             var viewList = new List<int>();
-            var aoiEntity = _entittDict[entity];
             ZoneKeyToZonePoint(aoiEntity.ZoneKey, out var x, out var y);
             var viewZoneArray = GetViewZoneArray(x, y);
             foreach (var curZonePoint in viewZoneArray)
             {
                 ZonePointToZoneKey(curZonePoint.X, curZonePoint.Y, out var curZoneKey);
-                AddZoneEntitysToList(entity, curZoneKey, viewList);
+                AddZoneEntitysToList(aoiEntity.EntityId, curZoneKey, viewList);
             }
             foreach (var pendingZoneKey in aoiEntity.PendingZoneKeySet)
             {
-                AddZoneEntitysToList(entity, pendingZoneKey, viewList);
+                AddZoneEntitysToList(aoiEntity.EntityId, pendingZoneKey, viewList);
             }
-
+            foreach (var following in aoiEntity.ExtraFollowingSet)
+            {
+                viewList.Add(following);
+            }
             return viewList;
+        }
+
+        public bool IsFollowing(AoiEntity aoiEntity, AoiEntity target)
+        {
+            ZoneKeyToZonePoint(aoiEntity.ZoneKey, out var x, out var y);
+            ZoneKeyToZonePoint(target.ZoneKey, out var targetX, out var targetY);
+            if (Math.Abs(x - targetX) <= _zoneSize && Math.Abs(y - targetY) <= _zoneSize) return true;
+            if (aoiEntity.PendingZoneKeySet.Contains(target.ZoneKey)) return true;
+            return aoiEntity.ExtraFollowingSet.Contains(target.EntityId);
+        }
+
+        public void AddExtraFollowing(AoiEntity aoiEntity, int followingEntity)
+        {
+            aoiEntity.ExtraFollowingSet.Add(followingEntity);
+        }
+
+        public void RemoveExtraFollowing(AoiEntity aoiEntity, int followingEntity)
+        {
+            aoiEntity.ExtraFollowingSet.Remove(followingEntity);
         }
 
 
@@ -345,5 +366,6 @@ namespace Aoi
             if (!_zoneDict.TryGetValue(zoneKey, out var zone)) return;
             AddZoneEntitysToList(excludeEntity, zone, list);
         }
+
     }
 }
