@@ -67,7 +67,7 @@ namespace GameServer.Model
             //List<int> 
             lock (_aoiWord)
             {
-                _aoiWord.Enter(entity.EntityId, entity.Position.X, entity.Position.Z, out var enters);
+                entity.AoiEntity = _aoiWord.Enter(entity.EntityId, entity.Position.X, entity.Position.Z, out var enters);
             }
 
             var res = new EntityEnterResponse();
@@ -119,7 +119,7 @@ namespace GameServer.Model
 
             lock (_aoiWord)
             {
-                _aoiWord.Leave(entity.EntityId, out var leaveList);
+                _aoiWord.Leave(entity.AoiEntity, out var leaveList);
             }
 
             entity.Map = null;
@@ -135,7 +135,7 @@ namespace GameServer.Model
             List<int> leaves;
             lock (_aoiWord)
             {
-                _aoiWord.Refresh(entity.EntityId, entity.Position.X, entity.Position.Z, out enters, out leaves);
+                _aoiWord.Refresh(entity.AoiEntity, entity.Position.X, entity.Position.Z, out enters, out leaves);
             }
 
             // 已假定所有实体的视距范围一致
@@ -236,7 +236,7 @@ namespace GameServer.Model
             var entityList = new List<Entity>();
             lock (_aoiWord)
             {
-                var viewEntityIdSet = _aoiWord.GetViewEntityList(entity.EntityId);
+                var viewEntityIdSet = _aoiWord.GetFollowingEntityList(entity.AoiEntity);
                 foreach (var viewEntityId in viewEntityIdSet)
                 {
                     var viewEntity = EntityManager.Instance.GetEntity((int)viewEntityId);
