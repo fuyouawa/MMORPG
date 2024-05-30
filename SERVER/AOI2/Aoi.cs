@@ -25,7 +25,8 @@ namespace Aoi
             public UInt64 ZoneKey;
             // 间距为2的待清理区域
             public HashSet<UInt64> PendingZoneKeySet;
-            public HashSet<int> ExtraFollowingSet;     // 超出AOI区域的额外关注目标
+            // 特别关注目标
+            public HashSet<int> SpecialFollowingSet;
         }
 
         public class AoiZone
@@ -215,6 +216,16 @@ namespace Aoi
                     }
                 }
 
+                // 特别关注者所在位置可能被纳入新的关注区域，但不需要处理
+                //foreach (var following in aoiEntity.SpecialFollowingSet)
+                //{
+                //    var followingAoiEntity = _entittDict[following];
+                //    if (IsViewZoneEntity(aoiEntity, followingAoiEntity))
+                //    {
+                //        RemoveSpecialFollowing(aoiEntity, followingAoiEntity);
+                //    }
+                //}
+
                 aoiEntity.ZoneKey = newZoneKey;
                 return true;
             }
@@ -238,32 +249,32 @@ namespace Aoi
             {
                 AddZoneEntitysToList(aoiEntity.EntityId, pendingZoneKey, viewList);
             }
-            foreach (var following in aoiEntity.ExtraFollowingSet)
+            foreach (var following in aoiEntity.SpecialFollowingSet)
             {
-                viewList.Add(following);
+                // 如果在关注区域内，说明已经添加过了，跳过
+                var followingAoiEntity = _entittDict[following];
+                if (!IsViewZoneEntity(aoiEntity, followingAoiEntity))
+                {
+                    viewList.Add(following);
+                }
             }
             return viewList;
         }
 
         public bool IsFollowing(AoiEntity aoiEntity, AoiEntity target)
         {
+            return IsViewZoneEntity(aoiEntity, target) || 
+                   aoiEntity.SpecialFollowingSet.Contains(target.EntityId);
+        }
+
+
+        private bool IsViewZoneEntity(AoiEntity aoiEntity, AoiEntity target)
+        {
             ZoneKeyToZonePoint(aoiEntity.ZoneKey, out var x, out var y);
             ZoneKeyToZonePoint(target.ZoneKey, out var targetX, out var targetY);
             if (Math.Abs(x - targetX) <= _zoneSize && Math.Abs(y - targetY) <= _zoneSize) return true;
-            if (aoiEntity.PendingZoneKeySet.Contains(target.ZoneKey)) return true;
-            return aoiEntity.ExtraFollowingSet.Contains(target.EntityId);
+            return aoiEntity.PendingZoneKeySet.Contains(target.ZoneKey);
         }
-
-        public void AddExtraFollowing(AoiEntity aoiEntity, int followingEntity)
-        {
-            aoiEntity.ExtraFollowingSet.Add(followingEntity);
-        }
-
-        public void RemoveExtraFollowing(AoiEntity aoiEntity, int followingEntity)
-        {
-            aoiEntity.ExtraFollowingSet.Remove(followingEntity);
-        }
-
 
         private AoiZone CreateZone(UInt64 zoneKey)
         {
