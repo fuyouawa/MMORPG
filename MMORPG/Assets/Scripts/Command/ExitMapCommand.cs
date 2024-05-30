@@ -24,7 +24,7 @@ namespace MMORPG.Command
             var playerManager = this.GetSystem<IPlayerManagerSystem>();
             net.SendToServer(new EntityLeaveRequest()
             {
-                EntityId = playerManager.MineId
+                EntityId = playerManager.MineEntity.EntityId
             });
             this.SendEvent(new ExitedMapEvent(model.CurrentMapId.Value));
         }
