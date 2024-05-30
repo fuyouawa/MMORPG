@@ -24,6 +24,7 @@ namespace GameServer.Model
         public int Level;
         public AttributeManager AttributeManager;
         public SkillManager SkillManager;
+        public Spell Spell;
 
         public Actor(Map map, string name)
         {
@@ -31,6 +32,7 @@ namespace GameServer.Model
             Name = name;
             AttributeManager = new(this);
             SkillManager = new(this);
+            Spell = new(this);
         }
 
         public override void Start()
@@ -38,6 +40,7 @@ namespace GameServer.Model
             base.Start();
             AttributeManager.Start();
             SkillManager.Start();
+            //Spell.Start();
         }
 
         public override void Update()

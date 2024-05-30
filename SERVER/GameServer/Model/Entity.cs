@@ -5,6 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Aoi;
 
 namespace GameServer.Model
 {
@@ -15,6 +16,7 @@ namespace GameServer.Model
         public int EntityId;
         public bool Vaild = true;
         public Map? Map;
+        public AoiWord.AoiEntity? AoiEntity;
         public Vector3 Position;
         public Vector3 Direction;
 

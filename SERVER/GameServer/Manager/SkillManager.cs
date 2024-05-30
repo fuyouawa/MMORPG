@@ -11,7 +11,7 @@ namespace GameServer.Manager
     public class SkillManager
     {
         private Actor _actor;
-        public List<Skill> SkillList = new();
+        public Dictionary<int, Skill> SkillDict = new();
 
         public SkillManager(Actor actor)
         {
@@ -27,16 +27,25 @@ namespace GameServer.Manager
             foreach (var define in list)
             {
                 var skill = new Skill(_actor, define);
-                SkillList.Add(skill);
+                SkillDict[skill.Define.ID] = skill;
             }
         }
 
         public void Update()
         {
-            foreach (var skill in SkillList)
+            foreach (var skill in SkillDict.Values)
             {
                 skill.Update();
             }
+        }
+
+        public Skill? GetSkill(int skillId)
+        {
+            if (!SkillDict.TryGetValue(skillId, out var skill))
+            {
+                return null;
+            }
+            return skill;
         }
     }
 }

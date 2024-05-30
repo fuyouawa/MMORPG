@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Proto.Fight;
 using GameServer.Manager;
 using GameServer.Model;
 using GameServer.Tool;
@@ -45,5 +46,17 @@ namespace GameServer.Fight
             }
 
         }
+
+        public CastResult CanUse()
+        {
+            return CastResult.Success;
+        }
+
+        public void Use()
+        {
+
+        }
+
+
     }
 }
