@@ -59,7 +59,7 @@ internal class Program
             {
                 for (var j = 1; j <= count; j++)
                 {
-                    var viewEntity = zone.GetFollowingEntityList(dir[(i - 1) * count + j]);
+                    var viewEntity = zone.GetFollowingList(dir[(i - 1) * count + j]);
                     Console.WriteLine($"---------------{(i - 1) * count + j}--------------");
                     foreach (var aoiKey in viewEntity)
                     {
