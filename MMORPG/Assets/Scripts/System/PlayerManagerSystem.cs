@@ -10,10 +10,10 @@ namespace MMORPG.System
 {
     public interface IPlayerManagerSystem : ISystem
     {
-        public int MineId { get; }
+        public EntityView MineEntity { get; }
         public int CharacterId { get; }
         public Dictionary<int, EntityView> PlayerDict { get; }
-        public void SetMineId(int entityId);
+        public void SetMine(EntityView mineEntity);
     }
 
     public class PlayerManagerSystem : AbstractSystem, IPlayerManagerSystem
@@ -21,12 +21,12 @@ namespace MMORPG.System
         public Dictionary<int, EntityView> PlayerDict { get; } = new();
 
         public int CharacterId { get; private set; } = -1;
-        public int MineId { get; private set; } = -1;
+        public EntityView MineEntity { get; private set; }
 
 
-        public void SetMineId(int entityId)
+        public void SetMine(EntityView mineEntity)
         {
-            MineId = entityId;
+            MineEntity = mineEntity;
         }
 
 
@@ -62,7 +62,7 @@ namespace MMORPG.System
 
         private void Clear()
         {
-            MineId = -1;
+            MineEntity = null;
             CharacterId = -1;
             PlayerDict.Clear();
         }

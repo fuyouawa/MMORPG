@@ -51,7 +51,6 @@ namespace MMORPG.Game
             }
 
             Tool.Log.Info("Network", $"JoinMap Success, MineId:{response.EntityId}");
-            _playerManager.SetMineId(response.EntityId);
 
             var unitDefine = _dataManager.GetUnitDefine(response.UnitId);
 
@@ -62,6 +61,8 @@ namespace MMORPG.Game
                 true,
                 response.Transform.Position.ToVector3(),
                 Quaternion.Euler(response.Transform.Direction.ToVector3()));
+
+            _playerManager.SetMine(entity);
 
             Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
         }
