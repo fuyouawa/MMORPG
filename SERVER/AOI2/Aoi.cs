@@ -224,7 +224,7 @@ namespace Aoi
             return false;
         }
 
-        public List<int> GetFollowingEntityList(AoiEntity aoiEntity)
+        public List<int> GetFollowingList(AoiEntity aoiEntity)
         {
             var viewList = new List<int>();
             ZoneKeyToZonePoint(aoiEntity.ZoneKey, out var x, out var y);

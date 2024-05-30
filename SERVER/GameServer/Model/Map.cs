@@ -236,7 +236,7 @@ namespace GameServer.Model
             var entityList = new List<Entity>();
             lock (_aoiWord)
             {
-                var viewEntityIdSet = _aoiWord.GetFollowingEntityList(entity.AoiEntity);
+                var viewEntityIdSet = _aoiWord.GetFollowingList(entity.AoiEntity);
                 foreach (var viewEntityId in viewEntityIdSet)
                 {
                     var viewEntity = EntityManager.Instance.GetEntity((int)viewEntityId);
