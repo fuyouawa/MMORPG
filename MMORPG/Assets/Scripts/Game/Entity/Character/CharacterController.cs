@@ -38,7 +38,10 @@ namespace MMORPG.Game
             Collider = GetComponent<CapsuleCollider>();
 
             if (HandleWeapon != null) HandleWeapon.Setup(this);
+        }
 
+        private void Start()
+        {
             if (!IsMine)
             {
                 Destroy(Rigidbody);

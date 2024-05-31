@@ -5166,7 +5166,6 @@ GameObject:
   - component: {fileID: 8468152610167312402}
   - component: {fileID: 4043262481260676704}
   - component: {fileID: 3115463119643299078}
-  - component: {fileID: 3568495275533320669}
   - component: {fileID: 3218650080577039875}
   m_Layer: 5
   m_Name: BtnCreateCharacter
@@ -5241,7 +5240,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8468152610167312402}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2950423490782058796}
+        m_TargetAssemblyTypeName: MMORPG.UI.UICharacterSelectPanel, Assembly-CSharp
+        m_MethodName: OnCreateCharacter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &8426403938501014730
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5341,22 +5352,6 @@ MonoBehaviour:
   m_PressedTrigger: Pressed
   m_TargetGraphic: {fileID: 840710696428550746}
   m_TargetGameObject: {fileID: 0}
---- !u!114 &3568495275533320669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8642848266543663404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21ffe216b5b498140bfe83b5681b7fb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Scene: 3
-  m_UseLoadingOverlay: 0
-  m_InputKey: 0
-  m_HookToButton: {fileID: 2701067322486965505}
 --- !u!114 &3218650080577039875
 MonoBehaviour:
   m_ObjectHideFlags: 0

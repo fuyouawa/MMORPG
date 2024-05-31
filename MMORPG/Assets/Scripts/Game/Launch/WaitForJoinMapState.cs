@@ -9,13 +9,13 @@ namespace MMORPG.Game
     {
         public WaitForJoinMapState(FSM<LaunchStatus> fsm, LaunchController target) : base(fsm, target)
         {
-            this.RegisterEvent<JoinedMapEvent>(OnEnterSpace);
+            this.RegisterEvent<JoinedMapEvent>(OnJoinedMap);
         }
 
-        private void OnEnterSpace(JoinedMapEvent e)
+        private void OnJoinedMap(JoinedMapEvent e)
         {
             //TODO 根据MapId加载地图
-            var op = SceneManager.LoadSceneAsync(2);
+            var op = SceneManager.LoadSceneAsync("Space1Scene");
 
             op.completed += operation =>
             {
