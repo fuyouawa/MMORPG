@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameServer.Manager;
+using Newtonsoft.Json;
 
 namespace GameServer.Tool
 {
@@ -52,6 +53,12 @@ namespace GameServer.Tool
         public static MapDefine GetMapDefine(int mapId)
         {
             return DataManager.Instance.MapDict[mapId];
+        }
+
+
+        public static T ParseJson<T>(string str)
+        {
+            return JsonConvert.DeserializeObject<T>(str);
         }
 
     }
