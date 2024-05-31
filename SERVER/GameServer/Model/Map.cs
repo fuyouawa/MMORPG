@@ -63,8 +63,6 @@ namespace GameServer.Model
             Log.Information($"实体进入场景:{entity.EntityId}");
 
             entity.Map = this;
-
-            //List<int> 
             lock (_aoiWord)
             {
                 entity.AoiEntity = _aoiWord.Enter(entity.EntityId, entity.Position.X, entity.Position.Z, out var enters);
@@ -116,7 +114,6 @@ namespace GameServer.Model
             var res = new EntityLeaveResponse();
             res.EntityIds.Add(entity.EntityId);
             PlayerManager.Broadcast(res, entity);
-
             lock (_aoiWord)
             {
                 _aoiWord.Leave(entity.AoiEntity, out var leaveList);

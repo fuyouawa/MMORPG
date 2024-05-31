@@ -20,17 +20,23 @@ namespace GameServer.Fight
             Collding,   // 冷却中
         }
 
-        public SkillDefine Define;
         public Actor Actor;
+        public SkillDefine Define;
         public float Cooldown;
         public Stage CurrentStage;
 
         private float _runTime;
+        private float[] _hitDelay;
 
         public Skill(Actor actor, SkillDefine define)
         {
             Actor = actor;
             Define = define;
+        }
+
+        public void Start()
+        {
+            _hitDelay = DataHelper.ParseJson<float[]>(Define.HitDelay);
         }
 
         public void Update()
@@ -43,12 +49,31 @@ namespace GameServer.Fight
             if (CurrentStage == Stage.Intonate && _runTime >= Define.IntonateTime)
             {
                 CurrentStage = Stage.Active;
+                OnActive();
             }
 
+            if (CurrentStage == Stage.Active)
+            {
+                if (_runTime >= Define.IntonateTime + _hitDelay.Max())
+                {
+                    CurrentStage = Stage.Collding;
+                }
+            }
+
+            if (CurrentStage == Stage.Collding)
+            {
+                if (_runTime >= Define.IntonateTime + Define.Cd)
+                {
+                    _runTime = 0;
+                    CurrentStage = Stage.None;
+                }
+            }
         }
 
         public CastResult CanUse()
         {
+
+
             return CastResult.Success;
         }
 
@@ -57,6 +82,13 @@ namespace GameServer.Fight
 
         }
 
+        /// <summary>
+        /// 技能激活
+        /// </summary>
+        private void OnActive()
+        {
+
+        }
 
     }
 }

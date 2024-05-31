@@ -15,8 +15,6 @@ namespace GameServer.Manager
         private Queue<CastInfo> _castQueue = new();
         private Queue<CastInfo> _backupCastQueue = new();
 
-        private Dictionary<int, Queue<CastInfo>> _broadcastQueue  = new ();
-
         public FightManager(Map map)
         {
             _map = map;
@@ -49,13 +47,6 @@ namespace GameServer.Manager
             {
                 _castQueue.Enqueue(castInfo);
             }
-        }
-
-        public void AddBroadcastCast(CastInfo castInfo)
-        {
-            var target = EntityManager.Instance.GetEntity(castInfo.TargetId) as Actor;
-
-
         }
 
         private void Broadcast()

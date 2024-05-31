@@ -56,7 +56,7 @@ namespace GameServer.Manager
 
         private Vector3 ParseVector3(string str)
         {
-            var pointArr = JsonConvert.DeserializeObject<float[]>(str);
+            var pointArr = DataHelper.ParseJson<float[]>(str);
             return new Vector3(pointArr[0], pointArr[1], pointArr[2]);
         }
     }
