@@ -8,9 +8,9 @@ namespace MMORPG.Command
     public class JoinMapCommand : AbstractCommand
     {
         public int MapId;
-        public int CharacterId;
+        public long CharacterId;
 
-        public JoinMapCommand(int mapId, int characterId)
+        public JoinMapCommand(int mapId, long characterId)
         {
             MapId = mapId;
             CharacterId = characterId;

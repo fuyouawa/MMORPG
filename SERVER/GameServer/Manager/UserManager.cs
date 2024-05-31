@@ -31,7 +31,7 @@ namespace GameServer.Manager
             }
         }
 
-        public User NewUser(NetChannel channel, string username, int userId)
+        public User NewUser(NetChannel channel, string username, long userId)
         {
             var user = new User(channel, username, userId);
             lock (_userDict)

@@ -29,7 +29,7 @@ namespace Common.Proto.Character {
             "TmV0Q2hhcmFjdGVyLnByb3RvIjcKFkNoYXJhY3RlckNyZWF0ZVJlcXVlc3QS",
             "DAoEbmFtZRgBIAEoCRIPCgd1bml0X2lkGAIgASgFIn4KF0NoYXJhY3RlckNy",
             "ZWF0ZVJlc3BvbnNlEioKBWVycm9yGAEgASgOMhsuQ29tbW9uLlByb3RvLkJh",
-            "c2UuTmV0RXJyb3ISNwoJY2hhcmFjdGVyGAMgASgLMiQuQ29tbW9uLlByb3Rv",
+            "c2UuTmV0RXJyb3ISNwoJY2hhcmFjdGVyGAIgASgLMiQuQ29tbW9uLlByb3Rv",
             "LkNoYXJhY3Rlci5OZXRDaGFyYWN0ZXJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Base.NetErrorReflection.Descriptor, global::Common.Proto.Character.NetCharacterReflection.Descriptor, },
@@ -328,7 +328,7 @@ namespace Common.Proto.Character {
     }
 
     /// <summary>Field number for the "character" field.</summary>
-    public const int CharacterFieldNumber = 3;
+    public const int CharacterFieldNumber = 2;
     private global::Common.Proto.Character.NetCharacter character_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -388,7 +388,7 @@ namespace Common.Proto.Character {
         output.WriteEnum((int) Error);
       }
       if (character_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(18);
         output.WriteMessage(Character);
       }
       if (_unknownFields != null) {
@@ -406,7 +406,7 @@ namespace Common.Proto.Character {
         output.WriteEnum((int) Error);
       }
       if (character_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(18);
         output.WriteMessage(Character);
       }
       if (_unknownFields != null) {
@@ -465,7 +465,7 @@ namespace Common.Proto.Character {
             Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
-          case 26: {
+          case 18: {
             if (character_ == null) {
               Character = new global::Common.Proto.Character.NetCharacter();
             }
@@ -491,7 +491,7 @@ namespace Common.Proto.Character {
             Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
-          case 26: {
+          case 18: {
             if (character_ == null) {
               Character = new global::Common.Proto.Character.NetCharacter();
             }

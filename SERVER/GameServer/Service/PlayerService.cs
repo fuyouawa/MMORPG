@@ -42,7 +42,7 @@ namespace GameServer.Service
                 return;
             }
             var dbCharacter = SqlDb.Connection.Select<DbCharacter>()
-                //.Where(t => t.UserId == sender.User.UserId)
+                .Where(t => t.UserId == sender.User.UserId)
                 .Where(t => t.Id == request.CharacterId)
                 .First();
             if (dbCharacter == null)

@@ -13,7 +13,7 @@ namespace GameServer.Db
     {
 
         [Column(IsIdentity = true, IsPrimary = true)]
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public int Coin { get; set; }
@@ -30,8 +30,8 @@ namespace GameServer.Db
     public class DbCharacter
     {
         [Column(IsIdentity = true, IsPrimary = true)]
-        public int Id { get; set; }
-        public int UserId { get; set; }
+        public long Id { get; set; }
+        public long UserId { get; set; }
         public int UnitId { get; set; }
         public int MapId { get; set; }
         public string Name { get; set; }
@@ -44,7 +44,7 @@ namespace GameServer.Db
         public int Z { get; set; } = 0;
         public long Gold { get; set; }
 
-        public DbCharacter(string name, int userId, int unitId, int mapId, int hp, int mp, int level, int exp, long gold)
+        public DbCharacter(string name, long userId, int unitId, int mapId, int hp, int mp, int level, int exp, long gold)
         {
             Name = name;
             UserId = userId;

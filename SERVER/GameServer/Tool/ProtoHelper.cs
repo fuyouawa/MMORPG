@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Common.Proto.Base;
 using Common.Proto.Character;
 using Common.Proto.Entity;
+using GameServer.Db;
 using GameServer.Model;
 
 namespace GameServer.Tool
@@ -67,23 +68,19 @@ namespace GameServer.Tool
         //    return entity;
         //}
 
-        //public static NetCharacter ToNetCharacter(this Player player)
-        //{
-        //    var netCharacter = new NetCharacter()
-        //    {
-        //        Entity = player.ToNetEntity(),
-        //        Name = player.Name,
-        //        Level = player.Level,
-        //        MapId = player.Map.MapId,
-        //        Hp = player.Hp,
-        //        Mp = player.Mp,
-
-        //        PlayerId = player.PlayerId,
-        //        JobId = player.JobId,
-        //        Exp = player.Exp,
-        //        Gold = player.Gold,
-        //    };
-        //    return netCharacter;
-        //}
+        public static NetCharacter ToNetCharacter(this DbCharacter character)
+        {
+            var netCharacter = new NetCharacter()
+            {
+                CharacterId = character.Id,
+                UnitId = character.UnitId,
+                Name = character.Name,
+                MapId = character.MapId,
+                Level = character.Level,
+                Exp = character.Exp,
+                Gold = character.Gold,
+            };
+            return netCharacter;
+        }
     }
 }

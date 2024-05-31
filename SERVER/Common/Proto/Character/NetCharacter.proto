@@ -3,7 +3,7 @@ syntax = "proto3";
 package Common.Proto.Character;
 
 message NetCharacter {
-    int32 character_id = 1;
+    int64 character_id = 1;
     int32 unit_id = 2;
     string name = 3;
     int32 map_id = 4;

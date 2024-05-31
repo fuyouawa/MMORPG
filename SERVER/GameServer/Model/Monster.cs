@@ -11,7 +11,7 @@ namespace GameServer.Model
 
         private Vector3 _moveCurrentPos;
         private Vector3 _moveTargetPos;
-        private AiBase _ai;
+        private AiBase? _ai;
         private Random _random = new();
 
         public Vector3 InitPos;
@@ -20,8 +20,6 @@ namespace GameServer.Model
         public Monster(Map map, string name, Vector3 initPos) : base(map, name)
         {
             InitPos = initPos;
-            
-            //_ai = new(this);
         }
 
         public override void Start()
@@ -35,19 +33,18 @@ namespace GameServer.Model
                     break;
             }
 
-            _ai.Start();
+            _ai?.Start();
         }
 
         public override void Update()
         {
             base.Update();
+            _ai?.Update();
 
             if (Map == null)
             {
                 return;
             }
-            _ai.Update();
-
             if (State == ActorState.Move)
             {
                 if (_moveTargetPos == _moveCurrentPos)

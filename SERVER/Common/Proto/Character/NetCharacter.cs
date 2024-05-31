@@ -26,7 +26,7 @@ namespace Common.Proto.Character {
           string.Concat(
             "ChxDaGFyYWN0ZXIvTmV0Q2hhcmFjdGVyLnByb3RvEhZDb21tb24uUHJvdG8u",
             "Q2hhcmFjdGVyIpUBCgxOZXRDaGFyYWN0ZXISFAoMY2hhcmFjdGVyX2lkGAEg",
-            "ASgFEg8KB3VuaXRfaWQYAiABKAUSDAoEbmFtZRgDIAEoCRIOCgZtYXBfaWQY",
+            "ASgDEg8KB3VuaXRfaWQYAiABKAUSDAoEbmFtZRgDIAEoCRIOCgZtYXBfaWQY",
             "BCABKAUSDQoFbGV2ZWwYBSABKAUSCwoDZXhwGAYgASgDEgwKBGdvbGQYByAB",
             "KAMSCgoCaHAYCCABKAUSCgoCbXAYCSABKAViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
@@ -94,10 +94,10 @@ namespace Common.Proto.Character {
 
     /// <summary>Field number for the "character_id" field.</summary>
     public const int CharacterIdFieldNumber = 1;
-    private int characterId_;
+    private long characterId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CharacterId {
+    public long CharacterId {
       get { return characterId_; }
       set {
         characterId_ = value;
@@ -231,7 +231,7 @@ namespace Common.Proto.Character {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (CharacterId != 0) hash ^= CharacterId.GetHashCode();
+      if (CharacterId != 0L) hash ^= CharacterId.GetHashCode();
       if (UnitId != 0) hash ^= UnitId.GetHashCode();
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (MapId != 0) hash ^= MapId.GetHashCode();
@@ -258,9 +258,9 @@ namespace Common.Proto.Character {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (CharacterId != 0) {
+      if (CharacterId != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(CharacterId);
+        output.WriteInt64(CharacterId);
       }
       if (UnitId != 0) {
         output.WriteRawTag(16);
@@ -304,9 +304,9 @@ namespace Common.Proto.Character {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (CharacterId != 0) {
+      if (CharacterId != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(CharacterId);
+        output.WriteInt64(CharacterId);
       }
       if (UnitId != 0) {
         output.WriteRawTag(16);
@@ -350,8 +350,8 @@ namespace Common.Proto.Character {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (CharacterId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CharacterId);
+      if (CharacterId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(CharacterId);
       }
       if (UnitId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(UnitId);
@@ -389,7 +389,7 @@ namespace Common.Proto.Character {
       if (other == null) {
         return;
       }
-      if (other.CharacterId != 0) {
+      if (other.CharacterId != 0L) {
         CharacterId = other.CharacterId;
       }
       if (other.UnitId != 0) {
@@ -432,7 +432,7 @@ namespace Common.Proto.Character {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            CharacterId = input.ReadInt32();
+            CharacterId = input.ReadInt64();
             break;
           }
           case 16: {
@@ -483,7 +483,7 @@ namespace Common.Proto.Character {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            CharacterId = input.ReadInt32();
+            CharacterId = input.ReadInt64();
             break;
           }
           case 16: {

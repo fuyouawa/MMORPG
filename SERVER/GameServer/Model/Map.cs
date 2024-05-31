@@ -233,8 +233,8 @@ namespace GameServer.Model
             var entityList = new List<Entity>();
             lock (_aoiWord)
             {
-                var viewEntityIdSet = _aoiWord.GetFollowingList(entity.AoiEntity);
-                foreach (var viewEntityId in viewEntityIdSet)
+                var viewEntityIdList = _aoiWord.GetFollowingList(entity.AoiEntity);
+                foreach (var viewEntityId in viewEntityIdList)
                 {
                     var viewEntity = EntityManager.Instance.GetEntity((int)viewEntityId);
                     if (viewEntity != null && (condition == null || condition(viewEntity)))
@@ -244,6 +244,33 @@ namespace GameServer.Model
                 }
             }
             return entityList;
+        }
+
+        /// <summary>
+        /// 获取多个实体视距范围内实体并按条件过滤
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="condition"></param>
+        /// <returns></returns>
+        public HashSet<Entity> GetEntityArrayViewEntitySet(Entity[] entitys, Predicate<Entity>? condition = null)
+        {
+            var entitySet = new HashSet<Entity>();
+            lock (_aoiWord)
+            {
+                foreach (var entity in entitys)
+                {
+                    var viewEntityIdList = _aoiWord.GetFollowingList(entity.AoiEntity);
+                    foreach (var viewEntityId in viewEntityIdList)
+                    {
+                        var viewEntity = EntityManager.Instance.GetEntity((int)viewEntityId);
+                        if (viewEntity != null && (condition == null || condition(viewEntity)))
+                        {
+                            entitySet.Add(viewEntity);
+                        }
+                    }
+                }
+            }
+            return entitySet;
         }
 
         /// <summary>

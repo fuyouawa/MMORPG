@@ -52,7 +52,7 @@ namespace MMORPG.Game
             }
         }
 
-        public int CharacterId
+        public long CharacterId
         {
             get => _characterId;
             set
@@ -88,7 +88,7 @@ namespace MMORPG.Game
         private int _hp;
         private int _mp;
         private int _mapId;
-        private int _characterId;
+        private long _characterId;
 
 
         public bool Selected => Toggle != null && Toggle.isOn;

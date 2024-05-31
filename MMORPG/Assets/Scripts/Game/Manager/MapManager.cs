@@ -32,7 +32,7 @@ namespace MMORPG.Game
             _dataManager = this.GetSystem<IDataManagerSystem>();
         }
 
-        public void OnJoinedMap(int characterId)
+        public void OnJoinedMap(long characterId)
         {
 
             var net = this.GetSystem<INetworkSystem>();
