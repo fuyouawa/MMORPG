@@ -72,7 +72,7 @@ namespace MMORPG.System
             var type = typeof(TMessage);
             _messageHandlers.TryAdd(type, null);
             _messageHandlers[type] = (_messageHandlers[type] as INetworkSystem.ReceivedEventHandler<TMessage>) + received;
-            return new CustomUnRegister(() => UnReceiveEvent(received));
+            return new CustomUnRegister(() => UnReceive(received));
         }
 
         public void SendToServer(IMessage msg)
@@ -145,11 +145,13 @@ namespace MMORPG.System
             _messageHandlers.Clear();
         }
 
-        private void UnReceiveEvent<TMessage>(INetworkSystem.ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage
+        private void UnReceive<TMessage>(INetworkSystem.ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage
         {
             var type = typeof(TMessage);
-            Debug.Assert(_messageHandlers.ContainsKey(type));
-            _messageHandlers[type] = (_messageHandlers[type] as INetworkSystem.ReceivedEventHandler<TMessage>) - onReceived;
+            if (_messageHandlers.ContainsKey(type))
+            {
+                _messageHandlers[type] = (_messageHandlers[type] as INetworkSystem.ReceivedEventHandler<TMessage>) - onReceived;
+            }
         }
 
         public void Close()
