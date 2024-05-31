@@ -111,5 +111,10 @@ namespace MMORPG.UI
                 this.SendCommand(new JoinMapCommand(CurrentSelectItem.MapId, CurrentSelectItem.CharacterId));
             }
         }
+
+        public void OnCreateCharacter()
+        {
+            SceneManager.LoadScene("CharacterCreateScene");
+        }
     }
 }
