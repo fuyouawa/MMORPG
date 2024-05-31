@@ -27,11 +27,11 @@ namespace MMORPG.Game
             _entityManager = this.GetSystem<IEntityManagerSystem>();
             _dataManager = this.GetSystem<IDataManagerSystem>();
 
-            this.GetSystem<INetworkSystem>().ReceiveInUnityThread<EntityEnterResponse>(OnEntityEnterReceived)
+            this.GetSystem<INetworkSystem>().Receive<EntityEnterResponse>(OnEntityEnterReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
-            this.GetSystem<INetworkSystem>().ReceiveInUnityThread<EntityLeaveResponse>(OnEntityLeaveReceived)
+            this.GetSystem<INetworkSystem>().Receive<EntityLeaveResponse>(OnEntityLeaveReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
-            this.GetSystem<INetworkSystem>().ReceiveInUnityThread<EntityTransformSyncResponse>(OnEntitySyncReceived)
+            this.GetSystem<INetworkSystem>().Receive<EntityTransformSyncResponse>(OnEntitySyncReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 

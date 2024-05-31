@@ -22,8 +22,7 @@ namespace MMORPG.System
 
         public void SendToServer(IMessage msg);
         public Task<T> ReceiveAsync<T>() where T : class, IMessage;
-        public IUnRegister Receive<TMessage>(ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage;
-        public IUnRegister ReceiveInUnityThread<TMessage>(ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage;
+        public IUnRegister Receive<TMessage>(ReceivedEventHandler<TMessage> onReceived, bool inUnityThread = true) where TMessage : class, IMessage;
         public Task StartAsync();
     }
 
@@ -62,18 +61,18 @@ namespace MMORPG.System
             }
         }
 
-        public IUnRegister Receive<TMessage>(INetworkSystem.ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage
+        public IUnRegister Receive<TMessage>(INetworkSystem.ReceivedEventHandler<TMessage> onReceived, bool inUnityThread = true) where TMessage : class, IMessage
         {
+            var received = onReceived;
+            if (inUnityThread)
+            {
+                received = msg =>
+                    UnityMainThreadDispatcher.Instance().Enqueue(() => onReceived(msg));
+            }
             var type = typeof(TMessage);
             _messageHandlers.TryAdd(type, null);
-            _messageHandlers[type] = (_messageHandlers[type] as INetworkSystem.ReceivedEventHandler<TMessage>) + onReceived;
-            return new CustomUnRegister(() => UnReceiveEvent(onReceived));
-        }
-
-        public IUnRegister ReceiveInUnityThread<TMessage>(INetworkSystem.ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage
-        {
-            return Receive<TMessage>(msg =>
-                UnityMainThreadDispatcher.Instance().Enqueue(() => onReceived(msg)));
+            _messageHandlers[type] = (_messageHandlers[type] as INetworkSystem.ReceivedEventHandler<TMessage>) + received;
+            return new CustomUnRegister(() => UnReceiveEvent(received));
         }
 
         public void SendToServer(IMessage msg)
@@ -143,6 +142,7 @@ namespace MMORPG.System
         private void OnApplicationQuit(ApplicationQuitEvent e)
         {
             Close();
+            _messageHandlers.Clear();
         }
 
         private void UnReceiveEvent<TMessage>(INetworkSystem.ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage

@@ -32,39 +32,39 @@ namespace MMORPG.Game
             _dataManager = this.GetSystem<IDataManagerSystem>();
         }
 
-        async void Start()
+        public void OnJoinedMap(int characterId)
         {
-            var box = this.GetSystem<IBoxSystem>();
+
             var net = this.GetSystem<INetworkSystem>();
-            box.ShowSpinner("");
             net.SendToServer(new JoinMapRequest
             {
-                CharacterId = 1,
+                CharacterId = characterId,
             });
-            var response = await net.ReceiveAsync<JoinMapResponse>();
-            box.CloseSpinner();
-            if (response.Error != Common.Proto.Base.NetError.Success)
+            net.Receive<JoinMapResponse>(response =>
             {
-                Tool.Log.Error("Network", $"JoinMap Error:{response.Error.GetInfo().Description}");
-                //TODO Error处理
-                return;
-            }
+                if (response.Error != Common.Proto.Base.NetError.Success)
+                {
+                    Tool.Log.Error("Network", $"JoinMap Error:{response.Error.GetInfo().Description}");
+                    //TODO Error处理
+                    return;
+                }
 
-            Tool.Log.Info("Network", $"JoinMap Success, MineId:{response.EntityId}");
+                Tool.Log.Info("Network", $"JoinMap Success, MineId:{response.EntityId}");
 
-            var unitDefine = _dataManager.GetUnitDefine(response.UnitId);
+                var unitDefine = _dataManager.GetUnitDefine(response.UnitId);
 
-            var entity = _entityManager.SpawnEntity(
-                _resLoader.LoadSync<EntityView>(unitDefine.Resource),    //TODO 角色生成
-                response.EntityId,
-                EntityType.Player,
-                true,
-                response.Transform.Position.ToVector3(),
-                Quaternion.Euler(response.Transform.Direction.ToVector3()));
+                var entity = _entityManager.SpawnEntity(
+                    _resLoader.LoadSync<EntityView>(unitDefine.Resource),    //TODO 角色生成
+                    response.EntityId,
+                    EntityType.Player,
+                    true,
+                    response.Transform.Position.ToVector3(),
+                    Quaternion.Euler(response.Transform.Direction.ToVector3()));
 
-            _playerManager.SetMine(entity);
+                _playerManager.SetMine(entity);
 
-            Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
+                Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
+            });
         }
 
         void OnDestroy()
