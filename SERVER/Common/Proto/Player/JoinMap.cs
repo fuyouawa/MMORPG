@@ -26,7 +26,7 @@ namespace Common.Proto.Player {
           string.Concat(
             "ChRQbGF5ZXIvSm9pbk1hcC5wcm90bxITQ29tbW9uLlByb3RvLlBsYXllchoT",
             "QmFzZS9OZXRFcnJvci5wcm90bxoZRW50aXR5L05ldFRyYW5zZm9ybS5wcm90",
-            "byImCg5Kb2luTWFwUmVxdWVzdBIUCgxjaGFyYWN0ZXJfaWQYASABKAUipwEK",
+            "byImCg5Kb2luTWFwUmVxdWVzdBIUCgxjaGFyYWN0ZXJfaWQYASABKAMipwEK",
             "D0pvaW5NYXBSZXNwb25zZRIqCgVlcnJvchgBIAEoDjIbLkNvbW1vbi5Qcm90",
             "by5CYXNlLk5ldEVycm9yEhEKCWVudGl0eV9pZBgCIAEoBRIOCgZtYXBfaWQY",
             "AyABKAUSDwoHdW5pdF9pZBgEIAEoBRI0Cgl0cmFuc2Zvcm0YBSABKAsyIS5D",
@@ -89,10 +89,10 @@ namespace Common.Proto.Player {
 
     /// <summary>Field number for the "character_id" field.</summary>
     public const int CharacterIdFieldNumber = 1;
-    private int characterId_;
+    private long characterId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CharacterId {
+    public long CharacterId {
       get { return characterId_; }
       set {
         characterId_ = value;
@@ -122,7 +122,7 @@ namespace Common.Proto.Player {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (CharacterId != 0) hash ^= CharacterId.GetHashCode();
+      if (CharacterId != 0L) hash ^= CharacterId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -141,9 +141,9 @@ namespace Common.Proto.Player {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (CharacterId != 0) {
+      if (CharacterId != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(CharacterId);
+        output.WriteInt64(CharacterId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -155,9 +155,9 @@ namespace Common.Proto.Player {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (CharacterId != 0) {
+      if (CharacterId != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(CharacterId);
+        output.WriteInt64(CharacterId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -169,8 +169,8 @@ namespace Common.Proto.Player {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (CharacterId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CharacterId);
+      if (CharacterId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(CharacterId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -184,7 +184,7 @@ namespace Common.Proto.Player {
       if (other == null) {
         return;
       }
-      if (other.CharacterId != 0) {
+      if (other.CharacterId != 0L) {
         CharacterId = other.CharacterId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -203,7 +203,7 @@ namespace Common.Proto.Player {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            CharacterId = input.ReadInt32();
+            CharacterId = input.ReadInt64();
             break;
           }
         }
@@ -222,7 +222,7 @@ namespace Common.Proto.Player {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            CharacterId = input.ReadInt32();
+            CharacterId = input.ReadInt64();
             break;
           }
         }

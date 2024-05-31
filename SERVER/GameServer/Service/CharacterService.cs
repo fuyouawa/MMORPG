@@ -64,14 +64,20 @@ namespace GameServer.Service
 
                 var newDbCharacter = new DbCharacter(request.Name, sender.User.UserId, request.UnitId, MapManager.Instance.InitMapId, 100, 100, 1,
                     0, 0);
-                var insertCount = SqlDb.Connection.Insert(newDbCharacter).ExecuteAffrows();
-                if (insertCount <= 0)
+                long characterId = SqlDb.Connection.Insert(newDbCharacter).ExecuteIdentity();
+                if (characterId == 0)
                 {
                     sender.Send(new CharacterCreateResponse() { Error = NetError.UnknowError });
                     Log.Debug($"{sender.ChannelName}角色创建失败：数据库错误");
                     return;
                 }
-                sender.Send(new CharacterCreateResponse() { Error = NetError.Success });
+
+                newDbCharacter.Id = characterId;
+                sender.Send(new CharacterCreateResponse()
+                {
+                    Character = newDbCharacter.ToNetCharacter(),
+                    Error = NetError.Success
+                });
                 Log.Debug($"{sender.ChannelName}角色创建成功");
             }
         }
@@ -90,16 +96,7 @@ namespace GameServer.Service
             var res = new CharacterListResponse();
             foreach (var character in characterList)
             {
-                res.CharacterList.Add(new NetCharacter()
-                {
-                    CharacterId = character.Id,
-                    Name = character.Name,
-                    UnitId = character.UnitId,
-                    Level = character.Level,
-                    Exp = character.Exp,
-                    MapId = character.MapId,
-                    Gold = character.Gold,
-                });
+                res.CharacterList.Add(character.ToNetCharacter());
             }
             sender.Send(res, null);
             Log.Debug($"{sender.ChannelName}角色列表查询成功");
