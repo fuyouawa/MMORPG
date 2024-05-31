@@ -24,9 +24,9 @@ namespace Aoi
             public int EntityId;
             public UInt64 ZoneKey;
             // 间距为2的待清理区域
-            public HashSet<UInt64> PendingZoneKeySet;
+            public HashSet<UInt64> PendingZoneKeySet = new();
             // 特别关注目标
-            public HashSet<int> SpecialFollowingSet;
+            public HashSet<int> SpecialFollowingSet = new();
         }
 
         public class AoiZone
@@ -64,18 +64,18 @@ namespace Aoi
             _zoneSize = zoneSize;
         }
 
-        public AoiEntity Enter(int entity, float x, float y, out List<int> viewList)
+        public AoiEntity Enter(int entityId, float x, float y, out List<int> viewList)
         {
-            Debug.Assert(!_entittDict.ContainsKey(entity));
+            Debug.Assert(!_entittDict.ContainsKey(entityId));
 
             PointToZonePoint(x, y, out var outX, out var outY);
             ZonePointToZoneKey(outX, outY, out var zoneKey);
             var aoiEntity = new AoiEntity()
             {
+                EntityId = entityId,
                 ZoneKey = zoneKey,
-                PendingZoneKeySet = new()
             };
-            _entittDict.Add(entity, aoiEntity);
+            _entittDict.Add(entityId, aoiEntity);
 
             var zone = CreateZone(zoneKey);
             zone.Enter(aoiEntity);
@@ -85,7 +85,7 @@ namespace Aoi
             foreach (var curZonePoint in viewZoneArray)
             {
                 ZonePointToZoneKey(curZonePoint.X, curZonePoint.Y, out var curZoneKey);
-                AddZoneEntitysToList(entity, curZoneKey, viewList);
+                AddZoneEntitysToList(entityId, curZoneKey, viewList);
             }
             return aoiEntity;
         }
