@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Proto.Fight;
@@ -25,7 +26,7 @@ namespace GameServer.Fight
         public float Cooldown;
         public Stage CurrentStage;
 
-        private float _runTime;
+        private float _time;
         private float[] _hitDelay;
 
         public Skill(Actor actor, SkillDefine define)
@@ -44,9 +45,9 @@ namespace GameServer.Fight
             if (Cooldown > 0) Cooldown -= Time.DeltaTime;
             if (Cooldown < 0) Cooldown = 0;
 
-            _runTime += Time.DeltaTime;
+            _time += Time.DeltaTime;
 
-            if (CurrentStage == Stage.Intonate && _runTime >= Define.IntonateTime)
+            if (CurrentStage == Stage.Intonate && _time >= Define.IntonateTime)
             {
                 CurrentStage = Stage.Active;
                 OnActive();
@@ -54,7 +55,7 @@ namespace GameServer.Fight
 
             if (CurrentStage == Stage.Active)
             {
-                if (_runTime >= Define.IntonateTime + _hitDelay.Max())
+                if (_time >= Define.IntonateTime + _hitDelay.Max())
                 {
                     CurrentStage = Stage.Collding;
                 }
@@ -62,22 +63,46 @@ namespace GameServer.Fight
 
             if (CurrentStage == Stage.Collding)
             {
-                if (_runTime >= Define.IntonateTime + Define.Cd)
+                if (_time >= Define.IntonateTime + Define.Cd)
                 {
-                    _runTime = 0;
+                    _time = 0;
                     CurrentStage = Stage.None;
+                    OnFinish();
                 }
             }
         }
 
-        public CastResult CanUse()
+        public CastResult CanRun(Target target)
         {
-
-
+            if (CurrentStage != Stage.None)
+            {
+                return CastResult.Running;
+            }
+            if (Cooldown > 0)
+            {
+                return CastResult.Colldown;
+            }
+            if (Actor.IsDeath() || !Actor.IsValid())
+            {
+                return CastResult.EntityDead;
+            }
+            if (target is EntityTarget)
+            {
+                var targetActor = target.RealObj as Actor;
+                if (targetActor == null || !targetActor.IsValid() || targetActor.IsDeath())
+                {
+                    return CastResult.TargetInvaild;
+                }
+            }
+            var dist = Vector3.Distance(Actor.Position, target.Position());
+            if (dist > Define.SpellRange)
+            {
+                return CastResult.OutOfRange;
+            }
             return CastResult.Success;
         }
 
-        public void Use()
+        public void Run(Target target)
         {
 
         }
@@ -86,6 +111,14 @@ namespace GameServer.Fight
         /// 技能激活
         /// </summary>
         private void OnActive()
+        {
+
+        }
+
+        /// <summary>
+        /// 技能冷却完成
+        /// </summary>
+        private void OnFinish()
         {
 
         }

@@ -91,7 +91,7 @@ namespace GameServer.Manager
             }
             else
             {
-                var list = _map.GetEntityViewEntityList(sender, e => e.EntityType == EntityType.Player);
+                var list = _map.GetEntityViewEntityList(sender, entity => entity.EntityType == EntityType.Player);
                 foreach (var entity in list)
                 {
                     var player = (Player)entity;
