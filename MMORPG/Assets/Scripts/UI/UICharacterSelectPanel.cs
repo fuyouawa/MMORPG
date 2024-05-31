@@ -8,6 +8,7 @@ using UnityEngine;
 using QFramework;
 using UnityEngine.SceneManagement;
 using NotImplementedException = System.NotImplementedException;
+using Google.Protobuf.WellKnownTypes;
 
 namespace MMORPG.UI
 {
@@ -22,41 +23,37 @@ namespace MMORPG.UI
 
         private INetworkSystem _network;
 
-        private void Awake()
-        {
-            _network = this.GetSystem<INetworkSystem>();
-
-            _network.ReceiveInUnityThread<CharacterListResponse>(OnReceivedCharacterList)
-                .UnRegisterWhenGameObjectDestroyed(gameObject);
-        }
-
         private void OnReceivedCharacterList(CharacterListResponse response)
         {
             foreach (var character in response.CharacterList)
             {
                 var item = Instantiate(CharacterSelectItemPrefab, CharactersGroup, false);
-                item.OnSelected += OnCharacterItemSelected;
+                item.OnSelectionChanged += OnCharacterItemSelectionChanged;
                 item.SetCharacter(character);
 
                 if (CurrentSelectItem == null)
                 {
-                    item.Toggle.isOn = true;
+                    item.Toggle.SetIsOnWithoutNotify(true);
                     CurrentSelectItem = item;
                 }
                 else
                 {
-                    item.Toggle.isOn = false;
+                    item.Toggle.SetIsOnWithoutNotify(false);
                 }
             }
         }
 
-        private void OnCharacterItemSelected(CharacterSelectItem sender)
+        private void OnCharacterItemSelectionChanged(CharacterSelectItem sender, bool toggle)
         {
             if (CurrentSelectItem != null)
             {
-                CurrentSelectItem.Toggle.isOn = false;
+                CurrentSelectItem.Toggle.SetIsOnWithoutNotify(CurrentSelectItem == sender);
             }
-            CurrentSelectItem = sender;
+
+            if (toggle)
+            {
+                CurrentSelectItem = sender;
+            }
         }
 
         public IArchitecture GetArchitecture()
@@ -80,9 +77,13 @@ namespace MMORPG.UI
         protected override void OnInit(IUIData uiData = null)
 		{
 			mData = uiData as UICharacterSelectPanelData ?? new UICharacterSelectPanelData();
-            // please add init code here
 
-            BtnPlay.onClick.AddListener(() => JoinMapScene(1));
+            _network = this.GetSystem<INetworkSystem>();
+
+            _network.Receive<CharacterListResponse>(OnReceivedCharacterList)
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            BtnPlay.onClick.AddListener(OnPlayGame);
         }
 		
 		protected override void OnOpen(IUIData uiData = null)
@@ -103,15 +104,12 @@ namespace MMORPG.UI
 		{
 		}
 
-
-        private void JoinMapScene(int mapId)
+        public void OnPlayGame()
         {
-            var op = SceneManager.LoadSceneAsync("Space1Scene");
-            op.completed += _ =>
+            if (CurrentSelectItem != null)
             {
-                this.SendCommand(new JoinMapCommand(mapId));
-            };
+                this.SendCommand(new JoinMapCommand(CurrentSelectItem.MapId, CurrentSelectItem.CharacterId));
+            }
         }
-
     }
 }
