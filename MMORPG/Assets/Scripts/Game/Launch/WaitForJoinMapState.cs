@@ -9,7 +9,8 @@ namespace MMORPG.Game
     {
         public WaitForJoinMapState(FSM<LaunchStatus> fsm, LaunchController target) : base(fsm, target)
         {
-            this.RegisterEvent<JoinedMapEvent>(OnJoinedMap);
+            this.RegisterEvent<JoinedMapEvent>(OnJoinedMap)
+                .UnRegisterWhenGameObjectDestroyed(mTarget.gameObject);
         }
 
         private void OnJoinedMap(JoinedMapEvent e)

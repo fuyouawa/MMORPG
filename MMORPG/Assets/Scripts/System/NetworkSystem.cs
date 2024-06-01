@@ -92,7 +92,7 @@ namespace MMORPG.System
 
             if (_messageHandlers.TryGetValue(msgType, out var handlers))
             {
-                handlers.DynamicInvoke(new object[] { e.Packet.Message });
+                handlers?.DynamicInvoke(new object[] { e.Packet.Message });
             }
             else
             {
@@ -143,6 +143,7 @@ namespace MMORPG.System
         {
             Close();
             _messageHandlers.Clear();
+            _session = null;
         }
 
         private void UnReceive<TMessage>(INetworkSystem.ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage
