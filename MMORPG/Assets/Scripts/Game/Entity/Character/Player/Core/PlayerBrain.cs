@@ -116,6 +116,11 @@ namespace MMORPG.Game
 
                 InputControls.Player.Fire.started += OnFireStarted;
             }
+            else
+            {
+                Destroy(CharacterController.Rigidbody);
+                Destroy(CharacterController.Collider);
+            }
             if (States.IsNullOrEmpty()) return;
             InitStates();
             ChangeState(States[0]);
