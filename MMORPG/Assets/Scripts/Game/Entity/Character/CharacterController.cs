@@ -40,15 +40,6 @@ namespace MMORPG.Game
             if (HandleWeapon != null) HandleWeapon.Setup(this);
         }
 
-        private void Start()
-        {
-            if (!IsMine)
-            {
-                Destroy(Rigidbody);
-                Destroy(Collider);
-            }
-        }
-
         private void Update()
         {
         }
