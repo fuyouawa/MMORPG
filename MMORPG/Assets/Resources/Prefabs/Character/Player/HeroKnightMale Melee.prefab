@@ -75603,6 +75603,37 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &4252463325995335324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8782009336371497808}
+  m_Layer: 7
+  m_Name: Damage Number Point
+  m_TagString: Untagged
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8782009336371497808
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4252463325995335324}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2429740359941644855}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4320786503859749940
 GameObject:
   m_ObjectHideFlags: 0
@@ -80856,12 +80887,12 @@ MonoBehaviour:
         AmountOfLoop: 1
         DelayBetweenLoop: 0
         DamageAreaMode: 0
-        CustomLayer: 0
-        LayerName: 
+        CustomLayer: 1
+        LayerName: Weapon
         DamageAreaShape: 0
-        EditArea: 0
-        AreaOffset: {x: -0.5, y: 1.18, z: 0.35}
-        AreaSize: {x: 2.08, y: 2.07, z: 2.93}
+        EditArea: 1
+        AreaOffset: {x: -0.11402458, y: 1.3781636, z: 0.7449925}
+        AreaSize: {x: 3.5425992, y: 2.4663272, z: 3.719985}
         ExistingDamageArea: {fileID: 0}
         TriggerMask: 1
         TargetLayerMask:
@@ -105875,6 +105906,7 @@ Transform:
   - {fileID: 6292130008949261289}
   - {fileID: 890314551262170839}
   - {fileID: 8942558685178153681}
+  - {fileID: 8782009336371497808}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &8811326963983664298
@@ -106000,6 +106032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Entity: {fileID: 9049836981437204500}
+  DamageNumberPoint: {fileID: 8782009336371497808}
 --- !u!114 &6349372569880267187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116832,7 +116865,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7872487827789686166
 Transform:
   m_ObjectHideFlags: 0
@@ -117337,12 +117370,12 @@ MonoBehaviour:
         AmountOfLoop: 1
         DelayBetweenLoop: 0
         DamageAreaMode: 0
-        CustomLayer: 0
-        LayerName: 
+        CustomLayer: 1
+        LayerName: Weapon
         DamageAreaShape: 0
-        EditArea: 0
-        AreaOffset: {x: 0, y: 1.25, z: 0.6}
-        AreaSize: {x: 1.4, y: 2.39, z: 1.41}
+        EditArea: 1
+        AreaOffset: {x: -0.09330261, y: 1.4027573, z: 0.9876025}
+        AreaSize: {x: 1.716116, y: 2.695515, z: 2.185205}
         ExistingDamageArea: {fileID: 0}
         TriggerMask: 1
         TargetLayerMask:
