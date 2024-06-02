@@ -9,12 +9,12 @@ namespace MMORPG.Game
         InitPlugins,
         InitTool,
         InitNetwork,
-        WaitForJoinMap,
+        InLobby,
         Playing,
         ApplicationQuit
     }
 
-    public class LaunchController : MonoBehaviour, IController
+    public class LaunchController : MonoSingleton<LaunchController>, IController
     {
         public FSM<LaunchStatus> FSM = new();
 
@@ -30,7 +30,7 @@ namespace MMORPG.Game
             FSM.AddState(LaunchStatus.InitPlugins, new InitPluginsState(FSM, this));
             FSM.AddState(LaunchStatus.InitTool, new InitToolState(FSM, this));
             FSM.AddState(LaunchStatus.InitNetwork, new InitNetworkState(FSM, this));
-            FSM.AddState(LaunchStatus.WaitForJoinMap, new WaitForJoinMapState(FSM, this));
+            FSM.AddState(LaunchStatus.InLobby, new InLobbyState(FSM, this));
             FSM.AddState(LaunchStatus.Playing, new PlayingState(FSM, this));
             FSM.AddState(LaunchStatus.ApplicationQuit, new ApplicationQuitState(FSM, this));
 

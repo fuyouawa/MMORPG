@@ -17,7 +17,7 @@ namespace MMORPG.Game
             var net = this.GetSystem<INetworkSystem>();
             await net.ConnectAsync();
             Task.Run(net.StartAsync);
-            mFSM.ChangeState(LaunchStatus.WaitForJoinMap);
+            mFSM.ChangeState(LaunchStatus.InLobby);
         }
 
         public IArchitecture GetArchitecture()

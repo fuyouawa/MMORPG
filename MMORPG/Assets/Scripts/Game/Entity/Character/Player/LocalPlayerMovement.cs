@@ -40,7 +40,7 @@ namespace MMORPG.Game
                 MoveDirection = _moveDirection,
                 IsWalkingOrRunning = Brain.AnimationController.Walking
             };
-            Brain.CharacterController.NetworkUploadTransform(OwnerStateId, MessagePackSerializer.Serialize(d));
+            Brain.NetworkUploadTransform(OwnerStateId, MessagePackSerializer.Serialize(d));
         }
 
         public override void OnStateExit()

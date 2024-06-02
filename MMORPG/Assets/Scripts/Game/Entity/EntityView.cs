@@ -20,27 +20,17 @@ namespace MMORPG.Game
         [ReadOnly]
         public int EntityId { get; private set; }
 
-        [ShowInInspector]
-        [ReadOnly]
-        public bool IsMine { get; private set; }
-
         public EntityType EntityType;
 
         public event Action<EntityTransformSyncData> OnTransformSync;
 
         private bool _initialized = false;
 
-        public void Initialize(int entityId, EntityType type, bool isMine)
+        public void Initialize(int entityId)
         {
             Debug.Assert(!_initialized);
-            if (type != EntityType)
-            {
-                throw new Exception("EntityType与当前预制体的Type不相同!");
-            }
             _initialized = true;
             EntityId = entityId;
-            EntityType = type;
-            IsMine = isMine;
         }
 
         public IArchitecture GetArchitecture()
