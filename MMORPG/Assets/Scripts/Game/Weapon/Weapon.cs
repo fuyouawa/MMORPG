@@ -373,7 +373,8 @@ namespace MMORPG.Game
             if (WeaponStopFeedbacks != null)
                 WeaponStopFeedbacks.Play();
             FSM.ChangeState(WeaponStates.Idle);
-            Owner.StopPreventMovement();
+            if (PreventAllMovementWhileInUse)
+                Owner.StopPreventMovement();
         }
 
         protected virtual void ShootRequest()
