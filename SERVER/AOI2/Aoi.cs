@@ -99,7 +99,9 @@ namespace Aoi
         /// <param name="enterFollowerList">返回刷新后当前实体会进入哪些实体视距的实体列表</param>
         /// <param name="leaveFollowerList">返回刷新后当前实体会离开哪些实体视距的实体列表</param>
         /// <returns></returns>
-        public bool Refresh(AoiEntity aoiEntity, float x, float y, out List<int>? enterFollowingList, out List<int>? leaveFollowingList, out List<int>? enterFollowerList, out List<int>? leaveFollowerList)
+        public bool Refresh(AoiEntity aoiEntity, float x, float y, 
+            Action<int> enterFollowingCallback, Action<int> leaveFollowingCallback, 
+            Action<int> enterFollowerCallback, Action<int> leaveFollowerCallback)
         {
             ZoneKeyToZonePoint(aoiEntity.ZoneKey, out var minX, out var minY);
             int maxX = minX + _zoneSize;
@@ -108,21 +110,17 @@ namespace Aoi
             if (x < minX || y < minY ||
                 x >= maxX || y >= maxY)
             {
-                enterFollowingList = new();
-                leaveFollowingList = new();
-                enterFollowerList = new();
-                leaveFollowerList = new();
                 PointToZonePoint(x, y, out var newZoneX, out var newZoneY);
 
-                Console.WriteLine($"实体{aoiEntity.EntityId}PendingZone：");
-                foreach (var pendingZoneKey in aoiEntity.PendingZoneKeySet)
-                {
-                    ZoneKeyToZonePoint(pendingZoneKey, out var pendingZoneX, out var pendingZoneY);
-                    Console.Write($"[{pendingZoneX}, {pendingZoneY}]，");
-                }
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine($"实体{aoiEntity.EntityId}跨边界移动：[{minX}, {minY}] -> [{newZoneX}, {newZoneY}]");
+                //Console.WriteLine($"实体{aoiEntity.EntityId}PendingZone：");
+                //foreach (var pendingZoneKey in aoiEntity.PendingZoneKeySet)
+                //{
+                //    ZoneKeyToZonePoint(pendingZoneKey, out var pendingZoneX, out var pendingZoneY);
+                //    Console.Write($"[{pendingZoneX}, {pendingZoneY}]，");
+                //}
+                //Console.WriteLine();
+                //Console.WriteLine();
+                //Console.WriteLine($"实体{aoiEntity.EntityId}跨边界移动：[{minX}, {minY}] -> [{newZoneX}, {newZoneY}]");
 
                 var oldZoneKey = aoiEntity.ZoneKey;
                 ZonePointToZoneKey(newZoneX, newZoneY, out var newZoneKey);
@@ -138,7 +136,7 @@ namespace Aoi
                     // 但我也可能原本就被这个实体关注
                     if (!IsFollowing(pendingEntity, aoiEntity))
                     {
-                        enterFollowerList.Add(pendingEntityId);
+                        enterFollowerCallback(pendingEntityId);
                     }
                 }
 
@@ -150,11 +148,10 @@ namespace Aoi
                 foreach (var pendingEntityId in oldZone.PendingEntitySet)
                 {
                     var pendingEntity = _entittDict[pendingEntityId];
-                    bool exist = false;
                     // 新位置的我可能依旧在该实体的关注区域内
                     if (!IsFollowing(pendingEntity, aoiEntity))
                     {
-                        leaveFollowerList.Add(pendingEntityId);
+                        leaveFollowerCallback(pendingEntityId);
                     }
                 }
 
@@ -184,7 +181,7 @@ namespace Aoi
                     if (!exist)
                     {
                         // 该区域内的实体是刚进入视距的实体
-                        AddZoneEntitysToList(newViewZoneKey, enterFollowingList, e => e != aoiEntity.EntityId);
+                        ScanZoneEntitysAndExclude(aoiEntity.EntityId, newViewZoneKey, enterFollowingCallback);
                     }
                 }
 
@@ -200,7 +197,7 @@ namespace Aoi
                         if (distance > 2)
                         {
                             // 该区域内的实体是刚离开视距的实体
-                            AddZoneEntitysToList(pendingZone, leaveFollowingList, e => e != aoiEntity.EntityId);
+                            ScanZoneEntitysAndExclude(aoiEntity.EntityId, pendingZone, leaveFollowingCallback);
                         }
                         aoiEntity.PendingZoneKeySet.Remove(pendingZoneKey);
                         pendingZone.PendingEntitySet.Remove(aoiEntity.EntityId);
@@ -222,7 +219,7 @@ namespace Aoi
                     // 距离如果大于2就直接添加到leaveFollowingList
                     else if (distance > 2)
                     {
-                        AddZoneEntitysToList(curZoneKey, leaveFollowingList, e => e != aoiEntity.EntityId);
+                        ScanZoneEntitysAndExclude(aoiEntity.EntityId, curZoneKey, leaveFollowingCallback);
                     }
                 }
 
@@ -254,8 +251,14 @@ namespace Aoi
                     {
                         // 找到了不重叠的新区域，当前实体可能新加入了该区域内的实体的视距中
                         // 检查该区域的实体是不是已经通过PendingZone关注了旧位置的我
-                        AddZoneEntitysToList(newViewZoneKey, enterFollowerList, 
-                            e => !oldZone.PendingEntitySet.Contains(e) && e != aoiEntity.EntityId);
+                        ScanZoneEntitys(newViewZoneKey, e =>
+                        {
+                            if (e == aoiEntity.EntityId || oldZone.PendingEntitySet.Contains(e))
+                            {
+                                return;
+                            }
+                            enterFollowerCallback(e);
+                        });
                     }
                 }
 
@@ -276,17 +279,19 @@ namespace Aoi
                     {
                         // 找到了不重叠的旧区域
                         // 检查该区域的实体是不是通过PendingZone关注了新位置的我
-                        AddZoneEntitysToList(oldViewZoneKey, leaveFollowerList,
-                            e => !newZone.PendingEntitySet.Contains(e) && e != aoiEntity.EntityId);
+                        ScanZoneEntitys(oldViewZoneKey, e =>
+                        {
+                            if (e == aoiEntity.EntityId || newZone.PendingEntitySet.Contains(e))
+                            {
+                                return;
+                            }
+                            leaveFollowerCallback(e);
+                        });
                     }
                 }
                 return true;
             }
 
-            enterFollowingList = null;
-            leaveFollowingList = null;
-            enterFollowerList = null;
-            leaveFollowerList = null;
             return false;
         }
 
@@ -295,19 +300,18 @@ namespace Aoi
         /// </summary>
         /// <param name="aoiEntity"></param>
         /// <returns></returns>
-        public List<int> GetFollowingList(AoiEntity aoiEntity)
+        public void ScanFollowingList(AoiEntity aoiEntity, Action<int> callback)
         {
-            var list = new List<int>();
             ZoneKeyToZonePoint(aoiEntity.ZoneKey, out var x, out var y);
             var viewZoneArray = GetViewZoneArray(x, y);
             foreach (var curZonePoint in viewZoneArray)
             {
                 ZonePointToZoneKey(curZonePoint.X, curZonePoint.Y, out var curZoneKey);
-                AddZoneEntitysToList(curZoneKey, list, e => e != aoiEntity.EntityId);
+                ScanZoneEntitysAndExclude(aoiEntity.EntityId, curZoneKey, callback);
             }
             foreach (var pendingZoneKey in aoiEntity.PendingZoneKeySet)
             {
-                AddZoneEntitysToList(pendingZoneKey, list, e => e != aoiEntity.EntityId);
+                ScanZoneEntitysAndExclude(aoiEntity.EntityId, pendingZoneKey, callback);
             }
             //foreach (var following in aoiEntity.SpecialFollowingSet)
             //{
@@ -318,7 +322,6 @@ namespace Aoi
             //        list.Add(following);
             //    }
             //}
-            return list;
         }
 
         /// <summary>
@@ -326,23 +329,21 @@ namespace Aoi
         /// </summary>
         /// <param name="aoiEntity"></param>
         /// <returns></returns>
-        public List<int> GetFollowerList(AoiEntity aoiEntity)
+        public void ScanFollowerList(AoiEntity aoiEntity, Action<int> callback)
         {
-            var list = new List<int>();
             ZoneKeyToZonePoint(aoiEntity.ZoneKey, out var x, out var y);
             var viewZoneArray = GetViewZoneArray(x, y);
             foreach (var curZonePoint in viewZoneArray)
             {
                 ZonePointToZoneKey(curZonePoint.X, curZonePoint.Y, out var curZoneKey);
-                AddZoneEntitysToList(curZoneKey, list, e => e != aoiEntity.EntityId);
+                ScanZoneEntitysAndExclude(aoiEntity.EntityId, curZoneKey, callback);
             }
             // 在Pending区域中关注我的实体
             var zone = _zoneDict[aoiEntity.ZoneKey];
             foreach (var entityId in zone.PendingEntitySet)
             {
-                list.Add(entityId);
+                callback(entityId);
             }
-            return list;
         }
 
         /// <summary>
@@ -453,19 +454,36 @@ namespace Aoi
             return Math.Max(Math.Abs(x1 - x2), Math.Abs(y1 - y2)) / _zoneSize;
         }
 
-        private void AddZoneEntitysToList(AoiZone zone, List<int> list, Predicate<int>? condition = null)
+        private void ScanZoneEntitys(AoiZone zone, Action<int> callback)
         {
             foreach (var entityId in zone.EntitySet)
             {
-                if (condition != null && !condition(entityId)) continue;
-                list.Add(entityId);
+                callback(entityId);
             }
         }
 
-        private void AddZoneEntitysToList(UInt64 zoneKey, List<int> list, Predicate<int>? condition = null)
+        private void ScanZoneEntitys(UInt64 zoneKey, Action<int> callback)
         {
             if (!_zoneDict.TryGetValue(zoneKey, out var zone)) return;
-            AddZoneEntitysToList(zone, list, condition);
+            ScanZoneEntitys(zone, callback);
+        }
+
+        private void ScanZoneEntitysAndExclude(int entityId, AoiZone zone, Action<int> callback)
+        {
+            ScanZoneEntitys(zone, e =>
+            {
+                if (entityId == e)
+                {
+                    return;
+                }
+                callback(e);
+            });
+        }
+
+        private void ScanZoneEntitysAndExclude(int entityId, UInt64 zoneKey, Action<int> callback)
+        {
+            if (!_zoneDict.TryGetValue(zoneKey, out var zone)) return;
+            ScanZoneEntitysAndExclude(entityId, zone, callback);
         }
 
     }
