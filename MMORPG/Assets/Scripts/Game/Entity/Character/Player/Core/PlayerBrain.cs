@@ -2,16 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Proto.EventLike;
+using Google.Protobuf;
 using MMORPG.Global;
+using MMORPG.System;
 using MMORPG.Tool;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using QFramework;
 
 namespace MMORPG.Game
 {
-    public class PlayerBrain : MonoBehaviour
+    public class PlayerBrain : MonoBehaviour, IController
     {
         [Required]
         public CharacterController CharacterController;
@@ -47,7 +51,27 @@ namespace MMORPG.Game
         public Vector2 GetMoveInput() => InputControls.Player.Move.ReadValue<Vector2>();
         public bool IsPressingRun() => InputControls.Player.Run.inProgress;
 
-        public bool IsMine => CharacterController.Entity.IsMine;
+        private bool? _isMine = null;
+
+        [ShowInInspector]
+        [ReadOnly]
+        public bool IsMine
+        {
+            get
+            {
+                if (_isMine == null)
+                {
+                    var mine = this.GetSystem<IPlayerManagerSystem>().MineEntity;
+                    if (mine == null)
+                        throw new Exception("Player还未初始化!");
+                    _isMine = mine.EntityId == CharacterController.Entity.EntityId;
+                }
+
+                return _isMine == true;
+            }
+        }
+
+        private INetworkSystem _newtwork;
 
         private TAbility[] GetAttachAbilities<TAbility>() where TAbility : PlayerAbility
         {
@@ -78,6 +102,21 @@ namespace MMORPG.Game
             return Array.Find(States, x => x.Name == stateName);
         }
 
+        public void NetworkUploadTransform(int stateId, byte[] data)
+        {
+            _newtwork.SendToServer(new EntityTransformSyncRequest()
+            {
+                EntityId = CharacterController.Entity.EntityId,
+                Transform = new()
+                {
+                    Direction = transform.rotation.eulerAngles.ToNetVector3(),
+                    Position = transform.position.ToNetVector3()
+                },
+                StateId = stateId,
+                Data = data == null ? ByteString.Empty : ByteString.CopyFrom(data)
+            });
+        }
+
         private void Awake()
         {
 #if UNITY_EDITOR
@@ -88,6 +127,7 @@ namespace MMORPG.Game
                 return;
             }
 #endif
+            _newtwork = this.GetSystem<INetworkSystem>();
             AnimationController.Setup(this);
             CurrentState = null;
             if (States.Length == 0) return;
@@ -96,7 +136,7 @@ namespace MMORPG.Game
 
         private void OnTransformEntitySync(EntityTransformSyncData data)
         {
-            Debug.Assert(!CharacterController.Entity.IsMine);
+            Debug.Assert(!IsMine);
             var state = States[data.StateId];
             Debug.Assert(state != null);
             if (state != CurrentState)
@@ -104,7 +144,10 @@ namespace MMORPG.Game
                 ChangeState(state);
             }
 
-            state.Actions.ForEach(x => x.TransformEntitySync(data));
+            foreach (var action in state.Actions)
+            {
+                action.TransformEntitySync(data);
+            }
         }
 
         private void Start()
@@ -182,7 +225,10 @@ namespace MMORPG.Game
         [OnInspectorGUI]
         private void OnInspectorGUI()
         {
-            States?.ForEach(x => x.Brain = this);
+            foreach (var state in States)
+            {
+                state.Brain = this;
+            }
         }
 
         private bool HasRepeatStateName => States.GroupBy(x => x.Name).Any(g => g.Count() > 1);
@@ -194,6 +240,10 @@ namespace MMORPG.Game
             return States.Any(x => x.HasError());
         }
 #endif
+        public IArchitecture GetArchitecture()
+        {
+            return GameApp.Interface;
+        }
     }
 
 }

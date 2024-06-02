@@ -6,7 +6,7 @@ namespace MMORPG.Game
     {
         public override void OnStateEnter()
         {
-            Brain.CharacterController.NetworkUploadTransform(OwnerStateId, null);
+            Brain.NetworkUploadTransform(OwnerStateId, null);
             Brain.AnimationController.StopMovement();
         }
 

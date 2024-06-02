@@ -21,19 +21,14 @@ namespace MMORPG.Game
 
         public CharacterHandleWeapon HandleWeapon;
 
-        public bool IsMine => Entity.IsMine;
-
         public bool IsPreventingMovement { get; private set; }
 
         public Rigidbody Rigidbody { get; private set; }
         public CapsuleCollider Collider { get; private set; }
 
-        private INetworkSystem _newtwork;
-
 
         private void Awake()
         {
-            _newtwork = this.GetSystem<INetworkSystem>();
             Rigidbody = GetComponent<Rigidbody>();
             Collider = GetComponent<CapsuleCollider>();
 
@@ -64,22 +59,6 @@ namespace MMORPG.Game
         public void RelativeRotate(Quaternion rotation)
         {
             transform.rotation *= rotation;
-        }
-
-        public void NetworkUploadTransform(int stateId, byte[] data)
-        {
-            Debug.Assert(IsMine);
-            _newtwork.SendToServer(new EntityTransformSyncRequest()
-            {
-                EntityId = Entity.EntityId,
-                Transform = new()
-                {
-                    Direction = transform.rotation.eulerAngles.ToNetVector3(),
-                    Position = transform.position.ToNetVector3()
-                },
-                StateId = stateId,
-                Data = data == null ? ByteString.Empty : ByteString.CopyFrom(data)
-            });
         }
 
         public IArchitecture GetArchitecture()

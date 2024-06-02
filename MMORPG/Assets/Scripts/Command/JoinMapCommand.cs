@@ -1,7 +1,9 @@
 using MMORPG.Event;
+using MMORPG.Game;
 using MMORPG.Model;
 using QFramework;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace MMORPG.Command
 {
@@ -23,7 +25,7 @@ namespace MMORPG.Command
             Tool.Log.Info("Game", $"{CharacterId}加入地图:{MapId}");
             model.CurrentMapId.Value = MapId;
 
-            this.SendEvent(new JoinedMapEvent(MapId, CharacterId));
+            this.SendEvent(new JoinMapEvent(MapId, CharacterId));
         }
     }
 }
