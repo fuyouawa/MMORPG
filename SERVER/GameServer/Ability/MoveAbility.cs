@@ -4,7 +4,7 @@ using GameServer.Fight;
 using GameServer.Model;
 using GameServer.Tool;
 
-namespace GameServer.Ai
+namespace GameServer.Ability
 {
     public class MoveAbility : Ability
     {
