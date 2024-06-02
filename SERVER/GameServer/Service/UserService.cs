@@ -22,7 +22,7 @@ namespace GameServer.Service
 
             if (sender.User.Player != null)
             {
-                sender.User.Player.Vaild = false;
+                sender.User.Player.Valid = false;
             }
             
             UserManager.Instance.RemoveUser(sender.User);

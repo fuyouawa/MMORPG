@@ -36,9 +36,9 @@ internal class Program
             {
                 for (var j = 1; j <= count; j++)
                 {
-                    dir[(i - 1) * count + j] = zone.Enter((i - 1) * count + j, i, j, out var enterList);
+                    dir[(i - 1) * count + j] = zone.Enter((i - 1) * count + j, i, j);
                     Console.WriteLine($"---------------{(i - 1) * count + j}--------------");
-                    foreach (var aoiKey in enterList)
+                    foreach (var aoiKey in zone.GetFollowerList(dir[(i - 1) * count + j]))
                     {
                         //var findEntity = zone[aoiKey];
                         //Console.WriteLine($"X:{findEntity.X.Value} Y:{findEntity.Y.Value}");
@@ -79,22 +79,22 @@ internal class Program
             }
 
             {
-                Console.WriteLine($"---------------离开--------------");
-                zone.Leave(dir[1], out var leaveList);
-                foreach (var aoiKey in leaveList)
-                {
-                    //var findEntity = zone[aoiKey];
-                    //Console.WriteLine($"X:{findEntity.X.Value} Y:{findEntity.Y.Value}");
+                //Console.WriteLine($"---------------离开--------------");
+                //zone.Leave(dir[1]);
+                //foreach (var aoiKey in leaveList)
+                //{
+                //    //var findEntity = zone[aoiKey];
+                //    //Console.WriteLine($"X:{findEntity.X.Value} Y:{findEntity.Y.Value}");
 
-                    int x = aoiKey / count + 1;
-                    int y = aoiKey % count;
-                    if (y == 0)
-                    {
-                        y = count;
-                        x--;
-                    }
-                    Console.WriteLine($"entity:{aoiKey} X:{x}, Y:{y}");
-                }
+                //    int x = aoiKey / count + 1;
+                //    int y = aoiKey % count;
+                //    if (y == 0)
+                //    {
+                //        y = count;
+                //        x--;
+                //    }
+                //    Console.WriteLine($"entity:{aoiKey} X:{x}, Y:{y}");
+                //}
             }
             // 测试移动。
             // while (true)
