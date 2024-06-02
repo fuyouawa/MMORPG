@@ -27,6 +27,8 @@ namespace MMORPG.System
         public void SetMine(EntityView mineEntity)
         {
             MineEntity = mineEntity;
+
+            this.SendEvent(new PlayerJoinedMapEvent(mineEntity));
         }
 
 

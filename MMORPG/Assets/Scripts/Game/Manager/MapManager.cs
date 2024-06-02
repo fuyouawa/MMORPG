@@ -3,7 +3,6 @@ using Common.Tool;
 using QFramework;
 using MMORPG.System;
 using MMORPG.Tool;
-using ThirdPersonCamera;
 using UnityEngine;
 
 
@@ -32,9 +31,8 @@ namespace MMORPG.Game
             _dataManager = this.GetSystem<IDataManagerSystem>();
         }
 
-        public void OnJoinedMap(long characterId)
+        public void OnJoinMap(long characterId)
         {
-
             var net = this.GetSystem<INetworkSystem>();
             net.SendToServer(new JoinMapRequest
             {
@@ -57,13 +55,10 @@ namespace MMORPG.Game
                     _resLoader.LoadSync<EntityView>(unitDefine.Resource),    //TODO 角色生成
                     response.EntityId,
                     EntityType.Player,
-                    true,
                     response.Transform.Position.ToVector3(),
                     Quaternion.Euler(response.Transform.Direction.ToVector3()));
 
                 _playerManager.SetMine(entity);
-
-                Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
             });
         }
 

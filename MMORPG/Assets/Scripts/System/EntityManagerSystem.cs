@@ -14,42 +14,34 @@ namespace MMORPG.System
             EntityView prefab,
             int entityId,
             EntityType type,
-            bool isMine,
             Vector3 position,
             Quaternion rotation);
 
-        public void LeaveEntity(int entityId);
+        public Dictionary<int, EntityView> EntityDict { get; }
 
-        public Dictionary<int, EntityView> GetEntityDict(bool isMine);
+        public void LeaveEntity(int entityId);
         public EntityView GetEntityById(int entityId);
     }
 
 
     public class EntityManagerSystem : AbstractSystem, IEntityManagerSystem
     {
-        private readonly Dictionary<int, EntityView> _mineEntityDict = new();
-        private readonly Dictionary<int, EntityView> _notMineEntityDict = new();
+        public Dictionary<int, EntityView> EntityDict { get; } = new();
 
         public void LeaveEntity(int entityId)
         {
             var entity = GetEntityById(entityId);
-            var suc = (entity.IsMine ? _mineEntityDict : _notMineEntityDict).Remove(entity.EntityId);
+            var suc = EntityDict.Remove(entity.EntityId);
             Debug.Assert(suc);
             this.SendEvent(new EntityLeaveEvent(entity));
+            Tool.Log.Info("Game", $"实体退出地图: id:{entityId}, type:{entity.EntityType}");
             // 主要为了延迟下一帧调用, 以便可以先处理EntityLeaveEvent再Destroy
             UnityMainThreadDispatcher.Instance().Enqueue(() => GameObject.Destroy(entity.gameObject));
         }
 
-        public Dictionary<int, EntityView> GetEntityDict(bool isMine)
-        {
-            return isMine ? _mineEntityDict : _notMineEntityDict;
-        }
-
         public EntityView GetEntityById(int entityId)
         {
-            if (_mineEntityDict.TryGetValue(entityId, out var entity))
-                return entity;
-            if (!_notMineEntityDict.TryGetValue(entityId, out entity))
+            if (!EntityDict.TryGetValue(entityId, out var entity))
                 throw new Exception($"未注册过的entityId:{entityId}!");
             return entity;
         }
@@ -58,28 +50,23 @@ namespace MMORPG.System
             EntityView prefab,
             int entityId,
             EntityType type,
-            bool isMine,
             Vector3 position,
             Quaternion rotation)
         {
-            Debug.Assert(
-                !(_mineEntityDict.ContainsKey(entityId) ||
-                  _notMineEntityDict.ContainsKey(entityId)));
+            Debug.Assert(!EntityDict.ContainsKey(entityId));
+
+            if (prefab.EntityType != type)
+            {
+                throw new Exception("EntityType与当前预制体的Type不相同!");
+            }
 
             var entity = GameObject.Instantiate(prefab, position, rotation);
             entity.transform.SetPositionAndRotation(position, rotation);
-            entity.Initialize(entityId, type, isMine);
+            entity.Initialize(entityId);
 
-            if (entity.IsMine)
-            {
-                _mineEntityDict[entity.EntityId] = entity;
-            }
-            else
-            {
-                _notMineEntityDict[entity.EntityId] = entity;
-            }
+            EntityDict[entity.EntityId] = entity;
 
-            Tool.Log.Info("Game", $"实体生成成功: id:{entityId}, position:{position}, rotation:{rotation}, isMine:{isMine}");
+            Tool.Log.Info("Game", $"实体生成成功: id:{entityId}, type:{type}, position:{position}, rotation:{rotation}");
             this.SendEvent(new EntityEnterEvent(entity));
             return entity;
         }
@@ -91,8 +78,11 @@ namespace MMORPG.System
 
         private void OnExitedMap(ExitedMapEvent e)
         {
-            _mineEntityDict.Clear();
-            _notMineEntityDict.Clear();
+            foreach (var entity in EntityDict)
+            {
+                GameObject.Destroy(entity.Value.gameObject);
+            }
+            EntityDict.Clear();
         }
     }
 }

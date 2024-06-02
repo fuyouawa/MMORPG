@@ -28,18 +28,15 @@ namespace MMORPG.Game
         public PlayerState OwnerState { get; set; }
         public int OwnerStateId { get; set; }
 
-        public bool IsMine { get; private set; }
-
         public void Setup(PlayerState state, int stateId)
         {
             OwnerState = state;
             OwnerStateId = stateId;
-            IsMine = OwnerState.Brain.CharacterController.Entity.IsMine;
         }
 
         public void Initialize()
         {
-            if (IsMine)
+            if (OwnerState.Brain.IsMine)
             {
                 LocalAbility = OwnerState.Brain.GetAttachLocalAbilities()
                     .First(x => x.GetType().Name == LocalAbilityName);
@@ -65,7 +62,7 @@ namespace MMORPG.Game
 
         public void Enter()
         {
-            if (IsMine)
+            if (OwnerState.Brain.IsMine)
             {
                 LocalAbility.OwnerState = OwnerState;
                 LocalAbility.Brain = OwnerState.Brain;
@@ -88,7 +85,7 @@ namespace MMORPG.Game
         public void Update()
         {
             AssertCheck();
-            if (IsMine)
+            if (OwnerState.Brain.IsMine)
                 LocalAbility.OnStateUpdate();
             else
                 RemoteAbility.OnStateUpdate();
@@ -97,7 +94,7 @@ namespace MMORPG.Game
         public void FixedUpdate()
         {
             AssertCheck();
-            if (IsMine)
+            if (OwnerState.Brain.IsMine)
                 LocalAbility.OnStateFixedUpdate();
             else
                 RemoteAbility.OnStateFixedUpdate();
@@ -106,7 +103,7 @@ namespace MMORPG.Game
         public void NetworkFixedUpdate()
         {
             AssertCheck();
-            if (IsMine)
+            if (OwnerState.Brain.IsMine)
                 LocalAbility.OnStateNetworkFixedUpdate();
             else
                 RemoteAbility.OnStateNetworkFixedUpdate();
@@ -115,7 +112,7 @@ namespace MMORPG.Game
         public void Exit()
         {
             AssertCheck();
-            if (IsMine)
+            if (OwnerState.Brain.IsMine)
             {
                 if (LocalAbility.ExitAbilityFeedbacks != null)
                     LocalAbility.ExitAbilityFeedbacks.Play();
@@ -131,15 +128,14 @@ namespace MMORPG.Game
 
         public void TransformEntitySync(EntityTransformSyncData data)
         {
-            Debug.Assert(!IsMine);
+            Debug.Assert(!OwnerState.Brain.IsMine);
             AssertCheck();
             RemoteAbility.OnStateNetworkSyncTransform(data);
         }
 
         public void AssertCheck()
         {
-            Debug.Assert(IsMine == OwnerState.Brain.CharacterController.Entity.IsMine);
-            if (IsMine)
+            if (OwnerState.Brain.IsMine)
             {
                 Debug.Assert(LocalAbility.OwnerState == OwnerState);
                 Debug.Assert(LocalAbility.Brain == OwnerState.Brain);
