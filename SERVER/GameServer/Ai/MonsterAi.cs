@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Common.Proto.EventLike;
 using Common.Proto.Monster;
+using GameServer.Ability;
 
 namespace GameServer.Ai
 {
@@ -61,8 +62,7 @@ namespace GameServer.Ai
                     UpdateSyncState();
                 }
             }
-
-            if (SyncState == MonsterState.Idle)
+            else if (SyncState == MonsterState.Idle)
             {
                 IdleAbility.Update();
             }
@@ -96,7 +96,6 @@ namespace GameServer.Ai
         {
             if (SyncState == state) return;
             SyncState = state;
-
             UpdateSyncState();
         }
 
