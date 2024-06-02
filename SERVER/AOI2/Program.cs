@@ -38,7 +38,8 @@ internal class Program
                 {
                     dir[(i - 1) * count + j] = zone.Enter((i - 1) * count + j, i, j);
                     Console.WriteLine($"---------------{(i - 1) * count + j}--------------");
-                    foreach (var aoiKey in zone.GetFollowerList(dir[(i - 1) * count + j]))
+
+                    zone.ScanFollowerList(dir[(i - 1) * count + j], aoiKey =>
                     {
                         //var findEntity = zone[aoiKey];
                         //Console.WriteLine($"X:{findEntity.X.Value} Y:{findEntity.Y.Value}");
@@ -50,8 +51,9 @@ internal class Program
                             y = count;
                             x--;
                         }
+
                         Console.WriteLine($"entity:{aoiKey} X:{x}, Y:{y}");
-                    }
+                    });
                 }
             }
 
@@ -59,9 +61,7 @@ internal class Program
             {
                 for (var j = 1; j <= count; j++)
                 {
-                    var viewEntity = zone.GetFollowingList(dir[(i - 1) * count + j]);
-                    Console.WriteLine($"---------------{(i - 1) * count + j}--------------");
-                    foreach (var aoiKey in viewEntity)
+                    zone.ScanFollowingList(dir[(i - 1) * count + j], aoiKey =>
                     {
                         //var findEntity = zone[aoiKey];
                         //Console.WriteLine($"X:{findEntity.X.Value} Y:{findEntity.Y.Value}");
@@ -74,7 +74,8 @@ internal class Program
                             x--;
                         }
                         Console.WriteLine($"entity:{aoiKey} X:{x}, Y:{y}");
-                    }
+                    });
+                    Console.WriteLine($"---------------{(i - 1) * count + j}--------------");
                 }
             }
 
