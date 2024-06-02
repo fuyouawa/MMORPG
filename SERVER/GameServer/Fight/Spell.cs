@@ -86,20 +86,21 @@ namespace GameServer.Fight
             }
             skill.Run(target);
 
-            // 广播技能释放，释放者和受击者周围的玩家
+            // 广播技能释放给释放者周围的玩家
             var res = new SpellResponse();
             res.CastInfoList.Add(castInfo);
-            Entity[] arr = { skill.Actor, targetActor };
-            Debug.Assert(skill.Actor.Map != null);
-            var entitySet = skill.Actor.Map.GetEntityArrayViewEntitySet(arr, entity => entity.EntityType == EntityType.Player);
-            foreach (var entity in entitySet)
-            {
-                var player = (Player)entity;
-                player.User.Channel.Send(res);
-                Log.Debug($"[Spell.SpellUnit]: 响应{skill.Actor.EntityId}的技能同步请求, 广播给:{player.EntityId}");
-            }
-            // todo 如果受击目标不在被广播对象的关注列表中，那么还需要临时将其添加到被广播对象的关注列表中
+            //Entity[] arr = { skill.Actor, targetActor };
+            //Debug.Assert(skill.Actor.Map != null);
+            //var entitySet = skill.Actor.Map.GetEntityArrayViewEntitySet(arr, entity => entity.EntityType == EntityType.Player);
+            //foreach (var entity in entitySet)
+            //{
+            //    var player = (Player)entity;
+            //    player.User.Channel.Send(res);
+            //    Log.Debug($"[Spell.SpellUnit]: 响应{skill.Actor.EntityId}的技能同步请求, 广播给:{player.EntityId}");
+            //}
+            skill.Actor.Map.PlayerManager.Broadcast(res, skill.Actor);
 
+            // 受击者则在技能命中时广播，投掷物移动当成实体广播
         }
 
         // 释放位置目标技能

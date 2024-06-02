@@ -21,12 +21,25 @@ namespace GameServer.Manager
     /// </summary>
     public class PlayerManager
     {
-        private Dictionary<int, Player> _playerDict = new();
         private Map _map;
-
+        private Dictionary<int, Player> _playerDict = new();
+        
         public PlayerManager(Map map)
         {
             _map = map;
+        }
+
+        public void Start()
+        {
+
+        }
+
+        public void Update()
+        {
+            foreach (var player in _playerDict.Values)
+            {
+                player.Update();
+            }
         }
 
         /// <summary>
@@ -35,15 +48,10 @@ namespace GameServer.Manager
         /// <returns></returns>
         public Player NewPlayer(User user, int unitId, Vector3 pos, Vector3 dire, string name)
         {
-            var player = new Player(_map, name, user)
+            var player = new Player(EntityManager.Instance.NewEntityId(), unitId, _map, name, user)
             {
-                EntityId = EntityManager.Instance.NewEntityId(),
-                EntityType = EntityType.Player,
-                UnitId = unitId,
                 Position = pos,
                 Direction = dire,
-
-                //Speed = DataHelper.GetUnitDefine(unitId).Speed,
             };
             EntityManager.Instance.AddEntity(player);
 
@@ -99,16 +107,6 @@ namespace GameServer.Manager
                     Log.Debug($"响应{sender.EntityId}的同步请求, 广播给:{player.EntityId}");
                 }
             }
-        }
-
-        public void Start()
-        {
-
-        }
-
-        public void Update()
-        {
-
         }
     }
 }

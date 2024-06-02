@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Proto.Entity;
 
 namespace GameServer.Model
 {
@@ -16,7 +17,9 @@ namespace GameServer.Model
         public int Exp;
         public int Gold;
 
-        public Player(Map map, string characterName, User user) : base(map, characterName)
+        public Player(int entityId, int unitId, 
+            Map map, string characterName, User user) 
+            : base(EntityType.Player, entityId, unitId, map, characterName)
         {
             User = user;
         }

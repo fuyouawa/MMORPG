@@ -23,7 +23,6 @@ namespace GameServer.Fight
 
         public Actor Actor;
         public SkillDefine Define;
-        public float Cooldown;
         public Stage CurrentStage;
 
         private float _time;
@@ -42,47 +41,50 @@ namespace GameServer.Fight
 
         public void Update()
         {
-            if (Cooldown > 0) Cooldown -= Time.DeltaTime;
-            if (Cooldown < 0) Cooldown = 0;
-
+            if (CurrentStage == Stage.None) return;
             _time += Time.DeltaTime;
 
+            // 如果是吟唱阶段并且吟唱已经结束
             if (CurrentStage == Stage.Intonate && _time >= Define.IntonateTime)
             {
+                // 技能激活
+                _time -= Define.IntonateTime;
                 CurrentStage = Stage.Active;
                 OnActive();
             }
 
+            // 如果是技能激活阶段
             if (CurrentStage == Stage.Active)
             {
-                if (_time >= Define.IntonateTime + _hitDelay.Max())
+                // 命中延迟？后才开始计入冷却
+                var max = _hitDelay.Max();
+                if (_time >= max)
                 {
+                    _time -= max;
                     CurrentStage = Stage.Collding;
                 }
             }
 
-            if (CurrentStage == Stage.Collding)
+            // 如果是技能冷却阶段
+            if (CurrentStage == Stage.Collding && _time >= Define.Cd)
             {
-                if (_time >= Define.IntonateTime + Define.Cd)
-                {
-                    _time = 0;
-                    CurrentStage = Stage.None;
-                    OnFinish();
-                }
-            }
+                // 冷却完成
+                CurrentStage = Stage.None;
+                OnFinish();
+            } 
         }
 
         public CastResult CanRun(Target target)
         {
+            if (CurrentStage != Stage.Collding)
+            {
+                return CastResult.Colldown;
+            }
             if (CurrentStage != Stage.None)
             {
                 return CastResult.Running;
             }
-            if (Cooldown > 0)
-            {
-                return CastResult.Colldown;
-            }
-            if (Actor.IsDeath() || !Actor.IsValid())
+            if (!Actor.IsValid() || Actor.IsDeath())
             {
                 return CastResult.EntityDead;
             }
@@ -102,9 +104,11 @@ namespace GameServer.Fight
             return CastResult.Success;
         }
 
-        public void Run(Target target)
+        public CastResult Run(Target target)
         {
-
+            _time = 0;
+            CurrentStage = Stage.Intonate;
+            return CastResult.Success;
         }
 
         /// <summary>
