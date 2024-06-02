@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using NotImplementedException = System.NotImplementedException;
 
@@ -77,7 +78,7 @@ namespace MMORPG.Tool
 
         public virtual void Damage(float damage, GameObject instigator, float invincibilityDuration, Vector3 damageDirection)
         {
-            OnDamage(damage, instigator, damageDirection);
+            OnHurt(damage, instigator, damageDirection);
 
             if (invincibilityDuration > 0)
             {
@@ -103,6 +104,30 @@ namespace MMORPG.Tool
             }
         }
 
-        protected abstract void OnDamage(float damage, GameObject instigator, Vector3 damageDirection);
+        protected abstract void OnHurt(float damage, GameObject instigator, Vector3 damageDirection);
+
+#if UNITY_EDITOR
+        [FoldoutGroup("Test Hurt")]
+        [DisableInEditorMode]
+        [ShowInInspector]
+        private GameObject _testInstigator { get; set; }
+
+        [FoldoutGroup("Test Hurt")]
+        [DisableInEditorMode]
+        [ShowInInspector]
+        private float _testDamage { get; set; } = 10;
+        [FoldoutGroup("Test Hurt")]
+        [DisableInEditorMode]
+        [ShowInInspector]
+        private Vector3 _testDamageDirection { get; set; }
+
+        [FoldoutGroup("Test Hurt")]
+        [Button]
+        [DisableInEditorMode]
+        private void TestHurt()
+        {
+            Damage(_testDamage, _testInstigator, GetInvincibilityDuration(0), _testDamageDirection);
+        }
+#endif
     }
 }
