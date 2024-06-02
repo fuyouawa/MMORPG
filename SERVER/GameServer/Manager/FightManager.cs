@@ -38,7 +38,6 @@ namespace GameServer.Manager
                 RunCast(castInfo);
             }
 
-            Broadcast();
         }
 
         public void AddCast(CastInfo castInfo)
@@ -47,11 +46,6 @@ namespace GameServer.Manager
             {
                 _castQueue.Enqueue(castInfo);
             }
-        }
-
-        private void Broadcast()
-        {
-
         }
 
         private void RunCast(CastInfo castInfo)

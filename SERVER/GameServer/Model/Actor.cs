@@ -4,32 +4,29 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Proto.Entity;
 using GameServer.Fight;
 using GameServer.Manager;
+using GameServer.Tool;
 
 namespace GameServer.Model
 {
-    public enum ActorState
-    {
-        None = 0,
-        Idle,
-        Move,
-        Attack,
-    }
-
     public class Actor : Entity
     {
-        public ActorState State;
         public string Name;
+        public float Speed;
         public int Level;
         public AttributeManager AttributeManager;
         public SkillManager SkillManager;
         public Spell Spell;
 
-        public Actor(Map map, string name)
+        public Actor(EntityType entityType, int entityId, int unitId, 
+            Map map, string name) : base(entityType, entityId, unitId, map)
         {
-            Map = map;
             Name = name;
+            var unitDefine = DataHelper.GetUnitDefine(unitId);
+            Speed = unitDefine.Speed;
+
             AttributeManager = new(this);
             SkillManager = new(this);
             Spell = new(this);

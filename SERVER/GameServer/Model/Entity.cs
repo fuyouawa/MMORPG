@@ -9,16 +9,25 @@ using Aoi;
 
 namespace GameServer.Model
 {
-    public class Entity
+    public abstract class Entity
     {
         public EntityType EntityType;
-        public int UnitId;
         public int EntityId;
+        public int UnitId;
         public bool Vaild = true;
-        public Map? Map;
+        public Map Map;
         public AoiWord.AoiEntity? AoiEntity;
         public Vector3 Position;
         public Vector3 Direction;
+
+        public Entity(EntityType entityType, int entityId, int unitId,
+            Map map)
+        {
+            EntityType = entityType;
+            EntityId = entityId;
+            UnitId = unitId;
+            Map = map;
+        }
 
         public virtual void Start() { }
 

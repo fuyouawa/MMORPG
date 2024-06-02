@@ -25,17 +25,25 @@ namespace GameServer.Manager
             _map = map;
         }
 
+        public void Start()
+        {
+
+        }
+
+        public void Update()
+        {
+            foreach (var monster in _monsterDict.Values)
+            {
+                monster.Update();
+            }
+        }
+
         public Monster NewMonster(int unitId, Vector3 pos, Vector3 dire, string name)
         {
-            var monster = new Monster(_map, name, pos)
+            var monster = new Monster(EntityManager.Instance.NewEntityId(), unitId, _map, name, pos)
             {
-                EntityId = EntityManager.Instance.NewEntityId(),
-                EntityType = EntityType.Monster,
-                UnitId = unitId,
                 Position = pos,
                 Direction = dire,
-
-                //Speed = DataHelper.GetUnitDefine(unitId).Speed,
             };
             EntityManager.Instance.AddEntity(monster);
 
@@ -49,14 +57,5 @@ namespace GameServer.Manager
             return monster;
         }
 
-        public void Start()
-        {
-
-        }
-
-        public void Update()
-        {
-
-        }
     }
 }
