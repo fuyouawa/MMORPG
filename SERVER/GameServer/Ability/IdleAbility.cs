@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameServer.Ai
+namespace GameServer.Ability
 {
     public class IdleAbility : Ability
     {
