@@ -30,7 +30,7 @@ namespace GameServer.Ai
         public IdleAbility IdleAbility;
         public MoveAbility MoveAbility;
         public Actor? ChasingTarget;
-        public Random Random = new();
+        public Random Random = new(10);
 
         // 相对于出生点的活动范围
         public float WalkRange = 10f;
@@ -60,6 +60,10 @@ namespace GameServer.Ai
                 if (MoveAbility.Moving)
                 {
                     UpdateSyncState();
+                }
+                else
+                {
+                    Idle();
                 }
             }
             else if (SyncState == MonsterState.Idle)
@@ -163,7 +167,7 @@ namespace GameServer.Ai
                 var monster = _target.Monster;
 
                 // 查找怪物视野范围内距离怪物最近的玩家
-                var list = monster.Map.GetEntityViewEntityList(monster, e => e.EntityType == EntityType.Player);
+                var list = monster.Map.GetEntityFollowingList(monster, e => e.EntityType == EntityType.Player);
                 if (list.Any())
                 {
                     var nearestPlayer = list.Aggregate((minEntity, nextEntity) =>
@@ -172,7 +176,6 @@ namespace GameServer.Ai
                         var nextDistance = Vector3.Distance(nextEntity.Position, monster.Position);
                         return minDistance < nextDistance ? minEntity : nextEntity;
                     });
-                    Vector3.Distance(monster.Position, monster.InitPos);
                     // 若玩家位于怪物的追击范围内
                     float d1 = Vector3.Distance(monster.InitPos, nearestPlayer.Position);  // 目标与出生点的距离
                     float d2 = Vector3.Distance(monster.Position, nearestPlayer.Position); // 自身与目标的距离

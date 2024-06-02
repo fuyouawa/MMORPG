@@ -14,13 +14,13 @@ namespace GameServer.Model
         public EntityType EntityType;
         public int EntityId;
         public int UnitId;
-        public bool Vaild = true;
+        public bool Valid = true;
         public Map Map;
         public AoiWord.AoiEntity? AoiEntity;
         public Vector3 Position;
         public Vector3 Direction;
 
-        public Entity(EntityType entityType, int entityId, int unitId,
+        protected Entity(EntityType entityType, int entityId, int unitId,
             Map map)
         {
             EntityType = entityType;
@@ -35,7 +35,7 @@ namespace GameServer.Model
 
         public virtual bool IsValid()
         {
-            return Vaild;
+            return Valid;
         }
     }
 }

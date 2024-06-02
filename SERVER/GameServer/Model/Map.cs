@@ -66,10 +66,9 @@ namespace GameServer.Model
         {
             Log.Information($"实体进入场景:{entity.EntityId}");
 
-            entity.Map = this;
             lock (_aoiWord)
             {
-                entity.AoiEntity = _aoiWord.Enter(entity.EntityId, entity.Position.X, entity.Position.Z, out var enters);
+                entity.AoiEntity = _aoiWord.Enter(entity.EntityId, entity.Position.X, entity.Position.Z);
             }
 
             var res = new EntityEnterResponse();
@@ -84,12 +83,12 @@ namespace GameServer.Model
             // 向能观察到新实体的角色广播新实体加入场景
             PlayerManager.Broadcast(res, entity);
 
-            // 如果新实体是角色
-            // 向新角色投递已在场景中的在其可视范围内的实体
+            // 如果新实体是玩家
+            // 向新玩家投递已在场景中的在其可视范围内的实体
             if (entity.EntityType == EntityType.Player)
             {
                 res.Datas.Clear();
-                var list = GetEntityViewEntityList(entity);
+                var list = GetEntityFollowingList(entity);
                 foreach (var viewEntity in list)
                 {
                     res.Datas.Add(new EntityEnterData()
@@ -120,10 +119,8 @@ namespace GameServer.Model
             PlayerManager.Broadcast(res, entity);
             lock (_aoiWord)
             {
-                _aoiWord.Leave(entity.AoiEntity, out var leaveList);
+                _aoiWord.Leave(entity.AoiEntity);
             }
-
-            entity.Map = null;
         }
 
         /// <summary>
@@ -132,16 +129,18 @@ namespace GameServer.Model
         /// <param name="entity"></param>
         public void EntityRefreshPosition(Entity entity)
         {
-            List<int> enters;
-            List<int> leaves;
+            List<int> enterFollowingList;
+            List<int> leaveFollowingList;
+            List<int> enterFollowerList;
+            List<int> leaveFollowerList;
+
             lock (_aoiWord)
             {
-                _aoiWord.Refresh(entity.AoiEntity, entity.Position.X, entity.Position.Z, out enters, out leaves);
+                _aoiWord.Refresh(entity.AoiEntity, entity.Position.X, entity.Position.Z, 
+                    out enterFollowingList, out leaveFollowingList,
+                    out enterFollowerList, out leaveFollowerList);
             }
 
-            // 已假定所有实体的视距范围一致
-
-            // 新进入当前实体范围内的实体如果是玩家，则向其通知有实体加入
             var enterRes = new EntityEnterResponse();
             enterRes.Datas.Add(new EntityEnterData()
             {
@@ -150,79 +149,81 @@ namespace GameServer.Model
                 EntityType = entity.EntityType,
                 Transform = ProtoHelper.ToNetTransform(entity.Position, entity.Direction),
             });
-            if (enters != null)
+            if (enterFollowerList != null && enterFollowerList.Any())
             {
-                foreach (var entityId in enters)
+                // 如果进入了一个玩家的视距范围，则向其通知有实体加入
+                foreach (var entityId in enterFollowerList)
                 {
+                    Log.Debug($"[Map.EntityRefreshPosition]1.实体：{entity.EntityId} 进入了 实体：{entityId} 的视距范围");
                     var enterEntity = EntityManager.Instance.GetEntity((int)entityId);
                     Debug.Assert(enterEntity != null);
-                    if (enterEntity == null || enterEntity.EntityType != EntityType.Player)
+                    if (enterEntity.EntityType != EntityType.Player)
                     {
                         continue;
                     }
-
                     var player = enterEntity as Player;
-                    Debug.Assert(player != null);
-                    player?.User.Channel.Send(enterRes);
-                }
-
-                // 如果移动的是玩家，还需要向该玩家通知所有新加入视野范围的实体
-                if (entity.EntityType == EntityType.Player && enters.Any())
-                {
-                    enterRes.Datas.Clear();
-                    foreach (var entityId in enters)
-                    {
-                        var enterEntity = EntityManager.Instance.GetEntity((int)entityId);
-                        Debug.Assert(enterEntity != null);
-                        if (enterEntity == null) continue;
-                        enterRes.Datas.Add(new EntityEnterData()
-                        {
-                            EntityId = enterEntity.EntityId,
-                            UnitId = enterEntity.UnitId,
-                            EntityType = enterEntity.EntityType,
-                            Transform = ProtoHelper.ToNetTransform(enterEntity.Position, enterEntity.Direction),
-                        });
-                    }
-                    var player = entity as Player;
                     Debug.Assert(player != null);
                     player?.User.Channel.Send(enterRes);
                 }
             }
 
-            if (leaves != null)
+            // 如果移动的是玩家，还需要向该玩家通知所有新加入视野范围的实体
+            if (entity.EntityType == EntityType.Player && enterFollowingList != null && enterFollowingList.Any())
             {
-                // 退出当前实体范围内的实体如果是玩家，则向其通知有实体退出
-                var leaveRes = new EntityLeaveResponse();
-                leaveRes.EntityIds.Add(entity.EntityId);
-                foreach (var entityId in leaves)
+                enterRes.Datas.Clear();
+                foreach (var entityId in enterFollowingList)
                 {
+                    Log.Debug($"[Map.EntityRefreshPosition]2.实体：{entityId} 进入了 实体：{entity.EntityId} 的视距范围");
+                    var enterEntity = EntityManager.Instance.GetEntity((int)entityId);
+                    Debug.Assert(enterEntity != null);
+                    enterRes.Datas.Add(new EntityEnterData()
+                    {
+                        EntityId = enterEntity.EntityId,
+                        UnitId = enterEntity.UnitId,
+                        EntityType = enterEntity.EntityType,
+                        Transform = ProtoHelper.ToNetTransform(enterEntity.Position, enterEntity.Direction),
+                    });
+                }
+                var player = entity as Player;
+                Debug.Assert(player != null);
+                player?.User.Channel.Send(enterRes);
+            }
+
+
+            var leaveRes = new EntityLeaveResponse();
+            leaveRes.EntityIds.Add(entity.EntityId);
+            if (leaveFollowerList != null && leaveFollowerList.Any())
+            {
+                // 如果离开了一个玩家的视距范围，则向其通知有实体退出
+                foreach (var entityId in leaveFollowerList)
+                {
+                    Log.Debug($"[Map.EntityRefreshPosition]1.实体：{entity.EntityId} 离开了 实体：{entityId} 的视距范围");
                     var leaveEntity = EntityManager.Instance.GetEntity((int)entityId);
                     Debug.Assert(leaveEntity != null);
-                    if (leaveEntity == null || leaveEntity.EntityType != EntityType.Player)
+                    if (leaveEntity.EntityType != EntityType.Player)
                     {
                         continue;
                     }
-
                     var player = leaveEntity as Player;
                     Debug.Assert(player != null);
                     player?.User.Channel.Send(leaveRes);
                 }
+            }
 
-                // 如果移动的是玩家，还需要向该玩家通知所有退出视野范围的实体
-                if (entity.EntityType == EntityType.Player && leaves.Any())
+            // 如果移动的是玩家，还需要向该玩家通知所有退出其视野范围的实体
+            if (entity.EntityType == EntityType.Player && leaveFollowingList != null && leaveFollowingList.Any())
+            {
+                leaveRes.EntityIds.Clear();
+                foreach (var entityId in leaveFollowingList)
                 {
-                    leaveRes.EntityIds.Clear();
-                    foreach (var entityId in leaves)
-                    {
-                        var leaveEntity = EntityManager.Instance.GetEntity((int)entityId);
-                        Debug.Assert(leaveEntity != null);
-                        if (leaveEntity == null) continue;
-                        leaveRes.EntityIds.Add(leaveEntity.EntityId);
-                    }
-                    var player = entity as Player;
-                    Debug.Assert(player != null);
-                    player.User.Channel.Send(leaveRes);
+                    Log.Debug($"[Map.EntityRefreshPosition]2.实体：{entityId} 离开了 实体：{entity.EntityId} 的视距范围");
+                    var leaveEntity = EntityManager.Instance.GetEntity((int)entityId);
+                    Debug.Assert(leaveEntity != null);
+                    leaveRes.EntityIds.Add(leaveEntity.EntityId);
                 }
+                var player = entity as Player;
+                Debug.Assert(player != null);
+                player.User.Channel.Send(leaveRes);
             }
         }
 
@@ -232,18 +233,18 @@ namespace GameServer.Model
         /// <param name="entity"></param>
         /// <param name="condition"></param>
         /// <returns></returns>
-        public List<Entity> GetEntityViewEntityList(Entity entity, Predicate<Entity>? condition = null)
+        public List<Entity> GetEntityFollowingList(Entity entity, Predicate<Entity>? condition = null)
         {
             var entityList = new List<Entity>();
             lock (_aoiWord)
             {
-                var viewEntityIdList = _aoiWord.GetFollowingList(entity.AoiEntity);
-                foreach (var viewEntityId in viewEntityIdList)
+                var followingList = _aoiWord.GetFollowingList(entity.AoiEntity);
+                foreach (var followingEntityId in followingList)
                 {
-                    var viewEntity = EntityManager.Instance.GetEntity((int)viewEntityId);
-                    if (viewEntity != null && (condition == null || condition(viewEntity)))
+                    var followingEntity = EntityManager.Instance.GetEntity((int)followingEntityId);
+                    if (followingEntity != null && (condition == null || condition(followingEntity)))
                     {
-                        entityList.Add(viewEntity);
+                        entityList.Add(followingEntity);
                     }
                 }
             }
@@ -251,31 +252,29 @@ namespace GameServer.Model
         }
 
         /// <summary>
-        /// 获取多个实体视距范围内实体并按条件过滤
+        /// 获取指定实体视距范围内实体并按条件过滤
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="condition"></param>
         /// <returns></returns>
-        //public HashSet<Entity> GetEntityArrayViewEntitySet(Entity[] entitys, Predicate<Entity>? condition = null)
-        //{
-        //    var entitySet = new HashSet<Entity>();
-        //    lock (_aoiWord)
-        //    {
-        //        foreach (var entity in entitys)
-        //        {
-        //            var viewEntityIdList = _aoiWord.GetFollowingList(entity.AoiEntity);
-        //            foreach (var viewEntityId in viewEntityIdList)
-        //            {
-        //                var viewEntity = EntityManager.Instance.GetEntity((int)viewEntityId);
-        //                if (viewEntity != null && (condition == null || condition(viewEntity)))
-        //                {
-        //                    entitySet.Add(viewEntity);
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return entitySet;
-        //}
+        public List<Entity> GetEntityFollowerList(Entity entity, Predicate<Entity>? condition = null)
+        {
+            var entityList = new List<Entity>();
+            lock (_aoiWord)
+            {
+                var followerList = _aoiWord.GetFollowerList(entity.AoiEntity);
+                foreach (var followerEntityId in followerList)
+                {
+                    var followerEntity = EntityManager.Instance.GetEntity((int)followerEntityId);
+                    if (followerEntity != null && (condition == null || condition(followerEntity)))
+                    {
+                        entityList.Add(followerEntity);
+                    }
+                }
+            }
+            return entityList;
+        }
+
 
         /// <summary>
         /// 根据网络实体对象更新实体并广播新状态
