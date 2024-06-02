@@ -79,18 +79,28 @@ namespace MMORPG.Tool
             SirenixEditorGUI.DrawSolidRect(delayBeforePlayProgressBarRect, Color.red, false);
 
             SirenixEditorGUI.EndBoxHeader();
+
             GUILayout.Space(5);
-            using (new EditorGUI.DisabledScope(!value.Enable))
+
+            if (value.Feedback != null)
             {
-                if (SirenixEditorGUI.BeginFadeGroup(this, base.Property.State.Expanded))
+                using (new EditorGUI.DisabledScope(!value.Enable))
                 {
-                    foreach (var child in ValueEntry.Property.Children)
+                    if (SirenixEditorGUI.BeginFadeGroup(this, base.Property.State.Expanded))
                     {
-                        child.Draw();
+                        foreach (var child in ValueEntry.Property.Children)
+                        {
+                            child.Draw();
+                        }
                     }
+                    SirenixEditorGUI.EndFadeGroup();
                 }
-                SirenixEditorGUI.EndFadeGroup();
             }
+            else
+            {
+                ValueEntry.Property.Children["FeedbackName"].Draw();
+            }
+
             SirenixEditorGUI.EndBox();
 
             if (value.Feedback != null && value.Feedback.IsPlaying)

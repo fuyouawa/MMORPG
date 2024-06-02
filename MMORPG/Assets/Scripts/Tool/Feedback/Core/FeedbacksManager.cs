@@ -66,7 +66,7 @@ namespace MMORPG.Tool
             CoroutineHelper = coroutineHelper;
             if (InitializationMode == InitializationModes.Awake)
             {
-                Initialize();
+                InnerInitialize();
             }
 
             foreach (var item in FeedbackItems)
@@ -79,7 +79,7 @@ namespace MMORPG.Tool
         {
             if (InitializationMode == InitializationModes.Start)
             {
-                Initialize();
+                InnerInitialize();
             }
 
 
@@ -127,7 +127,7 @@ namespace MMORPG.Tool
         {
             if (!IsInitialized && AutoInitialization)
             {
-                Initialize();
+                InnerInitialize();
             }
 
             if (!CanPlay) return;
@@ -149,7 +149,10 @@ namespace MMORPG.Tool
 
         public virtual void Stop()
         {
-            Debug.Assert(IsInitialized);
+            if (!IsInitialized)
+            {
+                return;
+            }
             foreach (var item in FeedbackItems)
             {
                 item.Stop();
@@ -188,6 +191,14 @@ namespace MMORPG.Tool
         }
 
         public virtual void Initialize()
+        {
+            if (InitializationMode == InitializationModes.Script)
+            {
+                InnerInitialize();
+            }
+        }
+
+        protected virtual void InnerInitialize()
         {
             if (IsInitialized) return;
             IsInitialized = true;

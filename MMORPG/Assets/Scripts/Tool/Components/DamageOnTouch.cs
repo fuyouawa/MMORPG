@@ -46,10 +46,15 @@ namespace MMORPG.Tool
         [ShowIf("RepeatDamageOverTime")]
         public bool DamageOverTimeInterruptible = true;
 
+        [Title("Feedbacks")]
+        public FeedbacksManager HitDamageableFeedbacks;
+        public FeedbacksManager HitNonDamageableFeedbacks;
+        public FeedbacksManager HitAnythingFeedbacks;
+
         [Title("Events")]
-        public UnityEvent<AbstractHealth> HitDamageableEvent = new();
-        public UnityEvent<Collider> HitNonDamageableEvent = new();
-        public UnityEvent<Collider> HitAnythingEvent = new();
+        public UnityEvent<AbstractHealth> OnHitDamageable = new();
+        public UnityEvent<Collider> OnHitNonDamageable = new();
+        public UnityEvent<Collider> OnHitAnything = new();
 
         public bool IsInitialized { get; private set; }
 
@@ -74,6 +79,13 @@ namespace MMORPG.Tool
 
             _gizmosColor = Color.red;
             _gizmosColor.a = 0.25f;
+
+            if (HitDamageableFeedbacks != null)
+                HitDamageableFeedbacks.Initialize();
+            if (HitNonDamageableFeedbacks != null)
+                HitNonDamageableFeedbacks.Initialize();
+            if (HitAnythingFeedbacks != null)
+                HitAnythingFeedbacks.Initialize();
         }
 
         public void IgnoreGameObject(GameObject obj)
@@ -160,15 +172,25 @@ namespace MMORPG.Tool
             if (CollidingHealth != null)
             {
                 OnCollideWithDamageable(CollidingHealth);
+                OnHitDamageable?.Invoke(CollidingHealth);
+
+                if (HitDamageableFeedbacks != null)
+                    HitDamageableFeedbacks.Play();
             }
             else // if what we're colliding with can't be damaged
             {
                 OnCollideWithNonDamageable();
-                HitNonDamageableEvent?.Invoke(collider);
+                OnHitNonDamageable?.Invoke(collider);
+
+                if (HitNonDamageableFeedbacks != null)
+                    HitNonDamageableFeedbacks.Play();
             }
 
             OnAnyCollision(collider);
-            HitAnythingEvent?.Invoke(collider);
+            OnHitAnything?.Invoke(collider);
+
+            if (HitAnythingFeedbacks != null)
+                HitAnythingFeedbacks.Play();
         }
 
         protected virtual bool EvaluateAvailability(GameObject collider)
@@ -192,8 +214,6 @@ namespace MMORPG.Tool
 
             if (health.CanTakeDamageThisFrame())
             {
-                HitDamageableEvent?.Invoke(CollidingHealth);
-
                 // we apply the damage to the thing we've collided with
                 float randomDamage =
                     UnityEngine.Random.Range(MinDamageCaused, Mathf.Max(MaxDamageCaused, MinDamageCaused));

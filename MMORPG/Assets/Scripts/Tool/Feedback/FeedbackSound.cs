@@ -15,9 +15,9 @@ namespace MMORPG.Tool
         public enum PlayMethods { Cached, OnDemand, Pool }
 
         [FoldoutGroup("Sound")]
-        [Required]
         public AudioClip Sfx;
         [FoldoutGroup("Sound")]
+        [HideIf("@Sfx != null")]
         public AudioClip[] RandomSfx = Array.Empty<AudioClip>();
 
         [FoldoutGroup("Play Method")]
