@@ -3,6 +3,7 @@ using Common.Tool;
 using QFramework;
 using MMORPG.System;
 using MMORPG.Tool;
+using ThirdPersonCamera;
 using UnityEngine;
 
 
@@ -57,6 +58,8 @@ namespace MMORPG.Game
                     EntityType.Player,
                     response.Transform.Position.ToVector3(),
                     Quaternion.Euler(response.Transform.Direction.ToVector3()));
+
+                Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
 
                 _playerManager.SetMine(entity);
             });

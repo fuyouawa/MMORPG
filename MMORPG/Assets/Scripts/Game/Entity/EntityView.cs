@@ -50,6 +50,10 @@ namespace MMORPG.Game
         {
             var health = gameObject.GetOrAddComponent<Health>();
             health.Entity = this;
+            var point = new GameObject("Damage Number Point");
+            point.transform.SetParent(transform, false);
+            point.transform.localPosition = Vector3.up;
+            health.DamageNumberPoint = point.transform;
         }
 #endif
     }
