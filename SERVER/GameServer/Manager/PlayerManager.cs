@@ -79,7 +79,7 @@ namespace GameServer.Manager
         }
 
         /// <summary>
-        /// 将消息广播给sender周围的玩家，排除sender
+        /// 将消息广播给能够观察到sender的玩家，排除sender
         /// 没有sender则为全图广播
         /// </summary>
         /// <param name="msg"></param>
@@ -99,12 +99,12 @@ namespace GameServer.Manager
             }
             else
             {
-                var list = _map.GetEntityViewEntityList(sender, entity => entity.EntityType == EntityType.Player);
+                var list = _map.GetEntityFollowerList(sender, entity => entity.EntityType == EntityType.Player);
                 foreach (var entity in list)
                 {
                     var player = (Player)entity;
                     player.User.Channel.Send(msg);
-                    Log.Debug($"响应{sender.EntityId}的同步请求, 广播给:{player.EntityId}");
+                    //Log.Debug($"响应{sender.EntityId}的同步请求, 广播给:{player.EntityId}");
                 }
             }
         }
