@@ -1,3 +1,4 @@
+using MMORPG.Tool;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -130,6 +131,14 @@ namespace MMORPG.Game
                 return;
             }
             CurrentWeapon.WeaponInputStart();
+        }
+
+        public void OnHitDamageable(AbstractHealth health)
+        {
+            if (CurrentWeapon != null)
+            {
+                CurrentWeapon.OnHitEntity((Health)health);
+            }
         }
     }
 }

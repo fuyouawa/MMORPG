@@ -5,10 +5,6 @@ using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
-using UnityEngine.TextCore.Text;
-using static MMORPG.Game.Weapon;
-using static UnityEngine.ParticleSystem;
 
 namespace MMORPG.Game
 {
@@ -67,29 +63,36 @@ namespace MMORPG.Game
         [FoldoutGroup("Animator Parameter Names")]
         public string StopAnimationParameter;
 
-        [FoldoutGroup("Feedbacks")]
+        [FoldoutGroup("Weapon Feedbacks")]
         [Tooltip("当武器附加时, 根据Feedback的名称在拥有者(Owner)的子物体中找对应的Feedback")]
         public bool FindFeedbackByName = false;
 
-        [FoldoutGroup("Feedbacks")]
+        [FoldoutGroup("Weapon Feedbacks")]
         [ShowIf("FindFeedbackByName")]
         public string WeaponStartFeedbackName;
-        [FoldoutGroup("Feedbacks")]
+        [FoldoutGroup("Weapon Feedbacks")]
         [ShowIf("FindFeedbackByName")]
         public string WeaponUsedFeedbackName;
-        [FoldoutGroup("Feedbacks")]
+        [FoldoutGroup("Weapon Feedbacks")]
         [ShowIf("FindFeedbackByName")]
         public string WeaponStopFeedbackName;
 
-        [FoldoutGroup("Feedbacks")]
+        [FoldoutGroup("Weapon Feedbacks")]
         [HideIf("FindFeedbackByName")]
         public FeedbacksManager WeaponStartFeedbacks;
-        [FoldoutGroup("Feedbacks")]
+        [FoldoutGroup("Weapon Feedbacks")]
         [HideIf("FindFeedbackByName")]
         public FeedbacksManager WeaponUsedFeedbacks;
-        [FoldoutGroup("Feedbacks")]
+        [FoldoutGroup("Weapon Feedbacks")]
         [HideIf("FindFeedbackByName")]
         public FeedbacksManager WeaponStopFeedbacks;
+
+        [FoldoutGroup("Hit Feedbacks")]
+        public FeedbacksManager HitPlayerFeedbacks;
+        [FoldoutGroup("Hit Feedbacks")]
+        public FeedbacksManager HitMonsterFeedbacks;
+        [FoldoutGroup("Hit Feedbacks")]
+        public FeedbacksManager HitNPCFeedbacks;
 
         [FoldoutGroup("Settings")]
         public bool InitializeOnStart = false;
@@ -186,6 +189,13 @@ namespace MMORPG.Game
                     WeaponStopFeedbacks.Setup(gameObject);
                     WeaponStopFeedbacks.Initialize();
                 }
+
+                if (HitPlayerFeedbacks != null)
+                    HitPlayerFeedbacks.Initialize();
+                if (HitMonsterFeedbacks != null)
+                    HitMonsterFeedbacks.Initialize();
+                if (HitNPCFeedbacks != null)
+                    HitNPCFeedbacks.Initialize();
             }
 
             InitFSM();
@@ -405,6 +415,27 @@ namespace MMORPG.Game
         protected virtual void OnDestroy()
         {
             FSM?.Clear();
+        }
+
+        public virtual void OnHitEntity(Health health)
+        {
+            switch (health.Entity.EntityType)
+            {
+                case EntityType.Player:
+                    if (HitPlayerFeedbacks != null)
+                        HitPlayerFeedbacks.Play();
+                    break;
+                case EntityType.Monster:
+                    if (HitMonsterFeedbacks != null)
+                        HitMonsterFeedbacks.Play();
+                    break;
+                case EntityType.NPC:
+                    if (HitNPCFeedbacks != null)
+                        HitNPCFeedbacks.Play();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

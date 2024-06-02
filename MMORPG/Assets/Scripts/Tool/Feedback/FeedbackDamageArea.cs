@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -80,6 +81,14 @@ namespace MMORPG.Tool
         [FoldoutGroup("Damage over time")]
         [ShowIf("RepeatDamageOverTime")]
         public bool DamageOverTimeInterruptible = true;
+
+
+        [FoldoutGroup("Events")]
+        public UnityEvent<AbstractHealth> OnHitDamageable = new();
+        [FoldoutGroup("Events")]
+        public UnityEvent<Collider> OnHitNonDamageable = new();
+        [FoldoutGroup("Events")]
+        public UnityEvent<Collider> OnHitAnything = new();
 
         protected Collider _damageAreaCollider;
         protected bool _attackInProgress = false;
@@ -186,6 +195,9 @@ namespace MMORPG.Tool
             _damageOnTouch.AmountOfRepeats = AmountOfRepeats;
             _damageOnTouch.DurationBetweenRepeats = DurationBetweenRepeats;
             _damageOnTouch.DamageOverTimeInterruptible = DamageOverTimeInterruptible;
+            _damageOnTouch.OnHitAnything = OnHitAnything;
+            _damageOnTouch.OnHitDamageable = OnHitDamageable;
+            _damageOnTouch.OnHitNonDamageable = OnHitNonDamageable;
 
             _damageOnTouch.Initialize();
         }

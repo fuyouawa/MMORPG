@@ -80735,7 +80735,7 @@ MonoBehaviour:
   AutoPlayOnEnable: 0
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
-  StopCurrentPlayIfNewPlay: 1
+  StopCurrentPlayIfNewPlay: 0
   StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
@@ -80910,6 +80910,27 @@ MonoBehaviour:
         AmountOfRepeats: 3
         DurationBetweenRepeats: 1
         DamageOverTimeInterruptible: 1
+        OnHitDamageable:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 6349372569880267187}
+              m_TargetAssemblyTypeName: MMORPG.Game.CharacterHandleWeapon, Assembly-CSharp
+              m_MethodName: OnHitDamageable
+              m_Mode: 0
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+        OnHitNonDamageable:
+          m_PersistentCalls:
+            m_Calls: []
+        OnHitAnything:
+          m_PersistentCalls:
+            m_Calls: []
     - rid: 1878086261005091195
       type: {class: FeedbackTriggerAnimatorParam, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
@@ -105906,6 +105927,7 @@ Transform:
   - {fileID: 6292130008949261289}
   - {fileID: 890314551262170839}
   - {fileID: 8942558685178153681}
+  - {fileID: 204620109946203986}
   - {fileID: 8782009336371497808}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -106032,7 +106054,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Entity: {fileID: 9049836981437204500}
+  Invincibility: 0.5
   DamageNumberPoint: {fileID: 8782009336371497808}
+  HurtFeedbacks: {fileID: 0}
 --- !u!114 &6349372569880267187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106305,7 +106329,7 @@ MonoBehaviour:
   AutoPlayOnEnable: 0
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
-  StopCurrentPlayIfNewPlay: 1
+  StopCurrentPlayIfNewPlay: 0
   StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
@@ -106426,6 +106450,27 @@ MonoBehaviour:
         AmountOfRepeats: 0
         DurationBetweenRepeats: 0
         DamageOverTimeInterruptible: 0
+        OnHitDamageable:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 6349372569880267187}
+              m_TargetAssemblyTypeName: MMORPG.Game.CharacterHandleWeapon, Assembly-CSharp
+              m_MethodName: OnHitDamageable
+              m_Mode: 0
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+        OnHitNonDamageable:
+          m_PersistentCalls:
+            m_Calls: []
+        OnHitAnything:
+          m_PersistentCalls:
+            m_Calls: []
     - rid: 1878086261005091170
       type: {class: FeedbackTriggerAnimatorParam, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
@@ -111554,7 +111599,7 @@ Transform:
   - {fileID: 4143111463651130784}
   - {fileID: 899194400635972477}
   - {fileID: 189010334653391765}
-  m_Father: {fileID: 9087934345694290826}
+  m_Father: {fileID: 2429740359941644855}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7043817481160811206
 GameObject:
@@ -111653,7 +111698,6 @@ Transform:
   m_Children:
   - {fileID: 8550372530317908399}
   - {fileID: 1249248324390040188}
-  - {fileID: 204620109946203986}
   m_Father: {fileID: 2429740359941644855}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1201144034948401517
@@ -117206,7 +117250,7 @@ MonoBehaviour:
   AutoPlayOnEnable: 0
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
-  StopCurrentPlayIfNewPlay: 1
+  StopCurrentPlayIfNewPlay: 0
   StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
@@ -117393,6 +117437,27 @@ MonoBehaviour:
         AmountOfRepeats: 3
         DurationBetweenRepeats: 1
         DamageOverTimeInterruptible: 1
+        OnHitDamageable:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 6349372569880267187}
+              m_TargetAssemblyTypeName: MMORPG.Game.CharacterHandleWeapon, Assembly-CSharp
+              m_MethodName: OnHitDamageable
+              m_Mode: 0
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+        OnHitNonDamageable:
+          m_PersistentCalls:
+            m_Calls: []
+        OnHitAnything:
+          m_PersistentCalls:
+            m_Calls: []
     - rid: 1878086261005091185
       type: {class: FeedbackGameObjectInvokeMethod, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
