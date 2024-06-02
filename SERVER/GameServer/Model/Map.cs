@@ -21,6 +21,7 @@ namespace GameServer.Model
 
         public PlayerManager PlayerManager;
         public MonsterManager MonsterManager;
+        public MissileManager MissileManager;
         public SpawnManager SpawnManager;
         public FightManager FightManager;
 
@@ -35,6 +36,7 @@ namespace GameServer.Model
 
             PlayerManager = new(this);
             MonsterManager = new(this);
+            MissileManager = new(this);
             SpawnManager = new(this);
             FightManager = new(this);
         }
@@ -43,6 +45,7 @@ namespace GameServer.Model
         {
             PlayerManager.Start();
             MonsterManager.Start();
+            MissileManager.Start();
             SpawnManager.Start();
             FightManager.Start();
         }
@@ -51,6 +54,7 @@ namespace GameServer.Model
         {
             PlayerManager.Update();
             MonsterManager.Update();
+            MissileManager.Update();
             SpawnManager.Update();
             FightManager.Update();
         }
@@ -252,26 +256,26 @@ namespace GameServer.Model
         /// <param name="entity"></param>
         /// <param name="condition"></param>
         /// <returns></returns>
-        public HashSet<Entity> GetEntityArrayViewEntitySet(Entity[] entitys, Predicate<Entity>? condition = null)
-        {
-            var entitySet = new HashSet<Entity>();
-            lock (_aoiWord)
-            {
-                foreach (var entity in entitys)
-                {
-                    var viewEntityIdList = _aoiWord.GetFollowingList(entity.AoiEntity);
-                    foreach (var viewEntityId in viewEntityIdList)
-                    {
-                        var viewEntity = EntityManager.Instance.GetEntity((int)viewEntityId);
-                        if (viewEntity != null && (condition == null || condition(viewEntity)))
-                        {
-                            entitySet.Add(viewEntity);
-                        }
-                    }
-                }
-            }
-            return entitySet;
-        }
+        //public HashSet<Entity> GetEntityArrayViewEntitySet(Entity[] entitys, Predicate<Entity>? condition = null)
+        //{
+        //    var entitySet = new HashSet<Entity>();
+        //    lock (_aoiWord)
+        //    {
+        //        foreach (var entity in entitys)
+        //        {
+        //            var viewEntityIdList = _aoiWord.GetFollowingList(entity.AoiEntity);
+        //            foreach (var viewEntityId in viewEntityIdList)
+        //            {
+        //                var viewEntity = EntityManager.Instance.GetEntity((int)viewEntityId);
+        //                if (viewEntity != null && (condition == null || condition(viewEntity)))
+        //                {
+        //                    entitySet.Add(viewEntity);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return entitySet;
+        //}
 
         /// <summary>
         /// 根据网络实体对象更新实体并广播新状态

@@ -10,10 +10,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Common.Proto.EventLike;
+using Common.Proto.Monster;
 
 namespace GameServer.Ai
 {
-
     public enum MonsterAiState
     {
         None = 0,
@@ -22,57 +22,132 @@ namespace GameServer.Ai
         Goback,
     }
 
+    public class MonsterAbilityManager
+    {
+        public Monster Monster;
+        public MonsterState SyncState;
+        public IdleAbility IdleAbility;
+        public MoveAbility MoveAbility;
+        public Actor? ChasingTarget;
+        public Random Random = new();
+
+        // 相对于出生点的活动范围
+        public float WalkRange = 10f;
+        // 相对于出生点的追击范围
+        public float ChaseRange = 10f;
+        // 攻击范围
+        public float AttackRange = 1f;
+
+        public MonsterAbilityManager(Monster monster)
+        {
+            Monster = monster;
+            MoveAbility = new(monster, Monster.InitPos.Y);
+            IdleAbility = new();
+        }
+
+        public void Start()
+        {
+            IdleAbility.Start();
+            MoveAbility.Start();
+        }
+
+        public void Update()
+        {
+            if (SyncState == MonsterState.Move)
+            {
+                MoveAbility.Update();
+                if (MoveAbility.Moving)
+                {
+                    UpdateSyncState();
+                }
+            }
+
+            if (SyncState == MonsterState.Idle)
+            {
+                IdleAbility.Update();
+            }
+        }
+        public void Move(Vector3 targetPos)
+        {
+            if (SyncState == MonsterState.Idle)
+            {
+                SyncState = MonsterState.Move;
+            }
+            MoveAbility.Move(targetPos);
+        }
+
+        public void Idle()
+        {
+            ChangeSyncState(MonsterState.Idle);
+        }
+
+        public void Attack()
+        {
+            ChangeSyncState(MonsterState.Attack);
+            SyncState = MonsterState.Idle;
+        }
+
+        public void Revive()
+        {
+
+        }
+
+        private void ChangeSyncState(MonsterState state)
+        {
+            if (SyncState == state) return;
+            SyncState = state;
+
+            UpdateSyncState();
+        }
+
+        private void UpdateSyncState()
+        {
+            var res = new EntityTransformSyncResponse()
+            {
+                EntityId = Monster.EntityId,
+                StateId = (int)SyncState,
+                Transform = ProtoHelper.ToNetTransform(Monster.Position, Monster.Direction)
+            };
+            Monster.Map.PlayerManager.Broadcast(res, Monster);
+        }
+    }
+
+
     public class MonsterAi : AiBase
     {
-        public FSM<MonsterAiState> FSM;
+        // 行为状态机
+        public FSM<MonsterAiState> Fsm = new();
+        public MonsterAbilityManager AbilityManager;
 
         public MonsterAi(Monster monster)
         {
-            FSM = new();
-            var parameter = new StateParameter(monster);
-            FSM.AddState(MonsterAiState.Walk, new WalkState(FSM, parameter));
-            FSM.AddState(MonsterAiState.Chase, new ChaseState(FSM, parameter));
-            FSM.AddState(MonsterAiState.Goback, new GobackState(FSM, parameter));
+            AbilityManager = new MonsterAbilityManager(monster);
+            Fsm.AddState(MonsterAiState.Walk, new WalkState(Fsm, AbilityManager));
+            Fsm.AddState(MonsterAiState.Chase, new ChaseState(Fsm, AbilityManager));
+            Fsm.AddState(MonsterAiState.Goback, new GobackState(Fsm, AbilityManager));
         }
 
         public override void Start()
         {
-            FSM.ChangeState(MonsterAiState.Walk);
+            AbilityManager.Start();
+            Fsm.ChangeState(MonsterAiState.Walk);
         }
 
         public override void Update()
         {
-            FSM.Update();
+            AbilityManager.Update();
+            Fsm.Update();
         }
-
-        public class StateParameter
-        {
-            public Monster Monster;
-            public Random Random = new();
-
-            // 相对于出生点的活动范围
-            public float WalkRange = 10f;
-            // 相对于出生点的追击范围
-            public float ChaseRange = 10f;
-            // 攻击范围
-            public float AttackRange = 1f;
-
-            public StateParameter(Monster monster)
-            {
-                Monster = monster;
-            }
-        }
-
 
         /// <summary>
         /// 巡逻状态
         /// </summary>
-        public class WalkState : FSMAbstractState<MonsterAiState, StateParameter>
+        public class WalkState : FSMAbstractState<MonsterAiState, MonsterAbilityManager>
         {
             private float _lastTime;
             private float _waitTime;
 
-            public WalkState(FSM<MonsterAiState> fsm, StateParameter parameter) :
+            public WalkState(FSM<MonsterAiState> fsm, MonsterAbilityManager parameter) :
                 base(fsm, parameter)
             {
                 _lastTime = Time.time;
@@ -81,7 +156,7 @@ namespace GameServer.Ai
 
             public override void OnEnter()
             {
-                _target.Monster.Idle();
+                _target.Idle();
             }
 
             public override void OnUpdate()
@@ -89,8 +164,8 @@ namespace GameServer.Ai
                 var monster = _target.Monster;
 
                 // 查找怪物视野范围内距离怪物最近的玩家
-                var list = monster.Map?.GetEntityViewEntityList(monster, e => e.EntityType == EntityType.Player);
-                if (list != null && list.Any())
+                var list = monster.Map.GetEntityViewEntityList(monster, e => e.EntityType == EntityType.Player);
+                if (list.Any())
                 {
                     var nearestPlayer = list.Aggregate((minEntity, nextEntity) =>
                     {
@@ -100,50 +175,57 @@ namespace GameServer.Ai
                     });
                     Vector3.Distance(monster.Position, monster.InitPos);
                     // 若玩家位于怪物的追击范围内
-                    if (nearestPlayer != null)
+                    float d1 = Vector3.Distance(monster.InitPos, nearestPlayer.Position);  // 目标与出生点的距离
+                    float d2 = Vector3.Distance(monster.Position, nearestPlayer.Position); // 自身与目标的距离
+                    if (d1 <= _target.ChaseRange && d2 <= _target.ChaseRange)
                     {
-                        float d1 = Vector3.Distance(monster.InitPos, nearestPlayer.Position);  // 目标与出生点的距离
-                        float d2 = Vector3.Distance(monster.Position, nearestPlayer.Position); // 自身与目标的距离
-                        if (d1 <= _target.ChaseRange && d2 <= _target.ChaseRange)
-                        {
-                            // 切换为追击状态
-                            monster.ChasingTarget = nearestPlayer as Actor;
-                            _fsm.ChangeState(MonsterAiState.Chase);
-                            return;
-                        }
+                        // 切换为追击状态
+                        _target.ChasingTarget = nearestPlayer as Actor;
+                        _fsm.ChangeState(MonsterAiState.Chase);
+                        return;
                     }
+                    
                 }
 
-                if (monster.State != ActorState.Idle) return;
+                if (_target.SyncState != MonsterState.Idle) return;
                 if (!(_lastTime + _waitTime < Time.time)) return;
 
                 // 状态是空闲或等待时间已结束，则尝试随机移动
                 _waitTime = _target.Random.NextSingle();
                 _lastTime = Time.time;
-                monster.Move(monster.RandomPointWithBirth(_target.WalkRange));
+                _target.Move(RandomPointWithBirth(_target.WalkRange));
+            }
+
+
+            public Vector3 RandomPointWithBirth(float range)
+            {
+                var monster = _target.Monster;
+                float x = _target.Random.NextSingle() * 2f - 1f;
+                float z = _target.Random.NextSingle() * 2f - 1f;
+                Vector3 direction = new Vector3(x, 0, z).Normalized();
+                return monster.InitPos + direction * range * _target.Random.NextSingle();
             }
         }
 
         /// <summary>
         /// 追击状态
         /// </summary>
-        public class ChaseState : FSMAbstractState<MonsterAiState, StateParameter>
+        public class ChaseState : FSMAbstractState<MonsterAiState, MonsterAbilityManager>
         {
-            
-            public ChaseState(FSM<MonsterAiState> fsm, StateParameter parameter) :
+            public ChaseState(FSM<MonsterAiState> fsm, MonsterAbilityManager parameter) :
                 base(fsm, parameter)
             { }
 
             public override void OnUpdate()
             {
                 var monster = _target.Monster;
-                if (monster.ChasingTarget == null)// || monster.ChasingTarget.IsDeath())
+                if (_target.ChasingTarget == null)// || monster.ChasingTarget.IsDeath())
                 {
                     _fsm.ChangeState(MonsterAiState.Goback);
                     return;
                 }
 
-                var player = monster.ChasingTarget as Player;
+                var player = _target.ChasingTarget as Player;
                 if (player == null || !player.IsValid())
                 {
                     _fsm.ChangeState(MonsterAiState.Goback);
@@ -163,11 +245,11 @@ namespace GameServer.Ai
                 if (d1 <= _target.AttackRange)
                 {
                     // 距离足够，可以发起攻击了
-                    monster.Attack();
+                    _target.Attack();
                 }
                 else
                 {
-                    monster.Move(player.Position);
+                    _target.Move(player.Position);
                 }
             }
         }
@@ -175,15 +257,15 @@ namespace GameServer.Ai
         /// <summary>
         /// 返回状态
         /// </summary>
-        public class GobackState : FSMAbstractState<MonsterAiState, StateParameter>
+        public class GobackState : FSMAbstractState<MonsterAiState, MonsterAbilityManager>
         {
-            public GobackState(FSM<MonsterAiState> fsm, StateParameter parameter) :
+            public GobackState(FSM<MonsterAiState> fsm, MonsterAbilityManager parameter) :
                 base(fsm, parameter)
             { }
 
             public override void OnEnter()
             {
-                _target.Monster.Move(_target.Monster.InitPos);
+                _target.Move(_target.Monster.InitPos);
 
                 // 切回巡逻状态，使得回出生点的过程也能继续寻敌
                 _fsm.ChangeState(MonsterAiState.Walk);
