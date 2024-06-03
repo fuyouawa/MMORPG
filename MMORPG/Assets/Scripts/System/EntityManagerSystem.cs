@@ -78,10 +78,13 @@ namespace MMORPG.System
 
         private void OnExitedMap(ExitedMapEvent e)
         {
-            foreach (var entity in EntityDict)
-            {
-                GameObject.Destroy(entity.Value.gameObject);
-            }
+            // foreach (var entity in EntityDict)
+            // {
+            //     if (entity.Value.gameObject != null)
+            //     {
+            //         GameObject.Destroy(entity.Value.gameObject);
+            //     }
+            // }
             EntityDict.Clear();
         }
     }

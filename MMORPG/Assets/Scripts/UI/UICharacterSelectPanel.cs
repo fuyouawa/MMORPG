@@ -1,9 +1,11 @@
 using Common.Proto.Character;
 using MMORPG.Command;
 using MMORPG.Game;
+using MMORPG.Model;
 using MMORPG.System;
 using QFramework;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
 
 namespace MMORPG.UI
 {
@@ -13,8 +15,8 @@ namespace MMORPG.UI
 
 	public partial class UICharacterSelectPanel : UIPanel, IController
     {
-        public CharacterSelectItem CharacterSelectItemPrefab;
-        public CharacterSelectItem CurrentSelectItem { get; private set; }
+        public UICharacterSelectItem CharacterSelectItemPrefab;
+        public UICharacterSelectItem CurrentSelectItem { get; private set; }
 
         private INetworkSystem _network;
 
@@ -22,7 +24,7 @@ namespace MMORPG.UI
         {
             foreach (var character in response.CharacterList)
             {
-                var item = Instantiate(CharacterSelectItemPrefab, CharactersGroup, false);
+                var item = Instantiate(CharacterSelectItemPrefab, GroupCharacters, false);
                 item.OnSelectionChanged += OnCharacterItemSelectionChanged;
                 item.SetCharacter(character);
 
@@ -38,7 +40,7 @@ namespace MMORPG.UI
             }
         }
 
-        private void OnCharacterItemSelectionChanged(CharacterSelectItem sender, bool toggle)
+        private void OnCharacterItemSelectionChanged(UICharacterSelectItem sender, bool toggle)
         {
             if (CurrentSelectItem != null)
             {
@@ -56,9 +58,9 @@ namespace MMORPG.UI
             return GameApp.Interface;
         }
 
-        public CharacterSelectItem[] GetCharacterItems()
+        public UICharacterSelectItem[] GetCharacterItems()
         {
-            return CharactersGroup.GetComponentsInChildren<CharacterSelectItem>();
+            return GroupCharacters.GetComponentsInChildren<UICharacterSelectItem>();
         }
 
         public void ClearCharacterItems()
@@ -103,6 +105,10 @@ namespace MMORPG.UI
         {
             if (CurrentSelectItem != null)
             {
+                var user = this.GetModel<IUserModel>();
+                user.CharacterId.Value = CurrentSelectItem.CharacterId;
+                user.CharacterName.Value = CurrentSelectItem.Name;
+
                 this.SendCommand(new JoinMapCommand(CurrentSelectItem.MapId, CurrentSelectItem.CharacterId));
             }
         }

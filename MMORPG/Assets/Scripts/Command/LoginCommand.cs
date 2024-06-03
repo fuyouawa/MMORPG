@@ -1,6 +1,7 @@
 using Common.Proto.Base;
 using Common.Proto.User;
 using Common.Tool;
+using MMORPG.Model;
 using QFramework;
 using MMORPG.System;
 using UnityEngine.SceneManagement;
@@ -46,6 +47,8 @@ namespace MMORPG.Command
             if (response.Error == NetError.Success)
             {
                 Tool.Log.Info("Network", $"'{_username}'登录成功");
+                var user = this.GetModel<IUserModel>();
+                user.Username.Value = _username;
                 SceneManager.LoadScene("CharacterSelectScene");
             }
             else
