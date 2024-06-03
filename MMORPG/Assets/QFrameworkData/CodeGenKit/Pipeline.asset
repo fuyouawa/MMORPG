@@ -18,13 +18,16 @@ MonoBehaviour:
     GameObject: {fileID: 0}
     From: 0
     NameToFullName: []
-    BindInfos: []
-    ScriptsFolder: Assets/Scripts/UI
-    ClassName: UICharacterCreatePanel
+    BindInfos:
+    - TypeName: TMPro.TextMeshProUGUI
+      PathToRoot: TextMessage
+      MemberName: TextMessage
+    ScriptsFolder: Assets\Scripts\UI\UIChatPanel
+    ClassName: UIChatItem
     Namespace: MMORPG.UI
     MainCode: "using UnityEngine;\r\nusing QFramework;\r\n\r\nnamespace MMORPG.UI\r\n{\r\n\tpublic
-      partial class UICharacterCreatePanel : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
+      partial class UIChatItem : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
       Code Here\r\n\t\t}\r\n\t}\r\n}\r\n"
-    DesignerCode: "// Generate Id:05255eec-dbcb-4134-9a3a-6114123363ee\r\nusing UnityEngine;\r\n\r\nnamespace
-      MMORPG.UI\r\n{\r\n\tpublic partial class UICharacterCreatePanel : QFramework.IController\r\n\t{\r\n\r\n\t\tQFramework.IArchitecture
-      QFramework.IBelongToArchitecture.GetArchitecture()=>MMORPG.Game.GameApp.Interface;\r\n\t}\r\n}\r\n"
+    DesignerCode: "// Generate Id:8a5801af-ce88-4db0-8ed9-02266b16c1da\r\nusing UnityEngine;\r\n\r\nnamespace
+      MMORPG.UI\r\n{\r\n\tpublic partial class UIChatItem : QFramework.IController\r\n\t{\r\n\r\n\t\tpublic
+      TMPro.TextMeshProUGUI TextMessage;\r\n\r\n\t\tQFramework.IArchitecture QFramework.IBelongToArchitecture.GetArchitecture()=>MMORPG.Game.GameApp.Interface;\r\n\t}\r\n}\r\n"
