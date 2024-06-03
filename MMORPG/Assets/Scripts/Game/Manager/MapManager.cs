@@ -1,5 +1,6 @@
 using Common.Proto.Player;
 using Common.Tool;
+using MMORPG.Model;
 using QFramework;
 using MMORPG.System;
 using MMORPG.Tool;

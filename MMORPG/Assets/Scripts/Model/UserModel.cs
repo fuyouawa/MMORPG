@@ -7,29 +7,18 @@ namespace MMORPG.Model
     /// </summary>
     public interface IUserModel : IModel
     {
-        public int UserId { get; }
-        public string Username { get; }
-        public void SetUsername(string username);
-        public void SetUserId(int userId);
+        public BindableProperty<string> UserId { get; }
+        public BindableProperty<string> Username { get; }
+        public BindableProperty<long> CharacterId { get; }
+        public BindableProperty<string> CharacterName { get; }
     }
 
     public class UserModel : AbstractModel, IUserModel
     {
-        private int _userId;
-        public int UserId => _userId;
-
-        private string _username;
-        public string Username => _username;
-
-        public void SetUserId(int userId)
-        {
-            _userId = userId;
-        }
-
-        public void SetUsername(string username)
-        {
-            _username = username;
-        }
+        public BindableProperty<string> UserId { get; } = new();
+        public BindableProperty<string> Username { get; } = new();
+        public BindableProperty<long> CharacterId { get; } = new();
+        public BindableProperty<string> CharacterName { get; } = new();
 
         protected override void OnInit()
         {
