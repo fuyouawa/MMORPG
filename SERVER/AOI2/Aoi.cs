@@ -139,10 +139,8 @@ namespace Aoi
                     if (pendingEntityId == aoiEntity.EntityId) continue;
                     var pendingEntity = _entittDict[pendingEntityId];
                     // 但我也可能原本就被这个实体关注
-                    if (!IsFollowing(pendingEntity, aoiEntity))
-                    {
-                        enterFollowerCallback(pendingEntityId);
-                    }
+                    if (IsFollowing(pendingEntity, aoiEntity)) continue;
+                    enterFollowerCallback(pendingEntityId);
                 }
 
                 oldZone.Leave(aoiEntity);
@@ -154,10 +152,8 @@ namespace Aoi
                 {
                     var pendingEntity = _entittDict[pendingEntityId];
                     // 新位置的我可能依旧在该实体的关注区域内
-                    if (!IsFollowing(pendingEntity, aoiEntity))
-                    {
-                        leaveFollowerCallback(pendingEntityId);
-                    }
+                    if (IsFollowing(pendingEntity, aoiEntity)) continue;
+                    leaveFollowerCallback(pendingEntityId);
                 }
 
                 // 跨越边界，根据新的九宫格来确定离开视野范围以及新进入视野范围的实体
@@ -251,7 +247,6 @@ namespace Aoi
                     ScanZoneEntitys(oldViewZoneKey, e =>
                     {
                         if (e == aoiEntity.EntityId || newZone.PendingEntitySet.Contains(e)) return;
-                        
                         leaveFollowerCallback(e);
                     });
                 }
