@@ -210,8 +210,14 @@ namespace GameServer.Model
             {
                 var player = entity as Player;
                 Debug.Assert(player != null);
-                if (enterRes.Datas.Any()) player?.User.Channel.Send(enterRes);
-                if (leaveRes.EntityIds.Any()) player.User.Channel.Send(leaveRes);
+                if (init1)
+                {
+                    player?.User.Channel.Send(enterRes);
+                }
+                if (init2)
+                {
+                    player?.User.Channel.Send(leaveRes);
+                }
             }
 
         }
