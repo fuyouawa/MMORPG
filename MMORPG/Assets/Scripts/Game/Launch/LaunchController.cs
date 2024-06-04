@@ -42,8 +42,9 @@ namespace MMORPG.Game
             return GameApp.Interface;
         }
 
-        protected void OnApplicationQuit()
+        protected override void OnApplicationQuit()
         {
+            base.OnApplicationQuit();
             FSM.ChangeState(LaunchStatus.ApplicationQuit);
             FSM.Clear();
         }

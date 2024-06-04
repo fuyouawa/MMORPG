@@ -56,7 +56,7 @@ namespace GameServer.Service
                     Log.Debug($"{sender.ChannelName}登录失败：账号或密码错误");
                     return;
                 }
-                sender.User = UserManager.Instance.NewUser(sender, dbUser.Username, dbUser.Id);
+                sender.SetUser(UserManager.Instance.NewUser(sender, dbUser.Username, dbUser.Id));
             }
             sender.Send(new LoginResponse() { Error = NetError.Success });
             Log.Debug($"{sender.ChannelName}登录成功");

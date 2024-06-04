@@ -7,9 +7,8 @@ import "google/protobuf/timestamp.proto";
 package Common.Proto.Map;
 
 message SubmitChatMessageRequest {
-	int64 character_id = 1;
-	ChatMessageType message_type = 2;
-	string message = 3;
+	ChatMessageType message_type = 3;
+	string message = 4;
 }
 
 message SubmitChatMessageResponse {
