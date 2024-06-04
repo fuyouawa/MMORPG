@@ -143,6 +143,10 @@ namespace MMORPG.System
         {
             Close();
             _messageHandlers.Clear();
+            lock (_messageList)
+            {
+                _messageList.Clear();
+            }
             _session = null;
         }
 

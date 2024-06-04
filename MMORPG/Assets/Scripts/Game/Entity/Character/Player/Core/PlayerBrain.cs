@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Common.Proto.EventLike;
+using Common.Proto.Entity;
 using Google.Protobuf;
 using MMORPG.Global;
 using MMORPG.System;

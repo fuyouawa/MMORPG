@@ -92,7 +92,7 @@ namespace MMORPG.UI
 		}
 
 
-        public async Task OnSubmitMessage()
+        public async void OnSubmitMessage()
         {
             Debug.Assert(GroupTabsMenu.GetFirstActiveToggle() == CurrentTab);
 
@@ -114,13 +114,10 @@ namespace MMORPG.UI
 
                 _isSendingMessage = true;
 
-                var characterId = this.GetModel<IUserModel>().CharacterId.Value;
                 var characterName = this.GetModel<IUserModel>().CharacterName.Value;
-
 
                 _network.SendToServer(new SubmitChatMessageRequest()
                 {
-                    CharacterId = characterId,
                     Message = InputMessage.text,
                     MessageType = (Common.Proto.Map.ChatMessageType)messageType
                 });
@@ -167,8 +164,8 @@ namespace MMORPG.UI
 
             var time = response.Timestamp.ToDateTime();
 
-            TabContentCompositeChat.SubmitMessage(time, messageType, response.CharacterName, InputMessage.text, messageColor);
-            tabContent.SubmitMessage(time, messageType, response.CharacterName, InputMessage.text, messageColor);
+            TabContentCompositeChat.SubmitMessage(time, messageType, response.CharacterName, response.Message, messageColor);
+            tabContent.SubmitMessage(time, messageType, response.CharacterName, response.Message, messageColor);
         }
 
         public Color GetChatMessageColor(ChatMessageType messageType)

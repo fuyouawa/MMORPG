@@ -1,5 +1,5 @@
-using Common.Proto.EventLike;
-using Common.Proto.EventLike.Map;
+using Common.Proto.Entity;
+using Common.Proto.Map;
 using QFramework;
 using MMORPG.System;
 using MMORPG.Tool;

@@ -1,5 +1,5 @@
 using System.Collections;
-using Common.Proto.EventLike;
+using Common.Proto.Entity;
 using Google.Protobuf;
 using MMORPG.System;
 using MMORPG.Tool;
