@@ -18,14 +18,14 @@ namespace MMORPG.Game
     {
         public Animator Animator;
 
-        public FSM<MonsterState> FSM = new ();
+        public FSM<ActorState> FSM = new ();
 
         public EntityTransformSyncData Data;
 
-        public class IdleState : AbstractState<MonsterState, MonsterBrain>
+        public class IdleState : AbstractState<ActorState, MonsterBrain>
         {
 
-            public IdleState(FSM<MonsterState> fsm, MonsterBrain target) : base(fsm, target)
+            public IdleState(FSM<ActorState> fsm, MonsterBrain target) : base(fsm, target)
             {
 
             }
@@ -41,9 +41,9 @@ namespace MMORPG.Game
             }
         }
 
-        public class MoveState : AbstractState<MonsterState, MonsterBrain>
+        public class MoveState : AbstractState<ActorState, MonsterBrain>
         {
-            public MoveState(FSM<MonsterState> fsm, MonsterBrain target) : base(fsm, target)
+            public MoveState(FSM<ActorState> fsm, MonsterBrain target) : base(fsm, target)
             {
 
             }
@@ -76,9 +76,9 @@ namespace MMORPG.Game
             }
         }
 
-        public class AttackState : AbstractState<MonsterState, MonsterBrain>
+        public class AttackState : AbstractState<ActorState, MonsterBrain>
         {
-            public AttackState(FSM<MonsterState> fsm, MonsterBrain target) : base(fsm, target)
+            public AttackState(FSM<ActorState> fsm, MonsterBrain target) : base(fsm, target)
             {
 
             }
@@ -108,7 +108,7 @@ namespace MMORPG.Game
 
         private void OnTransformEntitySync(EntityTransformSyncData data)
         {
-            MonsterState state = (MonsterState)data.StateId;
+            ActorState state = (ActorState)data.StateId;
             if (FSM.CurrentStateId != state)
             {
                 FSM.ChangeState(state);
@@ -120,10 +120,10 @@ namespace MMORPG.Game
 
         private void Start()
         {
-            FSM.AddState(MonsterState.Idle, new IdleState(FSM, this));
-            FSM.AddState(MonsterState.Move, new MoveState(FSM, this));
-            FSM.AddState(MonsterState.Attack, new AttackState(FSM, this));
-            FSM.StartState(MonsterState.Idle);
+            FSM.AddState(ActorState.Idle, new IdleState(FSM, this));
+            FSM.AddState(ActorState.Move, new MoveState(FSM, this));
+            FSM.AddState(ActorState.Attack, new AttackState(FSM, this));
+            FSM.StartState(ActorState.Idle);
         }
 
         private void Update()

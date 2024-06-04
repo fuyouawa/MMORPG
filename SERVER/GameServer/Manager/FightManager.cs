@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Proto.Fight;
+using GameServer.Fight;
 using GameServer.Model;
 using Serilog;
 
@@ -12,8 +13,8 @@ namespace GameServer.Manager
     public class FightManager
     {
         private Map _map;
-        private Queue<CastInfo> _castQueue = new();
-        private Queue<CastInfo> _backupCastQueue = new();
+        private Queue<SpellRequest> _castQueue = new();
+        private Queue<SpellRequest> _backupCastQueue = new();
 
         public FightManager(Map map)
         {
@@ -34,29 +35,29 @@ namespace GameServer.Manager
 
             while (_backupCastQueue.Any())
             {
-                var castInfo = _backupCastQueue.Dequeue();
-                RunCast(castInfo);
+                var req = _backupCastQueue.Dequeue();
+                RunSpell(req);
             }
 
         }
 
-        public void AddCast(CastInfo castInfo)
+        public void AddSkillCast(SpellRequest req)
         {
             lock (_castQueue)
             {
-                _castQueue.Enqueue(castInfo);
+                _castQueue.Enqueue(req);
             }
         }
 
-        private void RunCast(CastInfo castInfo)
+        private void RunSpell(SpellRequest req)
         {
-            var caster = EntityManager.Instance.GetEntity(castInfo.CasterId) as Actor;
+            var caster = EntityManager.Instance.GetEntity(req.CasterId) as Actor;
             if (caster == null)
             {
-                Log.Warning("[FightManager.RunCast]: 释放者不存在."); 
+                Log.Warning("[FightManager.Cast]: 释放者不存在."); 
                 return;
             }
-            caster.Spell.RunCast(castInfo);
+            caster.Spell.Cast(req);
         }
 
     }

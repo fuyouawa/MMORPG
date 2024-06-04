@@ -71,6 +71,7 @@ namespace GameServer.Ai
                 IdleAbility.Update();
             }
         }
+
         public void Move(Vector3 targetPos)
         {
             if (SyncState == MonsterState.Idle)
@@ -95,6 +96,9 @@ namespace GameServer.Ai
         {
 
         }
+
+        
+
 
         private void ChangeSyncState(MonsterState state)
         {
@@ -186,7 +190,6 @@ namespace GameServer.Ai
                         _fsm.ChangeState(MonsterAiState.Chase);
                         return;
                     }
-                    
                 }
 
                 if (_target.SyncState != MonsterState.Idle) return;

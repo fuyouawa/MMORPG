@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GameServer.Model;
+﻿using GameServer.Model;
 using GameServer.Tool;
 
 namespace GameServer.Fight
@@ -38,7 +33,9 @@ namespace GameServer.Fight
                 Crd = define.Crd,
                 Str = define.Str,
                 Int = define.Int,
-                Agi = define.Agi
+                Agi = define.Agi,
+                HitRate = define.HitRate,
+                DodgeRate = define.DodgeRate,
             };
 
             var growth = new AttributeData()
