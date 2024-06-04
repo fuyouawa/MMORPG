@@ -1,0 +1,26 @@
+﻿syntax = "proto3";
+
+package Common.Proto.Entity;
+
+enum EntityAttributeEntryType {
+    NONE = 0;
+    LEVEL = 1;
+    EXP = 2;
+    GOLD = 3;
+    HP = 4;
+    MP = 5;
+}
+
+message EntityAttributeEntry {
+    EntityAttributeEntryType type = 1;
+    oneof value {
+        int32 int32_ = 2;
+        float float_ = 3;
+        string string_ = 4;
+    }
+}
+
+message EntityAttributeSyncResponse {
+    int32 entity_id = 1;
+    repeated EntityAttributeEntry entrys = 2;
+}

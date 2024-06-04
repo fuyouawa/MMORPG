@@ -6,8 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Proto\Monster\**" />
     <Compile Remove="Proto\Player - 复制\**" />
+    <EmbeddedResource Remove="Proto\Monster\**" />
     <EmbeddedResource Remove="Proto\Player - 复制\**" />
+    <None Remove="Proto\Monster\**" />
     <None Remove="Proto\Player - 复制\**" />
   </ItemGroup>
 

@@ -1,0 +1,10 @@
+﻿syntax = "proto3";
+
+package Common.Proto.Fight;
+
+import "Base/NetVector3.proto";
+
+message NetCastTarget {
+    int32 target_id = 1;
+    Base.NetVector3 target_pos = 2;
+}
