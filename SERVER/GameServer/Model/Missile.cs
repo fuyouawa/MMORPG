@@ -35,7 +35,6 @@ namespace GameServer.Model
             {
             }
             _ai?.Start();
-
         }
 
         public override void Update()
