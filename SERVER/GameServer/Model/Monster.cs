@@ -1,9 +1,7 @@
-﻿using Common.Proto.EventLike;
-using GameServer.Ai;
+﻿using GameServer.Ai;
 using GameServer.Tool;
 using System.Numerics;
 using Common.Proto.Entity;
-using GameServer.Fight;
 
 namespace GameServer.Model
 {
