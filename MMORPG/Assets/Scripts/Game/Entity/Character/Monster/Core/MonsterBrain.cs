@@ -122,7 +122,7 @@ namespace MMORPG.Game
         {
             FSM.AddState(ActorState.Idle, new IdleState(FSM, this));
             FSM.AddState(ActorState.Move, new MoveState(FSM, this));
-            FSM.AddState(ActorState.Attack, new AttackState(FSM, this));
+            FSM.AddState(ActorState.Skill, new AttackState(FSM, this));
             FSM.StartState(ActorState.Idle);
         }
 
