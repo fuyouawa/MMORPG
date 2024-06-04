@@ -88,7 +88,7 @@ namespace GameServer.Ai
 
         public void Attack()
         {
-            ChangeSyncState(ActorState.Attack);
+            ChangeSyncState(ActorState.Skill);
             SyncState = ActorState.Idle;
         }
 
