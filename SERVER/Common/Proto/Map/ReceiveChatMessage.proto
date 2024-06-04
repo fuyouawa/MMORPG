@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+import "Map/ChatMessageType.proto";
+import "google/protobuf/timestamp.proto";
+
+package Common.Proto.Map;
+
+message ReceiveChatMessageResponse {
+	int64 character_id = 1;
+	string character_name = 2;
+	ChatMessageType message_type = 3;
+	string message = 4;
+	google.protobuf.Timestamp timestamp = 5;
+}

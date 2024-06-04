@@ -1,16 +1,20 @@
 using System;
+using System.Threading.Tasks;
+using Common.Proto.Base;
+using Common.Proto.Map;
 using DuloGames.UI;
+using MMORPG.Game;
 using UnityEngine;
-using UnityEngine.UI;
 using QFramework;
-using NotImplementedException = System.NotImplementedException;
+using MMORPG.Model;
+using MMORPG.System;
 
 namespace MMORPG.UI
 {
 	public class UIChatPanelData : UIPanelData
 	{
 	}
-	public partial class UIChatPanel : UIPanel
+	public partial class UIChatPanel : UIPanel, IController
     {
         public Color WorldMessageColor;
         public Color MapMessageColor;
@@ -20,6 +24,9 @@ namespace MMORPG.UI
         public UIChatTabContent CurrentTabContent { get; private set; }
 
         public UITab[] TabMenus { get; private set; }
+
+        private bool _isSendingMessage = false;
+        private INetworkSystem _network;
 
         protected override void OnInit(IUIData uiData = null)
 		{
@@ -35,6 +42,11 @@ namespace MMORPG.UI
 
             CurrentTab = (UITab)GroupTabsMenu.GetFirstActiveToggle();
             CurrentTabContent = CurrentTab.targetContent.GetComponent<UIChatTabContent>();
+
+            _network = this.GetSystem<INetworkSystem>();
+
+            _network.Receive<ReceiveChatMessageResponse>(OnReceiveChatMessage)
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
         private void OnTabChanged(UITab tab, bool isSelected)
@@ -80,48 +92,99 @@ namespace MMORPG.UI
 		}
 
 
-        public void OnSubmitMessage()
+        public async Task OnSubmitMessage()
         {
             Debug.Assert(GroupTabsMenu.GetFirstActiveToggle() == CurrentTab);
+
+            if (_isSendingMessage) return;
+
             if (InputMessage.text.Trim().Length > 0)
             {
-                Color messageColor;
-                ChatMessageType messageType;
 
-                switch (CurrentTabContent.ChannelType)
+                var messageType = CurrentTabContent.ChannelType switch
                 {
-                    case ChatChannelType.Composite:
-                        messageColor = WorldMessageColor;
-                        messageType = ChatMessageType.World;
-                        break;
-                    case ChatChannelType.World:
-                        messageColor = WorldMessageColor;
-                        messageType = ChatMessageType.World;
-                        break;
-                    case ChatChannelType.Map:
-                        messageColor = MapMessageColor;
-                        messageType = ChatMessageType.Map;
-                        break;
-                    case ChatChannelType.Group:
-                        messageColor = GroupMessageColor;
-                        messageType = ChatMessageType.Group;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                    ChatChannelType.Composite => ChatMessageType.World,
+                    ChatChannelType.World => ChatMessageType.World,
+                    ChatChannelType.Map => ChatMessageType.Map,
+                    ChatChannelType.Group => ChatMessageType.Group,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
 
-                if (CurrentTabContent.ChannelType == ChatChannelType.Composite)
+                var messageColor = GetChatMessageColor(messageType);
+
+                _isSendingMessage = true;
+
+                var characterId = this.GetModel<IUserModel>().CharacterId.Value;
+                var characterName = this.GetModel<IUserModel>().CharacterName.Value;
+
+
+                _network.SendToServer(new SubmitChatMessageRequest()
                 {
-                    TabContentWorldChat.SubmitMessage(messageType, InputMessage.text, messageColor);
-                    CurrentTabContent.SubmitMessage(messageType, InputMessage.text, messageColor);
+                    CharacterId = characterId,
+                    Message = InputMessage.text,
+                    MessageType = (Common.Proto.Map.ChatMessageType)messageType
+                });
+
+                var response = await _network.ReceiveAsync<SubmitChatMessageResponse>();
+
+                if (response.Error == NetError.Success)
+                {
+                    var time = response.Timestamp.ToDateTime();
+                    if (CurrentTabContent.ChannelType == ChatChannelType.Composite)
+                    {
+                        TabContentWorldChat.SubmitMessage(time, messageType, characterName, InputMessage.text, messageColor);
+                        CurrentTabContent.SubmitMessage(time, messageType, characterName, InputMessage.text, messageColor);
+                    }
+                    else
+                    {
+                        TabContentCompositeChat.SubmitMessage(time, messageType, characterName, InputMessage.text, messageColor);
+                        CurrentTabContent.SubmitMessage(time, messageType, characterName, InputMessage.text, messageColor);
+                    }
+                    InputMessage.text = string.Empty;
                 }
                 else
                 {
-                    TabContentCompositeChat.SubmitMessage(messageType, InputMessage.text, messageColor);
-                    CurrentTabContent.SubmitMessage(messageType, InputMessage.text, messageColor);
+                    //TODO SubmitChatMessageResponse Error处理
                 }
-                InputMessage.text = string.Empty;
+
+                _isSendingMessage = false;
             }
         }
-	}
+
+        private void OnReceiveChatMessage(ReceiveChatMessageResponse response)
+        {
+            var messageType = (ChatMessageType)response.MessageType;
+
+            UIChatTabContent tabContent = messageType switch
+            {
+                ChatMessageType.World => TabContentWorldChat,
+                ChatMessageType.Map => TabContentMapChat,
+                ChatMessageType.Group => TabContentGroupChat,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            var messageColor = GetChatMessageColor(messageType);
+
+            var time = response.Timestamp.ToDateTime();
+
+            TabContentCompositeChat.SubmitMessage(time, messageType, response.CharacterName, InputMessage.text, messageColor);
+            tabContent.SubmitMessage(time, messageType, response.CharacterName, InputMessage.text, messageColor);
+        }
+
+        public Color GetChatMessageColor(ChatMessageType messageType)
+        {
+            return messageType switch
+            {
+                ChatMessageType.World => WorldMessageColor,
+                ChatMessageType.Map => MapMessageColor,
+                ChatMessageType.Group => GroupMessageColor,
+                _ => throw new ArgumentOutOfRangeException(nameof(messageType), messageType, null)
+            };
+        }
+
+        public IArchitecture GetArchitecture()
+        {
+            return GameApp.Interface;
+        }
+    }
 }
