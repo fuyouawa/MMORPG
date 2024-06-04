@@ -11,11 +11,11 @@ using GameServer.Model;
 
 namespace GameServer.Fight
 {
-    public abstract class Target
+    public abstract class CastTarget
     {
         protected object _realObj;
         
-        public Target(object realObj)
+        public CastTarget(object realObj)
         {
             _realObj = realObj;
         }
@@ -26,20 +26,19 @@ namespace GameServer.Fight
         public virtual Vector3 Direction() => Vector3.Zero;
     }
 
-    public class EntityTarget : Target
+    public class EntityCastTarget : CastTarget
     {
         private Entity _entity { get => (Entity)_realObj; }
-        public EntityTarget(Entity entity) : base(entity) { }
+        public EntityCastTarget(Entity entity) : base(entity) { }
 
         public override int Id => _entity.EntityId;
         public override Vector3 Position() => _entity.Position;
         public override Vector3 Direction() => _entity.Direction;
-
     }
 
-    public class PositionTarget : Target
+    public class PositionCastTarget : CastTarget
     {
-        public PositionTarget(Vector3 position) : base(position) { }
+        public PositionCastTarget(Vector3 position) : base(position) { }
 
         public override Vector3 Position()
         {

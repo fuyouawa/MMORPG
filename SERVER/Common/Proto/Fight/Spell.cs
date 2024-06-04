@@ -24,24 +24,67 @@ namespace Common.Proto.Fight {
     static SpellReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFGaWdodC9TcGVsbC5wcm90bxISQ29tbW9uLlByb3RvLkZpZ2h0GhBGaWdo",
-            "dC9DYXN0LnByb3RvIj8KDFNwZWxsUmVxdWVzdBIvCgljYXN0X2luZm8YASAB",
-            "KAsyHC5Db21tb24uUHJvdG8uRmlnaHQuQ2FzdEluZm8iaAoRU3BlbGxGYWls",
-            "UmVzcG9uc2USEQoJY2FzdGVyX2lkGAEgASgFEhAKCHNraWxsX2lkGAIgASgF",
-            "Ei4KBnJlYXNvbhgDIAEoDjIeLkNvbW1vbi5Qcm90by5GaWdodC5DYXN0UmVz",
-            "dWx0IkUKDVNwZWxsUmVzcG9uc2USNAoOY2FzdF9pbmZvX2xpc3QYASADKAsy",
-            "HC5Db21tb24uUHJvdG8uRmlnaHQuQ2FzdEluZm9iBnByb3RvMw=="));
+            "ChFGaWdodC9TcGVsbC5wcm90bxISQ29tbW9uLlByb3RvLkZpZ2h0GhlGaWdo",
+            "dC9OZXRDYXN0VGFyZ2V0LnByb3RvImsKDFNwZWxsUmVxdWVzdBIQCghza2ls",
+            "bF9pZBgBIAEoBRIRCgljYXN0ZXJfaWQYAiABKAUSNgoLY2FzdF90YXJnZXQY",
+            "AyABKAsyIS5Db21tb24uUHJvdG8uRmlnaHQuTmV0Q2FzdFRhcmdldCJsCghT",
+            "cGVsbEhpdBIQCghza2lsbF9pZBgBIAEoBRIRCgljYXN0ZXJfaWQYAiABKAUS",
+            "OwoQY2FzdF90YXJnZXRfbGlzdBgDIAMoCzIhLkNvbW1vbi5Qcm90by5GaWdo",
+            "dC5OZXRDYXN0VGFyZ2V0ImUKDVNwZWxsUmVzcG9uc2USEAoIc2tpbGxfaWQY",
+            "ASABKAUSEQoJY2FzdGVyX2lkGAIgASgFEi8KBnJlYXNvbhgDIAEoDjIfLkNv",
+            "bW1vbi5Qcm90by5GaWdodC5TcGVsbFJlc3VsdCqHAQoLU3BlbGxSZXN1bHQS",
+            "CwoHU1VDQ0VTUxAAEgwKCE5PVF9DQVNUEAESEgoOVEFSR0VUX0lOVkFJTEQQ",
+            "AhIPCgtFTlRJVFlfREVBRBADEhAKDE9VVF9PRl9SQU5HRRAEEgsKB01QX0xB",
+            "Q0sQBRILCgdSVU5OSU5HEAYSDAoIQ09MTERPV04QB2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Common.Proto.Fight.CastReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Fight.SpellRequest), global::Common.Proto.Fight.SpellRequest.Parser, new[]{ "CastInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Fight.SpellFailResponse), global::Common.Proto.Fight.SpellFailResponse.Parser, new[]{ "CasterId", "SkillId", "Reason" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Fight.SpellResponse), global::Common.Proto.Fight.SpellResponse.Parser, new[]{ "CastInfoList" }, null, null, null, null)
+          new pbr::FileDescriptor[] { global::Common.Proto.Fight.NetCastTargetReflection.Descriptor, },
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Common.Proto.Fight.SpellResult), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Fight.SpellRequest), global::Common.Proto.Fight.SpellRequest.Parser, new[]{ "SkillId", "CasterId", "CastTarget" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Fight.SpellHit), global::Common.Proto.Fight.SpellHit.Parser, new[]{ "SkillId", "CasterId", "CastTargetList" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Fight.SpellResponse), global::Common.Proto.Fight.SpellResponse.Parser, new[]{ "SkillId", "CasterId", "Reason" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
+  #region Enums
+  public enum SpellResult {
+    /// <summary>
+    /// �ɹ�
+    /// </summary>
+    [pbr::OriginalName("SUCCESS")] Success = 0,
+    /// <summary>
+    /// �����ͷż���
+    /// </summary>
+    [pbr::OriginalName("NOT_CAST")] NotCast = 1,
+    /// <summary>
+    /// ��ЧĿ��
+    /// </summary>
+    [pbr::OriginalName("TARGET_INVAILD")] TargetInvaild = 2,
+    /// <summary>
+    /// ʵ��������
+    /// </summary>
+    [pbr::OriginalName("ENTITY_DEAD")] EntityDead = 3,
+    /// <summary>
+    /// ������Χ
+    /// </summary>
+    [pbr::OriginalName("OUT_OF_RANGE")] OutOfRange = 4,
+    /// <summary>
+    /// MP����
+    /// </summary>
+    [pbr::OriginalName("MP_LACK")] MpLack = 5,
+    /// <summary>
+    /// ������
+    /// </summary>
+    [pbr::OriginalName("RUNNING")] Running = 6,
+    /// <summary>
+    /// ��ȴ��
+    /// </summary>
+    [pbr::OriginalName("COLLDOWN")] Colldown = 7,
+  }
+
+  #endregion
+
   #region Messages
   public sealed partial class SpellRequest : pb::IMessage<SpellRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -77,7 +120,9 @@ namespace Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public SpellRequest(SpellRequest other) : this() {
-      castInfo_ = other.castInfo_ != null ? other.castInfo_.Clone() : null;
+      skillId_ = other.skillId_;
+      casterId_ = other.casterId_;
+      castTarget_ = other.castTarget_ != null ? other.castTarget_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -87,15 +132,39 @@ namespace Common.Proto.Fight {
       return new SpellRequest(this);
     }
 
-    /// <summary>Field number for the "cast_info" field.</summary>
-    public const int CastInfoFieldNumber = 1;
-    private global::Common.Proto.Fight.CastInfo castInfo_;
+    /// <summary>Field number for the "skill_id" field.</summary>
+    public const int SkillIdFieldNumber = 1;
+    private int skillId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Fight.CastInfo CastInfo {
-      get { return castInfo_; }
+    public int SkillId {
+      get { return skillId_; }
       set {
-        castInfo_ = value;
+        skillId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "caster_id" field.</summary>
+    public const int CasterIdFieldNumber = 2;
+    private int casterId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CasterId {
+      get { return casterId_; }
+      set {
+        casterId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "cast_target" field.</summary>
+    public const int CastTargetFieldNumber = 3;
+    private global::Common.Proto.Fight.NetCastTarget castTarget_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Common.Proto.Fight.NetCastTarget CastTarget {
+      get { return castTarget_; }
+      set {
+        castTarget_ = value;
       }
     }
 
@@ -114,7 +183,9 @@ namespace Common.Proto.Fight {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (!object.Equals(CastInfo, other.CastInfo)) return false;
+      if (SkillId != other.SkillId) return false;
+      if (CasterId != other.CasterId) return false;
+      if (!object.Equals(CastTarget, other.CastTarget)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -122,7 +193,9 @@ namespace Common.Proto.Fight {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (castInfo_ != null) hash ^= CastInfo.GetHashCode();
+      if (SkillId != 0) hash ^= SkillId.GetHashCode();
+      if (CasterId != 0) hash ^= CasterId.GetHashCode();
+      if (castTarget_ != null) hash ^= CastTarget.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -141,9 +214,17 @@ namespace Common.Proto.Fight {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (castInfo_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(CastInfo);
+      if (SkillId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(SkillId);
+      }
+      if (CasterId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(CasterId);
+      }
+      if (castTarget_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(CastTarget);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -155,9 +236,17 @@ namespace Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (castInfo_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(CastInfo);
+      if (SkillId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(SkillId);
+      }
+      if (CasterId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(CasterId);
+      }
+      if (castTarget_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(CastTarget);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -169,8 +258,14 @@ namespace Common.Proto.Fight {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (castInfo_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CastInfo);
+      if (SkillId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SkillId);
+      }
+      if (CasterId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CasterId);
+      }
+      if (castTarget_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CastTarget);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -184,11 +279,17 @@ namespace Common.Proto.Fight {
       if (other == null) {
         return;
       }
-      if (other.castInfo_ != null) {
-        if (castInfo_ == null) {
-          CastInfo = new global::Common.Proto.Fight.CastInfo();
+      if (other.SkillId != 0) {
+        SkillId = other.SkillId;
+      }
+      if (other.CasterId != 0) {
+        CasterId = other.CasterId;
+      }
+      if (other.castTarget_ != null) {
+        if (castTarget_ == null) {
+          CastTarget = new global::Common.Proto.Fight.NetCastTarget();
         }
-        CastInfo.MergeFrom(other.CastInfo);
+        CastTarget.MergeFrom(other.CastTarget);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -205,11 +306,19 @@ namespace Common.Proto.Fight {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            if (castInfo_ == null) {
-              CastInfo = new global::Common.Proto.Fight.CastInfo();
+          case 8: {
+            SkillId = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            CasterId = input.ReadInt32();
+            break;
+          }
+          case 26: {
+            if (castTarget_ == null) {
+              CastTarget = new global::Common.Proto.Fight.NetCastTarget();
             }
-            input.ReadMessage(CastInfo);
+            input.ReadMessage(CastTarget);
             break;
           }
         }
@@ -227,11 +336,19 @@ namespace Common.Proto.Fight {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            if (castInfo_ == null) {
-              CastInfo = new global::Common.Proto.Fight.CastInfo();
+          case 8: {
+            SkillId = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            CasterId = input.ReadInt32();
+            break;
+          }
+          case 26: {
+            if (castTarget_ == null) {
+              CastTarget = new global::Common.Proto.Fight.NetCastTarget();
             }
-            input.ReadMessage(CastInfo);
+            input.ReadMessage(CastTarget);
             break;
           }
         }
@@ -241,16 +358,17 @@ namespace Common.Proto.Fight {
 
   }
 
-  public sealed partial class SpellFailResponse : pb::IMessage<SpellFailResponse>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class SpellHit : pb::IMessage<SpellHit>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<SpellFailResponse> _parser = new pb::MessageParser<SpellFailResponse>(() => new SpellFailResponse());
+    private static readonly pb::MessageParser<SpellHit> _parser = new pb::MessageParser<SpellHit>(() => new SpellHit());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<SpellFailResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<SpellHit> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -266,7 +384,7 @@ namespace Common.Proto.Fight {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SpellFailResponse() {
+    public SpellHit() {
       OnConstruction();
     }
 
@@ -274,33 +392,21 @@ namespace Common.Proto.Fight {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SpellFailResponse(SpellFailResponse other) : this() {
-      casterId_ = other.casterId_;
+    public SpellHit(SpellHit other) : this() {
       skillId_ = other.skillId_;
-      reason_ = other.reason_;
+      casterId_ = other.casterId_;
+      castTargetList_ = other.castTargetList_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SpellFailResponse Clone() {
-      return new SpellFailResponse(this);
-    }
-
-    /// <summary>Field number for the "caster_id" field.</summary>
-    public const int CasterIdFieldNumber = 1;
-    private int casterId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CasterId {
-      get { return casterId_; }
-      set {
-        casterId_ = value;
-      }
+    public SpellHit Clone() {
+      return new SpellHit(this);
     }
 
     /// <summary>Field number for the "skill_id" field.</summary>
-    public const int SkillIdFieldNumber = 2;
+    public const int SkillIdFieldNumber = 1;
     private int skillId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -311,36 +417,47 @@ namespace Common.Proto.Fight {
       }
     }
 
-    /// <summary>Field number for the "reason" field.</summary>
-    public const int ReasonFieldNumber = 3;
-    private global::Common.Proto.Fight.CastResult reason_ = global::Common.Proto.Fight.CastResult.Success;
+    /// <summary>Field number for the "caster_id" field.</summary>
+    public const int CasterIdFieldNumber = 2;
+    private int casterId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Fight.CastResult Reason {
-      get { return reason_; }
+    public int CasterId {
+      get { return casterId_; }
       set {
-        reason_ = value;
+        casterId_ = value;
       }
+    }
+
+    /// <summary>Field number for the "cast_target_list" field.</summary>
+    public const int CastTargetListFieldNumber = 3;
+    private static readonly pb::FieldCodec<global::Common.Proto.Fight.NetCastTarget> _repeated_castTargetList_codec
+        = pb::FieldCodec.ForMessage(26, global::Common.Proto.Fight.NetCastTarget.Parser);
+    private readonly pbc::RepeatedField<global::Common.Proto.Fight.NetCastTarget> castTargetList_ = new pbc::RepeatedField<global::Common.Proto.Fight.NetCastTarget>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::Common.Proto.Fight.NetCastTarget> CastTargetList {
+      get { return castTargetList_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as SpellFailResponse);
+      return Equals(other as SpellHit);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(SpellFailResponse other) {
+    public bool Equals(SpellHit other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (CasterId != other.CasterId) return false;
       if (SkillId != other.SkillId) return false;
-      if (Reason != other.Reason) return false;
+      if (CasterId != other.CasterId) return false;
+      if(!castTargetList_.Equals(other.castTargetList_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -348,9 +465,9 @@ namespace Common.Proto.Fight {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (CasterId != 0) hash ^= CasterId.GetHashCode();
       if (SkillId != 0) hash ^= SkillId.GetHashCode();
-      if (Reason != global::Common.Proto.Fight.CastResult.Success) hash ^= Reason.GetHashCode();
+      if (CasterId != 0) hash ^= CasterId.GetHashCode();
+      hash ^= castTargetList_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -369,18 +486,15 @@ namespace Common.Proto.Fight {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (CasterId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(CasterId);
-      }
       if (SkillId != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(8);
         output.WriteInt32(SkillId);
       }
-      if (Reason != global::Common.Proto.Fight.CastResult.Success) {
-        output.WriteRawTag(24);
-        output.WriteEnum((int) Reason);
+      if (CasterId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(CasterId);
       }
+      castTargetList_.WriteTo(output, _repeated_castTargetList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -391,18 +505,15 @@ namespace Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (CasterId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(CasterId);
-      }
       if (SkillId != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(8);
         output.WriteInt32(SkillId);
       }
-      if (Reason != global::Common.Proto.Fight.CastResult.Success) {
-        output.WriteRawTag(24);
-        output.WriteEnum((int) Reason);
+      if (CasterId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(CasterId);
       }
+      castTargetList_.WriteTo(ref output, _repeated_castTargetList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -413,15 +524,13 @@ namespace Common.Proto.Fight {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (CasterId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CasterId);
-      }
       if (SkillId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(SkillId);
       }
-      if (Reason != global::Common.Proto.Fight.CastResult.Success) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Reason);
+      if (CasterId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CasterId);
       }
+      size += castTargetList_.CalculateSize(_repeated_castTargetList_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -430,19 +539,17 @@ namespace Common.Proto.Fight {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(SpellFailResponse other) {
+    public void MergeFrom(SpellHit other) {
       if (other == null) {
         return;
-      }
-      if (other.CasterId != 0) {
-        CasterId = other.CasterId;
       }
       if (other.SkillId != 0) {
         SkillId = other.SkillId;
       }
-      if (other.Reason != global::Common.Proto.Fight.CastResult.Success) {
-        Reason = other.Reason;
+      if (other.CasterId != 0) {
+        CasterId = other.CasterId;
       }
+      castTargetList_.Add(other.castTargetList_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -459,15 +566,15 @@ namespace Common.Proto.Fight {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            CasterId = input.ReadInt32();
-            break;
-          }
-          case 16: {
             SkillId = input.ReadInt32();
             break;
           }
-          case 24: {
-            Reason = (global::Common.Proto.Fight.CastResult) input.ReadEnum();
+          case 16: {
+            CasterId = input.ReadInt32();
+            break;
+          }
+          case 26: {
+            castTargetList_.AddEntriesFrom(input, _repeated_castTargetList_codec);
             break;
           }
         }
@@ -486,15 +593,15 @@ namespace Common.Proto.Fight {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            CasterId = input.ReadInt32();
-            break;
-          }
-          case 16: {
             SkillId = input.ReadInt32();
             break;
           }
-          case 24: {
-            Reason = (global::Common.Proto.Fight.CastResult) input.ReadEnum();
+          case 16: {
+            CasterId = input.ReadInt32();
+            break;
+          }
+          case 26: {
+            castTargetList_.AddEntriesFrom(ref input, _repeated_castTargetList_codec);
             break;
           }
         }
@@ -538,7 +645,9 @@ namespace Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public SpellResponse(SpellResponse other) : this() {
-      castInfoList_ = other.castInfoList_.Clone();
+      skillId_ = other.skillId_;
+      casterId_ = other.casterId_;
+      reason_ = other.reason_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -548,15 +657,40 @@ namespace Common.Proto.Fight {
       return new SpellResponse(this);
     }
 
-    /// <summary>Field number for the "cast_info_list" field.</summary>
-    public const int CastInfoListFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Common.Proto.Fight.CastInfo> _repeated_castInfoList_codec
-        = pb::FieldCodec.ForMessage(10, global::Common.Proto.Fight.CastInfo.Parser);
-    private readonly pbc::RepeatedField<global::Common.Proto.Fight.CastInfo> castInfoList_ = new pbc::RepeatedField<global::Common.Proto.Fight.CastInfo>();
+    /// <summary>Field number for the "skill_id" field.</summary>
+    public const int SkillIdFieldNumber = 1;
+    private int skillId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Common.Proto.Fight.CastInfo> CastInfoList {
-      get { return castInfoList_; }
+    public int SkillId {
+      get { return skillId_; }
+      set {
+        skillId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "caster_id" field.</summary>
+    public const int CasterIdFieldNumber = 2;
+    private int casterId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CasterId {
+      get { return casterId_; }
+      set {
+        casterId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "reason" field.</summary>
+    public const int ReasonFieldNumber = 3;
+    private global::Common.Proto.Fight.SpellResult reason_ = global::Common.Proto.Fight.SpellResult.Success;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Common.Proto.Fight.SpellResult Reason {
+      get { return reason_; }
+      set {
+        reason_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -574,7 +708,9 @@ namespace Common.Proto.Fight {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if(!castInfoList_.Equals(other.castInfoList_)) return false;
+      if (SkillId != other.SkillId) return false;
+      if (CasterId != other.CasterId) return false;
+      if (Reason != other.Reason) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -582,7 +718,9 @@ namespace Common.Proto.Fight {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      hash ^= castInfoList_.GetHashCode();
+      if (SkillId != 0) hash ^= SkillId.GetHashCode();
+      if (CasterId != 0) hash ^= CasterId.GetHashCode();
+      if (Reason != global::Common.Proto.Fight.SpellResult.Success) hash ^= Reason.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -601,7 +739,18 @@ namespace Common.Proto.Fight {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      castInfoList_.WriteTo(output, _repeated_castInfoList_codec);
+      if (SkillId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(SkillId);
+      }
+      if (CasterId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(CasterId);
+      }
+      if (Reason != global::Common.Proto.Fight.SpellResult.Success) {
+        output.WriteRawTag(24);
+        output.WriteEnum((int) Reason);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -612,7 +761,18 @@ namespace Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      castInfoList_.WriteTo(ref output, _repeated_castInfoList_codec);
+      if (SkillId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(SkillId);
+      }
+      if (CasterId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(CasterId);
+      }
+      if (Reason != global::Common.Proto.Fight.SpellResult.Success) {
+        output.WriteRawTag(24);
+        output.WriteEnum((int) Reason);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -623,7 +783,15 @@ namespace Common.Proto.Fight {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      size += castInfoList_.CalculateSize(_repeated_castInfoList_codec);
+      if (SkillId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SkillId);
+      }
+      if (CasterId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CasterId);
+      }
+      if (Reason != global::Common.Proto.Fight.SpellResult.Success) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Reason);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -636,7 +804,15 @@ namespace Common.Proto.Fight {
       if (other == null) {
         return;
       }
-      castInfoList_.Add(other.castInfoList_);
+      if (other.SkillId != 0) {
+        SkillId = other.SkillId;
+      }
+      if (other.CasterId != 0) {
+        CasterId = other.CasterId;
+      }
+      if (other.Reason != global::Common.Proto.Fight.SpellResult.Success) {
+        Reason = other.Reason;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -652,8 +828,16 @@ namespace Common.Proto.Fight {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            castInfoList_.AddEntriesFrom(input, _repeated_castInfoList_codec);
+          case 8: {
+            SkillId = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            CasterId = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            Reason = (global::Common.Proto.Fight.SpellResult) input.ReadEnum();
             break;
           }
         }
@@ -671,8 +855,16 @@ namespace Common.Proto.Fight {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            castInfoList_.AddEntriesFrom(ref input, _repeated_castInfoList_codec);
+          case 8: {
+            SkillId = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            CasterId = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            Reason = (global::Common.Proto.Fight.SpellResult) input.ReadEnum();
             break;
           }
         }

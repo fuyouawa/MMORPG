@@ -1,18 +1,60 @@
 ﻿syntax = "proto3";
 
 package Common.Proto.Fight;
-import "Fight/Cast.proto";
+import "Fight/NetCastTarget.proto";
 
-message SpellRequest {
-    CastInfo cast_info = 1;
+enum SpellResult {
+    SUCCESS = 0;        // 成功
+    NOT_CAST = 1;       // 不可释放技能
+    TARGET_INVAILD = 2; // 无效目标
+    ENTITY_DEAD = 3;    // 实体已死亡
+    OUT_OF_RANGE = 4;   // 超出范围
+    MP_LACK = 5;        // MP不足
+    RUNNING = 6;        // 进行中
+    COLLDOWN = 7;       // 冷却中
 }
 
-message SpellFailResponse {
-    int32 caster_id = 1;
-    int32 skill_id = 2;
-    CastResult reason = 3;
+
+// 四种情况：
+// 伤害区域在客户端，并且是当前玩家
+// 首先客户端发送SpellRequest，服务器响应SpellResponse来表明这次技能释放是否成功，失败则结束
+// 成功则服务器和客户端会各自进入前摇阶段
+// 随后服务器等待客户端发送SpellHit，获取该次技能命中的目标
+// 服务器触发受击目标受伤，同步给客户端受击目标受到的伤害
+// 如果客户端没发，就说明没命中，不需要做任何处理
+
+// 伤害区域在客户端，并且是怪物
+// 首先服务器发送SpellResponse，并同步变更怪物状态
+// 客户端收到后，和服务器各自进入前摇阶段
+// 随后服务器等待客户端发送SpellHit，获取该次技能命中的目标
+// 服务器触发受击目标受伤，同步给客户端受击目标受到的伤害
+// 如果客户端没发，就说明没命中，不需要做任何处理
+
+// 伤害区域在服务器，并且是当前玩家
+// 首先客户端发送SpellRequest，服务器响应SpellResponse来表明这次技能释放是否成功，失败则结束
+// 成功则服务器和客户端会各自进入前摇阶段
+// 服务器触发受击目标受伤，同步给客户端受击目标受到的伤害
+
+// 伤害区域在服务器，并且是怪物
+// 首先服务器发送SpellResponse，并同步变更怪物状态
+// 客户端收到后，和服务器各自进入前摇阶段
+// 服务器触发受击目标受伤，同步给客户端受击目标受到的伤害
+
+
+message SpellRequest {
+    int32 skill_id = 1;
+    int32 caster_id = 2;
+    NetCastTarget cast_target = 3;
+}
+
+message SpellHit {
+    int32 skill_id = 1;
+    int32 caster_id = 2;
+    repeated NetCastTarget cast_target_list = 3;
 }
 
 message SpellResponse {
-    repeated CastInfo cast_info_list = 1;
+    int32 skill_id = 1;
+    int32 caster_id = 2;
+    SpellResult reason = 3;
 }

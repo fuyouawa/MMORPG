@@ -82,5 +82,8 @@ namespace GameServer.Tool
             };
             return netCharacter;
         }
+
+        
+
     }
 }
