@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.EventLike {
+namespace Common.Proto.Entity {
 
   /// <summary>Holder for reflection information generated from Entity/EntityTransformSync.proto</summary>
   public static partial class EntityTransformSyncReflection {
@@ -24,27 +24,26 @@ namespace Common.Proto.EventLike {
     static EntityTransformSyncReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CiBFbnRpdHkvRW50aXR5VHJhbnNmb3JtU3luYy5wcm90bxIWQ29tbW9uLlBy",
-            "b3RvLkV2ZW50TGlrZRoZRW50aXR5L05ldFRyYW5zZm9ybS5wcm90byKFAQoa",
-            "RW50aXR5VHJhbnNmb3JtU3luY1JlcXVlc3QSEQoJZW50aXR5X2lkGAEgASgF",
-            "EjQKCXRyYW5zZm9ybRgCIAEoCzIhLkNvbW1vbi5Qcm90by5FbnRpdHkuTmV0",
-            "VHJhbnNmb3JtEhAKCHN0YXRlX2lkGAMgASgFEgwKBGRhdGEYBCABKAwihgEK",
-            "G0VudGl0eVRyYW5zZm9ybVN5bmNSZXNwb25zZRIRCgllbnRpdHlfaWQYASAB",
-            "KAUSNAoJdHJhbnNmb3JtGAIgASgLMiEuQ29tbW9uLlByb3RvLkVudGl0eS5O",
-            "ZXRUcmFuc2Zvcm0SEAoIc3RhdGVfaWQYAyABKAUSDAoEZGF0YRgEIAEoDGIG",
-            "cHJvdG8z"));
+            "CiBFbnRpdHkvRW50aXR5VHJhbnNmb3JtU3luYy5wcm90bxITQ29tbW9uLlBy",
+            "b3RvLkVudGl0eRoZRW50aXR5L05ldFRyYW5zZm9ybS5wcm90byKFAQoaRW50",
+            "aXR5VHJhbnNmb3JtU3luY1JlcXVlc3QSEQoJZW50aXR5X2lkGAEgASgFEjQK",
+            "CXRyYW5zZm9ybRgCIAEoCzIhLkNvbW1vbi5Qcm90by5FbnRpdHkuTmV0VHJh",
+            "bnNmb3JtEhAKCHN0YXRlX2lkGAMgASgFEgwKBGRhdGEYBCABKAwihgEKG0Vu",
+            "dGl0eVRyYW5zZm9ybVN5bmNSZXNwb25zZRIRCgllbnRpdHlfaWQYASABKAUS",
+            "NAoJdHJhbnNmb3JtGAIgASgLMiEuQ29tbW9uLlByb3RvLkVudGl0eS5OZXRU",
+            "cmFuc2Zvcm0SEAoIc3RhdGVfaWQYAyABKAUSDAoEZGF0YRgEIAEoDGIGcHJv",
+            "dG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Entity.NetTransformReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.EventLike.EntityTransformSyncRequest), global::Common.Proto.EventLike.EntityTransformSyncRequest.Parser, new[]{ "EntityId", "Transform", "StateId", "Data" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.EventLike.EntityTransformSyncResponse), global::Common.Proto.EventLike.EntityTransformSyncResponse.Parser, new[]{ "EntityId", "Transform", "StateId", "Data" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Entity.EntityTransformSyncRequest), global::Common.Proto.Entity.EntityTransformSyncRequest.Parser, new[]{ "EntityId", "Transform", "StateId", "Data" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Entity.EntityTransformSyncResponse), global::Common.Proto.Entity.EntityTransformSyncResponse.Parser, new[]{ "EntityId", "Transform", "StateId", "Data" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityTransformSyncRequest : pb::IMessage<EntityTransformSyncRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -59,7 +58,7 @@ namespace Common.Proto.EventLike {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.EventLike.EntityTransformSyncReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Common.Proto.Entity.EntityTransformSyncReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -354,7 +353,6 @@ namespace Common.Proto.EventLike {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityTransformSyncResponse : pb::IMessage<EntityTransformSyncResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -369,7 +367,7 @@ namespace Common.Proto.EventLike {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.EventLike.EntityTransformSyncReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Common.Proto.Entity.EntityTransformSyncReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

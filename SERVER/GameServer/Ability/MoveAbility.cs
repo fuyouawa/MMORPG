@@ -1,6 +1,4 @@
 ﻿using System.Numerics;
-using Common.Proto.EventLike;
-using GameServer.Fight;
 using GameServer.Model;
 using GameServer.Tool;
 

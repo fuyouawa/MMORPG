@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.EventLike.Map {
+namespace Common.Proto.Map {
 
   /// <summary>Holder for reflection information generated from Map/EntityEnter.proto</summary>
   public static partial class EntityEnterReflection {
@@ -24,28 +24,27 @@ namespace Common.Proto.EventLike.Map {
     static EntityEnterReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChVNYXAvRW50aXR5RW50ZXIucHJvdG8SGkNvbW1vbi5Qcm90by5FdmVudExp",
-            "a2UuTWFwGhdFbnRpdHkvRW50aXR5VHlwZS5wcm90bxoZRW50aXR5L05ldFRy",
-            "YW5zZm9ybS5wcm90byInChJFbnRpdHlFbnRlclJlcXVlc3QSEQoJZW50aXR5",
-            "X2lkGAEgAygFIqEBCg9FbnRpdHlFbnRlckRhdGESEQoJZW50aXR5X2lkGAEg",
-            "ASgFEjQKC2VudGl0eV90eXBlGAIgASgOMh8uQ29tbW9uLlByb3RvLkVudGl0",
-            "eS5FbnRpdHlUeXBlEg8KB3VuaXRfaWQYAyABKAUSNAoJdHJhbnNmb3JtGAQg",
-            "ASgLMiEuQ29tbW9uLlByb3RvLkVudGl0eS5OZXRUcmFuc2Zvcm0iUQoTRW50",
-            "aXR5RW50ZXJSZXNwb25zZRI6CgVkYXRhcxgBIAMoCzIrLkNvbW1vbi5Qcm90",
-            "by5FdmVudExpa2UuTWFwLkVudGl0eUVudGVyRGF0YWIGcHJvdG8z"));
+            "ChVNYXAvRW50aXR5RW50ZXIucHJvdG8SEENvbW1vbi5Qcm90by5NYXAaF0Vu",
+            "dGl0eS9FbnRpdHlUeXBlLnByb3RvGhlFbnRpdHkvTmV0VHJhbnNmb3JtLnBy",
+            "b3RvIicKEkVudGl0eUVudGVyUmVxdWVzdBIRCgllbnRpdHlfaWQYASADKAUi",
+            "oQEKD0VudGl0eUVudGVyRGF0YRIRCgllbnRpdHlfaWQYASABKAUSNAoLZW50",
+            "aXR5X3R5cGUYAiABKA4yHy5Db21tb24uUHJvdG8uRW50aXR5LkVudGl0eVR5",
+            "cGUSDwoHdW5pdF9pZBgDIAEoBRI0Cgl0cmFuc2Zvcm0YBCABKAsyIS5Db21t",
+            "b24uUHJvdG8uRW50aXR5Lk5ldFRyYW5zZm9ybSJHChNFbnRpdHlFbnRlclJl",
+            "c3BvbnNlEjAKBWRhdGFzGAEgAygLMiEuQ29tbW9uLlByb3RvLk1hcC5FbnRp",
+            "dHlFbnRlckRhdGFiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Entity.EntityTypeReflection.Descriptor, global::Common.Proto.Entity.NetTransformReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.EventLike.Map.EntityEnterRequest), global::Common.Proto.EventLike.Map.EntityEnterRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.EventLike.Map.EntityEnterData), global::Common.Proto.EventLike.Map.EntityEnterData.Parser, new[]{ "EntityId", "EntityType", "UnitId", "Transform" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.EventLike.Map.EntityEnterResponse), global::Common.Proto.EventLike.Map.EntityEnterResponse.Parser, new[]{ "Datas" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Map.EntityEnterRequest), global::Common.Proto.Map.EntityEnterRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Map.EntityEnterData), global::Common.Proto.Map.EntityEnterData.Parser, new[]{ "EntityId", "EntityType", "UnitId", "Transform" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Map.EntityEnterResponse), global::Common.Proto.Map.EntityEnterResponse.Parser, new[]{ "Datas" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityEnterRequest : pb::IMessage<EntityEnterRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -60,7 +59,7 @@ namespace Common.Proto.EventLike.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.EventLike.Map.EntityEnterReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Common.Proto.Map.EntityEnterReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -226,7 +225,6 @@ namespace Common.Proto.EventLike.Map {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityEnterData : pb::IMessage<EntityEnterData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -241,7 +239,7 @@ namespace Common.Proto.EventLike.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.EventLike.Map.EntityEnterReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Common.Proto.Map.EntityEnterReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -536,7 +534,6 @@ namespace Common.Proto.EventLike.Map {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityEnterResponse : pb::IMessage<EntityEnterResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -551,7 +548,7 @@ namespace Common.Proto.EventLike.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.EventLike.Map.EntityEnterReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Common.Proto.Map.EntityEnterReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -583,12 +580,12 @@ namespace Common.Proto.EventLike.Map {
 
     /// <summary>Field number for the "datas" field.</summary>
     public const int DatasFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Common.Proto.EventLike.Map.EntityEnterData> _repeated_datas_codec
-        = pb::FieldCodec.ForMessage(10, global::Common.Proto.EventLike.Map.EntityEnterData.Parser);
-    private readonly pbc::RepeatedField<global::Common.Proto.EventLike.Map.EntityEnterData> datas_ = new pbc::RepeatedField<global::Common.Proto.EventLike.Map.EntityEnterData>();
+    private static readonly pb::FieldCodec<global::Common.Proto.Map.EntityEnterData> _repeated_datas_codec
+        = pb::FieldCodec.ForMessage(10, global::Common.Proto.Map.EntityEnterData.Parser);
+    private readonly pbc::RepeatedField<global::Common.Proto.Map.EntityEnterData> datas_ = new pbc::RepeatedField<global::Common.Proto.Map.EntityEnterData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Common.Proto.EventLike.Map.EntityEnterData> Datas {
+    public pbc::RepeatedField<global::Common.Proto.Map.EntityEnterData> Datas {
       get { return datas_; }
     }
 

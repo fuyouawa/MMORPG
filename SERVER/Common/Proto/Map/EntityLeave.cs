@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.EventLike.Map {
+namespace Common.Proto.Map {
 
   /// <summary>Holder for reflection information generated from Map/EntityLeave.proto</summary>
   public static partial class EntityLeaveReflection {
@@ -24,22 +24,20 @@ namespace Common.Proto.EventLike.Map {
     static EntityLeaveReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChVNYXAvRW50aXR5TGVhdmUucHJvdG8SGkNvbW1vbi5Qcm90by5FdmVudExp",
-            "a2UuTWFwIicKEkVudGl0eUxlYXZlUmVxdWVzdBIRCgllbnRpdHlfaWQYASAB",
-            "KAUiKQoTRW50aXR5TGVhdmVSZXNwb25zZRISCgplbnRpdHlfaWRzGAEgAygF",
-            "YgZwcm90bzM="));
+            "ChVNYXAvRW50aXR5TGVhdmUucHJvdG8SEENvbW1vbi5Qcm90by5NYXAiJwoS",
+            "RW50aXR5TGVhdmVSZXF1ZXN0EhEKCWVudGl0eV9pZBgBIAEoBSIpChNFbnRp",
+            "dHlMZWF2ZVJlc3BvbnNlEhIKCmVudGl0eV9pZHMYASADKAViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.EventLike.Map.EntityLeaveRequest), global::Common.Proto.EventLike.Map.EntityLeaveRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.EventLike.Map.EntityLeaveResponse), global::Common.Proto.EventLike.Map.EntityLeaveResponse.Parser, new[]{ "EntityIds" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Map.EntityLeaveRequest), global::Common.Proto.Map.EntityLeaveRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Map.EntityLeaveResponse), global::Common.Proto.Map.EntityLeaveResponse.Parser, new[]{ "EntityIds" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityLeaveRequest : pb::IMessage<EntityLeaveRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -54,7 +52,7 @@ namespace Common.Proto.EventLike.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.EventLike.Map.EntityLeaveReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Common.Proto.Map.EntityLeaveReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -229,7 +227,6 @@ namespace Common.Proto.EventLike.Map {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityLeaveResponse : pb::IMessage<EntityLeaveResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -244,7 +241,7 @@ namespace Common.Proto.EventLike.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.EventLike.Map.EntityLeaveReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Common.Proto.Map.EntityLeaveReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

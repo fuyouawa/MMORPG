@@ -1,6 +1,7 @@
 ﻿using Common.Network;
+using Common.Proto.Entity;
 using GameServer.Network;
-using Common.Proto.EventLike;
+using Common.Proto.Map;
 
 namespace Service
 {
@@ -24,5 +25,9 @@ namespace Service
             sender.User?.Player?.Map.EntityTransformSync(request.EntityId, request.Transform, request.StateId, request.Data);
         }
 
+
+        public void OnHandle(NetChannel sender, SubmitChatMessageRequest request)
+        {
+        }
     }
 }
