@@ -14,21 +14,44 @@ namespace GameServer.Network
 {
     public class NetChannel : Connection
     {
-        //TODO 可读性更高的ChannelName
-        public string ChannelName { get; }
+        public string ChannelName
+        {
+            get
+            {
+                var name = _remoteEpName;
+                if (User != null)
+                {
+                    name += $"({User.UserId}:{User.Username}";
+                    if (User.Player != null)
+                    {
+                        name += $":{User.Player.Name}";
+                    }
 
-        public User? User { get; set; }
+                    name += ")";
+                }
+
+                return name;
+            }
+        }
+
+        public User? User { get; private set; }
         public long LastActiveTime { get; set; }
         public LinkedListNode<NetChannel>? LinkedListNode { get; set; }
 
+        private string _remoteEpName;
+
         public NetChannel(Socket socket) : base(socket)
         {
-            var name = _socket.RemoteEndPoint?.ToString();
-            ChannelName = name ?? "Unknown";
+            _remoteEpName = _socket.RemoteEndPoint?.ToString() ?? "NULL";
 
             ConnectionClosed += OnConnectionClosed;
             ErrorOccur += OnErrorOccur;
             WarningOccur += OnWarningOccur;
+        }
+
+        public void SetUser(User user)
+        {
+            User = user;
         }
 
         private void OnWarningOccur(object? sender, WarningOccurEventArgs e)

@@ -1,7 +1,11 @@
 ﻿using Common.Network;
+using Common.Proto.Base;
 using Common.Proto.Entity;
 using GameServer.Network;
 using Common.Proto.Map;
+using Google.Protobuf.WellKnownTypes;
+using Serilog;
+using GameServer.Manager;
 
 namespace Service
 {
@@ -28,6 +32,23 @@ namespace Service
 
         public void OnHandle(NetChannel sender, SubmitChatMessageRequest request)
         {
+            Log.Debug($"{sender.ChannelName}发送聊天请求: Message:{request.Message}, Type:{request.MessageType}");
+            var time = Timestamp.FromDateTime(DateTime.UtcNow);
+
+            sender.Send(new SubmitChatMessageResponse()
+            {
+                Error = NetError.Success,
+                Timestamp = time
+            });
+
+            sender.User?.Player?.Map.PlayerManager.Broadcast(new ReceiveChatMessageResponse()
+            {
+                CharacterId = sender.User.Player.CharacterId,
+                CharacterName = sender.User.Player.Name,
+                Message = request.Message,
+                MessageType = request.MessageType,
+                Timestamp = time
+            }, sender.User.Player);
         }
     }
 }

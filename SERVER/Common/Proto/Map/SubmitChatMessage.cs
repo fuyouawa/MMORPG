@@ -26,17 +26,16 @@ namespace Common.Proto.Map {
           string.Concat(
             "ChtNYXAvU3VibWl0Q2hhdE1lc3NhZ2UucHJvdG8SEENvbW1vbi5Qcm90by5N",
             "YXAaE0Jhc2UvTmV0RXJyb3IucHJvdG8aGU1hcC9DaGF0TWVzc2FnZVR5cGUu",
-            "cHJvdG8aH2dvb2dsZS9wcm90b2J1Zi90aW1lc3RhbXAucHJvdG8iegoYU3Vi",
-            "bWl0Q2hhdE1lc3NhZ2VSZXF1ZXN0EhQKDGNoYXJhY3Rlcl9pZBgBIAEoAxI3",
-            "CgxtZXNzYWdlX3R5cGUYAiABKA4yIS5Db21tb24uUHJvdG8uTWFwLkNoYXRN",
-            "ZXNzYWdlVHlwZRIPCgdtZXNzYWdlGAMgASgJInYKGVN1Ym1pdENoYXRNZXNz",
-            "YWdlUmVzcG9uc2USKgoFZXJyb3IYASABKA4yGy5Db21tb24uUHJvdG8uQmFz",
-            "ZS5OZXRFcnJvchItCgl0aW1lc3RhbXAYAiABKAsyGi5nb29nbGUucHJvdG9i",
-            "dWYuVGltZXN0YW1wYgZwcm90bzM="));
+            "cHJvdG8aH2dvb2dsZS9wcm90b2J1Zi90aW1lc3RhbXAucHJvdG8iZAoYU3Vi",
+            "bWl0Q2hhdE1lc3NhZ2VSZXF1ZXN0EjcKDG1lc3NhZ2VfdHlwZRgDIAEoDjIh",
+            "LkNvbW1vbi5Qcm90by5NYXAuQ2hhdE1lc3NhZ2VUeXBlEg8KB21lc3NhZ2UY",
+            "BCABKAkidgoZU3VibWl0Q2hhdE1lc3NhZ2VSZXNwb25zZRIqCgVlcnJvchgB",
+            "IAEoDjIbLkNvbW1vbi5Qcm90by5CYXNlLk5ldEVycm9yEi0KCXRpbWVzdGFt",
+            "cBgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Base.NetErrorReflection.Descriptor, global::Common.Proto.Map.ChatMessageTypeReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Map.SubmitChatMessageRequest), global::Common.Proto.Map.SubmitChatMessageRequest.Parser, new[]{ "CharacterId", "MessageType", "Message" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Map.SubmitChatMessageRequest), global::Common.Proto.Map.SubmitChatMessageRequest.Parser, new[]{ "MessageType", "Message" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Map.SubmitChatMessageResponse), global::Common.Proto.Map.SubmitChatMessageResponse.Parser, new[]{ "Error", "Timestamp" }, null, null, null, null)
           }));
     }
@@ -78,7 +77,6 @@ namespace Common.Proto.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public SubmitChatMessageRequest(SubmitChatMessageRequest other) : this() {
-      characterId_ = other.characterId_;
       messageType_ = other.messageType_;
       message_ = other.message_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -90,20 +88,8 @@ namespace Common.Proto.Map {
       return new SubmitChatMessageRequest(this);
     }
 
-    /// <summary>Field number for the "character_id" field.</summary>
-    public const int CharacterIdFieldNumber = 1;
-    private long characterId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long CharacterId {
-      get { return characterId_; }
-      set {
-        characterId_ = value;
-      }
-    }
-
     /// <summary>Field number for the "message_type" field.</summary>
-    public const int MessageTypeFieldNumber = 2;
+    public const int MessageTypeFieldNumber = 3;
     private global::Common.Proto.Map.ChatMessageType messageType_ = global::Common.Proto.Map.ChatMessageType.World;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -115,7 +101,7 @@ namespace Common.Proto.Map {
     }
 
     /// <summary>Field number for the "message" field.</summary>
-    public const int MessageFieldNumber = 3;
+    public const int MessageFieldNumber = 4;
     private string message_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -141,7 +127,6 @@ namespace Common.Proto.Map {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (CharacterId != other.CharacterId) return false;
       if (MessageType != other.MessageType) return false;
       if (Message != other.Message) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -151,7 +136,6 @@ namespace Common.Proto.Map {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (CharacterId != 0L) hash ^= CharacterId.GetHashCode();
       if (MessageType != global::Common.Proto.Map.ChatMessageType.World) hash ^= MessageType.GetHashCode();
       if (Message.Length != 0) hash ^= Message.GetHashCode();
       if (_unknownFields != null) {
@@ -172,16 +156,12 @@ namespace Common.Proto.Map {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (CharacterId != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(CharacterId);
-      }
       if (MessageType != global::Common.Proto.Map.ChatMessageType.World) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(24);
         output.WriteEnum((int) MessageType);
       }
       if (Message.Length != 0) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteString(Message);
       }
       if (_unknownFields != null) {
@@ -194,16 +174,12 @@ namespace Common.Proto.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (CharacterId != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(CharacterId);
-      }
       if (MessageType != global::Common.Proto.Map.ChatMessageType.World) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(24);
         output.WriteEnum((int) MessageType);
       }
       if (Message.Length != 0) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteString(Message);
       }
       if (_unknownFields != null) {
@@ -216,9 +192,6 @@ namespace Common.Proto.Map {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (CharacterId != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(CharacterId);
-      }
       if (MessageType != global::Common.Proto.Map.ChatMessageType.World) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) MessageType);
       }
@@ -236,9 +209,6 @@ namespace Common.Proto.Map {
     public void MergeFrom(SubmitChatMessageRequest other) {
       if (other == null) {
         return;
-      }
-      if (other.CharacterId != 0L) {
-        CharacterId = other.CharacterId;
       }
       if (other.MessageType != global::Common.Proto.Map.ChatMessageType.World) {
         MessageType = other.MessageType;
@@ -261,15 +231,11 @@ namespace Common.Proto.Map {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            CharacterId = input.ReadInt64();
-            break;
-          }
-          case 16: {
+          case 24: {
             MessageType = (global::Common.Proto.Map.ChatMessageType) input.ReadEnum();
             break;
           }
-          case 26: {
+          case 34: {
             Message = input.ReadString();
             break;
           }
@@ -288,15 +254,11 @@ namespace Common.Proto.Map {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            CharacterId = input.ReadInt64();
-            break;
-          }
-          case 16: {
+          case 24: {
             MessageType = (global::Common.Proto.Map.ChatMessageType) input.ReadEnum();
             break;
           }
-          case 26: {
+          case 34: {
             Message = input.ReadString();
             break;
           }
