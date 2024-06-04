@@ -22,13 +22,12 @@ namespace MMORPG.UI
 
         public void Setup(
             DateTime sendTime,
+            string characterName,
             ChatMessageType type,
             string message,
             Color messageColor,
             bool isComposite)
         {
-            var characterName = this.GetModel<IUserModel>().CharacterName.Value;
-
             var messageColorHex = messageColor.ToHex();
 
             if (isComposite)
