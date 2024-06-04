@@ -11,22 +11,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Proto.Fight;
+using GameServer.Fight;
 
 namespace GameServer.Service
 {
     public class FightService : ServiceBase<FightService>
     {
-        public void OnHandle(NetChannel sender, SpellRequest request)
+        public void OnHandle(NetChannel sender, SpellRequest req)
         {
             if (sender.User == null || sender.User.Player == null) return;
             var player = sender.User.Player;
-            if (request.CastInfo.CasterId != player.EntityId)
+            if (req.CasterId != player.EntityId)
             {
-
                 Log.Debug("施法者不匹配");
                 return;
             }
-            player.Map.FightManager.AddCast(request.CastInfo);
+            player.Map.FightManager.AddSkillCast(req);
         }
 
 

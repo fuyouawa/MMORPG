@@ -5,5 +5,4 @@ protoc --csharp_out=./Player ./Player/*.proto
 protoc --csharp_out=./Map ./Map/*.proto
 protoc --csharp_out=./Character ./Character/*.proto
 protoc --csharp_out=./Fight ./Fight/*.proto
-protoc --csharp_out=./Monster ./Monster/*.proto
 pause
