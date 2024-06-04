@@ -70,11 +70,6 @@ namespace MMORPG.Tool
             {
                 InnerInitialize();
             }
-
-            foreach (var item in FeedbackItems)
-            {
-                item.Awake();
-            }
         }
 
         protected virtual void Start()
@@ -82,12 +77,6 @@ namespace MMORPG.Tool
             if (InitializationMode == InitializationModes.Start)
             {
                 InnerInitialize();
-            }
-
-
-            foreach (var item in FeedbackItems)
-            {
-                item.Start();
             }
 
             if (AutoPlayOnStart)

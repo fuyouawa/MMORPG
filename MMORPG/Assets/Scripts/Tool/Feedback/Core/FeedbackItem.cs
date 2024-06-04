@@ -14,13 +14,9 @@ namespace MMORPG.Tool
     public enum ConditionPredicateModes
     {
         /// <summary>
-        /// 在Awake时判定
+        /// 在Initialize时判定
         /// </summary>
-        OnAwake,
-        /// <summary>
-        /// 在Start时判定
-        /// </summary>
-        OnStart,
+        OnInitialize,
         /// <summary>
         /// 每帧判定
         /// </summary>
@@ -33,8 +29,8 @@ namespace MMORPG.Tool
         [Serializable]
         public class Condition
         {
-            [Tooltip("OnAwake: 在Awake时判定\nOnStart: 在Start时判定\nOnUpdate: 每帧判定")]
-            public ConditionPredicateModes Mode = ConditionPredicateModes.OnStart;
+            [Tooltip("OnInitialize: 在Initialize时判定\nOnUpdate: 每帧判定")]
+            public ConditionPredicateModes Mode = ConditionPredicateModes.OnInitialize;
             [Tooltip("是否将判定结果取反")]
             public bool Negative;
             [HideLabel]
@@ -87,24 +83,15 @@ namespace MMORPG.Tool
             Feedback?.Setup(owner);
         }
 
-        public void Awake()
+        public void Initialize()
         {
             if (!Enable) return;
-            if (ActiveEnablePredicate && EnableIf is { Mode: ConditionPredicateModes.OnAwake })
-            {
-                Enable = EnableIf.GetPredicate();
-            }
-            Feedback?.Awake();
-        }
+            Feedback?.Initialize();
 
-        public void Start()
-        {
-            if (!Enable) return;
-            if (ActiveEnablePredicate && EnableIf is { Mode: ConditionPredicateModes.OnStart })
+            if (ActiveEnablePredicate && EnableIf is { Mode: ConditionPredicateModes.OnInitialize })
             {
                 Enable = EnableIf.GetPredicate();
             }
-            Feedback?.Start();
         }
 
         public void Update()
@@ -114,7 +101,6 @@ namespace MMORPG.Tool
             {
                 Enable = EnableIf.GetPredicate();
             }
-            Feedback?.Update();
         }
 
         public void Play()
@@ -157,13 +143,6 @@ namespace MMORPG.Tool
             if (!Enable) return;
             Feedback?.OnDisable();
         }
-
-        public void Initialize()
-        {
-            if (!Enable) return;
-            Feedback?.Initialize();
-        }
-
 
 #if UNITY_EDITOR
         private static Dictionary<string, Type> s_allFeedbackTypes;
