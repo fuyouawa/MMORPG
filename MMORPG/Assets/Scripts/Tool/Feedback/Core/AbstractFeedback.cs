@@ -77,18 +77,6 @@ namespace MMORPG.Tool
         protected bool IsInitialized = false;
         protected int CurrentLoopCount;
 
-        public virtual void Awake()
-        {
-        }
-
-        public virtual void Start()
-        {
-        }
-
-        public virtual void Update()
-        {
-        }
-
         public virtual void Reset()
         {
             if (LoopPlay && LimitLoopAmount)
