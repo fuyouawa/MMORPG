@@ -172,11 +172,13 @@ namespace MMORPG.Tool
         /// <param name="enable">激活状态</param>
         /// <param name="enableIf">激活条件, 如果填null就是没有激活条件</param>
         /// <param name="conditionPredicateModes">激活条件的判定模式</param>
+        /// <param name="autoInitialize">添加后自动Initialize</param>
         public virtual void AddFeedback(
             AbstractFeedback feedback,
             bool enable = true,
             Func<bool> enableIf = null,
-            ConditionPredicateModes conditionPredicateModes = ConditionPredicateModes.OnStart)
+            ConditionPredicateModes conditionPredicateModes = ConditionPredicateModes.OnInitialize,
+            bool autoInitialize = true)
         {
             var item = new FeedbackItem
             {
@@ -192,7 +194,8 @@ namespace MMORPG.Tool
                 item.EnableIf.Mode = conditionPredicateModes;
                 item.EnableIf.AlternativeGetter = enableIf;
             }
-
+            if (autoInitialize)
+                item.Initialize();
             FeedbackItems.Add(item);
         }
 
