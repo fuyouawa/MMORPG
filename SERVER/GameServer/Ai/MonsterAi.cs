@@ -26,7 +26,7 @@ namespace GameServer.Ai
     public class MonsterAbilityManager
     {
         public Monster Monster;
-        public MonsterState SyncState;
+        public ActorState SyncState;
         public IdleAbility IdleAbility;
         public MoveAbility MoveAbility;
         public Actor? ChasingTarget;
@@ -54,7 +54,7 @@ namespace GameServer.Ai
 
         public void Update()
         {
-            if (SyncState == MonsterState.Move)
+            if (SyncState == ActorState.Move)
             {
                 MoveAbility.Update();
                 if (MoveAbility.Moving)
@@ -66,7 +66,7 @@ namespace GameServer.Ai
                     Idle();
                 }
             }
-            else if (SyncState == MonsterState.Idle)
+            else if (SyncState == ActorState.Idle)
             {
                 IdleAbility.Update();
             }
@@ -74,22 +74,22 @@ namespace GameServer.Ai
 
         public void Move(Vector3 targetPos)
         {
-            if (SyncState == MonsterState.Idle)
+            if (SyncState == ActorState.Idle)
             {
-                SyncState = MonsterState.Move;
+                SyncState = ActorState.Move;
             }
             MoveAbility.Move(targetPos);
         }
 
         public void Idle()
         {
-            ChangeSyncState(MonsterState.Idle);
+            ChangeSyncState(ActorState.Idle);
         }
 
         public void Attack()
         {
-            ChangeSyncState(MonsterState.Attack);
-            SyncState = MonsterState.Idle;
+            ChangeSyncState(ActorState.Attack);
+            SyncState = ActorState.Idle;
         }
 
         public void Revive()
@@ -100,7 +100,7 @@ namespace GameServer.Ai
         
 
 
-        private void ChangeSyncState(MonsterState state)
+        private void ChangeSyncState(ActorState state)
         {
             if (SyncState == state) return;
             SyncState = state;
@@ -192,7 +192,7 @@ namespace GameServer.Ai
                     }
                 }
 
-                if (_target.SyncState != MonsterState.Idle) return;
+                if (_target.SyncState != ActorState.Idle) return;
                 if (!(_lastTime + _waitTime < Time.time)) return;
 
                 // 状态是空闲或等待时间已结束，则尝试随机移动

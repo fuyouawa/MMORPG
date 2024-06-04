@@ -214,7 +214,7 @@ namespace GameServer.Fight
                 amount = 0;
             }
             damageInfo.Amount = (int)amount;
-            target.OnInjured(damageInfo);
+            target.OnDamage(damageInfo);
         }
 
         /// <summary>
