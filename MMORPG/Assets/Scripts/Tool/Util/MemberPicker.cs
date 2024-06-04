@@ -26,6 +26,8 @@ namespace MMORPG.Tool
         public MemberInfo TargetMember { get; protected set; }
         public BindingFlags MemberBindingFlags { get; set; }
 
+        public bool IsValid { get; protected set; }
+
         public virtual string TargetComponentLabel => "Target Component";
         public virtual string TargetObjectLabel => "Target Object";
         public virtual string TargetMemberLabel => "Target Member";
@@ -37,6 +39,7 @@ namespace MMORPG.Tool
 
         public virtual void Initialize()
         {
+            IsValid = false;
             if (!TargetObject || !TargetComponent || string.IsNullOrEmpty(TargetMemberName))
             {
                 return;
@@ -45,6 +48,7 @@ namespace MMORPG.Tool
             if (TryGetMember(out var member))
             {
                 TargetMember = member;
+                IsValid = true;
                 OnInitialized();
             }
         }
@@ -78,8 +82,49 @@ namespace MMORPG.Tool
 
         }
 
-#if UNITY_EDITOR
+        public override string ToString()
+        {
+            if (TargetComponent == null || string.IsNullOrEmpty(TargetMemberName))
+                return "None Member";
+            var member = TargetMember;
+            if (TargetMember == null)
+            {
+                if (!TryGetMember(out member))
+                {
+                    return "None Member";
+                }
+            }
+            return $"{TargetComponent.GetType().Name}.{member.Name}[{member.MemberType}]";
+        }
 
+#if UNITY_EDITOR
+        private string _prevTargetMemberName;
+
+
+        [OnInspectorInit]
+        protected virtual void OnInspectorInit()
+        {
+            _prevTargetMemberName = string.Empty;
+        }
+
+        [OnInspectorGUI]
+        protected virtual void OnInspectorGUI()
+        {
+            if (_prevTargetMemberName != TargetMemberName)
+            {
+                if (TryGetMember(out var targetMember))
+                {
+                    TargetMember = targetMember;
+                }
+                _prevTargetMemberName = TargetMemberName;
+            }
+        }
+
+        [OnInspectorDispose]
+        protected virtual void OnInspectorDispose()
+        {
+            _prevTargetMemberName = string.Empty;
+        }
 
         protected virtual IEnumerable GetTargetComponentsDropdown()
         {

@@ -8,30 +8,42 @@ using System.Collections;
 
 namespace MMORPG.Tool
 {
+    /// <summary>
+    /// 激活条件的判定模式
+    /// </summary>
+    public enum ConditionPredicateModes
+    {
+        /// <summary>
+        /// 在Initialize时判定
+        /// </summary>
+        OnInitialize,
+        /// <summary>
+        /// 每帧判定
+        /// </summary>
+        OnUpdate
+    }
+
     [Serializable]
     public class FeedbackItem
     {
         [Serializable]
         public class Condition
         {
-            public enum Modes
-            {
-                OnAwake,
-                OnStart,
-                OnUpdate
-            }
-
-            [Tooltip("OnAwake: 在Awake时判定\nOnStart: 在Start时判定\nOnUpdate: 每帧判定")]
-            public Modes Mode = Modes.OnStart;
+            [Tooltip("OnInitialize: 在Initialize时判定\nOnUpdate: 每帧判定")]
+            public ConditionPredicateModes Mode = ConditionPredicateModes.OnInitialize;
             [Tooltip("是否将判定结果取反")]
             public bool Negative;
             [HideLabel]
             public ValueGetter<bool> Getter = new();
 
+            public Func<bool> AlternativeGetter;
+
             public bool GetPredicate()
             {
-                if (Getter == null)
-                    return true;
+                if (Getter is not { IsValid: true })
+                {
+                    return AlternativeGetter == null || AlternativeGetter();
+                }
                 var val = Getter.GetRawValue();
                 return Negative ? !val : val;
             }
@@ -71,34 +83,24 @@ namespace MMORPG.Tool
             Feedback?.Setup(owner);
         }
 
-        public void Awake()
+        public void Initialize()
         {
             if (!Enable) return;
-            if (ActiveEnablePredicate && EnableIf is { Mode: Condition.Modes.OnAwake })
-            {
-                Enable = EnableIf.GetPredicate();
-            }
-            Feedback?.Awake();
-        }
+            Feedback?.Initialize();
 
-        public void Start()
-        {
-            if (!Enable) return;
-            if (ActiveEnablePredicate && EnableIf is { Mode: Condition.Modes.OnStart })
+            if (ActiveEnablePredicate && EnableIf is { Mode: ConditionPredicateModes.OnInitialize })
             {
                 Enable = EnableIf.GetPredicate();
             }
-            Feedback?.Start();
         }
 
         public void Update()
         {
             if (!Enable) return;
-            if (ActiveEnablePredicate && EnableIf is { Mode: Condition.Modes.OnUpdate })
+            if (ActiveEnablePredicate && EnableIf is { Mode: ConditionPredicateModes.OnUpdate })
             {
                 Enable = EnableIf.GetPredicate();
             }
-            Feedback?.Update();
         }
 
         public void Play()
@@ -141,13 +143,6 @@ namespace MMORPG.Tool
             if (!Enable) return;
             Feedback?.OnDisable();
         }
-
-        public void Initialize()
-        {
-            if (!Enable) return;
-            Feedback?.Initialize();
-        }
-
 
 #if UNITY_EDITOR
         private static Dictionary<string, Type> s_allFeedbackTypes;
