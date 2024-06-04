@@ -44,7 +44,7 @@ namespace GameServer.Db
         public int Z { get; set; } = 0;
         public long Gold { get; set; }
 
-        public DbCharacter(string name, long userId, int unitId, int mapId, int hp, int mp, int level, int exp, long gold)
+        public DbCharacter(string name, long userId, int unitId, int mapId, int level, int exp, long gold, int hp, int mp)
         {
             Name = name;
             UserId = userId;

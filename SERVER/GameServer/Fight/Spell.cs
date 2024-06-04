@@ -26,87 +26,75 @@ namespace GameServer.Fight
             _actor = actor;
         }
 
-        public void RunCast(CastInfo castInfo)
+        public void Cast(SpellRequest req)
         {
-            var skill = _actor.SkillManager.GetSkill(castInfo.SkillId);
+            var skill = _actor.SkillManager.GetSkill(req.SkillId);
             if (skill == null)
             {
-                Log.Warning("[Spell.RunCast]: 无效的技能id.");
+                Log.Warning("[Spell.Cast]: 无效的技能id.");
                 return;
             }
-
             switch (skill.Define.TargetType)
             {
                 case "None":
-                    SpellNone(skill, castInfo);
+                    CastNone(skill, req);
                     break;
                 case "Unit":
-                    SpellUnit(skill, castInfo);
+                    CastUnit(skill, req);
                     break;
                 case "Position":
-                    SpellPosition(skill, castInfo);
+                    CastPosition(skill, req);
+                    break;
+                default:
+                    Log.Error("[Spell.Cast]无效的目标类型.");
                     break;
             }
             
         }
 
         // 释放无目标技能
-        private void SpellNone(Skill skill, CastInfo castInfo)
+        private void CastNone(Skill skill, SpellRequest req)
         {
             
         }
 
-
         // 释放单位目标技能
-        private void SpellUnit(Skill skill, CastInfo castInfo)
+        private void CastUnit(Skill skill, SpellRequest req)
         {
-            var targetActor = EntityManager.Instance.GetEntity(castInfo.TargetId) as Actor;
+            var targetActor = EntityManager.Instance.GetEntity(req.CastTarget.TargetId) as Actor;
             if (targetActor == null)
             {
-                Log.Warning("[Spell.SpellUnit]: 对无效的实体释放技能.");
+                Log.Warning("[Spell.CastUnit]: 对无效的实体释放技能.");
                 return;
             }
-            var target = new EntityTarget(targetActor);
-            var reason = skill.CanRun(target);
-            if (reason != CastResult.Success)
+            var resp = new SpellResponse()
             {
-                // 不可释放
-                var failRes = new SpellFailResponse()
-                {
-                    CasterId = castInfo.CasterId,
-                    SkillId = castInfo.SkillId,
-                    Reason = reason,
-                };
+                SkillId = req.SkillId,
+                CasterId = req.CasterId,
+            };
+
+            var target = new EntityCastTarget(targetActor);
+            resp.Reason = skill.CanCast(target);
+            if (resp.Reason != SpellResult.Success)
+            {
                 var player = _actor as Player;
                 if (player != null)
                 {
-                    player.User.Channel.Send(failRes);
+                    player.User.Channel.Send(resp);
                 }
                 return;
             }
-            skill.Run(target);
+            skill.Cast(target);
 
             // 广播技能释放给释放者周围的玩家
             var res = new SpellResponse();
-            res.CastInfoList.Add(castInfo);
-            //Entity[] arr = { skill.Actor, targetActor };
-            //Debug.Assert(skill.Actor.Map != null);
-            //var entitySet = skill.Actor.Map.GetEntityArrayViewEntitySet(arr, entity => entity.EntityType == EntityType.Player);
-            //foreach (var entity in entitySet)
-            //{
-            //    var player = (Player)entity;
-            //    player.User.Channel.Send(res);
-            //    Log.Debug($"[Spell.SpellUnit]: 响应{skill.Actor.EntityId}的技能同步请求, 广播给:{player.EntityId}");
-            //}
             skill.Actor.Map.PlayerManager.Broadcast(res, skill.Actor);
-
-            // 受击者则在技能命中时广播，投掷物移动当成实体广播
         }
 
         // 释放位置目标技能
-        private void SpellPosition(Skill skill, CastInfo castInfo)
+        private void CastPosition(Skill skill, SpellRequest req)
         {
-            var target = new PositionTarget(castInfo.TargetPos.ToVector3());
+            var target = new PositionCastTarget(req.CastTarget.TargetPos.ToVector3());
         }
     }
 }

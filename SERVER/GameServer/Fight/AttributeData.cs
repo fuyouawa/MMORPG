@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameServer.Fight
+﻿namespace GameServer.Fight
 {
     public class AttributeData
     {
@@ -54,6 +48,15 @@ namespace GameServer.Fight
         /// </summary>
         public float Agi { get; set; }
 
+        /// <summary>
+        /// 命中率
+        /// </summary>
+        public float HitRate { get; set; }
+        /// <summary>
+        /// 闪避率
+        /// </summary>
+        public float DodgeRate { get; set; }
+
         public AttributeData()
         {
             Reset();
@@ -73,6 +76,8 @@ namespace GameServer.Fight
             Str += other.Str;
             Int += other.Int;
             Agi += other.Agi;
+            HitRate += other.HitRate;
+            DodgeRate += other.DodgeRate;
         }
 
         public void Sub(AttributeData other)
@@ -89,6 +94,8 @@ namespace GameServer.Fight
             Str -= other.Str;
             Int -= other.Int;
             Agi -= other.Agi;
+            HitRate -= other.HitRate;
+            DodgeRate -= other.DodgeRate;
         }
 
         public void Reset()
@@ -104,6 +111,8 @@ namespace GameServer.Fight
             Str = 0;
             Int = 0;
             Agi = 0;
+            HitRate = 0;
+            DodgeRate = 0;
         }
     }
 }
