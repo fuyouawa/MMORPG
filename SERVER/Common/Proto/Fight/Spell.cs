@@ -50,35 +50,35 @@ namespace Common.Proto.Fight {
   #region Enums
   public enum SpellResult {
     /// <summary>
-    /// 成功
+    /// �ɹ�
     /// </summary>
     [pbr::OriginalName("SUCCESS")] Success = 0,
     /// <summary>
-    /// 不可释放技能
+    /// �����ͷż���
     /// </summary>
     [pbr::OriginalName("NOT_CAST")] NotCast = 1,
     /// <summary>
-    /// 无效目标
+    /// ��ЧĿ��
     /// </summary>
     [pbr::OriginalName("TARGET_INVAILD")] TargetInvaild = 2,
     /// <summary>
-    /// 实体已死亡
+    /// ʵ��������
     /// </summary>
     [pbr::OriginalName("ENTITY_DEAD")] EntityDead = 3,
     /// <summary>
-    /// 超出范围
+    /// ������Χ
     /// </summary>
     [pbr::OriginalName("OUT_OF_RANGE")] OutOfRange = 4,
     /// <summary>
-    /// MP不足
+    /// MP����
     /// </summary>
     [pbr::OriginalName("MP_LACK")] MpLack = 5,
     /// <summary>
-    /// 进行中
+    /// ������
     /// </summary>
     [pbr::OriginalName("RUNNING")] Running = 6,
     /// <summary>
-    /// 冷却中
+    /// ��ȴ��
     /// </summary>
     [pbr::OriginalName("COLLDOWN")] Colldown = 7,
   }
@@ -86,7 +86,6 @@ namespace Common.Proto.Fight {
   #endregion
 
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SpellRequest : pb::IMessage<SpellRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -612,7 +611,6 @@ namespace Common.Proto.Fight {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SpellResponse : pb::IMessage<SpellResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage

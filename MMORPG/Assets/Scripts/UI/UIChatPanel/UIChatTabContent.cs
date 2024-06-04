@@ -30,12 +30,18 @@ namespace MMORPG.UI
             _resLoader.Recycle2Cache();
         }
 
-        public void SubmitMessage(ChatMessageType messageType, string message, Color messageColor)
+        public void SubmitMessage(
+            DateTime sendTime,
+            ChatMessageType messageType,
+            string characterName,
+            string message,
+            Color messageColor)
         {
             var item = Instantiate(ChatItem, GroupChatItems);
 
             item.Setup(
-                DateTime.Now,
+                sendTime,
+                characterName,
                 messageType,
                 message,
                 messageColor,
