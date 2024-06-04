@@ -25,8 +25,8 @@ namespace Common.Proto.Monster {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChdFbnRpdHkvQWN0b3JTdGF0ZS5wcm90bxIUQ29tbW9uLlByb3RvLk1vbnN0",
-            "ZXIqLAoKQWN0b3JTdGF0ZRIICgRJRExFEAASCAoETU9WRRABEgoKBkFUVEFD",
-            "SxACYgZwcm90bzM="));
+            "ZXIqNwoKQWN0b3JTdGF0ZRIICgRJRExFEAASCAoETU9WRRABEgkKBVNLSUxM",
+            "EAISCgoGREFNQUdFEANiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Common.Proto.Monster.ActorState), }, null, null));
@@ -38,7 +38,8 @@ namespace Common.Proto.Monster {
   public enum ActorState {
     [pbr::OriginalName("IDLE")] Idle = 0,
     [pbr::OriginalName("MOVE")] Move = 1,
-    [pbr::OriginalName("ATTACK")] Attack = 2,
+    [pbr::OriginalName("SKILL")] Skill = 2,
+    [pbr::OriginalName("DAMAGE")] Damage = 3,
   }
 
   #endregion

@@ -18,8 +18,8 @@ namespace MMORPG.Game
     {
         private Dictionary<int, MapDefine> _mapDict;
         private Dictionary<int, UnitDefine> _unitDict;
-        public Dictionary<int, ItemDefine> ItemDict;
-        public Dictionary<int, SkillDefine> SkillDict;
+        private Dictionary<int, ItemDefine> _itemDict;
+        private Dictionary<int, SkillDefine> _skillDict;
 
         private T Load<T>(string jsonPath)
         {
@@ -34,26 +34,23 @@ namespace MMORPG.Game
         {
             _mapDict = Load<Dictionary<int, MapDefine>>("Json/MapDefine");
             _unitDict = Load<Dictionary<int, UnitDefine>>("Json/UnitDefine");
-            ItemDict = Load<Dictionary<int, ItemDefine>>("Json/ItemDefine");
-            //SkillDict = Load<Dictionary<int, SkillDefine>>("Json/SkillDefine");
+            _itemDict = Load<Dictionary<int, ItemDefine>>("Json/ItemDefine");
+            _skillDict = Load<Dictionary<int, SkillDefine>>("Json/SkillDefine");
         }
 
         public MapDefine GetMapDefine(int mapId)
         {
-            //OnInit();
-            lock (_mapDict)
-            {
-                return _mapDict[mapId];
-            }
+            return _mapDict[mapId];
         }
 
         public UnitDefine GetUnitDefine(int unitId)
         {
-            //OnInit();
-            lock (_unitDict)
-            {
-                return _unitDict[unitId];
-            }
+            return _unitDict[unitId];
+        }
+
+        public SkillDefine GetSkillDefine(int skillId)
+        {
+            return _skillDict[skillId];
         }
     }
 }
