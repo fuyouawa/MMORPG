@@ -12,8 +12,6 @@ namespace Common.Tool
 
         private static readonly Type[] s_sortedProtoTypes;
 
-        private static readonly HashSet<Type> s_eventProtoTypes;
-
         static ProtoManager()
         {
             AllProtoType = from t in Assembly.GetExecutingAssembly().GetTypes()
@@ -21,10 +19,6 @@ namespace Common.Tool
                 select t;
 
             s_sortedProtoTypes = AllProtoType.OrderBy(t => t.Name).ToArray();
-
-            s_eventProtoTypes = (from type in s_sortedProtoTypes
-                                 where type.Namespace.StartsWith("Common.Proto.EventLike")
-                                 select type).ToHashSet();
         }
 
         public static int TypeToID(Type type)
@@ -35,11 +29,6 @@ namespace Common.Tool
         public static Type IDToType(int id)
         {
             return s_sortedProtoTypes[id];
-        }
-
-        public static bool IsEventLike(Type type)
-        {
-            return s_eventProtoTypes.Contains(type);
         }
     }
 }
