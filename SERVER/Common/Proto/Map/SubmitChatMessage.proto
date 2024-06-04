@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "Base/NetError.proto";
+import "Map/ChatMessageType.proto";
+import "google/protobuf/timestamp.proto";
+
+package Common.Proto.Map;
+
+message SubmitChatMessageRequest {
+	int64 character_id = 1;
+	ChatMessageType message_type = 2;
+	string message = 3;
+}
+
+message SubmitChatMessageResponse {
+	Base.NetError error = 1;
+	google.protobuf.Timestamp timestamp = 2;
+}

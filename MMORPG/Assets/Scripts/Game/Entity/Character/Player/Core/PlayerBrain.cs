@@ -12,6 +12,7 @@ using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using QFramework;
+using UnityEngine.EventSystems;
 
 namespace MMORPG.Game
 {
