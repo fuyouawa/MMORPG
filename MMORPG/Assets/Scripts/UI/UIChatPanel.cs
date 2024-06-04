@@ -155,7 +155,7 @@ namespace MMORPG.UI
         {
             var messageType = (ChatMessageType)response.MessageType;
 
-            UIChatTabContent tabContent = messageType switch
+            var tabContent = messageType switch
             {
                 ChatMessageType.World => TabContentWorldChat,
                 ChatMessageType.Map => TabContentMapChat,
