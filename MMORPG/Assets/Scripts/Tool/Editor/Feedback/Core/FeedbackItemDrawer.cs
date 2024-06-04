@@ -121,6 +121,8 @@ namespace MMORPG.Tool
             var duration = value.Feedback.GetDuration();
 
             var timeDisplay = $"{value.Feedback.DelayBeforePlay:0.00}s + {duration:0.00}s";
+
+            string label;
             if (value.Feedback.LoopPlay)
             {
                 var loopCountDisplay = value.Feedback.LimitLoopAmount ? value.Feedback.AmountOfLoop.ToString() : "\u221e";
@@ -128,12 +130,19 @@ namespace MMORPG.Tool
                 {
                     timeDisplay += $" + {value.Feedback.DelayBetweenLoop:0.00}s";
                 }
-                return $"{value.Label} ({timeDisplay}) x {loopCountDisplay}";
+                label = $"{value.Label} ({timeDisplay}) x {loopCountDisplay}";
             }
             else
             {
-                return $"{value.Label} ({timeDisplay})";
+                label = $"{value.Label} ({timeDisplay})";
             }
+
+            if (value.ActiveEnablePredicate)
+            {
+                label += $" <EnableIf: {value.EnableIf.Getter}>";
+            }
+
+            return label;
         }
     }
 }
