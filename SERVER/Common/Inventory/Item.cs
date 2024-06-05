@@ -44,15 +44,13 @@ namespace Common.Inventory
         public int SlotId;        //所处位置
 
         private ItemInfo? _itemInfo;
-        public ItemInfo ItemInfo
+
+        public ItemInfo GetItemInfo()
         {
-            get
-            {
-                _itemInfo ??= new ItemInfo { ItemId = Id };
-                _itemInfo.Amount = Amount;
-                _itemInfo.SlotId = SlotId;
-                return _itemInfo;
-            }
+            _itemInfo ??= new ItemInfo { ItemId = Id };
+            _itemInfo.Amount = Amount;
+            _itemInfo.SlotId = SlotId;
+            return _itemInfo;
         }
 
         public Item(ItemDefine define, int amount = 1, int slotId = 0)
