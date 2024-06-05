@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Common.Proto.Entity;
+using Common.Proto.Fight;
 using Google.Protobuf;
 using MMORPG.Global;
 using MMORPG.System;

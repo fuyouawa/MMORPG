@@ -106332,6 +106332,19 @@ MonoBehaviour:
   StopCurrentPlayIfNewPlay: 0
   StopAllCoroutinesWhenStop: 1
   FeedbackItems:
+  - FeedbackName: MMORPG.Tool.FeedbackGameObjectInvokeMethod
+    Enable: 1
+    Label: "\u8BF7\u6C42\u91CA\u653E"
+    ActiveEnablePredicate: 0
+    EnableIf:
+      Mode: 0
+      Negative: 0
+      Getter:
+        TargetObject: {fileID: 0}
+        TargetComponent: {fileID: 0}
+        TargetMemberName: 
+    Feedback:
+      rid: 2090024340499464261
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
     Enable: 1
     Label: "\u5200\u5149"
@@ -106558,6 +106571,27 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+    - rid: 2090024340499464261
+      type: {class: FeedbackGameObjectInvokeMethod, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        Picker:
+          TargetObject: {fileID: 6023422151166410460}
+          TargetComponent: {fileID: 9049836981437204500}
+          TargetMemberName: GetComponentInChildren(Boolean includeInactive)
+          IncludeSpecial: 0
+          LimitParam: 0
+          ParamCount: 3
+        ParameterInputs:
+        - IntegralValue: 0
+          FloatingPointValue: 0
+          BooleanValue: 0
+          StringValue: 
+          UnityObjectValue: {fileID: 0}
 --- !u!1 &6710520580799211426
 GameObject:
   m_ObjectHideFlags: 0
