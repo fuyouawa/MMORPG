@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package Common.Proto.Inventory;
+
+// 物品信息
+message ItemInfo{
+	int32 item_id = 1;		//物品ID
+	int32 amount = 2;		//物品数量
+	int32 slot_id = 3;		//所处位置
+}
+
+// 物品更新
+message ItemUpdate{
+	enum UpdateType {
+		ADD = 0;
+		DELETE = 1;
+		UPDATE = 2;
+	}
+	UpdateType type = 1;
+	ItemInfo item = 2;
+}
+
+//库存对象
+message InventoryInfo{
+	int32 capacity = 1;	//格子数量
+	repeated ItemInfo items = 2;
+}

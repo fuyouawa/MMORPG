@@ -13,7 +13,7 @@ public class ItemDefine
 	public string ItemType; // 物品类别
 	public string Quality; // 品质
 	public string Description; // 介绍
-	public int Capicity; // 堆叠上限
+	public int Capacity; // 堆叠上限
 	public int BuyPrice; // 买入价格
 	public int SellPrice; // 卖出价格
 	public string Icon; // 图标资源

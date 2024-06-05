@@ -23,6 +23,8 @@ namespace MMORPG.Game
     {
         public enum TriggerModes { SemiAuto, Auto }
 
+        [FoldoutGroup("Id")]
+        public int WeaponId;
         [FoldoutGroup("Use")]
         [Tooltip("当WeaponInputStart或者TurnWeaponOn后经过多少时间正式WeaponUse")]
         public float DelayBeforeUse;
@@ -113,6 +115,8 @@ namespace MMORPG.Game
                 return Time.time - _lastTurnWeaponOnAt > TimeBeforeInterruptible;
             }
         }
+
+        public bool CanUse => FSM.CurrentStateId == WeaponStates.Idle && !PreventFire;
 
         public bool PreventFire { get; set; } = false;
 
@@ -212,13 +216,10 @@ namespace MMORPG.Game
         /// </summary>
         public virtual void WeaponInputStart()
         {
-            if (FSM.CurrentStateId == WeaponStates.Idle)
+            if (CanUse)
             {
-                if (!PreventFire)
-                {
-                    _triggerReleased = false;
-                    TurnWeaponOn();
-                }
+                _triggerReleased = false;
+                TurnWeaponOn();
             }
             else
             {
