@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "Inventory/InventoryInfo.proto";
+
+package Common.Proto.Inventory;
+
+//查询背包信息
+message InventoryQueryRequest{
+	int32 entity_id = 1;
+	bool query_knapsack = 2;		//是否查询背包
+	bool query_karehouse = 3;	//是否查询仓库
+	bool query_kquipment = 4;	//是否查询装备栏
+}
+
+//角色的背包信息
+message InventoryQueryResponse{
+	int32 entity_id = 1;
+	InventoryInfo knapsack_info = 2;
+	InventoryInfo warehouse_info = 3;
+	InventoryInfo equipment_info = 4;
+}
