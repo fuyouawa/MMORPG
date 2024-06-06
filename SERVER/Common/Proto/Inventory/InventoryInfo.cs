@@ -48,6 +48,7 @@ namespace Common.Proto.Inventory {
   /// <summary>
   /// 物品信息
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ItemInfo : pb::IMessage<ItemInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -323,6 +324,7 @@ namespace Common.Proto.Inventory {
   /// <summary>
   /// 物品更新
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ItemUpdate : pb::IMessage<ItemUpdate>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -575,6 +577,7 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///库存对象
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class InventoryInfo : pb::IMessage<InventoryInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage

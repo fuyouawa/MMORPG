@@ -48,7 +48,7 @@ namespace Service
                 Message = request.Message,
                 MessageType = request.MessageType,
                 Timestamp = time
-            }, sender.User.Player);
+            }, sender.User.Player, false);
         }
     }
 }

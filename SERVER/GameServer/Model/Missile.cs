@@ -41,7 +41,6 @@ namespace GameServer.Model
         {
             base.Update();
             _ai?.Update();
-
         }
     }
 }

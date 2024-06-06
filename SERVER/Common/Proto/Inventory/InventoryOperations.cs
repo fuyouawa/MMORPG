@@ -48,6 +48,7 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///拾取物品的请求
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class PickupItemRequest : pb::IMessage<PickupItemRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -243,6 +244,7 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///物品放置请求
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ItemPlacementRequest : pb::IMessage<ItemPlacementRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -515,6 +517,7 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///丢弃的物品的请求
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ItemDiscardRequest : pb::IMessage<ItemDiscardRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -787,6 +790,7 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///使用物品的请求
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ItemUseRequest : pb::IMessage<ItemUseRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage

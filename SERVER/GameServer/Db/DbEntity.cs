@@ -44,7 +44,10 @@ namespace GameServer.Db
         public int Z { get; set; } = 0;
         public long Gold { get; set; }
 
-        public DbCharacter(string name, long userId, int unitId, int mapId, int level, int exp, long gold, int hp, int mp)
+        [Column(DbType = "blob")]
+        public byte[]? Knapsack { get; set; }
+
+        public DbCharacter(string name, long userId, int unitId, int mapId, int level, int exp, long gold, int hp, int mp, byte[]? knapsack)
         {
             Name = name;
             UserId = userId;
@@ -55,6 +58,7 @@ namespace GameServer.Db
             Level = level;
             Exp = exp;
             Gold = gold;
+            Knapsack = knapsack;
         }
     }
 }

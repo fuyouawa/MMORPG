@@ -1,3 +1,4 @@
+using Common.Proto.Entity;
 using Common.Proto.Player;
 using Common.Tool;
 using MMORPG.Model;

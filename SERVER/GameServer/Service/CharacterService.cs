@@ -63,7 +63,7 @@ namespace GameServer.Service
                 }
 
                 var newDbCharacter = new DbCharacter(request.Name, sender.User.UserId, request.UnitId, MapManager.Instance.InitMapId, 1, 0, 0,
-                    0, 0);
+                    0, 0, null);
                 long characterId = SqlDb.Connection.Insert(newDbCharacter).ExecuteIdentity();
                 if (characterId == 0)
                 {

@@ -25,8 +25,8 @@ namespace Common.Proto.Entity {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChdFbnRpdHkvRW50aXR5VHlwZS5wcm90bxITQ29tbW9uLlByb3RvLkVudGl0",
-            "eSo7CgpFbnRpdHlUeXBlEgoKBlBMQVlFUhAAEgsKB01PTlNURVIQARIHCgNO",
-            "UEMQAhILCgdNSVNTSUxFEANiBnByb3RvMw=="));
+            "eSpNCgpFbnRpdHlUeXBlEgoKBlBMQVlFUhAAEgsKB01PTlNURVIQARIHCgNO",
+            "UEMQAhILCgdNSVNTSUxFEAMSEAoMRFJPUFBFRF9JVEVNEARiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Common.Proto.Entity.EntityType), }, null, null));
@@ -40,6 +40,7 @@ namespace Common.Proto.Entity {
     [pbr::OriginalName("MONSTER")] Monster = 1,
     [pbr::OriginalName("NPC")] Npc = 2,
     [pbr::OriginalName("MISSILE")] Missile = 3,
+    [pbr::OriginalName("DROPPED_ITEM")] DroppedItem = 4,
   }
 
   #endregion

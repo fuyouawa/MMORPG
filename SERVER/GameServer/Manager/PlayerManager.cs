@@ -21,9 +21,12 @@ namespace GameServer.Manager
     /// </summary>
     public class PlayerManager
     {
+        public const float UpdateDbSecond = 10;
+
         private Map _map;
         private Dictionary<int, Player> _playerDict = new();
-        
+        private float _updateDbCountdown;
+
         public PlayerManager(Map map)
         {
             _map = map;
@@ -31,7 +34,7 @@ namespace GameServer.Manager
 
         public void Start()
         {
-
+            _updateDbCountdown = UpdateDbSecond;
         }
 
         public void Update()
@@ -40,7 +43,20 @@ namespace GameServer.Manager
             {
                 player.Update();
             }
+            _updateDbCountdown -= Time.DeltaTime;
+            if (_updateDbCountdown <= 0)
+            {
+                var characters = new List<DbCharacter>();
+                foreach (var player in _playerDict.Values)
+                {
+                    characters.Add(player.ToDbCharacter());
+                }
+                Db.SqlDb.Connection.Update<DbCharacter>(characters).ExecuteAffrowsAsync();
+                _updateDbCountdown = UpdateDbSecond;
+            }
         }
+
+
 
         /// <summary>
         /// 创建玩家
@@ -84,15 +100,15 @@ namespace GameServer.Manager
         /// </summary>
         /// <param name="msg"></param>
         /// <param name="sender"></param>
-        public void Broadcast(Google.Protobuf.IMessage msg, Entity? sender = null)
+        public void Broadcast(Google.Protobuf.IMessage msg, Entity sender, bool sendToFollower = true)
         {
-            if (sender == null)
+            if (!sendToFollower)
             {
                 lock (_playerDict)
                 {
                     foreach (var player in _playerDict.Values)
                     {
-                        if (sender != null && player.EntityId == sender.EntityId) continue;
+                        if (player.EntityId == sender.EntityId) continue;
                         player.User.Channel.Send(msg);
                     }
                 }
