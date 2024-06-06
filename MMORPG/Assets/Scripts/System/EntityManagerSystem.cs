@@ -1,6 +1,7 @@
 using System;
 using QFramework;
 using System.Collections.Generic;
+using Common.Proto.Entity;
 using MMORPG.Event;
 using MMORPG.Game;
 using PimDeWitte.UnityMainThreadDispatcher;

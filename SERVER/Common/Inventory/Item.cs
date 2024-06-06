@@ -35,8 +35,6 @@ namespace Common.Inventory
         public Quality Quality { get; set; } // 物品品质
         public string Description { get; set; } // 物品描述
         public int Capacity { get; set; } // 物品叠加数量上限
-        public int BuyPrice { get; set; } // 物品买入价格
-        public int SellPrice { get; set; } // 物品卖出价格
         public string Icon { get; set; } // 存放物品的图片路径，通过Resources加载
         public ItemDefine Define { get; private set; }
 
@@ -81,8 +79,6 @@ namespace Common.Inventory
             Name = Define.Name;
             Description = Define.Description;
             Capacity = Define.Capacity;
-            BuyPrice = Define.BuyPrice;
-            SellPrice = Define.SellPrice;
             Icon = Define.Icon;
         }
     }

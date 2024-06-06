@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
+using System.Data;
 
 namespace GameServer.Manager
 {
@@ -25,9 +27,10 @@ namespace GameServer.Manager
 
         public void Start()
         {
-            foreach (var mapDefine in DataManager.Instance.MapDict)
+            foreach (var mapDefine in DataManager.Instance.MapDict.Values)
             {
-                NewMap(mapDefine.Value.ID, mapDefine.Value.Name);
+                Log.Information($"加载地图：{mapDefine.Name}");
+                NewMap(mapDefine.ID, mapDefine.Name);
             }
         }
 
@@ -46,7 +49,6 @@ namespace GameServer.Manager
             {
                 _mapDict.Add(mapId, map);
             }
-
             map.Start();
             return map;
         }
