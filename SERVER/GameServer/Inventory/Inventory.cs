@@ -11,6 +11,8 @@ namespace GameServer.Inventory
 {
     public class Inventory
     {
+        public const int InitCapacity = 10;
+
         public Player Owner { get; }
         public int Capacity { get; private set; }
 
@@ -50,6 +52,29 @@ namespace GameServer.Inventory
                 _inventoryInfo.Items.AddRange(Items.Where(x => x != null).Select(x => x.GetItemInfo()));
             }
             return _inventoryInfo;
+        }
+
+        public void LoadInventoryInfoData(byte[]? inventoryData)
+        {
+            if (inventoryData == null)
+            {
+                Capacity = InitCapacity;
+                for (int i = 0; i < Capacity; i++)
+                {
+                    Items.Add(null);
+                }
+
+                InventoryInfo inv = InventoryInfo.Parser.ParseFrom(inventoryData);
+                foreach (var item in inv.Items)
+                {
+                    if (!DataManager.Instance.ItemDict.TryGetValue(item.ItemId, out var define))
+                    {
+                        Log.Error($"物品id不存在:{item.ItemId}");
+                        continue;
+                    }
+                    Items[item.SlotId] = new Item(define, item.Amount, item.SlotId);
+                }
+            }
         }
 
 
@@ -157,8 +182,6 @@ namespace GameServer.Inventory
                 SetItem(targetSlotId, originItem);
                 SetItem(originSlotId, targetItem);
             }
-
-
             return true;
         }
 
@@ -168,12 +191,10 @@ namespace GameServer.Inventory
         /// <returns>剩余待移除的数量</returns>
         public int RemoveItem(int itemId, int amount = 1)
         {
-            int residue = amount;
-
-            int slotId = 0;
-
             _hasChange = true;
 
+            int residue = amount;
+            int slotId = 0;
             while (residue > 0)
             {
                 var item = GetItem(itemId, slotId);
@@ -189,7 +210,6 @@ namespace GameServer.Inventory
                     SetItem(item.SlotId, null);
                 }
             }
-
             return residue;
         }
 

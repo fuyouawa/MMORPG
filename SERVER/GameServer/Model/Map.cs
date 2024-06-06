@@ -23,6 +23,7 @@ namespace GameServer.Model
         public MissileManager MissileManager;
         public SpawnManager SpawnManager;
         public FightManager FightManager;
+        public DroppedItemManager DroppedItemManager;
 
         private AoiWord _aoiWord;
 
@@ -38,6 +39,7 @@ namespace GameServer.Model
             MissileManager = new(this);
             SpawnManager = new(this);
             FightManager = new(this);
+            DroppedItemManager = new(this);
         }
 
         public void Start()
@@ -47,6 +49,7 @@ namespace GameServer.Model
             MissileManager.Start();
             SpawnManager.Start();
             FightManager.Start();
+            DroppedItemManager.Start();
         }
 
         public void Update()
@@ -56,6 +59,7 @@ namespace GameServer.Model
             MissileManager.Update();
             SpawnManager.Update();
             FightManager.Update();
+            DroppedItemManager.Update();
         }
 
         /// <summary>

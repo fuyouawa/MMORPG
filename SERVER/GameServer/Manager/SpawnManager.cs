@@ -83,7 +83,6 @@ namespace GameServer.Manager
                 var spawner = new Spawner(this, rule);
                 _spawners.Add(spawner);
                 spawner.Start();
-                Log.Information($"加载刷怪配置：{DataHelper.GetMapDefine(rule.MapId).Name}");
             }
         }
 

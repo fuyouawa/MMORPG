@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Common.Proto.Entity;
 using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;
@@ -431,7 +432,7 @@ namespace MMORPG.Game
                     if (HitMonsterFeedbacks != null)
                         HitMonsterFeedbacks.Play();
                     break;
-                case EntityType.NPC:
+                case EntityType.Npc:
                     if (HitNPCFeedbacks != null)
                         HitNPCFeedbacks.Play();
                     break;

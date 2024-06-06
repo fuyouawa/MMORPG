@@ -1,4 +1,5 @@
 using System;
+using Common.Proto.Entity;
 using MMORPG.System;
 using QFramework;
 using Sirenix.OdinInspector;
@@ -7,13 +8,6 @@ using UnityEngine;
 
 namespace MMORPG.Game
 {
-    public enum EntityType
-    {
-        Player,
-        Monster,
-        NPC
-    }
-
     public sealed class EntityView : MonoBehaviour, IController
     {
         [ShowInInspector]
