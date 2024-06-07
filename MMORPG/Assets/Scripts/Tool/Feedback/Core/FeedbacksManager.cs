@@ -141,6 +141,7 @@ namespace MMORPG.Tool
         /// <summary>
         /// 添加Feedback
         /// </summary>
+        /// <remarks>
         /// <example>
         /// <para>以下这个示例展示了如何使用该Api添加一个伤害区域的反馈</para>
         /// <code>
@@ -168,16 +169,13 @@ namespace MMORPG.Tool
         ///     conditionPredicateModes: ConditionPredicateModes.OnStart);
         /// </code>
         /// </example>
+        /// </remarks>
         /// <param name="feedback">要添加的Api</param>
         /// <param name="enable">激活状态</param>
-        /// <param name="enableIf">激活条件, 如果填null就是没有激活条件</param>
-        /// <param name="conditionPredicateModes">激活条件的判定模式</param>
         /// <param name="autoInitialize">添加后自动Initialize</param>
         public virtual void AddFeedback(
             AbstractFeedback feedback,
             bool enable = true,
-            Func<bool> enableIf = null,
-            ConditionPredicateModes conditionPredicateModes = ConditionPredicateModes.OnInitialize,
             bool autoInitialize = true)
         {
             var item = new FeedbackItem
@@ -187,13 +185,6 @@ namespace MMORPG.Tool
                 FeedbackName = feedback.GetType().FullName,
                 Label = feedback.GetType().Name
             };
-            if (enableIf != null)
-            {
-                item.ActiveEnablePredicate = true;
-                item.EnableIf ??= new();
-                item.EnableIf.Mode = conditionPredicateModes;
-                item.EnableIf.AlternativeGetter = enableIf;
-            }
             if (autoInitialize)
                 item.Initialize();
             FeedbackItems.Add(item);

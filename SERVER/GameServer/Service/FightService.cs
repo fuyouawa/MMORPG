@@ -28,7 +28,5 @@ namespace GameServer.Service
             }
             player.Map.FightManager.AddSkillCast(req);
         }
-
-
     }
 }

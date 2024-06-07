@@ -5,6 +5,7 @@ using Common.Proto.Entity;
 using MMORPG.Event;
 using MMORPG.Game;
 using PimDeWitte.UnityMainThreadDispatcher;
+using Serilog;
 using UnityEngine;
 
 namespace MMORPG.System
@@ -35,7 +36,7 @@ namespace MMORPG.System
             var suc = EntityDict.Remove(entity.EntityId);
             Debug.Assert(suc);
             this.SendEvent(new EntityLeaveEvent(entity));
-            Tool.Log.Info("Game", $"实体退出地图: id:{entityId}, type:{entity.EntityType}");
+            Log.Information($"实体退出地图: id:{entityId}, type:{entity.EntityType}");
             // 主要为了延迟下一帧调用, 以便可以先处理EntityLeaveEvent再Destroy
             UnityMainThreadDispatcher.Instance().Enqueue(() => GameObject.Destroy(entity.gameObject));
         }
@@ -67,7 +68,7 @@ namespace MMORPG.System
 
             EntityDict[entity.EntityId] = entity;
 
-            Tool.Log.Info("Game", $"实体生成成功: id:{entityId}, type:{type}, position:{position}, rotation:{rotation}");
+            Log.Information($"实体生成成功: id:{entityId}, type:{type}, position:{position}, rotation:{rotation}");
             this.SendEvent(new EntityEnterEvent(entity));
             return entity;
         }

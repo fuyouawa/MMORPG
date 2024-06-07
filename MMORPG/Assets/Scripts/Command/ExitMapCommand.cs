@@ -3,6 +3,7 @@ using MMORPG.Event;
 using MMORPG.Model;
 using MMORPG.System;
 using QFramework;
+using Serilog;
 using UnityEngine;
 
 namespace MMORPG.Command
@@ -18,7 +19,7 @@ namespace MMORPG.Command
             var model = this.GetModel<IMapModel>();
 
             Debug.Assert(model.CurrentMapId.Value != -1);
-            Tool.Log.Info("Game", $"退出地图:{model.CurrentMapId}");
+            Log.Information($"退出地图:{model.CurrentMapId}");
             model.CurrentMapId.Value = -1;
             var net = this.GetSystem<INetworkSystem>();
             var playerManager = this.GetSystem<IPlayerManagerSystem>();
