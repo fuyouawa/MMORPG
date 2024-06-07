@@ -66,28 +66,24 @@ namespace MMORPG.Game
         [FoldoutGroup("Animator Parameter Names")]
         public string StopAnimationParameter;
 
-        [FoldoutGroup("Weapon Feedbacks")]
-        [Tooltip("当武器附加时, 根据Feedback的名称在拥有者(Owner)的子物体中找对应的Feedback")]
-        public bool FindFeedbackByName = false;
+        [FoldoutGroup("Animator Trigger Parameter Names")]
+        public string IdleTriggerAnimationParameter;
+        [FoldoutGroup("Animator Trigger Parameter Names")]
+        public string StartTriggerAnimationParameter;
+        [FoldoutGroup("Animator Trigger Parameter Names")]
+        public string DelayBeforeUseTriggerAnimationParameter;
+        [FoldoutGroup("Animator Trigger Parameter Names")]
+        public string UseTriggerAnimationParameter;
+        [FoldoutGroup("Animator Trigger Parameter Names")]
+        public string DelayBetweenUsesTriggerAnimationParameter;
+        [FoldoutGroup("Animator Trigger Parameter Names")]
+        public string StopTriggerAnimationParameter;
 
         [FoldoutGroup("Weapon Feedbacks")]
-        [ShowIf("FindFeedbackByName")]
-        public string WeaponStartFeedbackName;
-        [FoldoutGroup("Weapon Feedbacks")]
-        [ShowIf("FindFeedbackByName")]
-        public string WeaponUsedFeedbackName;
-        [FoldoutGroup("Weapon Feedbacks")]
-        [ShowIf("FindFeedbackByName")]
-        public string WeaponStopFeedbackName;
-
-        [FoldoutGroup("Weapon Feedbacks")]
-        [HideIf("FindFeedbackByName")]
         public FeedbacksManager WeaponStartFeedbacks;
         [FoldoutGroup("Weapon Feedbacks")]
-        [HideIf("FindFeedbackByName")]
         public FeedbacksManager WeaponUsedFeedbacks;
         [FoldoutGroup("Weapon Feedbacks")]
-        [HideIf("FindFeedbackByName")]
         public FeedbacksManager WeaponStopFeedbacks;
 
         [FoldoutGroup("Hit Feedbacks")]
@@ -164,44 +160,12 @@ namespace MMORPG.Game
         {
             if (IsInitialized) return;
 
-            if (FindFeedbackByName)
-            {
-                var feedbacks = Owner.GetComponentsInChildren<FeedbacksManager>();
-
-                if (WeaponStartFeedbackName.IsNotNullAndEmpty())
-                {
-                    WeaponStartFeedbacks = feedbacks.FirstOrDefault(x => x.name == WeaponStartFeedbackName);
-                    if (WeaponStartFeedbacks == null)
-                        throw new Exception($"Invalid WeaponStartFeedbackName({WeaponStartFeedbackName})");
-                    WeaponStartFeedbacks.Setup(gameObject);
-                    WeaponStartFeedbacks.Initialize();
-                }
-
-                if (WeaponUsedFeedbackName.IsNotNullAndEmpty())
-                {
-                    WeaponUsedFeedbacks = feedbacks.FirstOrDefault(x => x.name == WeaponUsedFeedbackName);
-                    if (WeaponUsedFeedbacks == null)
-                        throw new Exception($"Invalid WeaponUsedFeedbackName({WeaponUsedFeedbackName})");
-                    WeaponUsedFeedbacks.Setup(gameObject);
-                    WeaponUsedFeedbacks.Initialize();
-                }
-
-                if (WeaponStopFeedbackName.IsNotNullAndEmpty())
-                {
-                    WeaponStopFeedbacks = feedbacks.FirstOrDefault(x => x.name == WeaponStopFeedbackName);
-                    if (WeaponStopFeedbacks == null)
-                        throw new Exception($"Invalid WeaponStopFeedbackName({WeaponStopFeedbackName})");
-                    WeaponStopFeedbacks.Setup(gameObject);
-                    WeaponStopFeedbacks.Initialize();
-                }
-
-                if (HitPlayerFeedbacks != null)
-                    HitPlayerFeedbacks.Initialize();
-                if (HitMonsterFeedbacks != null)
-                    HitMonsterFeedbacks.Initialize();
-                if (HitNPCFeedbacks != null)
-                    HitNPCFeedbacks.Initialize();
-            }
+            if (HitPlayerFeedbacks != null)
+                HitPlayerFeedbacks.Initialize();
+            if (HitMonsterFeedbacks != null)
+                HitMonsterFeedbacks.Initialize();
+            if (HitNPCFeedbacks != null)
+                HitNPCFeedbacks.Initialize();
 
             InitFSM();
 
@@ -292,6 +256,35 @@ namespace MMORPG.Game
             FSM.State(WeaponStates.Interrupted).OnUpdate(CaseWeaponInterrupted);
 
             FSM.StartState(WeaponStates.Idle);
+
+            FSM.OnStateChanged((prev, cur) =>
+            {
+                switch (cur)
+                {
+                    case WeaponStates.Idle:
+                        Owner.Animator.SetTrigger(IdleTriggerAnimationParameter);
+                        break;
+                    case WeaponStates.Start:
+                        Owner.Animator.SetTrigger(StartTriggerAnimationParameter);
+                        break;
+                    case WeaponStates.DelayBeforeUse:
+                        Owner.Animator.SetTrigger(DelayBeforeUseTriggerAnimationParameter);
+                        break;
+                    case WeaponStates.Use:
+                        Owner.Animator.SetTrigger(UseTriggerAnimationParameter);
+                        break;
+                    case WeaponStates.DelayBetweenUses:
+                        Owner.Animator.SetTrigger(DelayBetweenUsesTriggerAnimationParameter);
+                        break;
+                    case WeaponStates.Stop:
+                        Owner.Animator.SetTrigger(StopTriggerAnimationParameter);
+                        break;
+                    case WeaponStates.Interrupted:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(cur), cur, null);
+                }
+            });
         }
 
         protected virtual void CaseWeaponIdle()

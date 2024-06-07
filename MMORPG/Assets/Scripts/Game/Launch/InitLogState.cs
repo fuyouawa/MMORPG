@@ -1,5 +1,6 @@
 using QFramework;
-using MMORPG.Tool;
+using Serilog;
+using Serilog.Sinks.Unity3D;
 
 namespace MMORPG.Game
 {
@@ -11,8 +12,11 @@ namespace MMORPG.Game
 
         protected override void OnEnter()
         {
-            Tool.Log.Info("Launch", "初始化日志");
-            Tool.Log.Initialize();
+            Serilog.Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo.Async(a => a.File("Logs/log-.txt", rollingInterval: RollingInterval.Day))
+                .WriteTo.Unity3D()
+                .CreateLogger();
             mFSM.ChangeState(LaunchStatus.InitPlugins);
         }
 

@@ -8,46 +8,9 @@ using System.Collections;
 
 namespace MMORPG.Tool
 {
-    /// <summary>
-    /// 激活条件的判定模式
-    /// </summary>
-    public enum ConditionPredicateModes
-    {
-        /// <summary>
-        /// 在Initialize时判定
-        /// </summary>
-        OnInitialize,
-        /// <summary>
-        /// 每帧判定
-        /// </summary>
-        OnUpdate
-    }
-
     [Serializable]
     public class FeedbackItem
     {
-        [Serializable]
-        public class Condition
-        {
-            [Tooltip("OnInitialize: 在Initialize时判定\nOnUpdate: 每帧判定")]
-            public ConditionPredicateModes Mode = ConditionPredicateModes.OnInitialize;
-            [Tooltip("是否将判定结果取反")]
-            public bool Negative;
-            [HideLabel]
-            public ValueGetter<bool> Getter = new();
-
-            public Func<bool> AlternativeGetter;
-
-            public bool GetPredicate()
-            {
-                if (Getter is not { IsValid: true })
-                {
-                    return AlternativeGetter == null || AlternativeGetter();
-                }
-                var val = Getter.GetRawValue();
-                return Negative ? !val : val;
-            }
-        }
         [ShowIf("@Feedback == null")]
         [HideLabel]
         [ValueDropdown("GetFeedbackNamesDropdown")]
@@ -60,14 +23,6 @@ namespace MMORPG.Tool
 
         [Tooltip("只在编辑器中有用, 指定Feedback的名称")]
         public string Label;
-
-        [Tooltip("是否启动运行时Enable判定")]
-        public bool ActiveEnablePredicate = false;
-
-        [Tooltip("选择一个变量或者函数, 用于在运行时判定是否要Enable")]
-        [ShowIf("ActiveEnablePredicate")]
-        [HideReferenceObjectPicker]
-        public Condition EnableIf = new();
 
         [BoxGroup("@FeedbackName"), HideLabel]
         [SerializeReference]
@@ -87,20 +42,11 @@ namespace MMORPG.Tool
         {
             if (!Enable) return;
             Feedback?.Initialize();
-
-            if (ActiveEnablePredicate && EnableIf is { Mode: ConditionPredicateModes.OnInitialize })
-            {
-                Enable = EnableIf.GetPredicate();
-            }
         }
 
         public void Update()
         {
             if (!Enable) return;
-            if (ActiveEnablePredicate && EnableIf is { Mode: ConditionPredicateModes.OnUpdate })
-            {
-                Enable = EnableIf.GetPredicate();
-            }
         }
 
         public void Play()

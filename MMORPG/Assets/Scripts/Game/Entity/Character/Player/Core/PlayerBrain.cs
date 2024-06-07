@@ -61,6 +61,10 @@ namespace MMORPG.Game
         {
             get
             {
+#if UNITY_EDITOR
+                if (!UnityEditor.EditorApplication.isPlaying)
+                    return false;
+#endif
                 if (_isMine == null)
                 {
                     var mine = this.GetSystem<IPlayerManagerSystem>().MineEntity;
@@ -134,9 +138,6 @@ namespace MMORPG.Game
             CurrentState = null;
             if (States.Length == 0) return;
             CharacterController.Entity.OnTransformSync += OnTransformEntitySync;
-
-            _newtwork.Receive<SpellResponse>(OnReceivedSpell)
-                .UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
         private void OnTransformEntitySync(EntityTransformSyncData data)
@@ -161,8 +162,6 @@ namespace MMORPG.Game
             {
                 InputControls = new();
                 InputControls.Enable();
-
-                InputControls.Player.Fire.started += OnFireStarted;
             }
             else
             {
@@ -176,48 +175,6 @@ namespace MMORPG.Game
         }
 
         private bool _prepareFire = false;
-
-        private void OnFireStarted(InputAction.CallbackContext obj)
-        {
-            Spell();
-        }
-
-        /// <summary>
-        /// 发送攻击请求, 在响应成功后正式攻击
-        /// </summary>
-        public void Spell()
-        {
-            if (_prepareFire) return;
-
-            if (CharacterController.HandleWeapon == null) return;
-            var weapon = CharacterController.HandleWeapon.CurrentWeapon;
-            if (weapon == null) return;
-
-            if (weapon.CanUse)
-            {
-                _prepareFire = true;
-                _newtwork.SendToServer(new SpellRequest()
-                {
-                    SkillId = weapon.WeaponId,
-                    CasterId = CharacterController.Entity.EntityId
-                });
-                
-            }
-        }
-
-        private void OnReceivedSpell(SpellResponse response)
-        {
-            if (response.Reason == SpellResult.Success)
-            {
-                _prepareFire = false;
-                CharacterController.HandleWeapon.ShootStart();
-            }
-            else
-            {
-                Tool.Log.Error("Game", $"攻击请求失败! 原因:{response.Reason}");
-            }
-        }
-
 
         private void Update()
         {

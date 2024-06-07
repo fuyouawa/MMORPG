@@ -135,7 +135,6 @@ namespace GameServer.Fight
 
         private void OnRun()
         {
-            if (Define.HitCheck != "Server") return;
             if (_hitDelayIndex < _hitDelay.Length)
             {
                 if (_time >= _hitDelay[_hitDelayIndex] * 1000)

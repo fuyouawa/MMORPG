@@ -3,6 +3,7 @@ using Common.Proto.User;
 using Common.Tool;
 using QFramework;
 using MMORPG.System;
+using Serilog;
 
 
 namespace MMORPG.Command
@@ -51,12 +52,12 @@ namespace MMORPG.Command
 
             if (response.Error == NetError.Success)
             {
-                Tool.Log.Info("Network", $"'{_username}'注册成功!");
+                Log.Information($"'{_username}'注册成功!");
                 box.ShowMessage("注册成功!");
             }
             else
             {
-                Tool.Log.Error("Network", $"'{_username}'注册失败:{response.Error.GetInfo().Description}");
+                Log.Information($"'{_username}'注册失败:{response.Error.GetInfo().Description}");
                 box.ShowMessage($"注册失败!\n原因:{response.Error.GetInfo().Description}");
             }
         }
