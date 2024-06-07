@@ -137,11 +137,6 @@ namespace MMORPG.Tool
                 label = $"{value.Label} ({timeDisplay})";
             }
 
-            if (value.ActiveEnablePredicate)
-            {
-                label += $" <EnableIf: {value.EnableIf.Getter}>";
-            }
-
             return label;
         }
     }

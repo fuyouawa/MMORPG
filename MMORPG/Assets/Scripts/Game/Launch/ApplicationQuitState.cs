@@ -1,5 +1,6 @@
 using QFramework;
 using MMORPG.Tool;
+using Serilog;
 
 namespace MMORPG.Game
 {
@@ -15,7 +16,7 @@ namespace MMORPG.Game
 
         protected override void OnEnter()
         {
-            Tool.Log.Info("Launch", "程序退出");
+            Log.Information("程序退出");
             this.SendEvent(new ApplicationQuitEvent());
         }
 

@@ -7,6 +7,7 @@ using MMORPG.System;
 using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
+using Serilog;
 
 namespace MMORPG.UI
 {
@@ -44,7 +45,7 @@ namespace MMORPG.UI
         {
             if (response.Error != NetError.Success)
             {
-                Tool.Log.Error("Game", $"创建人物时出现报错: {response.Error.GetInfo().Description}");
+                Log.Error($"创建人物时出现报错: {response.Error.GetInfo().Description}");
                 return;
             }
 

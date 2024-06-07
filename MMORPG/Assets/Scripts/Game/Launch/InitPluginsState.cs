@@ -3,6 +3,7 @@ using QFramework;
 using MessagePack;
 using MessagePack.Resolvers;
 using MMORPG.Tool;
+using Serilog;
 using UnityEngine;
 
 namespace MMORPG.Game
@@ -15,7 +16,7 @@ namespace MMORPG.Game
 
         protected override void OnEnter()
         {
-            Tool.Log.Info("Launch", "初始化插件");
+            Log.Information("初始化插件");
             ResKit.Init();
             new GameObject(nameof(UnityMainThreadDispatcher)).AddComponent<UnityMainThreadDispatcher>();
 

@@ -1,5 +1,6 @@
 using Common.Network;
 using System.Net.Sockets;
+using Serilog;
 
 namespace MMORPG.Tool
 {
@@ -72,23 +73,23 @@ namespace MMORPG.Tool
 
         private void OnErrorOccur(object sender, ErrorOccurEventArgs e)
         {
-            Log.Error("Channel", $"出现异常:{e.Exception}");
+            Log.Error($"出现异常:{e.Exception}");
         }
 
         private void OnWarningOccur(object sender, WarningOccurEventArgs e)
         {
-            Log.Warn("Channel", $"出现警告:{e.Description}");
+            Log.Warning($"出现警告:{e.Description}");
         }
 
         private void OnConnectionClosed(object sender, ConnectionClosedEventArgs e)
         {
             if (e.IsManual)
             {
-                Log.Info("Channel", $"关闭对服务器端的链接!");
+                Log.Information($"关闭对服务器端的链接!");
             }
             else
             {
-                Log.Info("Channel", $"对端关闭链接");
+                Log.Information($"对端关闭链接");
             }
         }
     }

@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using QFramework;
 using MMORPG.System;
+using Serilog;
 
 
 namespace MMORPG.Game
@@ -13,7 +14,7 @@ namespace MMORPG.Game
 
         protected override async void OnEnter()
         {
-            Tool.Log.Info("Launch", "初始化网络");
+            Log.Information("初始化网络");
             var net = this.GetSystem<INetworkSystem>();
             await net.ConnectAsync();
             Task.Run(net.StartAsync);
