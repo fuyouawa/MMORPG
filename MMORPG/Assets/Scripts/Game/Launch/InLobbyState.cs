@@ -1,5 +1,6 @@
 using MMORPG.Event;
 using QFramework;
+using Serilog;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,7 +21,7 @@ namespace MMORPG.Game
 
             op.completed += operation =>
             {
-                Tool.Log.Info("Launch", "初始化地图");
+                Log.Information("初始化地图");
                 var group = new GameObject("Manager(Auto Create)").transform;
 
                 var entityManager = new GameObject(nameof(EntityManager)).AddComponent<EntityManager>();
@@ -37,7 +38,7 @@ namespace MMORPG.Game
 
         protected override void OnEnter()
         {
-            Tool.Log.Info("Launch", "开始等待加入地图");
+            Log.Information("开始等待加入地图");
         }
 
         public IArchitecture GetArchitecture()

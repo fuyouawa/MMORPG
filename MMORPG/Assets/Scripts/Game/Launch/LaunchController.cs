@@ -25,7 +25,7 @@ namespace MMORPG.Game
 
         private void Start()
         {
-            Tool.Log.Info("Launch", "开始生命周期");
+            Serilog.Log.Information("开始生命周期");
             FSM.AddState(LaunchStatus.InitLog, new InitLogState(FSM, this));
             FSM.AddState(LaunchStatus.InitPlugins, new InitPluginsState(FSM, this));
             FSM.AddState(LaunchStatus.InitTool, new InitToolState(FSM, this));
@@ -45,6 +45,7 @@ namespace MMORPG.Game
         protected override void OnApplicationQuit()
         {
             base.OnApplicationQuit();
+            Serilog.Log.CloseAndFlush();
             FSM.ChangeState(LaunchStatus.ApplicationQuit);
             FSM.Clear();
         }

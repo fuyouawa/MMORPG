@@ -5,13 +5,13 @@ public class ItemController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        transform.position = CalculateGroundPosition(transform.position, 6);
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = CalculateGroundPosition(transform.position, 6);
+        
     }
 
     public Vector3 CalculateGroundPosition(Vector3 position, int layer)

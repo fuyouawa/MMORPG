@@ -5,6 +5,7 @@ using MMORPG.Model;
 using QFramework;
 using MMORPG.System;
 using MMORPG.Tool;
+using Serilog;
 using ThirdPersonCamera;
 using UnityEngine;
 
@@ -45,12 +46,12 @@ namespace MMORPG.Game
             {
                 if (response.Error != Common.Proto.Base.NetError.Success)
                 {
-                    Tool.Log.Error("Network", $"JoinMap Error:{response.Error.GetInfo().Description}");
+                    Log.Error($"JoinMap Error:{response.Error.GetInfo().Description}");
                     //TODO Error处理
                     return;
                 }
 
-                Tool.Log.Info("Network", $"JoinMap Success, MineId:{response.EntityId}");
+                Log.Information($"JoinMap Success, MineId:{response.EntityId}");
 
                 var unitDefine = _dataManager.GetUnitDefine(response.UnitId);
 

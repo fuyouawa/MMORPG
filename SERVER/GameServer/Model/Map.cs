@@ -6,6 +6,9 @@ using GameServer.Manager;
 using GameServer.Tool;
 using Serilog;
 using Google.Protobuf;
+using System.Collections.Generic;
+using System.Numerics;
+using System.Security.Principal;
 
 namespace GameServer.Model
 {
@@ -271,6 +274,36 @@ namespace GameServer.Model
             return entityList;
         }
 
+        public Entity? GetEntityFollowingNearest(Entity entity, Predicate<Entity>? condition = null)
+        {
+            Entity? nearest = null;
+            float minDistance = 0;
+            lock (_aoiWord)
+            {
+                _aoiWord.ScanFollowerList(entity.AoiEntity, followerEntityId =>
+                {
+                    var followerEntity = EntityManager.Instance.GetEntity((int)followerEntityId);
+                    if (followerEntity != null && (condition == null || condition(followerEntity)))
+                    {
+                        if (nearest == null)
+                        {
+                            nearest = followerEntity;
+                            minDistance = Vector2.Distance(followerEntity.Position.ToVector2(), entity.Position.ToVector2());
+                        }
+                        else
+                        {
+                            var tmp = Vector2.Distance(followerEntity.Position.ToVector2(), entity.Position.ToVector2());
+                            if (tmp < minDistance)
+                            {
+                                nearest = followerEntity;
+                                minDistance = tmp;
+                            }
+                        }
+                    }
+                });
+            }
+            return nearest;
+        }
 
         /// <summary>
         /// 根据网络实体对象更新实体并广播新状态

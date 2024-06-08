@@ -2,6 +2,7 @@ using MMORPG.Event;
 using MMORPG.Game;
 using MMORPG.Model;
 using QFramework;
+using Serilog;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,7 +23,7 @@ namespace MMORPG.Command
         {
             var model = this.GetModel<IMapModel>();
             Debug.Assert(model.CurrentMapId.Value == -1);
-            Tool.Log.Info("Game", $"{CharacterId}加入地图:{MapId}");
+            Log.Information($"{CharacterId}加入地图:{MapId}");
             model.CurrentMapId.Value = MapId;
 
             this.SendEvent(new JoinMapEvent(MapId, CharacterId));
