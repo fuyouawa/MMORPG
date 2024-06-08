@@ -10,6 +10,7 @@ using Common.Proto.Fight;
 using GameServer.Manager;
 using GameServer.Model;
 using GameServer.Tool;
+using Org.BouncyCastle.Asn1.X509;
 using Serilog;
 
 namespace GameServer.Fight
@@ -19,82 +20,103 @@ namespace GameServer.Fight
     /// </summary>
     public class Spell
     {
-        private Actor _actor;
+        public Actor OwnerActor;
 
-        public Spell(Actor actor)
+        public Spell(Actor ownerActor)
         {
-            _actor = actor;
+            OwnerActor = ownerActor;
         }
 
-        public void Cast(SpellRequest req)
+        public void Cast(CastInfo info)
         {
-            var skill = _actor.SkillManager.GetSkill(req.SkillId);
+            var skill = OwnerActor.SkillManager.GetSkill(info.SkillId);
             if (skill == null)
             {
-                Log.Warning("[Spell.Cast]: 无效的技能id.");
+                ResponseSpellFail(info, CastResult.InvalidSkillId);
                 return;
+            }
+
+            if (OwnerActor is Player player)
+            {
+                Log.Information($"玩家({player.User.Channel})请求释放技能: TargetType:{skill.Define.TargetType}, SkillId:{info.SkillId}, CastId:{info.CasterId}");
+            }
+            else if (OwnerActor is Monster monster)
+            {
+                Log.Information($"怪物({monster.Name})请求释放技能: TargetType:{skill.Define.TargetType}, SkillId:{info.SkillId}, CastId:{info.CasterId}");
             }
             switch (skill.Define.TargetType)
             {
                 case "None":
-                    CastNone(skill, req);
+                    CastNone(skill, info);
                     break;
                 case "Unit":
-                    CastUnit(skill, req);
+                    CastUnit(skill, info);
                     break;
                 case "Position":
-                    CastPosition(skill, req);
+                    CastPosition(skill, info);
                     break;
                 default:
                     Log.Error("[Spell.Cast]无效的目标类型.");
                     break;
             }
-            
         }
 
         // 释放无目标技能
-        private void CastNone(Skill skill, SpellRequest req)
+        private void CastNone(Skill skill, CastInfo info)
         {
-            
+            var target = new EntityCastTarget(OwnerActor);
+            CastTarget(skill, info, target);
         }
 
         // 释放单位目标技能
-        private void CastUnit(Skill skill, SpellRequest req)
+        private void CastUnit(Skill skill, CastInfo info)
         {
-            var targetActor = EntityManager.Instance.GetEntity(req.CastTarget.TargetId) as Actor;
+            var targetActor = EntityManager.Instance.GetEntity(info.CastTarget.TargetId) as Actor;
             if (targetActor == null)
             {
-                Log.Warning("[Spell.CastUnit]: 对无效的实体释放技能.");
+                ResponseSpellFail(info, CastResult.InvalidCastTarget);
                 return;
             }
-            var resp = new SpellResponse()
-            {
-                SkillId = req.SkillId,
-                CasterId = req.CasterId,
-            };
-
             var target = new EntityCastTarget(targetActor);
-            resp.Reason = skill.CanCast(target);
-            if (resp.Reason != SpellResult.Success)
-            {
-                var player = _actor as Player;
-                if (player != null)
-                {
-                    player.User.Channel.Send(resp);
-                }
-                return;
-            }
-            skill.Cast(target);
-
-            // 广播技能释放给释放者周围的玩家
-            var res = new SpellResponse();
-            skill.Actor.Map.PlayerManager.Broadcast(res, skill.Actor);
+            CastTarget(skill, info, target);
         }
 
         // 释放位置目标技能
-        private void CastPosition(Skill skill, SpellRequest req)
+        private void CastPosition(Skill skill, CastInfo info)
         {
-            var target = new PositionCastTarget(req.CastTarget.TargetPos.ToVector3());
+            var target = new PositionCastTarget(info.CastTarget.TargetPos.ToVector3());
+            CastTarget(skill, info, target);
+        }
+
+
+        private void CastTarget(Skill skill, CastInfo info, CastTarget target)
+        {
+            var res = skill.CanCast(target);
+            ResponseSpellFail(info, res);
+            if (res != CastResult.Success)
+            {
+                return;
+            }
+            skill.Cast(target);
+            skill.Actor.Map.PlayerManager.Broadcast(new SpellResponse() { Info = info }, skill.Actor);
+        }
+
+
+        private void ResponseSpellFail(CastInfo info, CastResult result)
+        {
+            if (OwnerActor is Player player)
+            {
+                if (result != CastResult.Success)
+                {
+                    Log.Debug($"{player.User.Channel}请求攻击时出现错误: {result}");
+                }
+                player.User.Channel.Send(new SpellFailResponse()
+                {
+                    CasterId = info.CasterId,
+                    SkillId = info.SkillId,
+                    Reason = result
+                });
+            }
         }
     }
 }
