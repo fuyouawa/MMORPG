@@ -22,7 +22,7 @@ namespace GameServer.Manager
         public void Start()
         {
             NewItem(1001, new(0, 5, 0), Vector3.Zero, 1);
-            NewItem(1002001, new(5, 5, 0), Vector3.Zero, 1);
+            NewItem(1007, new(5, 5, 0), Vector3.Zero, 1);
         }
 
         public void Update()
