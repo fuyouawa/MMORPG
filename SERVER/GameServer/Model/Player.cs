@@ -15,34 +15,33 @@ namespace GameServer.Model
         //public static readonly float DefaultViewRange = 100;
 
         public User User;
-        public int CharacterId;
-        public int JobId;
+        public long CharacterId;
         public int Exp;
-        public int Gold;
-
+        public long Gold;
         public Inventory.Inventory Knapsack;
 
-        public Player(int entityId, int unitId, 
-            Map map, string characterName, User user) 
-            : base(EntityType.Player, entityId, unitId, map, characterName)
+        private DbCharacter _dbCharacter;
+
+        public Player(int entityId, DbCharacter dbCharacter, 
+            Map map, User user) 
+            : base(EntityType.Player, entityId, dbCharacter.UnitId, map, dbCharacter.Name)
         {
             User = user;
+            CharacterId = dbCharacter.Id;
             Knapsack = new(this);
+
+            _dbCharacter = dbCharacter;
         }
 
         public override void Start()
         {
             base.Start();
-
-            var dbCharacter = Db.SqlDb.Connection.Select<DbCharacter>()
-                .Where(p => p.Id == CharacterId)
-                .First();
-            if (dbCharacter == null)
-            {
-                Log.Error($"为不存在的角色读取背包");
-                return;
-            }
-            Knapsack.LoadInventoryInfoData(dbCharacter.Knapsack);
+            Hp = _dbCharacter.Hp;
+            Mp = _dbCharacter.Mp;
+            Level = _dbCharacter.Level;
+            Exp = _dbCharacter.Exp;
+            Gold = _dbCharacter.Gold;
+            Knapsack.LoadInventoryInfoData(_dbCharacter.Knapsack);
         }
 
         public override void Update()

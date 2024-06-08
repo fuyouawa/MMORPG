@@ -62,9 +62,9 @@ namespace GameServer.Manager
         /// 创建玩家
         /// </summary>
         /// <returns></returns>
-        public Player NewPlayer(User user, int unitId, Vector3 pos, Vector3 dire, string name)
+        public Player NewPlayer(User user, DbCharacter dbCharacter, Vector3 pos, Vector3 dire)
         {
-            var player = new Player(EntityManager.Instance.NewEntityId(), unitId, _map, name, user)
+            var player = new Player(EntityManager.Instance.NewEntityId(), dbCharacter, _map, user)
             {
                 Position = pos,
                 Direction = dire,

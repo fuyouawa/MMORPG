@@ -31,6 +31,11 @@ namespace GameServer.Model
                     break;
             }
 
+            var unitDefine = DataHelper.GetUnitDefine(UnitId);
+            Speed = unitDefine.Speed;
+            Hp = AttributeManager.Final.MaxHp;
+            Mp = AttributeManager.Final.MaxMp;
+
             _ai?.Start();
         }
 

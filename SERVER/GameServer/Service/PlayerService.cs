@@ -64,7 +64,7 @@ namespace GameServer.Service
                 Y = dbCharacter.Y,
                 Z = dbCharacter.Z,
             };
-            var player = map.PlayerManager.NewPlayer(sender.User, dbCharacter.UnitId, pos, Vector3.Zero, dbCharacter.Name);
+            var player = map.PlayerManager.NewPlayer(sender.User, dbCharacter, pos, Vector3.Zero);
             sender.User.SetPlayer(player);
             var res = new JoinMapResponse()
             {
