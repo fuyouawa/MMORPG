@@ -29,16 +29,16 @@ namespace GameServer.Service
 
         public void OnHandle(NetChannel sender, JoinMapRequest request)
         {
-            Log.Debug($"{sender.ChannelName}进入游戏请求");
+            Log.Debug($"{sender}进入游戏请求");
             if (sender.User == null)
             {
-                Log.Debug($"{sender.ChannelName}进入游戏失败：用户未登录");
+                Log.Debug($"{sender}进入游戏失败：用户未登录");
                 return;
             }
 
             if (sender.User.Player != null)
             {
-                Log.Debug($"{sender.ChannelName}进入游戏失败：重复进入");
+                Log.Debug($"{sender}进入游戏失败：重复进入");
                 return;
             }
             var dbCharacter = SqlDb.Connection.Select<DbCharacter>()
@@ -48,14 +48,14 @@ namespace GameServer.Service
             if (dbCharacter == null)
             {
                 sender.Send(new CharacterCreateResponse() { Error = NetError.InvalidCharacter });
-                Log.Debug($"{sender.ChannelName}进入游戏失败：数据库中不存在指定的角色");
+                Log.Debug($"{sender}进入游戏失败：数据库中不存在指定的角色");
                 return;
             }
             var map = MapManager.Instance.GetMapById(dbCharacter.MapId);
             if (map == null)
             {
                 sender.Send(new JoinMapResponse() { Error = NetError.InvalidMap });
-                Log.Debug($"{sender.ChannelName}进入游戏失败：指定的地图不存在");
+                Log.Debug($"{sender}进入游戏失败：指定的地图不存在");
                 return;
             }
             var pos = new Vector3()
@@ -75,7 +75,7 @@ namespace GameServer.Service
                 Transform = ProtoHelper.ToNetTransform(player.Position, player.Direction),
             };
             sender.Send(res, null);
-            Log.Debug($"{sender.ChannelName}进入游戏成功");
+            Log.Debug($"{sender}进入游戏成功");
         }
 
     }

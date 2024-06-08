@@ -134,7 +134,7 @@ namespace GameServer.Inventory
                 }
                 else
                 {
-                    Log.Debug($"{Owner.User.Channel.ChannelName}物品槽满了, 还有{amount}个物品被丢失");
+                    Log.Debug($"{Owner.User.Channel}物品槽满了, 还有{amount}个物品被丢失");
                     return false;
                 }
             }
