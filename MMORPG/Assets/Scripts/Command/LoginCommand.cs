@@ -4,6 +4,7 @@ using Common.Tool;
 using MMORPG.Model;
 using QFramework;
 using MMORPG.System;
+using Serilog;
 using UnityEngine.SceneManagement;
 
 namespace MMORPG.Command
@@ -46,14 +47,14 @@ namespace MMORPG.Command
 
             if (response.Error == NetError.Success)
             {
-                Tool.Log.Info("Network", $"'{_username}'登录成功");
+                Log.Information($"'{_username}'登录成功");
                 var user = this.GetModel<IUserModel>();
                 user.Username.Value = _username;
                 SceneManager.LoadScene("CharacterSelectScene");
             }
             else
             {
-                Tool.Log.Error("Network", $"'{_username}'登录失败:{response.Error.GetInfo().Description}");
+                Log.Error($"'{_username}'登录失败:{response.Error.GetInfo().Description}");
                 box.ShowMessage($"登录失败!\n原因:{response.Error.GetInfo().Description}");
             }
         }

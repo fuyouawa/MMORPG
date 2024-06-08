@@ -163,18 +163,13 @@ namespace GameServer.Ai
                 var monster = _target.Monster;
 
                 // 查找怪物视野范围内距离怪物最近的玩家
-                var list = monster.Map.GetEntityFollowingList(monster, e => e.EntityType == EntityType.Player);
-                if (list.Any())
+                var nearestPlayer = monster.Map.GetEntityFollowingNearest(monster, e => e.EntityType == EntityType.Player);
+
+                if (nearestPlayer != null)
                 {
-                    var nearestPlayer = list.Aggregate((minEntity, nextEntity) =>
-                    {
-                        var minDistance = Vector3.Distance(minEntity.Position, monster.Position);
-                        var nextDistance = Vector3.Distance(nextEntity.Position, monster.Position);
-                        return minDistance < nextDistance ? minEntity : nextEntity;
-                    });
                     // 若玩家位于怪物的追击范围内
-                    float d1 = Vector3.Distance(monster.InitPos, nearestPlayer.Position);  // 目标与出生点的距离
-                    float d2 = Vector3.Distance(monster.Position, nearestPlayer.Position); // 自身与目标的距离
+                    float d1 = Vector2.Distance(monster.InitPos.ToVector2(), nearestPlayer.Position.ToVector2()); // 目标与出生点的距离
+                    float d2 = Vector2.Distance(monster.Position.ToVector2(), nearestPlayer.Position.ToVector2()); // 自身与目标的距离
                     if (d1 <= _target.ChaseRange && d2 <= _target.ChaseRange)
                     {
                         // 切换为追击状态

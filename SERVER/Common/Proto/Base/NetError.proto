@@ -5,19 +5,23 @@ package Common.Proto.Base;
 enum NetError {
     Success = 0;
 
-    LoginConflict = 1;
-    IncorrectUsernameOrPassword = 2;
+    UnknowError = 1;
 
-    IllegalUsername = 3;
-    IllegalCharacterName = 4;
+    LoginConflict = 2;
+    IncorrectUsernameOrPassword = 3;
 
-    RepeatUsername = 5;
-    RepeatCharacterName = 6;
+    IllegalUsername = 4;
+    IllegalCharacterName = 5;
 
-    InvalidCharacter = 7;
-    InvalidMap = 8;
+    RepeatUsername = 6;
+    RepeatCharacterName = 7;
 
-    CharacterCreationLimitReached = 9;
+    InvalidCharacter = 8;
+    InvalidMap = 9;
 
-    UnknowError = 10;
+    CharacterCreationLimitReached = 10;
+
+    OutOfRange = 11;
+
+    
 }

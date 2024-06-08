@@ -20,14 +20,14 @@ namespace GameServer.Model
         public int Exp;
         public int Gold;
 
-        public Inventory.Inventory knapsack;
+        public Inventory.Inventory Knapsack;
 
         public Player(int entityId, int unitId, 
             Map map, string characterName, User user) 
             : base(EntityType.Player, entityId, unitId, map, characterName)
         {
             User = user;
-            knapsack = new(this);
+            Knapsack = new(this);
         }
 
         public override void Start()
@@ -42,7 +42,7 @@ namespace GameServer.Model
                 Log.Error($"为不存在的角色读取背包");
                 return;
             }
-            knapsack.LoadInventoryInfoData(dbCharacter.Knapsack);
+            Knapsack.LoadInventoryInfoData(dbCharacter.Knapsack);
         }
 
         public override void Update()
@@ -52,7 +52,7 @@ namespace GameServer.Model
 
         public DbCharacter ToDbCharacter()
         {
-            return new DbCharacter(Name, User.UserId, UnitId, Map.MapId, Level, Exp, Gold, (int)Hp, (int)Mp, knapsack.GetInventoryInfo().ToByteArray());
+            return new DbCharacter(Name, User.UserId, UnitId, Map.MapId, Level, Exp, Gold, (int)Hp, (int)Mp, Knapsack.GetInventoryInfo().ToByteArray());
         }
     }
 }

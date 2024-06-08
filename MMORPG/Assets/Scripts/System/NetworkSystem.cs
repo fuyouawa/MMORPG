@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using MMORPG.Game;
 using MMORPG.Tool;
 using PimDeWitte.UnityMainThreadDispatcher;
+using Serilog;
 using UnityEngine;
 
 namespace MMORPG.System
@@ -125,7 +126,7 @@ namespace MMORPG.System
                 }
                 catch (Exception ex)
                 {
-                    Tool.Log.Error("Network", ex, $"连接服务器时出现错误:{ex.Message}");
+                    Log.Error(ex, $"连接服务器时出现错误:{ex.Message}");
                     box.CloseSpinner();
                     await box.ShowMessageAsync("错误", $"连接服务器失败:{ex}", "重新连接");
                     continue;
