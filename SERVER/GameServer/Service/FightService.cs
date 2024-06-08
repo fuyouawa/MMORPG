@@ -23,7 +23,7 @@ namespace GameServer.Service
             var player = sender.User.Player;
             if (req.CasterId != player.EntityId)
             {
-                Log.Debug("施法者不匹配");
+                Log.Debug($"{sender}施法者不匹配");
                 return;
             }
             player.Map.FightManager.AddSkillCast(req);
