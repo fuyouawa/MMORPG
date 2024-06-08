@@ -13,7 +13,9 @@ namespace MMORPG.UI
 		{
 			mData = uiData as UIPlayerInventoryPanelData ?? new UIPlayerInventoryPanelData();
 			// please add init code here
-		}
+
+            
+        }
 		
 		protected override void OnOpen(IUIData uiData = null)
 		{

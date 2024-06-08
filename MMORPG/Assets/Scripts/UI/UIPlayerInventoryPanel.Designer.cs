@@ -5,16 +5,19 @@ using QFramework;
 
 namespace MMORPG.UI
 {
-	// Generate Id:154d787b-07bb-4bd5-adfd-941a0171f7c4
+	// Generate Id:bab79817-b697-4c7d-b39e-4e89f96d0529
 	public partial class UIPlayerInventoryPanel
 	{
 		public const string Name = "UIPlayerInventoryPanel";
 		
+		[SerializeField]
+		public UnityEngine.RectTransform SlotsGrid;
 		
 		private UIPlayerInventoryPanelData mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
+			SlotsGrid = null;
 			
 			mData = null;
 		}
