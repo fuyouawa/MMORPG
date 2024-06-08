@@ -41,7 +41,6 @@ namespace Common.Proto.Inventory {
   /// <summary>
   /// 拾取掉落物请求
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class PickupDroppedItemRequest : pb::IMessage<PickupDroppedItemRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -197,7 +196,6 @@ namespace Common.Proto.Inventory {
   /// <summary>
   /// 拾取掉落物响应
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class PickupDroppedItemResponse : pb::IMessage<PickupDroppedItemResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage

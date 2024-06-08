@@ -15,7 +15,7 @@ namespace MMORPG.Game
         public override void OnStateInit()
         {
             _network = this.GetSystem<INetworkSystem>();
-            _network.Receive<SpellResponse>(OnReceivedSpell)
+            _network.Receive<SpellFailResponse>(OnReceivedSpellFail)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
@@ -40,16 +40,19 @@ namespace MMORPG.Game
                 _prepareFire = true;
                 _network.SendToServer(new SpellRequest()
                 {
-                    SkillId = weapon.WeaponId,
-                    CasterId = Brain.CharacterController.Entity.EntityId
+                    Info = new()
+                    {
+                        SkillId = weapon.WeaponId,
+                        CasterId = Brain.CharacterController.Entity.EntityId
+                    }
                 });
 
             }
         }
 
-        private void OnReceivedSpell(SpellResponse response)
+        private void OnReceivedSpellFail(SpellFailResponse response)
         {
-            if (response.Reason == SpellResult.Success)
+            if (response.Reason == CastResult.Success)
             {
                 _prepareFire = false;
                 Brain.CharacterController.HandleWeapon.ShootStart();

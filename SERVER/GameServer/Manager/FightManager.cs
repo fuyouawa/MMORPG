@@ -13,8 +13,8 @@ namespace GameServer.Manager
     public class FightManager
     {
         private Map _map;
-        private Queue<SpellRequest> _castQueue = new();
-        private Queue<SpellRequest> _backupCastQueue = new();
+        private Queue<CastInfo> _castQueue = new();
+        private Queue<CastInfo> _backupCastQueue = new();
 
         public FightManager(Map map)
         {
@@ -41,23 +41,23 @@ namespace GameServer.Manager
 
         }
 
-        public void AddSkillCast(SpellRequest req)
+        public void AddSkillCast(CastInfo info)
         {
             lock (_castQueue)
             {
-                _castQueue.Enqueue(req);
+                _castQueue.Enqueue(info);
             }
         }
 
-        private void RunSpell(SpellRequest req)
+        private void RunSpell(CastInfo info)
         {
-            var caster = EntityManager.Instance.GetEntity(req.CasterId) as Actor;
+            var caster = EntityManager.Instance.GetEntity(info.CasterId) as Actor;
             if (caster == null)
             {
                 Log.Warning("[FightManager.Cast]: 释放者不存在."); 
                 return;
             }
-            caster.Spell.Cast(req);
+            caster.Spell.Cast(info);
         }
 
     }

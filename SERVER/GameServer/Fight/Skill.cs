@@ -74,42 +74,42 @@ namespace GameServer.Fight
             } 
         }
 
-        public SpellResult CanCast(CastTarget castTarget)
+        public CastResult CanCast(CastTarget castTarget)
         {
             if (CurrentStage != Stage.Collding)
             {
-                return SpellResult.Colldown;
+                return CastResult.Colldown;
             }
             if (CurrentStage != Stage.None)
             {
-                return SpellResult.Running;
+                return CastResult.Running;
             }
             if (!Actor.IsValid() || Actor.IsDeath())
             {
-                return SpellResult.EntityDead;
+                return CastResult.EntityDead;
             }
             if (castTarget is EntityCastTarget)
             {
                 var targetActor = castTarget.RealObj as Actor;
                 if (targetActor == null || !targetActor.IsValid() || targetActor.IsDeath())
                 {
-                    return SpellResult.TargetInvaild;
+                    return CastResult.TargetInvaild;
                 }
             }
             var dist = Vector3.Distance(Actor.Position, castTarget.Position());
             if (dist > Define.SpellRange)
             {
-                return SpellResult.OutOfRange;
+                return CastResult.OutOfRange;
             }
-            return SpellResult.Success;
+            return CastResult.Success;
         }
 
-        public SpellResult Cast(CastTarget castTarget)
+        public CastResult Cast(CastTarget castTarget)
         {
             _time = 0;
             CurrentStage = Stage.Intonate;
             _castTarget = castTarget;
-            return SpellResult.Success;
+            return CastResult.Success;
         }
 
         /// <summary>

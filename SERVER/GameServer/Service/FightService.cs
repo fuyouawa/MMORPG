@@ -19,14 +19,20 @@ namespace GameServer.Service
     {
         public void OnHandle(NetChannel sender, SpellRequest req)
         {
-            if (sender.User == null || sender.User.Player == null) return;
+            if (sender.User?.Player == null) return;
             var player = sender.User.Player;
-            if (req.CasterId != player.EntityId)
+            if (req.Info.CasterId != player.EntityId)
             {
                 Log.Debug($"{sender}施法者不匹配");
+                sender.Send(new SpellFailResponse()
+                {
+                    CasterId = req.Info.CasterId,
+                    SkillId = req.Info.SkillId,
+                    Reason = CastResult.UnmatchedCaster
+                });
                 return;
             }
-            player.Map.FightManager.AddSkillCast(req);
+            player.Map.FightManager.AddSkillCast(req.Info);
         }
     }
 }
