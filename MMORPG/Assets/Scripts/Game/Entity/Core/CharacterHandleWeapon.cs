@@ -4,13 +4,6 @@ using UnityEngine;
 
 namespace MMORPG.Game
 {
-    public enum HandleWeaponMode
-    {
-        NoWeapon,
-        LeftHand,
-        RightHand
-    }
-
     public class CharacterHandleWeapon : MonoBehaviour
     {
         [Title("Weapon")]
@@ -24,37 +17,11 @@ namespace MMORPG.Game
         [Title("Binding")]
         [Tooltip("武器附加位置")]
         public Transform WeaponAttachment;
-        public HandleWeaponMode HandleMode = HandleWeaponMode.RightHand;
-        [ShowIf("HandleMode", HandleWeaponMode.LeftHand)]
-        public Transform LeftHandTarget;
-        [ShowIf("HandleMode", HandleWeaponMode.RightHand)]
-        public Transform RightHandTarget;
 
         public delegate void WeaponChangedHandler(Weapon current, Weapon previous);
         public event WeaponChangedHandler OnWeaponChanged;
 
         public CharacterController Owner { get; private set; }
-
-        [Button]
-        private void UpdateWeaponAttachmentTransform()
-        {
-            if (WeaponAttachment)
-            {
-                switch (HandleMode)
-                {
-                    case HandleWeaponMode.LeftHand:
-                        if (LeftHandTarget)
-                            WeaponAttachment.SetPositionAndRotation(LeftHandTarget.position, LeftHandTarget.rotation);
-                        break;
-                    case HandleWeaponMode.RightHand:
-                        if (RightHandTarget)
-                            WeaponAttachment.SetPositionAndRotation(RightHandTarget.position, RightHandTarget.rotation);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
 
         private void Start()
         {
@@ -66,7 +33,6 @@ namespace MMORPG.Game
 
         private void Update()
         {
-            UpdateWeaponAttachmentTransform();
         }
 
         public void Setup(CharacterController owner)

@@ -4,19 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Proto.Entity;
+using GameServer.Manager;
+using GameServer.Tool;
 
 namespace GameServer.Model
 {
     public class DroppedItem : Entity
     {
-        public int Amount;
+        public int ItemId { get; private set; }
+        public int Amount { get; private set; }
 
-
-        public DroppedItem(int entityId, int unitId,
-            Map map, int amount)
+        public DroppedItem(int entityId, Map map, int unitId, int itemId, int amount)
             : base(EntityType.DroppedItem, entityId, unitId, map)
         {
             Amount = amount;
+            ItemId = itemId;
         }
     }
 }

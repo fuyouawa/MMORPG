@@ -16,13 +16,12 @@ public class SkillDefine
 	public int Level; // 技能等级
 	public int MaxLevel; // 技能上限
 	public string Type; // 类别
-	public string HitCheck; // 命中检查
 	public string Icon; // 技能图标
 	public string TargetType; // 目标类型
 	public float Cd; // 冷却时间
 	public float SpellRange; // 施法距离
-	public float IntonateTime; // 施法前摇
 	public int Cost; // 魔法消耗
+	public float IntonateTime; // 施法前摇
 	public string Anim1; // 前摇动作
 	public string Anim2; // 激活动作
 	public int ReqLevel; // 等级要求
@@ -30,9 +29,9 @@ public class SkillDefine
 	public string Missile; // 投射物
 	public int MissileSpeed; // 投射速度
 	public string HitArt; // 击中效果
-	public int Area; // 影响区域
+	public float Area; // 影响区域
+	public string AreaOffset; // 区域偏移
 	public float Duration; // 持续时间
-	public float Interval; // 伤害间隔
 	public string HitDelay; // 命中延迟
 	public string Buff; // 附加效果
 	public float Ad; // 物理攻击

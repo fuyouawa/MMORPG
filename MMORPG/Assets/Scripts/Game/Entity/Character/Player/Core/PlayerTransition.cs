@@ -143,7 +143,7 @@ namespace MMORPG.Game
 
         private bool CheckStateConditionsHasError()
         {
-            return StateConditions.Any(x => x.HasError());
+            return StateConditions != null && StateConditions.Any(x => x.HasError());
         }
 
         public bool HasError()

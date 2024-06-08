@@ -21,7 +21,7 @@ namespace GameServer.Manager
 
         public void Start()
         {
-            NewItem(1001001, new(0, 5, 0), Vector3.Zero, 1);
+            NewItem(1001, new(0, 5, 0), Vector3.Zero, 1);
             NewItem(1002001, new(5, 5, 0), Vector3.Zero, 1);
         }
 
@@ -37,9 +37,9 @@ namespace GameServer.Manager
         /// 创建掉落物
         /// </summary>
         /// <returns></returns>
-        public DroppedItem NewItem(int unitId, Vector3 pos, Vector3 dire, int amount)
+        public DroppedItem NewItem(int itemId, Vector3 pos, Vector3 dire, int amount)
         {
-            var item = new DroppedItem(EntityManager.Instance.NewEntityId(), unitId, _map, amount)
+            var item = new DroppedItem(EntityManager.Instance.NewEntityId(), _map, DataManager.Instance.ItemDict[itemId].UnitId, itemId, amount)
             {
                 Position = pos,
                 Direction = dire,
@@ -54,6 +54,19 @@ namespace GameServer.Manager
 
             item.Start();
             return item;
+        }
+
+        /// <summary>
+        /// 删除玩家
+        /// </summary>
+        /// <param name="player"></param>
+        public void RemoveDroppedItem(DroppedItem item)
+        {
+            EntityManager.Instance.RemoveEntity(item);
+            lock (_itemDict)
+            {
+                _itemDict.Remove(item.EntityId);
+            }
         }
     }
 }
