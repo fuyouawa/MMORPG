@@ -64,16 +64,16 @@ namespace GameServer.Inventory
                     Items.Add(null);
                 }
 
-                InventoryInfo inv = InventoryInfo.Parser.ParseFrom(inventoryData);
-                foreach (var item in inv.Items)
-                {
-                    if (!DataManager.Instance.ItemDict.TryGetValue(item.ItemId, out var define))
-                    {
-                        Log.Error($"物品id不存在:{item.ItemId}");
-                        continue;
-                    }
-                    Items[item.SlotId] = new Item(define, item.Amount, item.SlotId);
-                }
+                //InventoryInfo inv = InventoryInfo.Parser.ParseFrom(inventoryData);
+                //foreach (var item in inv.Items)
+                //{
+                //    if (!DataManager.Instance.ItemDict.TryGetValue(item.ItemId, out var define))
+                //    {
+                //        Log.Error($"物品id不存在:{item.ItemId}");
+                //        continue;
+                //    }
+                //    Items[item.SlotId] = new Item(define, item.Amount, item.SlotId);
+                //}
             }
         }
 

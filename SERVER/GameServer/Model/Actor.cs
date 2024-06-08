@@ -15,22 +15,19 @@ namespace GameServer.Model
 {
     public class Actor : Entity
     {
-        public string Name { get; private set; }
-        public int Level { get; private set; }
-        public float Speed { get; private set; }
-        public float Hp { get; private set; }
-        public float Mp { get; private set; }
-        public AttributeManager AttributeManager { get; private set; }
-        public SkillManager SkillManager { get; private set; }
-        public Spell Spell { get; private set; }
+        public string Name { get; protected set; }
+        public int Level { get; protected set; }
+        public float Speed { get; protected set; }
+        public float Hp { get; protected set; }
+        public float Mp { get; protected set; }
+        public AttributeManager AttributeManager { get; protected set; }
+        public SkillManager SkillManager { get; protected set; }
+        public Spell Spell { get; protected set; }
 
         public Actor(EntityType entityType, int entityId, int unitId, 
             Map map, string name) : base(entityType, entityId, unitId, map)
         {
             Name = name;
-            var unitDefine = DataHelper.GetUnitDefine(unitId);
-            Speed = unitDefine.Speed;
-
             AttributeManager = new(this);
             SkillManager = new(this);
             Spell = new(this);
@@ -41,6 +38,8 @@ namespace GameServer.Model
             base.Start();
             AttributeManager.Start();
             SkillManager.Start();
+
+            //var unitDefine = DataHelper.GetUnitDefine(UnitId);
             //Spell.Start();
         }
 
