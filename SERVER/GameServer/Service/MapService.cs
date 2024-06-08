@@ -32,7 +32,7 @@ namespace Service
 
         public void OnHandle(NetChannel sender, SubmitChatMessageRequest request)
         {
-            Log.Debug($"{sender.ChannelName}发送聊天请求: Message:{request.Message}, Type:{request.MessageType}");
+            Log.Debug($"{sender}发送聊天请求: Message:{request.Message}, Type:{request.MessageType}");
             var time = Timestamp.FromDateTime(DateTime.UtcNow);
 
             sender.Send(new SubmitChatMessageResponse()
