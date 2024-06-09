@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 5397245472822189877}
   - component: {fileID: 1559557074243528867}
   m_Layer: 5
-  m_Name: TextSlotId
+  m_Name: TextAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 999
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -241,9 +241,9 @@ GameObject:
   - component: {fileID: 4189818723389354591}
   - component: {fileID: 7504782991530666380}
   - component: {fileID: 2019702410446981462}
-  - component: {fileID: -8516455514715046647}
   - component: {fileID: 7606880842848330890}
   - component: {fileID: 8527401435137266069}
+  - component: {fileID: -8516455514715046647}
   m_Layer: 5
   m_Name: UIKnapsackSlot
   m_TagString: Untagged
@@ -380,19 +380,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
---- !u!114 &-8516455514715046647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4798597387107460159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47b271fe2fc015d408611598182051e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TextSlotId: {fileID: 5397245472822189877}
 --- !u!114 &7606880842848330890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,6 +441,20 @@ MonoBehaviour:
   m_PressedTrigger: Pressed
   m_TargetGraphic: {fileID: 1164117425251656367}
   m_TargetGameObject: {fileID: 0}
+--- !u!114 &-8516455514715046647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4798597387107460159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b271fe2fc015d408611598182051e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextAmount: {fileID: 5397245472822189877}
+  ImageIcon: {fileID: 5223658915243614200}
 --- !u!1 &8461567680582334401
 GameObject:
   m_ObjectHideFlags: 0
