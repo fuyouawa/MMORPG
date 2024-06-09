@@ -66,5 +66,7 @@ namespace MMORPG.UI
             //TODO 其他可能的处理
             Item = null;
         }
+
+        //TODO 右键菜单
     }
 }
