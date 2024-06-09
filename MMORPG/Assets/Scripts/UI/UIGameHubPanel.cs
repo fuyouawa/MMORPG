@@ -1,3 +1,4 @@
+using MMORPG.Tool;
 using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
@@ -11,7 +12,6 @@ namespace MMORPG.UI
 	public partial class UIGameHubPanel : UIPanel
     {
         private GameInputControls _inputControls;
-        private bool _isInventoryOpen = false;
 
         private void Awake()
         {
@@ -28,13 +28,13 @@ namespace MMORPG.UI
 
         private void OnSwitchInventory(InputAction.CallbackContext obj)
         {
-            if (_isInventoryOpen)
+            if (PlayerKnapsackPanel.gameObject.activeSelf)
             {
-                UIKit.ClosePanel<UIPlayerInventoryPanel>();
+                PanelHelper.FadeOut(PlayerKnapsackPanel.gameObject);
             }
             else
             {
-                UIKit.OpenPanel<UIPlayerInventoryPanel>();
+                PanelHelper.FadeIn(PlayerKnapsackPanel.gameObject);
             }
         }
 

@@ -76,7 +76,7 @@ namespace GameServer.Fight
 
         public CastResult CanCast(CastTarget castTarget)
         {
-            if (CurrentStage != Stage.Collding)
+            if (CurrentStage == Stage.Collding)
             {
                 return CastResult.Colldown;
             }
