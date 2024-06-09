@@ -262,22 +262,28 @@ namespace MMORPG.Game
                 switch (cur)
                 {
                     case WeaponStates.Idle:
-                        Owner.Animator.SetTrigger(IdleTriggerAnimationParameter);
+                        if (!string.IsNullOrEmpty(IdleTriggerAnimationParameter))
+                            Owner.Animator.SetTrigger(IdleTriggerAnimationParameter);
                         break;
                     case WeaponStates.Start:
-                        Owner.Animator.SetTrigger(StartTriggerAnimationParameter);
+                        if (!string.IsNullOrEmpty(StartTriggerAnimationParameter))
+                            Owner.Animator.SetTrigger(StartTriggerAnimationParameter);
                         break;
                     case WeaponStates.DelayBeforeUse:
-                        Owner.Animator.SetTrigger(DelayBeforeUseTriggerAnimationParameter);
+                        if (!string.IsNullOrEmpty(DelayBeforeUseTriggerAnimationParameter))
+                            Owner.Animator.SetTrigger(DelayBeforeUseTriggerAnimationParameter);
                         break;
                     case WeaponStates.Use:
-                        Owner.Animator.SetTrigger(UseTriggerAnimationParameter);
+                        if (!string.IsNullOrEmpty(UseTriggerAnimationParameter))
+                            Owner.Animator.SetTrigger(UseTriggerAnimationParameter);
                         break;
                     case WeaponStates.DelayBetweenUses:
-                        Owner.Animator.SetTrigger(DelayBetweenUsesTriggerAnimationParameter);
+                        if (!string.IsNullOrEmpty(DelayBetweenUsesTriggerAnimationParameter))
+                            Owner.Animator.SetTrigger(DelayBetweenUsesTriggerAnimationParameter);
                         break;
                     case WeaponStates.Stop:
-                        Owner.Animator.SetTrigger(StopTriggerAnimationParameter);
+                        if (!string.IsNullOrEmpty(StopTriggerAnimationParameter))
+                            Owner.Animator.SetTrigger(StopTriggerAnimationParameter);
                         break;
                     case WeaponStates.Interrupted:
                         break;
