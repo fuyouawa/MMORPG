@@ -43,7 +43,7 @@ namespace GameServer.Fight
         public void Start()
         {
             _hitDelay = DataHelper.ParseJson<float[]>(Define.HitDelay);
-            if (_hitDelay.Length == 0)
+            if (_hitDelay == null || _hitDelay.Length == 0)
             {
                 _hitDelay = new[] { 0.0f };
             }

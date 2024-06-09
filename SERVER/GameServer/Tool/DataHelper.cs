@@ -56,7 +56,7 @@ namespace GameServer.Tool
         }
 
 
-        public static T ParseJson<T>(string str)
+        public static T? ParseJson<T>(string str)
         {
             return JsonConvert.DeserializeObject<T>(str);
         }
