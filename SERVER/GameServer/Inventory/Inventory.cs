@@ -106,17 +106,11 @@ namespace GameServer.Inventory
                     // 如果找不到ItemId对应的Slot了, 那就尝试在空Slot上分配
                     return AddItemInEmptySlot(itemId, residue);
                 }
-                slotId = item.SlotId;
-
                 Debug.Assert(item != null);
                 var processableAmount2 = Math.Min(amount, item.Capacity - item.Amount);
-                if (processableAmount2 == 0)
-                {
-                    slotId = item.SlotId + 1;
-                    continue;
-                }
                 item.Amount += processableAmount2;
                 residue -= processableAmount2;
+                slotId = item.SlotId + 1;
             }
 
             _hasChange = true;
