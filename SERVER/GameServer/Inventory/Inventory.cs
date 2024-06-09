@@ -56,17 +56,23 @@ namespace GameServer.Inventory
 
         public void LoadInventoryInfoData(byte[]? inventoryData)
         {
+            InventoryInfo? inv = null;
             if (inventoryData == null)
             {
                 Capacity = InitCapacity;
-                for (int i = 0; i < Capacity; i++)
-                {
-                    Items.Add(null);
-                }
             }
             else
             {
-                InventoryInfo inv = InventoryInfo.Parser.ParseFrom(inventoryData);
+                inv = InventoryInfo.Parser.ParseFrom(inventoryData);
+                Capacity = inv.Capacity;
+            }
+            for (int i = 0; i < Capacity; i++)
+            {
+                Items.Add(null);
+            }
+
+            if (inv != null)
+            {
                 foreach (var item in inv.Items)
                 {
                     if (!DataManager.Instance.ItemDict.TryGetValue(item.ItemId, out var define))
@@ -74,6 +80,7 @@ namespace GameServer.Inventory
                         Log.Error($"物品id不存在:{item.ItemId}");
                         continue;
                     }
+
                     Items[item.SlotId] = new Item(define, item.Amount, item.SlotId);
                 }
             }
@@ -103,6 +110,11 @@ namespace GameServer.Inventory
 
                 Debug.Assert(item != null);
                 var processableAmount2 = Math.Min(amount, item.Capacity - item.Amount);
+                if (processableAmount2 == 0)
+                {
+                    slotId = item.SlotId + 1;
+                    continue;
+                }
                 item.Amount += processableAmount2;
                 residue -= processableAmount2;
             }

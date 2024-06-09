@@ -53,7 +53,7 @@ namespace GameServer.Manager
                 }
                 Db.SqlDb.Connection.Update<DbCharacter>()
                     .SetSource(characters)
-                    .IgnoreColumns(c => new{ c.Id, c.Name, c.UserId, c.UnitId })
+                    .IgnoreColumns(c =>new { c.Id, c.Name, c.UserId, c.UnitId })
                     .ExecuteAffrowsAsync();
                 _updateDbCountdown = UpdateDbSecond;
             }
