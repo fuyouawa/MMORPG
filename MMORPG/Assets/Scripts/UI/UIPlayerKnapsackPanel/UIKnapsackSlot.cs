@@ -26,9 +26,15 @@ namespace MMORPG.UI
             set
             {
                 _amount = value;
+                // 显示到UI上
                 if (TextAmount != null)
                 {
                     TextAmount.SetText(value == 0 ? string.Empty : value.ToString());
+                }
+                // 同步更新Item中的Amount
+                if (Item != null)
+                {
+                    Item.Amount = value;
                 }
             }
         }
@@ -41,6 +47,7 @@ namespace MMORPG.UI
         {
             Debug.Assert(item.SlotId == SlotId);
             Amount = item.Amount;
+            // 根据Item中的Icon显示物品图标
             ImageIcon.enabled = true;
             ImageIcon.sprite = Resources.Load<Sprite>(item.Icon);
             //TODO 其他可能的处理
@@ -52,9 +59,11 @@ namespace MMORPG.UI
         /// </summary>
         public void SetEmpty()
         {
+            // 隐藏物品图标
             ImageIcon.enabled = false;
             ImageIcon.sprite = null;
             Amount = 0;
+            //TODO 其他可能的处理
             Item = null;
         }
     }
