@@ -137,9 +137,9 @@ namespace GameServer.Fight
         {
             if (_hitDelayIndex < _hitDelay.Length)
             {
-                if (_time >= _hitDelay[_hitDelayIndex] * 1000)
+                if (_time >= _hitDelay[_hitDelayIndex])
                 {
-                    _time = _hitDelay[_hitDelayIndex] * 1000;
+                    _time -= _hitDelay[_hitDelayIndex];
                     // 命中延迟触发
                     OnHit(_castTarget);
                 }
