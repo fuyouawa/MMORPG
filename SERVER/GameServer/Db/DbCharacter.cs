@@ -28,18 +28,19 @@ namespace GameServer.Db
         [Column(DbType = "blob")]
         public byte[]? Knapsack { get; set; }
 
-        public DbCharacter(string name, long userId, int unitId, int mapId, int level, int exp, long gold, int hp, int mp, byte[]? knapsack)
-        {
-            Name = name;
-            UserId = userId;
-            UnitId = unitId;
-            MapId = mapId;
-            Hp = hp;
-            Mp = mp;
-            Level = level;
-            Exp = exp;
-            Gold = gold;
-            Knapsack = knapsack;
-        }
+        //public DbCharacter(long id, string name, long userId, int unitId, int mapId, int level, int exp, long gold, int hp, int mp, byte[]? knapsack)
+        //{
+        //    Id = id;
+        //    Name = name;
+        //    UserId = userId;
+        //    UnitId = unitId;
+        //    MapId = mapId;
+        //    Hp = hp;
+        //    Mp = mp;
+        //    Level = level;
+        //    Exp = exp;
+        //    Gold = gold;
+        //    Knapsack = knapsack;
+        //}
     }
 }

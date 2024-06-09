@@ -1,4 +1,5 @@
 using Common.Inventory;
+using QFramework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ namespace MMORPG.UI
     {
         public TextMeshProUGUI TextAmount;
         public Image ImageIcon;
+
+        private ResLoader _resLoader = ResLoader.Allocate();
 
         /// <summary>
         /// Item信息
@@ -49,7 +52,7 @@ namespace MMORPG.UI
             Amount = item.Amount;
             // 根据Item中的Icon显示物品图标
             ImageIcon.enabled = true;
-            ImageIcon.sprite = Resources.Load<Sprite>(item.Icon);
+            ImageIcon.sprite = _resLoader.LoadSync<Sprite>(item.Icon);
             //TODO 其他可能的处理
             Item = item;
         }

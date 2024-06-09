@@ -45,9 +45,9 @@ namespace GameServer.Inventory
 
         public InventoryInfo GetInventoryInfo()
         {
-            _inventoryInfo ??= new InventoryInfo();
-            if (_hasChange)
+            if (_hasChange || _inventoryInfo == null)
             {
+                _inventoryInfo = new();
                 _inventoryInfo.Capacity = Capacity;
                 _inventoryInfo.Items.AddRange(Items.Where(x => x != null).Select(x => x.GetItemInfo()));
             }
@@ -63,17 +63,19 @@ namespace GameServer.Inventory
                 {
                     Items.Add(null);
                 }
-
-                //InventoryInfo inv = InventoryInfo.Parser.ParseFrom(inventoryData);
-                //foreach (var item in inv.Items)
-                //{
-                //    if (!DataManager.Instance.ItemDict.TryGetValue(item.ItemId, out var define))
-                //    {
-                //        Log.Error($"物品id不存在:{item.ItemId}");
-                //        continue;
-                //    }
-                //    Items[item.SlotId] = new Item(define, item.Amount, item.SlotId);
-                //}
+            }
+            else
+            {
+                InventoryInfo inv = InventoryInfo.Parser.ParseFrom(inventoryData);
+                foreach (var item in inv.Items)
+                {
+                    if (!DataManager.Instance.ItemDict.TryGetValue(item.ItemId, out var define))
+                    {
+                        Log.Error($"物品id不存在:{item.ItemId}");
+                        continue;
+                    }
+                    Items[item.SlotId] = new Item(define, item.Amount, item.SlotId);
+                }
             }
         }
 
@@ -106,7 +108,6 @@ namespace GameServer.Inventory
             }
 
             _hasChange = true;
-
             return true;
         }
 
