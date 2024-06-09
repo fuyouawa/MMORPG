@@ -27,5 +27,8 @@ namespace MMORPG.UI
         {
             Toggle = this.GetComponent<Toggle>();
         }
+
+        //TODO 物品拖拽效果
+        //TODO 鼠标悬停时显示物品信息
 	}
 }
