@@ -62,8 +62,23 @@ namespace GameServer.Service
                     return;
                 }
 
-                var newDbCharacter = new DbCharacter(request.Name, sender.User.UserId, request.UnitId, MapManager.Instance.InitMapId, 1, 0, 0,
-                    0, 0, null);
+                var newDbCharacter = new DbCharacter()
+                {
+                    Id = 0,
+                    Name = request.Name,
+                    UserId = sender.User.UserId,
+                    UnitId = request.UnitId,
+                    MapId = MapManager.Instance.InitMapId,
+                    Level = 0,
+                    Exp = 0,
+                    Gold = 0,
+                    Hp = 0,
+                    Mp = 0,
+                    X = 0,
+                    Y = 0,
+                    Z = 0,
+                    Knapsack = null,
+                };
                 long characterId = SqlDb.Connection.Insert(newDbCharacter).ExecuteIdentity();
                 if (characterId == 0)
                 {
