@@ -51,7 +51,23 @@ namespace GameServer.Model
 
         public DbCharacter ToDbCharacter()
         {
-            return new DbCharacter(Name, User.UserId, UnitId, Map.MapId, Level, Exp, Gold, (int)Hp, (int)Mp, Knapsack.GetInventoryInfo().ToByteArray());
+            return new DbCharacter()
+            {
+                Id = CharacterId,
+                Name = Name,
+                UserId = User.UserId,
+                UnitId = UnitId,
+                MapId = Map.MapId,
+                Level = Level,
+                Exp = Exp,
+                Gold = Gold,
+                Hp = (int)Hp,
+                Mp = (int)Mp,
+                X = (int)Position.X,
+                Y = (int)Position.Y,
+                Z = (int)Position.Z,
+                Knapsack = Knapsack.GetInventoryInfo().ToByteArray(),
+            };
         }
     }
 }

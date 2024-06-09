@@ -142,6 +142,7 @@ namespace GameServer.Fight
                     _time -= _hitDelay[_hitDelayIndex];
                     // 命中延迟触发
                     OnHit(_castTarget);
+                    ++_hitDelayIndex;
                 }
             }
             else

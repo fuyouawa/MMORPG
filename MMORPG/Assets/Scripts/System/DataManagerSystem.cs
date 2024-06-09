@@ -9,7 +9,7 @@ namespace MMORPG.Game
     {
         public MapDefine GetMapDefine(int mapId);
         public UnitDefine GetUnitDefine(int unitId);
-
+        public ItemDefine GetItemDefine(int itemId);
 
     }
 
@@ -52,5 +52,11 @@ namespace MMORPG.Game
         {
             return _skillDict[skillId];
         }
+
+        public ItemDefine GetItemDefine(int itemId)
+        {
+            return _itemDict[itemId];
+        }
+
     }
 }

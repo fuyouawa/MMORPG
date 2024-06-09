@@ -51,7 +51,10 @@ namespace GameServer.Manager
                 {
                     characters.Add(player.ToDbCharacter());
                 }
-                Db.SqlDb.Connection.Update<DbCharacter>(characters).ExecuteAffrowsAsync();
+                Db.SqlDb.Connection.Update<DbCharacter>()
+                    .SetSource(characters)
+                    .IgnoreColumns(c => new{ c.Id, c.Name, c.UserId, c.UnitId })
+                    .ExecuteAffrowsAsync();
                 _updateDbCountdown = UpdateDbSecond;
             }
         }

@@ -101,7 +101,6 @@ namespace GameServer
             CharacterService.Instance.OnChannelClosed(channel);
             MapService.Instance.OnChannelClosed(channel);
             PlayerService.Instance.OnChannelClosed(channel);
-
             lock (_channels)
             {
                 if (channel.LinkedListNode != null)
@@ -123,6 +122,7 @@ namespace GameServer
             MapService.Instance.HandleMessage(channel, e.Packet.Message);
             PlayerService.Instance.HandleMessage(channel, e.Packet.Message);
             FightService.Instance.HandleMessage(channel, e.Packet.Message);
+            InventoryService.Instance.HandleMessage(channel, e.Packet.Message);
         }
     }
 }

@@ -55,13 +55,13 @@ message SpellRequest {
 }
 
 //技能施放错误（只有施法玩家才会收到）
-message SpellFailResponse{
+message SpellFailResponse {
 	int32 skill_id = 1;
 	int32 caster_id = 2;
 	CastResult reason = 3;
 }
 
 //通知客户端执行技能
-message SpellResponse{
+message SpellResponse {
 	CastInfo info = 1;
 }
