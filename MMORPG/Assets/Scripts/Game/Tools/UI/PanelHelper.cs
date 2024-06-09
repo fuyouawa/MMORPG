@@ -26,7 +26,7 @@ namespace MMORPG.Tool
         public static void FadeIn(
             GameObject target,
             float duration = 0.3f,
-            bool autoActive = false,
+            bool autoActive = true,
             bool autoBlocksRaycasts = true,
             bool autoAlpha = true,
             Action onComplete = null)
@@ -55,7 +55,7 @@ namespace MMORPG.Tool
         public static void FadeOut(
             GameObject target,
             float duration = 0.3f,
-            bool autoActive = false,
+            bool autoActive = true,
             bool autoBlocksRaycasts = true,
             bool autoAlpha = true,
             Action onComplete = null)
