@@ -23,6 +23,7 @@ namespace GameServer.Service
             if (player == null) return;
 
             player.Knapsack.AddItem(1001, 2);
+            player.Knapsack.AddItem(1001, 100);
 
             var resp = new InventoryQueryResponse()
             {
