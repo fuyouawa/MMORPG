@@ -10,23 +10,12 @@ namespace MMORPG.UI
 	public class UISlotBase : MonoBehaviour
     {
         public Toggle Toggle { get; protected set; }
-        public TextMeshProUGUI TextSlotId;
         public UIInventoryBase Inventory { get; protected set; }
 
         /// <summary>
         /// 槽在容器中的Id(也就是Index)
         /// </summary>
-        public int SlotId
-        {
-            get => _slotId;
-            set
-            {
-                _slotId = value;
-                TextSlotId.SetText(_slotId.ToString());
-            }
-        }
-
-        private int _slotId;
+        public int SlotId { get; protected set; }
 
         public void Setup(UIInventoryBase inventory, int slotId)
         {
