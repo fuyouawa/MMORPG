@@ -28,7 +28,7 @@ namespace GameServer.Fight
 
     public class EntityCastTarget : CastTarget
     {
-        private Entity _entity { get => (Entity)_realObj; }
+        private Entity _entity => (Entity)_realObj;
         public EntityCastTarget(Entity entity) : base(entity) { }
 
         public override int Id => _entity.EntityId;

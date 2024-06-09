@@ -33,7 +33,7 @@ namespace GameServer.Manager
                 (_backupCastQueue, _castQueue) = (_castQueue, _backupCastQueue);
             }
 
-            while (_backupCastQueue.Any())
+            while (_backupCastQueue.Count > 0)
             {
                 var req = _backupCastQueue.Dequeue();
                 RunSpell(req);

@@ -54,13 +54,13 @@ namespace MMORPG.Game
         {
             if (response.Reason == CastResult.Success)
             {
-                _prepareFire = false;
                 Brain.CharacterController.HandleWeapon.ShootStart();
             }
             else
             {
                 Log.Error($"攻击请求失败! 原因:{response.Reason}");
             }
+            _prepareFire = false;
         }
 
         [StateCondition]

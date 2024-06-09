@@ -27,6 +27,7 @@ namespace GameServer.Manager
             foreach (var define in list)
             {
                 var skill = new Skill(_actor, define);
+                skill.Start();
                 SkillDict[skill.Define.ID] = skill;
             }
         }
