@@ -135,12 +135,7 @@ namespace MMORPG.System
             _session = new NetSession(socket);
         }
 
-        protected override void OnInit()
-        {
-            this.RegisterEvent<ApplicationQuitEvent>(OnApplicationQuit);
-        }
-
-        private void OnApplicationQuit(ApplicationQuitEvent e)
+        protected override void OnDeinit()
         {
             Close();
             _messageHandlers.Clear();
@@ -149,6 +144,10 @@ namespace MMORPG.System
                 _messageList.Clear();
             }
             _session = null;
+        }
+
+        protected override void OnInit()
+        {
         }
 
         private void UnReceive<TMessage>(INetworkSystem.ReceivedEventHandler<TMessage> onReceived) where TMessage : class, IMessage

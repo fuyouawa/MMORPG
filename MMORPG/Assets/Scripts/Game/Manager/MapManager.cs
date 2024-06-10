@@ -58,6 +58,7 @@ namespace MMORPG.Game
                 var entity = _entityManager.SpawnEntity(
                     _resLoader.LoadSync<EntityView>(unitDefine.Resource),    //TODO 角色生成
                     response.EntityId,
+                    response.UnitId,
                     EntityType.Player,
                     response.Transform.Position.ToVector3(),
                     Quaternion.Euler(response.Transform.Direction.ToVector3()));
