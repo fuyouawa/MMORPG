@@ -56,6 +56,7 @@ namespace MMORPG.Game
                 _entityManager.SpawnEntity(
                     _resLoader.LoadSync<EntityView>(unitDefine.Resource),
                     entityId,
+                    data.UnitId,
                     data.EntityType,
                     position,
                     rotation);

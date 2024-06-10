@@ -40,7 +40,7 @@ using UnityEngine;
                 for (int i = currentSlotCount; i < slotCount; i++)
                 {
                     var newSlot = Instantiate(prefab, GroupSlots);
-                    newSlot.Setup(this, i + 1);
+                    newSlot.Setup(this, i);
                     newSlot.Toggle.onValueChanged.AddListener(toggle => OnSlotToggle(newSlot, toggle));
                     OnInstantiatedSlot(newSlot);
                 }
