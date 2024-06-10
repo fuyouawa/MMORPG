@@ -20,7 +20,7 @@ namespace MMORPG.Game
         public Animator Animator;
 
         public bool IsPreventingMovement { get; private set; }
-
+        public CharacterSkillManager SkillManager { get; private set; }
         public Rigidbody Rigidbody { get; private set; }
         public CapsuleCollider Collider { get; private set; }
 
@@ -29,10 +29,12 @@ namespace MMORPG.Game
         {
             Rigidbody = GetComponent<Rigidbody>();
             Collider = GetComponent<CapsuleCollider>();
+            SkillManager = new(this);
         }
 
         private void Update()
         {
+            SkillManager.Update();
         }
 
         public void SmoothRotate(Quaternion targetRotation)
