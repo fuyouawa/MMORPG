@@ -122,18 +122,6 @@ namespace MMORPG.Game
             FSM.Update();
         }
 
-        public Weapon Spawn(Transform parent, CharacterController characterController, bool combo = false)
-        {
-            var weapon = !combo ? Instantiate(this) : this;
-
-            weapon.transform.SetParent(parent, false);
-            weapon.Setup(characterController);
-            if (!weapon.InitializeOnStart)
-                weapon.Initialize();
-
-            return weapon;
-        }
-
 
         public virtual void Setup(CharacterController owner)
         {

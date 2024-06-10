@@ -14,6 +14,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using QFramework;
 using UnityEngine.EventSystems;
+using UnityEngine.XR;
+using MMORPG.Event;
 
 namespace MMORPG.Game
 {
@@ -42,6 +44,7 @@ namespace MMORPG.Game
         public PlayerState CurrentState { get; private set; }
 
         [Title("Binding")]
+        public PlayerHandleWeapon HandleWeapon;
         public GameObject[] AdditionalAbilityNodes;
 
         public GameInputControls InputControls { get; private set; }
@@ -55,8 +58,6 @@ namespace MMORPG.Game
 
         private bool? _isMine = null;
 
-        [ShowInInspector]
-        [ReadOnly]
         public bool IsMine
         {
             get
@@ -138,6 +139,18 @@ namespace MMORPG.Game
             CurrentState = null;
             if (States.Length == 0) return;
             CharacterController.Entity.OnTransformSync += OnTransformEntitySync;
+
+            if (HandleWeapon != null)
+                HandleWeapon.Setup(this);
+
+
+            this.RegisterEvent<PlayerChangeWeaponEvent>(e =>
+            {
+                if (HandleWeapon != null)
+                {
+                    HandleWeapon.ChangeWeapon(e.NewWeapon, e.Combo);
+                }
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
         private void OnTransformEntitySync(EntityTransformSyncData data)
