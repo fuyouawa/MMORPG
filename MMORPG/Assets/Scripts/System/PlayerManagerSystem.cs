@@ -69,5 +69,10 @@ namespace MMORPG.System
             CharacterId = -1;
             PlayerDict.Clear();
         }
+
+        protected override void OnDeinit()
+        {
+            Clear();
+        }
     }
 }

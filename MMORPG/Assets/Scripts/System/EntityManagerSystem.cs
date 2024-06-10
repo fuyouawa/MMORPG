@@ -15,6 +15,7 @@ namespace MMORPG.System
         public EntityView SpawnEntity(
             EntityView prefab,
             int entityId,
+            int unitId,
             EntityType type,
             Vector3 position,
             Quaternion rotation);
@@ -51,6 +52,7 @@ namespace MMORPG.System
         public EntityView SpawnEntity(
             EntityView prefab,
             int entityId,
+            int unitId,
             EntityType type,
             Vector3 position,
             Quaternion rotation)
@@ -64,7 +66,7 @@ namespace MMORPG.System
 
             var entity = GameObject.Instantiate(prefab, position, rotation);
             entity.transform.SetPositionAndRotation(position, rotation);
-            entity.Initialize(entityId);
+            entity.Initialize(entityId, unitId);
 
             EntityDict[entity.EntityId] = entity;
 
@@ -87,6 +89,11 @@ namespace MMORPG.System
             //         GameObject.Destroy(entity.Value.gameObject);
             //     }
             // }
+            EntityDict.Clear();
+        }
+
+        protected override void OnDeinit()
+        {
             EntityDict.Clear();
         }
     }

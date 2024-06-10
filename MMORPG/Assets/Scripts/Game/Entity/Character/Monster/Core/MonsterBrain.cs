@@ -145,12 +145,6 @@ namespace MMORPG.Game
         {
             FSM.Clear();
         }
-
-        private void OnFireStarted(InputAction.CallbackContext obj)
-        {
-            CharacterController.HandleWeapon.ShootStart();
-        }
-
     }
 
 }
