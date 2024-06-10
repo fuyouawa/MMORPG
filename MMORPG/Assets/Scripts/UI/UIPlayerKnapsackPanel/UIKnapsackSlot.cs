@@ -1,15 +1,19 @@
 using Common.Inventory;
+using MMORPG.Tool;
 using QFramework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static Google.Protobuf.Compiler.CodeGeneratorResponse.Types;
 
 namespace MMORPG.UI
 {
     public class UIKnapsackSlot : UISlotBase
     {
+
         public UIItem UIItem;
+
 
         /// <summary>
         /// 将Item赋值给此槽
@@ -19,6 +23,7 @@ namespace MMORPG.UI
         {
 
             Debug.Assert(item.SlotId == SlotId);
+
             UIItem.Assign(item);
 
         }

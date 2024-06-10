@@ -36,19 +36,6 @@ namespace MMORPG.Game
         [Tooltip("SemiAuto: 当用完武器后就停止使用武器\nAuto: 当用完武器后继续使用武器, 直到手动调用WeaponInputStop或者TurnWeaponOff")]
         public TriggerModes TriggerMode = TriggerModes.Auto;
 
-// #if UNITY_EDITOR
-//         [FoldoutGroup("Position")]
-//         [LabelText("Debug In Editor")]
-//         public bool PositionDebugInEditor = false;  //TODO PositionDebugInEditor
-// #endif
-        [FoldoutGroup("Position")]
-        [Tooltip("武器附加时的偏移, 一般在连招中使用")]
-        public Vector3 WeaponAttachmentOffset;
-
-        // [FoldoutGroup("Movement")]
-        // public bool ModifyMovementWhileAttacking = false;   //TODO ModifyMovementWhileAttacking
-        // [FoldoutGroup("Movement")]
-        // public float MovementMultiplier = 1f;       //TODO MovementMultiplier
         [FoldoutGroup("Movement")]
         [Tooltip("当使用武器时阻止人物移动")]
         public bool PreventAllMovementWhileInUse = false;
@@ -98,20 +85,6 @@ namespace MMORPG.Game
         [FoldoutGroup("Settings")]
         [Tooltip("是否可以在武器使用时(包括冷却时)打断")]
         public bool Interruptible = false;
-        [FoldoutGroup("Settings")]
-        [ShowIf("Interruptible")]
-        [Tooltip("经过多少时间后可以在武器使用时(包括冷却时)被打断")]
-        public float TimeBeforeInterruptible;
-
-        public bool CanInterrupt
-        {
-            get
-            {
-                if (!Interruptible || FSM.CurrentStateId is WeaponStates.Idle or WeaponStates.Stop or WeaponStates.Interrupted)
-                    return false;
-                return Time.time - _lastTurnWeaponOnAt > TimeBeforeInterruptible;
-            }
-        }
 
         public bool CanUse => FSM.CurrentStateId == WeaponStates.Idle && !PreventFire;
 
@@ -129,7 +102,6 @@ namespace MMORPG.Game
 
         public event Action<Weapon> OnWeaponInitialized;
         public event Action<Weapon> OnWeaponStarted;
-        public event Action<Weapon> OnWeaponTryInterrupt;
         public event Action<Weapon> OnWeaponStopped;
 
         public bool IsInitialized { get; private set; }
@@ -186,10 +158,6 @@ namespace MMORPG.Game
                 _triggerReleased = false;
                 TurnWeaponOn();
             }
-            else
-            {
-                OnWeaponTryInterrupt?.Invoke(this);
-            }
         }
 
         /// <summary>
@@ -231,17 +199,6 @@ namespace MMORPG.Game
             FSM.ChangeState(WeaponStates.Stop);
             OnWeaponStopped?.Invoke(this);
         }
-
-        public virtual bool TryInterrupt()
-        {
-            if (CanInterrupt)
-            {
-                FSM.ChangeState(WeaponStates.Interrupted);
-                return true;
-            }
-            return false;
-        }
-
 
         protected virtual void InitFSM()
         {

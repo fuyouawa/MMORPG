@@ -2,6 +2,9 @@ using QFramework;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
+using MMORPG.Event;
+using Unity.VisualScripting;
+using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Game
 {
@@ -38,6 +41,14 @@ namespace MMORPG.Game
             _skillDict = Load<Dictionary<int, SkillDefine>>("Json/SkillDefine");
         }
 
+        protected override void OnDeinit()
+        {
+            _mapDict.Clear();
+            _unitDict.Clear();
+            _itemDict.Clear();
+            _skillDict.Clear();
+        }
+
         public MapDefine GetMapDefine(int mapId)
         {
             return _mapDict[mapId];
@@ -57,6 +68,7 @@ namespace MMORPG.Game
         {
             return _itemDict[itemId];
         }
+
 
     }
 }

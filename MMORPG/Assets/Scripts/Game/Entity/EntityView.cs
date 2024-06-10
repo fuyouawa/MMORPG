@@ -13,6 +13,9 @@ namespace MMORPG.Game
         [ShowInInspector]
         [ReadOnly]
         public int EntityId { get; private set; }
+        [ShowInInspector]
+        [ReadOnly]
+        public int UnitId { get; private set; }
 
         public EntityType EntityType;
 
@@ -20,11 +23,12 @@ namespace MMORPG.Game
 
         private bool _initialized = false;
 
-        public void Initialize(int entityId)
+        public void Initialize(int entityId, int unitId)
         {
             Debug.Assert(!_initialized);
             _initialized = true;
             EntityId = entityId;
+            UnitId = unitId;
         }
 
         public IArchitecture GetArchitecture()
