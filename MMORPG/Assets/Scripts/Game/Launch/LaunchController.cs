@@ -46,11 +46,12 @@ namespace MMORPG.Game
         {
             base.OnApplicationQuit();
 
-            Serilog.Log.CloseAndFlush();
             FSM.ChangeState(LaunchStatus.ApplicationQuit);
             FSM.Clear();
 
             GameApp.Interface.Deinit();
+
+            Serilog.Log.CloseAndFlush();
         }
     }
 }
