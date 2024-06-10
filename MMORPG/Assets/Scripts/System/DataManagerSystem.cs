@@ -1,5 +1,6 @@
 using QFramework;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 using MMORPG.Event;
@@ -14,6 +15,7 @@ namespace MMORPG.Game
         public UnitDefine GetUnitDefine(int unitId);
         public ItemDefine GetItemDefine(int itemId);
 
+        public SkillDefine[] GetUnitSkillsDefine(int unitId);
     }
 
 
@@ -69,6 +71,12 @@ namespace MMORPG.Game
             return _itemDict[itemId];
         }
 
-
+        public SkillDefine[] GetUnitSkillsDefine(int unitId)
+        {
+            return _skillDict
+                .Where(x => x.Value.UnitID == unitId)
+                .Select(x => x.Value)
+                .ToArray();
+        }
     }
 }
