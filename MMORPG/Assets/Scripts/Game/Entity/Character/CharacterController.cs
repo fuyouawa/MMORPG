@@ -19,8 +19,6 @@ namespace MMORPG.Game
         [Required]
         public Animator Animator;
 
-        public CharacterHandleWeapon HandleWeapon;
-
         public bool IsPreventingMovement { get; private set; }
 
         public Rigidbody Rigidbody { get; private set; }
@@ -31,8 +29,6 @@ namespace MMORPG.Game
         {
             Rigidbody = GetComponent<Rigidbody>();
             Collider = GetComponent<CapsuleCollider>();
-
-            if (HandleWeapon != null) HandleWeapon.Setup(this);
         }
 
         private void Update()
@@ -124,14 +120,6 @@ namespace MMORPG.Game
                    viewPos.y >= 0 &&
                    viewPos.y <= 1;
         }
-
-#if UNITY_EDITOR
-        [Button]
-        private void BuildHandleWeapon()
-        {
-            HandleWeapon = gameObject.GetOrAddComponent<CharacterHandleWeapon>();
-        }
-#endif
     }
 
 }
