@@ -1,5 +1,6 @@
 
 using Common.Inventory;
+using MMORPG.Tool;
 using QFramework;
 using TMPro;
 using UnityEngine;
@@ -15,7 +16,6 @@ namespace MMORPG.UI
         private Vector3 _initialPosition;
         private bool _isDragging;
         private UIKnapsackSlot _originSlot;
-        private ResLoader _resLoader = ResLoader.Allocate();
 
         public TextMeshProUGUI TextAmount;
         public Image ImageIcon;
@@ -61,7 +61,7 @@ namespace MMORPG.UI
             Amount = item.Amount;
             // 根据Item中的Icon显示物品图标
             ImageIcon.enabled = true;
-            ImageIcon.sprite = _resLoader.LoadSync<Sprite>(item.Icon);
+            ImageIcon.sprite = Resources.Load<Texture2D>(item.Icon).ToSprite();
             //TODO 其他可能的处理
             Item = item;
         }
@@ -113,7 +113,9 @@ namespace MMORPG.UI
                     transform.position = _initialPosition;
                 }
             }
+            ImageIcon.raycastTarget = true;
         }
 
+        
     }
 }
