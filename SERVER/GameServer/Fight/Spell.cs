@@ -64,7 +64,7 @@ namespace GameServer.Fight
         // 释放无目标技能
         private void CastNone(Skill skill, CastInfo info)
         {
-            var target = new EntityCastTarget(OwnerActor);
+            var target = new CastTargetEntity(OwnerActor);
             CastTarget(skill, info, target);
         }
 
@@ -77,14 +77,14 @@ namespace GameServer.Fight
                 ResponseSpellFail(info, CastResult.InvalidCastTarget);
                 return;
             }
-            var target = new EntityCastTarget(targetActor);
+            var target = new CastTargetEntity(targetActor);
             CastTarget(skill, info, target);
         }
 
         // 释放位置目标技能
         private void CastPosition(Skill skill, CastInfo info)
         {
-            var target = new PositionCastTarget(info.CastTarget.TargetPos.ToVector3());
+            var target = new CastTargetPosition(info.CastTarget.TargetPos.ToVector3());
             CastTarget(skill, info, target);
         }
 
