@@ -928,6 +928,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnterAbilityFeedbacks: {fileID: 0}
   ExitAbilityFeedbacks: {fileID: 0}
+  InitialWeapon: {fileID: 7306660906642969721, guid: e927d5376ed4a004794bcdefe2983288, type: 3}
+  WeaponAttachment: {fileID: 890314551262170839}
 --- !u!1 &2031200277136639676
 GameObject:
   m_ObjectHideFlags: 0
@@ -2561,7 +2563,6 @@ GameObject:
   - component: {fileID: 9049836981437204500}
   - component: {fileID: 224805171054128564}
   - component: {fileID: 6532541089558292842}
-  - component: {fileID: 6349372569880267187}
   m_Layer: 7
   m_Name: HeroKnightMale Melee
   m_TagString: Untagged
@@ -2698,7 +2699,6 @@ MonoBehaviour:
   RotationSmooth: 10
   MoveSmooth: 10
   Animator: {fileID: 1201144034948401517}
-  HandleWeapon: {fileID: 6349372569880267187}
 --- !u!114 &6532541089558292842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2715,20 +2715,6 @@ MonoBehaviour:
   Invincibility: 0.5
   DamageNumberPoint: {fileID: 8782009336371497808}
   HurtFeedbacks: {fileID: 0}
---- !u!114 &6349372569880267187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6023422151166410460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b33450dc9d26be4db1fca6f8d22500a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitialWeapon: {fileID: 7306660906642969721, guid: e927d5376ed4a004794bcdefe2983288, type: 3}
-  WeaponAttachment: {fileID: 890314551262170839}
 --- !u!1 &6072385525174587162
 GameObject:
   m_ObjectHideFlags: 0

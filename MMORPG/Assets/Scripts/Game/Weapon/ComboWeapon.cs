@@ -1,4 +1,5 @@
 using System;
+using MMORPG.Event;
 using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;
@@ -7,7 +8,7 @@ using UnityEngine.InputSystem;
 
 namespace MMORPG.Game
 {
-    public class ComboWeapon : MonoBehaviour
+    public class ComboWeapon : MonoBehaviour, IController, ICanSendEvent
     {
         [Tooltip("启动连招切换")]
         public bool DroppableCombo = true;
@@ -31,7 +32,6 @@ namespace MMORPG.Game
         private float _timeSinceLastWeaponStopped = -float.MaxValue;
         private bool _inComboCooling;
         private bool _inCombo;
-        private bool _fireInNextWeapon = false;
 
         private void Awake()
         {
@@ -49,25 +49,14 @@ namespace MMORPG.Game
             {
                 x.OnWeaponStarted += OnWeaponStarted;
                 x.OnWeaponStopped += OnWeaponStopped;
-                x.OnWeaponTryInterrupt += OnWeaponTryInterrupt;
             });
             Owner = Weapons[0].Owner;
             Debug.Assert(Owner != null);
-            Owner.HandleWeapon.OnWeaponChanged += OnWeaponChanged;
         }
 
         private void Update()
         {
             ResetCombo();
-        }
-
-        protected virtual void OnWeaponChanged(Weapon current, Weapon previous)
-        {
-            if (_fireInNextWeapon)
-            {
-                current.WeaponInputStart();
-                _fireInNextWeapon = false;
-            }
         }
 
         protected virtual void ResetCombo()
@@ -78,7 +67,7 @@ namespace MMORPG.Game
                 {
                     _inCombo = false;
                     CurrentWeaponIndex = 0;
-                    Owner.HandleWeapon.ChangeWeapon(CurrentWeapon, true);
+                    this.SendEvent(new PlayerChangeWeaponEvent(CurrentWeapon, true));
                 }
             }
 
@@ -96,17 +85,6 @@ namespace MMORPG.Game
         protected virtual void OnWeaponStopped(Weapon weapon)
         {
             ProceedToNextCombo();
-        }
-
-        protected virtual void OnWeaponTryInterrupt(Weapon weapon)
-        {
-            if (Weapons.Length > 1)
-            {
-                if (CurrentWeapon.TryInterrupt())
-                {
-                    _fireInNextWeapon = true;
-                }
-            }
         }
 
         protected virtual void ProceedToNextCombo()
@@ -132,8 +110,13 @@ namespace MMORPG.Game
                 _timeSinceLastWeaponStopped = Time.time;
 
                 CurrentWeaponIndex = newIndex;
-                Owner.HandleWeapon.ChangeWeapon(CurrentWeapon, true);
+                this.SendEvent(new PlayerChangeWeaponEvent(CurrentWeapon, true));
             }
+        }
+
+        public IArchitecture GetArchitecture()
+        {
+            return GameApp.Interface;
         }
     }
 }
