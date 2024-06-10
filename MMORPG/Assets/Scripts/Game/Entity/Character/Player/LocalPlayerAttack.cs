@@ -6,6 +6,7 @@ using QFramework;
 using Serilog;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace MMORPG.Game
@@ -71,7 +72,7 @@ namespace MMORPG.Game
         [StateCondition]
         public bool InputFire()
         {
-            return Brain.InputControls.Player.Fire.inProgress;
+            return Brain.InputControls.Player.Fire.inProgress && !EventSystem.current.IsPointerOverGameObject();
         }
 
         public override void OnStateExit()
