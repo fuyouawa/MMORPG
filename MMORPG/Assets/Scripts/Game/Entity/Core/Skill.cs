@@ -5,6 +5,10 @@ namespace MMORPG.Game
         public CharacterSkillManager Owner;
         public SkillDefine Define;
 
+        public bool IsUnitTarget => Define.TargetType == "Unit";
+        public bool IsPositionTarget => Define.TargetType == "Position";
+        public bool IsNoneTarget => Define.TargetType == "None";
+
         public Skill(CharacterSkillManager owner, SkillDefine define)
         {
             Owner = owner;
@@ -16,7 +20,7 @@ namespace MMORPG.Game
 
         }
 
-        public void Use()
+        public void Use(CastTarget target)
         {
 
         }

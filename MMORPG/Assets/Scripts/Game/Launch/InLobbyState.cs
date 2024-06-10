@@ -25,10 +25,13 @@ namespace MMORPG.Game
                 var group = new GameObject("Manager(Auto Create)").transform;
 
                 var entityManager = new GameObject(nameof(EntityManager)).AddComponent<EntityManager>();
-                entityManager.transform.SetParent(group);
+                entityManager.transform.SetParent(group, false);
 
                 var mapManager = new GameObject(nameof(MapManager)).AddComponent<MapManager>();
-                mapManager.transform.SetParent(group);
+                mapManager.transform.SetParent(group, false);
+
+                var fightManager = new GameObject(nameof(FightManager)).AddComponent<FightManager>();
+                fightManager.transform.SetParent(group, false);
 
                 mFSM.ChangeState(LaunchStatus.Playing);
 
