@@ -19,9 +19,21 @@ namespace MMORPG.Game
 
         public EntityType EntityType;
 
+        public CharacterSkillManager SkillManager { get; private set; }
+
         public event Action<EntityTransformSyncData> OnTransformSync;
 
         private bool _initialized = false;
+
+        private void Awake()
+        {
+            SkillManager = new(this);
+        }
+
+        private void Update()
+        {
+            SkillManager.Update();
+        }
 
         public void Initialize(int entityId, int unitId)
         {

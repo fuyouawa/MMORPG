@@ -88,15 +88,15 @@ namespace GameServer.Fight
             {
                 return CastResult.EntityDead;
             }
-            if (castTarget is EntityCastTarget)
+            if (castTarget is CastTargetEntity target)
             {
-                var targetActor = castTarget.RealObj as Actor;
+                var targetActor = target.Entity as Actor;
                 if (targetActor == null || !targetActor.IsValid() || targetActor.IsDeath())
                 {
                     return CastResult.TargetInvaild;
                 }
             }
-            var dist = Vector3.Distance(Actor.Position, castTarget.Position());
+            var dist = Vector3.Distance(Actor.Position, castTarget.Position);
             if (dist > Define.SpellRange)
             {
                 return CastResult.OutOfRange;
@@ -155,20 +155,22 @@ namespace GameServer.Fight
         {
             if (Define.Area == 0)
             {
-                var target = castTarget.RealObj as Actor;
-                if (target != null) CauseDamage(target);
+                if (castTarget is CastTargetEntity target)
+                {
+                    CauseDamage((Actor)target.Entity);
+                }
             }
             else
             {
                 var list = Actor.Map.GetEntityFollowingList(Actor, e =>
                 {
-                    float distance = Vector3.Distance(castTarget.Position(), e.Position);
+                    float distance = Vector3.Distance(castTarget.Position, e.Position);
                     return distance <= Define.Area;
                 });
                 foreach (var entity in list)
                 {
-                    var target = entity as Actor;
-                    if (target != null) CauseDamage(target);
+                    if (entity is Actor target)
+                        CauseDamage(target);
                 }
             }
         }

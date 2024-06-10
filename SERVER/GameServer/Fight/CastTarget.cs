@@ -13,36 +13,32 @@ namespace GameServer.Fight
 {
     public abstract class CastTarget
     {
-        protected object _realObj;
-        
-        public CastTarget(object realObj)
-        {
-            _realObj = realObj;
-        }
-
-        public virtual object RealObj => _realObj;
-        public virtual int Id => 0;
-        public virtual Vector3 Position() => Vector3.Zero;
-        public virtual Vector3 Direction() => Vector3.Zero;
+        public virtual Vector3 Position => Vector3.Zero;
+        public virtual Vector3 Direction => Vector3.Zero;
     }
 
-    public class EntityCastTarget : CastTarget
+    public class CastTargetEntity : CastTarget
     {
-        private Entity _entity => (Entity)_realObj;
-        public EntityCastTarget(Entity entity) : base(entity) { }
+        public Entity Entity;
 
-        public override int Id => _entity.EntityId;
-        public override Vector3 Position() => _entity.Position;
-        public override Vector3 Direction() => _entity.Direction;
+        public CastTargetEntity(Entity entity)
+        {
+            Entity = entity;
+        }
+
+        public override Vector3 Position => Entity.Position;
+        public override Vector3 Direction => Entity.Direction;
     }
 
-    public class PositionCastTarget : CastTarget
+    public class CastTargetPosition : CastTarget
     {
-        public PositionCastTarget(Vector3 position) : base(position) { }
+        private Vector3 _position;
+        public override Vector3 Position => _position;
 
-        public override Vector3 Position()
+        public CastTargetPosition(Vector3 position)
         {
-            return (Vector3)_realObj;
+            _position = position;
         }
+
     }
 }
