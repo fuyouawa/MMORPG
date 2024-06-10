@@ -66,6 +66,7 @@ namespace GameServer.Inventory
                 inv = InventoryInfo.Parser.ParseFrom(inventoryData);
                 Capacity = inv.Capacity;
             }
+
             for (int i = 0; i < Capacity; i++)
             {
                 Items.Add(null);
