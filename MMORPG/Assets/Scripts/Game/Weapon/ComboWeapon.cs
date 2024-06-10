@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using MMORPG.Event;
 using MMORPG.Tool;
 using QFramework;
@@ -112,6 +113,19 @@ namespace MMORPG.Game
                 CurrentWeaponIndex = newIndex;
                 this.SendEvent(new PlayerChangeWeaponEvent(CurrentWeapon, true));
             }
+        }
+
+        public void ChangeCombo(int weaponId)
+        {
+            int index = 0;
+            for (; index < Weapons.Length; index++)
+            {
+                if (Weapons[index].WeaponId == weaponId)
+                    break;
+            }
+
+            CurrentWeaponIndex = index;
+            this.SendEvent(new PlayerChangeWeaponEvent(CurrentWeapon, true));
         }
 
         public IArchitecture GetArchitecture()
