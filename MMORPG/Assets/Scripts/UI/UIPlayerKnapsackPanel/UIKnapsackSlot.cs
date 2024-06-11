@@ -50,17 +50,17 @@ namespace MMORPG.UI
         {
             if (UIItem != null && UIItem.Item != null)
             {
-                ToolTip.Instance.Show($"{UIItem.Item.Name}");
+                ToolTip.Instance.Show(transform, $"{UIItem.Item.Name}");
             }
         }
 
         private void PrepareTooltip()
         {
-            ToolTip.Instance.Hide();
         }
 
         protected override void OnHideTooltip()
         {
+            ToolTip.Instance.Hide();
         }
 
         //TODO 右键菜单
