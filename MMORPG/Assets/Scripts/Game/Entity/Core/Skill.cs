@@ -1,17 +1,19 @@
+using Serilog;
+
 namespace MMORPG.Game
 {
     public class Skill
     {
-        public CharacterSkillManager Owner;
+        public CharacterSkillManager SkillManager;
         public SkillDefine Define;
 
         public bool IsUnitTarget => Define.TargetType == "Unit";
         public bool IsPositionTarget => Define.TargetType == "Position";
         public bool IsNoneTarget => Define.TargetType == "None";
 
-        public Skill(CharacterSkillManager owner, SkillDefine define)
+        public Skill(CharacterSkillManager skillManager, SkillDefine define)
         {
-            Owner = owner;
+            SkillManager = skillManager;
             Define = define;
         }
 
@@ -22,7 +24,7 @@ namespace MMORPG.Game
 
         public void Use(CastTarget target)
         {
-
+            Log.Debug($"{SkillManager.Entity.EntityId}使用技能{Define.ID}");
         }
     }
 }

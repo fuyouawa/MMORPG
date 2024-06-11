@@ -62,10 +62,6 @@ namespace MMORPG.Game
         {
             get
             {
-#if UNITY_EDITOR
-                if (!UnityEditor.EditorApplication.isPlaying)
-                    return false;
-#endif
                 if (_isMine == null)
                 {
                     var mine = this.GetSystem<IPlayerManagerSystem>().MineEntity;
@@ -142,15 +138,6 @@ namespace MMORPG.Game
 
             if (HandleWeapon != null)
                 HandleWeapon.Setup(this);
-
-
-            this.RegisterEvent<PlayerChangeWeaponEvent>(e =>
-            {
-                if (HandleWeapon != null)
-                {
-                    HandleWeapon.ChangeWeapon(e.NewWeapon, e.Combo);
-                }
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
         private void OnTransformEntitySync(EntityTransformSyncData data)
