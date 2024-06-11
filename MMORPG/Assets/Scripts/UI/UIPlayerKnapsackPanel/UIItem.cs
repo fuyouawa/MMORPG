@@ -13,9 +13,7 @@ using UnityEngine.UI;
 namespace MMORPG.UI
 {
     public class UIItem : MonoBehaviour, IController,
-        IBeginDragHandler, IDragHandler, IEndDragHandler,
-        IPointerEnterHandler, IPointerExitHandler
-
+        IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         private Vector3 _offset;
         private Transform _initialParent;
@@ -147,18 +145,6 @@ namespace MMORPG.UI
             this.SendCommand(new PlacementItemCommand(originSlotId, targetSlotId));
             
         }
-
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            ToolTip.Instance.Show("傻逼");
-
-        }
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            ToolTip.Instance.Hide();
-        }
-
 
         public IArchitecture GetArchitecture()
         {
