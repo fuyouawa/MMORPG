@@ -15,7 +15,7 @@ public class SkillDefine
 	public string Description; // 技能描述
 	public int Level; // 技能等级
 	public int MaxLevel; // 技能上限
-	public string Type; // 类别
+	public string Mode; // 模式
 	public string Icon; // 技能图标
 	public string TargetType; // 目标类型
 	public float Cd; // 冷却时间
