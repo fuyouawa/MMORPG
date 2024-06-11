@@ -31,7 +31,6 @@ namespace MMORPG.Command
             });
             var response = await net.ReceiveAsync<InventoryQueryResponse>();
             this.SendEvent<LoadKnapsackEvent>(new(response.KnapsackInfo){});
-
             //response.KnapsackInfo
         }
     }

@@ -1,5 +1,8 @@
 
 using Common.Inventory;
+using DuloGames.UI;
+using MMORPG.Command;
+using MMORPG.Game;
 using MMORPG.Tool;
 using QFramework;
 using TMPro;
@@ -9,7 +12,10 @@ using UnityEngine.UI;
 
 namespace MMORPG.UI
 {
-    public class UIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class UIItem : MonoBehaviour, IController,
+        IBeginDragHandler, IDragHandler, IEndDragHandler,
+        IPointerEnterHandler, IPointerExitHandler
+
     {
         private Vector3 _offset;
         private Transform _initialParent;
@@ -66,9 +72,6 @@ namespace MMORPG.UI
             Item = item;
         }
 
-        /// <summary>
-        /// 将此槽置空
-        /// </summary>
         public void Clear()
         {
             // 隐藏物品图标
@@ -80,12 +83,13 @@ namespace MMORPG.UI
         }
         public void OnBeginDrag(PointerEventData eventData)
         {
+            _originSlot = transform.parent.GetComponent<UIKnapsackSlot>();
             _offset = transform.position - Input.mousePosition;
             _initialParent = transform.parent;
             _initialPosition = transform.position;
 
             transform.SetParent(transform.root);
-            _isDragging = true;
+            //_isDragging = true;
 
             // 隐藏物品的RaycastTarget，避免干扰鼠标事件
             ImageIcon.raycastTarget = false;
@@ -99,23 +103,66 @@ namespace MMORPG.UI
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            UIKnapsackSlot targetSlot = null;
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                if (targetSlot != null)
-                {
-                    transform.SetParent(targetSlot.transform);
-                    transform.position = targetSlot.transform.position;
-                }
-                else
-                {
-                    transform.SetParent(_initialParent);
-                    transform.position = _initialPosition;
-                }
-            }
             ImageIcon.raycastTarget = true;
+
+            Destroy(gameObject);
+
+            if (_originSlot == null) return;
+            
+            int originSlotId = _originSlot.SlotId;
+            int targetSlotId = -1;
+            
+            UIKnapsackSlot targetSlot = eventData.pointerEnter?.gameObject.GetComponent<UIKnapsackSlot>();
+            if (targetSlot == null)
+            {
+                targetSlot = eventData.pointerEnter?.GetComponentInParent<UIKnapsackSlot>();
+            }
+            if (targetSlot != null && EventSystem.current.IsPointerOverGameObject())
+            {
+                //transform.SetParent(_initialParent);
+                //transform.position = _initialPosition;
+                //return;
+
+                targetSlotId = targetSlot.SlotId;
+            }
+
+            //if (targetSlot.UIItem == null)
+            //{
+            //transform.SetParent(targetSlot.transform);
+            //transform.position = targetSlot.transform.position;
+            //targetSlot.UIItem = this;
+            //_originSlot.UIItem = null;
+            //}
+            //else
+            //{
+            //transform.SetParent(targetSlot.transform);
+            //transform.position = targetSlot.transform.position;
+
+            //targetSlot.UIItem.transform.SetParent(_originSlot.transform);
+            //targetSlot.UIItem.transform.position = _originSlot.transform.position;
+
+            //(_originSlot.UIItem, targetSlot.UIItem) = (targetSlot.UIItem, _originSlot.UIItem);
+            //}
+
+            this.SendCommand(new PlacementItemCommand(originSlotId, targetSlotId));
+            
         }
 
-        
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            ToolTip.Instance.Show("傻逼");
+
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            ToolTip.Instance.Hide();
+        }
+
+
+        public IArchitecture GetArchitecture()
+        {
+            return GameApp.Interface;
+        }
     }
 }
