@@ -1,4 +1,6 @@
+using System;
 using QFramework;
+using Serilog;
 using UnityEngine;
 
 namespace MMORPG.Game
@@ -46,12 +48,20 @@ namespace MMORPG.Game
         {
             base.OnApplicationQuit();
 
-            FSM.ChangeState(LaunchStatus.ApplicationQuit);
-            FSM.Clear();
-
-            GameApp.Interface.Deinit();
-
-            Serilog.Log.CloseAndFlush();
+            try
+            {
+                FSM.ChangeState(LaunchStatus.ApplicationQuit);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "退出程序时出现错误!");
+            }
+            finally
+            {
+                FSM.Clear();
+                GameApp.Interface.Deinit();
+                Serilog.Log.CloseAndFlush();
+            }
         }
     }
 }

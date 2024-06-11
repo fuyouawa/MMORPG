@@ -47,7 +47,7 @@ namespace GameServer.Service
                 .First();
             if (dbCharacter == null)
             {
-                sender.Send(new CharacterCreateResponse() { Error = NetError.InvalidCharacter });
+                sender.Send(new JoinMapResponse() { Error = NetError.InvalidCharacter });
                 Log.Debug($"{sender}进入游戏失败：数据库中不存在指定的角色");
                 return;
             }
