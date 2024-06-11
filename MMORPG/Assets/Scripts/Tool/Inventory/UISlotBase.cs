@@ -19,6 +19,7 @@ namespace MMORPG.UI
         private bool _isPointerInside;
         private bool _isPointerDown;
         private bool _isTooltipShown;
+        private Coroutine _tooltipDelayedShowCoroutine;
         public Toggle Toggle { get; protected set; }
         public UIInventoryBase Inventory { get; protected set; }
 
@@ -46,7 +47,7 @@ namespace MMORPG.UI
             {
                 if (TooltipDelay > 0f)
                 {
-                    StartCoroutine(TooltipDelayedShow());
+                    _tooltipDelayedShowCoroutine = StartCoroutine(TooltipDelayedShow());
                 }
                 else
                 {
@@ -90,7 +91,7 @@ namespace MMORPG.UI
 
         private void InternalHideTooltip()
         {
-            StopCoroutine(TooltipDelayedShow());
+            StopCoroutine(_tooltipDelayedShowCoroutine);
 
             if (_isTooltipShown)
             {
