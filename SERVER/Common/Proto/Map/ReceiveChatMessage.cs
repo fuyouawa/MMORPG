@@ -41,6 +41,7 @@ namespace Common.Proto.Map {
 
   }
   #region Messages
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ReceiveChatMessageResponse : pb::IMessage<ReceiveChatMessageResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage

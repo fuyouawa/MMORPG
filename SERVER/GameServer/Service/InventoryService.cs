@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using Common.Proto.Inventory;
 using GameServer.Manager;
 using GameServer.Model;
+using Microsoft.Extensions.DependencyInjection;
+using System.Numerics;
 
 namespace GameServer.Service
 {
@@ -33,6 +35,35 @@ namespace GameServer.Service
             {
                 resp.KnapsackInfo = player.Knapsack.GetInventoryInfo();
             }
+            sender.Send(resp);
+        }
+
+        public void OnHandle(NetChannel sender, PlacementItemRequest req)
+        {
+            if (sender.User?.Player == null) return;
+            var entity = EntityManager.Instance.GetEntity(req.EntityId);
+            var player = entity as Player;
+            if (player == null) return;
+
+            if (req.OriginSlotId == -1) return;
+            if (req.TargetSlotId == -1)
+            {
+                player.Knapsack.Discard(req.OriginSlotId, int.MaxValue);
+            }
+            else
+            {
+                player.Knapsack.Exchange(req.OriginSlotId, req.TargetSlotId);
+            }
+            ResponseKnapsackInfo(sender, player);
+        }
+
+        private void ResponseKnapsackInfo(NetChannel sender, Player player)
+        {
+            var resp = new InventoryQueryResponse()
+            {
+                EntityId = player.EntityId,
+            };
+            resp.KnapsackInfo = player.Knapsack.GetInventoryInfo();
             sender.Send(resp);
         }
     }

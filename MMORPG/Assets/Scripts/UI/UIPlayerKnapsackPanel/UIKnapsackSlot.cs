@@ -21,9 +21,15 @@ namespace MMORPG.UI
         /// <param name="item"></param>
         public void Assign(Item item)
         {
-
             Debug.Assert(item.SlotId == SlotId);
 
+            if (UIItem != null)
+            {
+                SetEmpty();
+            }
+            var resLoader = ResLoader.Allocate();
+            var prefab = resLoader.LoadSync<UIItem>("UIItem");
+            UIItem = Instantiate(prefab, transform);
             UIItem.Assign(item);
 
         }
@@ -33,11 +39,9 @@ namespace MMORPG.UI
         /// </summary>
         public void SetEmpty()
         {
-            UIItem.Clear();
+            Destroy(UIItem.transform.gameObject);
+            UIItem = null;
         }
-
-
-
         
         //TODO 右键菜单
     }

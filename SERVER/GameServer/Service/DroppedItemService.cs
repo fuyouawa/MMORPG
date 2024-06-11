@@ -17,7 +17,7 @@ namespace GameServer.Service
 {
     public class DroppedItemService : ServiceBase<DroppedItemService>
     {
-        public void OnHandle(NetChannel sender, PickupDroppedItemRequest req)
+        public void OnHandle(NetChannel sender, PickupItemRequest req)
         {
             if (sender.User == null || sender.User.Player == null) return;
             var player = sender.User.Player;
@@ -36,6 +36,11 @@ namespace GameServer.Service
 
             player.Map.DroppedItemManager.RemoveDroppedItem(droppedItem);
             player.Map.EntityLeave(droppedItem);
+        }
+
+        public void OnHandle(NetChannel sender, DiscardItemRequest req)
+        {
+
         }
     }
 }

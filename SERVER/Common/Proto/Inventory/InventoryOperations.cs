@@ -26,19 +26,19 @@ namespace Common.Proto.Inventory {
           string.Concat(
             "CiNJbnZlbnRvcnkvSW52ZW50b3J5T3BlcmF0aW9ucy5wcm90bxIWQ29tbW9u",
             "LlByb3RvLkludmVudG9yeSImChFQaWNrdXBJdGVtUmVxdWVzdBIRCgllbnRp",
-            "dHlfaWQYASABKAUiWQoUSXRlbVBsYWNlbWVudFJlcXVlc3QSEQoJZW50aXR5",
+            "dHlfaWQYASABKAUiWQoUUGxhY2VtZW50SXRlbVJlcXVlc3QSEQoJZW50aXR5",
             "X2lkGAEgASgFEhYKDm9yaWdpbl9zbG90X2lkGAIgASgFEhYKDnRhcmdldF9z",
-            "bG90X2lkGAMgASgFIkcKEkl0ZW1EaXNjYXJkUmVxdWVzdBIRCgllbnRpdHlf",
-            "aWQYASABKAUSDwoHc2xvdF9pZBgCIAEoBRINCgVjb3VudBgDIAEoBSI0Cg5J",
-            "dGVtVXNlUmVxdWVzdBIRCgllbnRpdHlfaWQYASABKAUSDwoHc2xvdF9pZBgC",
+            "bG90X2lkGAMgASgFIkcKEkRpc2NhcmRJdGVtUmVxdWVzdBIRCgllbnRpdHlf",
+            "aWQYASABKAUSDwoHc2xvdF9pZBgCIAEoBRINCgVjb3VudBgDIAEoBSI0Cg5V",
+            "c2VJdGVtUmVxdWVzdBIRCgllbnRpdHlfaWQYASABKAUSDwoHc2xvdF9pZBgC",
             "IAEoBWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.PickupItemRequest), global::Common.Proto.Inventory.PickupItemRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.ItemPlacementRequest), global::Common.Proto.Inventory.ItemPlacementRequest.Parser, new[]{ "EntityId", "OriginSlotId", "TargetSlotId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.ItemDiscardRequest), global::Common.Proto.Inventory.ItemDiscardRequest.Parser, new[]{ "EntityId", "SlotId", "Count" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.ItemUseRequest), global::Common.Proto.Inventory.ItemUseRequest.Parser, new[]{ "EntityId", "SlotId" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.PlacementItemRequest), global::Common.Proto.Inventory.PlacementItemRequest.Parser, new[]{ "EntityId", "OriginSlotId", "TargetSlotId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.DiscardItemRequest), global::Common.Proto.Inventory.DiscardItemRequest.Parser, new[]{ "EntityId", "SlotId", "Count" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.UseItemRequest), global::Common.Proto.Inventory.UseItemRequest.Parser, new[]{ "EntityId", "SlotId" }, null, null, null, null)
           }));
     }
     #endregion
@@ -48,6 +48,7 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///拾取物品的请求
   /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class PickupItemRequest : pb::IMessage<PickupItemRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -243,16 +244,17 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///物品放置请求
   /// </summary>
-  public sealed partial class ItemPlacementRequest : pb::IMessage<ItemPlacementRequest>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class PlacementItemRequest : pb::IMessage<PlacementItemRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<ItemPlacementRequest> _parser = new pb::MessageParser<ItemPlacementRequest>(() => new ItemPlacementRequest());
+    private static readonly pb::MessageParser<PlacementItemRequest> _parser = new pb::MessageParser<PlacementItemRequest>(() => new PlacementItemRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<ItemPlacementRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<PlacementItemRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -268,7 +270,7 @@ namespace Common.Proto.Inventory {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ItemPlacementRequest() {
+    public PlacementItemRequest() {
       OnConstruction();
     }
 
@@ -276,7 +278,7 @@ namespace Common.Proto.Inventory {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ItemPlacementRequest(ItemPlacementRequest other) : this() {
+    public PlacementItemRequest(PlacementItemRequest other) : this() {
       entityId_ = other.entityId_;
       originSlotId_ = other.originSlotId_;
       targetSlotId_ = other.targetSlotId_;
@@ -285,8 +287,8 @@ namespace Common.Proto.Inventory {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ItemPlacementRequest Clone() {
-      return new ItemPlacementRequest(this);
+    public PlacementItemRequest Clone() {
+      return new PlacementItemRequest(this);
     }
 
     /// <summary>Field number for the "entity_id" field.</summary>
@@ -334,12 +336,12 @@ namespace Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as ItemPlacementRequest);
+      return Equals(other as PlacementItemRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(ItemPlacementRequest other) {
+    public bool Equals(PlacementItemRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -438,7 +440,7 @@ namespace Common.Proto.Inventory {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(ItemPlacementRequest other) {
+    public void MergeFrom(PlacementItemRequest other) {
       if (other == null) {
         return;
       }
@@ -515,16 +517,17 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///丢弃的物品的请求
   /// </summary>
-  public sealed partial class ItemDiscardRequest : pb::IMessage<ItemDiscardRequest>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class DiscardItemRequest : pb::IMessage<DiscardItemRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<ItemDiscardRequest> _parser = new pb::MessageParser<ItemDiscardRequest>(() => new ItemDiscardRequest());
+    private static readonly pb::MessageParser<DiscardItemRequest> _parser = new pb::MessageParser<DiscardItemRequest>(() => new DiscardItemRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<ItemDiscardRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<DiscardItemRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -540,7 +543,7 @@ namespace Common.Proto.Inventory {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ItemDiscardRequest() {
+    public DiscardItemRequest() {
       OnConstruction();
     }
 
@@ -548,7 +551,7 @@ namespace Common.Proto.Inventory {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ItemDiscardRequest(ItemDiscardRequest other) : this() {
+    public DiscardItemRequest(DiscardItemRequest other) : this() {
       entityId_ = other.entityId_;
       slotId_ = other.slotId_;
       count_ = other.count_;
@@ -557,8 +560,8 @@ namespace Common.Proto.Inventory {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ItemDiscardRequest Clone() {
-      return new ItemDiscardRequest(this);
+    public DiscardItemRequest Clone() {
+      return new DiscardItemRequest(this);
     }
 
     /// <summary>Field number for the "entity_id" field.</summary>
@@ -606,12 +609,12 @@ namespace Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as ItemDiscardRequest);
+      return Equals(other as DiscardItemRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(ItemDiscardRequest other) {
+    public bool Equals(DiscardItemRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -710,7 +713,7 @@ namespace Common.Proto.Inventory {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(ItemDiscardRequest other) {
+    public void MergeFrom(DiscardItemRequest other) {
       if (other == null) {
         return;
       }
@@ -787,16 +790,17 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///使用物品的请求
   /// </summary>
-  public sealed partial class ItemUseRequest : pb::IMessage<ItemUseRequest>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class UseItemRequest : pb::IMessage<UseItemRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<ItemUseRequest> _parser = new pb::MessageParser<ItemUseRequest>(() => new ItemUseRequest());
+    private static readonly pb::MessageParser<UseItemRequest> _parser = new pb::MessageParser<UseItemRequest>(() => new UseItemRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<ItemUseRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<UseItemRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -812,7 +816,7 @@ namespace Common.Proto.Inventory {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ItemUseRequest() {
+    public UseItemRequest() {
       OnConstruction();
     }
 
@@ -820,7 +824,7 @@ namespace Common.Proto.Inventory {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ItemUseRequest(ItemUseRequest other) : this() {
+    public UseItemRequest(UseItemRequest other) : this() {
       entityId_ = other.entityId_;
       slotId_ = other.slotId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -828,8 +832,8 @@ namespace Common.Proto.Inventory {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ItemUseRequest Clone() {
-      return new ItemUseRequest(this);
+    public UseItemRequest Clone() {
+      return new UseItemRequest(this);
     }
 
     /// <summary>Field number for the "entity_id" field.</summary>
@@ -865,12 +869,12 @@ namespace Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as ItemUseRequest);
+      return Equals(other as UseItemRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(ItemUseRequest other) {
+    public bool Equals(UseItemRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -956,7 +960,7 @@ namespace Common.Proto.Inventory {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(ItemUseRequest other) {
+    public void MergeFrom(UseItemRequest other) {
       if (other == null) {
         return;
       }
