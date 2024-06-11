@@ -1,4 +1,5 @@
 using Common.Inventory;
+using Common.Proto.Inventory;
 using MMORPG.Command;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,34 +29,36 @@ namespace MMORPG.UI
 
         private void Start()
         {
-            //this.RegisterEvent<PlayerJoinedMapEvent>(e =>
-            //{
-                var playerManager = this.GetSystem<IPlayerManagerSystem>();
-                this.SendCommand<QueryInventoryCommand>(new QueryInventoryCommand(playerManager.MineEntity.EntityId));
-            //}).UnRegisterWhenGameObjectDestroyed(gameObject);
-
-            this.RegisterEvent<LoadKnapsackEvent>(e =>
-            {
-                SetSlotCount(e.KnapsackInfo.Capacity);
-                foreach (var itemInfo in e.KnapsackInfo.Items)
-                {
-                    var dataManagerSystem = this.GetSystem<IDataManagerSystem>();
-                    var item = new Item(dataManagerSystem.GetItemDefine(itemInfo.ItemId), itemInfo.Amount, itemInfo.SlotId);
-
-                    var slotTransform = GroupSlots.GetChild(itemInfo.SlotId);
-                    var slot = slotTransform.GetComponent<UIKnapsackSlot>();
-                    slot.Assign(item);
-
-                    //    itemInfo
-                }
-
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+            RequestLoadKnapsack();
         }
 
         protected override void OnInstantiatedSlot(UISlotBase slot)
         {
             //var knapsackSlot = slot as UIKnapsackSlot;
             //knapsackSlot.Item = ;
+        }
+
+        private void RequestLoadKnapsack()
+        {
+            var playerManager = this.GetSystem<IPlayerManagerSystem>();
+            this.SendCommand<QueryInventoryCommand>(new QueryInventoryCommand(playerManager.MineEntity.EntityId));
+            this.RegisterEvent<LoadKnapsackEvent>(e =>
+            {
+                ReloadKnapsack(e.KnapsackInfo);
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+        }
+
+        private void ReloadKnapsack(InventoryInfo knapsackInfo)
+        {
+            SetSlotCount(knapsackInfo.Capacity);
+            foreach (var itemInfo in knapsackInfo.Items)
+            {
+                var dataManagerSystem = this.GetSystem<IDataManagerSystem>();
+                var item = new Item(dataManagerSystem.GetItemDefine(itemInfo.ItemId), itemInfo.Amount, itemInfo.SlotId);
+                var slotTransform = GroupSlots.GetChild(itemInfo.SlotId);
+                var slot = slotTransform.GetComponent<UIKnapsackSlot>();
+                slot.Assign(item);
+            }
         }
     }
 }

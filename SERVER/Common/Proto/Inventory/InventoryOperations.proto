@@ -8,21 +8,21 @@ message PickupItemRequest{
 }
 
 //物品放置请求
-message ItemPlacementRequest {
+message PlacementItemRequest {
     int32 entity_id = 1;
     int32 origin_slot_id= 2;	//原始索引
     int32 target_slot_id = 3;	//目标索引
 }
 
 //丢弃的物品的请求
-message ItemDiscardRequest{
+message DiscardItemRequest{
     int32 entity_id = 1;
     int32 slot_id = 2;	//插槽索引
     int32 count = 3;		//丢弃数量
 }
 
 //使用物品的请求
-message ItemUseRequest{
+message UseItemRequest{
     int32 entity_id = 1;		//使用物品的人
     int32 slot_id = 2;	//使用哪个插槽的物品
 }
