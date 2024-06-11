@@ -1,18 +1,52 @@
+using System;
+using Serilog;
+using UnityEngine;
+
 namespace MMORPG.Game
 {
+    public enum SkillTargetTypes
+    {
+        Unit,
+        Position,
+        None
+    }
+
+    public enum SkillModes
+    {
+        Combo,
+        Skill
+    }
+
     public class Skill
     {
-        public CharacterSkillManager Owner;
-        public SkillDefine Define;
+        public CharacterSkillManager SkillManager { get; }
+        public SkillDefine Define { get; }
 
-        public bool IsUnitTarget => Define.TargetType == "Unit";
-        public bool IsPositionTarget => Define.TargetType == "Position";
-        public bool IsNoneTarget => Define.TargetType == "None";
+        public SkillTargetTypes TargetType { get; }
+        public SkillModes Mode { get; }
 
-        public Skill(CharacterSkillManager owner, SkillDefine define)
+        private PlayerHandleWeapon _handleWeapon;
+
+        public Skill(CharacterSkillManager skillManager, SkillDefine define)
         {
-            Owner = owner;
+            SkillManager = skillManager;
             Define = define;
+
+            _handleWeapon = skillManager.Entity.GetComponentInChildren<PlayerHandleWeapon>();
+
+            TargetType = define.TargetType switch
+            {
+                "Unit" => SkillTargetTypes.Unit,
+                "Position" => SkillTargetTypes.Position,
+                _ => SkillTargetTypes.None
+            };
+
+            Mode = define.Mode switch
+            {
+                "Combo" => SkillModes.Combo,
+                "Skill" => SkillModes.Skill,
+                _ => throw new Exception("未知技能模式")
+            };
         }
 
         public void Update()
@@ -22,7 +56,21 @@ namespace MMORPG.Game
 
         public void Use(CastTarget target)
         {
-
+            Log.Debug($"{SkillManager.Entity.EntityId}使用技能{Define.ID}");
+            switch (Mode)
+            {
+                case SkillModes.Combo:
+                    if (_handleWeapon == null)
+                        throw new Exception($"Combo模式的技能({Define.ID})必须由持有PlayerHandleWeapon的对象释放!");
+                    _handleWeapon.CurrentComboWeapon.ChangeCombo(Define.ID);
+                    Debug.Assert(_handleWeapon.CurrentWeapon.WeaponId == Define.ID);
+                    _handleWeapon.CurrentWeapon.TurnWeaponOn();
+                    break;
+                case SkillModes.Skill:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

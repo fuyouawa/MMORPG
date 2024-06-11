@@ -68,7 +68,7 @@ namespace MMORPG.Game
             var entityId = response.EntityId;
             var position = response.Transform.Position.ToVector3();
             var rotation = Quaternion.Euler(response.Transform.Direction.ToVector3());
-            var entity = _entityManager.EntityDict[entityId];
+            var entity = _entityManager.GetEntityById(entityId);
             Debug.Assert(entity.EntityId == entityId);
             var data = new EntityTransformSyncData
             {
