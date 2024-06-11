@@ -96,7 +96,7 @@ namespace MMORPG.Game
         private float _delayBetweenUsesCounter;
         private bool _triggerReleased;
 
-        public CharacterController Owner { get; private set; }
+        public PlayerHandleWeapon HandleWeapon { get; private set; }
 
         public FSM<WeaponStates> FSM { get; set; }
 
@@ -123,9 +123,9 @@ namespace MMORPG.Game
         }
 
 
-        public virtual void Setup(CharacterController owner)
+        public virtual void Setup(PlayerHandleWeapon owner)
         {
-            Owner = owner;
+            HandleWeapon = owner;
         }
 
         public virtual void Initialize()
@@ -220,27 +220,27 @@ namespace MMORPG.Game
                 {
                     case WeaponStates.Idle:
                         if (!string.IsNullOrEmpty(IdleTriggerAnimationParameter))
-                            Owner.Animator.SetTrigger(IdleTriggerAnimationParameter);
+                            HandleWeapon.Brain.AnimationController.Animator.SetTrigger(IdleTriggerAnimationParameter);
                         break;
                     case WeaponStates.Start:
                         if (!string.IsNullOrEmpty(StartTriggerAnimationParameter))
-                            Owner.Animator.SetTrigger(StartTriggerAnimationParameter);
+                            HandleWeapon.Brain.AnimationController.Animator.SetTrigger(StartTriggerAnimationParameter);
                         break;
                     case WeaponStates.DelayBeforeUse:
                         if (!string.IsNullOrEmpty(DelayBeforeUseTriggerAnimationParameter))
-                            Owner.Animator.SetTrigger(DelayBeforeUseTriggerAnimationParameter);
+                            HandleWeapon.Brain.AnimationController.Animator.SetTrigger(DelayBeforeUseTriggerAnimationParameter);
                         break;
                     case WeaponStates.Use:
                         if (!string.IsNullOrEmpty(UseTriggerAnimationParameter))
-                            Owner.Animator.SetTrigger(UseTriggerAnimationParameter);
+                            HandleWeapon.Brain.AnimationController.Animator.SetTrigger(UseTriggerAnimationParameter);
                         break;
                     case WeaponStates.DelayBetweenUses:
                         if (!string.IsNullOrEmpty(DelayBetweenUsesTriggerAnimationParameter))
-                            Owner.Animator.SetTrigger(DelayBetweenUsesTriggerAnimationParameter);
+                            HandleWeapon.Brain.AnimationController.Animator.SetTrigger(DelayBetweenUsesTriggerAnimationParameter);
                         break;
                     case WeaponStates.Stop:
                         if (!string.IsNullOrEmpty(StopTriggerAnimationParameter))
-                            Owner.Animator.SetTrigger(StopTriggerAnimationParameter);
+                            HandleWeapon.Brain.AnimationController.Animator.SetTrigger(StopTriggerAnimationParameter);
                         break;
                     case WeaponStates.Interrupted:
                         break;
@@ -269,7 +269,7 @@ namespace MMORPG.Game
             }
 
             if (PreventAllMovementWhileInUse)
-                Owner.PreventMovement();
+                HandleWeapon.Brain.CharacterController.PreventMovement();
         }
 
         protected virtual void CaseWeaponDelayBeforeUse()
@@ -332,7 +332,7 @@ namespace MMORPG.Game
                 WeaponStopFeedbacks.Play();
             FSM.ChangeState(WeaponStates.Idle);
             if (PreventAllMovementWhileInUse)
-                Owner.StopPreventMovement();
+                HandleWeapon.Brain.CharacterController.StopPreventMovement();
         }
 
         protected virtual void ShootRequest()
@@ -353,22 +353,22 @@ namespace MMORPG.Game
         protected virtual void UpdateAnimator()
         {
             if (!IdleAnimationParameter.IsNullOrEmpty())
-                Owner.Animator.SetBool(IdleAnimationParameter, FSM.CurrentStateId == WeaponStates.Idle);
+                HandleWeapon.Brain.CharacterController.Animator.SetBool(IdleAnimationParameter, FSM.CurrentStateId == WeaponStates.Idle);
 
             if (!StartAnimationParameter.IsNullOrEmpty())
-                Owner.Animator.SetBool(StartAnimationParameter, FSM.CurrentStateId == WeaponStates.Start);
+                HandleWeapon.Brain.CharacterController.Animator.SetBool(StartAnimationParameter, FSM.CurrentStateId == WeaponStates.Start);
 
             if (!DelayBeforeUseAnimationParameter.IsNullOrEmpty())
-                Owner.Animator.SetBool(DelayBeforeUseAnimationParameter, FSM.CurrentStateId == WeaponStates.DelayBeforeUse);
+                HandleWeapon.Brain.CharacterController.Animator.SetBool(DelayBeforeUseAnimationParameter, FSM.CurrentStateId == WeaponStates.DelayBeforeUse);
 
             if (!UseAnimationParameter.IsNullOrEmpty())
-                Owner.Animator.SetBool(UseAnimationParameter, FSM.CurrentStateId == WeaponStates.Use);
+                HandleWeapon.Brain.CharacterController.Animator.SetBool(UseAnimationParameter, FSM.CurrentStateId == WeaponStates.Use);
 
             if (!DelayBetweenUsesAnimationParameter.IsNullOrEmpty())
-                Owner.Animator.SetBool(DelayBetweenUsesAnimationParameter, FSM.CurrentStateId == WeaponStates.DelayBetweenUses);
+                HandleWeapon.Brain.CharacterController.Animator.SetBool(DelayBetweenUsesAnimationParameter, FSM.CurrentStateId == WeaponStates.DelayBetweenUses);
 
             if (!StopAnimationParameter.IsNullOrEmpty())
-                Owner.Animator.SetBool(StopAnimationParameter, FSM.CurrentStateId == WeaponStates.Stop);
+                HandleWeapon.Brain.CharacterController.Animator.SetBool(StopAnimationParameter, FSM.CurrentStateId == WeaponStates.Stop);
         }
 
         protected virtual void OnDestroy()

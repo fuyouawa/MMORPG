@@ -25,11 +25,6 @@ namespace MMORPG.Game
 
         private bool _initialized = false;
 
-        private void Awake()
-        {
-            SkillManager = new(this);
-        }
-
         private void Update()
         {
             SkillManager.Update();
@@ -39,8 +34,10 @@ namespace MMORPG.Game
         {
             Debug.Assert(!_initialized);
             _initialized = true;
+
             EntityId = entityId;
             UnitId = unitId;
+            SkillManager = new(this);
         }
 
         public IArchitecture GetArchitecture()

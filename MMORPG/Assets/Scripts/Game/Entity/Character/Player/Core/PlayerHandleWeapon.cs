@@ -22,7 +22,7 @@ namespace MMORPG.Game
         public delegate void WeaponChangedHandler(Weapon current, Weapon previous);
         public event WeaponChangedHandler OnWeaponChanged;
 
-        public PlayerBrain Owner { get; private set; }
+        public PlayerBrain Brain { get; private set; }
 
         private void Start()
         {
@@ -38,7 +38,7 @@ namespace MMORPG.Game
 
         public void Setup(PlayerBrain owner)
         {
-            Owner = owner;
+            Brain = owner;
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace MMORPG.Game
                 // 如果不是Mine, 关闭Combo切换
                 if (CurrentWeapon.TryGetComponent(out ComboWeapon comboWeapon))
                 {
-                    if (!Owner.IsMine)
+                    if (!Brain.IsMine)
                         comboWeapon.DroppableCombo = false;
                 }
 
@@ -89,7 +89,7 @@ namespace MMORPG.Game
                 CurrentWeapon = newWeapon;
             }
             CurrentWeapon.transform.SetParent(WeaponAttachment, false);
-            CurrentWeapon.Setup(Owner.CharacterController);
+            CurrentWeapon.Setup(this);
             if (!CurrentWeapon.InitializeOnStart)
                 CurrentWeapon.Initialize();
         }
