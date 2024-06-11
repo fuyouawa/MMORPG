@@ -27,7 +27,7 @@ namespace MMORPG.Game
 
         public Weapon CurrentWeapon => Weapons[CurrentWeaponIndex];
 
-        public CharacterController Owner { get; private set; }
+        public PlayerHandleWeapon Owner { get; private set; }
 
         private float _timeSinceComboFinished = -float.MaxValue;
         private float _timeSinceLastWeaponStopped = -float.MaxValue;
@@ -51,7 +51,7 @@ namespace MMORPG.Game
                 x.OnWeaponStarted += OnWeaponStarted;
                 x.OnWeaponStopped += OnWeaponStopped;
             });
-            Owner = Weapons[0].Owner;
+            Owner = Weapons[0].HandleWeapon;
             Debug.Assert(Owner != null);
         }
 
@@ -68,7 +68,7 @@ namespace MMORPG.Game
                 {
                     _inCombo = false;
                     CurrentWeaponIndex = 0;
-                    this.SendEvent(new PlayerChangeWeaponEvent(CurrentWeapon, true));
+                    Owner.ChangeWeapon(CurrentWeapon, true);
                 }
             }
 
@@ -90,7 +90,7 @@ namespace MMORPG.Game
 
         protected virtual void ProceedToNextCombo()
         {
-            Debug.Assert(Owner == CurrentWeapon.Owner);
+            Debug.Assert(Owner == CurrentWeapon.HandleWeapon);
 
             if (Weapons.Length > 1)
             {
@@ -111,7 +111,7 @@ namespace MMORPG.Game
                 _timeSinceLastWeaponStopped = Time.time;
 
                 CurrentWeaponIndex = newIndex;
-                this.SendEvent(new PlayerChangeWeaponEvent(CurrentWeapon, true));
+                Owner.ChangeWeapon(CurrentWeapon, true);
             }
         }
 
@@ -125,7 +125,7 @@ namespace MMORPG.Game
             }
 
             CurrentWeaponIndex = index;
-            this.SendEvent(new PlayerChangeWeaponEvent(CurrentWeapon, true));
+            Owner.ChangeWeapon(CurrentWeapon, true);
         }
 
         public IArchitecture GetArchitecture()
