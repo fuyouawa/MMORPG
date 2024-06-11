@@ -25,18 +25,18 @@ namespace MMORPG.Game
         {
             var caster = _entityManager.GetEntityById(response.Info.CasterId);
             var skill = caster.SkillManager.GetSkill(response.Info.SkillId);
-            if (skill.IsUnitTarget)
+            switch (skill.TargetType)
             {
-                var target = _entityManager.GetEntityById(response.Info.CastTarget.TargetId);
-                skill.Use(new CastTargetEntity(target));
-            }
-            else if (skill.IsPositionTarget)
-            {
-                skill.Use(new CastTargetPosition(response.Info.CastTarget.TargetPos.ToVector3()));
-            }
-            else
-            {
-                skill.Use(new CastTargetEntity(caster));
+                case SkillTargetTypes.Unit:
+                    var target = _entityManager.GetEntityById(response.Info.CastTarget.TargetId);
+                    skill.Use(new CastTargetEntity(target));
+                    break;
+                case SkillTargetTypes.Position:
+                    skill.Use(new CastTargetPosition(response.Info.CastTarget.TargetPos.ToVector3()));
+                    break;
+                default:
+                    skill.Use(new CastTargetEntity(caster));
+                    break;
             }
         }
 

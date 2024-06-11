@@ -12,8 +12,8 @@ namespace MMORPG.Game
 
         protected override void OnEnter()
         {
-            Serilog.Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
                 .WriteTo.Async(a => a.File("Logs/log-.txt", rollingInterval: RollingInterval.Day))
                 .WriteTo.Unity3D()
                 .CreateLogger();
