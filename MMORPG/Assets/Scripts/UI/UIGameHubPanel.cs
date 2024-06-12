@@ -1,3 +1,4 @@
+using System;
 using MMORPG.Tool;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,7 +24,7 @@ namespace MMORPG.UI
 		protected override void OnInit(IUIData uiData = null)
 		{
 			mData = uiData as UIGameHubPanelData ?? new UIGameHubPanelData();
-			// please add init code here
+            // please add init code here
         }
 
         private void OnSwitchInventory(InputAction.CallbackContext obj)
