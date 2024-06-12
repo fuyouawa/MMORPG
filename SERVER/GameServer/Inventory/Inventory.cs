@@ -88,12 +88,12 @@ namespace GameServer.Inventory
         }
 
 
-        public bool AddItem(int itemId, int amount = 1)
+        public int AddItem(int itemId, int amount = 1)
         {
             if (!DataManager.Instance.ItemDict.TryGetValue(itemId, out var define))
             {
                 Log.Error($"物品id不存在:{itemId}");
-                return false;
+                return 0;
             }
 
             int slotId = 0;
@@ -115,15 +115,15 @@ namespace GameServer.Inventory
             }
 
             _hasChange = true;
-            return true;
+            return 0;
         }
 
-        public bool AddItemInEmptySlot(int itemId, int amount = 1)
+        public int AddItemInEmptySlot(int itemId, int amount = 1)
         {
             if (!DataManager.Instance.ItemDict.TryGetValue(itemId, out var define))
             {
                 Log.Error($"物品id不存在:{itemId}");
-                return false;
+                return 0;
             }
 
             int residue = amount;
@@ -143,11 +143,11 @@ namespace GameServer.Inventory
                 else
                 {
                     Log.Debug($"{Owner.User.Channel}物品槽满了, 还有{amount}个物品被丢失");
-                    return false;
+                    return amount;
                 }
             }
 
-            return true;
+            return 0;
         }
 
         public bool Exchange(int originSlotId, int targetSlotId)
@@ -249,6 +249,12 @@ namespace GameServer.Inventory
         public Item? GetItem(int itemId, int beginSlot = 0)
         {
             return Items.Skip(beginSlot).FirstOrDefault(x => x != null && x.Id == itemId);
+        }
+
+        public Item? GetItemBySlot(int slotId)
+        {
+            if (slotId >= Items.Count) return null;
+            return Items[slotId];
         }
 
         private int FindEmptySlot(int beginSlot = 0)
