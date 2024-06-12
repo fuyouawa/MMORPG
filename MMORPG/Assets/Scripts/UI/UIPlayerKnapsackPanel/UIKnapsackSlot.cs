@@ -1,21 +1,15 @@
+using System;
 using Common.Inventory;
-using Common.Proto.Inventory;
-using DuloGames.UI;
-using MMORPG.Tool;
-using QFramework;
-using TMPro;
+using MMORPG.Game;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using static Google.Protobuf.Compiler.CodeGeneratorResponse.Types;
-using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.UI
 {
     public class UIKnapsackSlot : UISlotBase
     {
+        public UIItem UIItemPrefab;
 
-        public UIItem UIItem;
+        public UIItem UIItem { get; private set; }
 
 
         /// <summary>
@@ -30,9 +24,7 @@ namespace MMORPG.UI
             {
                 SetEmpty();
             }
-            var resLoader = ResLoader.Allocate();
-            var prefab = resLoader.LoadSync<UIItem>("UIItem");
-            UIItem = Instantiate(prefab, transform);
+            UIItem = Instantiate(UIItemPrefab, transform);
             UIItem.Assign(item);
 
         }
@@ -50,17 +42,36 @@ namespace MMORPG.UI
         {
             if (UIItem != null && UIItem.Item != null)
             {
-                ToolTip.Instance.Show(transform, $"{UIItem.Item.Name}");
+                PrepareTooltip();
+                UIToolTip.Show(transform);
             }
         }
 
         private void PrepareTooltip()
         {
+            UIToolTip.Cleanup();
+
+            //TODO 颜色
+            var colorQuality = UIItem.Item.Quality switch
+            {
+                Quality.Common => Color.white,
+                Quality.Uncommon => Color.green,
+                Quality.Rare => Color.yellow,
+                Quality.Epic => Color.white,
+                Quality.Legendary => Color.white,
+                Quality.Artifact => Color.white,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            UIToolTip.AddTitle(UIItem.Item.Name, colorQuality);
+            UIToolTip.AddLine($"品质:");
+            UIToolTip.AddColumn(UIItem.Item.Define.Quality, colorQuality);
+            UIToolTip.AddLine($"数量:{UIItem.Amount}");
         }
 
         protected override void OnHideTooltip()
         {
-            ToolTip.Instance.Hide();
+            UIToolTip.Hide();
         }
 
         //TODO 右键菜单
