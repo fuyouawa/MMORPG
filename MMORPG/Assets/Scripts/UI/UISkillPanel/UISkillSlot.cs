@@ -1,3 +1,4 @@
+using MMORPG.Game;
 using MMORPG.Global;
 using MMORPG.Tool;
 using TMPro;
@@ -24,6 +25,13 @@ namespace MMORPG.UI
             ImageIcon.enabled = true;
             ImageIcon.sprite = Resources.Load<Texture2D>($"{Config.SkillIconPath}/{define.Icon}").ToSprite();
             Define = define;
+        }
+
+        public void TriggerSpell()
+        {
+            //TODO CastTarget
+            var skillManager = ((UISkillPanel)Inventory).SkillManager;
+            skillManager.GetSkill(Define.ID).Use(new CastTargetEntity(skillManager.Entity));
         }
     }
 }

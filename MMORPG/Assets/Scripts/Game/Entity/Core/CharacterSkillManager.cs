@@ -8,6 +8,8 @@ namespace MMORPG.Game
     {
         public EntityView Entity;
 
+        public Skill CurrentSpellingSkill;
+
         public List<Skill> Skills = new();
 
         public CharacterSkillManager(EntityView entity)

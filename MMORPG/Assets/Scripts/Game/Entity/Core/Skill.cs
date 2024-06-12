@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Serilog;
 using UnityEngine;
 
@@ -67,10 +68,20 @@ namespace MMORPG.Game
                     _handleWeapon.CurrentWeapon.TurnWeaponOn();
                     break;
                 case SkillModes.Skill:
+                    if (SkillManager.CurrentSpellingSkill != null)
+                        return;
+                    SkillManager.Entity.StartCoroutine(SpellSkillCo(target));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        public IEnumerator SpellSkillCo(CastTarget target)
+        {
+            SkillManager.CurrentSpellingSkill = this;
+            yield return new WaitForSeconds(Define.Duration);
+            SkillManager.CurrentSpellingSkill = null;
         }
     }
 }
