@@ -105,7 +105,7 @@ namespace MMORPG.Game
             return Array.Find(States, x => x.Name == stateName);
         }
 
-        public void NetworkUploadTransform(int stateId, byte[] data)
+        public void NetworkUploadTransform(int stateId, byte[] data = null)
         {
             _newtwork.SendToServer(new EntityTransformSyncRequest()
             {

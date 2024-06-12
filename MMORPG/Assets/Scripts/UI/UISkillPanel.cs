@@ -1,4 +1,5 @@
 using System.Linq;
+using MMORPG.Event;
 using MMORPG.Game;
 using MMORPG.System;
 using MMORPG.UI;
@@ -12,6 +13,8 @@ namespace MMORPG.UI
     {
         public RectTransform SlotsGroup;
 
+        public CharacterSkillManager SkillManager { get; private set; }
+
         public override RectTransform GroupSlots => SlotsGroup;
         protected override string SlotAssetName => "UISkillSlot";
 
@@ -21,10 +24,10 @@ namespace MMORPG.UI
 
             var slots = GroupSlots.GetComponentsInChildren<UISkillSlot>();
             var playerManager = this.GetSystem<IPlayerManagerSystem>();
-            var skillManager = playerManager.MineEntity.SkillManager;
+            SkillManager = playerManager.MineEntity.SkillManager;
 
             int i = 0;
-            foreach (var skill in skillManager.Skills.Where(x => x.Mode == SkillModes.Skill))
+            foreach (var skill in SkillManager.Skills.Where(x => x.Mode == SkillModes.Skill))
             {
                 slots[i].Assign(skill.Define);
                 i++;
