@@ -18,6 +18,7 @@ namespace MMORPG.Game
         public int UnitId { get; private set; }
 
         public EntityType EntityType;
+        public SkillsEffectManager EffectManager;
 
         public CharacterSkillManager SkillManager { get; private set; }
 
