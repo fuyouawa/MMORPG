@@ -6,15 +6,6 @@ using UnityEngine;
     public abstract class UIInventoryBase : MonoBehaviour
     {
         /// <summary>
-        /// 当前选中的槽
-        /// </summary>
-        public UISlotBase CurrentSelectionSlot { get; protected set; }
-        /// <summary>
-        /// 上一次选中的槽
-        /// </summary>
-        public UISlotBase PreviousSelectionSlot { get; protected set; }
-
-        /// <summary>
         /// 管理槽的组
         /// </summary>
         public abstract RectTransform GroupSlots { get; }
@@ -24,6 +15,11 @@ using UnityEngine;
         /// </summary>
         protected abstract string SlotAssetName { get; }
         protected ResLoader ResLoader { get; } = ResLoader.Allocate();
+
+        public virtual UISlotBase[] GetSlots()
+        {
+            return GroupSlots.GetComponentsInChildren<UISlotBase>();
+        }
 
         /// <summary>
         /// 设置槽的数量
@@ -41,7 +37,6 @@ using UnityEngine;
                 {
                     var newSlot = Instantiate(prefab, GroupSlots);
                     newSlot.Setup(this, i);
-                    newSlot.Toggle.onValueChanged.AddListener(toggle => OnSlotToggle(newSlot, toggle));
                     OnInstantiatedSlot(newSlot);
                 }
             }
@@ -67,44 +62,6 @@ using UnityEngine;
         /// <param name="slot"></param>
         protected virtual void OnDestroySlot(UISlotBase slot) {}
 
-        /// <summary>
-        /// 用于计算当前选中的槽和上一次选中的槽
-        /// </summary>
-        /// <param name="slot"></param>
-        /// <param name="toggle"></param>
-        protected virtual void OnSlotToggle(UISlotBase slot, bool toggle)
-        {
-            OnSlotClick(slot);
-
-            if (CurrentSelectionSlot != null)
-            {
-                CurrentSelectionSlot.Toggle.SetIsOnWithoutNotify(CurrentSelectionSlot == slot);
-            }
-
-            if (toggle)
-            {
-                if (CurrentSelectionSlot != slot)
-                {
-                    PreviousSelectionSlot = CurrentSelectionSlot;
-                    CurrentSelectionSlot = slot;
-
-                    OnSlotSelectionChanged(PreviousSelectionSlot, CurrentSelectionSlot);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 当槽选中更改时
-        /// </summary>
-        /// <param name="prevSlot"></param>
-        /// <param name="currentSlot"></param>
-        protected virtual void OnSlotSelectionChanged(UISlotBase prevSlot, UISlotBase currentSlot) {}
-
-        /// <summary>
-        /// 当槽被点击时
-        /// </summary>
-        /// <param name="slot"></param>
-        protected virtual void OnSlotClick(UISlotBase slot) { }
 
         protected virtual void OnDestroy()
         {

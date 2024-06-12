@@ -8,7 +8,7 @@ namespace MMORPG.Game
     {
         public EntityView Entity;
 
-        private List<Skill> _skills = new();
+        public List<Skill> Skills = new();
 
         public CharacterSkillManager(EntityView entity)
         {
@@ -19,14 +19,14 @@ namespace MMORPG.Game
         public void Initialize()
         {
             var data = this.GetSystem<IDataManagerSystem>();
-            _skills = data.GetUnitSkillsDefine(Entity.UnitId)
+            Skills = data.GetUnitSkillsDefine(Entity.UnitId)
                 .Select(x => new Skill(this, x))
                 .ToList();
         }
 
         public void Update()
         {
-            foreach (var skill in _skills)
+            foreach (var skill in Skills)
             {
                 skill.Update();
             }
@@ -34,7 +34,7 @@ namespace MMORPG.Game
 
         public Skill GetSkill(int skillId)
         {
-            return _skills.FirstOrDefault(x => x.Define.ID == skillId);
+            return Skills.FirstOrDefault(x => x.Define.ID == skillId);
         }
 
         public IArchitecture GetArchitecture()
