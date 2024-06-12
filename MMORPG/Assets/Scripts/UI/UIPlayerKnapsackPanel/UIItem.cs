@@ -3,6 +3,7 @@ using Common.Inventory;
 using DuloGames.UI;
 using MMORPG.Command;
 using MMORPG.Game;
+using MMORPG.Global;
 using MMORPG.Tool;
 using QFramework;
 using TMPro;
@@ -65,7 +66,7 @@ namespace MMORPG.UI
             Amount = item.Amount;
             // 根据Item中的Icon显示物品图标
             ImageIcon.enabled = true;
-            ImageIcon.sprite = Resources.Load<Texture2D>(item.Icon).ToSprite();
+            ImageIcon.sprite = Resources.Load<Texture2D>($"{Config.ItemIconPath}/{item.Icon}").ToSprite();
             //TODO 其他可能的处理
             Item = item;
         }

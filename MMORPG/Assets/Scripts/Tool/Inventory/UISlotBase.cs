@@ -10,33 +10,26 @@ using Common.Proto.Inventory;
 
 namespace MMORPG.UI
 {
-    [RequireComponent(typeof(Toggle))]
 	public class UISlotBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
+        /// <summary>
+        /// 槽在容器中的Id(也就是Index)
+        /// </summary>
+        public int SlotId;
+
         public bool TooltipEnabled = true;
         public float TooltipDelay = 0.5f;
-
         private bool _isPointerInside;
         private bool _isPointerDown;
         private bool _isTooltipShown;
         private Coroutine _tooltipDelayedShowCoroutine;
-        public Toggle Toggle { get; protected set; }
         public UIInventoryBase Inventory { get; protected set; }
 
-        /// <summary>
-        /// 槽在容器中的Id(也就是Index)
-        /// </summary>
-        public int SlotId { get; protected set; }
 
-        public void Setup(UIInventoryBase inventory, int slotId)
+        public virtual void Setup(UIInventoryBase inventory, int slotId)
         {
             Inventory = inventory;
             SlotId = slotId;
-        }
-
-        protected virtual void Awake()
-        {
-            Toggle = GetComponent<Toggle>();
         }
 
         public virtual void OnPointerEnter(PointerEventData eventData)
