@@ -32,15 +32,22 @@ namespace GameServer.Service
             var distance = Vector2.Distance(player.Position.ToVector2(), droppedItem.Position.ToVector2());
             if (distance > 1) return;
             
-            player.Knapsack.AddItem(droppedItem.ItemId);
+            int amount = player.Knapsack.AddItem(droppedItem.ItemId, droppedItem.Amount);
 
-            player.Map.DroppedItemManager.RemoveDroppedItem(droppedItem);
+            if (amount == 0)
+            {
+                player.Map.DroppedItemManager.RemoveDroppedItem(droppedItem);
+            }
+            else
+            {
+                droppedItem.Amount = amount;
+            }
             player.Map.EntityLeave(droppedItem);
         }
 
         public void OnHandle(NetChannel sender, DiscardItemRequest req)
         {
-
+            
         }
     }
 }

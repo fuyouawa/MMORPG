@@ -40,14 +40,17 @@ namespace GameServer.Service
 
         public void OnHandle(NetChannel sender, PlacementItemRequest req)
         {
-            if (sender.User?.Player == null) return;
-            var entity = EntityManager.Instance.GetEntity(req.EntityId);
-            var player = entity as Player;
-            if (player == null) return;
+            if (sender.User == null || sender.User.Player == null) return;
+            var player = sender.User.Player;
+            if (player.EntityId != req.EntityId) return;
 
             if (req.OriginSlotId == -1) return;
             if (req.TargetSlotId == -1)
             {
+                var item = player.Knapsack.GetItemBySlot(req.OriginSlotId);
+                if (item == null) return;
+
+                player.Map.DroppedItemManager.NewDroppedItem(item.Id, player.Position, player.Direction, item.Amount);
                 player.Knapsack.Discard(req.OriginSlotId, int.MaxValue);
             }
             else
