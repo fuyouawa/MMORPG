@@ -23,6 +23,7 @@ namespace GameServer.Model
 
         public PlayerManager PlayerManager;
         public MonsterManager MonsterManager;
+        public NpcManager NpcManager;
         public MissileManager MissileManager;
         public SpawnManager SpawnManager;
         public FightManager FightManager;
@@ -39,6 +40,7 @@ namespace GameServer.Model
 
             PlayerManager = new(this);
             MonsterManager = new(this);
+            NpcManager = new(this);
             MissileManager = new(this);
             SpawnManager = new(this);
             FightManager = new(this);
@@ -49,6 +51,7 @@ namespace GameServer.Model
         {
             PlayerManager.Start();
             MonsterManager.Start();
+            NpcManager.Start();
             MissileManager.Start();
             SpawnManager.Start();
             FightManager.Start();
@@ -59,6 +62,7 @@ namespace GameServer.Model
         {
             PlayerManager.Update();
             MonsterManager.Update();
+            NpcManager.Update();
             MissileManager.Update();
             SpawnManager.Update();
             FightManager.Update();

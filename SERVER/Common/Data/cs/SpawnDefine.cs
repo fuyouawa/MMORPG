@@ -14,7 +14,7 @@ public class SpawnDefine
 	public string Dir; // 刷怪方向
 	public int UnitID; // 单位类型
 	public int Level; // 单位等级
-	public int Period; // 刷怪周期（秒）
+	public int Period; // 刷新周期（秒）
 }
 
 
