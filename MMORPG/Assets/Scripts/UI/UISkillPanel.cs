@@ -30,7 +30,7 @@ namespace MMORPG.UI
             int i = 0;
             foreach (var skill in SkillManager.Skills.Where(x => x.Mode == SkillModes.Skill))
             {
-                slots[i].Assign(skill.Define);
+                slots[i].Assign(skill);
                 i++;
             }
         }
