@@ -18,18 +18,11 @@ namespace MMORPG.Game
         public int UnitId { get; private set; }
 
         public EntityType EntityType;
-        public SkillsEffectManager EffectManager;
-
-        public CharacterSkillManager SkillManager { get; private set; }
 
         public event Action<EntityTransformSyncData> OnTransformSync;
 
         private bool _initialized = false;
 
-        private void Update()
-        {
-            SkillManager.Update();
-        }
 
         public void Initialize(int entityId, int unitId)
         {
@@ -38,7 +31,6 @@ namespace MMORPG.Game
 
             EntityId = entityId;
             UnitId = unitId;
-            SkillManager = new(this);
         }
 
         public IArchitecture GetArchitecture()

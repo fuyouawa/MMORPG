@@ -21,7 +21,7 @@ namespace GameServer.Fight
             None = 0,
             Intonate,   // 吟唱
             Active,     // 已激活
-            Collding,   // 冷却中
+            Cooling,   // 冷却中
         }
 
         public Actor Actor;
@@ -67,7 +67,7 @@ namespace GameServer.Fight
             }
 
             // 如果是技能冷却阶段
-            if (CurrentStage == Stage.Collding && _time >= Define.Cd)
+            if (CurrentStage == Stage.Cooling && _time >= Define.Cd)
             {
                 // 冷却完成
                 OnFinish();
@@ -76,7 +76,7 @@ namespace GameServer.Fight
 
         public CastResult CanCast(CastTarget castTarget)
         {
-            if (CurrentStage == Stage.Collding)
+            if (CurrentStage == Stage.Cooling)
             {
                 return CastResult.Colldown;
             }
@@ -147,7 +147,7 @@ namespace GameServer.Fight
             }
             else
             {
-                CurrentStage = Stage.Collding;
+                CurrentStage = Stage.Cooling;
             }
         }
 

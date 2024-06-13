@@ -1,18 +1,46 @@
+using Common.Proto.Fight;
 using MMORPG.Game;
 using MMORPG.Global;
+using MMORPG.System;
 using MMORPG.Tool;
+using QFramework;
+using Serilog;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MMORPG.UI
 {
-    public class UISkillSlot : UISlotBase
+    public class UISkillSlot : UISlotBase, IController
     {
         public Image ImageIcon;
         public TextMeshProUGUI TextHotkey;
+        public Image ImageCdOverlay;
+        public TextMeshProUGUI TextCd;
 
-        public SkillDefine Define { get; private set; }
+        public Skill Skill { get; private set; }
+
+        private INetworkSystem _network;
+        private bool _requestingSpell;
+        
+
+        private void Awake()
+        {
+            _network = this.GetSystem<INetworkSystem>();
+        }
+
+        private void Update()
+        {
+            if (Skill != null)
+            {
+                if (Skill.CurrentState == Skill.States.Cooling)
+                {
+                    var radio = Skill.RemainCd / Skill.Define.Cd;
+                    ImageCdOverlay.fillAmount = radio;
+                    TextCd.SetText($"{Skill.RemainCd:0.00}s");
+                }
+            }
+        }
 
         public override void Setup(UIInventoryBase inventory, int slotId)
         {
@@ -20,18 +48,57 @@ namespace MMORPG.UI
             TextHotkey.SetText((slotId + 1).ToString());
         }
 
-        public void Assign(SkillDefine define)
+        public void Assign(Skill skill)
         {
             ImageIcon.enabled = true;
-            ImageIcon.sprite = Resources.Load<Texture2D>($"{Config.SkillIconPath}/{define.Icon}").ToSprite();
-            Define = define;
+            ImageIcon.sprite = Resources.Load<Texture2D>($"{Config.SkillIconPath}/{skill.Define.Icon}").ToSprite();
+            Skill = skill;
+
+            Skill.OnStateChanged += () =>
+            {
+                var isCooling = Skill.CurrentState == Skill.States.Cooling;
+                ImageCdOverlay.enabled = isCooling;
+                TextCd.gameObject.SetActive(isCooling);
+            };
         }
 
         public void TriggerSpell()
         {
-            //TODO CastTarget
-            var skillManager = ((UISkillPanel)Inventory).SkillManager;
-            skillManager.GetSkill(Define.ID).Use(new CastTargetEntity(skillManager.Entity));
+            Spell();
+        }
+
+        public async void Spell()
+        {
+            if (_requestingSpell) return;
+
+            var skillManager = Skill.SkillManager;
+
+            _requestingSpell = true;
+            _network.SendToServer(new SpellRequest()
+            {
+                Info = new()
+                {
+                    SkillId = Skill.Define.ID,
+                    CasterId = skillManager.Character.Entity.EntityId
+                }
+            });
+
+            var response = await _network.ReceiveAsync<SpellFailResponse>();
+
+            if (response.Reason == CastResult.Success)
+            {
+                Skill.Use(new CastTargetEntity(skillManager.Character.Entity));
+            }
+            else
+            {
+                Log.Error($"技能释放请求失败! 原因:{response.Reason}");
+            }
+            _requestingSpell = false;
+        }
+
+        public IArchitecture GetArchitecture()
+        {
+            return GameApp.Interface;
         }
     }
 }

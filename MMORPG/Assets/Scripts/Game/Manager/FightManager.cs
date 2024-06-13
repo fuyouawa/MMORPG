@@ -24,7 +24,7 @@ namespace MMORPG.Game
         private void OnReceivedSpell(SpellResponse response)
         {
             var caster = _entityManager.GetEntityById(response.Info.CasterId);
-            var skill = caster.SkillManager.GetSkill(response.Info.SkillId);
+            var skill = caster.GetComponent<CharacterController>().SkillManager.GetSkill(response.Info.SkillId);
             switch (skill.TargetType)
             {
                 case SkillTargetTypes.Unit:

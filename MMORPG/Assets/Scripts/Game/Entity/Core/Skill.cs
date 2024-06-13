@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using QFramework;
 using Serilog;
 using UnityEngine;
 
@@ -20,11 +21,24 @@ namespace MMORPG.Game
 
     public class Skill
     {
+        public enum States
+        {
+            Idle,
+            Running,
+            Cooling
+        }
+
         public CharacterSkillManager SkillManager { get; }
         public SkillDefine Define { get; }
 
         public SkillTargetTypes TargetType { get; }
         public SkillModes Mode { get; }
+
+        public States CurrentState { get; private set; }
+
+        public float RemainCd { get; private set; }
+
+        public event Action OnStateChanged; 
 
         private PlayerHandleWeapon _handleWeapon;
 
@@ -33,7 +47,7 @@ namespace MMORPG.Game
             SkillManager = skillManager;
             Define = define;
 
-            _handleWeapon = skillManager.Entity.GetComponentInChildren<PlayerHandleWeapon>();
+            _handleWeapon = skillManager.Character.GetComponentInChildren<PlayerHandleWeapon>();
 
             TargetType = define.TargetType switch
             {
@@ -52,36 +66,79 @@ namespace MMORPG.Game
 
         public void Update()
         {
-
+            if (CurrentState == States.Cooling)
+            {
+                if (RemainCd <= 0f)
+                {
+                    ChangeState(States.Idle);
+                }
+                else
+                {
+                    RemainCd -= Time.deltaTime;
+                }
+            }
         }
 
         public void Use(CastTarget target)
         {
-            Log.Debug($"{SkillManager.Entity.EntityId}使用技能{Define.ID}");
+            Log.Debug($"{SkillManager.Character.Entity.EntityId}使用技能{Define.Name}");
             switch (Mode)
             {
                 case SkillModes.Combo:
-                    if (_handleWeapon == null)
-                        throw new Exception($"Combo模式的技能({Define.ID})必须由持有PlayerHandleWeapon的对象释放!");
-                    _handleWeapon.CurrentComboWeapon.ChangeCombo(Define.ID);
-                    Debug.Assert(_handleWeapon.CurrentWeapon.WeaponId == Define.ID);
-                    _handleWeapon.CurrentWeapon.TurnWeaponOn();
+                    UseCombo(target);
                     break;
                 case SkillModes.Skill:
-                    if (SkillManager.CurrentSpellingSkill != null)
-                        return;
-                    SkillManager.Entity.StartCoroutine(SpellSkillCo(target));
+                    UseSkill(target);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
+        private void UseCombo(CastTarget target)
+        {
+            if (_handleWeapon == null)
+                throw new Exception($"Combo模式的技能({Define.Name})必须由持有PlayerHandleWeapon的对象释放!");
+            _handleWeapon.CurrentComboWeapon.ChangeCombo(Define.ID);
+            Debug.Assert(_handleWeapon.CurrentWeapon.WeaponId == Define.ID);
+            _handleWeapon.CurrentWeapon.TurnWeaponOn();
+        }
+
+        private void UseSkill(CastTarget target)
+        {
+            if (SkillManager.CurrentSpellingSkill != null)
+            {
+                Log.Warning($"{SkillManager.Character.Entity.EntityId}尝试在释放技能({SkillManager.CurrentSpellingSkill.Define.Name})的时候使用其他技能:{Define.Name}");
+                return;
+            }
+            if (CurrentState != States.Idle)
+            {
+                Log.Warning($"{SkillManager.Character.Entity.EntityId}尝试使用正在冷却中的技能:{Define.Name}");
+                return;
+            }
+            SkillManager.Character.StartCoroutine(SpellSkillCo(target));
+        }
+
         public IEnumerator SpellSkillCo(CastTarget target)
         {
+            SkillManager.Character.Animator.SetTrigger(Define.Anim2);
+
+            if (SkillManager.Character.EffectManager != null)
+                SkillManager.Character.EffectManager.TriggerEffect(Define.ID);
+
             SkillManager.CurrentSpellingSkill = this;
+            ChangeState(States.Running);
             yield return new WaitForSeconds(Define.Duration);
             SkillManager.CurrentSpellingSkill = null;
+            ChangeState(States.Cooling);
+
+            RemainCd = Define.Cd;
+        }
+
+        public void ChangeState(States state)
+        {
+            CurrentState = state;
+            OnStateChanged?.Invoke();
         }
     }
 }
