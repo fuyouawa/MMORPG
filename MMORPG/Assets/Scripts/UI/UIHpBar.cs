@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 namespace MMORPG.UI
 {
-    public class UIHpPanel : MonoBehaviour
+    public class UIHpBar : MonoBehaviour
     {
-        public Image HpBar;
+        public Image FillImage;
         public float Hp, MaxHp = 100;
 
         private float _lerpSpeed = 3;
@@ -19,7 +19,7 @@ namespace MMORPG.UI
 
         private void BarFiller()
         {
-            HpBar.fillAmount = Mathf.Lerp(HpBar.fillAmount, Hp / MaxHp, _lerpSpeed * Time.deltaTime);
+            FillImage.fillAmount = Mathf.Lerp(FillImage.fillAmount, Hp / MaxHp, _lerpSpeed * Time.deltaTime);
         }
     }
 
