@@ -21,8 +21,6 @@ namespace MMORPG.Game
         public override void OnStateInit()
         {
             _network = this.GetSystem<INetworkSystem>();
-            _network.Receive<SpellFailResponse>(OnReceivedSpellFail)
-                .UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
         public override void OnStateEnter()
@@ -33,7 +31,7 @@ namespace MMORPG.Game
         /// <summary>
         /// 发送攻击请求, 在响应成功后正式攻击
         /// </summary>
-        public void Spell()
+        public async void Spell()
         {
             if (_prepareFire) return;
 
@@ -55,20 +53,18 @@ namespace MMORPG.Game
                     }
                 });
 
-            }
-        }
+                var response = await _network.ReceiveAsync<SpellFailResponse>();
 
-        private void OnReceivedSpellFail(SpellFailResponse response)
-        {
-            if (response.Reason == CastResult.Success)
-            {
-                OwnerState.Brain.HandleWeapon.ShootStart();
+                if (response.Reason == CastResult.Success)
+                {
+                    OwnerState.Brain.HandleWeapon.ShootStart();
+                }
+                else
+                {
+                    Log.Error($"攻击请求失败! 原因:{response.Reason}");
+                }
+                _prepareFire = false;
             }
-            else
-            {
-                Log.Error($"攻击请求失败! 原因:{response.Reason}");
-            }
-            _prepareFire = false;
         }
 
         [StateCondition]

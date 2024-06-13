@@ -5,6 +5,7 @@ using MMORPG.System;
 using MMORPG.UI;
 using QFramework;
 using UnityEngine;
+using CharacterController = MMORPG.Game.CharacterController;
 using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.UI
@@ -24,12 +25,12 @@ namespace MMORPG.UI
 
             var slots = GroupSlots.GetComponentsInChildren<UISkillSlot>();
             var playerManager = this.GetSystem<IPlayerManagerSystem>();
-            SkillManager = playerManager.MineEntity.SkillManager;
+            SkillManager = playerManager.MineEntity.GetComponent<CharacterController>().SkillManager;
 
             int i = 0;
             foreach (var skill in SkillManager.Skills.Where(x => x.Mode == SkillModes.Skill))
             {
-                slots[i].Assign(skill.Define);
+                slots[i].Assign(skill);
                 i++;
             }
         }
