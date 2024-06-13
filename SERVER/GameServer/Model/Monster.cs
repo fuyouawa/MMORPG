@@ -45,7 +45,7 @@ namespace GameServer.Model
             _ai?.Update();
         }
 
-        public void Revive()
+        public override void Revive()
         {
             if (_ai is MonsterAi)
             {

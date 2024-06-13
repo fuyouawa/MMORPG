@@ -15,13 +15,13 @@ using System.Data;
 namespace GameServer.Manager
 {
     /// <summary>
-    /// 怪物生成器
+    /// 实体生成器
     /// </summary>
     public class Spawner
     {
         public SpawnManager SpawnManager;
         public SpawnDefine SpawnDefine;
-        public Monster? Monster;
+        public Actor? Actor;
 
         private bool _reviving;      // 复活中
         private float _reviveTime;   // 复活时间
@@ -36,12 +36,21 @@ namespace GameServer.Manager
         {
             var pos = ParseVector3(SpawnDefine.Pos);
             var dire = ParseVector3(SpawnDefine.Dir);
-            Monster = SpawnManager.Map.MonsterManager.NewMonster(SpawnDefine.UnitID, pos, dire, DataHelper.GetUnitDefine(SpawnDefine.UnitID).Name);
+
+            var unitDefine = DataHelper.GetUnitDefine(SpawnDefine.UnitID);
+            if (unitDefine.Kind == "Monster")
+            {
+                Actor = SpawnManager.Map.MonsterManager.NewMonster(SpawnDefine.UnitID, pos, dire, unitDefine.Name);
+            }
+            else if (unitDefine.Kind == "Npc")
+            {
+                Actor = SpawnManager.Map.NpcManager.NewNpc(SpawnDefine.UnitID, pos, dire, unitDefine.Name);
+            }
         }
 
         public void Update()
         {
-            if (Monster == null || !Monster.IsDeath()) return;
+            if (Actor == null || !Actor.IsDeath()) return;
             if (!_reviving)
             {
                 _reviveTime = Time.time + SpawnDefine.Period;
@@ -49,7 +58,7 @@ namespace GameServer.Manager
             }
             if (_reviveTime <= Time.time)
             {
-                Monster.Revive();
+                Actor.Revive();
                 _reviving = false;
             }
         }
