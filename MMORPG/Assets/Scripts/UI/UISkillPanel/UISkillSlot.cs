@@ -15,15 +15,31 @@ namespace MMORPG.UI
     {
         public Image ImageIcon;
         public TextMeshProUGUI TextHotkey;
+        public Image ImageCdOverlay;
+        public TextMeshProUGUI TextCd;
 
-        public SkillDefine Define { get; private set; }
+        public Skill Skill { get; private set; }
 
         private INetworkSystem _network;
         private bool _requestingSpell;
+        
 
         private void Awake()
         {
             _network = this.GetSystem<INetworkSystem>();
+        }
+
+        private void Update()
+        {
+            if (Skill != null)
+            {
+                if (Skill.CurrentState == Skill.States.Cooling)
+                {
+                    var radio = Skill.RemainCd / Skill.Define.Cd;
+                    ImageCdOverlay.fillAmount = radio;
+                    TextCd.SetText($"{Skill.RemainCd:0.00}s");
+                }
+            }
         }
 
         public override void Setup(UIInventoryBase inventory, int slotId)
@@ -32,11 +48,18 @@ namespace MMORPG.UI
             TextHotkey.SetText((slotId + 1).ToString());
         }
 
-        public void Assign(SkillDefine define)
+        public void Assign(Skill skill)
         {
             ImageIcon.enabled = true;
-            ImageIcon.sprite = Resources.Load<Texture2D>($"{Config.SkillIconPath}/{define.Icon}").ToSprite();
-            Define = define;
+            ImageIcon.sprite = Resources.Load<Texture2D>($"{Config.SkillIconPath}/{skill.Define.Icon}").ToSprite();
+            Skill = skill;
+
+            Skill.OnStateChanged += () =>
+            {
+                var isCooling = Skill.CurrentState == Skill.States.Cooling;
+                ImageCdOverlay.enabled = isCooling;
+                TextCd.gameObject.SetActive(isCooling);
+            };
         }
 
         public void TriggerSpell()
@@ -48,14 +71,14 @@ namespace MMORPG.UI
         {
             if (_requestingSpell) return;
 
-            var skillManager = ((UISkillPanel)Inventory).SkillManager;
+            var skillManager = Skill.SkillManager;
 
             _requestingSpell = true;
             _network.SendToServer(new SpellRequest()
             {
                 Info = new()
                 {
-                    SkillId = Define.ID,
+                    SkillId = Skill.Define.ID,
                     CasterId = skillManager.Character.Entity.EntityId
                 }
             });
@@ -64,7 +87,7 @@ namespace MMORPG.UI
 
             if (response.Reason == CastResult.Success)
             {
-                skillManager.GetSkill(Define.ID).Use(new CastTargetEntity(skillManager.Character.Entity));
+                Skill.Use(new CastTargetEntity(skillManager.Character.Entity));
             }
             else
             {
