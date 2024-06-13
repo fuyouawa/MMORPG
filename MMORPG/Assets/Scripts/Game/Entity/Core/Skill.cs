@@ -33,7 +33,7 @@ namespace MMORPG.Game
             SkillManager = skillManager;
             Define = define;
 
-            _handleWeapon = skillManager.Entity.GetComponentInChildren<PlayerHandleWeapon>();
+            _handleWeapon = skillManager.Character.GetComponentInChildren<PlayerHandleWeapon>();
 
             TargetType = define.TargetType switch
             {
@@ -57,7 +57,7 @@ namespace MMORPG.Game
 
         public void Use(CastTarget target)
         {
-            Log.Debug($"{SkillManager.Entity.EntityId}使用技能{Define.ID}");
+            Log.Debug($"{SkillManager.Character.Entity.EntityId}使用技能{Define.ID}");
             switch (Mode)
             {
                 case SkillModes.Combo:
@@ -70,7 +70,7 @@ namespace MMORPG.Game
                 case SkillModes.Skill:
                     if (SkillManager.CurrentSpellingSkill != null)
                         return;
-                    SkillManager.Entity.StartCoroutine(SpellSkillCo(target));
+                    SkillManager.Character.StartCoroutine(SpellSkillCo(target));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -79,6 +79,11 @@ namespace MMORPG.Game
 
         public IEnumerator SpellSkillCo(CastTarget target)
         {
+            SkillManager.Character.Animator.SetTrigger(Define.Anim2);
+
+            if (SkillManager.Character.EffectManager != null)
+                SkillManager.Character.EffectManager.TriggerEffect(Define.ID);
+
             SkillManager.CurrentSpellingSkill = this;
             yield return new WaitForSeconds(Define.Duration);
             SkillManager.CurrentSpellingSkill = null;

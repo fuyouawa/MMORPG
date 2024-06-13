@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -1122,6 +1122,12 @@ MonoBehaviour:
       - FullMethodName: LocalPlayerAttack/InputFire
         Not: 0
       TrueStateName: Attack
+      FalseStateName: 
+    - Label: "\u91CA\u653E\u6280\u80FD"
+      StateConditions:
+      - FullMethodName: LocalPlayerSkill/IsSpellingSkill
+        Not: 0
+      TrueStateName: Skill
       FalseStateName: 
   - Name: Attack
     Actions:
@@ -2234,7 +2240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -2893,7 +2899,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityType: 0
-  EffectManager: {fileID: 910881223322486258}
 --- !u!114 &224805171054128564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2910,6 +2915,7 @@ MonoBehaviour:
   RotationSmooth: 10
   MoveSmooth: 10
   Animator: {fileID: 1201144034948401517}
+  EffectManager: {fileID: 910881223322486258}
 --- !u!114 &6532541089558292842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3035,7 +3041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -37585,9 +37591,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6874544182390006659}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15418056, y: -0, z: 0.9880427, w: 0}
-  m_LocalPosition: {x: -0.19, y: 0.5046785, z: 0.88}
-  m_LocalScale: {x: 1.1999997, y: 1.1999999, z: 1.2}
+  m_LocalRotation: {x: 0.15316314, y: -0.11334421, z: 0.98151994, w: -0.017686982}
+  m_LocalPosition: {x: -0.01, y: 1.29, z: 0.61}
+  m_LocalScale: {x: 1.0999998, y: 1.0999998, z: 1.1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6877760067955812915}
@@ -37597,7 +37603,7 @@ Transform:
   - {fileID: 6876407491933514551}
   - {fileID: 6877605265479602917}
   m_Father: {fileID: 868594836370365766}
-  m_LocalEulerAnglesHint: {x: 0, y: 17.739, z: 180}
+  m_LocalEulerAnglesHint: {x: 12.538, y: 18.187, z: 184.079}
 --- !u!198 &6746975545419205651
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -47682,7 +47688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
