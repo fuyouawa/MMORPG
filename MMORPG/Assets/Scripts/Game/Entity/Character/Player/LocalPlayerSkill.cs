@@ -1,30 +1,34 @@
+using Common.Proto.Fight;
+using MMORPG.System;
+using QFramework;
+using Serilog;
+using NotImplementedException = System.NotImplementedException;
+
 namespace MMORPG.Game
 {
-    public class LocalPlayerSkill : LocalPlayerAbility
+    public class LocalPlayerSkill : LocalPlayerAbility, IController
     {
         private CharacterSkillManager _skillManager;
-        private SkillsEffectManager _effectManager;
 
         public override void OnStateInit()
         {
-            _skillManager = OwnerState.Brain.CharacterController.Entity.SkillManager;
-            _effectManager = OwnerState.Brain.CharacterController.Entity.EffectManager;
+            _skillManager = OwnerState.Brain.CharacterController.SkillManager;
         }
 
         public override void OnStateEnter()
         {
             OwnerState.Brain.NetworkUploadTransform(OwnerStateId);
-
-            OwnerState.Brain.AnimationController.Animator.SetTrigger(_skillManager.CurrentSpellingSkill.Define.Anim2);
-
-            if (_effectManager != null)
-                _effectManager.TriggerEffect(_skillManager.CurrentSpellingSkill.Define.ID);
         }
 
         [StateCondition]
         public bool IsSpellingSkill()
         {
             return _skillManager.CurrentSpellingSkill != null;
+        }
+
+        public IArchitecture GetArchitecture()
+        {
+            return GameApp.Interface;
         }
     }
 }

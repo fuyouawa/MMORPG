@@ -18,6 +18,9 @@ namespace MMORPG.Game
         [Title("Binding")]
         [Required]
         public Animator Animator;
+        public SkillsEffectManager EffectManager;
+
+        public CharacterSkillManager SkillManager { get; private set; }
 
         public bool IsPreventingMovement { get; private set; }
         public Rigidbody Rigidbody { get; private set; }
@@ -28,6 +31,15 @@ namespace MMORPG.Game
         {
             Rigidbody = GetComponent<Rigidbody>();
             Collider = GetComponent<CapsuleCollider>();
+        }
+
+        private void Start()
+        {
+            SkillManager = new(this);
+        }
+        private void Update()
+        {
+            SkillManager.Update();
         }
 
         public void SmoothRotate(Quaternion targetRotation)
