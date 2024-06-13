@@ -24,7 +24,7 @@ namespace GameServer.Model
         public SkillManager SkillManager { get; protected set; }
         public Spell Spell { get; protected set; }
 
-        public Actor(EntityType entityType, int entityId, int unitId, 
+        public Actor(EntityType entityType, int entityId, int unitId,
             Map map, string name) : base(entityType, entityId, unitId, map)
         {
             Name = name;
@@ -38,6 +38,7 @@ namespace GameServer.Model
             base.Start();
             AttributeManager.Start();
             SkillManager.Start();
+
 
             //var unitDefine = DataHelper.GetUnitDefine(UnitId);
             //Spell.Start();
@@ -53,6 +54,9 @@ namespace GameServer.Model
         {
             return Hp <= 0;
         }
+
+        public virtual void Revive() { }
+
 
         public void ChangeHP(float amount)
         {
