@@ -1,8 +1,8 @@
-﻿using Common.Proto.Entity;
+﻿using MMORPG.Common.Proto.Entity;
 using GameServer.Tool;
 using GameServer.Model;
 using System.Numerics;
-using Common.Proto.Monster;
+using MMORPG.Common.Proto.Monster;
 using GameServer.Ability;
 
 namespace GameServer.Ai

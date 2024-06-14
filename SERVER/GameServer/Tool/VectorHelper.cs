@@ -1,4 +1,4 @@
-﻿using Common.Proto.Base;
+﻿using MMORPG.Common.Proto.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;

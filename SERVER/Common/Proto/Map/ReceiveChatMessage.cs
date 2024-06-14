@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Map {
+namespace MMORPG.Common.Proto.Map {
 
   /// <summary>Holder for reflection information generated from Map/ReceiveChatMessage.proto</summary>
   public static partial class ReceiveChatMessageReflection {
@@ -24,24 +24,24 @@ namespace Common.Proto.Map {
     static ReceiveChatMessageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChxNYXAvUmVjZWl2ZUNoYXRNZXNzYWdlLnByb3RvEhBDb21tb24uUHJvdG8u",
-            "TWFwGhlNYXAvQ2hhdE1lc3NhZ2VUeXBlLnByb3RvGh9nb29nbGUvcHJvdG9i",
-            "dWYvdGltZXN0YW1wLnByb3RvIsMBChpSZWNlaXZlQ2hhdE1lc3NhZ2VSZXNw",
-            "b25zZRIUCgxjaGFyYWN0ZXJfaWQYASABKAMSFgoOY2hhcmFjdGVyX25hbWUY",
-            "AiABKAkSNwoMbWVzc2FnZV90eXBlGAMgASgOMiEuQ29tbW9uLlByb3RvLk1h",
-            "cC5DaGF0TWVzc2FnZVR5cGUSDwoHbWVzc2FnZRgEIAEoCRItCgl0aW1lc3Rh",
-            "bXAYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wYgZwcm90bzM="));
+            "ChxNYXAvUmVjZWl2ZUNoYXRNZXNzYWdlLnByb3RvEhdNTU9SUEcuQ29tbW9u",
+            "LlByb3RvLk1hcBoZTWFwL0NoYXRNZXNzYWdlVHlwZS5wcm90bxofZ29vZ2xl",
+            "L3Byb3RvYnVmL3RpbWVzdGFtcC5wcm90byLKAQoaUmVjZWl2ZUNoYXRNZXNz",
+            "YWdlUmVzcG9uc2USFAoMY2hhcmFjdGVyX2lkGAEgASgDEhYKDmNoYXJhY3Rl",
+            "cl9uYW1lGAIgASgJEj4KDG1lc3NhZ2VfdHlwZRgDIAEoDjIoLk1NT1JQRy5D",
+            "b21tb24uUHJvdG8uTWFwLkNoYXRNZXNzYWdlVHlwZRIPCgdtZXNzYWdlGAQg",
+            "ASgJEi0KCXRpbWVzdGFtcBgFIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1l",
+            "c3RhbXBiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Common.Proto.Map.ChatMessageTypeReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Map.ChatMessageTypeReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Map.ReceiveChatMessageResponse), global::Common.Proto.Map.ReceiveChatMessageResponse.Parser, new[]{ "CharacterId", "CharacterName", "MessageType", "Message", "Timestamp" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Map.ReceiveChatMessageResponse), global::MMORPG.Common.Proto.Map.ReceiveChatMessageResponse.Parser, new[]{ "CharacterId", "CharacterName", "MessageType", "Message", "Timestamp" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ReceiveChatMessageResponse : pb::IMessage<ReceiveChatMessageResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -56,7 +56,7 @@ namespace Common.Proto.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Map.ReceiveChatMessageReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Map.ReceiveChatMessageReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -116,10 +116,10 @@ namespace Common.Proto.Map {
 
     /// <summary>Field number for the "message_type" field.</summary>
     public const int MessageTypeFieldNumber = 3;
-    private global::Common.Proto.Map.ChatMessageType messageType_ = global::Common.Proto.Map.ChatMessageType.World;
+    private global::MMORPG.Common.Proto.Map.ChatMessageType messageType_ = global::MMORPG.Common.Proto.Map.ChatMessageType.World;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Map.ChatMessageType MessageType {
+    public global::MMORPG.Common.Proto.Map.ChatMessageType MessageType {
       get { return messageType_; }
       set {
         messageType_ = value;
@@ -179,7 +179,7 @@ namespace Common.Proto.Map {
       int hash = 1;
       if (CharacterId != 0L) hash ^= CharacterId.GetHashCode();
       if (CharacterName.Length != 0) hash ^= CharacterName.GetHashCode();
-      if (MessageType != global::Common.Proto.Map.ChatMessageType.World) hash ^= MessageType.GetHashCode();
+      if (MessageType != global::MMORPG.Common.Proto.Map.ChatMessageType.World) hash ^= MessageType.GetHashCode();
       if (Message.Length != 0) hash ^= Message.GetHashCode();
       if (timestamp_ != null) hash ^= Timestamp.GetHashCode();
       if (_unknownFields != null) {
@@ -208,7 +208,7 @@ namespace Common.Proto.Map {
         output.WriteRawTag(18);
         output.WriteString(CharacterName);
       }
-      if (MessageType != global::Common.Proto.Map.ChatMessageType.World) {
+      if (MessageType != global::MMORPG.Common.Proto.Map.ChatMessageType.World) {
         output.WriteRawTag(24);
         output.WriteEnum((int) MessageType);
       }
@@ -238,7 +238,7 @@ namespace Common.Proto.Map {
         output.WriteRawTag(18);
         output.WriteString(CharacterName);
       }
-      if (MessageType != global::Common.Proto.Map.ChatMessageType.World) {
+      if (MessageType != global::MMORPG.Common.Proto.Map.ChatMessageType.World) {
         output.WriteRawTag(24);
         output.WriteEnum((int) MessageType);
       }
@@ -266,7 +266,7 @@ namespace Common.Proto.Map {
       if (CharacterName.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(CharacterName);
       }
-      if (MessageType != global::Common.Proto.Map.ChatMessageType.World) {
+      if (MessageType != global::MMORPG.Common.Proto.Map.ChatMessageType.World) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) MessageType);
       }
       if (Message.Length != 0) {
@@ -293,7 +293,7 @@ namespace Common.Proto.Map {
       if (other.CharacterName.Length != 0) {
         CharacterName = other.CharacterName;
       }
-      if (other.MessageType != global::Common.Proto.Map.ChatMessageType.World) {
+      if (other.MessageType != global::MMORPG.Common.Proto.Map.ChatMessageType.World) {
         MessageType = other.MessageType;
       }
       if (other.Message.Length != 0) {
@@ -329,7 +329,7 @@ namespace Common.Proto.Map {
             break;
           }
           case 24: {
-            MessageType = (global::Common.Proto.Map.ChatMessageType) input.ReadEnum();
+            MessageType = (global::MMORPG.Common.Proto.Map.ChatMessageType) input.ReadEnum();
             break;
           }
           case 34: {
@@ -367,7 +367,7 @@ namespace Common.Proto.Map {
             break;
           }
           case 24: {
-            MessageType = (global::Common.Proto.Map.ChatMessageType) input.ReadEnum();
+            MessageType = (global::MMORPG.Common.Proto.Map.ChatMessageType) input.ReadEnum();
             break;
           }
           case 34: {

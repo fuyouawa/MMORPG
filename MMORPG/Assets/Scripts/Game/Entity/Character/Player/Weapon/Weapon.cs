@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
-using Common.Proto.Entity;
+using MMORPG.Common.Proto.Entity;
 using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;

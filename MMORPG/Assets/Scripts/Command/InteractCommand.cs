@@ -1,5 +1,5 @@
 
-using Common.Proto.Player;
+using MMORPG.Common.Proto.Player;
 using MMORPG.Event;
 using MMORPG.Model;
 using MMORPG.System;
