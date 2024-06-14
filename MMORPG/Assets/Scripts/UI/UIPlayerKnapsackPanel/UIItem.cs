@@ -1,6 +1,5 @@
 
-using Common.Inventory;
-using DuloGames.UI;
+using MMORPG.Common.Inventory;
 using MMORPG.Command;
 using MMORPG.Game;
 using MMORPG.Global;

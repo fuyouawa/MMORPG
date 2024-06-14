@@ -1,10 +1,10 @@
 ﻿
-using Common.Proto.Inventory;
+using MMORPG.Common.Proto.Inventory;
 using GameServer.Db;
 using GameServer.Manager;
 using Serilog;
 using System.Diagnostics;
-using Common.Inventory;
+using MMORPG.Common.Inventory;
 using GameServer.Model;
 
 namespace GameServer.Inventory

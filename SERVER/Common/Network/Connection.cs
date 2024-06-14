@@ -1,4 +1,4 @@
-﻿using Common.Proto;
+﻿using MMORPG.Common.Proto;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Network
+namespace MMORPG.Common.Network
 {
     public class ConnectionClosedEventArgs : EventArgs
     {

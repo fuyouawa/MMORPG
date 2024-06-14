@@ -1,4 +1,4 @@
-﻿using Common.Network;
+﻿using MMORPG.Common.Network;
 using GameServer.Network;
 using GameServer.Service;
 using Service;
@@ -13,11 +13,11 @@ using GameServer.Tool;
 using GameServer.Model;
 using System.Threading.Channels;
 using System.Diagnostics;
-using Common.Tool;
+using MMORPG.Common.Tool;
 using System.Xml.Linq;
 using GameServer.Manager;
 using Serilog;
-using NetConfig = Common.Network.NetConfig;
+using NetConfig = MMORPG.Common.Network.NetConfig;
 
 namespace GameServer
 {

@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Map {
+namespace MMORPG.Common.Proto.Map {
 
   /// <summary>Holder for reflection information generated from Map/EntityEnter.proto</summary>
   public static partial class EntityEnterReflection {
@@ -24,28 +24,28 @@ namespace Common.Proto.Map {
     static EntityEnterReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChVNYXAvRW50aXR5RW50ZXIucHJvdG8SEENvbW1vbi5Qcm90by5NYXAaF0Vu",
-            "dGl0eS9FbnRpdHlUeXBlLnByb3RvGhlFbnRpdHkvTmV0VHJhbnNmb3JtLnBy",
-            "b3RvIicKEkVudGl0eUVudGVyUmVxdWVzdBIRCgllbnRpdHlfaWQYASADKAUi",
-            "oQEKD0VudGl0eUVudGVyRGF0YRIRCgllbnRpdHlfaWQYASABKAUSNAoLZW50",
-            "aXR5X3R5cGUYAiABKA4yHy5Db21tb24uUHJvdG8uRW50aXR5LkVudGl0eVR5",
-            "cGUSDwoHdW5pdF9pZBgDIAEoBRI0Cgl0cmFuc2Zvcm0YBCABKAsyIS5Db21t",
-            "b24uUHJvdG8uRW50aXR5Lk5ldFRyYW5zZm9ybSJHChNFbnRpdHlFbnRlclJl",
-            "c3BvbnNlEjAKBWRhdGFzGAEgAygLMiEuQ29tbW9uLlByb3RvLk1hcC5FbnRp",
-            "dHlFbnRlckRhdGFiBnByb3RvMw=="));
+            "ChVNYXAvRW50aXR5RW50ZXIucHJvdG8SF01NT1JQRy5Db21tb24uUHJvdG8u",
+            "TWFwGhdFbnRpdHkvRW50aXR5VHlwZS5wcm90bxoZRW50aXR5L05ldFRyYW5z",
+            "Zm9ybS5wcm90byInChJFbnRpdHlFbnRlclJlcXVlc3QSEQoJZW50aXR5X2lk",
+            "GAEgAygFIq8BCg9FbnRpdHlFbnRlckRhdGESEQoJZW50aXR5X2lkGAEgASgF",
+            "EjsKC2VudGl0eV90eXBlGAIgASgOMiYuTU1PUlBHLkNvbW1vbi5Qcm90by5F",
+            "bnRpdHkuRW50aXR5VHlwZRIPCgd1bml0X2lkGAMgASgFEjsKCXRyYW5zZm9y",
+            "bRgEIAEoCzIoLk1NT1JQRy5Db21tb24uUHJvdG8uRW50aXR5Lk5ldFRyYW5z",
+            "Zm9ybSJOChNFbnRpdHlFbnRlclJlc3BvbnNlEjcKBWRhdGFzGAEgAygLMigu",
+            "TU1PUlBHLkNvbW1vbi5Qcm90by5NYXAuRW50aXR5RW50ZXJEYXRhYgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Common.Proto.Entity.EntityTypeReflection.Descriptor, global::Common.Proto.Entity.NetTransformReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Entity.EntityTypeReflection.Descriptor, global::MMORPG.Common.Proto.Entity.NetTransformReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Map.EntityEnterRequest), global::Common.Proto.Map.EntityEnterRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Map.EntityEnterData), global::Common.Proto.Map.EntityEnterData.Parser, new[]{ "EntityId", "EntityType", "UnitId", "Transform" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Map.EntityEnterResponse), global::Common.Proto.Map.EntityEnterResponse.Parser, new[]{ "Datas" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Map.EntityEnterRequest), global::MMORPG.Common.Proto.Map.EntityEnterRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Map.EntityEnterData), global::MMORPG.Common.Proto.Map.EntityEnterData.Parser, new[]{ "EntityId", "EntityType", "UnitId", "Transform" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Map.EntityEnterResponse), global::MMORPG.Common.Proto.Map.EntityEnterResponse.Parser, new[]{ "Datas" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityEnterRequest : pb::IMessage<EntityEnterRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -60,7 +60,7 @@ namespace Common.Proto.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Map.EntityEnterReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Map.EntityEnterReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -226,7 +226,6 @@ namespace Common.Proto.Map {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityEnterData : pb::IMessage<EntityEnterData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -241,7 +240,7 @@ namespace Common.Proto.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Map.EntityEnterReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.Map.EntityEnterReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -288,10 +287,10 @@ namespace Common.Proto.Map {
 
     /// <summary>Field number for the "entity_type" field.</summary>
     public const int EntityTypeFieldNumber = 2;
-    private global::Common.Proto.Entity.EntityType entityType_ = global::Common.Proto.Entity.EntityType.Player;
+    private global::MMORPG.Common.Proto.Entity.EntityType entityType_ = global::MMORPG.Common.Proto.Entity.EntityType.Player;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Entity.EntityType EntityType {
+    public global::MMORPG.Common.Proto.Entity.EntityType EntityType {
       get { return entityType_; }
       set {
         entityType_ = value;
@@ -312,10 +311,10 @@ namespace Common.Proto.Map {
 
     /// <summary>Field number for the "transform" field.</summary>
     public const int TransformFieldNumber = 4;
-    private global::Common.Proto.Entity.NetTransform transform_;
+    private global::MMORPG.Common.Proto.Entity.NetTransform transform_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Entity.NetTransform Transform {
+    public global::MMORPG.Common.Proto.Entity.NetTransform Transform {
       get { return transform_; }
       set {
         transform_ = value;
@@ -349,7 +348,7 @@ namespace Common.Proto.Map {
     public override int GetHashCode() {
       int hash = 1;
       if (EntityId != 0) hash ^= EntityId.GetHashCode();
-      if (EntityType != global::Common.Proto.Entity.EntityType.Player) hash ^= EntityType.GetHashCode();
+      if (EntityType != global::MMORPG.Common.Proto.Entity.EntityType.Player) hash ^= EntityType.GetHashCode();
       if (UnitId != 0) hash ^= UnitId.GetHashCode();
       if (transform_ != null) hash ^= Transform.GetHashCode();
       if (_unknownFields != null) {
@@ -374,7 +373,7 @@ namespace Common.Proto.Map {
         output.WriteRawTag(8);
         output.WriteInt32(EntityId);
       }
-      if (EntityType != global::Common.Proto.Entity.EntityType.Player) {
+      if (EntityType != global::MMORPG.Common.Proto.Entity.EntityType.Player) {
         output.WriteRawTag(16);
         output.WriteEnum((int) EntityType);
       }
@@ -400,7 +399,7 @@ namespace Common.Proto.Map {
         output.WriteRawTag(8);
         output.WriteInt32(EntityId);
       }
-      if (EntityType != global::Common.Proto.Entity.EntityType.Player) {
+      if (EntityType != global::MMORPG.Common.Proto.Entity.EntityType.Player) {
         output.WriteRawTag(16);
         output.WriteEnum((int) EntityType);
       }
@@ -425,7 +424,7 @@ namespace Common.Proto.Map {
       if (EntityId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(EntityId);
       }
-      if (EntityType != global::Common.Proto.Entity.EntityType.Player) {
+      if (EntityType != global::MMORPG.Common.Proto.Entity.EntityType.Player) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) EntityType);
       }
       if (UnitId != 0) {
@@ -449,7 +448,7 @@ namespace Common.Proto.Map {
       if (other.EntityId != 0) {
         EntityId = other.EntityId;
       }
-      if (other.EntityType != global::Common.Proto.Entity.EntityType.Player) {
+      if (other.EntityType != global::MMORPG.Common.Proto.Entity.EntityType.Player) {
         EntityType = other.EntityType;
       }
       if (other.UnitId != 0) {
@@ -457,7 +456,7 @@ namespace Common.Proto.Map {
       }
       if (other.transform_ != null) {
         if (transform_ == null) {
-          Transform = new global::Common.Proto.Entity.NetTransform();
+          Transform = new global::MMORPG.Common.Proto.Entity.NetTransform();
         }
         Transform.MergeFrom(other.Transform);
       }
@@ -481,7 +480,7 @@ namespace Common.Proto.Map {
             break;
           }
           case 16: {
-            EntityType = (global::Common.Proto.Entity.EntityType) input.ReadEnum();
+            EntityType = (global::MMORPG.Common.Proto.Entity.EntityType) input.ReadEnum();
             break;
           }
           case 24: {
@@ -490,7 +489,7 @@ namespace Common.Proto.Map {
           }
           case 34: {
             if (transform_ == null) {
-              Transform = new global::Common.Proto.Entity.NetTransform();
+              Transform = new global::MMORPG.Common.Proto.Entity.NetTransform();
             }
             input.ReadMessage(Transform);
             break;
@@ -515,7 +514,7 @@ namespace Common.Proto.Map {
             break;
           }
           case 16: {
-            EntityType = (global::Common.Proto.Entity.EntityType) input.ReadEnum();
+            EntityType = (global::MMORPG.Common.Proto.Entity.EntityType) input.ReadEnum();
             break;
           }
           case 24: {
@@ -524,7 +523,7 @@ namespace Common.Proto.Map {
           }
           case 34: {
             if (transform_ == null) {
-              Transform = new global::Common.Proto.Entity.NetTransform();
+              Transform = new global::MMORPG.Common.Proto.Entity.NetTransform();
             }
             input.ReadMessage(Transform);
             break;
@@ -536,7 +535,6 @@ namespace Common.Proto.Map {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityEnterResponse : pb::IMessage<EntityEnterResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -551,7 +549,7 @@ namespace Common.Proto.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Map.EntityEnterReflection.Descriptor.MessageTypes[2]; }
+      get { return global::MMORPG.Common.Proto.Map.EntityEnterReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -583,12 +581,12 @@ namespace Common.Proto.Map {
 
     /// <summary>Field number for the "datas" field.</summary>
     public const int DatasFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Common.Proto.Map.EntityEnterData> _repeated_datas_codec
-        = pb::FieldCodec.ForMessage(10, global::Common.Proto.Map.EntityEnterData.Parser);
-    private readonly pbc::RepeatedField<global::Common.Proto.Map.EntityEnterData> datas_ = new pbc::RepeatedField<global::Common.Proto.Map.EntityEnterData>();
+    private static readonly pb::FieldCodec<global::MMORPG.Common.Proto.Map.EntityEnterData> _repeated_datas_codec
+        = pb::FieldCodec.ForMessage(10, global::MMORPG.Common.Proto.Map.EntityEnterData.Parser);
+    private readonly pbc::RepeatedField<global::MMORPG.Common.Proto.Map.EntityEnterData> datas_ = new pbc::RepeatedField<global::MMORPG.Common.Proto.Map.EntityEnterData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Common.Proto.Map.EntityEnterData> Datas {
+    public pbc::RepeatedField<global::MMORPG.Common.Proto.Map.EntityEnterData> Datas {
       get { return datas_; }
     }
 

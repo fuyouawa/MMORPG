@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.User {
+namespace MMORPG.Common.Proto.User {
 
   /// <summary>Holder for reflection information generated from User/HeartBeat.proto</summary>
   public static partial class HeartBeatReflection {
@@ -24,20 +24,20 @@ namespace Common.Proto.User {
     static HeartBeatReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChRVc2VyL0hlYXJ0QmVhdC5wcm90bxIRQ29tbW9uLlByb3RvLlVzZXIiEgoQ",
-            "SGVhcnRCZWF0UmVxdWVzdCITChFIZWFydEJlYXRSZXNwb25zZWIGcHJvdG8z"));
+            "ChRVc2VyL0hlYXJ0QmVhdC5wcm90bxIYTU1PUlBHLkNvbW1vbi5Qcm90by5V",
+            "c2VyIhIKEEhlYXJ0QmVhdFJlcXVlc3QiEwoRSGVhcnRCZWF0UmVzcG9uc2Vi",
+            "BnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.User.HeartBeatRequest), global::Common.Proto.User.HeartBeatRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.User.HeartBeatResponse), global::Common.Proto.User.HeartBeatResponse.Parser, null, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.User.HeartBeatRequest), global::MMORPG.Common.Proto.User.HeartBeatRequest.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.User.HeartBeatResponse), global::MMORPG.Common.Proto.User.HeartBeatResponse.Parser, null, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class HeartBeatRequest : pb::IMessage<HeartBeatRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -52,7 +52,7 @@ namespace Common.Proto.User {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.User.HeartBeatReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.User.HeartBeatReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -190,7 +190,6 @@ namespace Common.Proto.User {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class HeartBeatResponse : pb::IMessage<HeartBeatResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -205,7 +204,7 @@ namespace Common.Proto.User {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.User.HeartBeatReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.User.HeartBeatReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

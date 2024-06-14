@@ -1,7 +1,7 @@
 ﻿using GameServer.Ai;
 using GameServer.Tool;
 using System.Numerics;
-using Common.Proto.Entity;
+using MMORPG.Common.Proto.Entity;
 
 namespace GameServer.Model
 {

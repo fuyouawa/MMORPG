@@ -7,7 +7,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Common.Proto.Entity;
+using MMORPG.Common.Proto.Entity;
 using GameServer.Ai;
 using GameServer.Tool;
 

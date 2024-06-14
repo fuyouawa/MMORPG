@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Fight {
+namespace MMORPG.Common.Proto.Fight {
 
   /// <summary>Holder for reflection information generated from Fight/Damage.proto</summary>
   public static partial class DamageReflection {
@@ -24,19 +24,20 @@ namespace Common.Proto.Fight {
     static DamageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChJGaWdodC9EYW1hZ2UucHJvdG8SEkNvbW1vbi5Qcm90by5GaWdodCKtAQoK",
-            "RGFtYWdlSW5mbxITCgthdHRhY2tlcl9pZBgBIAEoBRIRCgl0YXJnZXRfaWQY",
-            "AiABKAUSEAoIc2tpbGxfaWQYAyABKAUSDgoGYW1vdW50GAQgASgFEjMKC2Rh",
-            "bWFnZV90eXBlGAUgASgOMh4uQ29tbW9uLlByb3RvLkZpZ2h0LkRhbWFnZVR5",
-            "cGUSDwoHaXNfY3JpdBgGIAEoCBIPCgdpc19taXNzGAcgASgIIkEKDkRhbWFn",
-            "ZVJlc3BvbnNlEi8KB2RhbWFnZXMYASADKAsyHi5Db21tb24uUHJvdG8uRmln",
-            "aHQuRGFtYWdlSW5mbyo+CgpEYW1hZ2VUeXBlEgsKB1VOS05PV04QABIMCghQ",
-            "SFlTSUNBTBABEgsKB01BR0lDQUwQAhIICgRSRUFMEANiBnByb3RvMw=="));
+            "ChJGaWdodC9EYW1hZ2UucHJvdG8SGU1NT1JQRy5Db21tb24uUHJvdG8uRmln",
+            "aHQitAEKCkRhbWFnZUluZm8SEwoLYXR0YWNrZXJfaWQYASABKAUSEQoJdGFy",
+            "Z2V0X2lkGAIgASgFEhAKCHNraWxsX2lkGAMgASgFEg4KBmFtb3VudBgEIAEo",
+            "BRI6CgtkYW1hZ2VfdHlwZRgFIAEoDjIlLk1NT1JQRy5Db21tb24uUHJvdG8u",
+            "RmlnaHQuRGFtYWdlVHlwZRIPCgdpc19jcml0GAYgASgIEg8KB2lzX21pc3MY",
+            "ByABKAgiSAoORGFtYWdlUmVzcG9uc2USNgoHZGFtYWdlcxgBIAMoCzIlLk1N",
+            "T1JQRy5Db21tb24uUHJvdG8uRmlnaHQuRGFtYWdlSW5mbyo+CgpEYW1hZ2VU",
+            "eXBlEgsKB1VOS05PV04QABIMCghQSFlTSUNBTBABEgsKB01BR0lDQUwQAhII",
+            "CgRSRUFMEANiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Common.Proto.Fight.DamageType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Fight.DamageInfo), global::Common.Proto.Fight.DamageInfo.Parser, new[]{ "AttackerId", "TargetId", "SkillId", "Amount", "DamageType", "IsCrit", "IsMiss" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Fight.DamageResponse), global::Common.Proto.Fight.DamageResponse.Parser, new[]{ "Damages" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Fight.DamageType), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.DamageInfo), global::MMORPG.Common.Proto.Fight.DamageInfo.Parser, new[]{ "AttackerId", "TargetId", "SkillId", "Amount", "DamageType", "IsCrit", "IsMiss" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.DamageResponse), global::MMORPG.Common.Proto.Fight.DamageResponse.Parser, new[]{ "Damages" }, null, null, null, null)
           }));
     }
     #endregion
@@ -62,7 +63,6 @@ namespace Common.Proto.Fight {
   #endregion
 
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class DamageInfo : pb::IMessage<DamageInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -77,7 +77,7 @@ namespace Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Fight.DamageReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Fight.DamageReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -163,10 +163,10 @@ namespace Common.Proto.Fight {
 
     /// <summary>Field number for the "damage_type" field.</summary>
     public const int DamageTypeFieldNumber = 5;
-    private global::Common.Proto.Fight.DamageType damageType_ = global::Common.Proto.Fight.DamageType.Unknown;
+    private global::MMORPG.Common.Proto.Fight.DamageType damageType_ = global::MMORPG.Common.Proto.Fight.DamageType.Unknown;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Fight.DamageType DamageType {
+    public global::MMORPG.Common.Proto.Fight.DamageType DamageType {
       get { return damageType_; }
       set {
         damageType_ = value;
@@ -230,7 +230,7 @@ namespace Common.Proto.Fight {
       if (TargetId != 0) hash ^= TargetId.GetHashCode();
       if (SkillId != 0) hash ^= SkillId.GetHashCode();
       if (Amount != 0) hash ^= Amount.GetHashCode();
-      if (DamageType != global::Common.Proto.Fight.DamageType.Unknown) hash ^= DamageType.GetHashCode();
+      if (DamageType != global::MMORPG.Common.Proto.Fight.DamageType.Unknown) hash ^= DamageType.GetHashCode();
       if (IsCrit != false) hash ^= IsCrit.GetHashCode();
       if (IsMiss != false) hash ^= IsMiss.GetHashCode();
       if (_unknownFields != null) {
@@ -267,7 +267,7 @@ namespace Common.Proto.Fight {
         output.WriteRawTag(32);
         output.WriteInt32(Amount);
       }
-      if (DamageType != global::Common.Proto.Fight.DamageType.Unknown) {
+      if (DamageType != global::MMORPG.Common.Proto.Fight.DamageType.Unknown) {
         output.WriteRawTag(40);
         output.WriteEnum((int) DamageType);
       }
@@ -305,7 +305,7 @@ namespace Common.Proto.Fight {
         output.WriteRawTag(32);
         output.WriteInt32(Amount);
       }
-      if (DamageType != global::Common.Proto.Fight.DamageType.Unknown) {
+      if (DamageType != global::MMORPG.Common.Proto.Fight.DamageType.Unknown) {
         output.WriteRawTag(40);
         output.WriteEnum((int) DamageType);
       }
@@ -339,7 +339,7 @@ namespace Common.Proto.Fight {
       if (Amount != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Amount);
       }
-      if (DamageType != global::Common.Proto.Fight.DamageType.Unknown) {
+      if (DamageType != global::MMORPG.Common.Proto.Fight.DamageType.Unknown) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) DamageType);
       }
       if (IsCrit != false) {
@@ -372,7 +372,7 @@ namespace Common.Proto.Fight {
       if (other.Amount != 0) {
         Amount = other.Amount;
       }
-      if (other.DamageType != global::Common.Proto.Fight.DamageType.Unknown) {
+      if (other.DamageType != global::MMORPG.Common.Proto.Fight.DamageType.Unknown) {
         DamageType = other.DamageType;
       }
       if (other.IsCrit != false) {
@@ -413,7 +413,7 @@ namespace Common.Proto.Fight {
             break;
           }
           case 40: {
-            DamageType = (global::Common.Proto.Fight.DamageType) input.ReadEnum();
+            DamageType = (global::MMORPG.Common.Proto.Fight.DamageType) input.ReadEnum();
             break;
           }
           case 48: {
@@ -456,7 +456,7 @@ namespace Common.Proto.Fight {
             break;
           }
           case 40: {
-            DamageType = (global::Common.Proto.Fight.DamageType) input.ReadEnum();
+            DamageType = (global::MMORPG.Common.Proto.Fight.DamageType) input.ReadEnum();
             break;
           }
           case 48: {
@@ -474,7 +474,6 @@ namespace Common.Proto.Fight {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class DamageResponse : pb::IMessage<DamageResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -489,7 +488,7 @@ namespace Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Fight.DamageReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.Fight.DamageReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -521,12 +520,12 @@ namespace Common.Proto.Fight {
 
     /// <summary>Field number for the "damages" field.</summary>
     public const int DamagesFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Common.Proto.Fight.DamageInfo> _repeated_damages_codec
-        = pb::FieldCodec.ForMessage(10, global::Common.Proto.Fight.DamageInfo.Parser);
-    private readonly pbc::RepeatedField<global::Common.Proto.Fight.DamageInfo> damages_ = new pbc::RepeatedField<global::Common.Proto.Fight.DamageInfo>();
+    private static readonly pb::FieldCodec<global::MMORPG.Common.Proto.Fight.DamageInfo> _repeated_damages_codec
+        = pb::FieldCodec.ForMessage(10, global::MMORPG.Common.Proto.Fight.DamageInfo.Parser);
+    private readonly pbc::RepeatedField<global::MMORPG.Common.Proto.Fight.DamageInfo> damages_ = new pbc::RepeatedField<global::MMORPG.Common.Proto.Fight.DamageInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Common.Proto.Fight.DamageInfo> Damages {
+    public pbc::RepeatedField<global::MMORPG.Common.Proto.Fight.DamageInfo> Damages {
       get { return damages_; }
     }
 

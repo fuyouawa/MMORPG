@@ -1,4 +1,4 @@
-using Common.Proto.Fight;
+using MMORPG.Common.Proto.Fight;
 using MMORPG.Game;
 using MMORPG.Global;
 using MMORPG.System;

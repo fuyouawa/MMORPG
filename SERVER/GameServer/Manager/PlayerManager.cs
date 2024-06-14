@@ -1,5 +1,5 @@
-﻿using Common.Proto.Entity;
-using Common.Tool;
+﻿using MMORPG.Common.Proto.Entity;
+using MMORPG.Common.Tool;
 using GameServer.Db;
 using GameServer.Tool;
 using GameServer.Model;
