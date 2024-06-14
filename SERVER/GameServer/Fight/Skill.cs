@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Common.Proto.Fight;
+using MMORPG.Common.Proto.Fight;
 using GameServer.Ai;
 using GameServer.Manager;
 using GameServer.Model;

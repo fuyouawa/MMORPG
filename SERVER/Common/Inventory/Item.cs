@@ -1,8 +1,8 @@
 
 using System;
-using Common.Proto.Inventory;
+using MMORPG.Common.Proto.Inventory;
 
-namespace Common.Inventory
+namespace MMORPG.Common.Inventory
 {
     //物品类型
     public enum ItemType

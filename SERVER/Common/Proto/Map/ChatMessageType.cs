@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Map {
+namespace MMORPG.Common.Proto.Map {
 
   /// <summary>Holder for reflection information generated from Map/ChatMessageType.proto</summary>
   public static partial class ChatMessageTypeReflection {
@@ -24,12 +24,12 @@ namespace Common.Proto.Map {
     static ChatMessageTypeReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChlNYXAvQ2hhdE1lc3NhZ2VUeXBlLnByb3RvEhBDb21tb24uUHJvdG8uTWFw",
-            "KjAKD0NoYXRNZXNzYWdlVHlwZRIJCgVXb3JsZBAAEgcKA01hcBABEgkKBUdy",
-            "b3VwEAJiBnByb3RvMw=="));
+            "ChlNYXAvQ2hhdE1lc3NhZ2VUeXBlLnByb3RvEhdNTU9SUEcuQ29tbW9uLlBy",
+            "b3RvLk1hcCowCg9DaGF0TWVzc2FnZVR5cGUSCQoFV29ybGQQABIHCgNNYXAQ",
+            "ARIJCgVHcm91cBACYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Common.Proto.Map.ChatMessageType), }, null, null));
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Map.ChatMessageType), }, null, null));
     }
     #endregion
 

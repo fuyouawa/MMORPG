@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Base {
+namespace MMORPG.Common.Proto.Base {
 
   /// <summary>Holder for reflection information generated from Base/NetVector3.proto</summary>
   public static partial class NetVector3Reflection {
@@ -24,20 +24,19 @@ namespace Common.Proto.Base {
     static NetVector3Reflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChVCYXNlL05ldFZlY3RvcjMucHJvdG8SEUNvbW1vbi5Qcm90by5CYXNlIi0K",
-            "Ck5ldFZlY3RvcjMSCQoBeBgBIAEoBRIJCgF5GAIgASgFEgkKAXoYAyABKAVi",
-            "BnByb3RvMw=="));
+            "ChVCYXNlL05ldFZlY3RvcjMucHJvdG8SGE1NT1JQRy5Db21tb24uUHJvdG8u",
+            "QmFzZSItCgpOZXRWZWN0b3IzEgkKAXgYASABKAUSCQoBeRgCIAEoBRIJCgF6",
+            "GAMgASgFYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Base.NetVector3), global::Common.Proto.Base.NetVector3.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Base.NetVector3), global::MMORPG.Common.Proto.Base.NetVector3.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class NetVector3 : pb::IMessage<NetVector3>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -52,7 +51,7 @@ namespace Common.Proto.Base {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Base.NetVector3Reflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Base.NetVector3Reflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

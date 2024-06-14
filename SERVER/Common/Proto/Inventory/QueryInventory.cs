@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Inventory {
+namespace MMORPG.Common.Proto.Inventory {
 
   /// <summary>Holder for reflection information generated from Inventory/QueryInventory.proto</summary>
   public static partial class QueryInventoryReflection {
@@ -24,21 +24,22 @@ namespace Common.Proto.Inventory {
     static QueryInventoryReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Ch5JbnZlbnRvcnkvUXVlcnlJbnZlbnRvcnkucHJvdG8SFkNvbW1vbi5Qcm90",
-            "by5JbnZlbnRvcnkaHUludmVudG9yeS9JbnZlbnRvcnlJbmZvLnByb3RvInQK",
-            "FUludmVudG9yeVF1ZXJ5UmVxdWVzdBIRCgllbnRpdHlfaWQYASABKAUSFgoO",
-            "cXVlcnlfa25hcHNhY2sYAiABKAgSFwoPcXVlcnlfa2FyZWhvdXNlGAMgASgI",
-            "EhcKD3F1ZXJ5X2txdWlwbWVudBgEIAEoCCLnAQoWSW52ZW50b3J5UXVlcnlS",
-            "ZXNwb25zZRIRCgllbnRpdHlfaWQYASABKAUSPAoNa25hcHNhY2tfaW5mbxgC",
-            "IAEoCzIlLkNvbW1vbi5Qcm90by5JbnZlbnRvcnkuSW52ZW50b3J5SW5mbxI9",
-            "Cg53YXJlaG91c2VfaW5mbxgDIAEoCzIlLkNvbW1vbi5Qcm90by5JbnZlbnRv",
-            "cnkuSW52ZW50b3J5SW5mbxI9Cg5lcXVpcG1lbnRfaW5mbxgEIAEoCzIlLkNv",
-            "bW1vbi5Qcm90by5JbnZlbnRvcnkuSW52ZW50b3J5SW5mb2IGcHJvdG8z"));
+            "Ch5JbnZlbnRvcnkvUXVlcnlJbnZlbnRvcnkucHJvdG8SHU1NT1JQRy5Db21t",
+            "b24uUHJvdG8uSW52ZW50b3J5Gh1JbnZlbnRvcnkvSW52ZW50b3J5SW5mby5w",
+            "cm90byJ0ChVJbnZlbnRvcnlRdWVyeVJlcXVlc3QSEQoJZW50aXR5X2lkGAEg",
+            "ASgFEhYKDnF1ZXJ5X2tuYXBzYWNrGAIgASgIEhcKD3F1ZXJ5X2thcmVob3Vz",
+            "ZRgDIAEoCBIXCg9xdWVyeV9rcXVpcG1lbnQYBCABKAgi/AEKFkludmVudG9y",
+            "eVF1ZXJ5UmVzcG9uc2USEQoJZW50aXR5X2lkGAEgASgFEkMKDWtuYXBzYWNr",
+            "X2luZm8YAiABKAsyLC5NTU9SUEcuQ29tbW9uLlByb3RvLkludmVudG9yeS5J",
+            "bnZlbnRvcnlJbmZvEkQKDndhcmVob3VzZV9pbmZvGAMgASgLMiwuTU1PUlBH",
+            "LkNvbW1vbi5Qcm90by5JbnZlbnRvcnkuSW52ZW50b3J5SW5mbxJECg5lcXVp",
+            "cG1lbnRfaW5mbxgEIAEoCzIsLk1NT1JQRy5Db21tb24uUHJvdG8uSW52ZW50",
+            "b3J5LkludmVudG9yeUluZm9iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Common.Proto.Inventory.InventoryInfoReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Inventory.InventoryInfoReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.InventoryQueryRequest), global::Common.Proto.Inventory.InventoryQueryRequest.Parser, new[]{ "EntityId", "QueryKnapsack", "QueryKarehouse", "QueryKquipment" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.InventoryQueryResponse), global::Common.Proto.Inventory.InventoryQueryResponse.Parser, new[]{ "EntityId", "KnapsackInfo", "WarehouseInfo", "EquipmentInfo" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.InventoryQueryRequest), global::MMORPG.Common.Proto.Inventory.InventoryQueryRequest.Parser, new[]{ "EntityId", "QueryKnapsack", "QueryKarehouse", "QueryKquipment" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.InventoryQueryResponse), global::MMORPG.Common.Proto.Inventory.InventoryQueryResponse.Parser, new[]{ "EntityId", "KnapsackInfo", "WarehouseInfo", "EquipmentInfo" }, null, null, null, null)
           }));
     }
     #endregion
@@ -48,7 +49,6 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///查询背包信息
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class InventoryQueryRequest : pb::IMessage<InventoryQueryRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -63,7 +63,7 @@ namespace Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Inventory.QueryInventoryReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Inventory.QueryInventoryReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -361,7 +361,6 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///角色的背包信息
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class InventoryQueryResponse : pb::IMessage<InventoryQueryResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -376,7 +375,7 @@ namespace Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Inventory.QueryInventoryReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.Inventory.QueryInventoryReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -423,10 +422,10 @@ namespace Common.Proto.Inventory {
 
     /// <summary>Field number for the "knapsack_info" field.</summary>
     public const int KnapsackInfoFieldNumber = 2;
-    private global::Common.Proto.Inventory.InventoryInfo knapsackInfo_;
+    private global::MMORPG.Common.Proto.Inventory.InventoryInfo knapsackInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Inventory.InventoryInfo KnapsackInfo {
+    public global::MMORPG.Common.Proto.Inventory.InventoryInfo KnapsackInfo {
       get { return knapsackInfo_; }
       set {
         knapsackInfo_ = value;
@@ -435,10 +434,10 @@ namespace Common.Proto.Inventory {
 
     /// <summary>Field number for the "warehouse_info" field.</summary>
     public const int WarehouseInfoFieldNumber = 3;
-    private global::Common.Proto.Inventory.InventoryInfo warehouseInfo_;
+    private global::MMORPG.Common.Proto.Inventory.InventoryInfo warehouseInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Inventory.InventoryInfo WarehouseInfo {
+    public global::MMORPG.Common.Proto.Inventory.InventoryInfo WarehouseInfo {
       get { return warehouseInfo_; }
       set {
         warehouseInfo_ = value;
@@ -447,10 +446,10 @@ namespace Common.Proto.Inventory {
 
     /// <summary>Field number for the "equipment_info" field.</summary>
     public const int EquipmentInfoFieldNumber = 4;
-    private global::Common.Proto.Inventory.InventoryInfo equipmentInfo_;
+    private global::MMORPG.Common.Proto.Inventory.InventoryInfo equipmentInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Inventory.InventoryInfo EquipmentInfo {
+    public global::MMORPG.Common.Proto.Inventory.InventoryInfo EquipmentInfo {
       get { return equipmentInfo_; }
       set {
         equipmentInfo_ = value;
@@ -586,19 +585,19 @@ namespace Common.Proto.Inventory {
       }
       if (other.knapsackInfo_ != null) {
         if (knapsackInfo_ == null) {
-          KnapsackInfo = new global::Common.Proto.Inventory.InventoryInfo();
+          KnapsackInfo = new global::MMORPG.Common.Proto.Inventory.InventoryInfo();
         }
         KnapsackInfo.MergeFrom(other.KnapsackInfo);
       }
       if (other.warehouseInfo_ != null) {
         if (warehouseInfo_ == null) {
-          WarehouseInfo = new global::Common.Proto.Inventory.InventoryInfo();
+          WarehouseInfo = new global::MMORPG.Common.Proto.Inventory.InventoryInfo();
         }
         WarehouseInfo.MergeFrom(other.WarehouseInfo);
       }
       if (other.equipmentInfo_ != null) {
         if (equipmentInfo_ == null) {
-          EquipmentInfo = new global::Common.Proto.Inventory.InventoryInfo();
+          EquipmentInfo = new global::MMORPG.Common.Proto.Inventory.InventoryInfo();
         }
         EquipmentInfo.MergeFrom(other.EquipmentInfo);
       }
@@ -623,21 +622,21 @@ namespace Common.Proto.Inventory {
           }
           case 18: {
             if (knapsackInfo_ == null) {
-              KnapsackInfo = new global::Common.Proto.Inventory.InventoryInfo();
+              KnapsackInfo = new global::MMORPG.Common.Proto.Inventory.InventoryInfo();
             }
             input.ReadMessage(KnapsackInfo);
             break;
           }
           case 26: {
             if (warehouseInfo_ == null) {
-              WarehouseInfo = new global::Common.Proto.Inventory.InventoryInfo();
+              WarehouseInfo = new global::MMORPG.Common.Proto.Inventory.InventoryInfo();
             }
             input.ReadMessage(WarehouseInfo);
             break;
           }
           case 34: {
             if (equipmentInfo_ == null) {
-              EquipmentInfo = new global::Common.Proto.Inventory.InventoryInfo();
+              EquipmentInfo = new global::MMORPG.Common.Proto.Inventory.InventoryInfo();
             }
             input.ReadMessage(EquipmentInfo);
             break;
@@ -663,21 +662,21 @@ namespace Common.Proto.Inventory {
           }
           case 18: {
             if (knapsackInfo_ == null) {
-              KnapsackInfo = new global::Common.Proto.Inventory.InventoryInfo();
+              KnapsackInfo = new global::MMORPG.Common.Proto.Inventory.InventoryInfo();
             }
             input.ReadMessage(KnapsackInfo);
             break;
           }
           case 26: {
             if (warehouseInfo_ == null) {
-              WarehouseInfo = new global::Common.Proto.Inventory.InventoryInfo();
+              WarehouseInfo = new global::MMORPG.Common.Proto.Inventory.InventoryInfo();
             }
             input.ReadMessage(WarehouseInfo);
             break;
           }
           case 34: {
             if (equipmentInfo_ == null) {
-              EquipmentInfo = new global::Common.Proto.Inventory.InventoryInfo();
+              EquipmentInfo = new global::MMORPG.Common.Proto.Inventory.InventoryInfo();
             }
             input.ReadMessage(EquipmentInfo);
             break;

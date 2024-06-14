@@ -1,16 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Common.Proto.Monster;
-using MMORPG.Global;
-using MMORPG.Tool;
+using MMORPG.Common.Proto.Monster;
 using QFramework;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering.PostProcessing;
 
 namespace MMORPG.Game
 {

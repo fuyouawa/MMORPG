@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Common.Inventory
+namespace MMORPG.Common.Inventory
 {
     /// <summary>
     /// 材料

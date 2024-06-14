@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Tool
+namespace MMORPG.Common.Tool
 {
     public class TimeWheel
     {

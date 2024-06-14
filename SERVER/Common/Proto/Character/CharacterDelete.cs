@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Character {
+namespace MMORPG.Common.Proto.Character {
 
   /// <summary>Holder for reflection information generated from Character/CharacterDelete.proto</summary>
   public static partial class CharacterDeleteReflection {
@@ -24,23 +24,22 @@ namespace Common.Proto.Character {
     static CharacterDeleteReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Ch9DaGFyYWN0ZXIvQ2hhcmFjdGVyRGVsZXRlLnByb3RvEhZDb21tb24uUHJv",
-            "dG8uQ2hhcmFjdGVyGhNCYXNlL05ldEVycm9yLnByb3RvIi4KFkNoYXJhY3Rl",
-            "ckRlbGV0ZVJlcXVlc3QSFAoMY2hhcmFjdGVyX2lkGAEgASgDIkUKF0NoYXJh",
-            "Y3RlckRlbGV0ZVJlc3BvbnNlEioKBWVycm9yGAEgASgOMhsuQ29tbW9uLlBy",
-            "b3RvLkJhc2UuTmV0RXJyb3JiBnByb3RvMw=="));
+            "Ch9DaGFyYWN0ZXIvQ2hhcmFjdGVyRGVsZXRlLnByb3RvEh1NTU9SUEcuQ29t",
+            "bW9uLlByb3RvLkNoYXJhY3RlchoTQmFzZS9OZXRFcnJvci5wcm90byIuChZD",
+            "aGFyYWN0ZXJEZWxldGVSZXF1ZXN0EhQKDGNoYXJhY3Rlcl9pZBgBIAEoAyJM",
+            "ChdDaGFyYWN0ZXJEZWxldGVSZXNwb25zZRIxCgVlcnJvchgBIAEoDjIiLk1N",
+            "T1JQRy5Db21tb24uUHJvdG8uQmFzZS5OZXRFcnJvcmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Common.Proto.Base.NetErrorReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Base.NetErrorReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Character.CharacterDeleteRequest), global::Common.Proto.Character.CharacterDeleteRequest.Parser, new[]{ "CharacterId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Character.CharacterDeleteResponse), global::Common.Proto.Character.CharacterDeleteResponse.Parser, new[]{ "Error" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Character.CharacterDeleteRequest), global::MMORPG.Common.Proto.Character.CharacterDeleteRequest.Parser, new[]{ "CharacterId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Character.CharacterDeleteResponse), global::MMORPG.Common.Proto.Character.CharacterDeleteResponse.Parser, new[]{ "Error" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CharacterDeleteRequest : pb::IMessage<CharacterDeleteRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -55,7 +54,7 @@ namespace Common.Proto.Character {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Character.CharacterDeleteReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Character.CharacterDeleteReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -230,7 +229,6 @@ namespace Common.Proto.Character {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CharacterDeleteResponse : pb::IMessage<CharacterDeleteResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -245,7 +243,7 @@ namespace Common.Proto.Character {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Character.CharacterDeleteReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.Character.CharacterDeleteReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -277,10 +275,10 @@ namespace Common.Proto.Character {
 
     /// <summary>Field number for the "error" field.</summary>
     public const int ErrorFieldNumber = 1;
-    private global::Common.Proto.Base.NetError error_ = global::Common.Proto.Base.NetError.Success;
+    private global::MMORPG.Common.Proto.Base.NetError error_ = global::MMORPG.Common.Proto.Base.NetError.Success;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Base.NetError Error {
+    public global::MMORPG.Common.Proto.Base.NetError Error {
       get { return error_; }
       set {
         error_ = value;
@@ -310,7 +308,7 @@ namespace Common.Proto.Character {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Error != global::Common.Proto.Base.NetError.Success) hash ^= Error.GetHashCode();
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) hash ^= Error.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -329,7 +327,7 @@ namespace Common.Proto.Character {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Error != global::Common.Proto.Base.NetError.Success) {
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Error);
       }
@@ -343,7 +341,7 @@ namespace Common.Proto.Character {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Error != global::Common.Proto.Base.NetError.Success) {
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Error);
       }
@@ -357,7 +355,7 @@ namespace Common.Proto.Character {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Error != global::Common.Proto.Base.NetError.Success) {
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Error);
       }
       if (_unknownFields != null) {
@@ -372,7 +370,7 @@ namespace Common.Proto.Character {
       if (other == null) {
         return;
       }
-      if (other.Error != global::Common.Proto.Base.NetError.Success) {
+      if (other.Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         Error = other.Error;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -391,7 +389,7 @@ namespace Common.Proto.Character {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
+            Error = (global::MMORPG.Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
         }
@@ -410,7 +408,7 @@ namespace Common.Proto.Character {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
+            Error = (global::MMORPG.Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
         }

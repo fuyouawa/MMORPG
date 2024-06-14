@@ -1,5 +1,4 @@
-﻿using Common.Tool;
-using Google.Protobuf;
+﻿using Google.Protobuf;
 using Google.Protobuf.Reflection;
 using System;
 using System.Collections.Generic;
@@ -8,8 +7,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using MMORPG.Common.Tool;
 
-namespace Common.Network
+namespace MMORPG.Common.Network
 {
     public class Packet
     {

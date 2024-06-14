@@ -1,4 +1,4 @@
-﻿using Common.Tool;
+﻿using MMORPG.Common.Tool;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Common.Network
+namespace MMORPG.Common.Network
 {
     public class ServiceBase<T> where T : ServiceBase<T>, new()
     {

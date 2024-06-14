@@ -1,6 +1,6 @@
-using Common.Proto.Entity;
-using Common.Proto.Player;
-using Common.Tool;
+using MMORPG.Common.Proto.Entity;
+using MMORPG.Common.Proto.Player;
+using MMORPG.Common.Tool;
 using MMORPG.Model;
 using QFramework;
 using MMORPG.System;

@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Network
+namespace MMORPG.Common.Network
 {
     public static class NetConfig
     {

@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Entity {
+namespace MMORPG.Common.Proto.Entity {
 
   /// <summary>Holder for reflection information generated from Entity/EntityTransformSync.proto</summary>
   public static partial class EntityTransformSyncReflection {
@@ -24,27 +24,26 @@ namespace Common.Proto.Entity {
     static EntityTransformSyncReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CiBFbnRpdHkvRW50aXR5VHJhbnNmb3JtU3luYy5wcm90bxITQ29tbW9uLlBy",
-            "b3RvLkVudGl0eRoZRW50aXR5L05ldFRyYW5zZm9ybS5wcm90byKFAQoaRW50",
-            "aXR5VHJhbnNmb3JtU3luY1JlcXVlc3QSEQoJZW50aXR5X2lkGAEgASgFEjQK",
-            "CXRyYW5zZm9ybRgCIAEoCzIhLkNvbW1vbi5Qcm90by5FbnRpdHkuTmV0VHJh",
-            "bnNmb3JtEhAKCHN0YXRlX2lkGAMgASgFEgwKBGRhdGEYBCABKAwihgEKG0Vu",
-            "dGl0eVRyYW5zZm9ybVN5bmNSZXNwb25zZRIRCgllbnRpdHlfaWQYASABKAUS",
-            "NAoJdHJhbnNmb3JtGAIgASgLMiEuQ29tbW9uLlByb3RvLkVudGl0eS5OZXRU",
-            "cmFuc2Zvcm0SEAoIc3RhdGVfaWQYAyABKAUSDAoEZGF0YRgEIAEoDGIGcHJv",
-            "dG8z"));
+            "CiBFbnRpdHkvRW50aXR5VHJhbnNmb3JtU3luYy5wcm90bxIaTU1PUlBHLkNv",
+            "bW1vbi5Qcm90by5FbnRpdHkaGUVudGl0eS9OZXRUcmFuc2Zvcm0ucHJvdG8i",
+            "jAEKGkVudGl0eVRyYW5zZm9ybVN5bmNSZXF1ZXN0EhEKCWVudGl0eV9pZBgB",
+            "IAEoBRI7Cgl0cmFuc2Zvcm0YAiABKAsyKC5NTU9SUEcuQ29tbW9uLlByb3Rv",
+            "LkVudGl0eS5OZXRUcmFuc2Zvcm0SEAoIc3RhdGVfaWQYAyABKAUSDAoEZGF0",
+            "YRgEIAEoDCKNAQobRW50aXR5VHJhbnNmb3JtU3luY1Jlc3BvbnNlEhEKCWVu",
+            "dGl0eV9pZBgBIAEoBRI7Cgl0cmFuc2Zvcm0YAiABKAsyKC5NTU9SUEcuQ29t",
+            "bW9uLlByb3RvLkVudGl0eS5OZXRUcmFuc2Zvcm0SEAoIc3RhdGVfaWQYAyAB",
+            "KAUSDAoEZGF0YRgEIAEoDGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Common.Proto.Entity.NetTransformReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Entity.NetTransformReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Entity.EntityTransformSyncRequest), global::Common.Proto.Entity.EntityTransformSyncRequest.Parser, new[]{ "EntityId", "Transform", "StateId", "Data" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Entity.EntityTransformSyncResponse), global::Common.Proto.Entity.EntityTransformSyncResponse.Parser, new[]{ "EntityId", "Transform", "StateId", "Data" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Entity.EntityTransformSyncRequest), global::MMORPG.Common.Proto.Entity.EntityTransformSyncRequest.Parser, new[]{ "EntityId", "Transform", "StateId", "Data" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Entity.EntityTransformSyncResponse), global::MMORPG.Common.Proto.Entity.EntityTransformSyncResponse.Parser, new[]{ "EntityId", "Transform", "StateId", "Data" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityTransformSyncRequest : pb::IMessage<EntityTransformSyncRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -59,7 +58,7 @@ namespace Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Entity.EntityTransformSyncReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Entity.EntityTransformSyncReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -106,10 +105,10 @@ namespace Common.Proto.Entity {
 
     /// <summary>Field number for the "transform" field.</summary>
     public const int TransformFieldNumber = 2;
-    private global::Common.Proto.Entity.NetTransform transform_;
+    private global::MMORPG.Common.Proto.Entity.NetTransform transform_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Entity.NetTransform Transform {
+    public global::MMORPG.Common.Proto.Entity.NetTransform Transform {
       get { return transform_; }
       set {
         transform_ = value;
@@ -269,7 +268,7 @@ namespace Common.Proto.Entity {
       }
       if (other.transform_ != null) {
         if (transform_ == null) {
-          Transform = new global::Common.Proto.Entity.NetTransform();
+          Transform = new global::MMORPG.Common.Proto.Entity.NetTransform();
         }
         Transform.MergeFrom(other.Transform);
       }
@@ -300,7 +299,7 @@ namespace Common.Proto.Entity {
           }
           case 18: {
             if (transform_ == null) {
-              Transform = new global::Common.Proto.Entity.NetTransform();
+              Transform = new global::MMORPG.Common.Proto.Entity.NetTransform();
             }
             input.ReadMessage(Transform);
             break;
@@ -334,7 +333,7 @@ namespace Common.Proto.Entity {
           }
           case 18: {
             if (transform_ == null) {
-              Transform = new global::Common.Proto.Entity.NetTransform();
+              Transform = new global::MMORPG.Common.Proto.Entity.NetTransform();
             }
             input.ReadMessage(Transform);
             break;
@@ -354,7 +353,6 @@ namespace Common.Proto.Entity {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityTransformSyncResponse : pb::IMessage<EntityTransformSyncResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -369,7 +367,7 @@ namespace Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Entity.EntityTransformSyncReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.Entity.EntityTransformSyncReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -416,10 +414,10 @@ namespace Common.Proto.Entity {
 
     /// <summary>Field number for the "transform" field.</summary>
     public const int TransformFieldNumber = 2;
-    private global::Common.Proto.Entity.NetTransform transform_;
+    private global::MMORPG.Common.Proto.Entity.NetTransform transform_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Entity.NetTransform Transform {
+    public global::MMORPG.Common.Proto.Entity.NetTransform Transform {
       get { return transform_; }
       set {
         transform_ = value;
@@ -579,7 +577,7 @@ namespace Common.Proto.Entity {
       }
       if (other.transform_ != null) {
         if (transform_ == null) {
-          Transform = new global::Common.Proto.Entity.NetTransform();
+          Transform = new global::MMORPG.Common.Proto.Entity.NetTransform();
         }
         Transform.MergeFrom(other.Transform);
       }
@@ -610,7 +608,7 @@ namespace Common.Proto.Entity {
           }
           case 18: {
             if (transform_ == null) {
-              Transform = new global::Common.Proto.Entity.NetTransform();
+              Transform = new global::MMORPG.Common.Proto.Entity.NetTransform();
             }
             input.ReadMessage(Transform);
             break;
@@ -644,7 +642,7 @@ namespace Common.Proto.Entity {
           }
           case 18: {
             if (transform_ == null) {
-              Transform = new global::Common.Proto.Entity.NetTransform();
+              Transform = new global::MMORPG.Common.Proto.Entity.NetTransform();
             }
             input.ReadMessage(Transform);
             break;

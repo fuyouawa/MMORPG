@@ -1,6 +1,6 @@
-using Common.Proto.Base;
-using Common.Proto.User;
-using Common.Tool;
+using MMORPG.Common.Proto.Base;
+using MMORPG.Common.Proto.User;
+using MMORPG.Common.Tool;
 using MMORPG.Model;
 using QFramework;
 using MMORPG.System;

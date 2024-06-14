@@ -1,8 +1,6 @@
 using System;
-using Common.Proto.Character;
-using UnityEngine;
+using MMORPG.Common.Proto.Character;
 using QFramework;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 namespace MMORPG.Game

@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Aoi;
-using Common.Proto.Entity;
-using Common.Proto.Map;
+using MMORPG.Common.Proto.Entity;
+using MMORPG.Common.Proto.Map;
 using GameServer.Manager;
 using GameServer.Tool;
 using Serilog;

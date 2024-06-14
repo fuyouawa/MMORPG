@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Player {
+namespace MMORPG.Common.Proto.Player {
 
   /// <summary>Holder for reflection information generated from Player/Interact.proto</summary>
   public static partial class InteractReflection {
@@ -30,7 +30,7 @@ namespace Common.Proto.Player {
             "ASgOMhsuQ29tbW9uLlByb3RvLkJhc2UuTmV0RXJyb3ISEQoJZW50aXR5X2lk",
             "GAIgASgFEhMKC2RpYWxvZ3VlX2lkGAMgASgFYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Common.Proto.Base.NetErrorReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Base.NetErrorReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.InteractRequest), global::Common.Proto.Player.InteractRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.InteractResponse), global::Common.Proto.Player.InteractResponse.Parser, new[]{ "Error", "EntityId", "DialogueId" }, null, null, null, null)
@@ -40,7 +40,6 @@ namespace Common.Proto.Player {
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class InteractRequest : pb::IMessage<InteractRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -55,7 +54,7 @@ namespace Common.Proto.Player {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Player.InteractReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Player.InteractReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -230,7 +229,6 @@ namespace Common.Proto.Player {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class InteractResponse : pb::IMessage<InteractResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -245,7 +243,7 @@ namespace Common.Proto.Player {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Player.InteractReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.Player.InteractReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -279,10 +277,10 @@ namespace Common.Proto.Player {
 
     /// <summary>Field number for the "error" field.</summary>
     public const int ErrorFieldNumber = 1;
-    private global::Common.Proto.Base.NetError error_ = global::Common.Proto.Base.NetError.Success;
+    private global::MMORPG.Common.Proto.Base.NetError error_ = global::MMORPG.Common.Proto.Base.NetError.Success;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Base.NetError Error {
+    public global::MMORPG.Common.Proto.Base.NetError Error {
       get { return error_; }
       set {
         error_ = value;
@@ -338,7 +336,7 @@ namespace Common.Proto.Player {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Error != global::Common.Proto.Base.NetError.Success) hash ^= Error.GetHashCode();
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) hash ^= Error.GetHashCode();
       if (EntityId != 0) hash ^= EntityId.GetHashCode();
       if (DialogueId != 0) hash ^= DialogueId.GetHashCode();
       if (_unknownFields != null) {
@@ -359,7 +357,7 @@ namespace Common.Proto.Player {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Error != global::Common.Proto.Base.NetError.Success) {
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Error);
       }
@@ -381,7 +379,7 @@ namespace Common.Proto.Player {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Error != global::Common.Proto.Base.NetError.Success) {
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Error);
       }
@@ -403,7 +401,7 @@ namespace Common.Proto.Player {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Error != global::Common.Proto.Base.NetError.Success) {
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Error);
       }
       if (EntityId != 0) {
@@ -424,7 +422,7 @@ namespace Common.Proto.Player {
       if (other == null) {
         return;
       }
-      if (other.Error != global::Common.Proto.Base.NetError.Success) {
+      if (other.Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         Error = other.Error;
       }
       if (other.EntityId != 0) {
@@ -449,7 +447,7 @@ namespace Common.Proto.Player {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
+            Error = (global::MMORPG.Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
           case 16: {
@@ -476,7 +474,7 @@ namespace Common.Proto.Player {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
+            Error = (global::MMORPG.Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
           case 16: {

@@ -1,7 +1,6 @@
 using System;
-using System.Threading.Tasks;
-using Common.Proto.Base;
-using Common.Proto.Map;
+using MMORPG.Common.Proto.Base;
+using MMORPG.Common.Proto.Map;
 using DuloGames.UI;
 using MMORPG.Game;
 using UnityEngine;

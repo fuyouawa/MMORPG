@@ -1,5 +1,5 @@
-﻿using Common.Network;
-using Common.Proto.Fight;
+﻿using MMORPG.Common.Network;
+using MMORPG.Common.Proto.Fight;
 using GameServer.Network;
 using Serilog;
 using System;
@@ -8,8 +8,8 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using Common.Proto.Entity;
-using Common.Proto.Inventory;
+using MMORPG.Common.Proto.Entity;
+using MMORPG.Common.Proto.Inventory;
 using GameServer.Model;
 using GameServer.Tool;
 

@@ -1,4 +1,4 @@
-using Common.Proto.Inventory;
+using MMORPG.Common.Proto.Inventory;
 using MMORPG.Game;
 
 namespace MMORPG.Event

@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Inventory {
+namespace MMORPG.Common.Proto.Inventory {
 
   /// <summary>Holder for reflection information generated from Inventory/InventoryOperations.proto</summary>
   public static partial class InventoryOperationsReflection {
@@ -24,21 +24,21 @@ namespace Common.Proto.Inventory {
     static InventoryOperationsReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CiNJbnZlbnRvcnkvSW52ZW50b3J5T3BlcmF0aW9ucy5wcm90bxIWQ29tbW9u",
-            "LlByb3RvLkludmVudG9yeSImChFQaWNrdXBJdGVtUmVxdWVzdBIRCgllbnRp",
-            "dHlfaWQYASABKAUiWQoUUGxhY2VtZW50SXRlbVJlcXVlc3QSEQoJZW50aXR5",
-            "X2lkGAEgASgFEhYKDm9yaWdpbl9zbG90X2lkGAIgASgFEhYKDnRhcmdldF9z",
-            "bG90X2lkGAMgASgFIkcKEkRpc2NhcmRJdGVtUmVxdWVzdBIRCgllbnRpdHlf",
-            "aWQYASABKAUSDwoHc2xvdF9pZBgCIAEoBRINCgVjb3VudBgDIAEoBSI0Cg5V",
-            "c2VJdGVtUmVxdWVzdBIRCgllbnRpdHlfaWQYASABKAUSDwoHc2xvdF9pZBgC",
-            "IAEoBWIGcHJvdG8z"));
+            "CiNJbnZlbnRvcnkvSW52ZW50b3J5T3BlcmF0aW9ucy5wcm90bxIdTU1PUlBH",
+            "LkNvbW1vbi5Qcm90by5JbnZlbnRvcnkiJgoRUGlja3VwSXRlbVJlcXVlc3QS",
+            "EQoJZW50aXR5X2lkGAEgASgFIlkKFFBsYWNlbWVudEl0ZW1SZXF1ZXN0EhEK",
+            "CWVudGl0eV9pZBgBIAEoBRIWCg5vcmlnaW5fc2xvdF9pZBgCIAEoBRIWCg50",
+            "YXJnZXRfc2xvdF9pZBgDIAEoBSJHChJEaXNjYXJkSXRlbVJlcXVlc3QSEQoJ",
+            "ZW50aXR5X2lkGAEgASgFEg8KB3Nsb3RfaWQYAiABKAUSDQoFY291bnQYAyAB",
+            "KAUiNAoOVXNlSXRlbVJlcXVlc3QSEQoJZW50aXR5X2lkGAEgASgFEg8KB3Ns",
+            "b3RfaWQYAiABKAViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.PickupItemRequest), global::Common.Proto.Inventory.PickupItemRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.PlacementItemRequest), global::Common.Proto.Inventory.PlacementItemRequest.Parser, new[]{ "EntityId", "OriginSlotId", "TargetSlotId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.DiscardItemRequest), global::Common.Proto.Inventory.DiscardItemRequest.Parser, new[]{ "EntityId", "SlotId", "Count" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.UseItemRequest), global::Common.Proto.Inventory.UseItemRequest.Parser, new[]{ "EntityId", "SlotId" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.PickupItemRequest), global::MMORPG.Common.Proto.Inventory.PickupItemRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.PlacementItemRequest), global::MMORPG.Common.Proto.Inventory.PlacementItemRequest.Parser, new[]{ "EntityId", "OriginSlotId", "TargetSlotId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.DiscardItemRequest), global::MMORPG.Common.Proto.Inventory.DiscardItemRequest.Parser, new[]{ "EntityId", "SlotId", "Count" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.UseItemRequest), global::MMORPG.Common.Proto.Inventory.UseItemRequest.Parser, new[]{ "EntityId", "SlotId" }, null, null, null, null)
           }));
     }
     #endregion
@@ -48,7 +48,6 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///拾取物品的请求
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class PickupItemRequest : pb::IMessage<PickupItemRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -63,7 +62,7 @@ namespace Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Inventory.InventoryOperationsReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Inventory.InventoryOperationsReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -244,7 +243,6 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///物品放置请求
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class PlacementItemRequest : pb::IMessage<PlacementItemRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -259,7 +257,7 @@ namespace Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Inventory.InventoryOperationsReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.Inventory.InventoryOperationsReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -517,7 +515,6 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///丢弃的物品的请求
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class DiscardItemRequest : pb::IMessage<DiscardItemRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -532,7 +529,7 @@ namespace Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Inventory.InventoryOperationsReflection.Descriptor.MessageTypes[2]; }
+      get { return global::MMORPG.Common.Proto.Inventory.InventoryOperationsReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -790,7 +787,6 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///使用物品的请求
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UseItemRequest : pb::IMessage<UseItemRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -805,7 +801,7 @@ namespace Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Inventory.InventoryOperationsReflection.Descriptor.MessageTypes[3]; }
+      get { return global::MMORPG.Common.Proto.Inventory.InventoryOperationsReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
