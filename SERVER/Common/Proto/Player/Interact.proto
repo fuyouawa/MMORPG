@@ -10,4 +10,5 @@ message InteractRequest {
 message InteractResponse {
     Base.NetError error = 1;
     int32 entity_id = 2;
+    int32 dialogue_id = 3;
 }
