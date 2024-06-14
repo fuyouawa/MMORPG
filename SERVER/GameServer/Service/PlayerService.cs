@@ -14,6 +14,8 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using GameServer.Model;
+using Common.Proto.Inventory;
+using Common.Proto.Entity;
 
 namespace GameServer.Service
 {
@@ -77,6 +79,25 @@ namespace GameServer.Service
             sender.Send(res, null);
             Log.Debug($"{sender}进入游戏成功");
         }
+
+        public void OnHandle(NetChannel sender, InteractRequest req)
+        {
+            if (sender.User == null || sender.User.Player == null) return;
+            var player = sender.User.Player;
+            // 查找距离最近的Npc
+
+            var entity = player.Map.GetEntityFollowingNearest(player, entity => entity.EntityType == EntityType.Npc);
+            if (entity == null) return;
+
+            var npc = entity as Npc;
+            if (npc == null) return;
+
+            var distance = Vector2.Distance(player.Position.ToVector2(), npc.Position.ToVector2());
+            if (distance > 1) return;
+
+            
+        }
+
 
     }
 }
