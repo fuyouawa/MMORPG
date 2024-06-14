@@ -24,14 +24,14 @@ namespace MMORPG.Common.Proto.Base {
     static NetErrorReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChNCYXNlL05ldEVycm9yLnByb3RvEhhNTU9SUEcuQ29tbW9uLlByb3RvLkJh",
-            "c2UqqQIKCE5ldEVycm9yEgsKB1N1Y2Nlc3MQABIPCgtVbmtub3dFcnJvchAB",
-            "EhEKDUxvZ2luQ29uZmxpY3QQAhIfChtJbmNvcnJlY3RVc2VybmFtZU9yUGFz",
-            "c3dvcmQQAxITCg9JbGxlZ2FsVXNlcm5hbWUQBBIYChRJbGxlZ2FsQ2hhcmFj",
-            "dGVyTmFtZRAFEhIKDlJlcGVhdFVzZXJuYW1lEAYSFwoTUmVwZWF0Q2hhcmFj",
-            "dGVyTmFtZRAHEhQKEEludmFsaWRDaGFyYWN0ZXIQCBIOCgpJbnZhbGlkTWFw",
-            "EAkSIQodQ2hhcmFjdGVyQ3JlYXRpb25MaW1pdFJlYWNoZWQQChIOCgpPdXRP",
-            "ZlJhbmdlEAsSFgoSRW50aXR5RG9lc05vdEV4aXN0EAxiBnByb3RvMw=="));
+            "ChNCYXNlL05ldEVycm9yLnByb3RvEhFDb21tb24uUHJvdG8uQmFzZSqwAgoI",
+            "TmV0RXJyb3ISCwoHU3VjY2VzcxAAEhAKC1Vua25vd0Vycm9yEOkHEg8KCk91",
+            "dE9mUmFuZ2UQ6gcSEgoNTG9naW5Db25mbGljdBDRDxIgChtJbmNvcnJlY3RV",
+            "c2VybmFtZU9yUGFzc3dvcmQQ0g8SFAoPSWxsZWdhbFVzZXJuYW1lELkXEhkK",
+            "FElsbGVnYWxDaGFyYWN0ZXJOYW1lELoXEiIKHUNoYXJhY3RlckNyZWF0aW9u",
+            "TGltaXRSZWFjaGVkELsXEhUKEEludmFsaWRDaGFyYWN0ZXIQvBcSEwoOUmVw",
+            "ZWF0VXNlcm5hbWUQoR8SGAoTUmVwZWF0Q2hhcmFjdGVyTmFtZRCiHxISCg1J",
+            "bnZhbGlkRW50aXR5EIknEg8KCkludmFsaWRNYXAQiidiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Base.NetError), }, null, null));
@@ -42,18 +42,18 @@ namespace MMORPG.Common.Proto.Base {
   #region Enums
   public enum NetError {
     [pbr::OriginalName("Success")] Success = 0,
-    [pbr::OriginalName("UnknowError")] UnknowError = 1,
-    [pbr::OriginalName("LoginConflict")] LoginConflict = 2,
-    [pbr::OriginalName("IncorrectUsernameOrPassword")] IncorrectUsernameOrPassword = 3,
-    [pbr::OriginalName("IllegalUsername")] IllegalUsername = 4,
-    [pbr::OriginalName("IllegalCharacterName")] IllegalCharacterName = 5,
-    [pbr::OriginalName("RepeatUsername")] RepeatUsername = 6,
-    [pbr::OriginalName("RepeatCharacterName")] RepeatCharacterName = 7,
-    [pbr::OriginalName("InvalidCharacter")] InvalidCharacter = 8,
-    [pbr::OriginalName("InvalidMap")] InvalidMap = 9,
-    [pbr::OriginalName("CharacterCreationLimitReached")] CharacterCreationLimitReached = 10,
-    [pbr::OriginalName("OutOfRange")] OutOfRange = 11,
-    [pbr::OriginalName("EntityDoesNotExist")] EntityDoesNotExist = 12,
+    [pbr::OriginalName("UnknowError")] UnknowError = 1001,
+    [pbr::OriginalName("OutOfRange")] OutOfRange = 1002,
+    [pbr::OriginalName("LoginConflict")] LoginConflict = 2001,
+    [pbr::OriginalName("IncorrectUsernameOrPassword")] IncorrectUsernameOrPassword = 2002,
+    [pbr::OriginalName("IllegalUsername")] IllegalUsername = 3001,
+    [pbr::OriginalName("IllegalCharacterName")] IllegalCharacterName = 3002,
+    [pbr::OriginalName("CharacterCreationLimitReached")] CharacterCreationLimitReached = 3003,
+    [pbr::OriginalName("InvalidCharacter")] InvalidCharacter = 3004,
+    [pbr::OriginalName("RepeatUsername")] RepeatUsername = 4001,
+    [pbr::OriginalName("RepeatCharacterName")] RepeatCharacterName = 4002,
+    [pbr::OriginalName("InvalidEntity")] InvalidEntity = 5001,
+    [pbr::OriginalName("InvalidMap")] InvalidMap = 5002,
   }
 
   #endregion

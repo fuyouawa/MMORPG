@@ -87,17 +87,23 @@ namespace GameServer.Service
             // 查找距离最近的Npc
 
             var entity = player.Map.GetEntityFollowingNearest(player, entity => entity.EntityType == EntityType.Npc);
-            if (entity == null) return;
 
-            var npc = entity as Npc;
-            if (npc == null) return;
-
-            var distance = Vector2.Distance(player.Position.ToVector2(), npc.Position.ToVector2());
-            if (distance > 1) return;
-
-            
+            var res = new InteractResponse()
+            {
+                Error = NetError.InvalidEntity,
+            };
+            do
+            {
+                if (entity == null) break;
+                var npc = entity as Npc;
+                if (npc == null) break;
+                var distance = Vector2.Distance(player.Position.ToVector2(), npc.Position.ToVector2());
+                if (distance > 1) break;
+                res.Error = NetError.Success;
+                res.EntityId = entity.EntityId;
+                res.DialogueId = ;
+            } while (false);
+            sender.Send(res, null);
         }
-
-
     }
 }
