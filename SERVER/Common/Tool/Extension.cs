@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Common.Tool
+namespace MMORPG.Common.Tool
 {
     public struct ErrorInfo
     {

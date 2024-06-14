@@ -1,4 +1,4 @@
-using Common.Proto.Base;
+using MMORPG.Common.Proto.Base;
 using UnityEngine;
 
 namespace MMORPG.Tool

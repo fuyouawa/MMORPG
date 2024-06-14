@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Entity {
+namespace MMORPG.Common.Proto.Entity {
 
   /// <summary>Holder for reflection information generated from Entity/EntityType.proto</summary>
   public static partial class EntityTypeReflection {
@@ -24,12 +24,13 @@ namespace Common.Proto.Entity {
     static EntityTypeReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChdFbnRpdHkvRW50aXR5VHlwZS5wcm90bxITQ29tbW9uLlByb3RvLkVudGl0",
-            "eSpNCgpFbnRpdHlUeXBlEgoKBlBMQVlFUhAAEgsKB01PTlNURVIQARIHCgNO",
-            "UEMQAhILCgdNSVNTSUxFEAMSEAoMRFJPUFBFRF9JVEVNEARiBnByb3RvMw=="));
+            "ChdFbnRpdHkvRW50aXR5VHlwZS5wcm90bxIaTU1PUlBHLkNvbW1vbi5Qcm90",
+            "by5FbnRpdHkqTQoKRW50aXR5VHlwZRIKCgZQTEFZRVIQABILCgdNT05TVEVS",
+            "EAESBwoDTlBDEAISCwoHTUlTU0lMRRADEhAKDERST1BQRURfSVRFTRAEYgZw",
+            "cm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Common.Proto.Entity.EntityType), }, null, null));
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Entity.EntityType), }, null, null));
     }
     #endregion
 

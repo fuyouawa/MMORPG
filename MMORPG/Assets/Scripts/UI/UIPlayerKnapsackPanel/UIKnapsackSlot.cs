@@ -1,5 +1,5 @@
 using System;
-using Common.Inventory;
+using MMORPG.Common.Inventory;
 using MMORPG.Game;
 using UnityEngine;
 

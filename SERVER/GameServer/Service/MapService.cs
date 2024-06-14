@@ -1,8 +1,8 @@
-﻿using Common.Network;
-using Common.Proto.Base;
-using Common.Proto.Entity;
+﻿using MMORPG.Common.Network;
+using MMORPG.Common.Proto.Base;
+using MMORPG.Common.Proto.Entity;
 using GameServer.Network;
-using Common.Proto.Map;
+using MMORPG.Common.Proto.Map;
 using Google.Protobuf.WellKnownTypes;
 using Serilog;
 using GameServer.Manager;

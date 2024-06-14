@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Entity {
+namespace MMORPG.Common.Proto.Entity {
 
   /// <summary>Holder for reflection information generated from Entity/EntityAttributeEntry.proto</summary>
   public static partial class EntityAttributeEntryReflection {
@@ -24,21 +24,21 @@ namespace Common.Proto.Entity {
     static EntityAttributeEntryReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CiFFbnRpdHkvRW50aXR5QXR0cmlidXRlRW50cnkucHJvdG8SE0NvbW1vbi5Q",
-            "cm90by5FbnRpdHkikwEKFEVudGl0eUF0dHJpYnV0ZUVudHJ5EjsKBHR5cGUY",
-            "ASABKA4yLS5Db21tb24uUHJvdG8uRW50aXR5LkVudGl0eUF0dHJpYnV0ZUVu",
-            "dHJ5VHlwZRIQCgZpbnQzMl8YAiABKAVIABIQCgZmbG9hdF8YAyABKAJIABIR",
-            "CgdzdHJpbmdfGAQgASgJSABCBwoFdmFsdWUiawobRW50aXR5QXR0cmlidXRl",
-            "U3luY1Jlc3BvbnNlEhEKCWVudGl0eV9pZBgBIAEoBRI5CgZlbnRyeXMYAiAD",
-            "KAsyKS5Db21tb24uUHJvdG8uRW50aXR5LkVudGl0eUF0dHJpYnV0ZUVudHJ5",
-            "KlIKGEVudGl0eUF0dHJpYnV0ZUVudHJ5VHlwZRIICgROT05FEAASCQoFTEVW",
-            "RUwQARIHCgNFWFAQAhIICgRHT0xEEAMSBgoCSFAQBBIGCgJNUBAFYgZwcm90",
-            "bzM="));
+            "CiFFbnRpdHkvRW50aXR5QXR0cmlidXRlRW50cnkucHJvdG8SGk1NT1JQRy5D",
+            "b21tb24uUHJvdG8uRW50aXR5IpoBChRFbnRpdHlBdHRyaWJ1dGVFbnRyeRJC",
+            "CgR0eXBlGAEgASgOMjQuTU1PUlBHLkNvbW1vbi5Qcm90by5FbnRpdHkuRW50",
+            "aXR5QXR0cmlidXRlRW50cnlUeXBlEhAKBmludDMyXxgCIAEoBUgAEhAKBmZs",
+            "b2F0XxgDIAEoAkgAEhEKB3N0cmluZ18YBCABKAlIAEIHCgV2YWx1ZSJyChtF",
+            "bnRpdHlBdHRyaWJ1dGVTeW5jUmVzcG9uc2USEQoJZW50aXR5X2lkGAEgASgF",
+            "EkAKBmVudHJ5cxgCIAMoCzIwLk1NT1JQRy5Db21tb24uUHJvdG8uRW50aXR5",
+            "LkVudGl0eUF0dHJpYnV0ZUVudHJ5KlIKGEVudGl0eUF0dHJpYnV0ZUVudHJ5",
+            "VHlwZRIICgROT05FEAASCQoFTEVWRUwQARIHCgNFWFAQAhIICgRHT0xEEAMS",
+            "BgoCSFAQBBIGCgJNUBAFYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Common.Proto.Entity.EntityAttributeEntryType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Entity.EntityAttributeEntry), global::Common.Proto.Entity.EntityAttributeEntry.Parser, new[]{ "Type", "Int32", "Float", "String" }, new[]{ "Value" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Entity.EntityAttributeSyncResponse), global::Common.Proto.Entity.EntityAttributeSyncResponse.Parser, new[]{ "EntityId", "Entrys" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Entity.EntityAttributeEntryType), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Entity.EntityAttributeEntry), global::MMORPG.Common.Proto.Entity.EntityAttributeEntry.Parser, new[]{ "Type", "Int32", "Float", "String" }, new[]{ "Value" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Entity.EntityAttributeSyncResponse), global::MMORPG.Common.Proto.Entity.EntityAttributeSyncResponse.Parser, new[]{ "EntityId", "Entrys" }, null, null, null, null)
           }));
     }
     #endregion
@@ -57,7 +57,6 @@ namespace Common.Proto.Entity {
   #endregion
 
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityAttributeEntry : pb::IMessage<EntityAttributeEntry>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -72,7 +71,7 @@ namespace Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Entity.EntityAttributeEntryReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Entity.EntityAttributeEntryReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -116,10 +115,10 @@ namespace Common.Proto.Entity {
 
     /// <summary>Field number for the "type" field.</summary>
     public const int TypeFieldNumber = 1;
-    private global::Common.Proto.Entity.EntityAttributeEntryType type_ = global::Common.Proto.Entity.EntityAttributeEntryType.None;
+    private global::MMORPG.Common.Proto.Entity.EntityAttributeEntryType type_ = global::MMORPG.Common.Proto.Entity.EntityAttributeEntryType.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Entity.EntityAttributeEntryType Type {
+    public global::MMORPG.Common.Proto.Entity.EntityAttributeEntryType Type {
       get { return type_; }
       set {
         type_ = value;
@@ -131,24 +130,10 @@ namespace Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int Int32 {
-      get { return HasInt32 ? (int) value_ : 0; }
+      get { return valueCase_ == ValueOneofCase.Int32 ? (int) value_ : 0; }
       set {
         value_ = value;
         valueCase_ = ValueOneofCase.Int32;
-      }
-    }
-    /// <summary>Gets whether the "int32_" field is set</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool HasInt32 {
-      get { return valueCase_ == ValueOneofCase.Int32; }
-    }
-    /// <summary> Clears the value of the oneof if it's currently set to "int32_" </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void ClearInt32() {
-      if (HasInt32) {
-        ClearValue();
       }
     }
 
@@ -157,24 +142,10 @@ namespace Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public float Float {
-      get { return HasFloat ? (float) value_ : 0F; }
+      get { return valueCase_ == ValueOneofCase.Float ? (float) value_ : 0F; }
       set {
         value_ = value;
         valueCase_ = ValueOneofCase.Float;
-      }
-    }
-    /// <summary>Gets whether the "float_" field is set</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool HasFloat {
-      get { return valueCase_ == ValueOneofCase.Float; }
-    }
-    /// <summary> Clears the value of the oneof if it's currently set to "float_" </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void ClearFloat() {
-      if (HasFloat) {
-        ClearValue();
       }
     }
 
@@ -183,24 +154,10 @@ namespace Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string String {
-      get { return HasString ? (string) value_ : ""; }
+      get { return valueCase_ == ValueOneofCase.String ? (string) value_ : ""; }
       set {
         value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
         valueCase_ = ValueOneofCase.String;
-      }
-    }
-    /// <summary>Gets whether the "string_" field is set</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool HasString {
-      get { return valueCase_ == ValueOneofCase.String; }
-    }
-    /// <summary> Clears the value of the oneof if it's currently set to "string_" </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void ClearString() {
-      if (HasString) {
-        ClearValue();
       }
     }
 
@@ -253,10 +210,10 @@ namespace Common.Proto.Entity {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Type != global::Common.Proto.Entity.EntityAttributeEntryType.None) hash ^= Type.GetHashCode();
-      if (HasInt32) hash ^= Int32.GetHashCode();
-      if (HasFloat) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Float);
-      if (HasString) hash ^= String.GetHashCode();
+      if (Type != global::MMORPG.Common.Proto.Entity.EntityAttributeEntryType.None) hash ^= Type.GetHashCode();
+      if (valueCase_ == ValueOneofCase.Int32) hash ^= Int32.GetHashCode();
+      if (valueCase_ == ValueOneofCase.Float) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Float);
+      if (valueCase_ == ValueOneofCase.String) hash ^= String.GetHashCode();
       hash ^= (int) valueCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -276,19 +233,19 @@ namespace Common.Proto.Entity {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Type != global::Common.Proto.Entity.EntityAttributeEntryType.None) {
+      if (Type != global::MMORPG.Common.Proto.Entity.EntityAttributeEntryType.None) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Type);
       }
-      if (HasInt32) {
+      if (valueCase_ == ValueOneofCase.Int32) {
         output.WriteRawTag(16);
         output.WriteInt32(Int32);
       }
-      if (HasFloat) {
+      if (valueCase_ == ValueOneofCase.Float) {
         output.WriteRawTag(29);
         output.WriteFloat(Float);
       }
-      if (HasString) {
+      if (valueCase_ == ValueOneofCase.String) {
         output.WriteRawTag(34);
         output.WriteString(String);
       }
@@ -302,19 +259,19 @@ namespace Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Type != global::Common.Proto.Entity.EntityAttributeEntryType.None) {
+      if (Type != global::MMORPG.Common.Proto.Entity.EntityAttributeEntryType.None) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Type);
       }
-      if (HasInt32) {
+      if (valueCase_ == ValueOneofCase.Int32) {
         output.WriteRawTag(16);
         output.WriteInt32(Int32);
       }
-      if (HasFloat) {
+      if (valueCase_ == ValueOneofCase.Float) {
         output.WriteRawTag(29);
         output.WriteFloat(Float);
       }
-      if (HasString) {
+      if (valueCase_ == ValueOneofCase.String) {
         output.WriteRawTag(34);
         output.WriteString(String);
       }
@@ -328,16 +285,16 @@ namespace Common.Proto.Entity {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Type != global::Common.Proto.Entity.EntityAttributeEntryType.None) {
+      if (Type != global::MMORPG.Common.Proto.Entity.EntityAttributeEntryType.None) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
       }
-      if (HasInt32) {
+      if (valueCase_ == ValueOneofCase.Int32) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Int32);
       }
-      if (HasFloat) {
+      if (valueCase_ == ValueOneofCase.Float) {
         size += 1 + 4;
       }
-      if (HasString) {
+      if (valueCase_ == ValueOneofCase.String) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(String);
       }
       if (_unknownFields != null) {
@@ -352,7 +309,7 @@ namespace Common.Proto.Entity {
       if (other == null) {
         return;
       }
-      if (other.Type != global::Common.Proto.Entity.EntityAttributeEntryType.None) {
+      if (other.Type != global::MMORPG.Common.Proto.Entity.EntityAttributeEntryType.None) {
         Type = other.Type;
       }
       switch (other.ValueCase) {
@@ -383,7 +340,7 @@ namespace Common.Proto.Entity {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Type = (global::Common.Proto.Entity.EntityAttributeEntryType) input.ReadEnum();
+            Type = (global::MMORPG.Common.Proto.Entity.EntityAttributeEntryType) input.ReadEnum();
             break;
           }
           case 16: {
@@ -414,7 +371,7 @@ namespace Common.Proto.Entity {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Type = (global::Common.Proto.Entity.EntityAttributeEntryType) input.ReadEnum();
+            Type = (global::MMORPG.Common.Proto.Entity.EntityAttributeEntryType) input.ReadEnum();
             break;
           }
           case 16: {
@@ -436,7 +393,6 @@ namespace Common.Proto.Entity {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityAttributeSyncResponse : pb::IMessage<EntityAttributeSyncResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -451,7 +407,7 @@ namespace Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Entity.EntityAttributeEntryReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.Entity.EntityAttributeEntryReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -496,12 +452,12 @@ namespace Common.Proto.Entity {
 
     /// <summary>Field number for the "entrys" field.</summary>
     public const int EntrysFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Common.Proto.Entity.EntityAttributeEntry> _repeated_entrys_codec
-        = pb::FieldCodec.ForMessage(18, global::Common.Proto.Entity.EntityAttributeEntry.Parser);
-    private readonly pbc::RepeatedField<global::Common.Proto.Entity.EntityAttributeEntry> entrys_ = new pbc::RepeatedField<global::Common.Proto.Entity.EntityAttributeEntry>();
+    private static readonly pb::FieldCodec<global::MMORPG.Common.Proto.Entity.EntityAttributeEntry> _repeated_entrys_codec
+        = pb::FieldCodec.ForMessage(18, global::MMORPG.Common.Proto.Entity.EntityAttributeEntry.Parser);
+    private readonly pbc::RepeatedField<global::MMORPG.Common.Proto.Entity.EntityAttributeEntry> entrys_ = new pbc::RepeatedField<global::MMORPG.Common.Proto.Entity.EntityAttributeEntry>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Common.Proto.Entity.EntityAttributeEntry> Entrys {
+    public pbc::RepeatedField<global::MMORPG.Common.Proto.Entity.EntityAttributeEntry> Entrys {
       get { return entrys_; }
     }
 

@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Entity {
+namespace MMORPG.Common.Proto.Entity {
 
   /// <summary>Holder for reflection information generated from Entity/NetTransform.proto</summary>
   public static partial class NetTransformReflection {
@@ -24,22 +24,21 @@ namespace Common.Proto.Entity {
     static NetTransformReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChlFbnRpdHkvTmV0VHJhbnNmb3JtLnByb3RvEhNDb21tb24uUHJvdG8uRW50",
-            "aXR5GhVCYXNlL05ldFZlY3RvcjMucHJvdG8icQoMTmV0VHJhbnNmb3JtEi8K",
-            "CHBvc2l0aW9uGAEgASgLMh0uQ29tbW9uLlByb3RvLkJhc2UuTmV0VmVjdG9y",
-            "MxIwCglkaXJlY3Rpb24YAiABKAsyHS5Db21tb24uUHJvdG8uQmFzZS5OZXRW",
-            "ZWN0b3IzYgZwcm90bzM="));
+            "ChlFbnRpdHkvTmV0VHJhbnNmb3JtLnByb3RvEhpNTU9SUEcuQ29tbW9uLlBy",
+            "b3RvLkVudGl0eRoVQmFzZS9OZXRWZWN0b3IzLnByb3RvIn8KDE5ldFRyYW5z",
+            "Zm9ybRI2Cghwb3NpdGlvbhgBIAEoCzIkLk1NT1JQRy5Db21tb24uUHJvdG8u",
+            "QmFzZS5OZXRWZWN0b3IzEjcKCWRpcmVjdGlvbhgCIAEoCzIkLk1NT1JQRy5D",
+            "b21tb24uUHJvdG8uQmFzZS5OZXRWZWN0b3IzYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Common.Proto.Base.NetVector3Reflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Base.NetVector3Reflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Entity.NetTransform), global::Common.Proto.Entity.NetTransform.Parser, new[]{ "Position", "Direction" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Entity.NetTransform), global::MMORPG.Common.Proto.Entity.NetTransform.Parser, new[]{ "Position", "Direction" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class NetTransform : pb::IMessage<NetTransform>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -54,7 +53,7 @@ namespace Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Entity.NetTransformReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Entity.NetTransformReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -87,10 +86,10 @@ namespace Common.Proto.Entity {
 
     /// <summary>Field number for the "position" field.</summary>
     public const int PositionFieldNumber = 1;
-    private global::Common.Proto.Base.NetVector3 position_;
+    private global::MMORPG.Common.Proto.Base.NetVector3 position_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Base.NetVector3 Position {
+    public global::MMORPG.Common.Proto.Base.NetVector3 Position {
       get { return position_; }
       set {
         position_ = value;
@@ -99,10 +98,10 @@ namespace Common.Proto.Entity {
 
     /// <summary>Field number for the "direction" field.</summary>
     public const int DirectionFieldNumber = 2;
-    private global::Common.Proto.Base.NetVector3 direction_;
+    private global::MMORPG.Common.Proto.Base.NetVector3 direction_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Base.NetVector3 Direction {
+    public global::MMORPG.Common.Proto.Base.NetVector3 Direction {
       get { return direction_; }
       set {
         direction_ = value;
@@ -209,13 +208,13 @@ namespace Common.Proto.Entity {
       }
       if (other.position_ != null) {
         if (position_ == null) {
-          Position = new global::Common.Proto.Base.NetVector3();
+          Position = new global::MMORPG.Common.Proto.Base.NetVector3();
         }
         Position.MergeFrom(other.Position);
       }
       if (other.direction_ != null) {
         if (direction_ == null) {
-          Direction = new global::Common.Proto.Base.NetVector3();
+          Direction = new global::MMORPG.Common.Proto.Base.NetVector3();
         }
         Direction.MergeFrom(other.Direction);
       }
@@ -236,14 +235,14 @@ namespace Common.Proto.Entity {
             break;
           case 10: {
             if (position_ == null) {
-              Position = new global::Common.Proto.Base.NetVector3();
+              Position = new global::MMORPG.Common.Proto.Base.NetVector3();
             }
             input.ReadMessage(Position);
             break;
           }
           case 18: {
             if (direction_ == null) {
-              Direction = new global::Common.Proto.Base.NetVector3();
+              Direction = new global::MMORPG.Common.Proto.Base.NetVector3();
             }
             input.ReadMessage(Direction);
             break;
@@ -265,14 +264,14 @@ namespace Common.Proto.Entity {
             break;
           case 10: {
             if (position_ == null) {
-              Position = new global::Common.Proto.Base.NetVector3();
+              Position = new global::MMORPG.Common.Proto.Base.NetVector3();
             }
             input.ReadMessage(Position);
             break;
           }
           case 18: {
             if (direction_ == null) {
-              Direction = new global::Common.Proto.Base.NetVector3();
+              Direction = new global::MMORPG.Common.Proto.Base.NetVector3();
             }
             input.ReadMessage(Direction);
             break;

@@ -1,6 +1,6 @@
-﻿using Common.Network;
-using Common.Proto.Base;
-using Common.Proto.User;
+﻿using MMORPG.Common.Network;
+using MMORPG.Common.Proto.Base;
+using MMORPG.Common.Proto.User;
 using GameServer.Db;
 using GameServer.Manager;
 using GameServer.Network;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Common.Proto.Fight;
+using MMORPG.Common.Proto.Fight;
 using GameServer.Fight;
 
 namespace GameServer.Service

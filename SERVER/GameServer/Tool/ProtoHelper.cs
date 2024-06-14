@@ -6,9 +6,9 @@ using System.Numerics;
 using System.Runtime.Intrinsics;
 using System.Text;
 using System.Threading.Tasks;
-using Common.Proto.Base;
-using Common.Proto.Character;
-using Common.Proto.Entity;
+using MMORPG.Common.Proto.Base;
+using MMORPG.Common.Proto.Character;
+using MMORPG.Common.Proto.Entity;
 using GameServer.Db;
 using GameServer.Model;
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Common.Tool
+namespace MMORPG.Common.Tool
 {
     public static class ProtoManager
     {

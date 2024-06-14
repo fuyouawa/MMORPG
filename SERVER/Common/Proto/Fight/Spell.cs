@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Fight {
+namespace MMORPG.Common.Proto.Fight {
 
   /// <summary>Holder for reflection information generated from Fight/Spell.proto</summary>
   public static partial class SpellReflection {
@@ -24,27 +24,28 @@ namespace Common.Proto.Fight {
     static SpellReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFGaWdodC9TcGVsbC5wcm90bxISQ29tbW9uLlByb3RvLkZpZ2h0GhlGaWdo",
-            "dC9OZXRDYXN0VGFyZ2V0LnByb3RvImcKCENhc3RJbmZvEhAKCHNraWxsX2lk",
-            "GAEgASgFEhEKCWNhc3Rlcl9pZBgCIAEoBRI2CgtjYXN0X3RhcmdldBgDIAEo",
-            "CzIhLkNvbW1vbi5Qcm90by5GaWdodC5OZXRDYXN0VGFyZ2V0IjoKDFNwZWxs",
-            "UmVxdWVzdBIqCgRpbmZvGAEgASgLMhwuQ29tbW9uLlByb3RvLkZpZ2h0LkNh",
-            "c3RJbmZvImgKEVNwZWxsRmFpbFJlc3BvbnNlEhAKCHNraWxsX2lkGAEgASgF",
-            "EhEKCWNhc3Rlcl9pZBgCIAEoBRIuCgZyZWFzb24YAyABKA4yHi5Db21tb24u",
-            "UHJvdG8uRmlnaHQuQ2FzdFJlc3VsdCI7Cg1TcGVsbFJlc3BvbnNlEioKBGlu",
-            "Zm8YASABKAsyHC5Db21tb24uUHJvdG8uRmlnaHQuQ2FzdEluZm8qywEKCkNh",
-            "c3RSZXN1bHQSCwoHU1VDQ0VTUxAAEgwKCE5PVF9DQVNUEAESEgoOVEFSR0VU",
-            "X0lOVkFJTEQQAhIPCgtFTlRJVFlfREVBRBADEhAKDE9VVF9PRl9SQU5HRRAE",
-            "EgsKB01QX0xBQ0sQBRILCgdSVU5OSU5HEAYSDAoIQ09MTERPV04QBxIUChBJ",
-            "TlZBTElEX1NLSUxMX0lEEAgSFAoQVU5NQVRDSEVEX0NBU1RFUhAJEhcKE0lO",
-            "VkFMSURfQ0FTVF9UQVJHRVQQCmIGcHJvdG8z"));
+            "ChFGaWdodC9TcGVsbC5wcm90bxIZTU1PUlBHLkNvbW1vbi5Qcm90by5GaWdo",
+            "dBoZRmlnaHQvTmV0Q2FzdFRhcmdldC5wcm90byJuCghDYXN0SW5mbxIQCghz",
+            "a2lsbF9pZBgBIAEoBRIRCgljYXN0ZXJfaWQYAiABKAUSPQoLY2FzdF90YXJn",
+            "ZXQYAyABKAsyKC5NTU9SUEcuQ29tbW9uLlByb3RvLkZpZ2h0Lk5ldENhc3RU",
+            "YXJnZXQiQQoMU3BlbGxSZXF1ZXN0EjEKBGluZm8YASABKAsyIy5NTU9SUEcu",
+            "Q29tbW9uLlByb3RvLkZpZ2h0LkNhc3RJbmZvIm8KEVNwZWxsRmFpbFJlc3Bv",
+            "bnNlEhAKCHNraWxsX2lkGAEgASgFEhEKCWNhc3Rlcl9pZBgCIAEoBRI1CgZy",
+            "ZWFzb24YAyABKA4yJS5NTU9SUEcuQ29tbW9uLlByb3RvLkZpZ2h0LkNhc3RS",
+            "ZXN1bHQiQgoNU3BlbGxSZXNwb25zZRIxCgRpbmZvGAEgASgLMiMuTU1PUlBH",
+            "LkNvbW1vbi5Qcm90by5GaWdodC5DYXN0SW5mbyrLAQoKQ2FzdFJlc3VsdBIL",
+            "CgdTVUNDRVNTEAASDAoITk9UX0NBU1QQARISCg5UQVJHRVRfSU5WQUlMRBAC",
+            "Eg8KC0VOVElUWV9ERUFEEAMSEAoMT1VUX09GX1JBTkdFEAQSCwoHTVBfTEFD",
+            "SxAFEgsKB1JVTk5JTkcQBhIMCghDT0xMRE9XThAHEhQKEElOVkFMSURfU0tJ",
+            "TExfSUQQCBIUChBVTk1BVENIRURfQ0FTVEVSEAkSFwoTSU5WQUxJRF9DQVNU",
+            "X1RBUkdFVBAKYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Common.Proto.Fight.NetCastTargetReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Common.Proto.Fight.CastResult), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Fight.CastInfo), global::Common.Proto.Fight.CastInfo.Parser, new[]{ "SkillId", "CasterId", "CastTarget" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Fight.SpellRequest), global::Common.Proto.Fight.SpellRequest.Parser, new[]{ "Info" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Fight.SpellFailResponse), global::Common.Proto.Fight.SpellFailResponse.Parser, new[]{ "SkillId", "CasterId", "Reason" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Fight.SpellResponse), global::Common.Proto.Fight.SpellResponse.Parser, new[]{ "Info" }, null, null, null, null)
+          new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Fight.NetCastTargetReflection.Descriptor, },
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Fight.CastResult), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.CastInfo), global::MMORPG.Common.Proto.Fight.CastInfo.Parser, new[]{ "SkillId", "CasterId", "CastTarget" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.SpellRequest), global::MMORPG.Common.Proto.Fight.SpellRequest.Parser, new[]{ "Info" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.SpellFailResponse), global::MMORPG.Common.Proto.Fight.SpellFailResponse.Parser, new[]{ "SkillId", "CasterId", "Reason" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.SpellResponse), global::MMORPG.Common.Proto.Fight.SpellResponse.Parser, new[]{ "Info" }, null, null, null, null)
           }));
     }
     #endregion
@@ -101,7 +102,6 @@ namespace Common.Proto.Fight {
   #endregion
 
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CastInfo : pb::IMessage<CastInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -116,7 +116,7 @@ namespace Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Fight.SpellReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Fight.SpellReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -174,10 +174,10 @@ namespace Common.Proto.Fight {
 
     /// <summary>Field number for the "cast_target" field.</summary>
     public const int CastTargetFieldNumber = 3;
-    private global::Common.Proto.Fight.NetCastTarget castTarget_;
+    private global::MMORPG.Common.Proto.Fight.NetCastTarget castTarget_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Fight.NetCastTarget CastTarget {
+    public global::MMORPG.Common.Proto.Fight.NetCastTarget CastTarget {
       get { return castTarget_; }
       set {
         castTarget_ = value;
@@ -303,7 +303,7 @@ namespace Common.Proto.Fight {
       }
       if (other.castTarget_ != null) {
         if (castTarget_ == null) {
-          CastTarget = new global::Common.Proto.Fight.NetCastTarget();
+          CastTarget = new global::MMORPG.Common.Proto.Fight.NetCastTarget();
         }
         CastTarget.MergeFrom(other.CastTarget);
       }
@@ -332,7 +332,7 @@ namespace Common.Proto.Fight {
           }
           case 26: {
             if (castTarget_ == null) {
-              CastTarget = new global::Common.Proto.Fight.NetCastTarget();
+              CastTarget = new global::MMORPG.Common.Proto.Fight.NetCastTarget();
             }
             input.ReadMessage(CastTarget);
             break;
@@ -362,7 +362,7 @@ namespace Common.Proto.Fight {
           }
           case 26: {
             if (castTarget_ == null) {
-              CastTarget = new global::Common.Proto.Fight.NetCastTarget();
+              CastTarget = new global::MMORPG.Common.Proto.Fight.NetCastTarget();
             }
             input.ReadMessage(CastTarget);
             break;
@@ -374,7 +374,6 @@ namespace Common.Proto.Fight {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SpellRequest : pb::IMessage<SpellRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -389,7 +388,7 @@ namespace Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Fight.SpellReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.Fight.SpellReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -421,10 +420,10 @@ namespace Common.Proto.Fight {
 
     /// <summary>Field number for the "info" field.</summary>
     public const int InfoFieldNumber = 1;
-    private global::Common.Proto.Fight.CastInfo info_;
+    private global::MMORPG.Common.Proto.Fight.CastInfo info_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Fight.CastInfo Info {
+    public global::MMORPG.Common.Proto.Fight.CastInfo Info {
       get { return info_; }
       set {
         info_ = value;
@@ -518,7 +517,7 @@ namespace Common.Proto.Fight {
       }
       if (other.info_ != null) {
         if (info_ == null) {
-          Info = new global::Common.Proto.Fight.CastInfo();
+          Info = new global::MMORPG.Common.Proto.Fight.CastInfo();
         }
         Info.MergeFrom(other.Info);
       }
@@ -539,7 +538,7 @@ namespace Common.Proto.Fight {
             break;
           case 10: {
             if (info_ == null) {
-              Info = new global::Common.Proto.Fight.CastInfo();
+              Info = new global::MMORPG.Common.Proto.Fight.CastInfo();
             }
             input.ReadMessage(Info);
             break;
@@ -561,7 +560,7 @@ namespace Common.Proto.Fight {
             break;
           case 10: {
             if (info_ == null) {
-              Info = new global::Common.Proto.Fight.CastInfo();
+              Info = new global::MMORPG.Common.Proto.Fight.CastInfo();
             }
             input.ReadMessage(Info);
             break;
@@ -576,7 +575,6 @@ namespace Common.Proto.Fight {
   /// <summary>
   ///技能施放错误（只有施法玩家才会收到）
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SpellFailResponse : pb::IMessage<SpellFailResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -591,7 +589,7 @@ namespace Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Fight.SpellReflection.Descriptor.MessageTypes[2]; }
+      get { return global::MMORPG.Common.Proto.Fight.SpellReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -649,10 +647,10 @@ namespace Common.Proto.Fight {
 
     /// <summary>Field number for the "reason" field.</summary>
     public const int ReasonFieldNumber = 3;
-    private global::Common.Proto.Fight.CastResult reason_ = global::Common.Proto.Fight.CastResult.Success;
+    private global::MMORPG.Common.Proto.Fight.CastResult reason_ = global::MMORPG.Common.Proto.Fight.CastResult.Success;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Fight.CastResult Reason {
+    public global::MMORPG.Common.Proto.Fight.CastResult Reason {
       get { return reason_; }
       set {
         reason_ = value;
@@ -686,7 +684,7 @@ namespace Common.Proto.Fight {
       int hash = 1;
       if (SkillId != 0) hash ^= SkillId.GetHashCode();
       if (CasterId != 0) hash ^= CasterId.GetHashCode();
-      if (Reason != global::Common.Proto.Fight.CastResult.Success) hash ^= Reason.GetHashCode();
+      if (Reason != global::MMORPG.Common.Proto.Fight.CastResult.Success) hash ^= Reason.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -713,7 +711,7 @@ namespace Common.Proto.Fight {
         output.WriteRawTag(16);
         output.WriteInt32(CasterId);
       }
-      if (Reason != global::Common.Proto.Fight.CastResult.Success) {
+      if (Reason != global::MMORPG.Common.Proto.Fight.CastResult.Success) {
         output.WriteRawTag(24);
         output.WriteEnum((int) Reason);
       }
@@ -735,7 +733,7 @@ namespace Common.Proto.Fight {
         output.WriteRawTag(16);
         output.WriteInt32(CasterId);
       }
-      if (Reason != global::Common.Proto.Fight.CastResult.Success) {
+      if (Reason != global::MMORPG.Common.Proto.Fight.CastResult.Success) {
         output.WriteRawTag(24);
         output.WriteEnum((int) Reason);
       }
@@ -755,7 +753,7 @@ namespace Common.Proto.Fight {
       if (CasterId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(CasterId);
       }
-      if (Reason != global::Common.Proto.Fight.CastResult.Success) {
+      if (Reason != global::MMORPG.Common.Proto.Fight.CastResult.Success) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Reason);
       }
       if (_unknownFields != null) {
@@ -776,7 +774,7 @@ namespace Common.Proto.Fight {
       if (other.CasterId != 0) {
         CasterId = other.CasterId;
       }
-      if (other.Reason != global::Common.Proto.Fight.CastResult.Success) {
+      if (other.Reason != global::MMORPG.Common.Proto.Fight.CastResult.Success) {
         Reason = other.Reason;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -803,7 +801,7 @@ namespace Common.Proto.Fight {
             break;
           }
           case 24: {
-            Reason = (global::Common.Proto.Fight.CastResult) input.ReadEnum();
+            Reason = (global::MMORPG.Common.Proto.Fight.CastResult) input.ReadEnum();
             break;
           }
         }
@@ -830,7 +828,7 @@ namespace Common.Proto.Fight {
             break;
           }
           case 24: {
-            Reason = (global::Common.Proto.Fight.CastResult) input.ReadEnum();
+            Reason = (global::MMORPG.Common.Proto.Fight.CastResult) input.ReadEnum();
             break;
           }
         }
@@ -843,7 +841,6 @@ namespace Common.Proto.Fight {
   /// <summary>
   ///通知客户端执行技能
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SpellResponse : pb::IMessage<SpellResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -858,7 +855,7 @@ namespace Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Fight.SpellReflection.Descriptor.MessageTypes[3]; }
+      get { return global::MMORPG.Common.Proto.Fight.SpellReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -890,10 +887,10 @@ namespace Common.Proto.Fight {
 
     /// <summary>Field number for the "info" field.</summary>
     public const int InfoFieldNumber = 1;
-    private global::Common.Proto.Fight.CastInfo info_;
+    private global::MMORPG.Common.Proto.Fight.CastInfo info_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Fight.CastInfo Info {
+    public global::MMORPG.Common.Proto.Fight.CastInfo Info {
       get { return info_; }
       set {
         info_ = value;
@@ -987,7 +984,7 @@ namespace Common.Proto.Fight {
       }
       if (other.info_ != null) {
         if (info_ == null) {
-          Info = new global::Common.Proto.Fight.CastInfo();
+          Info = new global::MMORPG.Common.Proto.Fight.CastInfo();
         }
         Info.MergeFrom(other.Info);
       }
@@ -1008,7 +1005,7 @@ namespace Common.Proto.Fight {
             break;
           case 10: {
             if (info_ == null) {
-              Info = new global::Common.Proto.Fight.CastInfo();
+              Info = new global::MMORPG.Common.Proto.Fight.CastInfo();
             }
             input.ReadMessage(Info);
             break;
@@ -1030,7 +1027,7 @@ namespace Common.Proto.Fight {
             break;
           case 10: {
             if (info_ == null) {
-              Info = new global::Common.Proto.Fight.CastInfo();
+              Info = new global::MMORPG.Common.Proto.Fight.CastInfo();
             }
             input.ReadMessage(Info);
             break;

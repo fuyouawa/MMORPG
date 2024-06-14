@@ -2,8 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Common.Proto.Entity;
-using Common.Proto.Fight;
+using MMORPG.Common.Proto.Entity;
 using Google.Protobuf;
 using MMORPG.Global;
 using MMORPG.System;
@@ -11,11 +10,7 @@ using MMORPG.Tool;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using QFramework;
-using UnityEngine.EventSystems;
-using UnityEngine.XR;
-using MMORPG.Event;
 
 namespace MMORPG.Game
 {

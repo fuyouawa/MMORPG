@@ -1,12 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using QFramework;
-using TMPro;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using NotImplementedException = System.NotImplementedException;
-using DuloGames.UI;
-using Common.Proto.Inventory;
 
 namespace MMORPG.UI
 {

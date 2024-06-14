@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Character {
+namespace MMORPG.Common.Proto.Character {
 
   /// <summary>Holder for reflection information generated from Character/CharacterCreate.proto</summary>
   public static partial class CharacterCreateReflection {
@@ -24,25 +24,25 @@ namespace Common.Proto.Character {
     static CharacterCreateReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Ch9DaGFyYWN0ZXIvQ2hhcmFjdGVyQ3JlYXRlLnByb3RvEhZDb21tb24uUHJv",
-            "dG8uQ2hhcmFjdGVyGhNCYXNlL05ldEVycm9yLnByb3RvGhxDaGFyYWN0ZXIv",
-            "TmV0Q2hhcmFjdGVyLnByb3RvIjcKFkNoYXJhY3RlckNyZWF0ZVJlcXVlc3QS",
-            "DAoEbmFtZRgBIAEoCRIPCgd1bml0X2lkGAIgASgFIn4KF0NoYXJhY3RlckNy",
-            "ZWF0ZVJlc3BvbnNlEioKBWVycm9yGAEgASgOMhsuQ29tbW9uLlByb3RvLkJh",
-            "c2UuTmV0RXJyb3ISNwoJY2hhcmFjdGVyGAIgASgLMiQuQ29tbW9uLlByb3Rv",
-            "LkNoYXJhY3Rlci5OZXRDaGFyYWN0ZXJiBnByb3RvMw=="));
+            "Ch9DaGFyYWN0ZXIvQ2hhcmFjdGVyQ3JlYXRlLnByb3RvEh1NTU9SUEcuQ29t",
+            "bW9uLlByb3RvLkNoYXJhY3RlchoTQmFzZS9OZXRFcnJvci5wcm90bxocQ2hh",
+            "cmFjdGVyL05ldENoYXJhY3Rlci5wcm90byI3ChZDaGFyYWN0ZXJDcmVhdGVS",
+            "ZXF1ZXN0EgwKBG5hbWUYASABKAkSDwoHdW5pdF9pZBgCIAEoBSKMAQoXQ2hh",
+            "cmFjdGVyQ3JlYXRlUmVzcG9uc2USMQoFZXJyb3IYASABKA4yIi5NTU9SUEcu",
+            "Q29tbW9uLlByb3RvLkJhc2UuTmV0RXJyb3ISPgoJY2hhcmFjdGVyGAIgASgL",
+            "MisuTU1PUlBHLkNvbW1vbi5Qcm90by5DaGFyYWN0ZXIuTmV0Q2hhcmFjdGVy",
+            "YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Common.Proto.Base.NetErrorReflection.Descriptor, global::Common.Proto.Character.NetCharacterReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Base.NetErrorReflection.Descriptor, global::MMORPG.Common.Proto.Character.NetCharacterReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Character.CharacterCreateRequest), global::Common.Proto.Character.CharacterCreateRequest.Parser, new[]{ "Name", "UnitId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Character.CharacterCreateResponse), global::Common.Proto.Character.CharacterCreateResponse.Parser, new[]{ "Error", "Character" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Character.CharacterCreateRequest), global::MMORPG.Common.Proto.Character.CharacterCreateRequest.Parser, new[]{ "Name", "UnitId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Character.CharacterCreateResponse), global::MMORPG.Common.Proto.Character.CharacterCreateResponse.Parser, new[]{ "Error", "Character" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CharacterCreateRequest : pb::IMessage<CharacterCreateRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -57,7 +57,7 @@ namespace Common.Proto.Character {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Character.CharacterCreateReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Character.CharacterCreateReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -269,7 +269,6 @@ namespace Common.Proto.Character {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CharacterCreateResponse : pb::IMessage<CharacterCreateResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -284,7 +283,7 @@ namespace Common.Proto.Character {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Character.CharacterCreateReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.Character.CharacterCreateReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -317,10 +316,10 @@ namespace Common.Proto.Character {
 
     /// <summary>Field number for the "error" field.</summary>
     public const int ErrorFieldNumber = 1;
-    private global::Common.Proto.Base.NetError error_ = global::Common.Proto.Base.NetError.Success;
+    private global::MMORPG.Common.Proto.Base.NetError error_ = global::MMORPG.Common.Proto.Base.NetError.Success;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Base.NetError Error {
+    public global::MMORPG.Common.Proto.Base.NetError Error {
       get { return error_; }
       set {
         error_ = value;
@@ -329,10 +328,10 @@ namespace Common.Proto.Character {
 
     /// <summary>Field number for the "character" field.</summary>
     public const int CharacterFieldNumber = 2;
-    private global::Common.Proto.Character.NetCharacter character_;
+    private global::MMORPG.Common.Proto.Character.NetCharacter character_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Character.NetCharacter Character {
+    public global::MMORPG.Common.Proto.Character.NetCharacter Character {
       get { return character_; }
       set {
         character_ = value;
@@ -363,7 +362,7 @@ namespace Common.Proto.Character {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Error != global::Common.Proto.Base.NetError.Success) hash ^= Error.GetHashCode();
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) hash ^= Error.GetHashCode();
       if (character_ != null) hash ^= Character.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -383,7 +382,7 @@ namespace Common.Proto.Character {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Error != global::Common.Proto.Base.NetError.Success) {
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Error);
       }
@@ -401,7 +400,7 @@ namespace Common.Proto.Character {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Error != global::Common.Proto.Base.NetError.Success) {
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Error);
       }
@@ -419,7 +418,7 @@ namespace Common.Proto.Character {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Error != global::Common.Proto.Base.NetError.Success) {
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Error);
       }
       if (character_ != null) {
@@ -437,12 +436,12 @@ namespace Common.Proto.Character {
       if (other == null) {
         return;
       }
-      if (other.Error != global::Common.Proto.Base.NetError.Success) {
+      if (other.Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         Error = other.Error;
       }
       if (other.character_ != null) {
         if (character_ == null) {
-          Character = new global::Common.Proto.Character.NetCharacter();
+          Character = new global::MMORPG.Common.Proto.Character.NetCharacter();
         }
         Character.MergeFrom(other.Character);
       }
@@ -462,12 +461,12 @@ namespace Common.Proto.Character {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
+            Error = (global::MMORPG.Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Common.Proto.Character.NetCharacter();
+              Character = new global::MMORPG.Common.Proto.Character.NetCharacter();
             }
             input.ReadMessage(Character);
             break;
@@ -488,12 +487,12 @@ namespace Common.Proto.Character {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
+            Error = (global::MMORPG.Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
           case 18: {
             if (character_ == null) {
-              Character = new global::Common.Proto.Character.NetCharacter();
+              Character = new global::MMORPG.Common.Proto.Character.NetCharacter();
             }
             input.ReadMessage(Character);
             break;

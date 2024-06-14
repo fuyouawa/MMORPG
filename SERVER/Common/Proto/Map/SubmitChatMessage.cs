@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Map {
+namespace MMORPG.Common.Proto.Map {
 
   /// <summary>Holder for reflection information generated from Map/SubmitChatMessage.proto</summary>
   public static partial class SubmitChatMessageReflection {
@@ -24,26 +24,26 @@ namespace Common.Proto.Map {
     static SubmitChatMessageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChtNYXAvU3VibWl0Q2hhdE1lc3NhZ2UucHJvdG8SEENvbW1vbi5Qcm90by5N",
-            "YXAaE0Jhc2UvTmV0RXJyb3IucHJvdG8aGU1hcC9DaGF0TWVzc2FnZVR5cGUu",
-            "cHJvdG8aH2dvb2dsZS9wcm90b2J1Zi90aW1lc3RhbXAucHJvdG8iZAoYU3Vi",
-            "bWl0Q2hhdE1lc3NhZ2VSZXF1ZXN0EjcKDG1lc3NhZ2VfdHlwZRgDIAEoDjIh",
-            "LkNvbW1vbi5Qcm90by5NYXAuQ2hhdE1lc3NhZ2VUeXBlEg8KB21lc3NhZ2UY",
-            "BCABKAkidgoZU3VibWl0Q2hhdE1lc3NhZ2VSZXNwb25zZRIqCgVlcnJvchgB",
-            "IAEoDjIbLkNvbW1vbi5Qcm90by5CYXNlLk5ldEVycm9yEi0KCXRpbWVzdGFt",
-            "cBgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBiBnByb3RvMw=="));
+            "ChtNYXAvU3VibWl0Q2hhdE1lc3NhZ2UucHJvdG8SF01NT1JQRy5Db21tb24u",
+            "UHJvdG8uTWFwGhNCYXNlL05ldEVycm9yLnByb3RvGhlNYXAvQ2hhdE1lc3Nh",
+            "Z2VUeXBlLnByb3RvGh9nb29nbGUvcHJvdG9idWYvdGltZXN0YW1wLnByb3Rv",
+            "ImsKGFN1Ym1pdENoYXRNZXNzYWdlUmVxdWVzdBI+CgxtZXNzYWdlX3R5cGUY",
+            "AyABKA4yKC5NTU9SUEcuQ29tbW9uLlByb3RvLk1hcC5DaGF0TWVzc2FnZVR5",
+            "cGUSDwoHbWVzc2FnZRgEIAEoCSJ9ChlTdWJtaXRDaGF0TWVzc2FnZVJlc3Bv",
+            "bnNlEjEKBWVycm9yGAEgASgOMiIuTU1PUlBHLkNvbW1vbi5Qcm90by5CYXNl",
+            "Lk5ldEVycm9yEi0KCXRpbWVzdGFtcBgCIAEoCzIaLmdvb2dsZS5wcm90b2J1",
+            "Zi5UaW1lc3RhbXBiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Common.Proto.Base.NetErrorReflection.Descriptor, global::Common.Proto.Map.ChatMessageTypeReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Base.NetErrorReflection.Descriptor, global::MMORPG.Common.Proto.Map.ChatMessageTypeReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Map.SubmitChatMessageRequest), global::Common.Proto.Map.SubmitChatMessageRequest.Parser, new[]{ "MessageType", "Message" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Map.SubmitChatMessageResponse), global::Common.Proto.Map.SubmitChatMessageResponse.Parser, new[]{ "Error", "Timestamp" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Map.SubmitChatMessageRequest), global::MMORPG.Common.Proto.Map.SubmitChatMessageRequest.Parser, new[]{ "MessageType", "Message" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Map.SubmitChatMessageResponse), global::MMORPG.Common.Proto.Map.SubmitChatMessageResponse.Parser, new[]{ "Error", "Timestamp" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SubmitChatMessageRequest : pb::IMessage<SubmitChatMessageRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -58,7 +58,7 @@ namespace Common.Proto.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Map.SubmitChatMessageReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Map.SubmitChatMessageReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -91,10 +91,10 @@ namespace Common.Proto.Map {
 
     /// <summary>Field number for the "message_type" field.</summary>
     public const int MessageTypeFieldNumber = 3;
-    private global::Common.Proto.Map.ChatMessageType messageType_ = global::Common.Proto.Map.ChatMessageType.World;
+    private global::MMORPG.Common.Proto.Map.ChatMessageType messageType_ = global::MMORPG.Common.Proto.Map.ChatMessageType.World;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Map.ChatMessageType MessageType {
+    public global::MMORPG.Common.Proto.Map.ChatMessageType MessageType {
       get { return messageType_; }
       set {
         messageType_ = value;
@@ -137,7 +137,7 @@ namespace Common.Proto.Map {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (MessageType != global::Common.Proto.Map.ChatMessageType.World) hash ^= MessageType.GetHashCode();
+      if (MessageType != global::MMORPG.Common.Proto.Map.ChatMessageType.World) hash ^= MessageType.GetHashCode();
       if (Message.Length != 0) hash ^= Message.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -157,7 +157,7 @@ namespace Common.Proto.Map {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (MessageType != global::Common.Proto.Map.ChatMessageType.World) {
+      if (MessageType != global::MMORPG.Common.Proto.Map.ChatMessageType.World) {
         output.WriteRawTag(24);
         output.WriteEnum((int) MessageType);
       }
@@ -175,7 +175,7 @@ namespace Common.Proto.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (MessageType != global::Common.Proto.Map.ChatMessageType.World) {
+      if (MessageType != global::MMORPG.Common.Proto.Map.ChatMessageType.World) {
         output.WriteRawTag(24);
         output.WriteEnum((int) MessageType);
       }
@@ -193,7 +193,7 @@ namespace Common.Proto.Map {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (MessageType != global::Common.Proto.Map.ChatMessageType.World) {
+      if (MessageType != global::MMORPG.Common.Proto.Map.ChatMessageType.World) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) MessageType);
       }
       if (Message.Length != 0) {
@@ -211,7 +211,7 @@ namespace Common.Proto.Map {
       if (other == null) {
         return;
       }
-      if (other.MessageType != global::Common.Proto.Map.ChatMessageType.World) {
+      if (other.MessageType != global::MMORPG.Common.Proto.Map.ChatMessageType.World) {
         MessageType = other.MessageType;
       }
       if (other.Message.Length != 0) {
@@ -233,7 +233,7 @@ namespace Common.Proto.Map {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 24: {
-            MessageType = (global::Common.Proto.Map.ChatMessageType) input.ReadEnum();
+            MessageType = (global::MMORPG.Common.Proto.Map.ChatMessageType) input.ReadEnum();
             break;
           }
           case 34: {
@@ -256,7 +256,7 @@ namespace Common.Proto.Map {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 24: {
-            MessageType = (global::Common.Proto.Map.ChatMessageType) input.ReadEnum();
+            MessageType = (global::MMORPG.Common.Proto.Map.ChatMessageType) input.ReadEnum();
             break;
           }
           case 34: {
@@ -270,7 +270,6 @@ namespace Common.Proto.Map {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SubmitChatMessageResponse : pb::IMessage<SubmitChatMessageResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -285,7 +284,7 @@ namespace Common.Proto.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Map.SubmitChatMessageReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.Map.SubmitChatMessageReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -318,10 +317,10 @@ namespace Common.Proto.Map {
 
     /// <summary>Field number for the "error" field.</summary>
     public const int ErrorFieldNumber = 1;
-    private global::Common.Proto.Base.NetError error_ = global::Common.Proto.Base.NetError.Success;
+    private global::MMORPG.Common.Proto.Base.NetError error_ = global::MMORPG.Common.Proto.Base.NetError.Success;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Base.NetError Error {
+    public global::MMORPG.Common.Proto.Base.NetError Error {
       get { return error_; }
       set {
         error_ = value;
@@ -364,7 +363,7 @@ namespace Common.Proto.Map {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Error != global::Common.Proto.Base.NetError.Success) hash ^= Error.GetHashCode();
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) hash ^= Error.GetHashCode();
       if (timestamp_ != null) hash ^= Timestamp.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -384,7 +383,7 @@ namespace Common.Proto.Map {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Error != global::Common.Proto.Base.NetError.Success) {
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Error);
       }
@@ -402,7 +401,7 @@ namespace Common.Proto.Map {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Error != global::Common.Proto.Base.NetError.Success) {
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Error);
       }
@@ -420,7 +419,7 @@ namespace Common.Proto.Map {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Error != global::Common.Proto.Base.NetError.Success) {
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Error);
       }
       if (timestamp_ != null) {
@@ -438,7 +437,7 @@ namespace Common.Proto.Map {
       if (other == null) {
         return;
       }
-      if (other.Error != global::Common.Proto.Base.NetError.Success) {
+      if (other.Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         Error = other.Error;
       }
       if (other.timestamp_ != null) {
@@ -463,7 +462,7 @@ namespace Common.Proto.Map {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
+            Error = (global::MMORPG.Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
           case 18: {
@@ -489,7 +488,7 @@ namespace Common.Proto.Map {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Error = (global::Common.Proto.Base.NetError) input.ReadEnum();
+            Error = (global::MMORPG.Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
           case 18: {

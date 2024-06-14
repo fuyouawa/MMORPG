@@ -1,5 +1,5 @@
-﻿using Common.Network;
-using Common.Proto;
+﻿using MMORPG.Common.Network;
+using MMORPG.Common.Proto;
 using GameServer.Db;
 using GameServer.Manager;
 using GameServer.Network;
