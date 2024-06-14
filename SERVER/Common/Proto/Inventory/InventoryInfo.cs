@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Inventory {
+namespace MMORPG.Common.Proto.Inventory {
 
   /// <summary>Holder for reflection information generated from Inventory/InventoryInfo.proto</summary>
   public static partial class InventoryInfoReflection {
@@ -24,21 +24,22 @@ namespace Common.Proto.Inventory {
     static InventoryInfoReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Ch1JbnZlbnRvcnkvSW52ZW50b3J5SW5mby5wcm90bxIWQ29tbW9uLlByb3Rv",
-            "LkludmVudG9yeSI8CghJdGVtSW5mbxIPCgdpdGVtX2lkGAEgASgFEg4KBmFt",
-            "b3VudBgCIAEoBRIPCgdzbG90X2lkGAMgASgFIqgBCgpJdGVtVXBkYXRlEjsK",
-            "BHR5cGUYASABKA4yLS5Db21tb24uUHJvdG8uSW52ZW50b3J5Lkl0ZW1VcGRh",
-            "dGUuVXBkYXRlVHlwZRIuCgRpdGVtGAIgASgLMiAuQ29tbW9uLlByb3RvLklu",
-            "dmVudG9yeS5JdGVtSW5mbyItCgpVcGRhdGVUeXBlEgcKA0FERBAAEgoKBkRF",
-            "TEVURRABEgoKBlVQREFURRACIlIKDUludmVudG9yeUluZm8SEAoIY2FwYWNp",
-            "dHkYASABKAUSLwoFaXRlbXMYAiADKAsyIC5Db21tb24uUHJvdG8uSW52ZW50",
-            "b3J5Lkl0ZW1JbmZvYgZwcm90bzM="));
+            "Ch1JbnZlbnRvcnkvSW52ZW50b3J5SW5mby5wcm90bxIdTU1PUlBHLkNvbW1v",
+            "bi5Qcm90by5JbnZlbnRvcnkiPAoISXRlbUluZm8SDwoHaXRlbV9pZBgBIAEo",
+            "BRIOCgZhbW91bnQYAiABKAUSDwoHc2xvdF9pZBgDIAEoBSK2AQoKSXRlbVVw",
+            "ZGF0ZRJCCgR0eXBlGAEgASgOMjQuTU1PUlBHLkNvbW1vbi5Qcm90by5JbnZl",
+            "bnRvcnkuSXRlbVVwZGF0ZS5VcGRhdGVUeXBlEjUKBGl0ZW0YAiABKAsyJy5N",
+            "TU9SUEcuQ29tbW9uLlByb3RvLkludmVudG9yeS5JdGVtSW5mbyItCgpVcGRh",
+            "dGVUeXBlEgcKA0FERBAAEgoKBkRFTEVURRABEgoKBlVQREFURRACIlkKDUlu",
+            "dmVudG9yeUluZm8SEAoIY2FwYWNpdHkYASABKAUSNgoFaXRlbXMYAiADKAsy",
+            "Jy5NTU9SUEcuQ29tbW9uLlByb3RvLkludmVudG9yeS5JdGVtSW5mb2IGcHJv",
+            "dG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.ItemInfo), global::Common.Proto.Inventory.ItemInfo.Parser, new[]{ "ItemId", "Amount", "SlotId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.ItemUpdate), global::Common.Proto.Inventory.ItemUpdate.Parser, new[]{ "Type", "Item" }, null, new[]{ typeof(global::Common.Proto.Inventory.ItemUpdate.Types.UpdateType) }, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Inventory.InventoryInfo), global::Common.Proto.Inventory.InventoryInfo.Parser, new[]{ "Capacity", "Items" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.ItemInfo), global::MMORPG.Common.Proto.Inventory.ItemInfo.Parser, new[]{ "ItemId", "Amount", "SlotId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.ItemUpdate), global::MMORPG.Common.Proto.Inventory.ItemUpdate.Parser, new[]{ "Type", "Item" }, null, new[]{ typeof(global::MMORPG.Common.Proto.Inventory.ItemUpdate.Types.UpdateType) }, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.InventoryInfo), global::MMORPG.Common.Proto.Inventory.InventoryInfo.Parser, new[]{ "Capacity", "Items" }, null, null, null, null)
           }));
     }
     #endregion
@@ -48,7 +49,6 @@ namespace Common.Proto.Inventory {
   /// <summary>
   /// 物品信息
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ItemInfo : pb::IMessage<ItemInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -63,7 +63,7 @@ namespace Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Inventory.InventoryInfoReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Inventory.InventoryInfoReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -324,7 +324,6 @@ namespace Common.Proto.Inventory {
   /// <summary>
   /// 物品更新
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ItemUpdate : pb::IMessage<ItemUpdate>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -339,7 +338,7 @@ namespace Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Inventory.InventoryInfoReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.Inventory.InventoryInfoReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -372,10 +371,10 @@ namespace Common.Proto.Inventory {
 
     /// <summary>Field number for the "type" field.</summary>
     public const int TypeFieldNumber = 1;
-    private global::Common.Proto.Inventory.ItemUpdate.Types.UpdateType type_ = global::Common.Proto.Inventory.ItemUpdate.Types.UpdateType.Add;
+    private global::MMORPG.Common.Proto.Inventory.ItemUpdate.Types.UpdateType type_ = global::MMORPG.Common.Proto.Inventory.ItemUpdate.Types.UpdateType.Add;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Inventory.ItemUpdate.Types.UpdateType Type {
+    public global::MMORPG.Common.Proto.Inventory.ItemUpdate.Types.UpdateType Type {
       get { return type_; }
       set {
         type_ = value;
@@ -384,10 +383,10 @@ namespace Common.Proto.Inventory {
 
     /// <summary>Field number for the "item" field.</summary>
     public const int ItemFieldNumber = 2;
-    private global::Common.Proto.Inventory.ItemInfo item_;
+    private global::MMORPG.Common.Proto.Inventory.ItemInfo item_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Inventory.ItemInfo Item {
+    public global::MMORPG.Common.Proto.Inventory.ItemInfo Item {
       get { return item_; }
       set {
         item_ = value;
@@ -418,7 +417,7 @@ namespace Common.Proto.Inventory {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Type != global::Common.Proto.Inventory.ItemUpdate.Types.UpdateType.Add) hash ^= Type.GetHashCode();
+      if (Type != global::MMORPG.Common.Proto.Inventory.ItemUpdate.Types.UpdateType.Add) hash ^= Type.GetHashCode();
       if (item_ != null) hash ^= Item.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -438,7 +437,7 @@ namespace Common.Proto.Inventory {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Type != global::Common.Proto.Inventory.ItemUpdate.Types.UpdateType.Add) {
+      if (Type != global::MMORPG.Common.Proto.Inventory.ItemUpdate.Types.UpdateType.Add) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Type);
       }
@@ -456,7 +455,7 @@ namespace Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Type != global::Common.Proto.Inventory.ItemUpdate.Types.UpdateType.Add) {
+      if (Type != global::MMORPG.Common.Proto.Inventory.ItemUpdate.Types.UpdateType.Add) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Type);
       }
@@ -474,7 +473,7 @@ namespace Common.Proto.Inventory {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Type != global::Common.Proto.Inventory.ItemUpdate.Types.UpdateType.Add) {
+      if (Type != global::MMORPG.Common.Proto.Inventory.ItemUpdate.Types.UpdateType.Add) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
       }
       if (item_ != null) {
@@ -492,12 +491,12 @@ namespace Common.Proto.Inventory {
       if (other == null) {
         return;
       }
-      if (other.Type != global::Common.Proto.Inventory.ItemUpdate.Types.UpdateType.Add) {
+      if (other.Type != global::MMORPG.Common.Proto.Inventory.ItemUpdate.Types.UpdateType.Add) {
         Type = other.Type;
       }
       if (other.item_ != null) {
         if (item_ == null) {
-          Item = new global::Common.Proto.Inventory.ItemInfo();
+          Item = new global::MMORPG.Common.Proto.Inventory.ItemInfo();
         }
         Item.MergeFrom(other.Item);
       }
@@ -517,12 +516,12 @@ namespace Common.Proto.Inventory {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Type = (global::Common.Proto.Inventory.ItemUpdate.Types.UpdateType) input.ReadEnum();
+            Type = (global::MMORPG.Common.Proto.Inventory.ItemUpdate.Types.UpdateType) input.ReadEnum();
             break;
           }
           case 18: {
             if (item_ == null) {
-              Item = new global::Common.Proto.Inventory.ItemInfo();
+              Item = new global::MMORPG.Common.Proto.Inventory.ItemInfo();
             }
             input.ReadMessage(Item);
             break;
@@ -543,12 +542,12 @@ namespace Common.Proto.Inventory {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Type = (global::Common.Proto.Inventory.ItemUpdate.Types.UpdateType) input.ReadEnum();
+            Type = (global::MMORPG.Common.Proto.Inventory.ItemUpdate.Types.UpdateType) input.ReadEnum();
             break;
           }
           case 18: {
             if (item_ == null) {
-              Item = new global::Common.Proto.Inventory.ItemInfo();
+              Item = new global::MMORPG.Common.Proto.Inventory.ItemInfo();
             }
             input.ReadMessage(Item);
             break;
@@ -577,7 +576,6 @@ namespace Common.Proto.Inventory {
   /// <summary>
   ///库存对象
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class InventoryInfo : pb::IMessage<InventoryInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -592,7 +590,7 @@ namespace Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Inventory.InventoryInfoReflection.Descriptor.MessageTypes[2]; }
+      get { return global::MMORPG.Common.Proto.Inventory.InventoryInfoReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -640,12 +638,12 @@ namespace Common.Proto.Inventory {
 
     /// <summary>Field number for the "items" field.</summary>
     public const int ItemsFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Common.Proto.Inventory.ItemInfo> _repeated_items_codec
-        = pb::FieldCodec.ForMessage(18, global::Common.Proto.Inventory.ItemInfo.Parser);
-    private readonly pbc::RepeatedField<global::Common.Proto.Inventory.ItemInfo> items_ = new pbc::RepeatedField<global::Common.Proto.Inventory.ItemInfo>();
+    private static readonly pb::FieldCodec<global::MMORPG.Common.Proto.Inventory.ItemInfo> _repeated_items_codec
+        = pb::FieldCodec.ForMessage(18, global::MMORPG.Common.Proto.Inventory.ItemInfo.Parser);
+    private readonly pbc::RepeatedField<global::MMORPG.Common.Proto.Inventory.ItemInfo> items_ = new pbc::RepeatedField<global::MMORPG.Common.Proto.Inventory.ItemInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Common.Proto.Inventory.ItemInfo> Items {
+    public pbc::RepeatedField<global::MMORPG.Common.Proto.Inventory.ItemInfo> Items {
       get { return items_; }
     }
 

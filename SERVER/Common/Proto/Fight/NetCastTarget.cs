@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Fight {
+namespace MMORPG.Common.Proto.Fight {
 
   /// <summary>Holder for reflection information generated from Fight/NetCastTarget.proto</summary>
   public static partial class NetCastTargetReflection {
@@ -24,21 +24,20 @@ namespace Common.Proto.Fight {
     static NetCastTargetReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChlGaWdodC9OZXRDYXN0VGFyZ2V0LnByb3RvEhJDb21tb24uUHJvdG8uRmln",
-            "aHQaFUJhc2UvTmV0VmVjdG9yMy5wcm90byJVCg1OZXRDYXN0VGFyZ2V0EhEK",
-            "CXRhcmdldF9pZBgBIAEoBRIxCgp0YXJnZXRfcG9zGAIgASgLMh0uQ29tbW9u",
-            "LlByb3RvLkJhc2UuTmV0VmVjdG9yM2IGcHJvdG8z"));
+            "ChlGaWdodC9OZXRDYXN0VGFyZ2V0LnByb3RvEhlNTU9SUEcuQ29tbW9uLlBy",
+            "b3RvLkZpZ2h0GhVCYXNlL05ldFZlY3RvcjMucHJvdG8iXAoNTmV0Q2FzdFRh",
+            "cmdldBIRCgl0YXJnZXRfaWQYASABKAUSOAoKdGFyZ2V0X3BvcxgCIAEoCzIk",
+            "Lk1NT1JQRy5Db21tb24uUHJvdG8uQmFzZS5OZXRWZWN0b3IzYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Common.Proto.Base.NetVector3Reflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Base.NetVector3Reflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Fight.NetCastTarget), global::Common.Proto.Fight.NetCastTarget.Parser, new[]{ "TargetId", "TargetPos" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.NetCastTarget), global::MMORPG.Common.Proto.Fight.NetCastTarget.Parser, new[]{ "TargetId", "TargetPos" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class NetCastTarget : pb::IMessage<NetCastTarget>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -53,7 +52,7 @@ namespace Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Fight.NetCastTargetReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Fight.NetCastTargetReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -98,10 +97,10 @@ namespace Common.Proto.Fight {
 
     /// <summary>Field number for the "target_pos" field.</summary>
     public const int TargetPosFieldNumber = 2;
-    private global::Common.Proto.Base.NetVector3 targetPos_;
+    private global::MMORPG.Common.Proto.Base.NetVector3 targetPos_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Common.Proto.Base.NetVector3 TargetPos {
+    public global::MMORPG.Common.Proto.Base.NetVector3 TargetPos {
       get { return targetPos_; }
       set {
         targetPos_ = value;
@@ -211,7 +210,7 @@ namespace Common.Proto.Fight {
       }
       if (other.targetPos_ != null) {
         if (targetPos_ == null) {
-          TargetPos = new global::Common.Proto.Base.NetVector3();
+          TargetPos = new global::MMORPG.Common.Proto.Base.NetVector3();
         }
         TargetPos.MergeFrom(other.TargetPos);
       }
@@ -236,7 +235,7 @@ namespace Common.Proto.Fight {
           }
           case 18: {
             if (targetPos_ == null) {
-              TargetPos = new global::Common.Proto.Base.NetVector3();
+              TargetPos = new global::MMORPG.Common.Proto.Base.NetVector3();
             }
             input.ReadMessage(TargetPos);
             break;
@@ -262,7 +261,7 @@ namespace Common.Proto.Fight {
           }
           case 18: {
             if (targetPos_ == null) {
-              TargetPos = new global::Common.Proto.Base.NetVector3();
+              TargetPos = new global::MMORPG.Common.Proto.Base.NetVector3();
             }
             input.ReadMessage(TargetPos);
             break;

@@ -1,4 +1,4 @@
-﻿using Common.Proto.Entity;
+﻿using MMORPG.Common.Proto.Entity;
 using GameServer.Model;
 using System;
 using System.Collections.Generic;

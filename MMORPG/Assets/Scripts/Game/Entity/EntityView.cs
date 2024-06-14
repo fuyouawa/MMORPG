@@ -1,9 +1,7 @@
 using System;
-using Common.Proto.Entity;
-using MMORPG.System;
+using MMORPG.Common.Proto.Entity;
 using QFramework;
 using Sirenix.OdinInspector;
-using UnityEditor;
 using UnityEngine;
 
 namespace MMORPG.Game

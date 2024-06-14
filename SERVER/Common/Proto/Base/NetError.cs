@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Base {
+namespace MMORPG.Common.Proto.Base {
 
   /// <summary>Holder for reflection information generated from Base/NetError.proto</summary>
   public static partial class NetErrorReflection {
@@ -24,17 +24,17 @@ namespace Common.Proto.Base {
     static NetErrorReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChNCYXNlL05ldEVycm9yLnByb3RvEhFDb21tb24uUHJvdG8uQmFzZSqpAgoI",
-            "TmV0RXJyb3ISCwoHU3VjY2VzcxAAEg8KC1Vua25vd0Vycm9yEAESEQoNTG9n",
-            "aW5Db25mbGljdBACEh8KG0luY29ycmVjdFVzZXJuYW1lT3JQYXNzd29yZBAD",
-            "EhMKD0lsbGVnYWxVc2VybmFtZRAEEhgKFElsbGVnYWxDaGFyYWN0ZXJOYW1l",
-            "EAUSEgoOUmVwZWF0VXNlcm5hbWUQBhIXChNSZXBlYXRDaGFyYWN0ZXJOYW1l",
-            "EAcSFAoQSW52YWxpZENoYXJhY3RlchAIEg4KCkludmFsaWRNYXAQCRIhCh1D",
-            "aGFyYWN0ZXJDcmVhdGlvbkxpbWl0UmVhY2hlZBAKEg4KCk91dE9mUmFuZ2UQ",
-            "CxIWChJFbnRpdHlEb2VzTm90RXhpc3QQDGIGcHJvdG8z"));
+            "ChNCYXNlL05ldEVycm9yLnByb3RvEhhNTU9SUEcuQ29tbW9uLlByb3RvLkJh",
+            "c2UqqQIKCE5ldEVycm9yEgsKB1N1Y2Nlc3MQABIPCgtVbmtub3dFcnJvchAB",
+            "EhEKDUxvZ2luQ29uZmxpY3QQAhIfChtJbmNvcnJlY3RVc2VybmFtZU9yUGFz",
+            "c3dvcmQQAxITCg9JbGxlZ2FsVXNlcm5hbWUQBBIYChRJbGxlZ2FsQ2hhcmFj",
+            "dGVyTmFtZRAFEhIKDlJlcGVhdFVzZXJuYW1lEAYSFwoTUmVwZWF0Q2hhcmFj",
+            "dGVyTmFtZRAHEhQKEEludmFsaWRDaGFyYWN0ZXIQCBIOCgpJbnZhbGlkTWFw",
+            "EAkSIQodQ2hhcmFjdGVyQ3JlYXRpb25MaW1pdFJlYWNoZWQQChIOCgpPdXRP",
+            "ZlJhbmdlEAsSFgoSRW50aXR5RG9lc05vdEV4aXN0EAxiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Common.Proto.Base.NetError), }, null, null));
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Base.NetError), }, null, null));
     }
     #endregion
 

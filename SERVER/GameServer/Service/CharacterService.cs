@@ -1,6 +1,6 @@
-﻿using Common.Network;
-using Common.Proto.Base;
-using Common.Proto.Character;
+﻿using MMORPG.Common.Network;
+using MMORPG.Common.Proto.Base;
+using MMORPG.Common.Proto.Character;
 using GameServer.Db;
 using GameServer.Manager;
 using GameServer.Network;

@@ -1,5 +1,5 @@
 using System;
-using Common.Proto.Fight;
+using MMORPG.Common.Proto.Fight;
 using MMORPG.System;
 using MMORPG.Tool;
 using QFramework;

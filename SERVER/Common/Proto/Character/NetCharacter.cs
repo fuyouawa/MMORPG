@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Character {
+namespace MMORPG.Common.Proto.Character {
 
   /// <summary>Holder for reflection information generated from Character/NetCharacter.proto</summary>
   public static partial class NetCharacterReflection {
@@ -24,22 +24,21 @@ namespace Common.Proto.Character {
     static NetCharacterReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChxDaGFyYWN0ZXIvTmV0Q2hhcmFjdGVyLnByb3RvEhZDb21tb24uUHJvdG8u",
-            "Q2hhcmFjdGVyIpUBCgxOZXRDaGFyYWN0ZXISFAoMY2hhcmFjdGVyX2lkGAEg",
-            "ASgDEg8KB3VuaXRfaWQYAiABKAUSDAoEbmFtZRgDIAEoCRIOCgZtYXBfaWQY",
-            "BCABKAUSDQoFbGV2ZWwYBSABKAUSCwoDZXhwGAYgASgDEgwKBGdvbGQYByAB",
-            "KAMSCgoCaHAYCCABKAUSCgoCbXAYCSABKAViBnByb3RvMw=="));
+            "ChxDaGFyYWN0ZXIvTmV0Q2hhcmFjdGVyLnByb3RvEh1NTU9SUEcuQ29tbW9u",
+            "LlByb3RvLkNoYXJhY3RlciKVAQoMTmV0Q2hhcmFjdGVyEhQKDGNoYXJhY3Rl",
+            "cl9pZBgBIAEoAxIPCgd1bml0X2lkGAIgASgFEgwKBG5hbWUYAyABKAkSDgoG",
+            "bWFwX2lkGAQgASgFEg0KBWxldmVsGAUgASgFEgsKA2V4cBgGIAEoAxIMCgRn",
+            "b2xkGAcgASgDEgoKAmhwGAggASgFEgoKAm1wGAkgASgFYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Character.NetCharacter), global::Common.Proto.Character.NetCharacter.Parser, new[]{ "CharacterId", "UnitId", "Name", "MapId", "Level", "Exp", "Gold", "Hp", "Mp" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Character.NetCharacter), global::MMORPG.Common.Proto.Character.NetCharacter.Parser, new[]{ "CharacterId", "UnitId", "Name", "MapId", "Level", "Exp", "Gold", "Hp", "Mp" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class NetCharacter : pb::IMessage<NetCharacter>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -54,7 +53,7 @@ namespace Common.Proto.Character {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Character.NetCharacterReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Character.NetCharacterReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
