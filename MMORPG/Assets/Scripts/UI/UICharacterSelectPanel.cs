@@ -1,11 +1,10 @@
-using Common.Proto.Character;
+using MMORPG.Common.Proto.Character;
 using MMORPG.Command;
 using MMORPG.Game;
 using MMORPG.Model;
 using MMORPG.System;
 using QFramework;
 using UnityEngine.SceneManagement;
-using UnityEngine.TextCore.Text;
 
 namespace MMORPG.UI
 {

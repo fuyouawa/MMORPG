@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Fight {
+namespace MMORPG.Common.Proto.Fight {
 
   /// <summary>Holder for reflection information generated from Fight/Skill.proto</summary>
   public static partial class SkillReflection {
@@ -24,19 +24,18 @@ namespace Common.Proto.Fight {
     static SkillReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFGaWdodC9Ta2lsbC5wcm90bxISQ29tbW9uLlByb3RvLkZpZ2h0IhcKCVNr",
-            "aWxsSW5mbxIKCgJpZBgBIAEoBWIGcHJvdG8z"));
+            "ChFGaWdodC9Ta2lsbC5wcm90bxIZTU1PUlBHLkNvbW1vbi5Qcm90by5GaWdo",
+            "dCIXCglTa2lsbEluZm8SCgoCaWQYASABKAViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Fight.SkillInfo), global::Common.Proto.Fight.SkillInfo.Parser, new[]{ "Id" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.SkillInfo), global::MMORPG.Common.Proto.Fight.SkillInfo.Parser, new[]{ "Id" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SkillInfo : pb::IMessage<SkillInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -51,7 +50,7 @@ namespace Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Common.Proto.Fight.SkillReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Fight.SkillReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

@@ -1,7 +1,7 @@
-﻿using Common.Network;
-using Common.Proto.Base;
-using Common.Proto.Character;
-using Common.Proto.Player;
+﻿using MMORPG.Common.Network;
+using MMORPG.Common.Proto.Base;
+using MMORPG.Common.Proto.Character;
+using MMORPG.Common.Proto.Player;
 using GameServer.Db;
 using GameServer.Manager;
 using GameServer.Network;
@@ -14,8 +14,8 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using GameServer.Model;
-using Common.Proto.Inventory;
-using Common.Proto.Entity;
+using MMORPG.Common.Proto.Inventory;
+using MMORPG.Common.Proto.Entity;
 
 namespace GameServer.Service
 {

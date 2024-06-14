@@ -1,11 +1,11 @@
-﻿using Common.Network;
-using Common.Proto.Base;
+﻿using MMORPG.Common.Network;
+using MMORPG.Common.Proto.Base;
 using GameServer.Db;
 using GameServer.Manager;
 using GameServer.Network;
 using GameServer.Tool;
 using Serilog;
-using Common.Proto.User;
+using MMORPG.Common.Proto.User;
 
 namespace GameServer.Service
 {

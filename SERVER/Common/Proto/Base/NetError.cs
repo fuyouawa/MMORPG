@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Common.Proto.Base {
+namespace MMORPG.Common.Proto.Base {
 
   /// <summary>Holder for reflection information generated from Base/NetError.proto</summary>
   public static partial class NetErrorReflection {
@@ -34,7 +34,7 @@ namespace Common.Proto.Base {
             "bnZhbGlkRW50aXR5EIknEg8KCkludmFsaWRNYXAQiidiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Common.Proto.Base.NetError), }, null, null));
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Base.NetError), }, null, null));
     }
     #endregion
 
