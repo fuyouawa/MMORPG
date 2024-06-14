@@ -26,14 +26,14 @@ namespace Common.Proto.Player {
           string.Concat(
             "ChVQbGF5ZXIvSW50ZXJhY3QucHJvdG8SE0NvbW1vbi5Qcm90by5QbGF5ZXIa",
             "E0Jhc2UvTmV0RXJyb3IucHJvdG8iJAoPSW50ZXJhY3RSZXF1ZXN0EhEKCWVu",
-            "dGl0eV9pZBgBIAEoBSJRChBJbnRlcmFjdFJlc3BvbnNlEioKBWVycm9yGAEg",
+            "dGl0eV9pZBgBIAEoBSJmChBJbnRlcmFjdFJlc3BvbnNlEioKBWVycm9yGAEg",
             "ASgOMhsuQ29tbW9uLlByb3RvLkJhc2UuTmV0RXJyb3ISEQoJZW50aXR5X2lk",
-            "GAIgASgFYgZwcm90bzM="));
+            "GAIgASgFEhMKC2RpYWxvZ3VlX2lkGAMgASgFYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.Proto.Base.NetErrorReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.InteractRequest), global::Common.Proto.Player.InteractRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.InteractResponse), global::Common.Proto.Player.InteractResponse.Parser, new[]{ "Error", "EntityId" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.InteractResponse), global::Common.Proto.Player.InteractResponse.Parser, new[]{ "Error", "EntityId", "DialogueId" }, null, null, null, null)
           }));
     }
     #endregion
@@ -267,6 +267,7 @@ namespace Common.Proto.Player {
     public InteractResponse(InteractResponse other) : this() {
       error_ = other.error_;
       entityId_ = other.entityId_;
+      dialogueId_ = other.dialogueId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -300,6 +301,18 @@ namespace Common.Proto.Player {
       }
     }
 
+    /// <summary>Field number for the "dialogue_id" field.</summary>
+    public const int DialogueIdFieldNumber = 3;
+    private int dialogueId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int DialogueId {
+      get { return dialogueId_; }
+      set {
+        dialogueId_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -317,6 +330,7 @@ namespace Common.Proto.Player {
       }
       if (Error != other.Error) return false;
       if (EntityId != other.EntityId) return false;
+      if (DialogueId != other.DialogueId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -326,6 +340,7 @@ namespace Common.Proto.Player {
       int hash = 1;
       if (Error != global::Common.Proto.Base.NetError.Success) hash ^= Error.GetHashCode();
       if (EntityId != 0) hash ^= EntityId.GetHashCode();
+      if (DialogueId != 0) hash ^= DialogueId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -352,6 +367,10 @@ namespace Common.Proto.Player {
         output.WriteRawTag(16);
         output.WriteInt32(EntityId);
       }
+      if (DialogueId != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(DialogueId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -370,6 +389,10 @@ namespace Common.Proto.Player {
         output.WriteRawTag(16);
         output.WriteInt32(EntityId);
       }
+      if (DialogueId != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(DialogueId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -385,6 +408,9 @@ namespace Common.Proto.Player {
       }
       if (EntityId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(EntityId);
+      }
+      if (DialogueId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(DialogueId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -403,6 +429,9 @@ namespace Common.Proto.Player {
       }
       if (other.EntityId != 0) {
         EntityId = other.EntityId;
+      }
+      if (other.DialogueId != 0) {
+        DialogueId = other.DialogueId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -427,6 +456,10 @@ namespace Common.Proto.Player {
             EntityId = input.ReadInt32();
             break;
           }
+          case 24: {
+            DialogueId = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -448,6 +481,10 @@ namespace Common.Proto.Player {
           }
           case 16: {
             EntityId = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            DialogueId = input.ReadInt32();
             break;
           }
         }
