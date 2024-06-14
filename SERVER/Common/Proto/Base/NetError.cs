@@ -24,14 +24,14 @@ namespace Common.Proto.Base {
     static NetErrorReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChNCYXNlL05ldEVycm9yLnByb3RvEhFDb21tb24uUHJvdG8uQmFzZSqRAgoI",
+            "ChNCYXNlL05ldEVycm9yLnByb3RvEhFDb21tb24uUHJvdG8uQmFzZSqpAgoI",
             "TmV0RXJyb3ISCwoHU3VjY2VzcxAAEg8KC1Vua25vd0Vycm9yEAESEQoNTG9n",
             "aW5Db25mbGljdBACEh8KG0luY29ycmVjdFVzZXJuYW1lT3JQYXNzd29yZBAD",
             "EhMKD0lsbGVnYWxVc2VybmFtZRAEEhgKFElsbGVnYWxDaGFyYWN0ZXJOYW1l",
             "EAUSEgoOUmVwZWF0VXNlcm5hbWUQBhIXChNSZXBlYXRDaGFyYWN0ZXJOYW1l",
             "EAcSFAoQSW52YWxpZENoYXJhY3RlchAIEg4KCkludmFsaWRNYXAQCRIhCh1D",
             "aGFyYWN0ZXJDcmVhdGlvbkxpbWl0UmVhY2hlZBAKEg4KCk91dE9mUmFuZ2UQ",
-            "C2IGcHJvdG8z"));
+            "CxIWChJFbnRpdHlEb2VzTm90RXhpc3QQDGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Common.Proto.Base.NetError), }, null, null));
@@ -53,6 +53,7 @@ namespace Common.Proto.Base {
     [pbr::OriginalName("InvalidMap")] InvalidMap = 9,
     [pbr::OriginalName("CharacterCreationLimitReached")] CharacterCreationLimitReached = 10,
     [pbr::OriginalName("OutOfRange")] OutOfRange = 11,
+    [pbr::OriginalName("EntityDoesNotExist")] EntityDoesNotExist = 12,
   }
 
   #endregion
