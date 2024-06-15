@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using MMORPG.Common.Proto.Inventory;
 using MMORPG.Common.Proto.Entity;
 using GameServer.MapSystem;
+using MMORPG.Common.Proto.Npc;
 
 namespace GameServer.NetService
 {
@@ -77,30 +78,6 @@ namespace GameServer.NetService
             };
             sender.Send(res, null);
             Log.Debug($"{sender}进入游戏成功");
-        }
-
-        public void OnHandle(NetChannel sender, InteractRequest req)
-        {
-            if (sender.User == null || sender.User.Player == null) return;
-            var player = sender.User.Player;
-            // 查找距离最近的Npc
-            var entity = player.Map.GetEntityFollowingNearest(player, entity => entity.EntityType == EntityType.Npc);
-            var res = new InteractResponse()
-            {
-                Error = NetError.InvalidEntity,
-            };
-            do
-            {
-                if (entity == null) break;
-                var npc = entity as NpcSystem.Npc;
-                if (npc == null) break;
-                var distance = Vector2.Distance(player.Position.ToVector2(), npc.Position.ToVector2());
-                if (distance > 1) break;
-                res.Error = NetError.Success;
-                res.EntityId = entity.EntityId;
-                //res.DialogueId = ;
-            } while (false);
-            sender.Send(res, null);
         }
     }
 }

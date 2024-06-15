@@ -1,0 +1,15 @@
+﻿syntax = "proto3";
+
+package MMORPG.Common.Proto.Npc;
+import "Base/NetError.proto";
+
+message InteractRequest {
+    int32 entity_id = 1;
+    int32 select_idx = 2;
+}
+
+message InteractResponse {
+    Base.NetError error = 1;
+    int32 entity_id = 2;
+    int32 dialogue_id = 3;
+}

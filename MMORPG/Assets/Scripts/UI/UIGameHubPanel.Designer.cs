@@ -5,7 +5,7 @@ using QFramework;
 
 namespace MMORPG.UI
 {
-	// Generate Id:74646f7c-7262-47be-9ea6-21901ad7ca62
+	// Generate Id:1bef8ad2-b650-4c1d-bc4c-0f8a2da264cc
 	public partial class UIGameHubPanel
 	{
 		public const string Name = "UIGameHubPanel";
@@ -14,6 +14,8 @@ namespace MMORPG.UI
 		public MMORPG.UI.UISkillPanel SkillPanel;
 		[SerializeField]
 		public MMORPG.UI.UIPlayerKnapsackPanel PlayerKnapsackPanel;
+		[SerializeField]
+		public UnityEngine.UI.Image DialoguePanel;
 		
 		private UIGameHubPanelData mPrivateData = null;
 		
@@ -21,6 +23,7 @@ namespace MMORPG.UI
 		{
 			SkillPanel = null;
 			PlayerKnapsackPanel = null;
+			DialoguePanel = null;
 			
 			mData = null;
 		}

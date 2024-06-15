@@ -10,6 +10,7 @@ using Serilog;
 using GameServer.MapSystem;
 using GameServer.UserSystem;
 using GameServer.EntitySystem;
+using GameServer.NpcSystem;
 
 namespace GameServer.PlayerSystem
 {
@@ -23,6 +24,10 @@ namespace GameServer.PlayerSystem
         public long Gold;
         public InventorySystem.Inventory Knapsack;
 
+        public Npc? InteractingNpc;
+        public int CurrentDialogueId;
+        public NpcSystem.DialogueManager DialogueManager;
+
         private DbCharacter _dbCharacter;
 
         public Player(int entityId, DbCharacter dbCharacter,
@@ -32,6 +37,7 @@ namespace GameServer.PlayerSystem
             User = user;
             CharacterId = dbCharacter.Id;
             Knapsack = new(this);
+            DialogueManager = new(this);
 
             _dbCharacter = dbCharacter;
         }
@@ -45,6 +51,7 @@ namespace GameServer.PlayerSystem
             Exp = _dbCharacter.Exp;
             Gold = _dbCharacter.Gold;
             Knapsack.LoadInventoryInfo(_dbCharacter.Knapsack);
+            DialogueManager.LoadDialogueInfo(_dbCharacter.DialogueInfo);
         }
 
         public override void Update()
@@ -70,6 +77,7 @@ namespace GameServer.PlayerSystem
                 Y = (int)Position.Y,
                 Z = (int)Position.Z,
                 Knapsack = Knapsack.GetInventoryInfo().ToByteArray(),
+                DialogueInfo = DialogueManager.GetDialogueInfo().ToByteArray(),
             };
         }
     }

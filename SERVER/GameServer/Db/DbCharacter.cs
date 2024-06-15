@@ -28,6 +28,9 @@ namespace GameServer.Db
         [Column(DbType = "blob")]
         public byte[]? Knapsack { get; set; }
 
+        [Column(DbType = "blob")]
+        public byte[]? DialogueInfo { get; set; }
+
         //public DbCharacter(long id, string name, long userId, int unitId, int mapId, int level, int exp, long gold, int hp, int mp, byte[]? knapsack)
         //{
         //    Id = id;
