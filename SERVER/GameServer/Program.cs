@@ -3,7 +3,7 @@ using MMORPG.Common.Proto;
 using GameServer.Db;
 using GameServer.Manager;
 using GameServer.Network;
-using GameServer.Service;
+using GameServer.NetService;
 using GameServer.Tool;
 using Serilog;
 using Serilog.Events;

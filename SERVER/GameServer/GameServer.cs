@@ -1,6 +1,6 @@
 ﻿using MMORPG.Common.Network;
 using GameServer.Network;
-using GameServer.Service;
+using GameServer.NetService;
 using Service;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,6 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using GameServer.Tool;
-using GameServer.Model;
 using System.Threading.Channels;
 using System.Diagnostics;
 using MMORPG.Common.Tool;

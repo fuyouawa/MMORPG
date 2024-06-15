@@ -10,7 +10,6 @@ using MMORPG.Common.Proto.Base;
 using MMORPG.Common.Proto.Character;
 using MMORPG.Common.Proto.Entity;
 using GameServer.Db;
-using GameServer.Model;
 
 namespace GameServer.Tool
 {
