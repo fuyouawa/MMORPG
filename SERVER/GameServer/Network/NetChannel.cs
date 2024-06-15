@@ -1,5 +1,4 @@
 ﻿using MMORPG.Common.Network;
-using GameServer.Model;
 using GameServer.Tool;
 using Serilog;
 using System;
@@ -9,6 +8,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using GameServer.UserSystem;
 
 namespace GameServer.Network
 {
