@@ -95,13 +95,13 @@ namespace GameServer.Service
             do
             {
                 if (entity == null) break;
-                var npc = entity as Npc;
+                var npc = entity as Model.Npc;
                 if (npc == null) break;
                 var distance = Vector2.Distance(player.Position.ToVector2(), npc.Position.ToVector2());
                 if (distance > 1) break;
                 res.Error = NetError.Success;
                 res.EntityId = entity.EntityId;
-                res.DialogueId = ;
+                //res.DialogueId = ;
             } while (false);
             sender.Send(res, null);
         }
