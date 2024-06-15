@@ -24,14 +24,15 @@ namespace MMORPG.Common.Proto.Base {
     static NetErrorReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChNCYXNlL05ldEVycm9yLnByb3RvEhFDb21tb24uUHJvdG8uQmFzZSqwAgoI",
-            "TmV0RXJyb3ISCwoHU3VjY2VzcxAAEhAKC1Vua25vd0Vycm9yEOkHEg8KCk91",
-            "dE9mUmFuZ2UQ6gcSEgoNTG9naW5Db25mbGljdBDRDxIgChtJbmNvcnJlY3RV",
-            "c2VybmFtZU9yUGFzc3dvcmQQ0g8SFAoPSWxsZWdhbFVzZXJuYW1lELkXEhkK",
-            "FElsbGVnYWxDaGFyYWN0ZXJOYW1lELoXEiIKHUNoYXJhY3RlckNyZWF0aW9u",
-            "TGltaXRSZWFjaGVkELsXEhUKEEludmFsaWRDaGFyYWN0ZXIQvBcSEwoOUmVw",
-            "ZWF0VXNlcm5hbWUQoR8SGAoTUmVwZWF0Q2hhcmFjdGVyTmFtZRCiHxISCg1J",
-            "bnZhbGlkRW50aXR5EIknEg8KCkludmFsaWRNYXAQiidiBnByb3RvMw=="));
+            "ChNCYXNlL05ldEVycm9yLnByb3RvEhhNTU9SUEcuQ29tbW9uLlByb3RvLkJh",
+            "c2UqsAIKCE5ldEVycm9yEgsKB1N1Y2Nlc3MQABIQCgtVbmtub3dFcnJvchDp",
+            "BxIPCgpPdXRPZlJhbmdlEOoHEhIKDUxvZ2luQ29uZmxpY3QQ0Q8SIAobSW5j",
+            "b3JyZWN0VXNlcm5hbWVPclBhc3N3b3JkENIPEhQKD0lsbGVnYWxVc2VybmFt",
+            "ZRC5FxIZChRJbGxlZ2FsQ2hhcmFjdGVyTmFtZRC6FxIiCh1DaGFyYWN0ZXJD",
+            "cmVhdGlvbkxpbWl0UmVhY2hlZBC7FxIVChBJbnZhbGlkQ2hhcmFjdGVyELwX",
+            "EhMKDlJlcGVhdFVzZXJuYW1lEKEfEhgKE1JlcGVhdENoYXJhY3Rlck5hbWUQ",
+            "oh8SEgoNSW52YWxpZEVudGl0eRCJJxIPCgpJbnZhbGlkTWFwEIonYgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Base.NetError), }, null, null));

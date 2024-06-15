@@ -17,6 +17,7 @@ namespace GameServer.Manager
         public Dictionary<int, SpawnDefine> SpawnDict;
         public Dictionary<int, ItemDefine> ItemDict;
         public Dictionary<int, SkillDefine> SkillDict;
+        public Dictionary<int, NpcDefine> NpcDict;
 
         private DataManager() { }
 
@@ -27,6 +28,7 @@ namespace GameServer.Manager
             SpawnDict = Load<Dictionary<int, SpawnDefine>>("Data/Json/SpawnDefine.json");
             ItemDict = Load<Dictionary<int, ItemDefine>>("Data/Json/ItemDefine.json");
             SkillDict = Load<Dictionary<int, SkillDefine>>("Data/Json/SkillDefine.json");
+            NpcDict = Load<Dictionary<int, NpcDefine>>("Data/Json/NpcDefine.json");
         }
 
         public void Update() { }

@@ -54,17 +54,17 @@ namespace GameServer.Inventory
             return _inventoryInfo;
         }
 
-        public void LoadInventoryInfoData(byte[]? inventoryData)
+        public void LoadInventoryInfo(byte[]? inventoryData)
         {
-            InventoryInfo? inv = null;
+            InventoryInfo? info = null;
             if (inventoryData == null)
             {
                 Capacity = InitCapacity;
             }
             else
             {
-                inv = InventoryInfo.Parser.ParseFrom(inventoryData);
-                Capacity = inv.Capacity;
+                info = InventoryInfo.Parser.ParseFrom(inventoryData);
+                Capacity = info.Capacity;
             }
 
             for (int i = 0; i < Capacity; i++)
@@ -72,9 +72,9 @@ namespace GameServer.Inventory
                 Items.Add(null);
             }
 
-            if (inv != null)
+            if (info != null)
             {
-                foreach (var item in inv.Items)
+                foreach (var item in info.Items)
                 {
                     if (!DataManager.Instance.ItemDict.TryGetValue(item.ItemId, out var define))
                     {
