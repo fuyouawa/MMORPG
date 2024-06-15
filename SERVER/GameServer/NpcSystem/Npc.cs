@@ -4,6 +4,7 @@ using System.Numerics;
 using MMORPG.Common.Proto.Entity;
 using GameServer.MapSystem;
 using GameServer.EntitySystem;
+using GameServer.Manager;
 
 namespace GameServer.NpcSystem
 {
@@ -14,6 +15,7 @@ namespace GameServer.NpcSystem
         private AiBase? _ai;
         private Random _random = new();
 
+        public NpcDefine NpcDefine;
         public Vector3 InitPos;
 
         public Npc(int entityId, int unitId,
@@ -30,6 +32,15 @@ namespace GameServer.NpcSystem
             Speed = unitDefine.Speed;
             Hp = AttributeManager.Final.MaxHp;
             Mp = AttributeManager.Final.MaxMp;
+
+            foreach (var npcDefine in DataManager.Instance.NpcDict.Values)
+            {
+                if (npcDefine.UnitId == UnitId)
+                {
+                    NpcDefine = npcDefine;
+                    break;
+                }
+            }
 
             _ai?.Start();
         }

@@ -11,10 +11,11 @@ public class DialogueDefine
 	public int ID; // ID
 	public string Decs; // 介绍
 	public string Content; // 内容
-	public int[] Options; // 选项id列表
-	public int jump; // 跳转
+	public string Options; // 选项id列表
+	public int Jump; // 跳转
 	public int ReceiveTask; // 接取任务id
 	public int SubmitTask; // 提交任务id
+	public int SaveDialogueId; // 
 }
 
 

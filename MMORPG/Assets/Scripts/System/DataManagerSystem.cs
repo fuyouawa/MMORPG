@@ -11,6 +11,7 @@ namespace MMORPG.Game
         public MapDefine GetMapDefine(int mapId);
         public UnitDefine GetUnitDefine(int unitId);
         public ItemDefine GetItemDefine(int itemId);
+        public DialogueDefine GetDialogueDefine(int dialogueId);
 
         public SkillDefine[] GetUnitSkillsDefine(int unitId);
     }
@@ -22,6 +23,7 @@ namespace MMORPG.Game
         private Dictionary<int, UnitDefine> _unitDict;
         private Dictionary<int, ItemDefine> _itemDict;
         private Dictionary<int, SkillDefine> _skillDict;
+        private Dictionary<int, DialogueDefine> _dialogueDict;
 
         private T Load<T>(string jsonPath)
         {
@@ -38,6 +40,7 @@ namespace MMORPG.Game
             _unitDict = Load<Dictionary<int, UnitDefine>>("Json/UnitDefine");
             _itemDict = Load<Dictionary<int, ItemDefine>>("Json/ItemDefine");
             _skillDict = Load<Dictionary<int, SkillDefine>>("Json/SkillDefine");
+            _dialogueDict = Load<Dictionary<int, DialogueDefine>>("Json/DialogueDefine");
         }
 
         protected override void OnDeinit()
@@ -46,6 +49,7 @@ namespace MMORPG.Game
             _unitDict.Clear();
             _itemDict.Clear();
             _skillDict.Clear();
+            _dialogueDict.Clear();
         }
 
         public MapDefine GetMapDefine(int mapId)
@@ -66,6 +70,11 @@ namespace MMORPG.Game
         public ItemDefine GetItemDefine(int itemId)
         {
             return _itemDict[itemId];
+        }
+
+        public DialogueDefine GetDialogueDefine(int dialogueId)
+        {
+            return _dialogueDict[dialogueId];
         }
 
         public SkillDefine[] GetUnitSkillsDefine(int unitId)

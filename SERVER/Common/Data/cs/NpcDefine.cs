@@ -12,6 +12,7 @@ public class NpcDefine
 	public string Name; // 名称
 	public int UnitId; // unitid
 	public string Decs; // 介绍
+	public int StartDialogueId; // 起始对话id
 }
 
 

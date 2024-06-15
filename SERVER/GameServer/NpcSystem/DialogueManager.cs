@@ -15,7 +15,7 @@ namespace GameServer.NpcSystem
     {
         public Player PlayerOwner;
         private Dictionary<int, DialogueRecord> _recordDict = new();        // key:NpcId
-        private bool _hasChange = false;
+        private bool _hasChange = true;
         private DialogueInfo? _dialogueInfo;
         public DialogueManager(Player playerOwner)
         {
@@ -28,6 +28,7 @@ namespace GameServer.NpcSystem
             {
                 _dialogueInfo = new();
                 _dialogueInfo.DialogueArr.AddRange(_recordDict.Select(x => x.Value));
+                _hasChange = false;
             }
             return _dialogueInfo;
         }
@@ -48,6 +49,35 @@ namespace GameServer.NpcSystem
                 }
                 _recordDict[record.NpcId] = record;
             }
+        }
+
+        public int GetDialogueId(int npcId)
+        {
+            if (_recordDict.TryGetValue(npcId, out var record))
+            {
+                return record.DialogueId;
+            }
+            if (!DataManager.Instance.NpcDict.TryGetValue(npcId, out var define))
+            {
+                Log.Error($"NpcId不存在:{npcId}");
+                return 0;
+            }
+            return define.StartDialogueId;
+        }
+
+        public void SaveDialogueId(int npcId, int dialogueId)
+        {
+            _hasChange = true;
+            if (_recordDict.TryGetValue(npcId, out var record))
+            {
+                _recordDict[npcId].DialogueId = dialogueId;
+                return;
+            }
+            _recordDict[npcId] = new()
+            {
+                NpcId = npcId,
+                DialogueId = dialogueId,
+            };
         }
     }
 }
