@@ -1,9 +1,13 @@
 syntax = "proto3";
 
-package Common.Proto.Npc;
+package MMORPG.Common.Proto.Npc;
 
 // Npc对话信息
-message DialogueInfo{
+message DialogueRecord{
 	int32 npc_id = 1;
 	int32 dialogue_id = 2;
+}
+
+message DialogueInfo {
+	repeated DialogueRecord dialogue_arr = 1;
 }

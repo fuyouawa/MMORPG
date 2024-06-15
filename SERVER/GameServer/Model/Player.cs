@@ -41,7 +41,7 @@ namespace GameServer.Model
             Level = _dbCharacter.Level;
             Exp = _dbCharacter.Exp;
             Gold = _dbCharacter.Gold;
-            Knapsack.LoadInventoryInfoData(_dbCharacter.Knapsack);
+            Knapsack.LoadInventoryInfo(_dbCharacter.Knapsack);
         }
 
         public override void Update()

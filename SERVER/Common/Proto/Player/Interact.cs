@@ -24,22 +24,24 @@ namespace MMORPG.Common.Proto.Player {
     static InteractReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChVQbGF5ZXIvSW50ZXJhY3QucHJvdG8SE0NvbW1vbi5Qcm90by5QbGF5ZXIa",
-            "E0Jhc2UvTmV0RXJyb3IucHJvdG8iJAoPSW50ZXJhY3RSZXF1ZXN0EhEKCWVu",
-            "dGl0eV9pZBgBIAEoBSJmChBJbnRlcmFjdFJlc3BvbnNlEioKBWVycm9yGAEg",
-            "ASgOMhsuQ29tbW9uLlByb3RvLkJhc2UuTmV0RXJyb3ISEQoJZW50aXR5X2lk",
-            "GAIgASgFEhMKC2RpYWxvZ3VlX2lkGAMgASgFYgZwcm90bzM="));
+            "ChVQbGF5ZXIvSW50ZXJhY3QucHJvdG8SGk1NT1JQRy5Db21tb24uUHJvdG8u",
+            "UGxheWVyGhNCYXNlL05ldEVycm9yLnByb3RvIiQKD0ludGVyYWN0UmVxdWVz",
+            "dBIRCgllbnRpdHlfaWQYASABKAUibQoQSW50ZXJhY3RSZXNwb25zZRIxCgVl",
+            "cnJvchgBIAEoDjIiLk1NT1JQRy5Db21tb24uUHJvdG8uQmFzZS5OZXRFcnJv",
+            "chIRCgllbnRpdHlfaWQYAiABKAUSEwoLZGlhbG9ndWVfaWQYAyABKAViBnBy",
+            "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Base.NetErrorReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.InteractRequest), global::Common.Proto.Player.InteractRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Common.Proto.Player.InteractResponse), global::Common.Proto.Player.InteractResponse.Parser, new[]{ "Error", "EntityId", "DialogueId" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Player.InteractRequest), global::MMORPG.Common.Proto.Player.InteractRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Player.InteractResponse), global::MMORPG.Common.Proto.Player.InteractResponse.Parser, new[]{ "Error", "EntityId", "DialogueId" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class InteractRequest : pb::IMessage<InteractRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -229,6 +231,7 @@ namespace MMORPG.Common.Proto.Player {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class InteractResponse : pb::IMessage<InteractResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
