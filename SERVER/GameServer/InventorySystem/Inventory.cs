@@ -50,6 +50,7 @@ namespace GameServer.InventorySystem
                 _inventoryInfo = new();
                 _inventoryInfo.Capacity = Capacity;
                 _inventoryInfo.Items.AddRange(Items.Where(x => x != null).Select(x => x.GetItemInfo()));
+                _hasChange = false;
             }
             return _inventoryInfo;
         }

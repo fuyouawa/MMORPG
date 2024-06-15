@@ -85,6 +85,7 @@ namespace GameServer
             CharacterService.Instance.OnConnect(sender);
             MapService.Instance.OnConnect(sender);
             PlayerService.Instance.OnConnect(sender);
+            NpcService.Instance.OnConnect(sender);
         }
 
         private void OnConnectionClosed(object? sender, ConnectionClosedEventArgs e)
@@ -100,6 +101,7 @@ namespace GameServer
             CharacterService.Instance.OnChannelClosed(channel);
             MapService.Instance.OnChannelClosed(channel);
             PlayerService.Instance.OnChannelClosed(channel);
+            NpcService.Instance.OnChannelClosed(channel);
             lock (_channels)
             {
                 if (channel.LinkedListNode != null)
@@ -122,6 +124,7 @@ namespace GameServer
             PlayerService.Instance.HandleMessage(channel, e.Packet.Message);
             FightService.Instance.HandleMessage(channel, e.Packet.Message);
             InventoryService.Instance.HandleMessage(channel, e.Packet.Message);
+            NpcService.Instance.HandleMessage(channel, e.Packet.Message);
         }
     }
 }

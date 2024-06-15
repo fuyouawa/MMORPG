@@ -22,3 +22,5 @@ for /r %JSON_FOLDER% %%i in (*.json) do (
     @COPY "%%i" "%DEST_FOLDER_1%\%%~nxi"
     @COPY "%%i" "%DEST_FOLDER_2%\%%~nxi"
 )
+
+pause
