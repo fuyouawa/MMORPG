@@ -114,6 +114,7 @@ namespace GameServer.FightSystem
             _time = 0;
             CurrentStage = Stage.Intonate;
             _castTarget = castTarget;
+            Actor.Spell.CurrentRunSkill = this;
             return CastResult.Success;
         }
 
@@ -146,6 +147,9 @@ namespace GameServer.FightSystem
             }
         }
 
+        /// <summary>
+        /// 技能每帧运行
+        /// </summary>
         private void OnRun()
         {
             if (_hitDelayIndex < _hitDelay.Length)
