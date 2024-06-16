@@ -123,10 +123,12 @@ namespace GameServer.FightSystem
             _time -= Define.IntonateTime;
 
             Log.Debug("[Skill.OnActive]");
-            if (Define.IsMissile)
+            if (Define.MissileUnitId != 0)
             {
-                var missile = Actor.Map.MissileManager.NewMissile(Define.UnitID, 
-                    Actor.Position, Actor.Direction, Define.MissileSpeed, _castTarget,
+                var missileUnitDefine = DataHelper.GetUnitDefine(Define.MissileUnitId);
+
+                var missile = Actor.Map.MissileManager.NewMissile(Define.MissileUnitId, 
+                    Actor.Position, Actor.Direction, missileUnitDefine.Speed, _castTarget,
                     entity =>
                     {
                         Log.Information("Missile命中");
