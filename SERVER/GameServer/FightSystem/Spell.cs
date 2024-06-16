@@ -104,7 +104,6 @@ namespace GameServer.FightSystem
             {
                 return;
             }
-            CurrentRunSkill = skill;
             skill.Cast(target);
             skill.Actor.Map.PlayerManager.Broadcast(new SpellResponse() { Info = info }, skill.Actor);
         }
