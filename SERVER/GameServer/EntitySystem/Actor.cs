@@ -25,7 +25,8 @@ namespace GameServer.EntitySystem
         public Spell Spell { get; protected set; }
 
         public Actor(EntityType entityType, int entityId, int unitId,
-            Map map, string name) : base(entityType, entityId, unitId, map)
+            Map map, Vector3 pos, Vector3 dire, string name) 
+            : base(entityType, entityId, unitId, map, pos, dire)
         {
             Name = name;
             AttributeManager = new(this);

@@ -18,10 +18,10 @@ namespace GameServer.NpcSystem
         public NpcDefine NpcDefine;
         public Vector3 InitPos;
 
-        public Npc(int entityId, int unitId,
-            Map map, string name, Vector3 initPos) : base(EntityType.Npc, entityId, unitId, map, name)
+        public Npc(int entityId, int unitId, Map map, string name, Vector3 pos, Vector3 dire) 
+            : base(EntityType.Npc, entityId, unitId, map, pos, dire, name)
         {
-            InitPos = initPos;
+            InitPos = pos;
         }
 
         public override void Start()

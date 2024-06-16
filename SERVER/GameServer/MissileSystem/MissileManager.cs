@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameServer.MapSystem;
 using GameServer.EntitySystem;
+using GameServer.FightSystem;
 
 namespace GameServer.MissileSystem
 {
@@ -33,9 +34,9 @@ namespace GameServer.MissileSystem
             }
         }
 
-        public Missile NewMissile(int unitId, Vector3 pos, Vector3 dire)
+        public Missile NewMissile(int unitId, Vector3 pos, Vector3 dire, float speed, CastTarget castTarget, Action<Entity> hitCallback)
         {
-            var missile = new Missile(EntityManager.Instance.NewEntityId(), unitId, _map, pos, dire);
+            var missile = new Missile(EntityManager.Instance.NewEntityId(), unitId, _map, pos, dire, speed, castTarget, hitCallback);
             EntityManager.Instance.AddEntity(missile);
 
             lock (_missileDict)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using MMORPG.Common.Proto.Entity;
@@ -31,8 +32,8 @@ namespace GameServer.PlayerSystem
         private DbCharacter _dbCharacter;
 
         public Player(int entityId, DbCharacter dbCharacter,
-            Map map, User user)
-            : base(EntityType.Player, entityId, dbCharacter.UnitId, map, dbCharacter.Name)
+            Map map, Vector3 pos, Vector3 dire, User user)
+            : base(EntityType.Player, entityId, dbCharacter.UnitId, map, pos, dire, dbCharacter.Name)
         {
             User = user;
             CharacterId = dbCharacter.Id;
