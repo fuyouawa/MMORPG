@@ -51,16 +51,16 @@ namespace MMORPG.Tool
             if (value.Feedback != null && value.Feedback.IsPlaying)
             {
                 var playTime = Time.time - value.Feedback.TimeSincePlay;
-                if (value.Feedback.TotalDuartion != 0)
+                if (value.Feedback.TotalDuration != 0)
                 {
-                    progressBarWidthRadio = Mathf.Clamp01(playTime / value.Feedback.TotalDuartion);
+                    progressBarWidthRadio = Mathf.Clamp01(playTime / value.Feedback.TotalDuration);
                     if (playTime < value.Feedback.DelayBeforePlay)
                     {
-                        delayBeforePlayProgressBarWidthRadio = Mathf.Clamp01(playTime / value.Feedback.TotalDuartion);
+                        delayBeforePlayProgressBarWidthRadio = Mathf.Clamp01(playTime / value.Feedback.TotalDuration);
                     }
                     else
                     {
-                        delayBeforePlayProgressBarWidthRadio = Mathf.Clamp01(value.Feedback.DelayBeforePlay / value.Feedback.TotalDuartion);
+                        delayBeforePlayProgressBarWidthRadio = Mathf.Clamp01(value.Feedback.DelayBeforePlay / value.Feedback.TotalDuration);
                     }
                 }
             }
@@ -118,6 +118,7 @@ namespace MMORPG.Tool
             var value = ValueEntry.SmartValue;
             if (value.Feedback == null || string.IsNullOrEmpty(value.Label))
                 return "TODO";
+
             var duration = value.Feedback.GetDuration();
 
             var timeDisplay = $"{value.Feedback.DelayBeforePlay:0.00}s + {duration:0.00}s";

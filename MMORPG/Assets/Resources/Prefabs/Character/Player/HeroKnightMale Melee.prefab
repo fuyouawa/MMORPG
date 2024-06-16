@@ -266,6 +266,7 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 1
         DelayBetweenLoop: 0
+        StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 3bf2bd23e8e6377469c5e1819ce811d7, type: 3}
         RandomSfx: []
         PlayMethod: 0
@@ -1264,14 +1265,16 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 0
         DelayBetweenLoop: 1
+        StopAfterDuration: 1
         Mode: 0
         EmitCount: 100
         BoundParticleSystem: {fileID: 577554417208013955}
+        WithChildrenParticles: 1
         RandomParticleSystems: []
         MoveToPosition: 0
         ActivateOnPlay: 0
         StopSystemOnInit: 1
-        DeclaredDuration: 0
+        DeclaredDuration: 1
         ForceSimulationSpeed: 0
         ForcedSimulationSpeed: {x: 0.1, y: 1}
     - rid: 4065860118820946126
@@ -1282,6 +1285,7 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 0
         DelayBetweenLoop: 1
+        StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 062188451defe3c458b62a3ab0331a23, type: 3}
         RandomSfx: []
         PlayMethod: 0
@@ -1336,6 +1340,7 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 1
         DelayBetweenLoop: 0
+        StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 5a404e2c2c9c7d24fb99e804cee9e225, type: 3}
         RandomSfx: []
         PlayMethod: 0
@@ -1390,6 +1395,7 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 1
         DelayBetweenLoop: 0
+        StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 1093955749ad75c4fa3c96852de35950, type: 3}
         RandomSfx: []
         PlayMethod: 0
@@ -1707,14 +1713,16 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 0
         DelayBetweenLoop: 1
+        StopAfterDuration: 1
         Mode: 0
         EmitCount: 100
         BoundParticleSystem: {fileID: 4001422608307146188}
+        WithChildrenParticles: 1
         RandomParticleSystems: []
         MoveToPosition: 0
         ActivateOnPlay: 0
         StopSystemOnInit: 1
-        DeclaredDuration: 0
+        DeclaredDuration: 1
         ForceSimulationSpeed: 0
         ForcedSimulationSpeed: {x: 0.1, y: 1}
     - rid: 4065860118820946126
@@ -1725,6 +1733,7 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 0
         DelayBetweenLoop: 1
+        StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: dc56d9c72d9d82f40a141b840566aa0e, type: 3}
         RandomSfx: []
         PlayMethod: 0
@@ -1779,6 +1788,7 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 1
         DelayBetweenLoop: 0
+        StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 1d5d9076e7205884ca28651ecb36655a, type: 3}
         RandomSfx: []
         PlayMethod: 0
@@ -2886,14 +2896,16 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 0
         DelayBetweenLoop: 1
+        StopAfterDuration: 1
         Mode: 0
         EmitCount: 100
         BoundParticleSystem: {fileID: 8185319023047520426}
+        WithChildrenParticles: 1
         RandomParticleSystems: []
         MoveToPosition: 0
         ActivateOnPlay: 0
         StopSystemOnInit: 1
-        DeclaredDuration: 0
+        DeclaredDuration: 1
         ForceSimulationSpeed: 0
         ForcedSimulationSpeed: {x: 0.1, y: 1}
     - rid: 4065860118820946126
@@ -2904,6 +2916,7 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 0
         DelayBetweenLoop: 1
+        StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: f603b0af489e86f46a274f31c0b33670, type: 3}
         RandomSfx: []
         PlayMethod: 0
@@ -2958,6 +2971,7 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 1
         DelayBetweenLoop: 0
+        StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: e6cc7f4972c93ca458cd877837907ebb, type: 3}
         RandomSfx: []
         PlayMethod: 0
@@ -3067,6 +3081,7 @@ Transform:
   m_Children:
   - {fileID: 7613137379963330861}
   - {fileID: 2527519329361834363}
+  - {fileID: 5521935494419821428}
   m_Father: {fileID: 7769071227652432348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5998376625087310077
@@ -3104,6 +3119,16 @@ MonoBehaviour:
     Label: "\u5730\u9762\u7206\u70B8\u7279\u6548"
     Feedback:
       rid: 4065860118820946125
+  - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
+    Enable: 1
+    Label: "\u51B2\u51FB\u6CE2\u7279\u6548"
+    Feedback:
+      rid: 4065860224451084418
+  - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
+    Enable: 1
+    Label: "\u6B66\u5668\u4E0B\u5288\u7279\u6548"
+    Feedback:
+      rid: 4065860201052897358
   - FeedbackName: MMORPG.Tool.FeedbackSound
     Enable: 1
     Label: "\u5730\u9762\u7206\u70B8\u97F3\u6548"
@@ -3114,11 +3139,6 @@ MonoBehaviour:
     Label: "\u4EBA\u7269\u8DF3\u8DC3\u97F3\u6548"
     Feedback:
       rid: 4065860178002051075
-  - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
-    Enable: 1
-    Label: "\u6B66\u5668\u4E0B\u5288\u7279\u6548"
-    Feedback:
-      rid: 4065860201052897358
   - FeedbackName: MMORPG.Tool.FeedbackSound
     Enable: 1
     Label: "\u6B66\u5668\u4E0B\u5288\u97F3\u6548"
@@ -3135,14 +3155,16 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 0
         DelayBetweenLoop: 1
+        StopAfterDuration: 1
         Mode: 0
         EmitCount: 100
         BoundParticleSystem: {fileID: 7739890039010834593}
+        WithChildrenParticles: 1
         RandomParticleSystems: []
         MoveToPosition: 0
         ActivateOnPlay: 0
         StopSystemOnInit: 1
-        DeclaredDuration: 0
+        DeclaredDuration: 1
         ForceSimulationSpeed: 0
         ForcedSimulationSpeed: {x: 0.1, y: 1}
     - rid: 4065860118820946126
@@ -3153,6 +3175,7 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 0
         DelayBetweenLoop: 1
+        StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 378266c2edd31774390ec87c5ab1fc42, type: 3}
         RandomSfx: []
         PlayMethod: 0
@@ -3207,6 +3230,7 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 1
         DelayBetweenLoop: 0
+        StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 7c8dae806993510439fdd78d46740b2b, type: 3}
         RandomSfx: []
         PlayMethod: 0
@@ -3261,14 +3285,16 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 1
         DelayBetweenLoop: 0
+        StopAfterDuration: 1
         Mode: 0
         EmitCount: 100
         BoundParticleSystem: {fileID: 2432969103350720465}
+        WithChildrenParticles: 1
         RandomParticleSystems: []
         MoveToPosition: 0
         ActivateOnPlay: 0
         StopSystemOnInit: 1
-        DeclaredDuration: 0
+        DeclaredDuration: 1
         ForceSimulationSpeed: 0
         ForcedSimulationSpeed: {x: 0.1, y: 1}
     - rid: 4065860201052897361
@@ -3279,6 +3305,7 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 1
         DelayBetweenLoop: 0
+        StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 02bc0cdf61e383f4eaea13732f2b63b9, type: 3}
         RandomSfx: []
         PlayMethod: 0
@@ -3325,6 +3352,26 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+    - rid: 4065860224451084418
+      type: {class: FeedbackParticlePlay, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0.7
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        StopAfterDuration: 1
+        Mode: 0
+        EmitCount: 100
+        BoundParticleSystem: {fileID: 3457889997340143668}
+        WithChildrenParticles: 1
+        RandomParticleSystems: []
+        MoveToPosition: 0
+        ActivateOnPlay: 0
+        StopSystemOnInit: 1
+        DeclaredDuration: 5
+        ForceSimulationSpeed: 0
+        ForcedSimulationSpeed: {x: 0.1, y: 1}
 --- !u!1 &4623857883831697367
 GameObject:
   m_ObjectHideFlags: 0
@@ -4140,6 +4187,7 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 1
         DelayBetweenLoop: 0
+        StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 938d32378af68c2458b125d48761421a, type: 3}
         RandomSfx: []
         PlayMethod: 0
@@ -5620,7 +5668,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4251436283269968, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 4251436283269968, guid: fbab27c98b168764eb295cfff1e9f61f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5927,4 +5975,203 @@ ParticleSystem:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4144931221060082, guid: 3e914ef784028124db1daf7002a87cc8, type: 3}
   m_PrefabInstance: {fileID: 8311397847560371172}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8349825345952447883
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1712767895664871669}
+    m_Modifications:
+    - target: {fileID: 320155039, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 464033477, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 780073231, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1073929859, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1159972397, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1376815663, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1662685562, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1724619200, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 130925108264175193, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 255830954324228645, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011316262696582752, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354181808396104346, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602345048468338198, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660894083502647752, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3068774043386041282, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3998753665815709971, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558015535120371455, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558015535120371455, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558015535120371455, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558015535120371455, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558015535120371455, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558015535120371455, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558015535120371455, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558015535120371455, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558015535120371455, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558015535120371455, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558015535120371455, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558015535120371455, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558015535120371455, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558015535120371455, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4688856790467685726, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649281354867769121, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860489778653668079, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462891507176358187, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536880731682014738, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581819978879567992, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_Name
+      value: vfx_StylizedExplosion_v1_M
+      objectReference: {fileID: 0}
+    - target: {fileID: 6637300108752424383, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6702913301806917832, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6781266716693443285, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6953367695934807001, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7337044645465048264, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7349114928492065759, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8423405394632624046, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470825584364760044, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+--- !u!198 &3457889997340143668 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6637300108752424383, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+  m_PrefabInstance: {fileID: 8349825345952447883}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5521935494419821428 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4558015535120371455, guid: f32c52b21351a7d4e86f68f722682e2d, type: 3}
+  m_PrefabInstance: {fileID: 8349825345952447883}
   m_PrefabAsset: {fileID: 0}
