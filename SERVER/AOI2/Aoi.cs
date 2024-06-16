@@ -269,10 +269,12 @@ namespace Aoi
                 ZonePointToZoneKey(curZonePoint.X, curZonePoint.Y, out var curZoneKey);
                 ScanZoneEntitysAndExclude(aoiEntity.EntityId, curZoneKey, callback);
             }
+
             foreach (var pendingZoneKey in aoiEntity.PendingZoneKeySet)
             {
                 ScanZoneEntitysAndExclude(aoiEntity.EntityId, pendingZoneKey, callback);
             }
+            
             //foreach (var following in aoiEntity.SpecialFollowingSet)
             //{
             //    // 如果在关注区域内，说明已经添加过了，跳过
@@ -283,6 +285,21 @@ namespace Aoi
             //    }
             //}
         }
+
+        /// <summary>
+        /// 获取我关注的实体列表并按半径过滤
+        /// </summary>
+        /// <param name="aoiEntity"></param>
+        /// <returns></returns>
+        public void ScanFollowingList(AoiEntity aoiEntity, float range, Action<int> callback)
+        {
+            // 如果直径小于等于格子的长度，只需要获取最近的四个格子
+            if (range <= _zoneSize)
+            {
+
+            }
+        }
+
 
         /// <summary>
         /// 获取关注我的实体列表

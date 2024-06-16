@@ -36,7 +36,7 @@ namespace GameServer.AiSystem
         public MonsterAbilityManager(Monster monster)
         {
             Monster = monster;
-            MoveAbility = new(monster, Monster.InitPos.Y);
+            MoveAbility = new(monster, Monster.InitPos.Y, monster.Speed);
             IdleAbility = new();
         }
 
@@ -92,8 +92,6 @@ namespace GameServer.AiSystem
         }
 
         
-
-
         private void ChangeSyncState(ActorState state)
         {
             if (SyncState == state) return;
@@ -115,7 +113,6 @@ namespace GameServer.AiSystem
 
     public class MonsterAi : AiBase
     {
-        // 行为状态机
         public FSM<MonsterAiState> Fsm = new();
         public MonsterAbilityManager AbilityManager;
 

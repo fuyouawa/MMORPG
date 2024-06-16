@@ -6,16 +6,19 @@ namespace GameServer.AiSystem.Ability
 {
     public class MoveAbility : Ability
     {
-        public Actor Actor;
         private Vector3 _moveTargetPos;
         private float FixedY;
+
+        public Entity Entity;
+        public float Speed;
         public bool Moving { get; private set; }
 
-        public MoveAbility(Actor actor, float fixedY)
+        public MoveAbility(Entity entity, float fixedY, float speed)
         {
-            Actor = actor;
+            Entity = entity;
             FixedY = fixedY;
             Moving = false;
+            Speed = speed;
         }
 
         public override void Start()
@@ -25,24 +28,24 @@ namespace GameServer.AiSystem.Ability
 
         public override void Update()
         {
-            if (_moveTargetPos == Actor.Position) Moving = false;
+            if (_moveTargetPos == Entity.Position) Moving = false;
             if (!Moving) return;
 
-            var direction = (_moveTargetPos - Actor.Position).Normalized();
-            Actor.Direction = direction.ToEulerAngles() * new Vector3(0, 1, 0);
-            float distance = Actor.Speed * Time.DeltaTime;
+            var direction = (_moveTargetPos - Entity.Position).Normalized();
+            Entity.Direction = direction.ToEulerAngles() * new Vector3(0, 1, 0);
+            float distance = Speed * Time.DeltaTime;
 
-            if (Vector3.Distance(_moveTargetPos, Actor.Position) <= distance)
+            if (Vector3.Distance(_moveTargetPos, Entity.Position) <= distance)
             {
                 // 本次移动能到达目的地
-                Actor.Position = _moveTargetPos;
+                Entity.Position = _moveTargetPos;
             }
             else
             {
                 // 向这个方向移动指定距离
-                Actor.Position += distance * direction;
+                Entity.Position += distance * direction;
             }
-            Actor.Map.EntityRefreshPosition(Actor);
+            Entity.Map.EntityRefreshPosition(Entity);
         }
 
         public void Move(Vector3 targetPos)
@@ -51,7 +54,5 @@ namespace GameServer.AiSystem.Ability
             _moveTargetPos = targetPos;
             _moveTargetPos.Y = FixedY;
         }
-
-
     }
 }

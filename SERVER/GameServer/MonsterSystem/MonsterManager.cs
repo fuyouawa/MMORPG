@@ -41,11 +41,7 @@ namespace GameServer.MonsterSystem
 
         public Monster NewMonster(int unitId, Vector3 pos, Vector3 dire, string name)
         {
-            var monster = new Monster(EntityManager.Instance.NewEntityId(), unitId, _map, name, pos)
-            {
-                Position = pos,
-                Direction = dire,
-            };
+            var monster = new Monster(EntityManager.Instance.NewEntityId(), unitId, _map, name, pos, dire);
             EntityManager.Instance.AddEntity(monster);
 
             lock (_monsterDict)

@@ -121,11 +121,16 @@ namespace GameServer.FightSystem
 
             // 技能激活
             _time -= Define.IntonateTime;
-            
+
             Log.Debug("[Skill.OnActive]");
             if (Define.IsMissile)
             {
-                var missile = Actor.Map.MissileManager.NewMissile(Define.UnitID, Vector3.Zero, Vector3.Zero);
+                var missile = Actor.Map.MissileManager.NewMissile(Define.UnitID, 
+                    Actor.Position, Actor.Direction, Define.MissileSpeed, _castTarget,
+                    entity =>
+                    {
+                        Log.Information("Missile命中");
+                    });
             }
             else
             {
@@ -162,16 +167,14 @@ namespace GameServer.FightSystem
             }
             else
             {
-                var list = Actor.Map.GetEntityFollowingList(Actor, e =>
+                Actor.Map.ScanEntityFollowing(Actor, e =>
                 {
                     float distance = Vector3.Distance(castTarget.Position, e.Position);
-                    return distance <= Define.Area;
-                });
-                foreach (var entity in list)
-                {
-                    if (entity is Actor target)
+                    if (distance > Define.Area) return;
+                    
+                    if (e is Actor target)
                         CauseDamage(target);
-                }
+                });
             }
         }
 
