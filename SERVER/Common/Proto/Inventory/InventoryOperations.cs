@@ -48,7 +48,6 @@ namespace MMORPG.Common.Proto.Inventory {
   /// <summary>
   ///拾取物品的请求
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class PickupItemRequest : pb::IMessage<PickupItemRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -244,7 +243,6 @@ namespace MMORPG.Common.Proto.Inventory {
   /// <summary>
   ///物品放置请求
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class PlacementItemRequest : pb::IMessage<PlacementItemRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -517,7 +515,6 @@ namespace MMORPG.Common.Proto.Inventory {
   /// <summary>
   ///丢弃的物品的请求
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class DiscardItemRequest : pb::IMessage<DiscardItemRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -790,7 +787,6 @@ namespace MMORPG.Common.Proto.Inventory {
   /// <summary>
   ///使用物品的请求
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UseItemRequest : pb::IMessage<UseItemRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage

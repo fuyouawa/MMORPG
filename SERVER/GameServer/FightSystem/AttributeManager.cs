@@ -1,4 +1,5 @@
 ﻿using GameServer.EntitySystem;
+using GameServer.Manager;
 using GameServer.Tool;
 
 namespace GameServer.FightSystem
@@ -18,7 +19,7 @@ namespace GameServer.FightSystem
 
         public void Start()
         {
-            var define = DataHelper.GetUnitDefine(Actor.UnitId);
+            var define = DataManager.Instance.UnitDict[Actor.UnitId];
             var level = Actor.Level;
             var initial = new AttributeData()
             {

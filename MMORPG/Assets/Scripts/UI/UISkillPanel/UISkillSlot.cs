@@ -21,7 +21,8 @@ namespace MMORPG.UI
         public Skill Skill { get; private set; }
 
         private INetworkSystem _network;
-        private bool _requestingSpell;
+
+        public UISkillPanel SkillPanel => Inventory as UISkillPanel;
         
 
         private void Awake()
@@ -69,11 +70,15 @@ namespace MMORPG.UI
 
         public async void Spell()
         {
-            if (_requestingSpell) return;
+            if (SkillPanel.HasSkillRequestingSpell) return;
+            if (Skill.CurrentState != Skill.States.Idle) return;
 
             var skillManager = Skill.SkillManager;
 
-            _requestingSpell = true;
+            if (skillManager.CurrentSpellingSkill != null)
+                return;
+
+            SkillPanel.HasSkillRequestingSpell = true;
             _network.SendToServer(new SpellRequest()
             {
                 Info = new()
@@ -93,7 +98,7 @@ namespace MMORPG.UI
             {
                 Log.Error($"技能释放请求失败! 原因:{response.Reason}");
             }
-            _requestingSpell = false;
+            SkillPanel.HasSkillRequestingSpell = false;
         }
 
         public IArchitecture GetArchitecture()

@@ -33,12 +33,12 @@ namespace MMORPG.Common.Proto.Fight {
             "bnNlEhAKCHNraWxsX2lkGAEgASgFEhEKCWNhc3Rlcl9pZBgCIAEoBRI1CgZy",
             "ZWFzb24YAyABKA4yJS5NTU9SUEcuQ29tbW9uLlByb3RvLkZpZ2h0LkNhc3RS",
             "ZXN1bHQiQgoNU3BlbGxSZXNwb25zZRIxCgRpbmZvGAEgASgLMiMuTU1PUlBH",
-            "LkNvbW1vbi5Qcm90by5GaWdodC5DYXN0SW5mbyrLAQoKQ2FzdFJlc3VsdBIL",
+            "LkNvbW1vbi5Qcm90by5GaWdodC5DYXN0SW5mbyrKAQoKQ2FzdFJlc3VsdBIL",
             "CgdTVUNDRVNTEAASDAoITk9UX0NBU1QQARISCg5UQVJHRVRfSU5WQUlMRBAC",
             "Eg8KC0VOVElUWV9ERUFEEAMSEAoMT1VUX09GX1JBTkdFEAQSCwoHTVBfTEFD",
-            "SxAFEgsKB1JVTk5JTkcQBhIMCghDT0xMRE9XThAHEhQKEElOVkFMSURfU0tJ",
-            "TExfSUQQCBIUChBVTk1BVENIRURfQ0FTVEVSEAkSFwoTSU5WQUxJRF9DQVNU",
-            "X1RBUkdFVBAKYgZwcm90bzM="));
+            "SxAFEgsKB1JVTk5JTkcQBhILCgdDT09MSU5HEAcSFAoQSU5WQUxJRF9TS0lM",
+            "TF9JRBAIEhQKEFVOTUFUQ0hFRF9DQVNURVIQCRIXChNJTlZBTElEX0NBU1Rf",
+            "VEFSR0VUEApiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Fight.NetCastTargetReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Fight.CastResult), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -84,7 +84,7 @@ namespace MMORPG.Common.Proto.Fight {
     /// <summary>
     /// 冷却中
     /// </summary>
-    [pbr::OriginalName("COLLDOWN")] Colldown = 7,
+    [pbr::OriginalName("COOLING")] Cooling = 7,
     /// <summary>
     /// 无效的SkillId
     /// </summary>
@@ -102,7 +102,6 @@ namespace MMORPG.Common.Proto.Fight {
   #endregion
 
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CastInfo : pb::IMessage<CastInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -375,7 +374,6 @@ namespace MMORPG.Common.Proto.Fight {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SpellRequest : pb::IMessage<SpellRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -577,7 +575,6 @@ namespace MMORPG.Common.Proto.Fight {
   /// <summary>
   ///技能施放错误（只有施法玩家才会收到）
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SpellFailResponse : pb::IMessage<SpellFailResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -844,7 +841,6 @@ namespace MMORPG.Common.Proto.Fight {
   /// <summary>
   ///通知客户端执行技能
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SpellResponse : pb::IMessage<SpellResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage

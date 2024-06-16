@@ -13,6 +13,8 @@ namespace MMORPG.UI
 
         public CharacterSkillManager SkillManager { get; private set; }
 
+        public bool HasSkillRequestingSpell { get; set; }
+
         public override RectTransform GroupSlots => SlotsGroup;
         protected override string SlotAssetName => "UISkillSlot";
 

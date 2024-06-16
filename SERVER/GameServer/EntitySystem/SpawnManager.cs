@@ -12,6 +12,7 @@ using System.Reflection.Metadata;
 using System.Data;
 using GameServer.MapSystem;
 using GameServer.Manager;
+using MMORPG.Common.Tool;
 
 namespace GameServer.EntitySystem
 {
@@ -35,10 +36,10 @@ namespace GameServer.EntitySystem
 
         public void Start()
         {
-            var pos = ParseVector3(SpawnDefine.Pos);
-            var dire = ParseVector3(SpawnDefine.Dir);
+            var pos = DataHelper.ParseVector3(SpawnDefine.Pos);
+            var dire = DataHelper.ParseVector3(SpawnDefine.Dir);
 
-            var unitDefine = DataHelper.GetUnitDefine(SpawnDefine.UnitID);
+            var unitDefine = DataManager.Instance.UnitDict[SpawnDefine.UnitID];
             if (unitDefine.Kind == "Monster")
             {
                 Actor = SpawnManager.Map.MonsterManager.NewMonster(SpawnDefine.UnitID, pos, dire, unitDefine.Name);
@@ -62,12 +63,6 @@ namespace GameServer.EntitySystem
                 Actor.Revive();
                 _reviving = false;
             }
-        }
-
-        private Vector3 ParseVector3(string str)
-        {
-            var pointArr = DataHelper.ParseJson<float[]>(str);
-            return new Vector3(pointArr[0], pointArr[1], pointArr[2]);
         }
     }
 

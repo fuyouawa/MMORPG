@@ -28,7 +28,7 @@ namespace GameServer.NpcSystem
         {
             base.Start();
 
-            var unitDefine = DataHelper.GetUnitDefine(UnitId);
+            var unitDefine = DataManager.Instance.UnitDict[UnitId];
             Speed = unitDefine.Speed;
             Hp = AttributeManager.Final.MaxHp;
             Mp = AttributeManager.Final.MaxMp;

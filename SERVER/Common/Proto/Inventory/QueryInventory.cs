@@ -49,7 +49,6 @@ namespace MMORPG.Common.Proto.Inventory {
   /// <summary>
   ///查询背包信息
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class InventoryQueryRequest : pb::IMessage<InventoryQueryRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -362,7 +361,6 @@ namespace MMORPG.Common.Proto.Inventory {
   /// <summary>
   ///角色的背包信息
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class InventoryQueryResponse : pb::IMessage<InventoryQueryResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
