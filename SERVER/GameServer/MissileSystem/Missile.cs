@@ -24,7 +24,8 @@ namespace GameServer.MissileSystem
         private CastTarget _castTarget;
         private Action<Entity> _hitCallback;
 
-        public Missile(int entityId, int unitId, Map map, Vector3 pos, Vector3 dire, float speed, CastTarget castTarget, Action<Entity> hitCallback) 
+        public Missile(int entityId, int unitId, Map map, Vector3 pos, Vector3 dire, 
+            float speed, CastTarget castTarget, Action<Entity> hitCallback) 
             : base(EntityType.Missile, entityId, unitId, map, pos, dire)
         {
             EntityType = EntityType.Missile;

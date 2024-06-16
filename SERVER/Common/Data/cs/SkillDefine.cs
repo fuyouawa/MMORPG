@@ -25,9 +25,7 @@ public class SkillDefine
 	public string Anim1; // 前摇动作
 	public string Anim2; // 激活动作
 	public int ReqLevel; // 等级要求
-	public bool IsMissile; // 是否投射物
-	public string Missile; // 投射物
-	public int MissileSpeed; // 投射速度
+	public int MissileUnitId; // 投射物UnitId
 	public string HitArt; // 击中效果
 	public float Area; // 影响区域
 	public string AreaOffset; // 区域偏移
