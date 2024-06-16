@@ -25,22 +25,22 @@ namespace MMORPG.Game
         private Dictionary<int, SkillDefine> _skillDict;
         private Dictionary<int, DialogueDefine> _dialogueDict;
 
-        private T Load<T>(string jsonPath)
+        private Dictionary<int, T> Load<T>(string jsonPath)
         {
-            TextAsset jsonText = Resources.Load(jsonPath) as TextAsset;
+            var jsonText = Resources.Load(jsonPath) as TextAsset;
             Debug.Assert(jsonText != null);
-            var obj = JsonConvert.DeserializeObject<T>(jsonText.text);
+            var obj = JsonConvert.DeserializeObject<Dictionary<int, T>>(jsonText.text);
             Debug.Assert(obj != null);
             return obj;
         }
 
         protected override void OnInit()
         {
-            _mapDict = Load<Dictionary<int, MapDefine>>("Json/MapDefine");
-            _unitDict = Load<Dictionary<int, UnitDefine>>("Json/UnitDefine");
-            _itemDict = Load<Dictionary<int, ItemDefine>>("Json/ItemDefine");
-            _skillDict = Load<Dictionary<int, SkillDefine>>("Json/SkillDefine");
-            _dialogueDict = Load<Dictionary<int, DialogueDefine>>("Json/DialogueDefine");
+            _mapDict = Load<MapDefine>("Json/MapDefine");
+            _unitDict = Load<UnitDefine>("Json/UnitDefine");
+            _itemDict = Load<ItemDefine>("Json/ItemDefine");
+            _skillDict = Load<SkillDefine>("Json/SkillDefine");
+            _dialogueDict = Load<DialogueDefine>("Json/DialogueDefine");
         }
 
         protected override void OnDeinit()
