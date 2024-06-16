@@ -4547,6 +4547,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7769071227652432348}
   - component: {fileID: 910881223322486258}
+  - component: {fileID: 5273089092805231663}
   m_Layer: 7
   m_Name: SkillManager
   m_TagString: Untagged
@@ -4594,7 +4595,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  Effects:
+  _skillDamageAreaDebugger: {fileID: 5273089092805231663}
+  _skillFeedbacks:
   - SkillId: 1001
     SpellFeedbacks: {fileID: 2968081867133920796}
   - SkillId: 1002
@@ -4603,6 +4605,57 @@ MonoBehaviour:
     SpellFeedbacks: {fileID: 7175067491186424887}
   - SkillId: 1004
     SpellFeedbacks: {fileID: 5998376625087310077}
+--- !u!114 &5273089092805231663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7274507877616719517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d679e746a4a8824588c7c9379d7e849, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillDamageAreaConfigs:
+  - SkillId: 1001
+    SkillName: "\u6A2A\u5251\u51FB"
+    EditArea: 0
+    Target: {fileID: 2429740359941644855}
+    AreaOffset: {x: 0, y: 0, z: 1}
+    Area: 4.5
+    Duration: 0.4
+    HitDelays:
+    - 0.3
+  - SkillId: 1002
+    SkillName: "\u9F99\u7259\u731B\u51FB"
+    EditArea: 0
+    Target: {fileID: 2429740359941644855}
+    AreaOffset: {x: 0, y: 1.12, z: 2.45}
+    Area: 3
+    Duration: 0.3
+    HitDelays:
+    - 0.6
+  - SkillId: 1003
+    SkillName: "\u5251\u5203\u566C\u5FC3"
+    EditArea: 0
+    Target: {fileID: 2429740359941644855}
+    AreaOffset: {x: 0, y: 0, z: 0}
+    Area: 0
+    Duration: 1.5
+    HitDelays:
+    - 0.4
+    - 0.8
+    - 1.2
+  - SkillId: 1004
+    SkillName: "\u6C89\u5929\u9668\u51FB"
+    EditArea: 1
+    Target: {fileID: 2429740359941644855}
+    AreaOffset: {x: 0, y: 0, z: 1.5}
+    Area: 7
+    Duration: 1.5
+    HitDelays:
+    - 0.5
 --- !u!1 &7665732481079919491
 GameObject:
   m_ObjectHideFlags: 0
@@ -5421,6 +5474,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 884816792351515745}
     m_Modifications:
+    - target: {fileID: 5783487842597955938, guid: 77c8b4c2d7a1b3cdcba9aa5486de39e9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5783487842597955939, guid: 77c8b4c2d7a1b3cdcba9aa5486de39e9, type: 3}
       propertyPath: m_Name
       value: sword1-skin3
@@ -5481,7 +5538,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5783487842597955938, guid: 77c8b4c2d7a1b3cdcba9aa5486de39e9, type: 3}
+    - {fileID: 5783487842429549277, guid: 77c8b4c2d7a1b3cdcba9aa5486de39e9, type: 3}
+    - {fileID: 5783487840905672078, guid: 77c8b4c2d7a1b3cdcba9aa5486de39e9, type: 3}
+    - {fileID: 5783487841251250108, guid: 77c8b4c2d7a1b3cdcba9aa5486de39e9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5783487842597955943, guid: 77c8b4c2d7a1b3cdcba9aa5486de39e9, type: 3}

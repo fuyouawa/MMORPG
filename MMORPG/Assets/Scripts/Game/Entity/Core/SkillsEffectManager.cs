@@ -1,4 +1,4 @@
-﻿using System;
+using System;
  using System.Collections.Generic;
  using MMORPG.Tool;
  using Sirenix.OdinInspector;
@@ -9,21 +9,34 @@
     public class SkillsEffectManager : SerializedMonoBehaviour
     {
         [Serializable]
-        public struct SkillEffect
+        public struct SkillFeedback
         {
             public int SkillId;
             public FeedbacksManager SpellFeedbacks;
         }
 
-        public List<SkillEffect> Effects = new();
+#if UNITY_EDITOR
+        [SerializeField]
+        private SkillDamageAreaDebugger _skillDamageAreaDebugger;
+#endif
+
+        [SerializeField]
+        private List<SkillFeedback> _skillFeedbacks = new();
 
         public void TriggerEffect(int skillId)
         {
-            var effect = Effects.Find(x => x.SkillId == skillId);
-            if (effect.SpellFeedbacks != null)
+            var feedback = _skillFeedbacks.Find(x => x.SkillId == skillId);
+            if (feedback.SpellFeedbacks != null)
             {
-                effect.SpellFeedbacks.Play();
+                feedback.SpellFeedbacks.Play();
             }
+
+#if UNITY_EDITOR
+            if (_skillDamageAreaDebugger != null)
+            {
+                _skillDamageAreaDebugger.TestSkill(skillId);
+            }
+#endif
         }
     }
 }
