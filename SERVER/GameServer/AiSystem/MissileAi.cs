@@ -18,14 +18,15 @@ namespace GameServer.AiSystem
         public MoveAbility MoveAbility;
 
         private CastTarget _chasingTarget;
-        private float _attackRange = 1f;
+        private float _range;
         private Action<Entity> _hitCallback;
         public HashSet<int> _hitEntitySet;
         
-        public MissileAbilityManager(Missile missile, CastTarget chasingTarget, Action<Entity> hitCallback)
+        public MissileAbilityManager(Missile missile, float range, CastTarget chasingTarget, Action<Entity> hitCallback)
         {
             Missile = missile;
             MoveAbility = new(missile, missile.InitPos.Y, missile.Speed);
+            _range = range;
             _chasingTarget = chasingTarget;
             _hitCallback = hitCallback;
         }
@@ -44,7 +45,7 @@ namespace GameServer.AiSystem
             Missile.Map.ScanEntityFollower(Missile, entity =>
             {
                 var distance = Vector2.Distance(entity.Position.ToVector2(), Missile.Position.ToVector2());
-                if (distance > _attackRange) return;
+                if (distance > _range) return;
                 if (_hitEntitySet.Contains(entity.EntityId)) return;
                 _hitEntitySet.Add(entity.EntityId);
                 _hitCallback(entity);
@@ -66,9 +67,9 @@ namespace GameServer.AiSystem
     {
         public MissileAbilityManager AbilityManager;
 
-        public MissileAi(Missile missile, CastTarget chasingTarget, Action<Entity> hitCallback)
+        public MissileAi(Missile missile, float range, CastTarget chasingTarget, Action<Entity> hitCallback)
         {
-            AbilityManager = new MissileAbilityManager(missile, chasingTarget, hitCallback);
+            AbilityManager = new MissileAbilityManager(missile, range, chasingTarget, hitCallback);
         }
 
         public override void Start()

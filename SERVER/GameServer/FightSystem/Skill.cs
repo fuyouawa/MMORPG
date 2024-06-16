@@ -128,7 +128,8 @@ namespace GameServer.FightSystem
                 var missileUnitDefine = DataHelper.GetUnitDefine(Define.MissileUnitId);
 
                 var missile = Actor.Map.MissileManager.NewMissile(Define.MissileUnitId, 
-                    Actor.Position, Actor.Direction, missileUnitDefine.Speed, _castTarget,
+                    Actor.Position, Actor.Direction, 
+                    Define.Area, missileUnitDefine.Speed, _castTarget,
                     entity =>
                     {
                         Log.Information("Missile命中");
