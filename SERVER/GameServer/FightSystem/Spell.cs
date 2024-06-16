@@ -33,7 +33,7 @@ namespace GameServer.FightSystem
         {
             if (CurrentRunSkill != null)
             {
-                ResponseSpellFail(info, CastResult.InvalidSkillId);
+                ResponseSpellFail(info, CastResult.Running);
                 return;
             }
             var skill = OwnerActor.SkillManager.GetSkill(info.SkillId);
