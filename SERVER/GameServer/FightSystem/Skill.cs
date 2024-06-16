@@ -64,13 +64,18 @@ namespace GameServer.FightSystem
             if (CurrentStage == Stage.Active)
             {
                 OnRun();
+                if (CurrentStage == Stage.Cooling)
+                {
+                    // 技能释放完成
+                    OnFinish();
+                }
             }
 
             // 如果是技能冷却阶段
             if (CurrentStage == Stage.Cooling && _time >= Define.Cd)
             {
-                // 冷却完成
-                OnFinish();
+                // 技能冷却完成
+                OnCoolingEnded();
             } 
         }
 
@@ -226,12 +231,19 @@ namespace GameServer.FightSystem
         }
 
         /// <summary>
-        /// 技能冷却完成
+        /// 技能释放完成
         /// </summary>
         private void OnFinish()
         {
-            CurrentStage = Stage.None;
+            Actor.Spell.CurrentRunSkill = null;
         }
 
+        /// <summary>
+        /// 技能冷却完成
+        /// </summary>
+        private void OnCoolingEnded()
+        {
+            CurrentStage = Stage.None;
+        }
     }
 }
