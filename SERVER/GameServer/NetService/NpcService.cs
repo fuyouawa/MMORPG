@@ -17,6 +17,8 @@ using MMORPG.Common.Proto.Inventory;
 using MMORPG.Common.Proto.Entity;
 using GameServer.MapSystem;
 using MMORPG.Common.Proto.Npc;
+using MMORPG.Common.Tool;
+using Newtonsoft.Json;
 
 namespace GameServer.NetService
 {
@@ -70,9 +72,9 @@ namespace GameServer.NetService
             var dialogueDefine = DataManager.Instance.DialogueDict[player.CurrentDialogueId];
             if (req.SelectIdx != 0)
             {
-                var options = DataHelper.ParseJson<int[]>(dialogueDefine.Options);
+                var options = DataHelper.ParseIntegers(dialogueDefine.Options);
 
-                if (options== null || req.SelectIdx < 0 || req.SelectIdx > options.Length)
+                if (req.SelectIdx < 0 || req.SelectIdx > options.Length)
                 {
                     Log.Error("客户端传入了错误的对话选择索引");
                     return;

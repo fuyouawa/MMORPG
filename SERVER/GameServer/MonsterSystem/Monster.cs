@@ -4,6 +4,7 @@ using System.Numerics;
 using MMORPG.Common.Proto.Entity;
 using GameServer.MapSystem;
 using GameServer.EntitySystem;
+using GameServer.Manager;
 
 namespace GameServer.MonsterSystem
 {
@@ -26,14 +27,14 @@ namespace GameServer.MonsterSystem
         {
             base.Start();
 
-            switch (DataHelper.GetUnitDefine(UnitId).Ai)
+            switch (DataManager.Instance.UnitDict[UnitId].Ai)
             {
                 case "Monster":
                     _ai = new MonsterAi(this);
                     break;
             }
 
-            var unitDefine = DataHelper.GetUnitDefine(UnitId);
+            var unitDefine = DataManager.Instance.UnitDict[UnitId];
             Speed = unitDefine.Speed;
             Hp = AttributeManager.Final.MaxHp;
             Mp = AttributeManager.Final.MaxMp;
