@@ -104,17 +104,16 @@ namespace GameServer.MapSystem
             if (entity.EntityType == EntityType.Player)
             {
                 res.Datas.Clear();
-                var list = GetEntityFollowingList(entity);
-                foreach (var viewEntity in list)
+                ScanEntityFollowing(entity, e =>
                 {
                     res.Datas.Add(new EntityEnterData()
                     {
-                        EntityId = viewEntity.EntityId,
-                        EntityType = viewEntity.EntityType,
-                        UnitId = viewEntity.UnitId,
-                        Transform = ProtoHelper.ToNetTransform(viewEntity.Position, viewEntity.Direction),
+                        EntityId = e.EntityId,
+                        EntityType = e.EntityType,
+                        UnitId = e.UnitId,
+                        Transform = ProtoHelper.ToNetTransform(e.Position, e.Direction),
                     });
-                }
+                });
                 var currentPlayer = entity as Player;
                 currentPlayer?.User.Channel.Send(res, null);
             }
@@ -239,49 +238,54 @@ namespace GameServer.MapSystem
         }
 
         /// <summary>
-        /// 获取指定实体视距范围内实体并按条件过滤
+        /// 获取指定实体视距范围内实体
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="condition"></param>
         /// <returns></returns>
-        public List<Entity> GetEntityFollowingList(Entity entity, Predicate<Entity>? condition = null)
+        public void ScanEntityFollowing(Entity entity, Action<Entity> callback)
         {
-            var entityList = new List<Entity>();
             lock (_aoiWord)
             {
                 _aoiWord.ScanFollowingList(entity.AoiEntity, followingEntityId =>
                 {
                     var followingEntity = EntityManager.Instance.GetEntity(followingEntityId);
-                    if (followingEntity != null && (condition == null || condition(followingEntity)))
-                    {
-                        entityList.Add(followingEntity);
-                    }
+                    if (followingEntity != null) callback(followingEntity);
                 });
             }
-            return entityList;
         }
 
         /// <summary>
-        /// 获取指定实体视距范围内实体并按条件过滤
+        /// 按半径获取指定实体视距范围内实体
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="condition"></param>
         /// <returns></returns>
-        public List<Entity> GetEntityFollowerList(Entity entity, Predicate<Entity>? condition = null)
+        public void ScanEntityFollowing(Entity entity, float range, Action<Entity> callback)
         {
-            var entityList = new List<Entity>();
+            lock (_aoiWord)
+            {
+                
+            }
+        }
+
+
+        /// <summary>
+        /// 获取指定实体视距范围内实体
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="condition"></param>
+        /// <returns></returns>
+        public void ScanEntityFollower(Entity entity, Action<Entity> callback)
+        {
             lock (_aoiWord)
             {
                 _aoiWord.ScanFollowerList(entity.AoiEntity, followerEntityId =>
                 {
                     var followerEntity = EntityManager.Instance.GetEntity(followerEntityId);
-                    if (followerEntity != null && (condition == null || condition(followerEntity)))
-                    {
-                        entityList.Add(followerEntity);
-                    }
+                    if (followerEntity != null) callback(followerEntity);
                 });
             }
-            return entityList;
         }
 
         public Entity? GetEntityFollowingNearest(Entity entity, Predicate<Entity>? condition = null)

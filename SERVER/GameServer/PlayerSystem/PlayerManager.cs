@@ -69,11 +69,7 @@ namespace GameServer.PlayerSystem
         /// <returns></returns>
         public Player NewPlayer(User user, DbCharacter dbCharacter, Vector3 pos, Vector3 dire)
         {
-            var player = new Player(EntityManager.Instance.NewEntityId(), dbCharacter, _map, user)
-            {
-                Position = pos,
-                Direction = dire,
-            };
+            var player = new Player(EntityManager.Instance.NewEntityId(), dbCharacter, _map, pos, dire, user);
             EntityManager.Instance.AddEntity(player);
 
             lock (_playerDict)
@@ -120,13 +116,15 @@ namespace GameServer.PlayerSystem
             }
             else
             {
-                var list = _map.GetEntityFollowerList(sender, entity => entity.EntityType == EntityType.Player);
-                foreach (var entity in list)
+                _map.ScanEntityFollower(sender, entity =>
                 {
+                    if (entity.EntityType != EntityType.Player)
+                    {
+                        return;
+                    }
                     var player = (Player)entity;
                     player.User.Channel.Send(msg);
-                    //Log.Debug($"响应{sender.EntityId}的同步请求, 广播给:{player.EntityId}");
-                }
+                });
             }
         }
     }

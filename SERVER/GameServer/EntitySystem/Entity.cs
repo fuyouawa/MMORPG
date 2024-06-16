@@ -21,13 +21,14 @@ namespace GameServer.EntitySystem
         public Vector3 Position;
         public Vector3 Direction;
 
-        protected Entity(EntityType entityType, int entityId, int unitId,
-            Map map)
+        protected Entity(EntityType entityType, int entityId, int unitId, Map map, Vector3 pos, Vector3 dire)
         {
             EntityType = entityType;
             EntityId = entityId;
             UnitId = unitId;
             Map = map;
+            Position = pos;
+            Direction = dire;
         }
 
         public virtual void Start() { }

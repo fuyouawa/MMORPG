@@ -41,11 +41,7 @@ namespace GameServer.NpcSystem
 
         public Npc NewNpc(int unitId, Vector3 pos, Vector3 dire, string name)
         {
-            var npc = new Npc(EntityManager.Instance.NewEntityId(), unitId, _map, name, pos)
-            {
-                Position = pos,
-                Direction = dire,
-            };
+            var npc = new Npc(EntityManager.Instance.NewEntityId(), unitId, _map, name, pos, dire);
             EntityManager.Instance.AddEntity(npc);
 
             lock (_npcDict)
