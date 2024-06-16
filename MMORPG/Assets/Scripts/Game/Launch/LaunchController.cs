@@ -16,13 +16,16 @@ namespace MMORPG.Game
         ApplicationQuit
     }
 
-    public class LaunchController : MonoSingleton<LaunchController>, IController
+    public class LaunchController : MonoBehaviour, IController
     {
         public FSM<LaunchStatus> FSM = new();
+
+        public static LaunchController Instance { get; private set; }
 
         private void Awake()
         {
             DontDestroyOnLoad(this);
+            Instance = this;
         }
 
         private void Start()
@@ -44,10 +47,8 @@ namespace MMORPG.Game
             return GameApp.Interface;
         }
 
-        protected override void OnApplicationQuit()
+        protected void OnApplicationQuit()
         {
-            base.OnApplicationQuit();
-
             try
             {
                 FSM.ChangeState(LaunchStatus.ApplicationQuit);
