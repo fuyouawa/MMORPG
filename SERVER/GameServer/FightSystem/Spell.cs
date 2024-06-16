@@ -22,6 +22,7 @@ namespace GameServer.FightSystem
     public class Spell
     {
         public Actor OwnerActor;
+        public Skill? CurrentRunSkill;
 
         public Spell(Actor ownerActor)
         {
@@ -30,6 +31,11 @@ namespace GameServer.FightSystem
 
         public void Cast(CastInfo info)
         {
+            if (CurrentRunSkill != null)
+            {
+                ResponseSpellFail(info, CastResult.InvalidSkillId);
+                return;
+            }
             var skill = OwnerActor.SkillManager.GetSkill(info.SkillId);
             if (skill == null)
             {
@@ -98,6 +104,7 @@ namespace GameServer.FightSystem
             {
                 return;
             }
+            CurrentRunSkill = skill;
             skill.Cast(target);
             skill.Actor.Map.PlayerManager.Broadcast(new SpellResponse() { Info = info }, skill.Actor);
         }
