@@ -4,6 +4,7 @@ using System.Linq;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 using Random = UnityEngine.Random;
 
 namespace MMORPG.Tool
@@ -24,6 +25,8 @@ namespace MMORPG.Tool
         [FoldoutGroup("Bound Particles")]
         [Required]
         public ParticleSystem BoundParticleSystem;
+        [FoldoutGroup("Bound Particles")]
+        public bool WithChildrenParticles = true;
         [FoldoutGroup("Bound Particles")]
         public ParticleSystem[] RandomParticleSystems = Array.Empty<ParticleSystem>();
         [FoldoutGroup("Bound Particles")]
@@ -114,7 +117,9 @@ namespace MMORPG.Tool
             {
                 case Modes.Play:
                     if (targetParticleSystem != null)
-                        targetParticleSystem.Play();
+                    {
+                        targetParticleSystem.Play(WithChildrenParticles);
+                    }
                     break;
                 case Modes.Emit:
                     _emitParams.applyShapeToPosition = true;
@@ -123,11 +128,11 @@ namespace MMORPG.Tool
                     break;
                 case Modes.Stop:
                     if (targetParticleSystem != null)
-                        targetParticleSystem.Stop();
+                        targetParticleSystem.Stop(WithChildrenParticles);
                     break;
                 case Modes.Pause:
                     if (targetParticleSystem != null)
-                        targetParticleSystem.Pause();
+                        targetParticleSystem.Pause(WithChildrenParticles);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
