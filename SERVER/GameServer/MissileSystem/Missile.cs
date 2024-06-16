@@ -19,18 +19,20 @@ namespace GameServer.MissileSystem
     {
         public Vector3 InitPos;
         public float Speed;
-
+        
         private AiBase? _ai;
+        private float _range;
         private CastTarget _castTarget;
         private Action<Entity> _hitCallback;
-
+       
         public Missile(int entityId, int unitId, Map map, Vector3 pos, Vector3 dire, 
-            float speed, CastTarget castTarget, Action<Entity> hitCallback) 
+            float range, float speed, CastTarget castTarget, Action<Entity> hitCallback) 
             : base(EntityType.Missile, entityId, unitId, map, pos, dire)
         {
             EntityType = EntityType.Missile;
             InitPos = pos;
             Speed = speed;
+            _range = range;
             _castTarget = castTarget;
             _hitCallback = hitCallback;
         }
@@ -41,7 +43,7 @@ namespace GameServer.MissileSystem
             switch (DataHelper.GetUnitDefine(UnitId).Ai)
             {
                 case "Missile":
-                    _ai = new MissileAi(this, _castTarget, _hitCallback);
+                    _ai = new MissileAi(this, _range, _castTarget, _hitCallback);
                     break;
             }
             _ai?.Start();
