@@ -28,5 +28,12 @@ namespace MMORPG.Common.Tool
                 return Array.Empty<float>();
             return str[1..^1].Split(',').Select(float.Parse).ToArray();
         }
+
+        public static int[] ParseIntegers(string str)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+                return Array.Empty<int>();
+            return str[1..^1].Split(',').Select(int.Parse).ToArray();
+        }
     }
 }

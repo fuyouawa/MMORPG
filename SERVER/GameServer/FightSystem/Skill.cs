@@ -11,6 +11,7 @@ using GameServer.Manager;
 using GameServer.Tool;
 using Serilog;
 using GameServer.EntitySystem;
+using MMORPG.Common.Tool;
 
 namespace GameServer.FightSystem
 {
@@ -18,7 +19,7 @@ namespace GameServer.FightSystem
     {
         public enum Stage
         {
-            None = 0,
+            Idle = 0,
             Intonate,   // 吟唱
             Active,     // 已激活
             Cooling,   // 冷却中
@@ -42,7 +43,7 @@ namespace GameServer.FightSystem
 
         public void Start()
         {
-            _hitDelay = DataHelper.ParseJson<float[]>(Define.HitDelay);
+            _hitDelay = DataHelper.ParseFloats(Define.HitDelay);
             if (_hitDelay == null || _hitDelay.Length == 0)
             {
                 _hitDelay = new[] { 0.0f };
@@ -51,7 +52,7 @@ namespace GameServer.FightSystem
 
         public void Update()
         {
-            if (CurrentStage == Stage.None) return;
+            if (CurrentStage == Stage.Idle) return;
             _time += Time.DeltaTime;
 
             // 如果是吟唱阶段并且吟唱已经结束
@@ -83,9 +84,9 @@ namespace GameServer.FightSystem
         {
             if (CurrentStage == Stage.Cooling)
             {
-                return CastResult.Colldown;
+                return CastResult.Cooling;
             }
-            if (CurrentStage != Stage.None)
+            if (CurrentStage != Stage.Idle)
             {
                 return CastResult.Running;
             }
@@ -131,7 +132,7 @@ namespace GameServer.FightSystem
             Log.Debug("[Skill.OnActive]");
             if (Define.MissileUnitId != 0)
             {
-                var missileUnitDefine = DataHelper.GetUnitDefine(Define.MissileUnitId);
+                var missileUnitDefine = DataManager.Instance.UnitDict[Define.MissileUnitId];
 
                 var missile = Actor.Map.MissileManager.NewMissile(Define.MissileUnitId, 
                     Actor.Position, Actor.Direction, 
@@ -247,7 +248,7 @@ namespace GameServer.FightSystem
         /// </summary>
         private void OnCoolingEnded()
         {
-            CurrentStage = Stage.None;
+            CurrentStage = Stage.Idle;
         }
     }
 }

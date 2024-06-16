@@ -40,7 +40,7 @@ namespace GameServer.MissileSystem
         public override void Start()
         {
             base.Update();
-            switch (DataHelper.GetUnitDefine(UnitId).Ai)
+            switch (DataManager.Instance.UnitDict[UnitId].Ai)
             {
                 case "Missile":
                     _ai = new MissileAi(this, _range, _castTarget, _hitCallback);
