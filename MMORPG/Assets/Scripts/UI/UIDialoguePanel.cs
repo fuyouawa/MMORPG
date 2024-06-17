@@ -1,18 +1,14 @@
-using System.Collections.Generic;
+
 using System.Linq;
-using GraphProcessor;
+
 using MMORPG.Command;
 using UnityEngine;
-using UnityEngine.UI;
 using QFramework;
-using Serilog;
-using UnityEngine.InputSystem;
 using MMORPG.Game;
 using MMORPG.Event;
 using MMORPG.System;
 using TMPro;
 using Newtonsoft.Json;
-using UnityEngine.Rendering;
 
 namespace MMORPG.UI
 {
@@ -47,13 +43,14 @@ namespace MMORPG.UI
 		
 		protected override void OnShow()
 		{
-		}
-		
-		protected override void OnHide()
+            
+        }
+
+        protected override void OnHide()
 		{
-		}
-		
-		protected override void OnClose()
+        }
+
+        protected override void OnClose()
 		{
 		}
 
@@ -67,6 +64,13 @@ namespace MMORPG.UI
             }
         }
 
+        public void ClearOptionButton()
+        {
+            for (int i = 0; i < OptionButtonBox.transform.childCount; i++)
+            {
+                Destroy(OptionButtonBox.GetChild(i).gameObject);
+            }
+        }
 
         public void OnInteract(InteractEvent e)
         {
@@ -80,10 +84,7 @@ namespace MMORPG.UI
             var unitDefine = dataManagerSystem.GetUnitDefine(entity.UnitId);
             NpcName.text = unitDefine.Name;
             Content.text = dialogueDefine.Content;
-            for (int i = 0; i < OptionButtonBox.transform.childCount; i++)
-            {
-                Destroy(OptionButtonBox.GetChild(i).gameObject);
-            }
+            ClearOptionButton();
 
             if (dialogueDefine.Options.Any())
             {

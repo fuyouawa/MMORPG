@@ -42,19 +42,30 @@ namespace MMORPG.UI
                 {
                     if (DialoguePanel.gameObject.activeSelf)
                     {
-                        PanelHelper.FadeOut(DialoguePanel.gameObject, 0);
+                        PanelHelper.FadeOut(DialoguePanel.gameObject, 0, true, true, true, () =>
+                        {
+                            DialoguePanel.ClearOptionButton();
+                        });
                     }
                     return;
                 }
-                PanelHelper.FadeIn(DialoguePanel.gameObject);
-                DialoguePanel.GetComponent<UIDialoguePanel>().OnInteract(e);
+                if (!DialoguePanel.gameObject.activeSelf)
+                {
+                    PanelHelper.FadeIn(DialoguePanel.gameObject, 0.3f, true, true, true, () =>
+                    {
+                        DialoguePanel.OnInteract(e);
+                    });
+                }
+                else
+                {
+                    DialoguePanel.OnInteract(e);
+                }
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
         }
 
         private void OnInteract(InputAction.CallbackContext obj)
         {
-            DialoguePanel.GetComponent<UIDialoguePanel>().Interact();
+            DialoguePanel.Interact();
         }
 
         private void OnSwitchInventory(InputAction.CallbackContext obj)
