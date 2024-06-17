@@ -12,10 +12,7 @@ using Newtonsoft.Json;
 
 namespace MMORPG.UI
 {
-	public class UIDialoguePanelData : UIPanelData
-	{
-	}
-	public partial class UIDialoguePanel : UIPanel, IController
+	public partial class UIDialoguePanel : MonoBehaviour, IController
     {
         private const string OptionButtonResName = "UIDialogueOptionButton";
 
@@ -30,30 +27,6 @@ namespace MMORPG.UI
         {
             
         }
-
-		protected override void OnInit(IUIData uiData = null)
-		{
-			mData = uiData as UIDialoguePanelData ?? new UIDialoguePanelData();
-            // please add init code here
-        }
-		
-		protected override void OnOpen(IUIData uiData = null)
-		{
-		}
-		
-		protected override void OnShow()
-		{
-            
-        }
-
-        protected override void OnHide()
-		{
-        }
-
-        protected override void OnClose()
-		{
-		}
-
 
         public void Interact()
         {
