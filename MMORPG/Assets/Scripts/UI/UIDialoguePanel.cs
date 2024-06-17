@@ -58,10 +58,15 @@ namespace MMORPG.UI
 		}
 
 
-        public void DialogueNext()
+        public void Interact()
         {
-            this.SendCommand(new InteractCommand(0));
+            // 没有选项按钮才允许点击面板继续对话
+            if (OptionButtonBox.transform.childCount == 0)
+            {
+                this.SendCommand(new InteractCommand(0));
+            }
         }
+
 
         public void OnInteract(InteractEvent e)
         {
@@ -75,15 +80,22 @@ namespace MMORPG.UI
             var unitDefine = dataManagerSystem.GetUnitDefine(entity.UnitId);
             NpcName.text = unitDefine.Name;
             Content.text = dialogueDefine.Content;
+            for (int i = 0; i < OptionButtonBox.transform.childCount; i++)
+            {
+                Destroy(OptionButtonBox.GetChild(i).gameObject);
+            }
 
             if (dialogueDefine.Options.Any())
             {
                 var options = JsonConvert.DeserializeObject<int[]>(dialogueDefine.Options);
+                int j = 0;
                 foreach (var option in options)
                 {
                     var tmpDefine = dataManagerSystem.GetDialogueDefine(option);
                     var button = Instantiate(_optionButtonPrefab, OptionButtonBox.transform);
-                    button.GetComponent<UIDialogueOptionButton>().Content.text = tmpDefine.Content;
+                    var script = button.GetComponent<UIDialogueOptionButton>();
+                    script.Content.text = tmpDefine.Content;
+                    script.Idx = ++j;
                 }
             }
         }
