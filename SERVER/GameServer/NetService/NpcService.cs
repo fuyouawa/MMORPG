@@ -67,8 +67,17 @@ namespace GameServer.NetService
                 res.Error = NetError.Success;
             }
 
+            if (player.CurrentDialogueId == 0)
+            {
+                // 需要结束对话
+                res.DialogueId = 0;
+                player.InteractingNpc = null;
+                sender.Send(res, null);
+                return;
+            }
+
             res.EntityId = npc.EntityId;
-        
+
             var dialogueDefine = DataManager.Instance.DialogueDict[player.CurrentDialogueId];
             if (req.SelectIdx != 0)
             {
@@ -81,8 +90,16 @@ namespace GameServer.NetService
                 }
 
                 // 选择了某项，将该项的跳转告知客户端
-                dialogueDefine = DataManager.Instance.DialogueDict[options[req.SelectIdx]];
+                dialogueDefine = DataManager.Instance.DialogueDict[options[req.SelectIdx - 1]];
                 player.CurrentDialogueId = dialogueDefine.Jump;
+                if (player.CurrentDialogueId == 0)
+                {
+                    // 选项没有可继续跳转的对话，结束
+                    res.DialogueId = 0;
+                    player.InteractingNpc = null;
+                    sender.Send(res, null);
+                    return;
+                }
             }
 
             res.DialogueId = player.CurrentDialogueId;
@@ -108,8 +125,9 @@ namespace GameServer.NetService
                 }
                 else
                 {
-                    // 需要结束对话，从这里开始停止
-                    player.InteractingNpc = null;
+                    // 需要结束对话，等待下一次停止响应时停止
+                    // player.InteractingNpc = null;
+                    player.CurrentDialogueId = 0;
                 }
             }
             sender.Send(res, null);
