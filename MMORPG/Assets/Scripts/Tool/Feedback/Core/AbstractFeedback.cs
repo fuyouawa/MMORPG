@@ -192,6 +192,18 @@ namespace MMORPG.Tool
             Owner.CoroutineHelper.StopAllCoroutines();
         }
 
+        // protected T InstantiateTemp<T>(T original, Transform parent) where T : Component
+        // {
+        //     var target = GameObject.Instantiate(original, parent);
+        //     target.transform.SetPositionAndRotation(
+        //         Owner.transform.position + original.transform.localPosition,
+        //         Owner.transform.rotation * original.transform.rotation);
+        //     var lifeTime = target.gameObject.AddComponent<LifeTime>();
+        //     lifeTime.EnableLifeTime = StopAfterDuration;
+        //     lifeTime.DestroyLifeTime = GetDuration();
+        //     return target;
+        // }
+
 #if UNITY_EDITOR
         public virtual void OnValidate() {}
         public virtual void OnInspectorInit() {}
