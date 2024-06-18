@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 using Random = UnityEngine.Random;
 
 namespace MMORPG.Tool
@@ -30,13 +28,23 @@ namespace MMORPG.Tool
         [FoldoutGroup("Bound Particles")]
         public ParticleSystem[] RandomParticleSystems = Array.Empty<ParticleSystem>();
         [FoldoutGroup("Bound Particles")]
-        public bool MoveToPosition = false;
-        [FoldoutGroup("Bound Particles")]
         public bool ActivateOnPlay = false;
         [FoldoutGroup("Bound Particles")]
         public bool StopSystemOnInit = true;
         [FoldoutGroup("Bound Particles")]
         public float DeclaredDuration = 0f;
+
+        [FoldoutGroup("Transform")]
+        [Tooltip("在Play时改变Parent, 在Stop时还原")]
+        public bool ChangeParentOnPlay = false;
+        [FoldoutGroup("Transform")]
+        [ShowIf("ChangeParentOnPlay")]
+        [Tooltip("在Play时要改变到的Parent")]
+        public Transform ParentOnPlay;
+        [FoldoutGroup("Transform")]
+        [ShowIf("ChangeParentOnPlay")]
+        [Tooltip("在改变Parent时是否保持世界坐标")]
+        public bool WorldPositionStays = true;
 
         [FoldoutGroup("Simulation Speed")]
         public bool ForceSimulationSpeed = false;
@@ -45,6 +53,9 @@ namespace MMORPG.Tool
         public Vector2 ForcedSimulationSpeed = new(0.1f, 1f);
 
         private ParticleSystem.EmitParams _emitParams;
+        private Dictionary<ParticleSystem, Transform> _originalParentRecords = new();
+
+        
 
         public override float GetDuration()
         {
@@ -57,37 +68,34 @@ namespace MMORPG.Tool
             {
                 StopParticles();
             }
+
+            _originalParentRecords[BoundParticleSystem] = BoundParticleSystem.transform.parent;
+            if (RandomParticleSystems != null)
+            {
+                foreach (var particle in RandomParticleSystems)
+                {
+                    _originalParentRecords[particle] = particle.transform.parent;
+                }
+            }
         }
 
         protected override void OnFeedbackPlay()
         {
-            PlayParticles(Owner.transform.position);
+            PlayParticles();
         }
 
         protected override void OnFeedbackStop()
         {
             StopParticles();
+
+            foreach (var record in _originalParentRecords)
+            {
+                record.Key.transform.SetParent(record.Value, WorldPositionStays);
+            }
         }
 
-        private void PlayParticles(Vector3 position)
+        private void PlayParticles()
         {
-            if (MoveToPosition)
-            {
-                if (Mode != Modes.Emit)
-                {
-                    BoundParticleSystem.transform.position = position;
-
-                    RandomParticleSystems?.ForEach(x =>
-                    {
-                        if (x) x.transform.position = position;
-                    });
-                }
-                else
-                {
-                    _emitParams.position = position;
-                }
-            }
-
             if (ActivateOnPlay)
             {
                 BoundParticleSystem.gameObject.SetActive(true);
@@ -113,13 +121,16 @@ namespace MMORPG.Tool
                 main.simulationSpeed = Random.Range(ForcedSimulationSpeed.x, ForcedSimulationSpeed.y);
             }
 
+            if (ChangeParentOnPlay)
+            {
+                targetParticleSystem.transform.SetParent(ParentOnPlay, WorldPositionStays);
+            }
+
             switch (Mode)
             {
                 case Modes.Play:
                     if (targetParticleSystem != null)
-                    {
                         targetParticleSystem.Play(WithChildrenParticles);
-                    }
                     break;
                 case Modes.Emit:
                     _emitParams.applyShapeToPosition = true;
