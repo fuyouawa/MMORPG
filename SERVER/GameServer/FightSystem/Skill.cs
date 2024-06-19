@@ -208,7 +208,7 @@ namespace GameServer.FightSystem
 
             var hitRate = a.HitRate - b.DodgeRate;
             var randHitRate = _random.NextSingle();
-            if (hitRate < randHitRate)
+            if (hitRate >= randHitRate)
             {
                 var ad = Define.Ad + a.Ad * Define.Adc;
                 var ap = Define.Ap + a.Ap * Define.Apc;
