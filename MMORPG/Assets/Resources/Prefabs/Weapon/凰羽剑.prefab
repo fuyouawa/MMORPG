@@ -60,7 +60,7 @@ MonoBehaviour:
   AutoPlayOnEnable: 0
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
-  StopCurrentPlayIfNewPlay: 0
+  StopCurrentPlayIfNewPlay: 1
   StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
@@ -84,7 +84,7 @@ MonoBehaviour:
     - rid: 1878086261005091166
       type: {class: FeedbackParticlePlay, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        DelayBeforePlay: 0.3
+        DelayBeforePlay: 0.2
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 0
@@ -106,7 +106,7 @@ MonoBehaviour:
     - rid: 1878086261005091175
       type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        DelayBeforePlay: 0.3
+        DelayBeforePlay: 0.1
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 0
@@ -164,7 +164,7 @@ MonoBehaviour:
     - rid: 4065860201052897369
       type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        DelayBeforePlay: 0.3
+        DelayBeforePlay: 0.1
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 1
@@ -279,7 +279,7 @@ MonoBehaviour:
   AutoPlayOnEnable: 0
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
-  StopCurrentPlayIfNewPlay: 0
+  StopCurrentPlayIfNewPlay: 1
   StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
@@ -303,7 +303,7 @@ MonoBehaviour:
     - rid: 1878086261005091191
       type: {class: FeedbackParticlePlay, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        DelayBeforePlay: 0.8
+        DelayBeforePlay: 0.1
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 0
@@ -325,7 +325,7 @@ MonoBehaviour:
     - rid: 1878086261005091192
       type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        DelayBeforePlay: 0.7
+        DelayBeforePlay: 0.1
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 0
@@ -383,7 +383,7 @@ MonoBehaviour:
     - rid: 4065860201052897371
       type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        DelayBeforePlay: 0.8
+        DelayBeforePlay: 0.1
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 1
@@ -626,7 +626,7 @@ MonoBehaviour:
   AutoPlayOnEnable: 0
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
-  StopCurrentPlayIfNewPlay: 0
+  StopCurrentPlayIfNewPlay: 1
   StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
@@ -650,7 +650,7 @@ MonoBehaviour:
     - rid: 1878086261005091181
       type: {class: FeedbackParticlePlay, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        DelayBeforePlay: 0.1
+        DelayBeforePlay: 0.25
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 0
@@ -672,7 +672,7 @@ MonoBehaviour:
     - rid: 1878086261005091182
       type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        DelayBeforePlay: 0.1
+        DelayBeforePlay: 0.15
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 0
@@ -730,7 +730,7 @@ MonoBehaviour:
     - rid: 4065860201052897370
       type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        DelayBeforePlay: 0.1
+        DelayBeforePlay: 0.15
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 1
@@ -838,7 +838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponId: 101
   DelayBeforeUse: 0
-  TimeBetweenUses: 0.4
+  TimeBetweenUses: 0.08
   TriggerMode: 0
   PreventAllMovementWhileInUse: 0
   IdleAnimationParameter: 
@@ -875,7 +875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponId: 102
   DelayBeforeUse: 0
-  TimeBetweenUses: 0.4
+  TimeBetweenUses: 0.2
   TriggerMode: 0
   PreventAllMovementWhileInUse: 0
   IdleAnimationParameter: 
@@ -948,8 +948,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DroppableCombo: 1
-  DropComboDelay: 1
-  ComboCoolTime: 1
+  DropComboDelay: 0.5
+  ComboCoolTime: 0.5
   Weapons:
   - {fileID: 7306660906642969721}
   - {fileID: 2501495121438830941}
@@ -968,47 +968,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.102
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.02
+      value: 1.17
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.253
+      value: 0.79
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.7434534
+      value: -0.07918874
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.011948454
+      value: 0.0014884786
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.25567606
+      value: 0.018734243
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.61787057
+      value: 0.99668247
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -2.154
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -1016,7 +1016,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 180
+      value: 189.085
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -1123,55 +1123,55 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.9
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.9
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.9
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.34880674
+      value: -0.09
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2013795
+      value: 1.29
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.048
+      value: 0.81
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.2776468
+      value: 0.9895937
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.010831061
+      value: 0.12130942
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.08224735
+      value: -0.031624936
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.9570948
+      value: 0.07062737
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 9.407
+      value: 14.156
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 1.449
+      value: -2.687
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 212.473
+      value: 7.831
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -1278,55 +1278,59 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.325
+      value: 0.24
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.303
+      value: 1.14
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.269
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.309609
+      value: 0.99570024
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.04973748
+      value: 0.05887478
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.078140594
+      value: 0.07151141
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.9463417
+      value: 0.0009736354
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 6.725
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 8.251
       objectReference: {fileID: 0}
     - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 180
+      value: 0.598
+      objectReference: {fileID: 0}
+    - target: {fileID: 4362472259802890, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198051888856156710, guid: e60d36cff17a1ce4db49ef54f9e72f61, type: 3}
       propertyPath: playOnAwake
