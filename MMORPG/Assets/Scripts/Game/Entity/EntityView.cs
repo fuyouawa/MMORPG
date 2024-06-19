@@ -1,5 +1,6 @@
 using System;
 using MMORPG.Common.Proto.Entity;
+using MMORPG.Common.Proto.Fight;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -11,13 +12,17 @@ namespace MMORPG.Game
         [ShowInInspector]
         [ReadOnly]
         public int EntityId { get; private set; }
+
         [ShowInInspector]
         [ReadOnly]
-        public int UnitId { get; private set; }
+        private int _unitId => UnitDefine?.ID ?? 0;
+        public UnitDefine UnitDefine { get; private set; }
 
         public EntityType EntityType;
 
-        public event Action<EntityTransformSyncData> OnTransformSync;
+        public Action<EntityTransformSyncData> OnTransformSync;
+        public Action<DamageInfo> OnHurt;
+        public Action<EntityView, DamageInfo> OnHitEntity;
 
         private bool _initialized = false;
 
@@ -28,32 +33,13 @@ namespace MMORPG.Game
             _initialized = true;
 
             EntityId = entityId;
-            UnitId = unitId;
+            UnitDefine = this.GetSystem<IDataManagerSystem>().GetUnitDefine(unitId);
         }
 
         public IArchitecture GetArchitecture()
         {
             return GameApp.Interface;
         }
-
-        public void HandleNetworkSync(EntityTransformSyncData data)
-        {
-            Debug.Assert(data.Entity == this);
-            OnTransformSync?.Invoke(data);
-        }
-
-#if UNITY_EDITOR
-        [Button]
-        private void BuildHealth()
-        {
-            var health = gameObject.GetOrAddComponent<Health>();
-            health.Entity = this;
-            var point = new GameObject("Damage Number Point");
-            point.transform.SetParent(transform, false);
-            point.transform.localPosition = Vector3.up;
-            health.DamageNumberPoint = point.transform;
-        }
-#endif
     }
 
 }

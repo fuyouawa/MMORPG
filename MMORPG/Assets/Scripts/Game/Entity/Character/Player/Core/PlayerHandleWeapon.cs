@@ -106,11 +106,11 @@ namespace MMORPG.Game
             CurrentWeapon.WeaponInputStart();
         }
 
-        public void OnHitDamageable(AbstractHealth health)
+        public virtual void OnHitEntity(EntityView entity)
         {
             if (CurrentWeapon != null)
             {
-                CurrentWeapon.OnHitEntity((Health)health);
+                CurrentWeapon.OnHitEntity(entity);
             }
         }
     }

@@ -458,7 +458,6 @@ GameObject:
   - component: {fileID: 8149488675308104598}
   - component: {fileID: -6944603909313355789}
   - component: {fileID: 1847096841655152425}
-  - component: {fileID: 7168316291156008523}
   m_Layer: 8
   m_Name: Goblin Warrior Male
   m_TagString: Untagged
@@ -542,6 +541,7 @@ MonoBehaviour:
   RotationSmooth: 10
   MoveSmooth: 10
   Animator: {fileID: 7478517571520445435}
+  EffectManager: {fileID: 0}
 --- !u!136 &1847096841655152425
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -565,22 +565,6 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &7168316291156008523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 112422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb5e120cc8e7b87428683f77d959b717, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Entity: {fileID: 8149488675308104598}
-  Invincibility: 0.5
-  DamageNumberPoint: {fileID: 3267704363213240744}
-  HurtFeedbacks: {fileID: 5896594241678660570}
 --- !u!1 &114958
 GameObject:
   m_ObjectHideFlags: 0
@@ -5175,7 +5159,6 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopCurrentPlayIfNewPlay: 0
-  StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackSound
     Enable: 1
@@ -5193,11 +5176,15 @@ MonoBehaviour:
         LimitLoopAmount: 0
         AmountOfLoop: 1
         DelayBetweenLoop: 0
+        StopAfterDuration: 1
         Sfx: {fileID: 0}
         RandomSfx:
         - {fileID: 8300000, guid: e32a8f771c4cf824a8e9e347408a1cbe, type: 3}
         - {fileID: 8300000, guid: 34730e0426022fc40a429611234eb944, type: 3}
         - {fileID: 8300000, guid: 46dc232a6eccefc458b3d76197e345ad, type: 3}
+        ChangeParentOnPlay: 0
+        ParentOnPlay: {fileID: 0}
+        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1

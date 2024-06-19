@@ -34,9 +34,6 @@ namespace MMORPG.Tool
         [ShowIf("CanPlayWhileAlreadyPlaying")]
         [Tooltip("在当前Play还没结束时, 如果有新的Play, 是否要结束当前Play")]
         public bool StopCurrentPlayIfNewPlay = true;
-        [FoldoutGroup("Settings")]
-        [Tooltip("当Play结束时, 是否要停止所有在Feedback中开启的Coroutines")]
-        public bool StopAllCoroutinesWhenStop = true;
 
         [LabelText("Feedbacks")]
         [ListDrawerSettings(ShowIndexLabels = true)]
@@ -49,9 +46,16 @@ namespace MMORPG.Tool
 
         public float TimeSinceLastPlay { get; private set; }
 
-        public bool CheckIsPlaying()
+        public bool HasFeedbackPlaying()
         {
-            return !FeedbackItems.Any(x => !x.Feedback.IsPlaying);
+            foreach (var item in FeedbackItems)
+            {
+                if (item.Feedback.IsPlaying)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void Setup(GameObject owner)
@@ -123,12 +127,13 @@ namespace MMORPG.Tool
 
             if (!CanPlay) return;
 
-            if (CheckIsPlaying())
+            if (HasFeedbackPlaying())
             {
                 if (!CanPlayWhileAlreadyPlaying)
                     return;
                 if (StopCurrentPlayIfNewPlay)
                     Stop();
+                Debug.Assert(!HasFeedbackPlaying());
             }
 
             foreach (var item in FeedbackItems)
@@ -200,8 +205,6 @@ namespace MMORPG.Tool
             {
                 item.Stop();
             }
-            if (StopAllCoroutinesWhenStop)
-                CoroutineHelper.StopAllCoroutines();
         }
 
         public virtual void ProxyDestroy(GameObject gameObjectToDestroy, float delay)

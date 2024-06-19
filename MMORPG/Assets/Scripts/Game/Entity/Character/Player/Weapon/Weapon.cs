@@ -376,9 +376,9 @@ namespace MMORPG.Game
             FSM?.Clear();
         }
 
-        public virtual void OnHitEntity(Health health)
+        public virtual void OnHitEntity(EntityView entity)
         {
-            switch (health.Entity.EntityType)
+            switch (entity.EntityType)
             {
                 case EntityType.Player:
                     if (HitPlayerFeedbacks != null)

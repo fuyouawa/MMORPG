@@ -23,7 +23,6 @@ namespace MMORPG.System
         public Dictionary<int, EntityView> EntityDict { get; }
 
         public void LeaveEntity(int entityId);
-        public EntityView GetEntityById(int entityId);
     }
 
 
@@ -33,20 +32,13 @@ namespace MMORPG.System
 
         public void LeaveEntity(int entityId)
         {
-            var entity = GetEntityById(entityId);
+            var entity = EntityDict[entityId];
             var suc = EntityDict.Remove(entity.EntityId);
             Debug.Assert(suc);
             this.SendEvent(new EntityLeaveEvent(entity));
             Log.Information($"实体退出地图: id:{entityId}, type:{entity.EntityType}");
             // 主要为了延迟下一帧调用, 以便可以先处理EntityLeaveEvent再Destroy
             UnityMainThreadDispatcher.Instance().Enqueue(() => GameObject.Destroy(entity.gameObject));
-        }
-
-        public EntityView GetEntityById(int entityId)
-        {
-            if (!EntityDict.TryGetValue(entityId, out var entity))
-                throw new Exception($"未注册过的entityId:{entityId}!");
-            return entity;
         }
 
         public EntityView SpawnEntity(
