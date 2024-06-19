@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package MMORPG.Common.Proto.Task;
+
+message TaskRecord{
+	int task_id;
+}
+
+message TaskInfo {
+	repeated TaskRecord task_arr = 1;
+}
