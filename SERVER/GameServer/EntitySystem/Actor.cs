@@ -81,6 +81,7 @@ namespace GameServer.EntitySystem
             resp.Damages.Add(damageInfo);
             Map.PlayerManager.Broadcast(resp, this);
             ChangeHP(-damageInfo.Amount);
+            Log.Debug($"Actor:{Name}({EntityId})被EntityId:{damageInfo.AttackerId}使用技能{damageInfo.SkillId}击中, 扣除{damageInfo.Amount}血量, 剩余血量:{Hp}!");
         }
 
         private void EntityAttributeEntrySync<T>(EntityAttributeEntryType type, T value)
