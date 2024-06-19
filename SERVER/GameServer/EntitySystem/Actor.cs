@@ -75,9 +75,9 @@ namespace GameServer.EntitySystem
             EntityAttributeEntrySync(EntityAttributeEntryType.Mp, Mp);
         }
 
-        public virtual void OnDamage(DamageInfo damageInfo)
+        public virtual void OnHurt(DamageInfo damageInfo)
         {
-            var resp = new DamageResponse();
+            var resp = new EntityHurtResponse();
             resp.Damages.Add(damageInfo);
             Map.PlayerManager.Broadcast(resp, this);
             ChangeHP(-damageInfo.Amount);

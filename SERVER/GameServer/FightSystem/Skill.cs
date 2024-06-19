@@ -232,7 +232,7 @@ namespace GameServer.FightSystem
                 amount = 0;
             }
             damageInfo.Amount = (int)amount;
-            target.OnDamage(damageInfo);
+            target.OnHurt(damageInfo);
         }
 
         /// <summary>

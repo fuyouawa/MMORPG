@@ -1,9 +1,11 @@
 using MMORPG.Common.Proto.Entity;
+using MMORPG.Common.Proto.Fight;
 using MMORPG.Common.Proto.Map;
 using QFramework;
 using MMORPG.System;
 using MMORPG.Tool;
 using UnityEngine;
+using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Game
 {
@@ -20,19 +22,31 @@ namespace MMORPG.Game
     {
         private IEntityManagerSystem _entityManager;
         private IDataManagerSystem _dataManager;
+        private INetworkSystem _network;
         private ResLoader _resLoader = ResLoader.Allocate();
 
         private void Awake()
         {
             _entityManager = this.GetSystem<IEntityManagerSystem>();
             _dataManager = this.GetSystem<IDataManagerSystem>();
+            _network = this.GetSystem<INetworkSystem>();
 
-            this.GetSystem<INetworkSystem>().Receive<EntityEnterResponse>(OnEntityEnterReceived)
+            _network.Receive<EntityEnterResponse>(OnEntityEnterReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
-            this.GetSystem<INetworkSystem>().Receive<EntityLeaveResponse>(OnEntityLeaveReceived)
+            _network.Receive<EntityLeaveResponse>(OnEntityLeaveReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
-            this.GetSystem<INetworkSystem>().Receive<EntityTransformSyncResponse>(OnEntitySyncReceived)
+            _network.Receive<EntityTransformSyncResponse>(OnEntitySyncReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
+            _network.Receive<EntityHurtResponse>(OnEntityHurtReceived)
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
+        }
+
+        private void OnEntityHurtReceived(EntityHurtResponse response)
+        {
+            foreach (var damage in response.Damages)
+            {
+                
+            }
         }
 
         private void OnEntityLeaveReceived(EntityLeaveResponse response)
