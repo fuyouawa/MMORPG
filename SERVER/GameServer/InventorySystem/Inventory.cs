@@ -222,6 +222,23 @@ namespace GameServer.InventorySystem
             return residue;
         }
 
+        public bool HasItem(int itemId, int amount = 1)
+        {
+            int residue = amount;
+            int slotId = 0;
+            while (residue > 0)
+            {
+                var item = GetItem(itemId, slotId);
+                if (item == null)
+                {
+                    return false;
+                }
+                slotId = item.SlotId;
+                int removeAmount = Math.Min(residue, item.Amount);
+                residue -= removeAmount;
+            }
+            return true;
+        }
 
         /// <summary>
         /// 丢弃指定Slot上指定数量的物品
