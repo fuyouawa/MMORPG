@@ -8,6 +8,7 @@ using GameServer.Db;
 using GameServer.EntitySystem;
 using GameServer.Manager;
 using GameServer.MapSystem;
+using static Org.BouncyCastle.Bcpg.Attr.ImageAttrib;
 
 namespace GameServer.InventorySystem
 {
@@ -15,6 +16,7 @@ namespace GameServer.InventorySystem
     {
         private Map _map;
         private Dictionary<int, DroppedItem> _itemDict = new();
+        Random _random = new();
 
         public DroppedItemManager(Map map)
         {
@@ -67,6 +69,19 @@ namespace GameServer.InventorySystem
             {
                 _itemDict.Remove(item.EntityId);
             }
+        }
+
+        public DroppedItem NewDroppedItemWithOffset(int itemId, Vector3 pos, Vector3 dire, int amount, float offset)
+        {
+            
+            // 位置偏移掉落
+            float offsetX = _random.NextSingle() * offset * 2 - offset;
+            float offsetZ = _random.NextSingle() * offset * 2 - offset;
+
+            pos.X += offsetX;
+            pos.Z += offsetZ;
+
+            return NewDroppedItem(itemId, pos, Vector3.Zero, amount);
         }
     }
 }
