@@ -78,6 +78,8 @@ namespace MMORPG.Tool
 
         protected bool IsInitialized = false;
         protected int CurrentLoopCount;
+        private Coroutine _feedbackPlayCoroutine;
+        private Coroutine _durationCoroutine;
 
         public virtual void Reset()
         {
@@ -93,7 +95,7 @@ namespace MMORPG.Tool
             Reset();
             IsPlaying = true;
             TimeSincePlay = Time.time;
-            StartCoroutine(FeedbackPlayCo());
+            _feedbackPlayCoroutine = StartCoroutine(FeedbackPlayCo());
         }
 
         public virtual void Stop()
@@ -101,6 +103,17 @@ namespace MMORPG.Tool
             if (!IsPlaying)
                 return;
             IsPlaying = false;
+            if (_feedbackPlayCoroutine != null)
+            {
+                StopCoroutine(_feedbackPlayCoroutine);
+                _feedbackPlayCoroutine = null;
+            }
+
+            if (_durationCoroutine != null)
+            {
+                StopCoroutine(_durationCoroutine);
+                _durationCoroutine = null;
+            }
             OnFeedbackStop();
         }
 
@@ -121,7 +134,7 @@ namespace MMORPG.Tool
         protected virtual IEnumerator FeedbackPlayCo()
         {
             yield return new WaitForSeconds(DelayBeforePlay);
-            StartCoroutine(DurationCoroutine());
+            _durationCoroutine = StartCoroutine(DurationCoroutine());
             OnFeedbackPlay();
         }
 

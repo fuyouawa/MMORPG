@@ -21,7 +21,7 @@ namespace MMORPG.Game
         public void Initialize()
         {
             var data = this.GetSystem<IDataManagerSystem>();
-            Skills = data.GetUnitSkillsDefine(Character.Entity.UnitId)
+            Skills = data.GetUnitSkillsDefine(Character.Entity.UnitDefine.ID)
                 .Select(x => new Skill(this, x))
                 .ToList();
         }

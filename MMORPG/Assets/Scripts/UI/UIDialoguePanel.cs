@@ -53,9 +53,8 @@ namespace MMORPG.UI
             var dataManagerSystem = this.GetSystem<IDataManagerSystem>();
             var dialogueDefine = dataManagerSystem.GetDialogueDefine(e.Resp.DialogueId);
             var entityManagerSystem = this.GetSystem<IEntityManagerSystem>();
-            var entity = entityManagerSystem.GetEntityById(e.Resp.EntityId);
-            var unitDefine = dataManagerSystem.GetUnitDefine(entity.UnitId);
-            NpcName.text = unitDefine.Name;
+            var entity = entityManagerSystem.EntityDict[e.Resp.EntityId];
+            NpcName.text = entity.UnitDefine.Name;
             Content.text = dialogueDefine.Content;
             ClearOptionButton();
 

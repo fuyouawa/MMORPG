@@ -18,6 +18,9 @@ namespace MMORPG.Game
         [TableList(AlwaysExpanded = true)]
         public PlayerAction[] Actions;
 
+        public bool HandleTransitionsScripts = false;
+
+        [HideIf("HandleTransitionsScripts")]
         [Information("Transitions中有报错还没处理!", InfoMessageType.Error, "CheckTransitionsHasError")]
         [Information("Transitions不能为空!", InfoMessageType.Error, "IsEmptyTransitions")]
         [TabGroup("Transitions")]
@@ -41,17 +44,20 @@ namespace MMORPG.Game
 
         public void Initialize()
         {
-            foreach (var transition in Transitions)
-            {
-                transition.Setup(this);
-                transition.Initialize();
-                transition.OnEvaluated += condition => OnTransitionEvaluated?.Invoke(transition, condition);
-            }
-
             foreach (var action in Actions)
             {
                 action.Setup(this, StateId);
                 action.Initialize();
+            }
+
+            if (!HandleTransitionsScripts)
+            {
+                foreach (var transition in Transitions)
+                {
+                    transition.Setup(this);
+                    transition.Initialize();
+                    transition.OnEvaluated += condition => OnTransitionEvaluated?.Invoke(transition, condition);
+                }
             }
         }
 
@@ -63,7 +69,7 @@ namespace MMORPG.Game
         public void Update()
         {
             Actions.ForEach(x => x.Update());
-            if (IsMine)
+            if (IsMine && !HandleTransitionsScripts)
             {
                 Transitions.ForEach(x => x.Evaluate());
             }
@@ -107,7 +113,13 @@ namespace MMORPG.Game
 
         public bool HasError()
         {
-            return CheckActionsHasError() || CheckTransitionsHasError() || IsEmptyActions || IsEmptyTransitions;
+            bool actionError = CheckActionsHasError() || IsEmptyActions;
+            bool transitionError = CheckTransitionsHasError() || IsEmptyTransitions;
+            if (HandleTransitionsScripts)
+            {
+                return actionError;
+            }
+            return actionError || transitionError;
         }
 #endif
     }
