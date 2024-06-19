@@ -45,7 +45,15 @@ namespace MMORPG.Game
         {
             foreach (var damage in response.Damages)
             {
-                
+                if (_entityManager.EntityDict.TryGetValue(damage.TargetId, out var target))
+                {
+                    target.OnHurt?.Invoke(damage);
+
+                    if (_entityManager.EntityDict.TryGetValue(damage.AttackerId, out var attacker))
+                    {
+                        attacker.OnHitEntity?.Invoke(target, damage);
+                    }
+                }
             }
         }
 
@@ -82,7 +90,7 @@ namespace MMORPG.Game
             var entityId = response.EntityId;
             var position = response.Transform.Position.ToVector3();
             var rotation = Quaternion.Euler(response.Transform.Direction.ToVector3());
-            var entity = _entityManager.GetEntityById(entityId);
+            var entity = _entityManager.EntityDict[entityId];
             Debug.Assert(entity.EntityId == entityId);
             var data = new EntityTransformSyncData
             {
@@ -92,7 +100,7 @@ namespace MMORPG.Game
                 StateId = response.StateId,
                 Data = response.Data.ToByteArray()
             };
-            entity.HandleNetworkSync(data);
+            entity.OnTransformSync?.Invoke(data);
         }
 
         public IArchitecture GetArchitecture()
