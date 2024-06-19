@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MMORPG.Common.Proto.Entity;
 using Google.Protobuf;
+using MMORPG.Common.Proto.Fight;
 using MMORPG.Global;
 using MMORPG.System;
 using MMORPG.Tool;
@@ -82,7 +83,12 @@ namespace MMORPG.Game
             return total.ToArray();
         }
 
-        public bool ChangeState(PlayerState state)
+        public void ChangeStateByName(string stateName)
+        {
+            ChangeState(GetState(stateName));
+        }
+
+        public void ChangeState(PlayerState state)
         {
             Debug.Assert(state != null);
             Debug.Assert(States.Contains(state));
@@ -92,7 +98,6 @@ namespace MMORPG.Game
             _currentStateName = CurrentState.Name;
 #endif
             CurrentState.Enter();
-            return true;
         }
 
         public PlayerState GetState(string stateName)
@@ -130,9 +135,21 @@ namespace MMORPG.Game
             CurrentState = null;
             if (States.Length == 0) return;
             CharacterController.Entity.OnTransformSync += OnTransformEntitySync;
+            CharacterController.Entity.OnHurt += info =>
+            {
+                StopCoroutine("OnHurtCo");
+                StartCoroutine("OnHurtCo", info);
+            };
 
             if (HandleWeapon != null)
                 HandleWeapon.Setup(this);
+        }
+
+        private IEnumerator OnHurtCo(DamageInfo info)
+        {
+            ChangeStateByName("Hurt");
+            yield return new WaitForSeconds(CharacterController.Entity.UnitDefine.HurtTime);
+            ChangeStateByName("Idle");
         }
 
         private void OnTransformEntitySync(EntityTransformSyncData data)
