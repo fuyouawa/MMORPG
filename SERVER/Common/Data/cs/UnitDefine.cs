@@ -35,6 +35,7 @@ public class UnitDefine
 	public float Gint; // 智力成长
 	public float Gagi; // 敏捷成长
 	public string Ai; // Ai名称
+	public float HurtTime; // 受伤时间
 }
 
 

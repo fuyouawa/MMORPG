@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Proto\Monster\**" />
+    <Compile Remove="Proto\Player - 复制\**" />
+    <EmbeddedResource Remove="Proto\Monster\**" />
+    <EmbeddedResource Remove="Proto\Player - 复制\**" />
+    <None Remove="Proto\Monster\**" />
+    <None Remove="Proto\Player - 复制\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Proto\Skill.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.26.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\cs\" />
+    <Folder Include="Data\json\" />
+    <Folder Include="Inventory\" />
+    <Folder Include="Proto\新文件夹\" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)/../MMORPG/Assets/Plugins/$(TargetFileName)&quot;" />
+  </Target>
+
+</Project>

@@ -13,87 +13,12 @@ namespace MMORPG.Game
 
         public EntityTransformSyncData Data;
 
-        public class IdleState : AbstractState<ActorState, MonsterBrain>
-        {
-
-            public IdleState(FSM<ActorState> fsm, MonsterBrain target) : base(fsm, target)
-            {
-
-            }
-
-            protected override void OnEnter()
-            {
-                
-            }
-
-            protected override void OnUpdate()
-            {
-                
-            }
-        }
-
-        public class MoveState : AbstractState<ActorState, MonsterBrain>
-        {
-            public MoveState(FSM<ActorState> fsm, MonsterBrain target) : base(fsm, target)
-            {
-
-            }
-
-            protected override void OnEnter()
-            {
-                mTarget.Animator.SetBool("Walking", true);
-            }
-
-            protected override void OnExit()
-            {
-                mTarget.Animator.SetBool("Walking", false);
-            }
-
-            protected override void OnUpdate()
-            {
-                mTarget.CharacterController.SmoothMove(CalculateGroundPosition(mTarget.Data.Position, 6));
-                mTarget.CharacterController.SmoothRotate(mTarget.Data.Rotation);
-                //mTarget.Position = mTarget.Data.Position;
-            }
-
-            public Vector3 CalculateGroundPosition(Vector3 position, int layer)
-            {
-                int layerMask = 1 << layer;
-                if (Physics.Raycast(position, Vector3.down, out var hit, Mathf.Infinity, layerMask))
-                {
-                    return hit.point;
-                }
-                return position;
-            }
-        }
-
-        public class AttackState : AbstractState<ActorState, MonsterBrain>
-        {
-            public AttackState(FSM<ActorState> fsm, MonsterBrain target) : base(fsm, target)
-            {
-
-            }
-
-            protected override void OnEnter()
-            {
-                mTarget.Animator.SetBool("Attack", true);
-            }
-
-            protected override void OnExit()
-            {
-                mTarget.Animator.SetBool("Attack", false);
-            }
-        }
-
         [Required]
         public CharacterController CharacterController;
-        [Required]
-        //public MonsterAnimationController AnimationController;
 
 
         private void Awake()
         {
-            //AnimationController.Setup(this);
             CharacterController.Entity.OnTransformSync += OnTransformEntitySync;
         }
 
@@ -105,8 +30,8 @@ namespace MMORPG.Game
                 FSM.ChangeState(state);
             }
 
-            Data = data;
-            //state.Actions.ForEach(x => x.TransformEntitySync(data));
+            CharacterController.SmoothMove(CalculateGroundPosition(data.Position, 6));
+            CharacterController.SmoothRotate(data.Rotation);
         }
 
         private void Start()
@@ -135,6 +60,16 @@ namespace MMORPG.Game
         private void OnDestroy()
         {
             FSM.Clear();
+        }
+
+        public Vector3 CalculateGroundPosition(Vector3 position, int layer)
+        {
+            int layerMask = 1 << layer;
+            if (Physics.Raycast(position, Vector3.down, out var hit, Mathf.Infinity, layerMask))
+            {
+                return hit.point;
+            }
+            return position;
         }
     }
 

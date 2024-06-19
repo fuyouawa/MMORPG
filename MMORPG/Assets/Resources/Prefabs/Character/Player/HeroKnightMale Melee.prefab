@@ -248,7 +248,6 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 0
   StopCurrentPlayIfNewPlay: 1
-  StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackSound
     Enable: 1
@@ -1234,7 +1233,6 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopCurrentPlayIfNewPlay: 0
-  StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
     Enable: 1
@@ -1698,7 +1696,6 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopCurrentPlayIfNewPlay: 0
-  StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
     Enable: 1
@@ -2760,7 +2757,6 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopCurrentPlayIfNewPlay: 0
-  StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
     Enable: 1
@@ -3012,7 +3008,6 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopCurrentPlayIfNewPlay: 0
-  StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
     Enable: 1
@@ -3805,7 +3800,6 @@ GameObject:
   - component: {fileID: 72820028763516274}
   - component: {fileID: 9049836981437204500}
   - component: {fileID: 224805171054128564}
-  - component: {fileID: 6532541089558292842}
   m_Layer: 7
   m_Name: HeroKnightMale Melee
   m_TagString: Untagged
@@ -3944,22 +3938,6 @@ MonoBehaviour:
   MoveSmooth: 10
   Animator: {fileID: 1201144034948401517}
   EffectManager: {fileID: 910881223322486258}
---- !u!114 &6532541089558292842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6023422151166410460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb5e120cc8e7b87428683f77d959b717, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Entity: {fileID: 9049836981437204500}
-  Invincibility: 0.5
-  DamageNumberPoint: {fileID: 8782009336371497808}
-  HurtFeedbacks: {fileID: 0}
 --- !u!1 &6072385525174587162
 GameObject:
   m_ObjectHideFlags: 0
@@ -4084,7 +4062,6 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 0
   StopCurrentPlayIfNewPlay: 1
-  StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackSound
     Enable: 1
@@ -5258,7 +5235,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 883d619bdb6b823bfb1c2449106076ef, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8663018052763495040, guid: 19103e0d6f9cd2befbfc19df4d27f577, type: 3}
+    - {fileID: 7157514220996264720, guid: 19103e0d6f9cd2befbfc19df4d27f577, type: 3}
+    - {fileID: 1676327608684412499, guid: 19103e0d6f9cd2befbfc19df4d27f577, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7502796797551204777, guid: 19103e0d6f9cd2befbfc19df4d27f577, type: 3}

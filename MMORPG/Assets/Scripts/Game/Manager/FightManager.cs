@@ -23,12 +23,12 @@ namespace MMORPG.Game
 
         private void OnReceivedSpell(SpellResponse response)
         {
-            var caster = _entityManager.GetEntityById(response.Info.CasterId);
+            var caster = _entityManager.EntityDict[response.Info.CasterId];
             var skill = caster.GetComponent<CharacterController>().SkillManager.GetSkill(response.Info.SkillId);
             switch (skill.TargetType)
             {
                 case SkillTargetTypes.Unit:
-                    var target = _entityManager.GetEntityById(response.Info.CastTarget.TargetId);
+                    var target = _entityManager.EntityDict[response.Info.CastTarget.TargetId];
                     skill.Use(new CastTargetEntity(target));
                     break;
                 case SkillTargetTypes.Position:
