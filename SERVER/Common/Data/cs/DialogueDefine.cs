@@ -13,8 +13,8 @@ public class DialogueDefine
 	public string Content; // 内容
 	public string Options; // 选项id列表
 	public int Jump; // 跳转
-	public int ReceiveTask; // 接取任务id
-	public int SubmitTask; // 提交任务id
+	public string AcceptTask; // 接取任务id，接取失败时跳转的对话id
+	public string SubmitTask; // 提交任务id，提交失败时跳转的对话id
 	public int SaveDialogueId; // 
 }
 
