@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameServer.MapSystem;
 using GameServer.EntitySystem;
+using GameServer.Manager;
 
 namespace GameServer.MonsterSystem
 {
@@ -41,7 +42,7 @@ namespace GameServer.MonsterSystem
 
         public Monster NewMonster(int unitId, Vector3 pos, Vector3 dire, string name)
         {
-            var monster = new Monster(EntityManager.Instance.NewEntityId(), unitId, _map, name, pos, dire);
+            var monster = new Monster(EntityManager.Instance.NewEntityId(), DataManager.Instance.UnitDict[unitId], _map, name, pos, dire);
             EntityManager.Instance.AddEntity(monster);
 
             lock (_monsterDict)

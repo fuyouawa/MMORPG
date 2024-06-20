@@ -10,17 +10,17 @@ namespace GameServer.FightSystem
         public AttributeData Equip { get; private set; } = new();   // 装备总和
         public AttributeData Buff { get; private set; } = new();    // buff总和
         public AttributeData Final { get; private set; } = new();   // 最终总和
-        public Actor Actor { get; private set; }
+        public Actor ActorOwner { get; private set; }
         
-        public AttributeManager(Actor actor)
+        public AttributeManager(Actor actorOwner)
         {
-            Actor = actor;
+            ActorOwner = actorOwner;
         }
 
         public void Start()
         {
-            var define = DataManager.Instance.UnitDict[Actor.UnitId];
-            var level = Actor.Level;
+            var define = ActorOwner.UnitDefine;
+            var level = ActorOwner.Level;
             var initial = new AttributeData()
             {
                 Speed = define.Speed,

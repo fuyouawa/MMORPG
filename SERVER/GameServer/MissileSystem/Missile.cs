@@ -25,9 +25,9 @@ namespace GameServer.MissileSystem
         private CastTarget _castTarget;
         private Action<Entity> _hitCallback;
        
-        public Missile(int entityId, int unitId, Map map, Vector3 pos, Vector3 dire, 
+        public Missile(int entityId, UnitDefine unitDefine, Map map, Vector3 pos, Vector3 dire, 
             float range, float speed, CastTarget castTarget, Action<Entity> hitCallback) 
-            : base(EntityType.Missile, entityId, unitId, map, pos, dire)
+            : base(EntityType.Missile, entityId, unitDefine, map, pos, dire)
         {
             EntityType = EntityType.Missile;
             InitPos = pos;
@@ -40,7 +40,7 @@ namespace GameServer.MissileSystem
         public override void Start()
         {
             base.Update();
-            switch (DataManager.Instance.UnitDict[UnitId].Ai)
+            switch (UnitDefine.Ai)
             {
                 case "Missile":
                     _ai = new MissileAi(this, _range, _castTarget, _hitCallback);

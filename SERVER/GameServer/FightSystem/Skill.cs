@@ -210,7 +210,6 @@ namespace GameServer.FightSystem
             {
                 AttackerId = Actor.EntityId,
                 TargetId = target.EntityId,
-                SkillId = Define.ID,
                 DamageType = DamageType.Physical,
             };
 

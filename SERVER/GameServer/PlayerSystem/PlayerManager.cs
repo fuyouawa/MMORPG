@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Serilog;
 using GameServer.MapSystem;
 using GameServer.EntitySystem;
+using GameServer.Manager;
 using GameServer.UserSystem;
 
 namespace GameServer.PlayerSystem
@@ -69,7 +70,8 @@ namespace GameServer.PlayerSystem
         /// <returns></returns>
         public Player NewPlayer(User user, DbCharacter dbCharacter, Vector3 pos, Vector3 dire)
         {
-            var player = new Player(EntityManager.Instance.NewEntityId(), dbCharacter, _map, pos, dire, user);
+            var player = new Player(EntityManager.Instance.NewEntityId(), dbCharacter, 
+                DataManager.Instance.UnitDict[dbCharacter.UnitId], _map, pos, dire, user);
             EntityManager.Instance.AddEntity(player);
 
             lock (_playerDict)

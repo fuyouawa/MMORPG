@@ -18,8 +18,8 @@ namespace GameServer.NpcSystem
         public NpcDefine NpcDefine;
         public Vector3 InitPos;
 
-        public Npc(int entityId, int unitId, Map map, string name, Vector3 pos, Vector3 dire) 
-            : base(EntityType.Npc, entityId, unitId, map, pos, dire, name)
+        public Npc(int entityId, UnitDefine unitDefine, Map map, string name, Vector3 pos, Vector3 dire) 
+            : base(EntityType.Npc, entityId, unitDefine, map, pos, dire, name)
         {
             InitPos = pos;
         }
@@ -28,14 +28,13 @@ namespace GameServer.NpcSystem
         {
             base.Start();
 
-            var unitDefine = DataManager.Instance.UnitDict[UnitId];
-            Speed = unitDefine.Speed;
+            Speed = UnitDefine.Speed;
             Hp = AttributeManager.Final.MaxHp;
             Mp = AttributeManager.Final.MaxMp;
 
             foreach (var npcDefine in DataManager.Instance.NpcDict.Values)
             {
-                if (npcDefine.UnitId == UnitId)
+                if (npcDefine.UnitId == UnitDefine.ID)
                 {
                     NpcDefine = npcDefine;
                     break;

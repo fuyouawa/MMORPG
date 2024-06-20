@@ -19,6 +19,11 @@ namespace GameServer.TaskSystem
         private TaskInfo? _taskInfo;
         private bool _hasChange;
 
+        public TaskManager(Player playerOwner)
+        {
+            PlayerOwner = playerOwner;
+        }
+
         public TaskInfo GetTaskInfo()
         {
             if (_hasChange || _taskInfo == null)
