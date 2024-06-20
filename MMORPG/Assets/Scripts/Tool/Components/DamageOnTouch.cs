@@ -79,13 +79,6 @@ namespace MMORPG.Tool
 
             _gizmosColor = Color.red;
             _gizmosColor.a = 0.25f;
-
-            if (HitDamageableFeedbacks != null)
-                HitDamageableFeedbacks.Initialize();
-            if (HitNonDamageableFeedbacks != null)
-                HitNonDamageableFeedbacks.Initialize();
-            if (HitAnythingFeedbacks != null)
-                HitAnythingFeedbacks.Initialize();
         }
 
         public void IgnoreGameObject(GameObject obj)

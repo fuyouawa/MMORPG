@@ -105,13 +105,5 @@ namespace MMORPG.Game
             }
             CurrentWeapon.WeaponInputStart();
         }
-
-        public virtual void OnHitEntity(EntityView entity)
-        {
-            if (CurrentWeapon != null)
-            {
-                CurrentWeapon.OnHitEntity(entity);
-            }
-        }
     }
 }
