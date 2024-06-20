@@ -23,7 +23,7 @@ namespace GameServer.AiSystem
 
     public class MonsterAbilityManager
     {
-        public Monster Monster;
+        public Monster OwnerMonster;
         public ActorState SyncState;
         public IdleAbility IdleAbility;
         public MoveAbility MoveAbility;
@@ -37,10 +37,10 @@ namespace GameServer.AiSystem
         // 攻击范围
         public float AttackRange = 1f;
 
-        public MonsterAbilityManager(Monster monster)
+        public MonsterAbilityManager(Monster ownerMonster)
         {
-            Monster = monster;
-            MoveAbility = new(monster, Monster.InitPos.Y, monster.Speed);
+            OwnerMonster = ownerMonster;
+            MoveAbility = new(OwnerMonster, OwnerMonster.InitPos.Y, OwnerMonster.Speed);
             IdleAbility = new();
         }
 
@@ -117,11 +117,11 @@ namespace GameServer.AiSystem
         {
             var res = new EntityTransformSyncResponse()
             {
-                EntityId = Monster.EntityId,
+                EntityId = OwnerMonster.EntityId,
                 StateId = (int)SyncState,
-                Transform = ProtoHelper.ToNetTransform(Monster.Position, Monster.Direction)
+                Transform = ProtoHelper.ToNetTransform(OwnerMonster.Position, OwnerMonster.Direction)
             };
-            Monster.Map.PlayerManager.Broadcast(res, Monster);
+            OwnerMonster.Map.PlayerManager.Broadcast(res, OwnerMonster);
         }
     }
 
@@ -174,7 +174,7 @@ namespace GameServer.AiSystem
 
             public override void OnUpdate()
             {
-                var monster = _target.Monster;
+                var monster = _target.OwnerMonster;
 
                 if (monster.IsDeath())
                 {
@@ -216,7 +216,7 @@ namespace GameServer.AiSystem
 
             public Vector3 RandomPointWithBirth(float range)
             {
-                var monster = _target.Monster;
+                var monster = _target.OwnerMonster;
                 float x = _target.Random.NextSingle() * 2f - 1f;
                 float z = _target.Random.NextSingle() * 2f - 1f;
                 Vector3 direction = new Vector3(x, 0, z).Normalized();
@@ -238,20 +238,20 @@ namespace GameServer.AiSystem
 
             public override void OnEnter()
             {
-                _endTime = Time.time + _target.Monster.UnitDefine.HurtTime;
-                _target.Monster.Attacker = 0;
+                _endTime = Time.time + _target.OwnerMonster.UnitDefine.HurtTime;
+                _target.OwnerMonster.Attacker = 0;
                 _target.OnHurt();
             }
 
             public override void OnUpdate()
             {
-                if (_target.Monster.IsDeath())
+                if (_target.OwnerMonster.IsDeath())
                 {
                     _fsm.ChangeState(MonsterAiState.Death);
                     return;
                 }
                 if (!(_endTime < Time.time)) return;
-                if (_target.Monster.Attacker != 0)
+                if (_target.OwnerMonster.Attacker != 0)
                 {
                     OnEnter();
                     return;
@@ -271,7 +271,7 @@ namespace GameServer.AiSystem
 
             public override void OnUpdate()
             {
-                var monster = _target.Monster;
+                var monster = _target.OwnerMonster;
                 if (monster.IsDeath())
                 {
                     _fsm.ChangeState(MonsterAiState.Death);
@@ -327,7 +327,7 @@ namespace GameServer.AiSystem
 
             public override void OnEnter()
             {
-                _target.Move(_target.Monster.InitPos);
+                _target.Move(_target.OwnerMonster.InitPos);
 
                 // 切回巡逻状态，使得回出生点的过程也能继续寻敌
                 _fsm.ChangeState(MonsterAiState.Walk);
@@ -350,7 +350,7 @@ namespace GameServer.AiSystem
 
             public override void OnUpdate()
             {
-                if (_target.Monster.IsDeath()) return;
+                if (_target.OwnerMonster.IsDeath()) return;
                 _fsm.ChangeState(MonsterAiState.Walk);
             }
         }

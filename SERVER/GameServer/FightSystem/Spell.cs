@@ -105,7 +105,7 @@ namespace GameServer.FightSystem
                 return;
             }
             skill.Cast(target);
-            skill.Actor.Map.PlayerManager.Broadcast(new SpellResponse() { Info = info }, skill.Actor);
+            skill.OwnerActor.Map.PlayerManager.Broadcast(new SpellResponse() { Info = info }, skill.OwnerActor);
         }
 
 
