@@ -21,19 +21,17 @@ namespace MMORPG.Game
         public EntityType EntityType;
 
         public Action<EntityTransformSyncData> OnTransformSync;
-        public Action<DamageInfo> OnHurt;
-        public Action<EntityView, DamageInfo> OnHitEntity;
 
         private bool _initialized = false;
 
 
-        public void Initialize(int entityId, int unitId)
+        public void Initialize(int entityId, UnitDefine unitDefine)
         {
             Debug.Assert(!_initialized);
             _initialized = true;
 
             EntityId = entityId;
-            UnitDefine = this.GetSystem<IDataManagerSystem>().GetUnitDefine(unitId);
+            UnitDefine = unitDefine;
         }
 
         public IArchitecture GetArchitecture()

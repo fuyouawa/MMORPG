@@ -1,11 +1,15 @@
+using MMORPG.Common.Proto.Fight;
 using MMORPG.Common.Proto.Monster;
+using MMORPG.Event;
+using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Game
 {
-    public class MonsterBrain : MonoBehaviour
+    public class MonsterBrain : MonoBehaviour, IController
     {
         public Animator Animator;
 
@@ -16,10 +20,36 @@ namespace MMORPG.Game
         [Required]
         public CharacterController CharacterController;
 
+        public FeedbacksManager HurtFeedbacks;
+        public Transform DamageNumberPoint;
+
 
         private void Awake()
         {
             CharacterController.Entity.OnTransformSync += OnTransformEntitySync;
+
+            this.RegisterEvent<EntityHurtEvent>(e =>
+            {
+                if (e.Wounded == CharacterController.Entity)
+                {
+                    OnHurt(e);
+                }
+            });
+
+            if (HurtFeedbacks != null)
+            {
+                HurtFeedbacks.Initialize();
+            }
+        }
+
+        private void OnHurt(EntityHurtEvent e)
+        {
+            if (HurtFeedbacks != null)
+            {
+                HurtFeedbacks.Play();
+            }
+            Animator.SetTrigger("Hurt");
+            LevelManager.Instance.TakeDamage(LevelDamageNumberType.Monster, DamageNumberPoint.position, e.Amount);
         }
 
         private void OnTransformEntitySync(EntityTransformSyncData data)
@@ -70,6 +100,11 @@ namespace MMORPG.Game
                 return hit.point;
             }
             return position;
+        }
+
+        public IArchitecture GetArchitecture()
+        {
+            return GameApp.Interface;
         }
     }
 

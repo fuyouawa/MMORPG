@@ -77,12 +77,12 @@ namespace GameServer.EntitySystem
             EntityAttributeEntrySync(EntityAttributeEntryType.Mp, Mp);
         }
 
-        public virtual void OnHurt(EntityHurtResponse resp)
+        public virtual void OnHurt(DamageInfo info)
         {
-            Attacker = resp.AttackerId;
-            Map.PlayerManager.Broadcast(resp, this);
-            ChangeHP(-resp.Amount);
-            Log.Debug($"Actor:{Name}({EntityId})被EntityId:{resp.AttackerId}使用技能{resp.SkillId}击中, 扣除{resp.Amount}血量, 剩余血量:{Hp}!");
+            Attacker = info.AttackerId;
+            Map.PlayerManager.Broadcast(new EntityHurtResponse{ Info = info }, this);
+            ChangeHP(-info.Amount);
+            Log.Debug($"Actor:{Name}({EntityId})受到{info.AttackerId}的攻击, 扣除{info.Amount}血量, 剩余血量:{Hp}!");
         }
 
         private void EntityAttributeEntrySync<T>(EntityAttributeEntryType type, T value)

@@ -12,12 +12,11 @@ namespace MMORPG.Game
 
         protected override void OnEnter()
         {
-            mTarget.Animator.SetBool("Attack", true);
+            mTarget.Animator.SetTrigger("Attack");
         }
 
         protected override void OnExit()
         {
-            mTarget.Animator.SetBool("Attack", false);
         }
     }
 }
