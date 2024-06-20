@@ -57,5 +57,17 @@ namespace GameServer.Tool
             var vector2 = new Vector2(vector3.X, vector3.Z);
             return vector2;
         }
+
+        public static Vector2 RotateVector2(Vector2 v, float angle)
+        {
+            var radians = angle * ((float)Math.PI / 180f);
+
+            var cos = (float)Math.Cos(radians);
+            var sin = (float)Math.Sin(radians);
+            var newX = v.X * cos - v.Y * sin;
+            var newY = v.X * sin + v.Y * cos;
+
+            return new Vector2(newX, newY);
+        }
     }
 }
