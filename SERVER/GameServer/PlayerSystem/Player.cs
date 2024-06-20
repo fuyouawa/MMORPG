@@ -33,14 +33,15 @@ namespace GameServer.PlayerSystem
 
         private DbCharacter _dbCharacter;
 
-        public Player(int entityId, DbCharacter dbCharacter,
+        public Player(int entityId, DbCharacter dbCharacter, UnitDefine unitDefine,
             Map map, Vector3 pos, Vector3 dire, User user)
-            : base(EntityType.Player, entityId, dbCharacter.UnitId, map, pos, dire, dbCharacter.Name)
+            : base(EntityType.Player, entityId, unitDefine, map, pos, dire, dbCharacter.Name)
         {
             User = user;
             CharacterId = dbCharacter.Id;
             Knapsack = new(this);
             DialogueManager = new(this);
+            TaskManager = new(this);
 
             _dbCharacter = dbCharacter;
         }
@@ -70,7 +71,7 @@ namespace GameServer.PlayerSystem
                 Id = CharacterId,
                 Name = Name,
                 UserId = User.UserId,
-                UnitId = UnitId,
+                UnitId = UnitDefine.ID,
                 MapId = Map.MapId,
                 Level = Level,
                 Exp = Exp,

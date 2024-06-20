@@ -22,7 +22,6 @@ namespace GameServer.Manager
         public Dictionary<int, TaskDefine> TaskDict;
         public Dictionary<int, RewardDefine> RewardDict;
 
-
         private DataManager() { }
 
         public void Start()

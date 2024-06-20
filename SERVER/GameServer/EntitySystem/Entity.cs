@@ -14,18 +14,18 @@ namespace GameServer.EntitySystem
     {
         public EntityType EntityType;
         public int EntityId;
-        public int UnitId;
+        public UnitDefine UnitDefine;
         public bool Valid = true;
         public Map Map;
         public AoiWord.AoiEntity? AoiEntity;
         public Vector3 Position;
         public Vector3 Direction;
 
-        protected Entity(EntityType entityType, int entityId, int unitId, Map map, Vector3 pos, Vector3 dire)
+        protected Entity(EntityType entityType, int entityId, UnitDefine unitDefine, Map map, Vector3 pos, Vector3 dire)
         {
             EntityType = entityType;
             EntityId = entityId;
-            UnitId = unitId;
+            UnitDefine = unitDefine;
             Map = map;
             Position = pos;
             Direction = dire;

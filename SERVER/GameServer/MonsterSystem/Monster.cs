@@ -17,8 +17,8 @@ namespace GameServer.MonsterSystem
 
         public Vector3 InitPos;
 
-        public Monster(int entityId, int unitId, Map map, string name, Vector3 pos, Vector3 dire) 
-            : base(EntityType.Monster, entityId, unitId, map, pos, dire, name)
+        public Monster(int entityId, UnitDefine unitDefine, Map map, string name, Vector3 pos, Vector3 dire) 
+            : base(EntityType.Monster, entityId, unitDefine, map, pos, dire, name)
         {
             InitPos = pos;
         }
@@ -27,17 +27,16 @@ namespace GameServer.MonsterSystem
         {
             base.Start();
 
-            switch (DataManager.Instance.UnitDict[UnitId].Ai)
+            Speed = UnitDefine.Speed;
+            Hp = AttributeManager.Final.MaxHp;
+            Mp = AttributeManager.Final.MaxMp;
+
+            switch (UnitDefine.Ai)
             {
                 case "Monster":
                     _ai = new MonsterAi(this);
                     break;
             }
-
-            var unitDefine = DataManager.Instance.UnitDict[UnitId];
-            Speed = unitDefine.Speed;
-            Hp = AttributeManager.Final.MaxHp;
-            Mp = AttributeManager.Final.MaxMp;
 
             _ai?.Start();
         }

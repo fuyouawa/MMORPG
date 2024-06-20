@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameServer.MapSystem;
 using GameServer.EntitySystem;
+using GameServer.Manager;
 
 namespace GameServer.NpcSystem
 {
@@ -41,7 +42,7 @@ namespace GameServer.NpcSystem
 
         public Npc NewNpc(int unitId, Vector3 pos, Vector3 dire, string name)
         {
-            var npc = new Npc(EntityManager.Instance.NewEntityId(), unitId, _map, name, pos, dire);
+            var npc = new Npc(EntityManager.Instance.NewEntityId(), DataManager.Instance.UnitDict[unitId], _map, name, pos, dire);
             EntityManager.Instance.AddEntity(npc);
 
             lock (_npcDict)

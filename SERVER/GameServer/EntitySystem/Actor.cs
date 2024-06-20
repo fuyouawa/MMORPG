@@ -26,9 +26,9 @@ namespace GameServer.EntitySystem
         public SkillManager SkillManager { get; protected set; }
         public Spell Spell { get; protected set; }
 
-        public Actor(EntityType entityType, int entityId, int unitId,
+        public Actor(EntityType entityType, int entityId, UnitDefine unitDefine,
             Map map, Vector3 pos, Vector3 dire, string name) 
-            : base(entityType, entityId, unitId, map, pos, dire)
+            : base(entityType, entityId, unitDefine, map, pos, dire)
         {
             Name = name;
             AttributeManager = new(this);
@@ -41,7 +41,6 @@ namespace GameServer.EntitySystem
             base.Start();
             AttributeManager.Start();
             SkillManager.Start();
-
 
             //var unitDefine = DataHelper.GetUnitDefine(UnitId);
             //Spell.Start();

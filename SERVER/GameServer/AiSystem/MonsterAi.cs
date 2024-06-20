@@ -18,6 +18,7 @@ namespace GameServer.AiSystem
         Hurt,
         Chase,
         Goback,
+        Death,
     }
 
     public class MonsterAbilityManager
@@ -27,7 +28,7 @@ namespace GameServer.AiSystem
         public IdleAbility IdleAbility;
         public MoveAbility MoveAbility;
         public Actor? ChasingTarget;
-        public Random Random = new(10);
+        public Random Random = new();
 
         // 相对于出生点的活动范围
         public float WalkRange = 10f;
@@ -91,13 +92,18 @@ namespace GameServer.AiSystem
 
         public void Revive()
         {
-
+            
         }
 
         public void OnHurt()
         {
             ChangeSyncState(ActorState.Hurt);
             SyncState = ActorState.Idle;
+        }
+
+        public void OnDeath()
+        {
+            ChangeSyncState(ActorState.Death);
         }
 
         private void ChangeSyncState(ActorState state)
@@ -131,6 +137,7 @@ namespace GameServer.AiSystem
             Fsm.AddState(MonsterAiState.Chase, new ChaseState(Fsm, AbilityManager));
             Fsm.AddState(MonsterAiState.Goback, new GobackState(Fsm, AbilityManager));
             Fsm.AddState(MonsterAiState.Hurt, new HurtState(Fsm, AbilityManager));
+            Fsm.AddState(MonsterAiState.Death, new DeathState(Fsm, AbilityManager));
         }
 
         public override void Start()
@@ -169,6 +176,11 @@ namespace GameServer.AiSystem
             {
                 var monster = _target.Monster;
 
+                if (monster.IsDeath())
+                {
+                    _fsm.ChangeState(MonsterAiState.Death);
+                    return;
+                }
                 if (monster.Attacker != 0)
                 {
                     _fsm.ChangeState(MonsterAiState.Hurt);
@@ -226,13 +238,18 @@ namespace GameServer.AiSystem
 
             public override void OnEnter()
             {
-                _endTime = Time.time + DataManager.Instance.UnitDict[_target.Monster.UnitId].HurtTime;
+                _endTime = Time.time + _target.Monster.UnitDefine.HurtTime;
                 _target.Monster.Attacker = 0;
                 _target.OnHurt();
             }
 
             public override void OnUpdate()
             {
+                if (_target.Monster.IsDeath())
+                {
+                    _fsm.ChangeState(MonsterAiState.Death);
+                    return;
+                }
                 if (!(_endTime < Time.time)) return;
                 if (_target.Monster.Attacker != 0)
                 {
@@ -255,12 +272,16 @@ namespace GameServer.AiSystem
             public override void OnUpdate()
             {
                 var monster = _target.Monster;
+                if (monster.IsDeath())
+                {
+                    _fsm.ChangeState(MonsterAiState.Death);
+                    return;
+                }
                 if (monster.Attacker != 0)
                 {
                     _fsm.ChangeState(MonsterAiState.Hurt);
                     return;
                 }
-
                 if (_target.ChasingTarget == null)// || monster.ChasingTarget.IsDeath())
                 {
                     _fsm.ChangeState(MonsterAiState.Goback);
@@ -275,9 +296,8 @@ namespace GameServer.AiSystem
                 }
 
                 var monsterPos = new Vector2(monster.Position.X, monster.Position.Z);
-                var playerPos = new Vector2(player.Position.X, player.Position.Z);
-                float d1 = Vector2.Distance(monsterPos, playerPos);  // 自身与目标的距离
-                float d2 = Vector3.Distance(monster.Position, monster.InitPos); // 自身与出生点的距离
+                float d1 = Vector2.Distance(monsterPos, player.Position.ToVector2());  // 自身与目标的距离
+                float d2 = Vector2.Distance(monsterPos, monster.InitPos.ToVector2()); // 自身与出生点的距离
                 if (d1 > _target.ChaseRange || d2 > _target.ChaseRange)
                 {
                     _fsm.ChangeState(MonsterAiState.Goback);
@@ -313,5 +333,27 @@ namespace GameServer.AiSystem
                 _fsm.ChangeState(MonsterAiState.Walk);
             }
         }
+
+        /// <summary>
+        /// 死亡状态
+        /// </summary>
+        public class DeathState : FSMAbstractState<MonsterAiState, MonsterAbilityManager>
+        {
+            public DeathState(FSM<MonsterAiState> fsm, MonsterAbilityManager parameter) :
+                base(fsm, parameter)
+            { }
+
+            public override void OnEnter()
+            {
+                _target.OnDeath();
+            }
+
+            public override void OnUpdate()
+            {
+                if (_target.Monster.IsDeath()) return;
+                _fsm.ChangeState(MonsterAiState.Walk);
+            }
+        }
+
     }
 }

@@ -91,7 +91,7 @@ namespace GameServer.MapSystem
             res.Datas.Add(new EntityEnterData()
             {
                 EntityId = entity.EntityId,
-                UnitId = entity.UnitId,
+                UnitId = entity.UnitDefine.ID,
                 EntityType = entity.EntityType,
                 Transform = ProtoHelper.ToNetTransform(entity.Position, entity.Direction),
             });
@@ -110,7 +110,7 @@ namespace GameServer.MapSystem
                     {
                         EntityId = e.EntityId,
                         EntityType = e.EntityType,
-                        UnitId = e.UnitId,
+                        UnitId = e.UnitDefine.ID,
                         Transform = ProtoHelper.ToNetTransform(e.Position, e.Direction),
                     });
                 });
@@ -148,7 +148,7 @@ namespace GameServer.MapSystem
             enterRes.Datas.Add(new EntityEnterData()
             {
                 EntityId = entity.EntityId,
-                UnitId = entity.UnitId,
+                UnitId = entity.UnitDefine.ID,
                 EntityType = entity.EntityType,
                 Transform = ProtoHelper.ToNetTransform(entity.Position, entity.Direction),
             });
@@ -176,7 +176,7 @@ namespace GameServer.MapSystem
                         enterRes.Datas.Add(new EntityEnterData()
                         {
                             EntityId = enterEntity.EntityId,
-                            UnitId = enterEntity.UnitId,
+                            UnitId = enterEntity.UnitDefine.ID,
                             EntityType = enterEntity.EntityType,
                             Transform = ProtoHelper.ToNetTransform(enterEntity.Position, enterEntity.Direction),
                         });

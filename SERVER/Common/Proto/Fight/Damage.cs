@@ -25,18 +25,17 @@ namespace MMORPG.Common.Proto.Fight {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChJGaWdodC9EYW1hZ2UucHJvdG8SGU1NT1JQRy5Db21tb24uUHJvdG8uRmln",
-            "aHQitAEKCkRhbWFnZUluZm8SEwoLYXR0YWNrZXJfaWQYASABKAUSEQoJdGFy",
-            "Z2V0X2lkGAIgASgFEhAKCHNraWxsX2lkGAMgASgFEg4KBmFtb3VudBgEIAEo",
-            "BRI6CgtkYW1hZ2VfdHlwZRgFIAEoDjIlLk1NT1JQRy5Db21tb24uUHJvdG8u",
-            "RmlnaHQuRGFtYWdlVHlwZRIPCgdpc19jcml0GAYgASgIEg8KB2lzX21pc3MY",
-            "ByABKAgiSQoSRW50aXR5SHVydFJlc3BvbnNlEjMKBGluZm8YASABKAsyJS5N",
-            "TU9SUEcuQ29tbW9uLlByb3RvLkZpZ2h0LkRhbWFnZUluZm8qPgoKRGFtYWdl",
-            "VHlwZRILCgdVTktOT1dOEAASDAoIUEhZU0lDQUwQARILCgdNQUdJQ0FMEAIS",
-            "CAoEUkVBTBADYgZwcm90bzM="));
+            "aHQiogEKCkRhbWFnZUluZm8SEwoLYXR0YWNrZXJfaWQYASABKAUSEQoJdGFy",
+            "Z2V0X2lkGAIgASgFEg4KBmFtb3VudBgEIAEoBRI6CgtkYW1hZ2VfdHlwZRgF",
+            "IAEoDjIlLk1NT1JQRy5Db21tb24uUHJvdG8uRmlnaHQuRGFtYWdlVHlwZRIP",
+            "Cgdpc19jcml0GAYgASgIEg8KB2lzX21pc3MYByABKAgiSQoSRW50aXR5SHVy",
+            "dFJlc3BvbnNlEjMKBGluZm8YASABKAsyJS5NTU9SUEcuQ29tbW9uLlByb3Rv",
+            "LkZpZ2h0LkRhbWFnZUluZm8qPgoKRGFtYWdlVHlwZRILCgdVTktOT1dOEAAS",
+            "DAoIUEhZU0lDQUwQARILCgdNQUdJQ0FMEAISCAoEUkVBTBADYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Fight.DamageType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.DamageInfo), global::MMORPG.Common.Proto.Fight.DamageInfo.Parser, new[]{ "AttackerId", "TargetId", "SkillId", "Amount", "DamageType", "IsCrit", "IsMiss" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.DamageInfo), global::MMORPG.Common.Proto.Fight.DamageInfo.Parser, new[]{ "AttackerId", "TargetId", "Amount", "DamageType", "IsCrit", "IsMiss" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.EntityHurtResponse), global::MMORPG.Common.Proto.Fight.EntityHurtResponse.Parser, new[]{ "Info" }, null, null, null, null)
           }));
     }
@@ -63,6 +62,7 @@ namespace MMORPG.Common.Proto.Fight {
   #endregion
 
   #region Messages
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class DamageInfo : pb::IMessage<DamageInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -99,7 +99,6 @@ namespace MMORPG.Common.Proto.Fight {
     public DamageInfo(DamageInfo other) : this() {
       attackerId_ = other.attackerId_;
       targetId_ = other.targetId_;
-      skillId_ = other.skillId_;
       amount_ = other.amount_;
       damageType_ = other.damageType_;
       isCrit_ = other.isCrit_;
@@ -134,18 +133,6 @@ namespace MMORPG.Common.Proto.Fight {
       get { return targetId_; }
       set {
         targetId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "skill_id" field.</summary>
-    public const int SkillIdFieldNumber = 3;
-    private int skillId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int SkillId {
-      get { return skillId_; }
-      set {
-        skillId_ = value;
       }
     }
 
@@ -214,7 +201,6 @@ namespace MMORPG.Common.Proto.Fight {
       }
       if (AttackerId != other.AttackerId) return false;
       if (TargetId != other.TargetId) return false;
-      if (SkillId != other.SkillId) return false;
       if (Amount != other.Amount) return false;
       if (DamageType != other.DamageType) return false;
       if (IsCrit != other.IsCrit) return false;
@@ -228,7 +214,6 @@ namespace MMORPG.Common.Proto.Fight {
       int hash = 1;
       if (AttackerId != 0) hash ^= AttackerId.GetHashCode();
       if (TargetId != 0) hash ^= TargetId.GetHashCode();
-      if (SkillId != 0) hash ^= SkillId.GetHashCode();
       if (Amount != 0) hash ^= Amount.GetHashCode();
       if (DamageType != global::MMORPG.Common.Proto.Fight.DamageType.Unknown) hash ^= DamageType.GetHashCode();
       if (IsCrit != false) hash ^= IsCrit.GetHashCode();
@@ -258,10 +243,6 @@ namespace MMORPG.Common.Proto.Fight {
       if (TargetId != 0) {
         output.WriteRawTag(16);
         output.WriteInt32(TargetId);
-      }
-      if (SkillId != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(SkillId);
       }
       if (Amount != 0) {
         output.WriteRawTag(32);
@@ -297,10 +278,6 @@ namespace MMORPG.Common.Proto.Fight {
         output.WriteRawTag(16);
         output.WriteInt32(TargetId);
       }
-      if (SkillId != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(SkillId);
-      }
       if (Amount != 0) {
         output.WriteRawTag(32);
         output.WriteInt32(Amount);
@@ -333,9 +310,6 @@ namespace MMORPG.Common.Proto.Fight {
       if (TargetId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(TargetId);
       }
-      if (SkillId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SkillId);
-      }
       if (Amount != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Amount);
       }
@@ -365,9 +339,6 @@ namespace MMORPG.Common.Proto.Fight {
       }
       if (other.TargetId != 0) {
         TargetId = other.TargetId;
-      }
-      if (other.SkillId != 0) {
-        SkillId = other.SkillId;
       }
       if (other.Amount != 0) {
         Amount = other.Amount;
@@ -402,10 +373,6 @@ namespace MMORPG.Common.Proto.Fight {
           }
           case 16: {
             TargetId = input.ReadInt32();
-            break;
-          }
-          case 24: {
-            SkillId = input.ReadInt32();
             break;
           }
           case 32: {
@@ -447,10 +414,6 @@ namespace MMORPG.Common.Proto.Fight {
             TargetId = input.ReadInt32();
             break;
           }
-          case 24: {
-            SkillId = input.ReadInt32();
-            break;
-          }
           case 32: {
             Amount = input.ReadInt32();
             break;
@@ -474,6 +437,7 @@ namespace MMORPG.Common.Proto.Fight {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityHurtResponse : pb::IMessage<EntityHurtResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage

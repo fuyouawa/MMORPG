@@ -30,16 +30,11 @@ namespace GameServer.RewardSystem
         /// <param name="entity"></param>
         public void Distribute(int rewardId, Entity entity)
         {
-            if (!DataManager.Instance.RewardDict.TryGetValue(rewardId, out var rewardDefine))
-            {
-                return;
-            }
+            if (!DataManager.Instance.RewardDict.TryGetValue(rewardId, out var rewardDefine)) return;
+            
             var formatList = JsonConvert.DeserializeObject<RewardFormat[]>(rewardDefine.RewardList);
-            if (formatList == null)
-            {
-                return;
-            }
-
+            if (formatList == null) return;
+            
             int number = 0;
             foreach (var format in formatList)
             {
@@ -61,10 +56,8 @@ namespace GameServer.RewardSystem
                 if (rewardDefine.Type == "Inventory")
                 {
                     var player = entity as Player;
-                    if (player == null)
-                    {
-                        continue;
-                    }
+                    if (player == null) continue;
+                    
                     number = player.Knapsack.AddItem(format.ItemId, number);
                 }
 

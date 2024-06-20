@@ -44,7 +44,7 @@ namespace GameServer.InventorySystem
         public DroppedItem NewDroppedItem(int itemId, Vector3 pos, Vector3 dire, int amount)
         {
             var item = new DroppedItem(EntityManager.Instance.NewEntityId(),
-                DataManager.Instance.ItemDict[itemId].UnitId, _map, pos, dire, itemId, amount);
+                DataManager.Instance.UnitDict[DataManager.Instance.ItemDict[itemId].UnitId], _map, pos, dire, itemId, amount);
             EntityManager.Instance.AddEntity(item);
 
             lock (_itemDict)
