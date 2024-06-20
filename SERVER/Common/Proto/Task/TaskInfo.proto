@@ -4,9 +4,6 @@ package MMORPG.Common.Proto.Task;
 
 message TaskRecord{
 	int32 task_id = 1;
-	oneof payload {
-		string killRecord = 2;
-	}
 }
 
 message TaskInfo {
