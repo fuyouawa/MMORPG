@@ -1,9 +1,11 @@
 using MMORPG.Common.Proto.Entity;
 using MMORPG.Common.Proto.Fight;
 using MMORPG.Common.Proto.Map;
+using MMORPG.Event;
 using QFramework;
 using MMORPG.System;
 using MMORPG.Tool;
+using Serilog;
 using UnityEngine;
 using NotImplementedException = System.NotImplementedException;
 
@@ -43,17 +45,24 @@ namespace MMORPG.Game
 
         private void OnEntityHurtReceived(EntityHurtResponse response)
         {
-            foreach (var damage in response.Damages)
+            if (_entityManager.EntityDict.TryGetValue(response.Info.TargetId, out var wounded))
             {
-                if (_entityManager.EntityDict.TryGetValue(damage.TargetId, out var target))
+                if (_entityManager.EntityDict.TryGetValue(response.Info.AttackerId, out var attacker))
                 {
-                    target.OnHurt?.Invoke(damage);
-
-                    if (_entityManager.EntityDict.TryGetValue(damage.AttackerId, out var attacker))
-                    {
-                        attacker.OnHitEntity?.Invoke(target, damage);
-                    }
+                    Log.Information($"{wounded.gameObject.name}受到{attacker.gameObject.name}的攻击({response.Info.DamageType}), 扣除{response.Info.Amount}点血量");
                 }
+                else
+                {
+                    Log.Information($"{wounded.gameObject.name}受到EntityId:{response.Info.AttackerId}(已离开视野范围)的攻击({response.Info.DamageType}), 扣除{response.Info.Amount}点血量");
+                }
+
+                this.SendEvent(new EntityHurtEvent(
+                    wounded,
+                    attacker,
+                    response.Info.Amount,
+                    response.Info.DamageType,
+                    response.Info.IsCrit,
+                    response.Info.IsMiss));
             }
         }
 

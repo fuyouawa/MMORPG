@@ -5,6 +5,7 @@ using System.Linq;
 using MMORPG.Common.Proto.Entity;
 using Google.Protobuf;
 using MMORPG.Common.Proto.Fight;
+using MMORPG.Event;
 using MMORPG.Global;
 using MMORPG.System;
 using MMORPG.Tool;
@@ -135,17 +136,26 @@ namespace MMORPG.Game
             CurrentState = null;
             if (States.Length == 0) return;
             CharacterController.Entity.OnTransformSync += OnTransformEntitySync;
-            CharacterController.Entity.OnHurt += info =>
+
+            this.RegisterEvent<EntityHurtEvent>(e =>
             {
-                StopCoroutine("OnHurtCo");
-                StartCoroutine("OnHurtCo", info);
-            };
+                if (e.Wounded == CharacterController.Entity)
+                {
+                    StopCoroutine("OnHurtCo");
+                    StartCoroutine("OnHurtCo", e);
+                }
+
+                if (e.Attacker == CharacterController.Entity)
+                {
+                    HandleWeapon.OnHitEntity(e.Wounded);
+                }
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             if (HandleWeapon != null)
                 HandleWeapon.Setup(this);
         }
 
-        private IEnumerator OnHurtCo(DamageInfo info)
+        private IEnumerator OnHurtCo(EntityHurtEvent e)
         {
             ChangeStateByName("Hurt");
             yield return new WaitForSeconds(CharacterController.Entity.UnitDefine.HurtTime);

@@ -4996,6 +4996,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Animator: {fileID: 7478517571520445435}
   CharacterController: {fileID: -6944603909313355789}
+  HurtFeedbacks: {fileID: 5896594241678660570}
+  DamageNumberPoint: {fileID: 3267704363213240744}
 --- !u!1 &4497675485641418541
 GameObject:
   m_ObjectHideFlags: 0
@@ -5158,7 +5160,7 @@ MonoBehaviour:
   AutoPlayOnEnable: 0
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
-  StopCurrentPlayIfNewPlay: 0
+  StopCurrentPlayIfNewPlay: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackSound
     Enable: 1

@@ -50,7 +50,7 @@ namespace MMORPG.Tool
         {
             foreach (var item in FeedbackItems)
             {
-                if (item.Feedback.IsPlaying)
+                if (item.Enable && item.Feedback?.IsPlaying == true)
                 {
                     return true;
                 }
@@ -132,8 +132,10 @@ namespace MMORPG.Tool
                 if (!CanPlayWhileAlreadyPlaying)
                     return;
                 if (StopCurrentPlayIfNewPlay)
+                {
                     Stop();
-                Debug.Assert(!HasFeedbackPlaying());
+                    Debug.Assert(!HasFeedbackPlaying());
+                }
             }
 
             foreach (var item in FeedbackItems)
@@ -141,58 +143,6 @@ namespace MMORPG.Tool
                 item.Play();
             }
             TimeSinceLastPlay = Time.time;
-        }
-
-        /// <summary>
-        /// 添加Feedback
-        /// </summary>
-        /// <remarks>
-        /// <example>
-        /// <para>以下这个示例展示了如何使用该Api添加一个伤害区域的反馈</para>
-        /// <code>
-        /// // 创建一块伤害区域
-        /// var damageAreaFeedback = new FeedbackDamageArea()
-        /// {
-        ///     DelayBeforePlay = 0.3f,
-        ///     ActiveDuration = 0.5f,
-        ///     AreaOffset = new Vector3(1.1f, 4.5f, 1.4f),
-        ///     AreaSize = new Vector3(1.9f, 1.9f, 8.10f),
-        ///     CustomLayer = true,
-        ///     LayerName = "Weapon",
-        ///     TargetLayerMask = LayerMask.NameToLayer("Monster"),
-        ///     MinDamageCaused = 114514f,
-        ///     MaxDamageCaused = 1919810f
-        /// };
-        /// // 监听OnHitDamageable, 以便在击打到对象的时候播放击打音效等
-        /// damageAreaFeedback.OnHitDamageable.AddListener(HandleWeapon.OnHitDamageable);
-        /// // 将伤害区域添加到Feedbacks中
-        /// WeaponStartFeedbacks.AddFeedback(
-        ///     damageAreaFeedback,
-        ///     // 在IsMine的时候激活当前添加的Feedback, 也就是伤害区域
-        ///     enableIf: () => Brain.IsMine,
-        ///     // 在Feedback的OnStart时判定传入的enableIf是否成立, 如果不成立就Disable
-        ///     conditionPredicateModes: ConditionPredicateModes.OnStart);
-        /// </code>
-        /// </example>
-        /// </remarks>
-        /// <param name="feedback">要添加的Api</param>
-        /// <param name="enable">激活状态</param>
-        /// <param name="autoInitialize">添加后自动Initialize</param>
-        public virtual void AddFeedback(
-            AbstractFeedback feedback,
-            bool enable = true,
-            bool autoInitialize = true)
-        {
-            var item = new FeedbackItem
-            {
-                Feedback = feedback,
-                Enable = enable,
-                FeedbackName = feedback.GetType().FullName,
-                Label = feedback.GetType().Name
-            };
-            if (autoInitialize)
-                item.Initialize();
-            FeedbackItems.Add(item);
         }
 
         public virtual void Stop()

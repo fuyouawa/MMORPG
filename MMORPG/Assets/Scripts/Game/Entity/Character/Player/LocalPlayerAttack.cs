@@ -14,11 +14,6 @@ namespace MMORPG.Game
         public override void OnStateInit()
         {
             _network = this.GetSystem<INetworkSystem>();
-
-            OwnerState.Brain.CharacterController.Entity.OnHitEntity += (target, info) =>
-            {
-                OwnerState.Brain.HandleWeapon.OnHitEntity(target);
-            };
         }
 
         public override void OnStateEnter()
