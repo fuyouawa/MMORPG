@@ -225,6 +225,9 @@ namespace GameServer.FightSystem
                     damageInfo.IsCrit = true;
                     amount *= a.Crd * 0.01f;
                 }
+
+                var offset = 0.95f + _random.NextSingle() * (1.05f - 0.95f);
+                amount *= offset;
             }
             else
             {
