@@ -227,11 +227,11 @@ namespace GameServer.FightSystem
                 amount = ads + aps;
 
                 var randCri = _random.NextSingle();
-                var cri = a.Cri * 0.01f;
+                var cri = a.Cri;
                 if (cri >= randCri)
                 {
                     damageInfo.IsCrit = true;
-                    amount *= a.Crd * 0.01f;
+                    amount *= a.Crd;
                 }
 
                 var offset = 0.95f + _random.NextSingle() * (1.05f - 0.95f);
