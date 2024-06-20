@@ -25,19 +25,16 @@ namespace MMORPG.Common.Proto.Fight {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChJGaWdodC9EYW1hZ2UucHJvdG8SGU1NT1JQRy5Db21tb24uUHJvdG8uRmln",
-            "aHQitAEKCkRhbWFnZUluZm8SEwoLYXR0YWNrZXJfaWQYASABKAUSEQoJdGFy",
-            "Z2V0X2lkGAIgASgFEhAKCHNraWxsX2lkGAMgASgFEg4KBmFtb3VudBgEIAEo",
-            "BRI6CgtkYW1hZ2VfdHlwZRgFIAEoDjIlLk1NT1JQRy5Db21tb24uUHJvdG8u",
-            "RmlnaHQuRGFtYWdlVHlwZRIPCgdpc19jcml0GAYgASgIEg8KB2lzX21pc3MY",
-            "ByABKAgiTAoSRW50aXR5SHVydFJlc3BvbnNlEjYKB2RhbWFnZXMYASADKAsy",
-            "JS5NTU9SUEcuQ29tbW9uLlByb3RvLkZpZ2h0LkRhbWFnZUluZm8qPgoKRGFt",
-            "YWdlVHlwZRILCgdVTktOT1dOEAASDAoIUEhZU0lDQUwQARILCgdNQUdJQ0FM",
-            "EAISCAoEUkVBTBADYgZwcm90bzM="));
+            "aHQivQEKEkVudGl0eUh1cnRSZXNwb25zZRITCgthdHRhY2tlcl9pZBgBIAEo",
+            "BRISCgp3b3VuZGVkX2lkGAIgASgFEhAKCHNraWxsX2lkGAMgASgFEg4KBmFt",
+            "b3VudBgEIAEoBRI6CgtkYW1hZ2VfdHlwZRgFIAEoDjIlLk1NT1JQRy5Db21t",
+            "b24uUHJvdG8uRmlnaHQuRGFtYWdlVHlwZRIPCgdpc19jcml0GAYgASgIEg8K",
+            "B2lzX21pc3MYByABKAgqPgoKRGFtYWdlVHlwZRILCgdVTktOT1dOEAASDAoI",
+            "UEhZU0lDQUwQARILCgdNQUdJQ0FMEAISCAoEUkVBTBADYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Fight.DamageType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.DamageInfo), global::MMORPG.Common.Proto.Fight.DamageInfo.Parser, new[]{ "AttackerId", "TargetId", "SkillId", "Amount", "DamageType", "IsCrit", "IsMiss" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.EntityHurtResponse), global::MMORPG.Common.Proto.Fight.EntityHurtResponse.Parser, new[]{ "Damages" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.EntityHurtResponse), global::MMORPG.Common.Proto.Fight.EntityHurtResponse.Parser, new[]{ "AttackerId", "WoundedId", "SkillId", "Amount", "DamageType", "IsCrit", "IsMiss" }, null, null, null, null)
           }));
     }
     #endregion
@@ -64,16 +61,16 @@ namespace MMORPG.Common.Proto.Fight {
 
   #region Messages
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class DamageInfo : pb::IMessage<DamageInfo>
+  public sealed partial class EntityHurtResponse : pb::IMessage<EntityHurtResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<DamageInfo> _parser = new pb::MessageParser<DamageInfo>(() => new DamageInfo());
+    private static readonly pb::MessageParser<EntityHurtResponse> _parser = new pb::MessageParser<EntityHurtResponse>(() => new EntityHurtResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<DamageInfo> Parser { get { return _parser; } }
+    public static pb::MessageParser<EntityHurtResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -89,7 +86,7 @@ namespace MMORPG.Common.Proto.Fight {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DamageInfo() {
+    public EntityHurtResponse() {
       OnConstruction();
     }
 
@@ -97,9 +94,9 @@ namespace MMORPG.Common.Proto.Fight {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DamageInfo(DamageInfo other) : this() {
+    public EntityHurtResponse(EntityHurtResponse other) : this() {
       attackerId_ = other.attackerId_;
-      targetId_ = other.targetId_;
+      woundedId_ = other.woundedId_;
       skillId_ = other.skillId_;
       amount_ = other.amount_;
       damageType_ = other.damageType_;
@@ -110,8 +107,8 @@ namespace MMORPG.Common.Proto.Fight {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DamageInfo Clone() {
-      return new DamageInfo(this);
+    public EntityHurtResponse Clone() {
+      return new EntityHurtResponse(this);
     }
 
     /// <summary>Field number for the "attacker_id" field.</summary>
@@ -126,15 +123,15 @@ namespace MMORPG.Common.Proto.Fight {
       }
     }
 
-    /// <summary>Field number for the "target_id" field.</summary>
-    public const int TargetIdFieldNumber = 2;
-    private int targetId_;
+    /// <summary>Field number for the "wounded_id" field.</summary>
+    public const int WoundedIdFieldNumber = 2;
+    private int woundedId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int TargetId {
-      get { return targetId_; }
+    public int WoundedId {
+      get { return woundedId_; }
       set {
-        targetId_ = value;
+        woundedId_ = value;
       }
     }
 
@@ -201,12 +198,12 @@ namespace MMORPG.Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as DamageInfo);
+      return Equals(other as EntityHurtResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(DamageInfo other) {
+    public bool Equals(EntityHurtResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -214,7 +211,7 @@ namespace MMORPG.Common.Proto.Fight {
         return true;
       }
       if (AttackerId != other.AttackerId) return false;
-      if (TargetId != other.TargetId) return false;
+      if (WoundedId != other.WoundedId) return false;
       if (SkillId != other.SkillId) return false;
       if (Amount != other.Amount) return false;
       if (DamageType != other.DamageType) return false;
@@ -228,7 +225,7 @@ namespace MMORPG.Common.Proto.Fight {
     public override int GetHashCode() {
       int hash = 1;
       if (AttackerId != 0) hash ^= AttackerId.GetHashCode();
-      if (TargetId != 0) hash ^= TargetId.GetHashCode();
+      if (WoundedId != 0) hash ^= WoundedId.GetHashCode();
       if (SkillId != 0) hash ^= SkillId.GetHashCode();
       if (Amount != 0) hash ^= Amount.GetHashCode();
       if (DamageType != global::MMORPG.Common.Proto.Fight.DamageType.Unknown) hash ^= DamageType.GetHashCode();
@@ -256,9 +253,9 @@ namespace MMORPG.Common.Proto.Fight {
         output.WriteRawTag(8);
         output.WriteInt32(AttackerId);
       }
-      if (TargetId != 0) {
+      if (WoundedId != 0) {
         output.WriteRawTag(16);
-        output.WriteInt32(TargetId);
+        output.WriteInt32(WoundedId);
       }
       if (SkillId != 0) {
         output.WriteRawTag(24);
@@ -294,9 +291,9 @@ namespace MMORPG.Common.Proto.Fight {
         output.WriteRawTag(8);
         output.WriteInt32(AttackerId);
       }
-      if (TargetId != 0) {
+      if (WoundedId != 0) {
         output.WriteRawTag(16);
-        output.WriteInt32(TargetId);
+        output.WriteInt32(WoundedId);
       }
       if (SkillId != 0) {
         output.WriteRawTag(24);
@@ -331,8 +328,8 @@ namespace MMORPG.Common.Proto.Fight {
       if (AttackerId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(AttackerId);
       }
-      if (TargetId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TargetId);
+      if (WoundedId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(WoundedId);
       }
       if (SkillId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(SkillId);
@@ -357,15 +354,15 @@ namespace MMORPG.Common.Proto.Fight {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(DamageInfo other) {
+    public void MergeFrom(EntityHurtResponse other) {
       if (other == null) {
         return;
       }
       if (other.AttackerId != 0) {
         AttackerId = other.AttackerId;
       }
-      if (other.TargetId != 0) {
-        TargetId = other.TargetId;
+      if (other.WoundedId != 0) {
+        WoundedId = other.WoundedId;
       }
       if (other.SkillId != 0) {
         SkillId = other.SkillId;
@@ -402,7 +399,7 @@ namespace MMORPG.Common.Proto.Fight {
             break;
           }
           case 16: {
-            TargetId = input.ReadInt32();
+            WoundedId = input.ReadInt32();
             break;
           }
           case 24: {
@@ -445,7 +442,7 @@ namespace MMORPG.Common.Proto.Fight {
             break;
           }
           case 16: {
-            TargetId = input.ReadInt32();
+            WoundedId = input.ReadInt32();
             break;
           }
           case 24: {
@@ -466,185 +463,6 @@ namespace MMORPG.Common.Proto.Fight {
           }
           case 56: {
             IsMiss = input.ReadBool();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class EntityHurtResponse : pb::IMessage<EntityHurtResponse>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<EntityHurtResponse> _parser = new pb::MessageParser<EntityHurtResponse>(() => new EntityHurtResponse());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<EntityHurtResponse> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::MMORPG.Common.Proto.Fight.DamageReflection.Descriptor.MessageTypes[1]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public EntityHurtResponse() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public EntityHurtResponse(EntityHurtResponse other) : this() {
-      damages_ = other.damages_.Clone();
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public EntityHurtResponse Clone() {
-      return new EntityHurtResponse(this);
-    }
-
-    /// <summary>Field number for the "damages" field.</summary>
-    public const int DamagesFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::MMORPG.Common.Proto.Fight.DamageInfo> _repeated_damages_codec
-        = pb::FieldCodec.ForMessage(10, global::MMORPG.Common.Proto.Fight.DamageInfo.Parser);
-    private readonly pbc::RepeatedField<global::MMORPG.Common.Proto.Fight.DamageInfo> damages_ = new pbc::RepeatedField<global::MMORPG.Common.Proto.Fight.DamageInfo>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::MMORPG.Common.Proto.Fight.DamageInfo> Damages {
-      get { return damages_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as EntityHurtResponse);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(EntityHurtResponse other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if(!damages_.Equals(other.damages_)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      hash ^= damages_.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      damages_.WriteTo(output, _repeated_damages_codec);
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      damages_.WriteTo(ref output, _repeated_damages_codec);
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      size += damages_.CalculateSize(_repeated_damages_codec);
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(EntityHurtResponse other) {
-      if (other == null) {
-        return;
-      }
-      damages_.Add(other.damages_);
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            damages_.AddEntriesFrom(input, _repeated_damages_codec);
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            damages_.AddEntriesFrom(ref input, _repeated_damages_codec);
             break;
           }
         }
