@@ -241,7 +241,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  InitializationMode: 2
+  InitializationMode: 0
   AutoInitialization: 1
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
@@ -1080,6 +1080,7 @@ MonoBehaviour:
     Actions:
     - LocalAbilityName: LocalPlayerIdle
       RemoteAbilityName: RemotePlayerIdle
+    HandleTransitionsScripts: 0
     Transitions:
     - Label: "\u5207\u6362\u8D70\u8DEF"
       StateConditions:
@@ -1105,6 +1106,7 @@ MonoBehaviour:
     Actions:
     - LocalAbilityName: LocalPlayerMovement
       RemoteAbilityName: RemotePlayerMovement
+    HandleTransitionsScripts: 0
     Transitions:
     - Label: "\u56E0\u901F\u5EA6\u4F4E\u800C\u56DE\u5230Idle"
       StateConditions:
@@ -1136,6 +1138,7 @@ MonoBehaviour:
     Actions:
     - LocalAbilityName: LocalPlayerAttack
       RemoteAbilityName: RemotePlayerAttack
+    HandleTransitionsScripts: 0
     Transitions:
     - Label: "\u9F20\u6807\u653B\u51FB\u5B8C\u6210\u6309\u4E0B"
       StateConditions:
@@ -1147,6 +1150,7 @@ MonoBehaviour:
     Actions:
     - LocalAbilityName: LocalPlayerSkill
       RemoteAbilityName: RemotePlayerSkill
+    HandleTransitionsScripts: 0
     Transitions:
     - Label: "\u653E\u5B8C\u6280\u80FD"
       StateConditions:
@@ -1226,13 +1230,13 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  InitializationMode: 2
+  InitializationMode: 0
   AutoInitialization: 1
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
-  StopCurrentPlayIfNewPlay: 0
+  StopCurrentPlayIfNewPlay: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
     Enable: 1
@@ -1689,13 +1693,13 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  InitializationMode: 2
+  InitializationMode: 0
   AutoInitialization: 1
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
-  StopCurrentPlayIfNewPlay: 0
+  StopCurrentPlayIfNewPlay: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
     Enable: 1
@@ -2750,13 +2754,13 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  InitializationMode: 2
+  InitializationMode: 0
   AutoInitialization: 1
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
-  StopCurrentPlayIfNewPlay: 0
+  StopCurrentPlayIfNewPlay: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
     Enable: 1
@@ -3001,13 +3005,13 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  InitializationMode: 2
+  InitializationMode: 0
   AutoInitialization: 1
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
-  StopCurrentPlayIfNewPlay: 0
+  StopCurrentPlayIfNewPlay: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
     Enable: 1
@@ -4055,7 +4059,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  InitializationMode: 2
+  InitializationMode: 0
   AutoInitialization: 1
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
@@ -4348,7 +4352,7 @@ Transform:
   m_GameObject: {fileID: 7194672956322385563}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.40374345, y: 0.02464819, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

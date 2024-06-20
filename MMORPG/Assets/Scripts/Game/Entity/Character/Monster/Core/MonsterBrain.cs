@@ -20,9 +20,12 @@ namespace MMORPG.Game
         [Required]
         public CharacterController CharacterController;
 
-        public FeedbacksManager HurtFeedbacks;
         public Transform DamageNumberPoint;
 
+        [Title("Feedbacks")]
+        public FeedbacksManager HurtFeedbacks;
+        public FeedbacksManager CritHurtFeedbacks;
+        public FeedbacksManager MissHurtFeedbacks;
 
         private void Awake()
         {
@@ -35,21 +38,38 @@ namespace MMORPG.Game
                     OnHurt(e);
                 }
             });
-
-            if (HurtFeedbacks != null)
-            {
-                HurtFeedbacks.Initialize();
-            }
         }
 
         private void OnHurt(EntityHurtEvent e)
         {
-            if (HurtFeedbacks != null)
+            if (e.IsCrit)
             {
-                HurtFeedbacks.Play();
+                if (CritHurtFeedbacks != null)
+                    CritHurtFeedbacks.Play();
             }
-            Animator.SetTrigger("Hurt");
-            LevelManager.Instance.TakeDamage(LevelDamageNumberType.Monster, DamageNumberPoint.position, e.Amount);
+            else if (e.IsMiss)
+            {
+                if (MissHurtFeedbacks != null)
+                    MissHurtFeedbacks.Play();
+            }
+            else
+            {
+                if (HurtFeedbacks != null)
+                    HurtFeedbacks.Play();
+            }
+
+            if (!e.IsMiss)
+            {
+                Animator.SetTrigger("Hurt");
+            }
+            if (e.IsMiss)
+            {
+                LevelManager.Instance.TakeText(DamageNumberPoint.position, "Miss");
+            }
+            else
+            {
+                LevelManager.Instance.TakeDamage(DamageNumberPoint.position, e.Amount, e.IsCrit);
+            }
         }
 
         private void OnTransformEntitySync(EntityTransformSyncData data)
