@@ -20,6 +20,8 @@ namespace GameServer.EntitySystem
         public float Speed { get; protected set; }
         public float Hp { get; protected set; }
         public float Mp { get; protected set; }
+
+        public int Attacker { get; set; } = 0;
         public AttributeManager AttributeManager { get; protected set; }
         public SkillManager SkillManager { get; protected set; }
         public Spell Spell { get; protected set; }
@@ -75,13 +77,12 @@ namespace GameServer.EntitySystem
             EntityAttributeEntrySync(EntityAttributeEntryType.Mp, Mp);
         }
 
-        public virtual void OnHurt(DamageInfo damageInfo)
+        public virtual void OnHurt(EntityHurtResponse resp)
         {
-            var resp = new EntityHurtResponse();
-            resp.Damages.Add(damageInfo);
+            Attacker = resp.AttackerId;
             Map.PlayerManager.Broadcast(resp, this);
-            ChangeHP(-damageInfo.Amount);
-            Log.Debug($"Actor:{Name}({EntityId})被EntityId:{damageInfo.AttackerId}使用技能{damageInfo.SkillId}击中, 扣除{damageInfo.Amount}血量, 剩余血量:{Hp}!");
+            ChangeHP(-resp.Amount);
+            Log.Debug($"Actor:{Name}({EntityId})被EntityId:{resp.AttackerId}使用技能{resp.SkillId}击中, 扣除{resp.Amount}血量, 剩余血量:{Hp}!");
         }
 
         private void EntityAttributeEntrySync<T>(EntityAttributeEntryType type, T value)
