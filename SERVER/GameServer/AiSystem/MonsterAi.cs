@@ -6,6 +6,8 @@ using GameServer.PlayerSystem;
 using GameServer.MonsterSystem;
 using GameServer.EntitySystem;
 using GameServer.AiSystem.Ability;
+using GameServer.Manager;
+using System.Threading;
 
 namespace GameServer.AiSystem
 {
@@ -13,6 +15,7 @@ namespace GameServer.AiSystem
     {
         None = 0,
         Walk,
+        Hurt,
         Chase,
         Goback,
     }
@@ -91,7 +94,12 @@ namespace GameServer.AiSystem
 
         }
 
-        
+        public void OnHurt()
+        {
+            ChangeSyncState(ActorState.Hurt);
+            SyncState = ActorState.Idle;
+        }
+
         private void ChangeSyncState(ActorState state)
         {
             if (SyncState == state) return;
@@ -122,6 +130,7 @@ namespace GameServer.AiSystem
             Fsm.AddState(MonsterAiState.Walk, new WalkState(Fsm, AbilityManager));
             Fsm.AddState(MonsterAiState.Chase, new ChaseState(Fsm, AbilityManager));
             Fsm.AddState(MonsterAiState.Goback, new GobackState(Fsm, AbilityManager));
+            Fsm.AddState(MonsterAiState.Hurt, new HurtState(Fsm, AbilityManager));
         }
 
         public override void Start()
@@ -147,18 +156,24 @@ namespace GameServer.AiSystem
             public WalkState(FSM<MonsterAiState> fsm, MonsterAbilityManager parameter) :
                 base(fsm, parameter)
             {
-                _lastTime = Time.time;
                 _waitTime = 10f;
             }
 
             public override void OnEnter()
             {
+                _lastTime = Time.time;
                 _target.Idle();
             }
 
             public override void OnUpdate()
             {
                 var monster = _target.Monster;
+
+                if (monster.Attacker != 0)
+                {
+                    _fsm.ChangeState(MonsterAiState.Hurt);
+                    return;
+                }
 
                 // 查找怪物视野范围内距离怪物最近的玩家
                 var nearestPlayer = monster.Map.GetEntityFollowingNearest(monster, e => e.EntityType == EntityType.Player);
@@ -198,6 +213,37 @@ namespace GameServer.AiSystem
         }
 
         /// <summary>
+        /// 受击状态
+        /// </summary>
+        public class HurtState : FSMAbstractState<MonsterAiState, MonsterAbilityManager>
+        {
+            private float _endTime;
+
+            public HurtState(FSM<MonsterAiState> fsm, MonsterAbilityManager parameter) :
+                base(fsm, parameter)
+            {
+            }
+
+            public override void OnEnter()
+            {
+                _endTime = Time.time + DataManager.Instance.UnitDict[_target.Monster.UnitId].HurtTime;
+                _target.Monster.Attacker = 0;
+                _target.OnHurt();
+            }
+
+            public override void OnUpdate()
+            {
+                if (!(_endTime < Time.time)) return;
+                if (_target.Monster.Attacker != 0)
+                {
+                    OnEnter();
+                    return;
+                }
+                _fsm.ChangeState(MonsterAiState.Walk);
+            }
+        }
+
+        /// <summary>
         /// 追击状态
         /// </summary>
         public class ChaseState : FSMAbstractState<MonsterAiState, MonsterAbilityManager>
@@ -209,6 +255,12 @@ namespace GameServer.AiSystem
             public override void OnUpdate()
             {
                 var monster = _target.Monster;
+                if (monster.Attacker != 0)
+                {
+                    _fsm.ChangeState(MonsterAiState.Hurt);
+                    return;
+                }
+
                 if (_target.ChasingTarget == null)// || monster.ChasingTarget.IsDeath())
                 {
                     _fsm.ChangeState(MonsterAiState.Goback);
