@@ -198,10 +198,10 @@ namespace GameServer.FightSystem
             var b = target.AttributeManager.Final;
             var amount = 0f;
 
-            var damageInfo = new EntityHurtResponse()
+            var damageInfo = new DamageInfo()
             {
                 AttackerId = Actor.EntityId,
-                WoundedId = target.EntityId,
+                TargetId = target.EntityId,
                 SkillId = Define.ID,
                 DamageType = DamageType.Physical,
             };

@@ -30,6 +30,8 @@ namespace MMORPG.System
     {
         public Dictionary<int, EntityView> EntityDict { get; } = new();
 
+        private IDataManagerSystem _dataManager;
+
         public void LeaveEntity(int entityId)
         {
             var entity = EntityDict[entityId];
@@ -58,7 +60,10 @@ namespace MMORPG.System
 
             var entity = GameObject.Instantiate(prefab, position, rotation);
             entity.transform.SetPositionAndRotation(position, rotation);
-            entity.Initialize(entityId, unitId);
+            var unitDefine = _dataManager.GetUnitDefine(unitId);
+            entity.Initialize(entityId, unitDefine);
+
+            entity.gameObject.name = $"{unitDefine.Name}_{entityId}_{unitDefine.Kind}";
 
             EntityDict[entity.EntityId] = entity;
 
@@ -70,6 +75,8 @@ namespace MMORPG.System
         protected override void OnInit()
         {
             this.RegisterEvent<ExitedMapEvent>(OnExitedMap);
+
+            _dataManager = this.GetSystem<IDataManagerSystem>();
         }
 
         private void OnExitedMap(ExitedMapEvent e)
