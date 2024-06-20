@@ -137,20 +137,6 @@ namespace MMORPG.Game
             if (States.Length == 0) return;
             CharacterController.Entity.OnTransformSync += OnTransformEntitySync;
 
-            this.RegisterEvent<EntityHurtEvent>(e =>
-            {
-                if (e.Wounded == CharacterController.Entity)
-                {
-                    StopCoroutine("OnHurtCo");
-                    StartCoroutine("OnHurtCo", e);
-                }
-
-                if (e.Attacker == CharacterController.Entity)
-                {
-                    HandleWeapon.OnHitEntity(e.Wounded);
-                }
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-
             if (HandleWeapon != null)
                 HandleWeapon.Setup(this);
         }

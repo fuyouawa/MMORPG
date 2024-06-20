@@ -508,7 +508,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -4948,8 +4948,202 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6917111222232717309}
+  - {fileID: 4324169223281865340}
+  - {fileID: 2579025809336871693}
   m_Father: {fileID: 407186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1343725437972017709
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4324169223281865340}
+  - component: {fileID: 4180661061954951010}
+  m_Layer: 8
+  m_Name: Crit Hurt Feedback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4324169223281865340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343725437972017709}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7234482439999282308}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4180661061954951010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343725437972017709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fb458d4bea0fa48b80327cec288cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  InitializationMode: 0
+  AutoInitialization: 1
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
+  StopCurrentPlayIfNewPlay: 1
+  FeedbackItems:
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: "\u5636\u543C"
+    Feedback:
+      rid: 4065859906847375647
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: "\u8840\u6DB2\u98DE\u6E85"
+    Feedback:
+      rid: 4065860319774769242
+  references:
+    version: 2
+    RefIds:
+    - rid: 4065859906847375647
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        StopAfterDuration: 1
+        Sfx: {fileID: 0}
+        RandomSfx:
+        - {fileID: 8300000, guid: 23b5902c6894fc04bbafc06c548920d5, type: 3}
+        - {fileID: 8300000, guid: 695d4ea32c9815e42a1b163c30baf519, type: 3}
+        ChangeParentOnPlay: 0
+        ParentOnPlay: {fileID: 0}
+        WorldPositionStays: 1
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    - rid: 4065860319774769242
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        StopAfterDuration: 1
+        Sfx: {fileID: 8300000, guid: 634d2dd19d5774647b467bf759cd9d3b, type: 3}
+        RandomSfx: []
+        ChangeParentOnPlay: 0
+        ParentOnPlay: {fileID: 0}
+        WorldPositionStays: 1
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!1 &4051600229559835100
 GameObject:
   m_ObjectHideFlags: 0
@@ -4996,8 +5190,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Animator: {fileID: 7478517571520445435}
   CharacterController: {fileID: -6944603909313355789}
-  HurtFeedbacks: {fileID: 5896594241678660570}
   DamageNumberPoint: {fileID: 3267704363213240744}
+  HurtFeedbacks: {fileID: 5896594241678660570}
+  CritHurtFeedbacks: {fileID: 4180661061954951010}
+  MissHurtFeedbacks: {fileID: 102359795350942727}
 --- !u!1 &4497675485641418541
 GameObject:
   m_ObjectHideFlags: 0
@@ -5154,7 +5350,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  InitializationMode: 2
+  InitializationMode: 0
   AutoInitialization: 1
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
@@ -5167,6 +5363,11 @@ MonoBehaviour:
     Label: "\u5636\u543C"
     Feedback:
       rid: 4065859906847375647
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: "\u8840\u6DB2\u98DE\u6E85"
+    Feedback:
+      rid: 4065860319774769241
   references:
     version: 2
     RefIds:
@@ -5181,9 +5382,66 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 0}
         RandomSfx:
-        - {fileID: 8300000, guid: e32a8f771c4cf824a8e9e347408a1cbe, type: 3}
-        - {fileID: 8300000, guid: 34730e0426022fc40a429611234eb944, type: 3}
-        - {fileID: 8300000, guid: 46dc232a6eccefc458b3d76197e345ad, type: 3}
+        - {fileID: 8300000, guid: 3d7a73855e6e4d040857f45e9a2741f5, type: 3}
+        - {fileID: 8300000, guid: a0828c29b0227514a97f411c5c236522, type: 3}
+        ChangeParentOnPlay: 0
+        ParentOnPlay: {fileID: 0}
+        WorldPositionStays: 1
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    - rid: 4065860319774769241
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        StopAfterDuration: 1
+        Sfx: {fileID: 8300000, guid: a246ac94e779cf140a8deff0ca342816, type: 3}
+        RandomSfx: []
         ChangeParentOnPlay: 0
         ParentOnPlay: {fileID: 0}
         WorldPositionStays: 1
@@ -5334,6 +5592,133 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &7889047573110547655
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2579025809336871693}
+  - component: {fileID: 102359795350942727}
+  m_Layer: 8
+  m_Name: Miss Hurt Feedback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2579025809336871693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7889047573110547655}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7234482439999282308}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &102359795350942727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7889047573110547655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fb458d4bea0fa48b80327cec288cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  InitializationMode: 0
+  AutoInitialization: 1
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
+  StopCurrentPlayIfNewPlay: 1
+  FeedbackItems:
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: Miss
+    Feedback:
+      rid: 4065860319774769242
+  references:
+    version: 2
+    RefIds:
+    - rid: 4065860319774769242
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        StopAfterDuration: 1
+        Sfx: {fileID: 8300000, guid: a2f3b8c8965981d4b86386516828eecc, type: 3}
+        RandomSfx: []
+        ChangeParentOnPlay: 0
+        ParentOnPlay: {fileID: 0}
+        WorldPositionStays: 1
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!1 &8032528597822083787
 GameObject:
   m_ObjectHideFlags: 0

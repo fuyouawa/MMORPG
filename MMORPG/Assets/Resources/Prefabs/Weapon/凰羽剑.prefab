@@ -54,14 +54,13 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  InitializationMode: 2
+  InitializationMode: 0
   AutoInitialization: 1
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopCurrentPlayIfNewPlay: 1
-  StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
     Enable: 1
@@ -273,14 +272,13 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  InitializationMode: 2
+  InitializationMode: 0
   AutoInitialization: 1
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopCurrentPlayIfNewPlay: 1
-  StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
     Enable: 1
@@ -438,134 +436,6 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
---- !u!1 &6469863198381365558
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2369268806339274903}
-  - component: {fileID: 6266272697296451729}
-  m_Layer: 0
-  m_Name: Hit Monster Feedbacks
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2369268806339274903
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6469863198381365558}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8099503917561319038}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6266272697296451729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6469863198381365558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4fb458d4bea0fa48b80327cec288cf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  InitializationMode: 2
-  AutoInitialization: 1
-  AutoPlayOnStart: 0
-  AutoPlayOnEnable: 0
-  CanPlay: 1
-  CanPlayWhileAlreadyPlaying: 1
-  StopCurrentPlayIfNewPlay: 0
-  StopAllCoroutinesWhenStop: 1
-  FeedbackItems:
-  - FeedbackName: MMORPG.Tool.FeedbackSound
-    Enable: 1
-    Label: "\u51FB\u6253\u97F3\u6548"
-    Feedback:
-      rid: 4065859906847375662
-  references:
-    version: 2
-    RefIds:
-    - rid: 4065859906847375662
-      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
-      data:
-        DelayBeforePlay: 0
-        LoopPlay: 0
-        LimitLoopAmount: 0
-        AmountOfLoop: 1
-        DelayBetweenLoop: 0
-        StopAfterDuration: 1
-        Sfx: {fileID: 8300000, guid: fe34f52fe4e701e4c995f9b430c9cc49, type: 3}
-        RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
-        PlayMethod: 0
-        PoolSize: 10
-        StopSoundOnFeedbackStop: 1
-        MinVolume: 1
-        MaxVolume: 1
-        MinPitch: 1
-        MaxPitch: 1
-        SfxAudioMixerGroup: {fileID: 0}
-        Priority: 128
-        PanStereo: 0
-        SpatialBlend: 0
-        DopplerLevel: 1
-        Spread: 0
-        RolloffMode: 0
-        MinDistance: 1
-        MaxDistance: 500
-        UseCustomRolloffCurve: 0
-        CustomRolloffCurve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        UseSpatialBlendCurve: 0
-        SpatialBlendCurve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        UseReverbZoneMixCurve: 0
-        ReverbZoneMixCurve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        UseSpreadCurve: 0
-        SpreadCurve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
 --- !u!1 &7507137405732513513
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,14 +490,13 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  InitializationMode: 2
+  InitializationMode: 0
   AutoInitialization: 1
   AutoPlayOnStart: 0
   AutoPlayOnEnable: 0
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopCurrentPlayIfNewPlay: 1
-  StopAllCoroutinesWhenStop: 1
   FeedbackItems:
   - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
     Enable: 1
@@ -818,7 +687,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2369268806339274903}
   - {fileID: 130770284348249580}
   - {fileID: 3335549672372095068}
   - {fileID: 2924160906453419871}
@@ -856,9 +724,6 @@ MonoBehaviour:
   WeaponStartFeedbacks: {fileID: 6242372884529753636}
   WeaponUsedFeedbacks: {fileID: 0}
   WeaponStopFeedbacks: {fileID: 0}
-  HitPlayerFeedbacks: {fileID: 0}
-  HitMonsterFeedbacks: {fileID: 6266272697296451729}
-  HitNPCFeedbacks: {fileID: 0}
   InitializeOnStart: 0
   Interruptible: 0
   SkillName: "\u5251\u58EB\u57FA\u7840\u8FDE\u62DB\u4E00"
@@ -900,9 +765,6 @@ MonoBehaviour:
   WeaponStartFeedbacks: {fileID: 3852385030584753967}
   WeaponUsedFeedbacks: {fileID: 0}
   WeaponStopFeedbacks: {fileID: 0}
-  HitPlayerFeedbacks: {fileID: 0}
-  HitMonsterFeedbacks: {fileID: 6266272697296451729}
-  HitNPCFeedbacks: {fileID: 0}
   InitializeOnStart: 0
   Interruptible: 0
   SkillName: "\u5251\u58EB\u57FA\u7840\u8FDE\u62DB\u4E8C"
@@ -944,9 +806,6 @@ MonoBehaviour:
   WeaponStartFeedbacks: {fileID: 6911503787165638577}
   WeaponUsedFeedbacks: {fileID: 0}
   WeaponStopFeedbacks: {fileID: 0}
-  HitPlayerFeedbacks: {fileID: 0}
-  HitMonsterFeedbacks: {fileID: 6266272697296451729}
-  HitNPCFeedbacks: {fileID: 0}
   InitializeOnStart: 0
   Interruptible: 0
   SkillName: "\u5251\u58EB\u57FA\u7840\u8FDE\u62DB\u4E09"
