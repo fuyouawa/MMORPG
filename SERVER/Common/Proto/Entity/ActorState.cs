@@ -25,8 +25,8 @@ namespace MMORPG.Common.Proto.Monster {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChdFbnRpdHkvQWN0b3JTdGF0ZS5wcm90bxIbTU1PUlBHLkNvbW1vbi5Qcm90",
-            "by5Nb25zdGVyKjUKCkFjdG9yU3RhdGUSCAoESURMRRAAEggKBE1PVkUQARIJ",
-            "CgVTS0lMTBACEggKBEhVUlQQA2IGcHJvdG8z"));
+            "by5Nb25zdGVyKkAKCkFjdG9yU3RhdGUSCAoESURMRRAAEggKBE1PVkUQARIJ",
+            "CgVTS0lMTBACEggKBEhVUlQQAxIJCgVERUFUSBAEYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Monster.ActorState), }, null, null));
@@ -40,6 +40,7 @@ namespace MMORPG.Common.Proto.Monster {
     [pbr::OriginalName("MOVE")] Move = 1,
     [pbr::OriginalName("SKILL")] Skill = 2,
     [pbr::OriginalName("HURT")] Hurt = 3,
+    [pbr::OriginalName("DEATH")] Death = 4,
   }
 
   #endregion
