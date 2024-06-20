@@ -14,7 +14,7 @@ namespace GameServer.AiSystem
 {
     public class MissileAbilityManager
     {
-        public Missile Missile;
+        public Missile OwnerMissile;
         public MoveAbility MoveAbility;
 
         private CastTarget _chasingTarget;
@@ -22,10 +22,10 @@ namespace GameServer.AiSystem
         private Action<Entity> _hitCallback;
         public HashSet<int> _hitEntitySet;
         
-        public MissileAbilityManager(Missile missile, float range, CastTarget chasingTarget, Action<Entity> hitCallback)
+        public MissileAbilityManager(Missile ownerMissile, float range, CastTarget chasingTarget, Action<Entity> hitCallback)
         {
-            Missile = missile;
-            MoveAbility = new(missile, missile.InitPos.Y, missile.Speed);
+            OwnerMissile = ownerMissile;
+            MoveAbility = new(OwnerMissile, OwnerMissile.InitPos.Y, OwnerMissile.Speed);
             _range = range;
             _chasingTarget = chasingTarget;
             _hitCallback = hitCallback;
@@ -42,9 +42,9 @@ namespace GameServer.AiSystem
             MoveAbility.Move(_chasingTarget.Position);
             MoveAbility.Update();
 
-            Missile.Map.ScanEntityFollower(Missile, entity =>
+            OwnerMissile.Map.ScanEntityFollower(OwnerMissile, entity =>
             {
-                var distance = Vector2.Distance(entity.Position.ToVector2(), Missile.Position.ToVector2());
+                var distance = Vector2.Distance(entity.Position.ToVector2(), OwnerMissile.Position.ToVector2());
                 if (distance > _range) return;
                 if (_hitEntitySet.Contains(entity.EntityId)) return;
                 _hitEntitySet.Add(entity.EntityId);
@@ -56,10 +56,10 @@ namespace GameServer.AiSystem
         {
             var res = new EntityTransformSyncResponse()
             {
-                EntityId = Missile.EntityId,
-                Transform = ProtoHelper.ToNetTransform(Missile.Position, Missile.Direction)
+                EntityId = OwnerMissile.EntityId,
+                Transform = ProtoHelper.ToNetTransform(OwnerMissile.Position, OwnerMissile.Direction)
             };
-            Missile.Map.PlayerManager.Broadcast(res, Missile);
+            OwnerMissile.Map.PlayerManager.Broadcast(res, OwnerMissile);
         }
     }
 

@@ -25,7 +25,7 @@ namespace GameServer.FightSystem
             Cooling,   // 冷却中
         }
 
-        public Actor Actor { get; }
+        public Actor OwnerActor { get; }
         public SkillDefine Define { get; }
 
         public Vector3 AreaOffset { get; }
@@ -38,9 +38,9 @@ namespace GameServer.FightSystem
         private CastTarget _castTarget;
         private Random _random = new();
 
-        public Skill(Actor actor, SkillDefine define)
+        public Skill(Actor ownerActor, SkillDefine define)
         {
-            Actor = actor;
+            OwnerActor = ownerActor;
             Define = define;
 
             AreaOffset = DataHelper.ParseVector3(define.AreaOffset);
@@ -95,7 +95,7 @@ namespace GameServer.FightSystem
             {
                 return CastResult.Running;
             }
-            if (!Actor.IsValid() || Actor.IsDeath())
+            if (!OwnerActor.IsValid() || OwnerActor.IsDeath())
             {
                 return CastResult.EntityDead;
             }
@@ -107,7 +107,7 @@ namespace GameServer.FightSystem
                     return CastResult.TargetInvaild;
                 }
             }
-            var dist = Vector3.Distance(Actor.Position, castTarget.Position);
+            var dist = Vector3.Distance(OwnerActor.Position, castTarget.Position);
             if (dist > Define.SpellRange)
             {
                 return CastResult.OutOfRange;
@@ -120,7 +120,7 @@ namespace GameServer.FightSystem
             _time = 0;
             CurrentStage = Stage.Intonate;
             _castTarget = castTarget;
-            Actor.Spell.CurrentRunSkill = this;
+            OwnerActor.Spell.CurrentRunSkill = this;
             return CastResult.Success;
         }
 
@@ -139,8 +139,8 @@ namespace GameServer.FightSystem
             {
                 var missileUnitDefine = DataManager.Instance.UnitDict[Define.MissileUnitId];
 
-                var missile = Actor.Map.MissileManager.NewMissile(Define.MissileUnitId, 
-                    Actor.Position, Actor.Direction, 
+                var missile = OwnerActor.Map.MissileManager.NewMissile(Define.MissileUnitId,
+                    OwnerActor.Position, OwnerActor.Direction, 
                     Define.Area, missileUnitDefine.Speed, _castTarget,
                     entity =>
                     {
@@ -185,16 +185,18 @@ namespace GameServer.FightSystem
             }
             else
             {
-                var offsetTemp = VectorHelper.RotateVector2(new Vector2(AreaOffset.X, AreaOffset.Z), Actor.Direction.Y);
+                var offsetTemp = VectorHelper.RotateVector2(new Vector2(AreaOffset.X, AreaOffset.Z), OwnerActor.Direction.Y);
                 var offset = new Vector3(offsetTemp.X, AreaOffset.Y, offsetTemp.Y);
 
-                Actor.Map.ScanEntityFollowing(Actor, e =>
+                OwnerActor.Map.ScanEntityFollowing(OwnerActor, e =>
                 {
                     float distance = Vector3.Distance(castTarget.Position + offset, e.Position);
                     if (distance > Define.Area) return;
-                    
-                    if (e is Actor target)
-                        CauseDamage(target);
+                    var actor = e as Actor;
+                    if (actor != null && actor.IsValid() && !actor.IsDeath())
+                    {
+                        CauseDamage(actor);
+                    }
                 });
             }
         }
@@ -202,13 +204,13 @@ namespace GameServer.FightSystem
         private void CauseDamage(Actor target)
         {
             // 伤害 = 攻击 × (1 - 护甲 / (护甲 + 400 ＋ 85 × 等级))
-            var a = Actor.AttributeManager.Final;
+            var a = OwnerActor.AttributeManager.Final;
             var b = target.AttributeManager.Final;
             var amount = 0f;
 
             var damageInfo = new DamageInfo()
             {
-                AttackerId = Actor.EntityId,
+                AttackerId = OwnerActor.EntityId,
                 TargetId = target.EntityId,
                 DamageType = DamageType.Physical,
             };
@@ -220,8 +222,8 @@ namespace GameServer.FightSystem
                 var ad = Define.Ad + a.Ad * Define.Adc;
                 var ap = Define.Ap + a.Ap * Define.Apc;
 
-                var ads = ad * (1 - b.Def / (b.Def + 400 + 85 * Actor.Level));
-                var aps = ap * (1 - b.Mdef / (b.Mdef + 400 + 85 * Actor.Level));
+                var ads = ad * (1 - b.Def / (b.Def + 400 + 85 * OwnerActor.Level));
+                var aps = ap * (1 - b.Mdef / (b.Mdef + 400 + 85 * OwnerActor.Level));
 
                 amount = ads + aps;
 
@@ -250,7 +252,7 @@ namespace GameServer.FightSystem
         /// </summary>
         private void OnFinish()
         {
-            Actor.Spell.CurrentRunSkill = null;
+            OwnerActor.Spell.CurrentRunSkill = null;
         }
 
         /// <summary>

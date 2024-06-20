@@ -13,16 +13,16 @@ namespace GameServer.InventorySystem
     {
         public const int InitCapacity = 10;
 
-        public Player Owner { get; }
+        public Player OwnerPlayer { get; }
         public int Capacity { get; private set; }
 
         private List<Item?> Items { get; } = new();
 
         private bool _hasChange = false;
 
-        public Inventory(Player owner)
+        public Inventory(Player ownerPlayer)
         {
-            Owner = owner;
+            OwnerPlayer = ownerPlayer;
         }
 
         public bool SetItem(int slotId, Item? item)
@@ -143,7 +143,7 @@ namespace GameServer.InventorySystem
                 }
                 else
                 {
-                    Log.Debug($"{Owner.User.Channel}物品槽满了, 还有{amount}个物品被丢失");
+                    Log.Debug($"{OwnerPlayer.User.Channel}物品槽满了, 还有{amount}个物品被丢失");
                     return amount;
                 }
             }
