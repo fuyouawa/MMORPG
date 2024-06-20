@@ -114,8 +114,30 @@ namespace GameServer.NetService
                 dialogueDefine = DataManager.Instance.DialogueDict[player.CurrentDialogueId];
             }
 
+
             // 转到下一段对话
             player.CurrentDialogueId = dialogueDefine.Jump;
+
+            if (dialogueDefine.AcceptTask != "")
+            {
+                // 接取任务
+                var tmp = JsonConvert.DeserializeObject<int[]>(dialogueDefine.AcceptTask);
+                if (!player.TaskManager.AcceptTask(tmp[0]))
+                {
+                    player.CurrentDialogueId = tmp[1];
+                }
+            }
+
+            if (dialogueDefine.SubmitTask != "")
+            {
+                // 提交任务
+                var tmp = JsonConvert.DeserializeObject<int[]>(dialogueDefine.SubmitTask);
+                if (!player.TaskManager.SubmitTask(tmp[0]))
+                {
+                    player.CurrentDialogueId = tmp[1];
+                }
+            }
+
             if (player.CurrentDialogueId == 0)
             {
                 if (dialogueDefine.Options.Any())
