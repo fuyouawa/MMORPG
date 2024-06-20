@@ -12,6 +12,7 @@ using GameServer.MapSystem;
 using GameServer.UserSystem;
 using GameServer.EntitySystem;
 using GameServer.NpcSystem;
+using GameServer.TaskSystem;
 
 namespace GameServer.PlayerSystem
 {
@@ -27,7 +28,8 @@ namespace GameServer.PlayerSystem
 
         public Npc? InteractingNpc;
         public int CurrentDialogueId;
-        public NpcSystem.DialogueManager DialogueManager;
+        public DialogueManager DialogueManager;
+        public TaskManager TaskManager;
 
         private DbCharacter _dbCharacter;
 
@@ -53,6 +55,7 @@ namespace GameServer.PlayerSystem
             Gold = _dbCharacter.Gold;
             Knapsack.LoadInventoryInfo(_dbCharacter.Knapsack);
             DialogueManager.LoadDialogueInfo(_dbCharacter.DialogueInfo);
+            TaskManager.LoadTaskInfo(_dbCharacter.TaskInfo);
         }
 
         public override void Update()
@@ -79,6 +82,7 @@ namespace GameServer.PlayerSystem
                 Z = (int)Position.Z,
                 Knapsack = Knapsack.GetInventoryInfo().ToByteArray(),
                 DialogueInfo = DialogueManager.GetDialogueInfo().ToByteArray(),
+                TaskInfo = TaskManager.GetTaskInfo().ToByteArray(),
             };
         }
     }

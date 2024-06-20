@@ -15,7 +15,7 @@ namespace GameServer.TaskSystem
     public class TaskManager
     {
         public Player PlayerOwner;
-        public List<int> TaskList = new();
+        public HashSet<int> TaskList = new();
         private TaskInfo? _taskInfo;
         private bool _hasChange;
 
@@ -36,16 +36,16 @@ namespace GameServer.TaskSystem
             {
                 return;
             }
-            //DialogueInfo info = DialogueInfo.Parser.ParseFrom(taskInfoData);
-            //foreach (var record in info.DialogueArr)
-            //{
-            //    if (!DataManager.Instance.NpcDict.TryGetValue(record.NpcId, out var define))
-            //    {
-            //        Log.Error($"NpcId不存在:{record.NpcId}");
-            //        continue;
-            //    }
-            //    _recordDict[record.NpcId] = record;
-            //}
+            TaskInfo info = TaskInfo.Parser.ParseFrom(taskInfoData);
+            foreach (var record in info.TaskArr)
+            {
+                if (!DataManager.Instance.TaskDict.TryGetValue(record.TaskId, out var define))
+                {
+                    Log.Error($"TaskId不存在:{record.TaskId}");
+                    continue;
+                }
+                TaskList.Add(record.TaskId);
+            }
         }
 
         public bool AcceptTask(int taskId)
