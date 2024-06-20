@@ -100,10 +100,6 @@ namespace MMORPG.Game
 
         void Start()
         {
-            if (WalkingFeedbacks != null)
-                WalkingFeedbacks.Initialize();
-            if (RunningFeedbacks != null)
-                RunningFeedbacks.Initialize();
         }
 
         void Update()

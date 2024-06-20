@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using MMORPG.Common.Proto.Entity;
+using MMORPG.Event;
 using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;
@@ -73,13 +74,6 @@ namespace MMORPG.Game
         [FoldoutGroup("Weapon Feedbacks")]
         public FeedbacksManager WeaponStopFeedbacks;
 
-        [FoldoutGroup("Hit Feedbacks")]
-        public FeedbacksManager HitPlayerFeedbacks;
-        [FoldoutGroup("Hit Feedbacks")]
-        public FeedbacksManager HitMonsterFeedbacks;
-        [FoldoutGroup("Hit Feedbacks")]
-        public FeedbacksManager HitNPCFeedbacks;
-
         [FoldoutGroup("Settings")]
         public bool InitializeOnStart = false;
         [FoldoutGroup("Settings")]
@@ -131,13 +125,6 @@ namespace MMORPG.Game
         public virtual void Initialize()
         {
             if (IsInitialized) return;
-
-            if (HitPlayerFeedbacks != null)
-                HitPlayerFeedbacks.Initialize();
-            if (HitMonsterFeedbacks != null)
-                HitMonsterFeedbacks.Initialize();
-            if (HitNPCFeedbacks != null)
-                HitNPCFeedbacks.Initialize();
 
             InitFSM();
 
@@ -374,27 +361,6 @@ namespace MMORPG.Game
         protected virtual void OnDestroy()
         {
             FSM?.Clear();
-        }
-
-        public virtual void OnHitEntity(EntityView entity)
-        {
-            switch (entity.EntityType)
-            {
-                case EntityType.Player:
-                    if (HitPlayerFeedbacks != null)
-                        HitPlayerFeedbacks.Play();
-                    break;
-                case EntityType.Monster:
-                    if (HitMonsterFeedbacks != null)
-                        HitMonsterFeedbacks.Play();
-                    break;
-                case EntityType.Npc:
-                    if (HitNPCFeedbacks != null)
-                        HitNPCFeedbacks.Play();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
         }
     }
 }

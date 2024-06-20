@@ -9,9 +9,9 @@ namespace MMORPG.Tool
 {
     public class FeedbacksManager : SerializedMonoBehaviour
     {
-        public enum InitializationModes { Script, Awake, Start }
+        public enum InitializationModes { Awake, Start }
         [FoldoutGroup("Settings")]
-        public InitializationModes InitializationMode = InitializationModes.Start;
+        public InitializationModes InitializationMode = InitializationModes.Awake;
 
         [FoldoutGroup("Settings")]
         [Tooltip("确保Play前所有Feedbacks都初始化")]
@@ -72,7 +72,7 @@ namespace MMORPG.Tool
             CoroutineHelper = coroutineHelper;
             if (InitializationMode == InitializationModes.Awake)
             {
-                InnerInitialize();
+                Initialize();
             }
         }
 
@@ -80,7 +80,7 @@ namespace MMORPG.Tool
         {
             if (InitializationMode == InitializationModes.Start)
             {
-                InnerInitialize();
+                Initialize();
             }
 
             if (AutoPlayOnStart)
@@ -122,7 +122,7 @@ namespace MMORPG.Tool
         {
             if (!IsInitialized && AutoInitialization)
             {
-                InnerInitialize();
+                Initialize();
             }
 
             if (!CanPlay) return;
@@ -186,15 +186,7 @@ namespace MMORPG.Tool
             }
         }
 
-        public virtual void Initialize()
-        {
-            if (InitializationMode == InitializationModes.Script)
-            {
-                InnerInitialize();
-            }
-        }
-
-        protected virtual void InnerInitialize()
+        protected virtual void Initialize()
         {
             if (IsInitialized) return;
             IsInitialized = true;
