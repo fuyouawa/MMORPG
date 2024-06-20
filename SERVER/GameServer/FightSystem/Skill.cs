@@ -25,12 +25,15 @@ namespace GameServer.FightSystem
             Cooling,   // 冷却中
         }
 
-        public Actor Actor;
-        public SkillDefine Define;
+        public Actor Actor { get; }
+        public SkillDefine Define { get; }
+
+        public Vector3 AreaOffset { get; }
+        public float[] HitDelay { get; }
+
         public Stage CurrentStage;
 
         private float _time;
-        private float[] _hitDelay;
         private int _hitDelayIndex;
         private CastTarget _castTarget;
         private Random _random = new();
@@ -39,15 +42,17 @@ namespace GameServer.FightSystem
         {
             Actor = actor;
             Define = define;
+
+            AreaOffset = DataHelper.ParseVector3(define.AreaOffset);
+            HitDelay = DataHelper.ParseFloats(Define.HitDelay);
+            if (HitDelay == null || HitDelay.Length == 0)
+            {
+                HitDelay = new[] { 0.0f };
+            }
         }
 
         public void Start()
         {
-            _hitDelay = DataHelper.ParseFloats(Define.HitDelay);
-            if (_hitDelay == null || _hitDelay.Length == 0)
-            {
-                _hitDelay = new[] { 0.0f };
-            }
         }
 
         public void Update()
@@ -153,11 +158,11 @@ namespace GameServer.FightSystem
         /// </summary>
         private void OnRun()
         {
-            if (_hitDelayIndex < _hitDelay.Length)
+            if (_hitDelayIndex < HitDelay.Length)
             {
-                if (_time >= _hitDelay[_hitDelayIndex])
+                if (_time >= HitDelay[_hitDelayIndex])
                 {
-                    _time -= _hitDelay[_hitDelayIndex];
+                    _time -= HitDelay[_hitDelayIndex];
                     // 命中延迟触发
                     OnHit(_castTarget);
                     ++_hitDelayIndex;
@@ -180,9 +185,12 @@ namespace GameServer.FightSystem
             }
             else
             {
+                var offsetTemp = VectorHelper.RotateVector2(new Vector2(AreaOffset.X, AreaOffset.Z), Actor.Direction.Y);
+                var offset = new Vector3(offsetTemp.X, AreaOffset.Y, offsetTemp.Y);
+
                 Actor.Map.ScanEntityFollowing(Actor, e =>
                 {
-                    float distance = Vector3.Distance(castTarget.Position, e.Position);
+                    float distance = Vector3.Distance(castTarget.Position + offset, e.Position);
                     if (distance > Define.Area) return;
                     
                     if (e is Actor target)
