@@ -6,8 +6,11 @@ using MMORPG.Common.Tool;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+
+#if UNITY_EDITOR
 using UnityEditor.IMGUI.Controls;
 using UnityEditor;
+#endif
 
 namespace MMORPG.Game
 {

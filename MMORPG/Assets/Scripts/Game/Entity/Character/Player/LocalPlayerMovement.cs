@@ -89,5 +89,4 @@ namespace MMORPG.Game
             Brain.CharacterController.SmoothRotate(targetRotation);
         }
     }
-
 }
