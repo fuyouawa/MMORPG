@@ -26,19 +26,20 @@ namespace MMORPG.Common.Proto.Inventory {
           string.Concat(
             "CiNJbnZlbnRvcnkvSW52ZW50b3J5T3BlcmF0aW9ucy5wcm90bxIdTU1PUlBH",
             "LkNvbW1vbi5Qcm90by5JbnZlbnRvcnkaE0Jhc2UvTmV0RXJyb3IucHJvdG8i",
-            "JgoRUGlja3VwSXRlbVJlcXVlc3QSEQoJZW50aXR5X2lkGAEgASgFIkcKElBp",
+            "JgoRUGlja3VwSXRlbVJlcXVlc3QSEQoJZW50aXR5X2lkGAEgASgFImgKElBp",
             "Y2t1cEl0ZW1SZXNwb25zZRIxCgVlcnJvchgBIAEoDjIiLk1NT1JQRy5Db21t",
-            "b24uUHJvdG8uQmFzZS5OZXRFcnJvciJZChRQbGFjZW1lbnRJdGVtUmVxdWVz",
-            "dBIRCgllbnRpdHlfaWQYASABKAUSFgoOb3JpZ2luX3Nsb3RfaWQYAiABKAUS",
-            "FgoOdGFyZ2V0X3Nsb3RfaWQYAyABKAUiRwoSRGlzY2FyZEl0ZW1SZXF1ZXN0",
-            "EhEKCWVudGl0eV9pZBgBIAEoBRIPCgdzbG90X2lkGAIgASgFEg0KBWNvdW50",
-            "GAMgASgFIjQKDlVzZUl0ZW1SZXF1ZXN0EhEKCWVudGl0eV9pZBgBIAEoBRIP",
-            "CgdzbG90X2lkGAIgASgFYgZwcm90bzM="));
+            "b24uUHJvdG8uQmFzZS5OZXRFcnJvchIPCgdpdGVtX2lkGAIgASgFEg4KBmFt",
+            "b3VudBgDIAEoBSJZChRQbGFjZW1lbnRJdGVtUmVxdWVzdBIRCgllbnRpdHlf",
+            "aWQYASABKAUSFgoOb3JpZ2luX3Nsb3RfaWQYAiABKAUSFgoOdGFyZ2V0X3Ns",
+            "b3RfaWQYAyABKAUiRwoSRGlzY2FyZEl0ZW1SZXF1ZXN0EhEKCWVudGl0eV9p",
+            "ZBgBIAEoBRIPCgdzbG90X2lkGAIgASgFEg0KBWNvdW50GAMgASgFIjQKDlVz",
+            "ZUl0ZW1SZXF1ZXN0EhEKCWVudGl0eV9pZBgBIAEoBRIPCgdzbG90X2lkGAIg",
+            "ASgFYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Base.NetErrorReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.PickupItemRequest), global::MMORPG.Common.Proto.Inventory.PickupItemRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.PickupItemResponse), global::MMORPG.Common.Proto.Inventory.PickupItemResponse.Parser, new[]{ "Error" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.PickupItemResponse), global::MMORPG.Common.Proto.Inventory.PickupItemResponse.Parser, new[]{ "Error", "ItemId", "Amount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.PlacementItemRequest), global::MMORPG.Common.Proto.Inventory.PlacementItemRequest.Parser, new[]{ "EntityId", "OriginSlotId", "TargetSlotId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.DiscardItemRequest), global::MMORPG.Common.Proto.Inventory.DiscardItemRequest.Parser, new[]{ "EntityId", "SlotId", "Count" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.UseItemRequest), global::MMORPG.Common.Proto.Inventory.UseItemRequest.Parser, new[]{ "EntityId", "SlotId" }, null, null, null, null)
@@ -280,6 +281,8 @@ namespace MMORPG.Common.Proto.Inventory {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public PickupItemResponse(PickupItemResponse other) : this() {
       error_ = other.error_;
+      itemId_ = other.itemId_;
+      amount_ = other.amount_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -301,6 +304,30 @@ namespace MMORPG.Common.Proto.Inventory {
       }
     }
 
+    /// <summary>Field number for the "item_id" field.</summary>
+    public const int ItemIdFieldNumber = 2;
+    private int itemId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int ItemId {
+      get { return itemId_; }
+      set {
+        itemId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "amount" field.</summary>
+    public const int AmountFieldNumber = 3;
+    private int amount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Amount {
+      get { return amount_; }
+      set {
+        amount_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -317,6 +344,8 @@ namespace MMORPG.Common.Proto.Inventory {
         return true;
       }
       if (Error != other.Error) return false;
+      if (ItemId != other.ItemId) return false;
+      if (Amount != other.Amount) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -325,6 +354,8 @@ namespace MMORPG.Common.Proto.Inventory {
     public override int GetHashCode() {
       int hash = 1;
       if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) hash ^= Error.GetHashCode();
+      if (ItemId != 0) hash ^= ItemId.GetHashCode();
+      if (Amount != 0) hash ^= Amount.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -347,6 +378,14 @@ namespace MMORPG.Common.Proto.Inventory {
         output.WriteRawTag(8);
         output.WriteEnum((int) Error);
       }
+      if (ItemId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(ItemId);
+      }
+      if (Amount != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Amount);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -361,6 +400,14 @@ namespace MMORPG.Common.Proto.Inventory {
         output.WriteRawTag(8);
         output.WriteEnum((int) Error);
       }
+      if (ItemId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(ItemId);
+      }
+      if (Amount != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Amount);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -373,6 +420,12 @@ namespace MMORPG.Common.Proto.Inventory {
       int size = 0;
       if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Error);
+      }
+      if (ItemId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemId);
+      }
+      if (Amount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Amount);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -388,6 +441,12 @@ namespace MMORPG.Common.Proto.Inventory {
       }
       if (other.Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
         Error = other.Error;
+      }
+      if (other.ItemId != 0) {
+        ItemId = other.ItemId;
+      }
+      if (other.Amount != 0) {
+        Amount = other.Amount;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -408,6 +467,14 @@ namespace MMORPG.Common.Proto.Inventory {
             Error = (global::MMORPG.Common.Proto.Base.NetError) input.ReadEnum();
             break;
           }
+          case 16: {
+            ItemId = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            Amount = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -425,6 +492,14 @@ namespace MMORPG.Common.Proto.Inventory {
             break;
           case 8: {
             Error = (global::MMORPG.Common.Proto.Base.NetError) input.ReadEnum();
+            break;
+          }
+          case 16: {
+            ItemId = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            Amount = input.ReadInt32();
             break;
           }
         }

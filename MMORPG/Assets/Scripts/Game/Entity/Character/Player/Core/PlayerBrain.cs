@@ -10,6 +10,7 @@ using MMORPG.Event;
 using MMORPG.Global;
 using MMORPG.System;
 using MMORPG.Tool;
+using MMORPG.UI;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
@@ -180,9 +181,24 @@ namespace MMORPG.Game
                 //TODO 捡起
                 this.SendCommand(new PickupItemCommand());
 
+                
+            };
+
+            var dataManagerSystem = this.GetSystem<IDataManagerSystem>();
+            this.RegisterEvent<PickupItemEvent>(e =>
+            {
+                var itemDefine = dataManagerSystem.GetItemDefine(e.Resp.ItemId);
+
+                if (itemDefine == null)
+                {
+                    return;
+                }
+
+                UITipPanel.Content = $"你拾取了[{itemDefine.Name}] × {e.Resp.Amount}";
+
                 //TODO 捡起成功后播放音效
                 SoundManager.Instance.PlayerPickItemAudio.Play();
-            };
+            });
         }
 
         private bool _prepareFire = false;
