@@ -17,6 +17,18 @@ namespace MMORPG.Game
         public Animator Animator;
         public SkillsEffectManager EffectManager;
 
+        [Title("Properties")]
+        [ShowInInspector]
+        public int Level { get; set; }
+        [ShowInInspector]
+        public int Exp { get; set; }
+        [ShowInInspector]
+        public int Gold { get; set; }
+        [ShowInInspector]
+        public int Hp { get; set; }
+        [ShowInInspector]
+        public int Mp { get; set; }
+
         public CharacterSkillManager SkillManager { get; private set; }
 
         public bool IsPreventingMovement { get; private set; }

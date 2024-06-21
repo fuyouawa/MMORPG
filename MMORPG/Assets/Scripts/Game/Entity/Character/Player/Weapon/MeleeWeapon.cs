@@ -31,10 +31,10 @@ namespace MMORPG.Game
         [InlineButton("DurationToClipboard", "C")]
         public float Duration;
         [FoldoutGroup("Damage Area Debugger")]
+        public float DamageAreaTestDuration = 0.5f;
+        [FoldoutGroup("Damage Area Debugger")]
         [InlineButton("HitDelaysToClipboard", "C")]
         public float[] HitDelays = Array.Empty<float>();
-
-        public bool Enable { get; set; }
 
         private static Dictionary<int, T> Load<T>(string jsonPath)
         {
@@ -136,26 +136,41 @@ namespace MMORPG.Game
 
         private static Color s_gizmosColor = new(1f, 0f, 0f, 0.2f);
 
+
+        private static Color s_skilGizmosColor = new(1f, 0.92f, 0.016f, 0.2f);
+        private static Color s_damageAreaGizmosColor = new(1f, 0f, 0f, 0.2f);
+
         public void OnDrawGizmos()
         {
-            Gizmos.color = s_gizmosColor;
+            Gizmos.color = EnableSkill ? s_skilGizmosColor : s_damageAreaGizmosColor;
 
-            if (Enable)
+            if (EnableSkill || EnableDamageArea)
                 Gizmos.DrawSphere(transform.position + AreaOffset, Area);
         }
 
-        private IEnumerator TestDamageCo()
+        public bool EnableSkill { get; set; }
+
+        public bool EnableDamageArea { get; set; }
+
+        public IEnumerator TestDamageCo()
         {
             var hitDelays = HitDelays;
             if (HitDelays.Length == 0)
                 hitDelays = new[] { 0f };
             foreach (var delay in hitDelays)
             {
+                EnableSkill = true;
                 yield return new WaitForSeconds(delay);
+                EnableSkill = false;
 
-                Enable = true;
-                yield return new WaitForSeconds(Duration);
-                Enable = false;
+                EnableDamageArea = true;
+                yield return new WaitForSeconds(DamageAreaTestDuration);
+                EnableDamageArea = false;
+
+
+                EnableSkill = true;
+                yield return new WaitForSeconds(Duration - DamageAreaTestDuration - delay);
+                EnableSkill = false;
             }
         }
 
