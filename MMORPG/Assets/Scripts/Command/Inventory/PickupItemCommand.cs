@@ -19,7 +19,7 @@ namespace MMORPG.Command
             {
             });
             var response = await net.ReceiveAsync<PickupItemResponse>();
-            this.SendEvent<PickupItemEvent>(new(response){});
+            this.SendEvent(new PickupItemEvent(response){});
         }
     }
 }

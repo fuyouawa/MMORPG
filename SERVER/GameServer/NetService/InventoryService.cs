@@ -133,11 +133,14 @@ namespace GameServer.NetService
                     {
                         player.Map.DroppedItemManager.RemoveDroppedItem(droppedItem);
                         player.Map.EntityLeave(droppedItem);
+                        resp.Amount = droppedItem.Amount;
                     }
                     else
                     {
+                        resp.Amount = droppedItem.Amount - amount;
                         droppedItem.Amount = amount;
                     }
+                    resp.ItemId = droppedItem.ItemId;
                 } while (false);
                 sender.Send(resp, null);
                 if (resp.Error == NetError.Success)
