@@ -42,7 +42,7 @@ namespace MMORPG.Game
                     Info = new()
                     {
                         SkillId = weapon.WeaponId,
-                        CasterId = Brain.CharacterController.Entity.EntityId
+                        CasterId = Brain.ActorController.Entity.EntityId
                     }
                 });
 

@@ -84,7 +84,7 @@ namespace MMORPG.UI
                 Info = new()
                 {
                     SkillId = Skill.Define.ID,
-                    CasterId = skillManager.Character.Entity.EntityId
+                    CasterId = skillManager.ActorController.Entity.EntityId
                 }
             });
 
@@ -92,7 +92,7 @@ namespace MMORPG.UI
 
             if (response.Reason == CastResult.Success)
             {
-                Skill.Use(new CastTargetEntity(skillManager.Character.Entity));
+                Skill.Use(new CastTargetEntity(skillManager.ActorController.Entity));
             }
             else
             {

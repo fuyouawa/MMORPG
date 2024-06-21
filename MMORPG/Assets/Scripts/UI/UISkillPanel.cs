@@ -3,7 +3,7 @@ using MMORPG.Game;
 using MMORPG.System;
 using QFramework;
 using UnityEngine;
-using CharacterController = MMORPG.Game.CharacterController;
+using ActorController = MMORPG.Game.ActorController;
 
 namespace MMORPG.UI
 {
@@ -24,7 +24,7 @@ namespace MMORPG.UI
 
             var slots = GroupSlots.GetComponentsInChildren<UISkillSlot>();
             var playerManager = this.GetSystem<IPlayerManagerSystem>();
-            SkillManager = playerManager.MineEntity.GetComponent<CharacterController>().SkillManager;
+            SkillManager = playerManager.MineEntity.GetComponent<ActorController>().SkillManager;
 
             int i = 0;
             foreach (var skill in SkillManager.Skills.Where(x => x.Mode == SkillModes.Skill))

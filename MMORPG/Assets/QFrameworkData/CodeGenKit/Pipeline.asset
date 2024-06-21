@@ -19,19 +19,23 @@ MonoBehaviour:
     From: 0
     NameToFullName: []
     BindInfos:
-    - TypeName: UnityEngine.UI.Image
-      PathToRoot: Icon
-      MemberName: Icon
-    - TypeName: TMPro.TextMeshProUGUI
-      PathToRoot: TextSlotId
-      MemberName: TextSlotId
-    ScriptsFolder: Assets/Scripts/UI/UIPlayerInventoryPanel
-    ClassName: UIItemSlot
-    Namespace: MMORPG.UI
-    MainCode: "using UnityEngine;\r\nusing QFramework;\r\n\r\nnamespace MMORPG.UI\r\n{\r\n\tpublic
-      partial class UIItemSlot : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
+    - TypeName: UnityEngine.UI.Text
+      PathToRoot: Bar (Power)/Text Group/TextMpPercentage
+      MemberName: TextMpPercentage
+    - TypeName: UnityEngine.UI.Text
+      PathToRoot: Bar (Health)/Text Group/TextHpPercentage
+      MemberName: TextHpPercentage
+    - TypeName: UnityEngine.UI.Text
+      PathToRoot: Level Frame/TextLevel
+      MemberName: TextLevel
+    ScriptsFolder: Assets/Scripts/UI/UIGameHubPanel
+    ClassName: PlayerPropertyPanel
+    Namespace: MMORPG.Game
+    MainCode: "using UnityEngine;\r\nusing QFramework;\r\n\r\nnamespace MMORPG.Game\r\n{\r\n\tpublic
+      partial class PlayerPropertyPanel : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
       Code Here\r\n\t\t}\r\n\t}\r\n}\r\n"
-    DesignerCode: "// Generate Id:41a54580-8ea9-40e1-852a-05807b40cdac\r\nusing UnityEngine;\r\n\r\nnamespace
-      MMORPG.UI\r\n{\r\n\tpublic partial class UIItemSlot : QFramework.IController\r\n\t{\r\n\r\n\t\tpublic
-      UnityEngine.UI.Image Icon;\r\n\r\n\t\tpublic TMPro.TextMeshProUGUI TextSlotId;\r\n\r\n\t\tQFramework.IArchitecture
+    DesignerCode: "// Generate Id:689814bb-bdd5-49a1-8fbe-2ee7a604a770\r\nusing UnityEngine;\r\n\r\nnamespace
+      MMORPG.Game\r\n{\r\n\tpublic partial class PlayerPropertyPanel : QFramework.IController\r\n\t{\r\n\r\n\t\tpublic
+      UnityEngine.UI.Text TextMpPercentage;\r\n\r\n\t\tpublic UnityEngine.UI.Text
+      TextHpPercentage;\r\n\r\n\t\tpublic UnityEngine.UI.Text TextLevel;\r\n\r\n\t\tQFramework.IArchitecture
       QFramework.IBelongToArchitecture.GetArchitecture()=>MMORPG.Game.GameApp.Interface;\r\n\t}\r\n}\r\n"

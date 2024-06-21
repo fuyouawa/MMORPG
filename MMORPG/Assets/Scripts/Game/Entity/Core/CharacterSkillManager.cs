@@ -6,22 +6,22 @@ namespace MMORPG.Game
 {
     public class CharacterSkillManager: IController
     {
-        public CharacterController Character;
+        public ActorController ActorController;
 
         public Skill CurrentSpellingSkill;
 
         public List<Skill> Skills = new();
 
-        public CharacterSkillManager(CharacterController character)
+        public CharacterSkillManager(ActorController actorController)
         {
-            Character = character;
+            ActorController = actorController;
             Initialize();
         }
 
         public void Initialize()
         {
             var data = this.GetSystem<IDataManagerSystem>();
-            Skills = data.GetUnitSkillsDefine(Character.Entity.UnitDefine.ID)
+            Skills = data.GetUnitSkillsDefine(ActorController.Entity.UnitDefine.ID)
                 .Select(x => new Skill(this, x))
                 .ToList();
         }

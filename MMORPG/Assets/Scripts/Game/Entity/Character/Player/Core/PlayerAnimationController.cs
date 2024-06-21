@@ -159,8 +159,8 @@ namespace MMORPG.Game
         {
             if (_animatorMove)
             {
-                Brain.CharacterController.MoveDirection(Animator.deltaPosition);
-                Brain.CharacterController.RelativeRotate(Animator.deltaRotation);
+                Brain.ActorController.MoveDirection(Animator.deltaPosition);
+                Brain.ActorController.RelativeRotate(Animator.deltaRotation);
             }
         }
     }

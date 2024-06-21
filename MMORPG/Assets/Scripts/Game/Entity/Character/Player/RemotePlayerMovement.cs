@@ -55,8 +55,8 @@ namespace MMORPG.Game
 
         private void SyncMove()
         {
-            Brain.CharacterController.SmoothMove(_targetSyncPosition);
-            Brain.CharacterController.SmoothRotate(_targetSyncRotation);
+            Brain.ActorController.SmoothMove(_targetSyncPosition);
+            Brain.ActorController.SmoothRotate(_targetSyncRotation);
         }
     }
 }
