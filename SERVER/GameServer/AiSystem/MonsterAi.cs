@@ -163,7 +163,7 @@ namespace GameServer.AiSystem
             public WalkState(FSM<MonsterAiState> fsm, MonsterAbilityManager parameter) :
                 base(fsm, parameter)
             {
-                _waitTime = 10f;
+                _waitTime = _target.Random.NextSingle() * 10;
             }
 
             public override void OnEnter()
@@ -188,7 +188,13 @@ namespace GameServer.AiSystem
                 }
 
                 // 查找怪物视野范围内距离怪物最近的玩家
-                var nearestPlayer = monster.Map.GetEntityFollowingNearest(monster, e => e.EntityType == EntityType.Player);
+                var nearestPlayer = monster.Map.GetEntityFollowingNearest(monster, 
+                    e =>
+                    {
+                        if (e.EntityType != EntityType.Player) return false;
+                        var player = (Player)e;
+                        return player.IsValid() && !player.IsDeath();
+                    });
 
                 if (nearestPlayer != null)
                 {
@@ -208,7 +214,7 @@ namespace GameServer.AiSystem
                 if (!(_lastTime + _waitTime < Time.time)) return;
 
                 // 状态是空闲或等待时间已结束，则尝试随机移动
-                _waitTime = _target.Random.NextSingle();
+                _waitTime = _target.Random.NextSingle() * 10;
                 _lastTime = Time.time;
                 _target.Move(RandomPointWithBirth(_target.WalkRange));
             }
