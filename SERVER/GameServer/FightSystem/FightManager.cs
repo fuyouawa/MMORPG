@@ -32,6 +32,7 @@ namespace GameServer.FightSystem
             {
                 RunSpell(cast);
             }
+            _castQueue.Clear();
         }
 
         public void AddSkillCast(CastInfo info)

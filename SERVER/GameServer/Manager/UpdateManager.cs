@@ -56,6 +56,7 @@ namespace GameServer.Manager
             {
                 task();
             }
+            _backupTaskQueue.Clear();
 
             DataManager.Instance.Update();
             EntityManager.Instance.Update();
