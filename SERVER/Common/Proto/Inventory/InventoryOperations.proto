@@ -10,6 +10,9 @@ message PickupItemRequest{
 
 message PickupItemResponse{
     Base.NetError error = 1;
+    int32 item_id = 2;
+    int32 amount = 3;
+
 }
 
 
