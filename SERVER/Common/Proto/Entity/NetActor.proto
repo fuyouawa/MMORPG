@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package MMORPG.Common.Proto.Entity;
+
+message NetActor {
+    int32 Level = 1;
+    int32 MaxHp = 2;
+    int32 Hp = 3;
+    int32 MaxMp = 4;
+    int32 Mp = 5;
+}

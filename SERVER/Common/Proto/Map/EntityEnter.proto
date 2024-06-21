@@ -3,6 +3,7 @@
 package MMORPG.Common.Proto.Map;
 import "Entity/EntityType.proto";
 import "Entity/NetTransform.proto";
+import "Entity/NetActor.proto";
 
 message EntityEnterRequest {
     repeated int32 entity_id = 1;
@@ -13,6 +14,7 @@ message EntityEnterData {
     Entity.EntityType entity_type = 2;
     int32 unit_id = 3;
     Entity.NetTransform transform = 4;
+    Entity.NetActor actor = 5;
 }
 
 message EntityEnterResponse {
