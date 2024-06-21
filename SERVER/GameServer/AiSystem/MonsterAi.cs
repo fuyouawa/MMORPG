@@ -289,7 +289,7 @@ namespace GameServer.AiSystem
                 }
 
                 var player = _target.ChasingTarget as Player;
-                if (player == null || !player.IsValid())
+                if (player == null || !player.IsValid() || player.IsDeath())
                 {
                     _fsm.ChangeState(MonsterAiState.Goback);
                     return;

@@ -1,4 +1,4 @@
-﻿using MMORPG.Common.Proto.Monster;
+using MMORPG.Common.Proto.Entity;
  using QFramework;
 
  namespace MMORPG.Game
