@@ -47,10 +47,8 @@ namespace GameServer.InventorySystem
                 DataManager.Instance.UnitDict[DataManager.Instance.ItemDict[itemId].UnitId], _map, pos, dire, itemId, amount);
             EntityManager.Instance.AddEntity(item);
 
-            lock (_itemDict)
-            {
-                _itemDict.Add(item.EntityId, item);
-            }
+            _itemDict.Add(item.EntityId, item);
+            
             _map.EntityEnter(item);
 
             item.Start();
@@ -65,10 +63,7 @@ namespace GameServer.InventorySystem
         public void RemoveDroppedItem(DroppedItem item)
         {
             EntityManager.Instance.RemoveEntity(item);
-            lock (_itemDict)
-            {
-                _itemDict.Remove(item.EntityId);
-            }
+            _itemDict.Remove(item.EntityId);
         }
 
         public DroppedItem NewDroppedItemWithOffset(int itemId, Vector3 pos, Vector3 dire, int amount, float offset)

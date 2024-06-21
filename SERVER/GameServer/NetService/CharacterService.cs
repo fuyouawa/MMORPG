@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameServer.MapSystem;
+using GameServer.Manager;
 
 namespace GameServer.NetService
 {
@@ -29,29 +30,29 @@ namespace GameServer.NetService
 
         public void OnHandle(NetChannel sender, CharacterCreateRequest request)
         {
-            Log.Debug($"{sender}角色创建请求");
-            if (sender.User == null)
+            UpdateManager.Instance.AddTask(() =>
             {
-                Log.Debug($"{sender}角色创建失败：用户未登录");
-                return;
-            }
-            var count = SqlDb.Connection.Select<DbCharacter>()
-                .Where(t => t.UserId.Equals(sender.User.UserId))
-                .Count();
-            if (count >= 4)
-            {
-                sender.Send(new CharacterCreateResponse() { Error = NetError.CharacterCreationLimitReached });
-                Log.Debug($"{sender}角色创建失败：创建的角色已满");
-                return;
-            }
-            if (!StringHelper.NameVerify(request.Name))
-            {
-                Log.Debug($"{sender}角色创建失败：角色名称非法");
-                sender.Send(new CharacterCreateResponse() { Error = NetError.IllegalCharacterName });
-                return;
-            }
-            lock (_characterCreateLock)
-            {
+                Log.Debug($"{sender}角色创建请求");
+                if (sender.User == null)
+                {
+                    Log.Debug($"{sender}角色创建失败：用户未登录");
+                    return;
+                }
+                var count = SqlDb.Connection.Select<DbCharacter>()
+                    .Where(t => t.UserId.Equals(sender.User.UserId))
+                    .Count();
+                if (count >= 4)
+                {
+                    sender.Send(new CharacterCreateResponse() { Error = NetError.CharacterCreationLimitReached });
+                    Log.Debug($"{sender}角色创建失败：创建的角色已满");
+                    return;
+                }
+                if (!StringHelper.NameVerify(request.Name))
+                {
+                    Log.Debug($"{sender}角色创建失败：角色名称非法");
+                    sender.Send(new CharacterCreateResponse() { Error = NetError.IllegalCharacterName });
+                    return;
+                }
                 var dbCharacter = SqlDb.Connection.Select<DbCharacter>()
                     .Where(p => p.Name == request.Name)
                     .First();
@@ -94,43 +95,53 @@ namespace GameServer.NetService
                     Error = NetError.Success
                 });
                 Log.Debug($"{sender}角色创建成功");
-            }
+            
+            });
         }
 
         public void OnHandle(NetChannel sender, CharacterListRequest request)
         {
-            Log.Debug($"{sender}角色列表查询请求");
-            if (sender.User == null)
+            UpdateManager.Instance.AddTask(() =>
             {
-                Log.Debug($"{sender}角色列表查询失败：用户未登录");
-                return;
-            }
-            var characterList = SqlDb.Connection.Select<DbCharacter>()
-                .Where(t => t.UserId.Equals(sender.User.UserId))
-                .ToList();
-            var res = new CharacterListResponse();
-            foreach (var character in characterList)
-            {
-                res.CharacterList.Add(character.ToNetCharacter());
-            }
-            sender.Send(res, null);
-            Log.Debug($"{sender}角色列表查询成功");
+                Log.Debug($"{sender}角色列表查询请求");
+                if (sender.User == null)
+                {
+                    Log.Debug($"{sender}角色列表查询失败：用户未登录");
+                    return;
+                }
+
+                var characterList = SqlDb.Connection.Select<DbCharacter>()
+                    .Where(t => t.UserId.Equals(sender.User.UserId))
+                    .ToList();
+                var res = new CharacterListResponse();
+                foreach (var character in characterList)
+                {
+                    res.CharacterList.Add(character.ToNetCharacter());
+                }
+
+                sender.Send(res, null);
+                Log.Debug($"{sender}角色列表查询成功");
+            });
         }
 
         public void OnHandle(NetChannel sender, CharacterDeleteRequest request)
         {
-            Log.Debug($"{sender}角色删除请求");
-            if (sender.User == null)
+            UpdateManager.Instance.AddTask(() =>
             {
-                Log.Debug($"{sender}角色删除失败：用户未登录");
-                return;
-            }
-            var deleteCount = SqlDb.Connection.Delete<DbCharacter>()
-                .Where(t => t.UserId.Equals(sender.User.UserId))
-                .Where(t => t.Id == request.CharacterId)
-                .ExecuteAffrows();
-            sender.Send(new CharacterDeleteResponse() { Error = NetError.Success });
-            Log.Debug($"{sender}角色删除成功");
+                Log.Debug($"{sender}角色删除请求");
+                if (sender.User == null)
+                {
+                    Log.Debug($"{sender}角色删除失败：用户未登录");
+                    return;
+                }
+
+                var deleteCount = SqlDb.Connection.Delete<DbCharacter>()
+                    .Where(t => t.UserId.Equals(sender.User.UserId))
+                    .Where(t => t.Id == request.CharacterId)
+                    .ExecuteAffrows();
+                sender.Send(new CharacterDeleteResponse() { Error = NetError.Success });
+                Log.Debug($"{sender}角色删除成功");
+            });
         }
 
     }
