@@ -19,7 +19,7 @@ namespace MMORPG.Game
     public class PlayerBrain : MonoBehaviour, IController
     {
         [Required]
-        public CharacterController CharacterController;
+        public ActorController ActorController;
         [Required]
         public PlayerAnimationController AnimationController;
 
@@ -64,7 +64,7 @@ namespace MMORPG.Game
                     var mine = this.GetSystem<IPlayerManagerSystem>().MineEntity;
                     if (mine == null)
                         throw new Exception("Player还未初始化!");
-                    _isMine = mine.EntityId == CharacterController.Entity.EntityId;
+                    _isMine = mine.EntityId == ActorController.Entity.EntityId;
                 }
 
                 return _isMine == true;
@@ -110,11 +110,11 @@ namespace MMORPG.Game
         {
             _newtwork.SendToServer(new EntityTransformSyncRequest()
             {
-                EntityId = CharacterController.Entity.EntityId,
+                EntityId = ActorController.Entity.EntityId,
                 Transform = new()
                 {
-                    Direction = CharacterController.Entity.transform.rotation.eulerAngles.ToNetVector3(),
-                    Position = CharacterController.Entity.transform.position.ToNetVector3()
+                    Direction = ActorController.Entity.transform.rotation.eulerAngles.ToNetVector3(),
+                    Position = ActorController.Entity.transform.position.ToNetVector3()
                 },
                 StateId = stateId,
                 Data = data == null ? ByteString.Empty : ByteString.CopyFrom(data)
@@ -135,17 +135,10 @@ namespace MMORPG.Game
             AnimationController.Setup(this);
             CurrentState = null;
             if (States.Length == 0) return;
-            CharacterController.Entity.OnTransformSync += OnTransformEntitySync;
+            ActorController.Entity.OnTransformSync += OnTransformEntitySync;
 
             if (HandleWeapon != null)
                 HandleWeapon.Setup(this);
-        }
-
-        private IEnumerator OnHurtCo(EntityHurtEvent e)
-        {
-            ChangeStateByName("Hurt");
-            yield return new WaitForSeconds(CharacterController.Entity.UnitDefine.HurtTime);
-            ChangeStateByName("Idle");
         }
 
         private void OnTransformEntitySync(EntityTransformSyncData data)
@@ -173,8 +166,8 @@ namespace MMORPG.Game
             }
             else
             {
-                Destroy(CharacterController.Rigidbody);
-                Destroy(CharacterController.Collider);
+                Destroy(ActorController.Rigidbody);
+                Destroy(ActorController.Collider);
             }
             if (States.IsNullOrEmpty()) return;
             InitStates();

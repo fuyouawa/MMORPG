@@ -1,5 +1,6 @@
 using MessagePack;
 using QFramework;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace MMORPG.Game
@@ -16,6 +17,10 @@ namespace MMORPG.Game
     public class LocalPlayerMovement : LocalPlayerAbility
     {
         public float BackIdleThreshold = 0.5f;
+        [Required]
+        public AudioSource WalkAudio;
+        [Required]
+        public AudioSource RunAudio;
 
         private Vector2 _moveDirection;
 
@@ -45,6 +50,8 @@ namespace MMORPG.Game
 
         public override void OnStateExit()
         {
+            WalkAudio.Stop();
+            RunAudio.Stop();
         }
 
         [StateCondition]
@@ -66,6 +73,8 @@ namespace MMORPG.Game
                 if (!Brain.AnimationController.Running)
                 {
                     Brain.AnimationController.StartRunning();
+                    WalkAudio.Stop();
+                    RunAudio.Play();
                 }
             }
             else
@@ -73,6 +82,8 @@ namespace MMORPG.Game
                 if (!Brain.AnimationController.Walking)
                 {
                     Brain.AnimationController.StartWalking();
+                    RunAudio.Stop();
+                    WalkAudio.Play();
                 }
             }
 
@@ -86,7 +97,7 @@ namespace MMORPG.Game
             var cameraForward = Camera.main.transform.forward;
             cameraForward.y = 0;
             var targetRotation = Quaternion.LookRotation(cameraForward, Vector3.up);
-            Brain.CharacterController.SmoothRotate(targetRotation);
+            Brain.ActorController.SmoothRotate(targetRotation);
         }
     }
 }

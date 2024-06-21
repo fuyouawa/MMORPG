@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MMORPG.Game
 {
-    public class CharacterController : MonoBehaviour, IController
+    public class ActorController : MonoBehaviour, IController
     {
         [Required]
         public EntityView Entity;

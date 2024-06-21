@@ -8,7 +8,7 @@ namespace MMORPG.Game
 
         public override void OnStateInit()
         {
-            _skillManager = OwnerState.Brain.CharacterController.SkillManager;
+            _skillManager = OwnerState.Brain.ActorController.SkillManager;
         }
 
         public override void OnStateEnter()
