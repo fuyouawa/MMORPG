@@ -34,125 +34,132 @@ namespace GameServer.NetService
 
         public void OnHandle(NetChannel sender, InteractRequest req)
         {
-            if (sender.User == null || sender.User.Player == null) return;
-            var player = sender.User.Player;
-            var npc = player.InteractingNpc;
-            var res = new InteractResponse()
+            UpdateManager.Instance.AddTask(() =>
             {
-                Error = NetError.InvalidEntity,
-            };
-            if (npc == null)
-            {
-                // 查找距离最近的Npc
-                var entity = player.Map.GetEntityFollowingNearest(player, entity => entity.EntityType == EntityType.Npc);
-                do
+                if (sender.User == null || sender.User.Player == null) return;
+                var player = sender.User.Player;
+                var npc = player.InteractingNpc;
+                var res = new InteractResponse()
                 {
-                    if (entity == null) break;
-                    npc = entity as NpcSystem.Npc;
-                    if (npc == null) break;
-                    var distance = Vector2.Distance(player.Position.ToVector2(), npc.Position.ToVector2());
-                    if (distance > 1) break;
+                    Error = NetError.InvalidEntity,
+                };
+                if (npc == null)
+                {
+                    // 查找距离最近的Npc
+                    var entity =
+                        player.Map.GetEntityFollowingNearest(player, entity => entity.EntityType == EntityType.Npc);
+                    do
+                    {
+                        if (entity == null) break;
+                        npc = entity as NpcSystem.Npc;
+                        if (npc == null) break;
+                        var distance = Vector2.Distance(player.Position.ToVector2(), npc.Position.ToVector2());
+                        if (distance > 1) break;
+                        res.Error = NetError.Success;
+                    } while (false);
+
+                    if (res.Error != NetError.Success)
+                    {
+                        sender.Send(res, null);
+                        return;
+                    }
+
+                    player.InteractingNpc = npc;
+                    player.CurrentDialogueId = player.DialogueManager.GetDialogueId(npc.NpcDefine.ID);
+                }
+                else
+                {
                     res.Error = NetError.Success;
-                } while (false);
-                if (res.Error != NetError.Success)
-                {
-                    sender.Send(res, null);
-                    return;
-                }
-                player.InteractingNpc = npc;
-                player.CurrentDialogueId = player.DialogueManager.GetDialogueId(npc.NpcDefine.ID);
-            }
-            else
-            {
-                res.Error = NetError.Success;
-            }
-
-            if (player.CurrentDialogueId == 0)
-            {
-                // 需要结束对话
-                res.DialogueId = 0;
-                player.InteractingNpc = null;
-                sender.Send(res, null);
-                return;
-            }
-
-            res.EntityId = npc.EntityId;
-
-            var dialogueDefine = DataManager.Instance.DialogueDict[player.CurrentDialogueId];
-            if (req.SelectIdx != 0)
-            {
-                var options = DataHelper.ParseIntegers(dialogueDefine.Options);
-
-                if (req.SelectIdx < 0 || req.SelectIdx > options.Length)
-                {
-                    Log.Error("客户端传入了错误的对话选择索引");
-                    return;
                 }
 
-                // 选择了某项，将该项的跳转告知客户端
-                dialogueDefine = DataManager.Instance.DialogueDict[options[req.SelectIdx - 1]];
-                player.CurrentDialogueId = dialogueDefine.Jump;
                 if (player.CurrentDialogueId == 0)
                 {
-                    // 选项没有可继续跳转的对话，结束
+                    // 需要结束对话
                     res.DialogueId = 0;
                     player.InteractingNpc = null;
                     sender.Send(res, null);
                     return;
                 }
-            }
 
-            res.DialogueId = player.CurrentDialogueId;
-            // 如果需要保存当前的对话进度
-            if (dialogueDefine.SaveDialogueId != 0)
-            {
-                player.DialogueManager.SaveDialogueId(npc.NpcDefine.ID, dialogueDefine.SaveDialogueId);
-            }
+                res.EntityId = npc.EntityId;
 
-            if (req.SelectIdx != 0)
-            {
-                dialogueDefine = DataManager.Instance.DialogueDict[player.CurrentDialogueId];
-            }
-
-
-            // 转到下一段对话
-            player.CurrentDialogueId = dialogueDefine.Jump;
-
-            if (dialogueDefine.AcceptTask != "")
-            {
-                // 接取任务
-                var tmp = JsonConvert.DeserializeObject<int[]>(dialogueDefine.AcceptTask);
-                if (!player.TaskManager.AcceptTask(tmp[0]))
+                var dialogueDefine = DataManager.Instance.DialogueDict[player.CurrentDialogueId];
+                if (req.SelectIdx != 0)
                 {
-                    player.CurrentDialogueId = tmp[1];
-                }
-            }
+                    var options = DataHelper.ParseIntegers(dialogueDefine.Options);
 
-            if (dialogueDefine.SubmitTask != "")
-            {
-                // 提交任务
-                var tmp = JsonConvert.DeserializeObject<int[]>(dialogueDefine.SubmitTask);
-                if (!player.TaskManager.SubmitTask(tmp[0]))
-                {
-                    player.CurrentDialogueId = tmp[1];
-                }
-            }
+                    if (req.SelectIdx < 0 || req.SelectIdx > options.Length)
+                    {
+                        Log.Error("客户端传入了错误的对话选择索引");
+                        return;
+                    }
 
-            if (player.CurrentDialogueId == 0)
-            {
-                if (dialogueDefine.Options.Any())
-                {
-                    // 是选择项对话，等待选择
-                    player.CurrentDialogueId = res.DialogueId;
+                    // 选择了某项，将该项的跳转告知客户端
+                    dialogueDefine = DataManager.Instance.DialogueDict[options[req.SelectIdx - 1]];
+                    player.CurrentDialogueId = dialogueDefine.Jump;
+                    if (player.CurrentDialogueId == 0)
+                    {
+                        // 选项没有可继续跳转的对话，结束
+                        res.DialogueId = 0;
+                        player.InteractingNpc = null;
+                        sender.Send(res, null);
+                        return;
+                    }
                 }
-                else
+
+                res.DialogueId = player.CurrentDialogueId;
+                // 如果需要保存当前的对话进度
+                if (dialogueDefine.SaveDialogueId != 0)
                 {
-                    // 需要结束对话，等待下一次停止响应时停止
-                    // player.InteractingNpc = null;
-                    player.CurrentDialogueId = 0;
+                    player.DialogueManager.SaveDialogueId(npc.NpcDefine.ID, dialogueDefine.SaveDialogueId);
                 }
-            }
-            sender.Send(res, null);
+
+                if (req.SelectIdx != 0)
+                {
+                    dialogueDefine = DataManager.Instance.DialogueDict[player.CurrentDialogueId];
+                }
+
+
+                // 转到下一段对话
+                player.CurrentDialogueId = dialogueDefine.Jump;
+
+                if (dialogueDefine.AcceptTask != "")
+                {
+                    // 接取任务
+                    var tmp = JsonConvert.DeserializeObject<int[]>(dialogueDefine.AcceptTask);
+                    if (!player.TaskManager.AcceptTask(tmp[0]))
+                    {
+                        player.CurrentDialogueId = tmp[1];
+                    }
+                }
+
+                if (dialogueDefine.SubmitTask != "")
+                {
+                    // 提交任务
+                    var tmp = JsonConvert.DeserializeObject<int[]>(dialogueDefine.SubmitTask);
+                    if (!player.TaskManager.SubmitTask(tmp[0]))
+                    {
+                        player.CurrentDialogueId = tmp[1];
+                    }
+                }
+
+                if (player.CurrentDialogueId == 0)
+                {
+                    if (dialogueDefine.Options.Any())
+                    {
+                        // 是选择项对话，等待选择
+                        player.CurrentDialogueId = res.DialogueId;
+                    }
+                    else
+                    {
+                        // 需要结束对话，等待下一次停止响应时停止
+                        // player.InteractingNpc = null;
+                        player.CurrentDialogueId = 0;
+                    }
+                }
+
+                sender.Send(res, null);
+            });
         }
     }
 }

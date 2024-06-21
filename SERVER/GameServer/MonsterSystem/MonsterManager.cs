@@ -15,7 +15,6 @@ namespace GameServer.MonsterSystem
     /// <summary>
     /// 怪物管理器
     /// 负责管理地图内的所有怪物
-    /// 线程安全
     /// </summary>
     public class MonsterManager
     {
@@ -45,10 +44,8 @@ namespace GameServer.MonsterSystem
             var monster = new Monster(EntityManager.Instance.NewEntityId(), DataManager.Instance.UnitDict[unitId], _map, name, pos, dire);
             EntityManager.Instance.AddEntity(monster);
 
-            lock (_monsterDict)
-            {
-                _monsterDict.Add(monster.EntityId, monster);
-            }
+            _monsterDict.Add(monster.EntityId, monster);
+            
             _map.EntityEnter(monster);
 
             monster.Start();

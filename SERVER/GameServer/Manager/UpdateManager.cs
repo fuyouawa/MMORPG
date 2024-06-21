@@ -3,6 +3,7 @@ using GameServer.MapSystem;
 using GameServer.System;
 using GameServer.Tool;
 using GameServer.UserSystem;
+using MMORPG.Common.Proto.Fight;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,12 @@ namespace GameServer.Manager
     public class UpdateManager : Singleton<UpdateManager>
     {
         public readonly int Fps = 10;
+        private Queue<Action> _taskQueue = new();
+        private Queue<Action> _backupTaskQueue = new();
 
-        private UpdateManager() { }
+        private UpdateManager()
+        {
+        }
 
         public void Start()
         {
@@ -41,10 +46,33 @@ namespace GameServer.Manager
         public void Update()
         {
             Time.Tick();
+
+            lock (_taskQueue)
+            {
+                (_backupTaskQueue, _taskQueue) = (_taskQueue, _backupTaskQueue);
+            }
+
+            foreach (var task in _backupTaskQueue)
+            {
+                task();
+            }
+
             DataManager.Instance.Update();
             EntityManager.Instance.Update();
             MapManager.Instance.Update();
             UserManager.Instance.Update();
+        }
+
+        /// <summary>
+        /// 线程安全
+        /// </summary>
+        /// <param name="task"></param>
+        public void AddTask(Action task)
+        {
+            lock (_taskQueue)
+            {
+                _taskQueue.Enqueue(task);
+            }
         }
     }
 }

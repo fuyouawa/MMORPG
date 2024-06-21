@@ -15,7 +15,6 @@ namespace GameServer.NpcSystem
     /// <summary>
     /// Npc管理器
     /// 负责管理地图内的所有Npc
-    /// 线程安全
     /// </summary>
     public class NpcManager
     {
@@ -45,10 +44,8 @@ namespace GameServer.NpcSystem
             var npc = new Npc(EntityManager.Instance.NewEntityId(), DataManager.Instance.UnitDict[unitId], _map, name, pos, dire);
             EntityManager.Instance.AddEntity(npc);
 
-            lock (_npcDict)
-            {
-                _npcDict.Add(npc.EntityId, npc);
-            }
+            _npcDict.Add(npc.EntityId, npc);
+            
             _map.EntityEnter(npc);
 
             npc.Start();
