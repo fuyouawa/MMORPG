@@ -1,13 +1,37 @@
+using MMORPG.Event;
 using UnityEngine;
 using QFramework;
+using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Game
 {
 	public partial class PlayerPropertyPanel : ViewController
-	{
-		void Start()
+    {
+        private ActorController actorController;
+
+        void Awake()
+        {
+            this.RegisterEvent<PlayerJoinedMapEvent>(OnPlayerJoined)
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
+        }
+
+        private void OnPlayerJoined(PlayerJoinedMapEvent e)
+        {
+            actorController = e.PlayerEntity.GetComponent<ActorController>();
+        }
+
+        void Start()
 		{
-			// Code Here
 		}
+
+        void Update()
+        {
+            if (actorController != null)
+            {
+                var per = actorController.Hp / actorController.Entity.UnitDefine.MaxHp;
+                per *= 100f;
+                TextHpPercentage.text = $"{per:0}%";
+            }
+        }
 	}
 }

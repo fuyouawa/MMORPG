@@ -21,6 +21,7 @@ namespace MMORPG.Game
         public EntityType EntityType;
 
         public Action<EntityTransformSyncData> OnTransformSync;
+        public Action<DamageInfo> OnHurt;
 
         private bool _initialized = false;
 

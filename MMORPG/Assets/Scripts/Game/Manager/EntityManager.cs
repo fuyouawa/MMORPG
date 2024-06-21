@@ -1,3 +1,4 @@
+using System;
 using MMORPG.Common.Proto.Entity;
 using MMORPG.Common.Proto.Fight;
 using MMORPG.Common.Proto.Map;
@@ -41,6 +42,40 @@ namespace MMORPG.Game
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
             _network.Receive<EntityHurtResponse>(OnEntityHurtReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
+            _network.Receive<EntityAttributeSyncResponse>(OnEntityAttributeSyncReceived)
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
+        }
+
+        private void OnEntityAttributeSyncReceived(EntityAttributeSyncResponse response)
+        {
+            if (_entityManager.EntityDict.TryGetValue(response.EntityId, out var entity))
+            {
+                var actor = entity.GetComponent<ActorController>();
+                foreach (var entry in response.Entrys)
+                {
+                    Log.Debug($"{actor.gameObject.name}属性同步:{entry.Type}");
+                    switch (entry.Type)
+                    {
+                        case EntityAttributeEntryType.Level:
+                            actor.Level = entry.Int32;
+                            break;
+                        case EntityAttributeEntryType.Exp:
+                            actor.Exp = entry.Int32;
+                            break;
+                        case EntityAttributeEntryType.Gold:
+                            actor.Gold = entry.Int32;
+                            break;
+                        case EntityAttributeEntryType.Hp:
+                            actor.Hp = entry.Int32;
+                            break;
+                        case EntityAttributeEntryType.Mp:
+                            actor.Mp = entry.Int32;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+            }
         }
 
         private void OnEntityHurtReceived(EntityHurtResponse response)
@@ -55,6 +90,8 @@ namespace MMORPG.Game
                 {
                     Log.Information($"{wounded.gameObject.name}受到EntityId:{response.Info.AttackerId}(已离开视野范围)的攻击({response.Info.DamageType}), 扣除{response.Info.Amount}点血量");
                 }
+
+                wounded.OnHurt?.Invoke(response.Info);
 
                 this.SendEvent(new EntityHurtEvent(
                     wounded,
