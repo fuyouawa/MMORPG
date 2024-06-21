@@ -36,16 +36,16 @@ namespace GameServer.Tool
     public abstract class Singleton<T> where T : Singleton<T>
     {
         protected static T? _instance;
-        static object _mutex = new();
+        //static object _mutex = new();
 
         public static T Instance
         {
             get
             {
-                lock (_mutex)
-                {
+                //lock (_mutex)
+                //{
                     _instance ??= SingletonCreator.CreateSingleton<T>();
-                }
+                //}
                 return _instance;
             }
         }

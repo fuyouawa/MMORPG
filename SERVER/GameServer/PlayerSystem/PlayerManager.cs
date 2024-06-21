@@ -20,7 +20,6 @@ namespace GameServer.PlayerSystem
     /// <summary>
     /// 角色管理器
     /// 负责管理地图内的所有玩家
-    /// 线程安全
     /// </summary>
     public class PlayerManager
     {
@@ -73,11 +72,9 @@ namespace GameServer.PlayerSystem
             var player = new Player(EntityManager.Instance.NewEntityId(), dbCharacter, 
                 DataManager.Instance.UnitDict[dbCharacter.UnitId], _map, pos, dire, user);
             EntityManager.Instance.AddEntity(player);
-
-            lock (_playerDict)
-            {
-                _playerDict.Add(player.EntityId, player);
-            }
+            
+            _playerDict.Add(player.EntityId, player);
+            
             _map.EntityEnter(player);
 
             player.Start();
@@ -91,10 +88,8 @@ namespace GameServer.PlayerSystem
         public void RemovePlayer(Player player)
         {
             EntityManager.Instance.RemoveEntity(player);
-            lock (_playerDict)
-            {
-                _playerDict.Remove(player.EntityId);
-            }
+            
+            _playerDict.Remove(player.EntityId);
         }
 
         /// <summary>
@@ -107,13 +102,10 @@ namespace GameServer.PlayerSystem
         {
             if (!sendToFollower)
             {
-                lock (_playerDict)
+                foreach (var player in _playerDict.Values)
                 {
-                    foreach (var player in _playerDict.Values)
-                    {
-                        if (player.EntityId == sender.EntityId) continue;
-                        player.User.Channel.Send(msg);
-                    }
+                    if (player.EntityId == sender.EntityId) continue;
+                    player.User.Channel.Send(msg);
                 }
             }
             else

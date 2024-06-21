@@ -12,7 +12,6 @@ namespace GameServer.UserSystem
     /// <summary>
     /// 用户管理器
     /// 负责管理所有已登录用户
-    /// 线程安全
     /// </summary>
     public class UserManager : Singleton<UserManager>
     {
@@ -33,30 +32,21 @@ namespace GameServer.UserSystem
         public User NewUser(NetChannel channel, string username, long userId)
         {
             var user = new User(channel, username, userId);
-            lock (_userDict)
-            {
-                _userDict.Add(username, user);
-            }
-
+            _userDict.Add(username, user);
+            
             user.Start();
             return user;
         }
 
         public User? GetUserByName(string username)
         {
-            lock (_userDict)
-            {
-                _userDict.TryGetValue(username, out var user);
-                return user;
-            }
+            _userDict.TryGetValue(username, out var user);
+            return user;
         }
 
         public void RemoveUser(User user)
         {
-            lock (_userDict)
-            {
-                _userDict.Remove(user.Username);
-            }
+            _userDict.Remove(user.Username);
         }
     }
 }

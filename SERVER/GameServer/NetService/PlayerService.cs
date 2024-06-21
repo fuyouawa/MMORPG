@@ -16,6 +16,7 @@ using MMORPG.Common.Proto.Inventory;
 using MMORPG.Common.Proto.Entity;
 using GameServer.MapSystem;
 using MMORPG.Common.Proto.Npc;
+using GameServer.Manager;
 
 namespace GameServer.NetService
 {
@@ -31,53 +32,59 @@ namespace GameServer.NetService
 
         public void OnHandle(NetChannel sender, JoinMapRequest request)
         {
-            Log.Debug($"{sender}进入游戏请求");
-            if (sender.User == null)
+            UpdateManager.Instance.AddTask(() =>
             {
-                Log.Debug($"{sender}进入游戏失败：用户未登录");
-                return;
-            }
+                Log.Debug($"{sender}进入游戏请求");
+                if (sender.User == null)
+                {
+                    Log.Debug($"{sender}进入游戏失败：用户未登录");
+                    return;
+                }
 
-            if (sender.User.Player != null)
-            {
-                Log.Debug($"{sender}进入游戏失败：重复进入");
-                return;
-            }
-            var dbCharacter = SqlDb.Connection.Select<DbCharacter>()
-                .Where(t => t.UserId == sender.User.UserId)
-                .Where(t => t.Id == request.CharacterId)
-                .First();
-            if (dbCharacter == null)
-            {
-                sender.Send(new JoinMapResponse() { Error = NetError.InvalidCharacter });
-                Log.Debug($"{sender}进入游戏失败：数据库中不存在指定的角色");
-                return;
-            }
-            var map = MapManager.Instance.GetMapById(dbCharacter.MapId);
-            if (map == null)
-            {
-                sender.Send(new JoinMapResponse() { Error = NetError.InvalidMap });
-                Log.Debug($"{sender}进入游戏失败：指定的地图不存在");
-                return;
-            }
-            var pos = new Vector3()
-            {
-                X = dbCharacter.X,
-                Y = dbCharacter.Y,
-                Z = dbCharacter.Z,
-            };
-            var player = map.PlayerManager.NewPlayer(sender.User, dbCharacter, pos, Vector3.Zero);
-            sender.User.SetPlayer(player);
-            var res = new JoinMapResponse()
-            {
-                Error = NetError.Success,
-                EntityId = player.EntityId,
-                MapId = dbCharacter.MapId,
-                UnitId = dbCharacter.UnitId,
-                Transform = ProtoHelper.ToNetTransform(player.Position, player.Direction),
-            };
-            sender.Send(res, null);
-            Log.Debug($"{sender}进入游戏成功");
+                if (sender.User.Player != null)
+                {
+                    Log.Debug($"{sender}进入游戏失败：重复进入");
+                    return;
+                }
+
+                var dbCharacter = SqlDb.Connection.Select<DbCharacter>()
+                    .Where(t => t.UserId == sender.User.UserId)
+                    .Where(t => t.Id == request.CharacterId)
+                    .First();
+                if (dbCharacter == null)
+                {
+                    sender.Send(new JoinMapResponse() { Error = NetError.InvalidCharacter });
+                    Log.Debug($"{sender}进入游戏失败：数据库中不存在指定的角色");
+                    return;
+                }
+
+                var map = MapManager.Instance.GetMapById(dbCharacter.MapId);
+                if (map == null)
+                {
+                    sender.Send(new JoinMapResponse() { Error = NetError.InvalidMap });
+                    Log.Debug($"{sender}进入游戏失败：指定的地图不存在");
+                    return;
+                }
+
+                var pos = new Vector3()
+                {
+                    X = dbCharacter.X,
+                    Y = dbCharacter.Y,
+                    Z = dbCharacter.Z,
+                };
+                var player = map.PlayerManager.NewPlayer(sender.User, dbCharacter, pos, Vector3.Zero);
+                sender.User.SetPlayer(player);
+                var res = new JoinMapResponse()
+                {
+                    Error = NetError.Success,
+                    EntityId = player.EntityId,
+                    MapId = dbCharacter.MapId,
+                    UnitId = dbCharacter.UnitId,
+                    Transform = ProtoHelper.ToNetTransform(player.Position, player.Direction),
+                };
+                sender.Send(res, null);
+                Log.Debug($"{sender}进入游戏成功");
+            });
         }
     }
 }

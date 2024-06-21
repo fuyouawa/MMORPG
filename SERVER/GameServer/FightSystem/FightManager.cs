@@ -7,6 +7,7 @@ using MMORPG.Common.Proto.Fight;
 using Serilog;
 using GameServer.MapSystem;
 using GameServer.EntitySystem;
+using Org.BouncyCastle.Ocsp;
 
 namespace GameServer.FightSystem
 {
@@ -14,7 +15,6 @@ namespace GameServer.FightSystem
     {
         private Map _map;
         private Queue<CastInfo> _castQueue = new();
-        private Queue<CastInfo> _backupCastQueue = new();
 
         public FightManager(Map map)
         {
@@ -28,25 +28,16 @@ namespace GameServer.FightSystem
 
         public void Update()
         {
-            lock (_castQueue)
+            foreach (var cast in _castQueue)
             {
-                (_backupCastQueue, _castQueue) = (_castQueue, _backupCastQueue);
+                RunSpell(cast);
             }
-
-            while (_backupCastQueue.Count > 0)
-            {
-                var req = _backupCastQueue.Dequeue();
-                RunSpell(req);
-            }
-
         }
 
         public void AddSkillCast(CastInfo info)
         {
-            lock (_castQueue)
-            {
-                _castQueue.Enqueue(info);
-            }
+            _castQueue.Enqueue(info);
+            
         }
 
         private void RunSpell(CastInfo info)

@@ -42,10 +42,8 @@ namespace GameServer.MissileSystem
                 pos, dire, range, speed, castTarget, hitCallback);
             EntityManager.Instance.AddEntity(missile);
 
-            lock (_missileDict)
-            {
-                _missileDict.Add(missile.EntityId, missile);
-            }
+            _missileDict.Add(missile.EntityId, missile);
+            
             _map.EntityEnter(missile);
 
             missile.Start();

@@ -5,7 +5,6 @@ namespace GameServer.EntitySystem
     /// <summary>
     /// 实体管理器
     /// 负责管理整个游戏的所有实体
-    /// 线程安全
     /// </summary>
     public class EntityManager : Singleton<EntityManager>
     {
@@ -26,40 +25,28 @@ namespace GameServer.EntitySystem
 
         public int NewEntityId()
         {
-            return Interlocked.Increment(ref _serialNum);
+            return ++_serialNum;
         }
 
         public void AddEntity(Entity entity)
         {
-            lock (_entityDict)
-            {
-                _entityDict[entity.EntityId] = entity;
-            }
+            _entityDict[entity.EntityId] = entity;
         }
 
         public void RemoveEntity(Entity entity)
         {
-            lock (_entityDict)
-            {
-                _entityDict.Remove(entity.EntityId);
-            }
+            _entityDict.Remove(entity.EntityId);
         }
 
         public Entity? GetEntity(int entityId)
         {
-            lock (_entityDict)
-            {
-                _entityDict.TryGetValue(entityId, out var entity);
-                return entity;
-            }
+            _entityDict.TryGetValue(entityId, out var entity);
+            return entity;
         }
 
         public bool IsValidEntity(int entityId)
         {
-            lock (_entityDict)
-            {
-                return _entityDict.ContainsKey(entityId);
-            }
+            return _entityDict.ContainsKey(entityId);
         }
     }
 }
