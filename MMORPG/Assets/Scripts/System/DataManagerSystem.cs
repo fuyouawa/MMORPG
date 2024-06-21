@@ -14,6 +14,7 @@ namespace MMORPG.Game
         public DialogueDefine GetDialogueDefine(int dialogueId);
 
         public SkillDefine[] GetUnitSkillsDefine(int unitId);
+        public ItemDefine GetUnitItemDefine(int unitId);
     }
 
 
@@ -75,6 +76,13 @@ namespace MMORPG.Game
         public DialogueDefine GetDialogueDefine(int dialogueId)
         {
             return _dialogueDict[dialogueId];
+        }
+
+        public ItemDefine GetUnitItemDefine(int unitId)
+        {
+            return _itemDict
+                .Where(x => x.Value.UnitId == unitId)
+                .Select(x => x.Value).First();
         }
 
         public SkillDefine[] GetUnitSkillsDefine(int unitId)

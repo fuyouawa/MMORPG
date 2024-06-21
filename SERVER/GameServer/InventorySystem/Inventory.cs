@@ -157,11 +157,12 @@ namespace GameServer.InventorySystem
             if (originSlotId < 0 || targetSlotId < 0) return false;
 
             var originItem = Items[originSlotId];
-            var targetItem = Items[targetSlotId];
-            Debug.Assert(originItem != null);
-
+            if (originItem == null)
+            {
+                return false;
+            }
             _hasChange = true;
-
+            var targetItem = Items[targetSlotId];
             if (targetItem == null)
             {
                 SetItem(originSlotId, null);

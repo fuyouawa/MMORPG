@@ -16,6 +16,7 @@ using GameServer.Tool;
 using MMORPG.Common.Proto.Entity;
 using GameServer.PlayerSystem;
 using GameServer.Manager;
+using MMORPG.Common.Proto.Base;
 
 namespace GameServer.NetService
 {
@@ -68,7 +69,6 @@ namespace GameServer.NetService
                 {
                     player.Knapsack.Exchange(req.OriginSlotId, req.TargetSlotId);
                 }
-
                 ResponseKnapsackInfo(sender, player);
             });
         }
@@ -90,32 +90,60 @@ namespace GameServer.NetService
         {
             UpdateManager.Instance.AddTask(() =>
             {
-                if (sender.User == null || sender.User.Player == null) return;
-                var player = sender.User.Player;
-                // 查找距离最近的物体
-
-                var entity =
-                    player.Map.GetEntityFollowingNearest(player, entity => entity.EntityType == EntityType.DroppedItem);
-                if (entity == null) return;
-
-                var droppedItem = entity as DroppedItem;
-                if (droppedItem == null) return;
-
-                var distance = Vector2.Distance(player.Position.ToVector2(), droppedItem.Position.ToVector2());
-                if (distance > 1) return;
-
-                int amount = player.Knapsack.AddItem(droppedItem.ItemId, droppedItem.Amount);
-
-                if (amount == 0)
+                var resp = new PickupItemResponse()
                 {
-                    player.Map.DroppedItemManager.RemoveDroppedItem(droppedItem);
-                }
-                else
+                    Error = NetError.Success
+                };
+                Player? player = null;
+                do
                 {
-                    droppedItem.Amount = amount;
-                }
+                    if (sender.User == null || sender.User.Player == null) return;
+                    player = sender.User.Player;
+                    // 查找距离最近的物体
 
-                player.Map.EntityLeave(droppedItem);
+                    var entity =
+                        player.Map.GetEntityFollowingNearest(player, entity => entity.EntityType == EntityType.DroppedItem);
+                    if (entity == null)
+                    {
+                        resp.Error = NetError.InvalidEntity;
+                        break;
+                    }
+
+                    var droppedItem = entity as DroppedItem;
+                    if (droppedItem == null)
+                    {
+                        resp.Error = NetError.InvalidEntity;
+                        break;
+                    }
+
+                    var distance = Vector2.Distance(player.Position.ToVector2(), droppedItem.Position.ToVector2());
+                    if (distance > 1)
+                    {
+                        resp.Error = NetError.InvalidEntity;
+                        break;
+                    }
+
+                    int amount = player.Knapsack.AddItem(droppedItem.ItemId, droppedItem.Amount);
+                    if (amount == droppedItem.Amount)
+                    {
+                        resp.Error = NetError.InsufficientKnapsackCapacity;
+                        break;
+                    }
+                    if (amount == 0)
+                    {
+                        player.Map.DroppedItemManager.RemoveDroppedItem(droppedItem);
+                        player.Map.EntityLeave(droppedItem);
+                    }
+                    else
+                    {
+                        droppedItem.Amount = amount;
+                    }
+                } while (false);
+                sender.Send(resp, null);
+                if (resp.Error == NetError.Success)
+                {
+                    ResponseKnapsackInfo(sender, player);
+                }
             });
         }
 

@@ -1,11 +1,17 @@
 syntax = "proto3";
 
+import "Base/NetError.proto";
 package MMORPG.Common.Proto.Inventory;
 
 //拾取物品的请求
 message PickupItemRequest{
     int32 entity_id = 1; //物品实体的entityId
 }
+
+message PickupItemResponse{
+    Base.NetError error = 1;
+}
+
 
 //物品放置请求
 message PlacementItemRequest {

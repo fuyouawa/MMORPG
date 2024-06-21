@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MMORPG.Common.Proto.Entity;
 using Google.Protobuf;
+using MMORPG.Command;
 using MMORPG.Common.Proto.Fight;
 using MMORPG.Event;
 using MMORPG.Global;
@@ -177,6 +178,7 @@ namespace MMORPG.Game
             InputControls.Player.Pickup.started += context =>
             {
                 //TODO 捡起
+                this.SendCommand(new PickupItemCommand());
 
                 //TODO 捡起成功后播放音效
                 SoundManager.Instance.PlayerPickItemAudio.Play();

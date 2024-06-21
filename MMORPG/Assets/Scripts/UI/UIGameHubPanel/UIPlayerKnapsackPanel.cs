@@ -7,6 +7,9 @@ using QFramework;
 using MMORPG.Event;
 using MMORPG.Game;
 using MMORPG.System;
+using MMORPG.Common.Proto.Map;
+using NotImplementedException = System.NotImplementedException;
+using MoonSharp.VsCodeDebugger.SDK;
 
 namespace MMORPG.UI
 {
@@ -30,6 +33,19 @@ namespace MMORPG.UI
         private void Start()
         {
             RequestLoadKnapsack();
+
+            var Network = this.GetSystem<INetworkSystem>();
+            Network.Receive<InventoryQueryResponse>(OnInventoryQueryResponse).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            this.RegisterEvent<LoadKnapsackEvent>(e =>
+            {
+                ReloadKnapsack(e.KnapsackInfo);
+            });
+        }
+
+        private void OnInventoryQueryResponse(InventoryQueryResponse response)
+        {
+            ReloadKnapsack(response.KnapsackInfo);
         }
 
         protected override void OnInstantiatedSlot(UISlotBase slot)
@@ -41,12 +57,10 @@ namespace MMORPG.UI
         private void RequestLoadKnapsack()
         {
             var playerManager = this.GetSystem<IPlayerManagerSystem>();
-            this.SendCommand<QueryInventoryCommand>(new QueryInventoryCommand(playerManager.MineEntity.EntityId));
-            this.RegisterEvent<LoadKnapsackEvent>(e =>
-            {
-                ReloadKnapsack(e.KnapsackInfo);
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+            this.SendCommand(new QueryInventoryCommand(playerManager.MineEntity.EntityId));
         }
+
+
 
         private void ReloadKnapsack(InventoryInfo knapsackInfo)
         {
