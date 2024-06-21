@@ -2,8 +2,10 @@ using MMORPG.Common.Proto.Fight;
 using MMORPG.Common.Proto.Monster;
 using MMORPG.Event;
 using MMORPG.Tool;
+using MMORPG.UI;
 using QFramework;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 
 namespace MMORPG.Game
@@ -25,6 +27,10 @@ namespace MMORPG.Game
         public FeedbacksManager HurtFeedbacks;
         public FeedbacksManager CritHurtFeedbacks;
         public FeedbacksManager MissHurtFeedbacks;
+
+        [Title("UI")]
+        public TextMeshProUGUI TextName;
+        public UIHpBar HPBar;
 
         private void Awake()
         {
@@ -83,11 +89,15 @@ namespace MMORPG.Game
             FSM.AddState(ActorState.Move, new MoveState(FSM, this));
             FSM.AddState(ActorState.Skill, new AttackState(FSM, this));
             FSM.StartState(ActorState.Idle);
+
+            TextName.text = ActorController.Entity.UnitDefine.Name;
         }
 
         private void Update()
         {
             FSM.Update();
+            HPBar.Hp = ActorController.Hp;
+            HPBar.MaxHp = ActorController.MaxHp;
         }
 
         private void FixedUpdate()

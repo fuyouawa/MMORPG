@@ -29,6 +29,8 @@ namespace MMORPG.Game
         [ShowInInspector]
         public int Mp { get; set; }
 
+        public int MaxHp => Entity.UnitDefine.MaxHp;
+
         public CharacterSkillManager SkillManager { get; private set; }
 
         public bool IsPreventingMovement { get; private set; }

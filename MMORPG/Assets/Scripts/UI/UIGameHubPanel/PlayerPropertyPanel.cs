@@ -28,7 +28,7 @@ namespace MMORPG.Game
         {
             if (actorController != null)
             {
-                var per = actorController.Hp / actorController.Entity.UnitDefine.MaxHp;
+                var per = (float)actorController.Hp / actorController.MaxHp;
                 per *= 100f;
                 TextHpPercentage.text = $"{per:0}%";
             }
