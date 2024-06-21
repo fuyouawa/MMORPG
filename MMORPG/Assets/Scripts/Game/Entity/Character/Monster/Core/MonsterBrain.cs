@@ -1,5 +1,5 @@
 using MMORPG.Common.Proto.Fight;
-using MMORPG.Common.Proto.Monster;
+using MMORPG.Common.Proto.Entity;
 using MMORPG.Event;
 using MMORPG.Tool;
 using MMORPG.UI;
