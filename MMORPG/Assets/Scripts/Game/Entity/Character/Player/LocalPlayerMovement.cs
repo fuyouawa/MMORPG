@@ -17,10 +17,6 @@ namespace MMORPG.Game
     public class LocalPlayerMovement : LocalPlayerAbility
     {
         public float BackIdleThreshold = 0.5f;
-        [Required]
-        public AudioSource WalkAudio;
-        [Required]
-        public AudioSource RunAudio;
 
         private Vector2 _moveDirection;
 
@@ -50,8 +46,8 @@ namespace MMORPG.Game
 
         public override void OnStateExit()
         {
-            WalkAudio.Stop();
-            RunAudio.Stop();
+            SoundManager.Instance.PlayerWalkAudio.Stop();
+            SoundManager.Instance.PlayerRunAudio.Stop();
         }
 
         [StateCondition]
@@ -73,8 +69,8 @@ namespace MMORPG.Game
                 if (!Brain.AnimationController.Running)
                 {
                     Brain.AnimationController.StartRunning();
-                    WalkAudio.Stop();
-                    RunAudio.Play();
+                    SoundManager.Instance.PlayerWalkAudio.Stop();
+                    SoundManager.Instance.PlayerRunAudio.Play();
                 }
             }
             else
@@ -82,8 +78,8 @@ namespace MMORPG.Game
                 if (!Brain.AnimationController.Walking)
                 {
                     Brain.AnimationController.StartWalking();
-                    RunAudio.Stop();
-                    WalkAudio.Play();
+                    SoundManager.Instance.PlayerRunAudio.Stop();
+                    SoundManager.Instance.PlayerWalkAudio.Play();
                 }
             }
 

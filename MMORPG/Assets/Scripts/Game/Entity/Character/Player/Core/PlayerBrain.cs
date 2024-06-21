@@ -173,6 +173,14 @@ namespace MMORPG.Game
             InitStates();
             ChangeState(States[0]);
             StartCoroutine(NetworkFixedUpdate());
+
+            InputControls.Player.Pickup.started += context =>
+            {
+                //TODO 捡起
+
+                //TODO 捡起成功后播放音效
+                SoundManager.Instance.PlayerPickItemAudio.Play();
+            };
         }
 
         private bool _prepareFire = false;
