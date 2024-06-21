@@ -22,7 +22,7 @@ namespace MMORPG.Game
             op.completed += operation =>
             {
                 Log.Information("初始化地图");
-                var group = new GameObject("Manager(Auto Create)").transform;
+                var group = new GameObject("Managers(Auto Create)").transform;
 
                 var entityManager = new GameObject(nameof(EntityManager)).AddComponent<EntityManager>();
                 entityManager.transform.SetParent(group, false);
