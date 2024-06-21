@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace MMORPG.Common.Proto.Monster {
+namespace MMORPG.Common.Proto.Entity {
 
   /// <summary>Holder for reflection information generated from Entity/ActorState.proto</summary>
   public static partial class ActorStateReflection {
@@ -24,12 +24,12 @@ namespace MMORPG.Common.Proto.Monster {
     static ActorStateReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChdFbnRpdHkvQWN0b3JTdGF0ZS5wcm90bxIbTU1PUlBHLkNvbW1vbi5Qcm90",
-            "by5Nb25zdGVyKkAKCkFjdG9yU3RhdGUSCAoESURMRRAAEggKBE1PVkUQARIJ",
-            "CgVTS0lMTBACEggKBEhVUlQQAxIJCgVERUFUSBAEYgZwcm90bzM="));
+            "ChdFbnRpdHkvQWN0b3JTdGF0ZS5wcm90bxIaTU1PUlBHLkNvbW1vbi5Qcm90",
+            "by5FbnRpdHkqQAoKQWN0b3JTdGF0ZRIICgRJRExFEAASCAoETU9WRRABEgkK",
+            "BVNLSUxMEAISCAoESFVSVBADEgkKBURFQVRIEARiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Monster.ActorState), }, null, null));
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Entity.ActorState), }, null, null));
     }
     #endregion
 

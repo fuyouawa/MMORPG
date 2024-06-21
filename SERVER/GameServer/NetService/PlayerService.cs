@@ -17,6 +17,7 @@ using MMORPG.Common.Proto.Entity;
 using GameServer.MapSystem;
 using MMORPG.Common.Proto.Npc;
 using GameServer.Manager;
+using GameServer.EntitySystem;
 
 namespace GameServer.NetService
 {
@@ -81,6 +82,7 @@ namespace GameServer.NetService
                     MapId = dbCharacter.MapId,
                     UnitId = dbCharacter.UnitId,
                     Transform = ProtoHelper.ToNetTransform(player.Position, player.Direction),
+                    Actor = player.ToNetActor(),
                 };
                 sender.Send(res, null);
                 Log.Debug($"{sender}进入游戏成功");

@@ -26,17 +26,19 @@ namespace MMORPG.Common.Proto.Player {
           string.Concat(
             "ChRQbGF5ZXIvSm9pbk1hcC5wcm90bxIaTU1PUlBHLkNvbW1vbi5Qcm90by5Q",
             "bGF5ZXIaE0Jhc2UvTmV0RXJyb3IucHJvdG8aGUVudGl0eS9OZXRUcmFuc2Zv",
-            "cm0ucHJvdG8iJgoOSm9pbk1hcFJlcXVlc3QSFAoMY2hhcmFjdGVyX2lkGAEg",
-            "ASgDIrUBCg9Kb2luTWFwUmVzcG9uc2USMQoFZXJyb3IYASABKA4yIi5NTU9S",
-            "UEcuQ29tbW9uLlByb3RvLkJhc2UuTmV0RXJyb3ISEQoJZW50aXR5X2lkGAIg",
-            "ASgFEg4KBm1hcF9pZBgDIAEoBRIPCgd1bml0X2lkGAQgASgFEjsKCXRyYW5z",
-            "Zm9ybRgFIAEoCzIoLk1NT1JQRy5Db21tb24uUHJvdG8uRW50aXR5Lk5ldFRy",
-            "YW5zZm9ybWIGcHJvdG8z"));
+            "cm0ucHJvdG8aFUVudGl0eS9OZXRBY3Rvci5wcm90byImCg5Kb2luTWFwUmVx",
+            "dWVzdBIUCgxjaGFyYWN0ZXJfaWQYASABKAMi6gEKD0pvaW5NYXBSZXNwb25z",
+            "ZRIxCgVlcnJvchgBIAEoDjIiLk1NT1JQRy5Db21tb24uUHJvdG8uQmFzZS5O",
+            "ZXRFcnJvchIRCgllbnRpdHlfaWQYAiABKAUSDgoGbWFwX2lkGAMgASgFEg8K",
+            "B3VuaXRfaWQYBCABKAUSOwoJdHJhbnNmb3JtGAUgASgLMiguTU1PUlBHLkNv",
+            "bW1vbi5Qcm90by5FbnRpdHkuTmV0VHJhbnNmb3JtEjMKBWFjdG9yGAYgASgL",
+            "MiQuTU1PUlBHLkNvbW1vbi5Qcm90by5FbnRpdHkuTmV0QWN0b3JiBnByb3Rv",
+            "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Base.NetErrorReflection.Descriptor, global::MMORPG.Common.Proto.Entity.NetTransformReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Base.NetErrorReflection.Descriptor, global::MMORPG.Common.Proto.Entity.NetTransformReflection.Descriptor, global::MMORPG.Common.Proto.Entity.NetActorReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Player.JoinMapRequest), global::MMORPG.Common.Proto.Player.JoinMapRequest.Parser, new[]{ "CharacterId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Player.JoinMapResponse), global::MMORPG.Common.Proto.Player.JoinMapResponse.Parser, new[]{ "Error", "EntityId", "MapId", "UnitId", "Transform" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Player.JoinMapResponse), global::MMORPG.Common.Proto.Player.JoinMapResponse.Parser, new[]{ "Error", "EntityId", "MapId", "UnitId", "Transform", "Actor" }, null, null, null, null)
           }));
     }
     #endregion
@@ -273,6 +275,7 @@ namespace MMORPG.Common.Proto.Player {
       mapId_ = other.mapId_;
       unitId_ = other.unitId_;
       transform_ = other.transform_ != null ? other.transform_.Clone() : null;
+      actor_ = other.actor_ != null ? other.actor_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -342,6 +345,18 @@ namespace MMORPG.Common.Proto.Player {
       }
     }
 
+    /// <summary>Field number for the "actor" field.</summary>
+    public const int ActorFieldNumber = 6;
+    private global::MMORPG.Common.Proto.Entity.NetActor actor_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::MMORPG.Common.Proto.Entity.NetActor Actor {
+      get { return actor_; }
+      set {
+        actor_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -362,6 +377,7 @@ namespace MMORPG.Common.Proto.Player {
       if (MapId != other.MapId) return false;
       if (UnitId != other.UnitId) return false;
       if (!object.Equals(Transform, other.Transform)) return false;
+      if (!object.Equals(Actor, other.Actor)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -374,6 +390,7 @@ namespace MMORPG.Common.Proto.Player {
       if (MapId != 0) hash ^= MapId.GetHashCode();
       if (UnitId != 0) hash ^= UnitId.GetHashCode();
       if (transform_ != null) hash ^= Transform.GetHashCode();
+      if (actor_ != null) hash ^= Actor.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -412,6 +429,10 @@ namespace MMORPG.Common.Proto.Player {
         output.WriteRawTag(42);
         output.WriteMessage(Transform);
       }
+      if (actor_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(Actor);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -442,6 +463,10 @@ namespace MMORPG.Common.Proto.Player {
         output.WriteRawTag(42);
         output.WriteMessage(Transform);
       }
+      if (actor_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(Actor);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -466,6 +491,9 @@ namespace MMORPG.Common.Proto.Player {
       }
       if (transform_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Transform);
+      }
+      if (actor_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Actor);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -496,6 +524,12 @@ namespace MMORPG.Common.Proto.Player {
           Transform = new global::MMORPG.Common.Proto.Entity.NetTransform();
         }
         Transform.MergeFrom(other.Transform);
+      }
+      if (other.actor_ != null) {
+        if (actor_ == null) {
+          Actor = new global::MMORPG.Common.Proto.Entity.NetActor();
+        }
+        Actor.MergeFrom(other.Actor);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -535,6 +569,13 @@ namespace MMORPG.Common.Proto.Player {
             input.ReadMessage(Transform);
             break;
           }
+          case 50: {
+            if (actor_ == null) {
+              Actor = new global::MMORPG.Common.Proto.Entity.NetActor();
+            }
+            input.ReadMessage(Actor);
+            break;
+          }
         }
       }
     #endif
@@ -571,6 +612,13 @@ namespace MMORPG.Common.Proto.Player {
               Transform = new global::MMORPG.Common.Proto.Entity.NetTransform();
             }
             input.ReadMessage(Transform);
+            break;
+          }
+          case 50: {
+            if (actor_ == null) {
+              Actor = new global::MMORPG.Common.Proto.Entity.NetActor();
+            }
+            input.ReadMessage(Actor);
             break;
           }
         }

@@ -2,6 +2,8 @@ using MMORPG.Game;
 using QFramework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
+using LightType = UnityEngine.LightType;
 
 public class ItemController : MonoBehaviour, IController
 {
@@ -24,11 +26,18 @@ public class ItemController : MonoBehaviour, IController
 
         transform.position = CalculateGroundPosition(transform.position, 6);
 
-        // 从UnitDefine中搜索模型，并找到其品质
+        // 找到物品品质
         var dataManagerSystem = this.GetSystem<IDataManagerSystem>();
         var itemDefine = dataManagerSystem.GetUnitItemDefine(EntityView.UnitDefine.ID);
         var essence = Instantiate(_essenceDict[itemDefine.Quality], transform);
         essence.transform.localScale = new Vector3(2, 2, 2);
+
+        //Light pointLight = gameObject.AddComponent<Light>();
+        //pointLight.type = LightType.Point;
+        //pointLight.color = Color.white;
+        //pointLight.intensity = 1f;
+        //pointLight.range = 3f;
+        //pointLight.enabled = true;
     }
 
     // Update is called once per frame
