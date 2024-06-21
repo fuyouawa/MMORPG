@@ -18,6 +18,7 @@ namespace MMORPG.Game
         [TableList(AlwaysExpanded = true)]
         public PlayerAction[] Actions;
 
+        [TabGroup("Transitions")]
         public bool HandleTransitionsScripts = false;
 
         [HideIf("HandleTransitionsScripts")]

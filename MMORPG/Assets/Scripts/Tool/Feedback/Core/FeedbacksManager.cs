@@ -29,7 +29,7 @@ namespace MMORPG.Tool
         public bool CanPlay = true;
         [FoldoutGroup("Settings")]
         [Tooltip("在当前Play还没结束时是否可以开始新的Play")]
-        public bool CanPlayWhileAlreadyPlaying = false;
+        public bool CanPlayWhileAlreadyPlaying = true;
         [FoldoutGroup("Settings")]
         [ShowIf("CanPlayWhileAlreadyPlaying")]
         [Tooltip("在当前Play还没结束时, 如果有新的Play, 是否要结束当前Play")]

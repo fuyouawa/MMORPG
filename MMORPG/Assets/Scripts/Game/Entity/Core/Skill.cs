@@ -47,7 +47,7 @@ namespace MMORPG.Game
             SkillManager = skillManager;
             Define = define;
 
-            _handleWeapon = skillManager.Character.GetComponentInChildren<PlayerHandleWeapon>();
+            _handleWeapon = skillManager.ActorController.GetComponentInChildren<PlayerHandleWeapon>();
 
             TargetType = define.TargetType switch
             {
@@ -81,7 +81,7 @@ namespace MMORPG.Game
 
         public void Use(CastTarget target)
         {
-            Log.Debug($"{SkillManager.Character.Entity.EntityId}使用技能{Define.Name}");
+            Log.Debug($"{SkillManager.ActorController.Entity.EntityId}使用技能{Define.Name}");
             switch (Mode)
             {
                 case SkillModes.Combo:
@@ -108,23 +108,23 @@ namespace MMORPG.Game
         {
             if (SkillManager.CurrentSpellingSkill != null)
             {
-                Log.Warning($"{SkillManager.Character.Entity.EntityId}尝试在释放技能({SkillManager.CurrentSpellingSkill.Define.Name})的时候使用其他技能:{Define.Name}");
+                Log.Warning($"{SkillManager.ActorController.Entity.EntityId}尝试在释放技能({SkillManager.CurrentSpellingSkill.Define.Name})的时候使用其他技能:{Define.Name}");
                 return;
             }
             if (CurrentState != States.Idle)
             {
-                Log.Warning($"{SkillManager.Character.Entity.EntityId}尝试使用正在冷却中的技能:{Define.Name}");
+                Log.Warning($"{SkillManager.ActorController.Entity.EntityId}尝试使用正在冷却中的技能:{Define.Name}");
                 return;
             }
-            SkillManager.Character.StartCoroutine(SpellSkillCo(target));
+            SkillManager.ActorController.StartCoroutine(SpellSkillCo(target));
         }
 
         public IEnumerator SpellSkillCo(CastTarget target)
         {
-            SkillManager.Character.Animator.SetTrigger(Define.Anim2);
+            SkillManager.ActorController.Animator.SetTrigger(Define.Anim2);
 
-            if (SkillManager.Character.EffectManager != null)
-                SkillManager.Character.EffectManager.TriggerEffect(Define.ID);
+            if (SkillManager.ActorController.EffectManager != null)
+                SkillManager.ActorController.EffectManager.TriggerEffect(Define.ID);
 
             SkillManager.CurrentSpellingSkill = this;
             ChangeState(States.Running);

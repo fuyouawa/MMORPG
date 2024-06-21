@@ -256,7 +256,7 @@ namespace MMORPG.Game
             }
 
             if (PreventAllMovementWhileInUse)
-                HandleWeapon.Brain.CharacterController.PreventMovement();
+                HandleWeapon.Brain.ActorController.PreventMovement();
         }
 
         protected virtual void CaseWeaponDelayBeforeUse()
@@ -319,7 +319,7 @@ namespace MMORPG.Game
                 WeaponStopFeedbacks.Play();
             FSM.ChangeState(WeaponStates.Idle);
             if (PreventAllMovementWhileInUse)
-                HandleWeapon.Brain.CharacterController.StopPreventMovement();
+                HandleWeapon.Brain.ActorController.StopPreventMovement();
         }
 
         protected virtual void ShootRequest()
@@ -340,22 +340,22 @@ namespace MMORPG.Game
         protected virtual void UpdateAnimator()
         {
             if (!IdleAnimationParameter.IsNullOrEmpty())
-                HandleWeapon.Brain.CharacterController.Animator.SetBool(IdleAnimationParameter, FSM.CurrentStateId == WeaponStates.Idle);
+                HandleWeapon.Brain.ActorController.Animator.SetBool(IdleAnimationParameter, FSM.CurrentStateId == WeaponStates.Idle);
 
             if (!StartAnimationParameter.IsNullOrEmpty())
-                HandleWeapon.Brain.CharacterController.Animator.SetBool(StartAnimationParameter, FSM.CurrentStateId == WeaponStates.Start);
+                HandleWeapon.Brain.ActorController.Animator.SetBool(StartAnimationParameter, FSM.CurrentStateId == WeaponStates.Start);
 
             if (!DelayBeforeUseAnimationParameter.IsNullOrEmpty())
-                HandleWeapon.Brain.CharacterController.Animator.SetBool(DelayBeforeUseAnimationParameter, FSM.CurrentStateId == WeaponStates.DelayBeforeUse);
+                HandleWeapon.Brain.ActorController.Animator.SetBool(DelayBeforeUseAnimationParameter, FSM.CurrentStateId == WeaponStates.DelayBeforeUse);
 
             if (!UseAnimationParameter.IsNullOrEmpty())
-                HandleWeapon.Brain.CharacterController.Animator.SetBool(UseAnimationParameter, FSM.CurrentStateId == WeaponStates.Use);
+                HandleWeapon.Brain.ActorController.Animator.SetBool(UseAnimationParameter, FSM.CurrentStateId == WeaponStates.Use);
 
             if (!DelayBetweenUsesAnimationParameter.IsNullOrEmpty())
-                HandleWeapon.Brain.CharacterController.Animator.SetBool(DelayBetweenUsesAnimationParameter, FSM.CurrentStateId == WeaponStates.DelayBetweenUses);
+                HandleWeapon.Brain.ActorController.Animator.SetBool(DelayBetweenUsesAnimationParameter, FSM.CurrentStateId == WeaponStates.DelayBetweenUses);
 
             if (!StopAnimationParameter.IsNullOrEmpty())
-                HandleWeapon.Brain.CharacterController.Animator.SetBool(StopAnimationParameter, FSM.CurrentStateId == WeaponStates.Stop);
+                HandleWeapon.Brain.ActorController.Animator.SetBool(StopAnimationParameter, FSM.CurrentStateId == WeaponStates.Stop);
         }
 
         protected virtual void OnDestroy()

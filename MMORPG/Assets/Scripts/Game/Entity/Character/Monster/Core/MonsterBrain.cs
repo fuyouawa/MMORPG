@@ -5,7 +5,6 @@ using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Game
 {
@@ -18,7 +17,7 @@ namespace MMORPG.Game
         public EntityTransformSyncData Data;
 
         [Required]
-        public CharacterController CharacterController;
+        public ActorController ActorController;
 
         public Transform DamageNumberPoint;
 
@@ -29,11 +28,11 @@ namespace MMORPG.Game
 
         private void Awake()
         {
-            CharacterController.Entity.OnTransformSync += OnTransformEntitySync;
+            ActorController.Entity.OnTransformSync += OnTransformEntitySync;
 
             this.RegisterEvent<EntityHurtEvent>(e =>
             {
-                if (e.Wounded == CharacterController.Entity)
+                if (e.Wounded == ActorController.Entity)
                 {
                     OnHurt(e);
                 }
@@ -80,8 +79,8 @@ namespace MMORPG.Game
                 FSM.ChangeState(state);
             }
 
-            CharacterController.SmoothMove(CalculateGroundPosition(data.Position, 6));
-            CharacterController.SmoothRotate(data.Rotation);
+            ActorController.SmoothMove(CalculateGroundPosition(data.Position, 6));
+            ActorController.SmoothRotate(data.Rotation);
         }
 
         private void Start()
