@@ -26,8 +26,6 @@ namespace MMORPG.Command
                 OriginSlotId = _originSlot,
                 TargetSlotId = _targetSlot,
             });
-            var response = await net.ReceiveAsync<InventoryQueryResponse>();
-            this.SendEvent<LoadKnapsackEvent>(new(response.KnapsackInfo){});
         }
     }
 }

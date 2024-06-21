@@ -25,17 +25,20 @@ namespace MMORPG.Common.Proto.Inventory {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CiNJbnZlbnRvcnkvSW52ZW50b3J5T3BlcmF0aW9ucy5wcm90bxIdTU1PUlBH",
-            "LkNvbW1vbi5Qcm90by5JbnZlbnRvcnkiJgoRUGlja3VwSXRlbVJlcXVlc3QS",
-            "EQoJZW50aXR5X2lkGAEgASgFIlkKFFBsYWNlbWVudEl0ZW1SZXF1ZXN0EhEK",
-            "CWVudGl0eV9pZBgBIAEoBRIWCg5vcmlnaW5fc2xvdF9pZBgCIAEoBRIWCg50",
-            "YXJnZXRfc2xvdF9pZBgDIAEoBSJHChJEaXNjYXJkSXRlbVJlcXVlc3QSEQoJ",
-            "ZW50aXR5X2lkGAEgASgFEg8KB3Nsb3RfaWQYAiABKAUSDQoFY291bnQYAyAB",
-            "KAUiNAoOVXNlSXRlbVJlcXVlc3QSEQoJZW50aXR5X2lkGAEgASgFEg8KB3Ns",
-            "b3RfaWQYAiABKAViBnByb3RvMw=="));
+            "LkNvbW1vbi5Qcm90by5JbnZlbnRvcnkaE0Jhc2UvTmV0RXJyb3IucHJvdG8i",
+            "JgoRUGlja3VwSXRlbVJlcXVlc3QSEQoJZW50aXR5X2lkGAEgASgFIkcKElBp",
+            "Y2t1cEl0ZW1SZXNwb25zZRIxCgVlcnJvchgBIAEoDjIiLk1NT1JQRy5Db21t",
+            "b24uUHJvdG8uQmFzZS5OZXRFcnJvciJZChRQbGFjZW1lbnRJdGVtUmVxdWVz",
+            "dBIRCgllbnRpdHlfaWQYASABKAUSFgoOb3JpZ2luX3Nsb3RfaWQYAiABKAUS",
+            "FgoOdGFyZ2V0X3Nsb3RfaWQYAyABKAUiRwoSRGlzY2FyZEl0ZW1SZXF1ZXN0",
+            "EhEKCWVudGl0eV9pZBgBIAEoBRIPCgdzbG90X2lkGAIgASgFEg0KBWNvdW50",
+            "GAMgASgFIjQKDlVzZUl0ZW1SZXF1ZXN0EhEKCWVudGl0eV9pZBgBIAEoBRIP",
+            "CgdzbG90X2lkGAIgASgFYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { },
+          new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Base.NetErrorReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.PickupItemRequest), global::MMORPG.Common.Proto.Inventory.PickupItemRequest.Parser, new[]{ "EntityId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.PickupItemResponse), global::MMORPG.Common.Proto.Inventory.PickupItemResponse.Parser, new[]{ "Error" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.PlacementItemRequest), global::MMORPG.Common.Proto.Inventory.PlacementItemRequest.Parser, new[]{ "EntityId", "OriginSlotId", "TargetSlotId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.DiscardItemRequest), global::MMORPG.Common.Proto.Inventory.DiscardItemRequest.Parser, new[]{ "EntityId", "SlotId", "Count" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Inventory.UseItemRequest), global::MMORPG.Common.Proto.Inventory.UseItemRequest.Parser, new[]{ "EntityId", "SlotId" }, null, null, null, null)
@@ -241,6 +244,196 @@ namespace MMORPG.Common.Proto.Inventory {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class PickupItemResponse : pb::IMessage<PickupItemResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<PickupItemResponse> _parser = new pb::MessageParser<PickupItemResponse>(() => new PickupItemResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<PickupItemResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::MMORPG.Common.Proto.Inventory.InventoryOperationsReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PickupItemResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PickupItemResponse(PickupItemResponse other) : this() {
+      error_ = other.error_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PickupItemResponse Clone() {
+      return new PickupItemResponse(this);
+    }
+
+    /// <summary>Field number for the "error" field.</summary>
+    public const int ErrorFieldNumber = 1;
+    private global::MMORPG.Common.Proto.Base.NetError error_ = global::MMORPG.Common.Proto.Base.NetError.Success;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::MMORPG.Common.Proto.Base.NetError Error {
+      get { return error_; }
+      set {
+        error_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as PickupItemResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(PickupItemResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Error != other.Error) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) hash ^= Error.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Error);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Error);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Error);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(PickupItemResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Error != global::MMORPG.Common.Proto.Base.NetError.Success) {
+        Error = other.Error;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Error = (global::MMORPG.Common.Proto.Base.NetError) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Error = (global::MMORPG.Common.Proto.Base.NetError) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   /// <summary>
   ///物品放置请求
   /// </summary>
@@ -259,7 +452,7 @@ namespace MMORPG.Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MMORPG.Common.Proto.Inventory.InventoryOperationsReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.Inventory.InventoryOperationsReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -532,7 +725,7 @@ namespace MMORPG.Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MMORPG.Common.Proto.Inventory.InventoryOperationsReflection.Descriptor.MessageTypes[2]; }
+      get { return global::MMORPG.Common.Proto.Inventory.InventoryOperationsReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -805,7 +998,7 @@ namespace MMORPG.Common.Proto.Inventory {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MMORPG.Common.Proto.Inventory.InventoryOperationsReflection.Descriptor.MessageTypes[3]; }
+      get { return global::MMORPG.Common.Proto.Inventory.InventoryOperationsReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

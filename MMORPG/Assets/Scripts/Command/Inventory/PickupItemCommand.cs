@@ -5,24 +5,21 @@ using QFramework;
 
 namespace MMORPG.Command
 {
-    public class QueryInventoryCommand : AbstractCommand
+    public class PickupItemCommand : AbstractCommand
     {
-        private int _entityId;
-
-        public QueryInventoryCommand(int entityId)
+        public PickupItemCommand()
         {
-            _entityId = entityId;
         }
 
         protected override async void OnExecute()
         {
             var net = this.GetSystem<INetworkSystem>();
             var playerManager = this.GetSystem<IPlayerManagerSystem>();
-            net.SendToServer(new InventoryQueryRequest()
+            net.SendToServer(new PickupItemRequest()
             {
-                EntityId = playerManager.MineEntity.EntityId,
-                QueryKnapsack = true,
             });
+            var response = await net.ReceiveAsync<PickupItemResponse>();
+            this.SendEvent<PickupItemEvent>(new(response){});
         }
     }
 }
