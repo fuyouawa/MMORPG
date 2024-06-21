@@ -30,23 +30,17 @@ namespace MMORPG.Game
         {
             ActorController.Entity.OnTransformSync += OnTransformEntitySync;
 
-            this.RegisterEvent<EntityHurtEvent>(e =>
-            {
-                if (e.Wounded == ActorController.Entity)
-                {
-                    OnHurt(e);
-                }
-            });
+            ActorController.Entity.OnHurt += OnHurt;
         }
 
-        private void OnHurt(EntityHurtEvent e)
+        private void OnHurt(DamageInfo info)
         {
-            if (e.IsCrit)
+            if (info.IsCrit)
             {
                 if (CritHurtFeedbacks != null)
                     CritHurtFeedbacks.Play();
             }
-            else if (e.IsMiss)
+            else if (info.IsMiss)
             {
                 if (MissHurtFeedbacks != null)
                     MissHurtFeedbacks.Play();
@@ -57,17 +51,17 @@ namespace MMORPG.Game
                     HurtFeedbacks.Play();
             }
 
-            if (!e.IsMiss)
+            if (!info.IsMiss)
             {
                 Animator.SetTrigger("Hurt");
             }
-            if (e.IsMiss)
+            if (info.IsMiss)
             {
                 LevelManager.Instance.TakeText(DamageNumberPoint.position, "Miss");
             }
             else
             {
-                LevelManager.Instance.TakeDamage(DamageNumberPoint.position, e.Amount, e.IsCrit);
+                LevelManager.Instance.TakeDamage(DamageNumberPoint.position, info.Amount, info.IsCrit);
             }
         }
 

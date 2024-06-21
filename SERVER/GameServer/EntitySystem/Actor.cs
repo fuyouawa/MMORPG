@@ -84,33 +84,47 @@ namespace GameServer.EntitySystem
             Log.Debug($"Actor:{Name}({EntityId})受到{info.AttackerId}的攻击, 扣除{info.Amount}血量, 剩余血量:{Hp}!");
         }
 
+        private EntityAttributeEntry ConstructAttributeEntry<T>(EntityAttributeEntryType type, T value)
+        {
+            var entry = new EntityAttributeEntry()
+            {
+                Type = type,
+            };
+            switch (value)
+            {
+                case int intVal:
+                    entry.Int32 = intVal;
+                    break;
+                case float floatVal:
+                    entry.Float = floatVal;
+                    break;
+                case string stringVal:
+                    entry.String = stringVal;
+                    break;
+                default:
+                    Log.Error("[Actor.SyncAttributeEntry]无效的类型");
+                    break;
+            }
+            return entry;
+        }
+
         private void EntityAttributeEntrySync<T>(EntityAttributeEntryType type, T value)
         {
             var resp = new EntityAttributeSyncResponse()
             {
                 EntityId = EntityId,
             };
-            var entry = new EntityAttributeEntry()
+            resp.Entrys.Add(ConstructAttributeEntry(type, value));
+            Map.PlayerManager.Broadcast(resp, this);
+        }
+
+        private void EntityAttributeEntrySync(params EntityAttributeEntry[] entries)
+        {
+            var resp = new EntityAttributeSyncResponse()
             {
-                Type = type,
+                EntityId = EntityId,
             };
-            if (typeof(T) == typeof(int))
-            {
-                entry.Int32 = Convert.ToInt32(value);
-            }
-            else if (typeof(T) == typeof(float))
-            {
-                entry.Float = Convert.ToSingle(value);
-            }
-            else if (typeof(T) == typeof(string))
-            {
-                entry.String = Convert.ToString(value);
-            }
-            else
-            {
-                Log.Error("[Actor.SyncAttributeEntry]无效的类型");
-            }
-            resp.Entrys.Add(entry);
+            resp.Entrys.Add(entries);
             Map.PlayerManager.Broadcast(resp, this);
         }
     }
