@@ -16,6 +16,11 @@ namespace MMORPG.Game
             OwnerState.Brain.NetworkUploadTransform(OwnerStateId);
         }
 
+        public override void OnStateNetworkFixedUpdate()
+        {
+            Brain.NetworkUploadTransform(OwnerStateId);
+        }
+
         [StateCondition]
         public bool IsSpellingSkill()
         {

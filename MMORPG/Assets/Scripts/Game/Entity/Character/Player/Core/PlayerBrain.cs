@@ -113,8 +113,8 @@ namespace MMORPG.Game
                 EntityId = CharacterController.Entity.EntityId,
                 Transform = new()
                 {
-                    Direction = transform.rotation.eulerAngles.ToNetVector3(),
-                    Position = transform.position.ToNetVector3()
+                    Direction = CharacterController.Entity.transform.rotation.eulerAngles.ToNetVector3(),
+                    Position = CharacterController.Entity.transform.position.ToNetVector3()
                 },
                 StateId = stateId,
                 Data = data == null ? ByteString.Empty : ByteString.CopyFrom(data)

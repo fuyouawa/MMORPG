@@ -1,4 +1,5 @@
 using System.Collections;
+using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -22,7 +23,6 @@ namespace MMORPG.Game
         public Rigidbody Rigidbody { get; private set; }
         public CapsuleCollider Collider { get; private set; }
 
-
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody>();
@@ -33,31 +33,74 @@ namespace MMORPG.Game
         {
             SkillManager = new(this);
         }
+
         private void Update()
         {
             SkillManager.Update();
         }
 
-        public void SmoothRotate(Quaternion targetRotation)
-        {
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationSmooth * Time.deltaTime);
-        }
-
+        private Coroutine _smoothMoveCoroutine;
         public void SmoothMove(Vector3 position)
         {
-            if (IsPreventingMovement) return;
-            transform.position = Vector3.Lerp(transform.position, position, MoveSmooth * Time.deltaTime);
+            if (_smoothMoveCoroutine != null)
+                StopCoroutine(_smoothMoveCoroutine);
+            _smoothMoveCoroutine = StartCoroutine(SmoothMoveCo(position));
+        }
+
+        private IEnumerator SmoothMoveCo(Vector3 position)
+        {
+            while (!MathHelper.Approximately(transform.position, position))
+            {
+                if (IsPreventingMovement)
+                {
+                    yield break;
+                }
+                transform.position = Vector3.Lerp(transform.position, position, MoveSmooth * Time.deltaTime);
+                yield return null;
+            }
+        }
+
+        private Coroutine _smoothRotateCoroutine;
+        public void SmoothRotate(Quaternion rotation)
+        {
+            if (_smoothRotateCoroutine != null)
+                StopCoroutine(_smoothRotateCoroutine);
+            _smoothRotateCoroutine = StartCoroutine(SmoothRotateCo(rotation));
+        }
+
+        private IEnumerator SmoothRotateCo(Quaternion rotation)
+        {
+            while (!MathHelper.Approximately(transform.rotation, rotation))
+            {
+                if (IsPreventingMovement)
+                {
+                    yield break;
+                }
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, RotationSmooth * Time.deltaTime);
+                yield return null;
+            }
         }
 
         public void MoveDirection(Vector3 direction)
         {
-            if (IsPreventingMovement) return;
-            transform.position += direction;
+            Move(transform.position + direction);
         }
 
         public void RelativeRotate(Quaternion rotation)
         {
-            transform.rotation *= rotation;
+            Rotate(transform.rotation * rotation);
+        }
+
+        public void Move(Vector3 position)
+        {
+            if (IsPreventingMovement) return;
+            transform.position = position;
+        }
+
+        public void Rotate(Quaternion rotation)
+        {
+            if (IsPreventingMovement) return;
+            transform.rotation = rotation;
         }
 
         public IArchitecture GetArchitecture()
