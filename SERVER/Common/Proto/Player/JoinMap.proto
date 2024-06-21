@@ -3,6 +3,7 @@
 package MMORPG.Common.Proto.Player;
 import "Base/NetError.proto";
 import "Entity/NetTransform.proto";
+import "Entity/NetActor.proto";
 
 message JoinMapRequest {
     int64 character_id = 1;
@@ -14,4 +15,5 @@ message JoinMapResponse {
     int32 map_id = 3;
     int32 unit_id = 4;
     Entity.NetTransform transform = 5;
+    Entity.NetActor actor = 6;
 }

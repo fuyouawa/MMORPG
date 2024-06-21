@@ -139,13 +139,17 @@ namespace GameServer.MapSystem
         public void EntityRefreshPosition(Entity entity)
         {
             var enterRes = new EntityEnterResponse();
-            enterRes.Datas.Add(new EntityEnterData()
+            var data = new EntityEnterData()
             {
                 EntityId = entity.EntityId,
                 UnitId = entity.UnitDefine.ID,
                 EntityType = entity.EntityType,
                 Transform = ProtoHelper.ToNetTransform(entity.Position, entity.Direction),
-            });
+            };
+            var actor = entity as Actor;
+            if (actor != null) data.Actor = actor.ToNetActor();
+            
+            enterRes.Datas.Add(data);
 
             var leaveRes = new EntityLeaveResponse();
             leaveRes.EntityIds.Add(entity.EntityId);

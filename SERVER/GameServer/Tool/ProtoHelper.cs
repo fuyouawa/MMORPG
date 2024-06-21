@@ -10,6 +10,7 @@ using MMORPG.Common.Proto.Base;
 using MMORPG.Common.Proto.Character;
 using MMORPG.Common.Proto.Entity;
 using GameServer.Db;
+using GameServer.EntitySystem;
 
 namespace GameServer.Tool
 {
@@ -43,6 +44,19 @@ namespace GameServer.Tool
             transform.Position = pos.ToNetVector3();
             transform.Direction = dire.ToNetVector3();
             return transform;
+        }
+
+        public static NetActor ToNetActor(this Actor actor)
+        {
+            var netActor = new NetActor()
+            {
+                Level = (int)actor.Level,
+                MaxHp = (int)actor.AttributeManager.Final.MaxHp,
+                Hp = (int)actor.Hp,
+                MaxMp = (int)actor.AttributeManager.Final.MaxMp,
+                Mp = (int)actor.Mp,
+            };
+            return netActor;
         }
 
         //public static NetEntity ToNetEntity(this Entity entity)

@@ -1,7 +1,7 @@
 ﻿using MMORPG.Common.Proto.Entity;
 using GameServer.Tool;
 using System.Numerics;
-using MMORPG.Common.Proto.Monster;
+using MMORPG.Common.Proto.Entity;
 using GameServer.PlayerSystem;
 using GameServer.MonsterSystem;
 using GameServer.EntitySystem;
