@@ -61,9 +61,6 @@ namespace GameServer.AiSystem.Ability
             _moveTargetPos.Y = FixedY;
         }
 
-        public void AddForce(Vector3 distance, float force)
-        {
-            _moveTargetPos += distance * force;
-        }
+
     }
 }

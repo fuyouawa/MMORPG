@@ -117,15 +117,18 @@ namespace GameServer.AiSystem
 
         public void OnHurt()
         {
+            ChangeSyncState(ActorState.Hurt);
+            SyncState = ActorState.Idle;
+
             // 能拿到攻击者，施加一个力
             Debug.Assert(OwnerMonster.DamageSourceInfo != null);
             var skillDefine = DataManager.Instance.SkillDict[OwnerMonster.DamageSourceInfo.SkillId];
             var target = EntityManager.Instance.GetEntity(OwnerMonster.DamageSourceInfo.AttackerId);
             if (target == null) return;
-            MoveAbility.AddForce((OwnerMonster.Direction - target.Direction).Normalized(), skillDefine.Force);
 
-            ChangeSyncState(ActorState.Hurt);
-            SyncState = ActorState.Idle;
+            var tmpTargetPos = target.Position;
+            tmpTargetPos.Y = OwnerMonster.Position.Y;
+            AddForce((OwnerMonster.Position - tmpTargetPos).Normalized(), skillDefine.Force);
         }
 
         public void OnDeath()
@@ -149,6 +152,12 @@ namespace GameServer.AiSystem
                 Transform = ProtoHelper.ToNetTransform(OwnerMonster.Position, OwnerMonster.Direction)
             };
             OwnerMonster.Map.PlayerManager.Broadcast(res, OwnerMonster);
+        }
+
+        private void AddForce(Vector3 distance, float force)
+        {
+            MoveAbility.Speed = force;
+            Move(OwnerMonster.Position + distance * force);
         }
     }
 
@@ -284,6 +293,7 @@ namespace GameServer.AiSystem
             {
                 _target.MoveAbility.LockDirection = false;
                 _target.OwnerMonster.DamageSourceInfo = null;
+                _target.MoveAbility.Speed = _target.OwnerMonster.Speed;
             }
 
             public override void OnUpdate()
