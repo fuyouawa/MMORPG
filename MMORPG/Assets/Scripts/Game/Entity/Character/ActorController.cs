@@ -19,14 +19,16 @@ namespace MMORPG.Game
 
         [Title("Properties")]
         [ShowInInspector]
+        [ReadOnly]
         public int Level { get; set; }
         [ShowInInspector]
-        public int Exp { get; set; }
-        [ShowInInspector]
+        [ReadOnly]
         public int Gold { get; set; }
         [ShowInInspector]
+        [ReadOnly]
         public int Hp { get; set; }
         [ShowInInspector]
+        [ReadOnly]
         public int Mp { get; set; }
 
         public int MaxHp => Entity.UnitDefine.MaxHp;
