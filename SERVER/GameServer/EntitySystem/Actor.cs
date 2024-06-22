@@ -15,22 +15,22 @@ namespace GameServer.EntitySystem
 {
     public class Actor : Entity
     {
-        public string Name { get; protected set; }
-        public int Level { get; protected set; }
-        public float Speed { get; protected set; }
-        public float Hp { get; protected set; }
-        public float Mp { get; protected set; }
-
+        public string Name { get; set; }
+        public int Level { get; set; }
+        public float Speed { get; set; }
+        public float Hp { get; set; }
+        public float Mp { get; set; }
         public int Attacker { get; set; } = 0;
         public AttributeManager AttributeManager { get; protected set; }
         public SkillManager SkillManager { get; protected set; }
         public Spell Spell { get; protected set; }
 
         public Actor(EntityType entityType, int entityId, UnitDefine unitDefine,
-            Map map, Vector3 pos, Vector3 dire, string name) 
+            Map map, Vector3 pos, Vector3 dire, string name, int level) 
             : base(entityType, entityId, unitDefine, map, pos, dire)
         {
             Name = name;
+            Level = level;
             AttributeManager = new(this);
             SkillManager = new(this);
             Spell = new(this);
