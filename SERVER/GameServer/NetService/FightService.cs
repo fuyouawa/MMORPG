@@ -34,8 +34,7 @@ namespace GameServer.NetService
                     });
                     return;
                 }
-
-                player.Map.FightManager.AddSkillCast(req.Info);
+                player.Spell.Cast(req.Info);
             });
         }
     }
