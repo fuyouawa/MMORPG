@@ -12,6 +12,7 @@ namespace GameServer.AiSystem.Ability
         public Entity Entity;
         public float Speed;
         public bool Moving { get; private set; }
+        public bool LockDirection;
 
         public MoveAbility(Entity entity, float fixedY, float speed)
         {
@@ -19,6 +20,7 @@ namespace GameServer.AiSystem.Ability
             FixedY = fixedY;
             Moving = false;
             Speed = speed;
+            LockDirection = false;
         }
 
         public override void Start()
@@ -32,7 +34,11 @@ namespace GameServer.AiSystem.Ability
             if (!Moving) return;
 
             var direction = (_moveTargetPos - Entity.Position).Normalized();
-            Entity.Direction = direction.ToEulerAngles() * new Vector3(0, 1, 0);
+            if (!LockDirection)
+            {
+                Entity.Direction = direction.ToEulerAngles() * new Vector3(0, 1, 0);
+            }
+
             float distance = Speed * Time.DeltaTime;
 
             if (Vector3.Distance(_moveTargetPos, Entity.Position) <= distance)
