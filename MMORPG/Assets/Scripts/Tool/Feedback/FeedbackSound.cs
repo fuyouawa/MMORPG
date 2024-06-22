@@ -21,18 +21,6 @@ namespace MMORPG.Tool
         [HideIf("@Sfx != null")]
         public AudioClip[] RandomSfx = Array.Empty<AudioClip>();
 
-        [FoldoutGroup("Transform")]
-        [Tooltip("在Play时改变生成的AudioSource的Parent, 在Stop时还原")]
-        public bool ChangeParentOnPlay = false;
-        [FoldoutGroup("Transform")]
-        [ShowIf("ChangeParentOnPlay")]
-        [Tooltip("在Play时要改变到的Parent")]
-        public Transform ParentOnPlay;
-        [FoldoutGroup("Transform")]
-        [ShowIf("ChangeParentOnPlay")]
-        [Tooltip("在改变Parent时是否保持世界坐标")]
-        public bool WorldPositionStays = true;
-
         [FoldoutGroup("Play Method")]
         public PlayMethods PlayMethod = PlayMethods.Cached;
         [FoldoutGroup("Play Method")]
@@ -234,11 +222,6 @@ namespace MMORPG.Tool
                 {
                     _audioSource.Stop();
                 }
-
-                if (ChangeParentOnPlay)
-                {
-                    _audioSource.transform.SetParent(Owner.transform, WorldPositionStays);
-                }
             }
         }
 
@@ -252,10 +235,6 @@ namespace MMORPG.Tool
         private void PlayAudioSource(AudioSource audioSource, AudioClip sfx, float volume, float pitch, AudioMixerGroup audioMixerGroup = null, int priority = 128)
         {
             _audioSource = audioSource;
-            if (ChangeParentOnPlay)
-            {
-                _audioSource.transform.SetParent(ParentOnPlay, WorldPositionStays);
-            }
             // we set that audio source clip to the one in paramaters
             audioSource.clip = sfx;
             audioSource.timeSamples = 0;

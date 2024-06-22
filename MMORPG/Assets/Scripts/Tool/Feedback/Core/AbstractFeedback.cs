@@ -78,8 +78,8 @@ namespace MMORPG.Tool
 
         protected bool IsInitialized = false;
         protected int CurrentLoopCount;
-        private Coroutine _feedbackPlayCoroutine;
-        private Coroutine _durationCoroutine;
+        private List<Coroutine> _totalFeedbackPlayCoroutine;
+        private List<Coroutine> _totalDurationCoroutine;
 
         public virtual void Reset()
         {
@@ -95,7 +95,7 @@ namespace MMORPG.Tool
             Reset();
             IsPlaying = true;
             TimeSincePlay = Time.time;
-            _feedbackPlayCoroutine = StartCoroutine(FeedbackPlayCo());
+            _totalFeedbackPlayCoroutine.Add(StartCoroutine(FeedbackPlayCo()));
         }
 
         public virtual void Stop()
@@ -103,17 +103,20 @@ namespace MMORPG.Tool
             if (!IsPlaying)
                 return;
             IsPlaying = false;
-            if (_feedbackPlayCoroutine != null)
-            {
-                StopCoroutine(_feedbackPlayCoroutine);
-                _feedbackPlayCoroutine = null;
-            }
 
-            if (_durationCoroutine != null)
+            foreach (var coroutine in _totalFeedbackPlayCoroutine)
             {
-                StopCoroutine(_durationCoroutine);
-                _durationCoroutine = null;
+                StopCoroutine(coroutine);
             }
+            _totalFeedbackPlayCoroutine.Clear();
+            foreach (var coroutine in _totalDurationCoroutine)
+            {
+                StopCoroutine(coroutine);
+            }
+            _totalDurationCoroutine.Clear();
+
+            _feedbackPlayCoroutineIndex = 0;
+
             OnFeedbackStop();
         }
 
@@ -127,18 +130,23 @@ namespace MMORPG.Tool
             if (IsInitialized) return;
             IsInitialized = true;
 
+            _totalFeedbackPlayCoroutine = new();
+            _totalDurationCoroutine = new();
+
             OnFeedbackInit();
         }
 
 
+        private int _feedbackPlayCoroutineIndex = 0;
         protected virtual IEnumerator FeedbackPlayCo()
         {
+            _feedbackPlayCoroutineIndex++;
             yield return new WaitForSeconds(DelayBeforePlay);
-            _durationCoroutine = StartCoroutine(DurationCoroutine());
+            _totalDurationCoroutine.Add(StartCoroutine(DurationCoroutine(_feedbackPlayCoroutineIndex)));
             OnFeedbackPlay();
         }
 
-        protected virtual IEnumerator DurationCoroutine()
+        protected virtual IEnumerator DurationCoroutine(int index)
         {
             yield return new WaitForSeconds(GetDuration());
             if (!IsPlaying)
@@ -156,7 +164,7 @@ namespace MMORPG.Tool
             }
 
             stop:
-            if (StopAfterDuration)
+            if (StopAfterDuration && index == _feedbackPlayCoroutineIndex)
             {
                 Stop();
             }

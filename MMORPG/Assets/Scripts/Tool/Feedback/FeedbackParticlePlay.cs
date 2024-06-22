@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using QFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -53,7 +52,7 @@ namespace MMORPG.Tool
         public Vector2 ForcedSimulationSpeed = new(0.1f, 1f);
 
         private ParticleSystem.EmitParams _emitParams;
-        private Dictionary<ParticleSystem, Transform> _originalParentRecords = new();
+        private Dictionary<ParticleSystem, TransformLocalStore> _originalLocalStores = new();
 
         
 
@@ -69,12 +68,12 @@ namespace MMORPG.Tool
                 StopParticles();
             }
 
-            _originalParentRecords[BoundParticleSystem] = BoundParticleSystem.transform.parent;
+            _originalLocalStores[BoundParticleSystem] = BoundParticleSystem.transform.GetLocalStore();
             if (RandomParticleSystems != null)
             {
                 foreach (var particle in RandomParticleSystems)
                 {
-                    _originalParentRecords[particle] = particle.transform.parent;
+                    _originalLocalStores[particle] = particle.transform.GetLocalStore();
                 }
             }
         }
@@ -88,9 +87,9 @@ namespace MMORPG.Tool
         {
             StopParticles();
 
-            foreach (var record in _originalParentRecords)
+            foreach (var store in _originalLocalStores)
             {
-                record.Key.transform.SetParent(record.Value, WorldPositionStays);
+                store.Key.transform.FromLocalStore(store.Value);
             }
         }
 
@@ -100,7 +99,10 @@ namespace MMORPG.Tool
             {
                 BoundParticleSystem.gameObject.SetActive(true);
 
-                RandomParticleSystems?.ForEach(x => x?.gameObject.SetActive(true));
+                foreach (var particle in RandomParticleSystems)
+                {
+                    particle.gameObject.SetActive(true);
+                }
             }
 
             if (RandomParticleSystems?.Length > 0)
@@ -152,7 +154,10 @@ namespace MMORPG.Tool
 
         private void StopParticles()
         {
-            RandomParticleSystems?.ForEach(x => x?.Stop());
+            foreach (var particle in RandomParticleSystems)
+            {
+                particle.Stop();
+            }
             if (BoundParticleSystem != null)
             {
                 BoundParticleSystem.Stop();
