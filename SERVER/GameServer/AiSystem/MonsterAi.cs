@@ -8,6 +8,9 @@ using GameServer.EntitySystem;
 using GameServer.AiSystem.Ability;
 using GameServer.Manager;
 using System.Threading;
+using MMORPG.Common.Proto.Fight;
+using Org.BouncyCastle.Ocsp;
+using GameServer.FightSystem;
 
 namespace GameServer.AiSystem
 {
@@ -86,7 +89,21 @@ namespace GameServer.AiSystem
 
         public void Attack()
         {
+            if (!OwnerMonster.SkillManager.SkillDict.Any()) return;
+            var first = OwnerMonster.SkillManager.SkillDict.First();
+            
+            var castInfo = new CastInfo()
+            {
+                SkillId = first.Value.Define.ID,
+                CasterId = OwnerMonster.EntityId,
+                CastTarget = new NetCastTarget()
+                {
+                    TargetId = ChasingTarget.EntityId,
+                },
+            };
+
             ChangeSyncState(ActorState.Skill);
+            OwnerMonster.Spell.Cast(castInfo);
             SyncState = ActorState.Idle;
         }
 
