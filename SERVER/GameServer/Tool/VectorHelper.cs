@@ -42,13 +42,11 @@ namespace GameServer.Tool
 
         public static Vector3 Normalized(this Vector3 value)
         {
-            var length = (float)Math.Sqrt((double)value.X * (double)value.X + 
-                                          (double)value.Y * (double)value.Y + 
-                                          (double)value.Z * (double)value.Z);
-            if (length > 1E-05f)
-            {
-                return value / length;
-            }
+            var magnitude = (float)Math.Sqrt((double)value.X * (double)value.X + 
+                                             (double)value.Y * (double)value.Y + 
+                                             (double)value.Z * (double)value.Z);
+            if (magnitude > 1E-05f)
+                return value / magnitude;
             return Vector3.Zero;
         }
 
@@ -68,6 +66,14 @@ namespace GameServer.Tool
             var newY = v.X * sin + v.Y * cos;
 
             return new Vector2(newX, newY);
+        }
+
+        public static Vector2 Normalized(this Vector2 value)
+        {
+            float magnitude = (float)Math.Sqrt(value.X * value.X + value.Y * value.Y);
+            if (magnitude > 1E-05f)
+                return value / magnitude;
+            return Vector2.Zero;
         }
     }
 }
