@@ -12,8 +12,6 @@ namespace MMORPG.Game
 {
     public class MonsterBrain : MonoBehaviour, IController
     {
-        public Animator Animator;
-
         public FSM<ActorState> FSM = new ();
 
         public EntityTransformSyncData Data;
@@ -37,9 +35,10 @@ namespace MMORPG.Game
 
         private void Start()
         {
-            FSM.AddState(ActorState.Idle, new IdleState(FSM, this));
-            FSM.AddState(ActorState.Move, new MoveState(FSM, this));
-            FSM.AddState(ActorState.Skill, new AttackState(FSM, this));
+            FSM.AddState(ActorState.Idle, new MonsterIdleState(FSM, this));
+            FSM.AddState(ActorState.Move, new MonsterMoveState(FSM, this));
+            FSM.AddState(ActorState.Skill, new MonsterAttackState(FSM, this));
+            FSM.AddState(ActorState.Death, new MonsterDeathState(FSM, this));
             FSM.StartState(ActorState.Idle);
 
             //TextName.text = ActorController.Entity.UnitDefine.Name;
@@ -90,7 +89,7 @@ namespace MMORPG.Game
 
             if (!info.IsMiss)
             {
-                Animator.SetTrigger("Hurt");
+                ActorController.Animator.SetTrigger("Hurt");
             }
             if (info.IsMiss)
             {
