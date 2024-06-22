@@ -16,7 +16,7 @@ namespace MMORPG.Game
         ApplicationQuit
     }
 
-    public class LaunchController : MonoBehaviour, IController
+    public class LaunchController : MonoBehaviour
     {
         public FSM<LaunchStatus> FSM = new();
 
@@ -30,7 +30,6 @@ namespace MMORPG.Game
 
         private void Start()
         {
-            Serilog.Log.Information("开始生命周期");
             FSM.AddState(LaunchStatus.InitLog, new InitLogState(FSM, this));
             FSM.AddState(LaunchStatus.InitPlugins, new InitPluginsState(FSM, this));
             FSM.AddState(LaunchStatus.InitTool, new InitToolState(FSM, this));
@@ -40,11 +39,6 @@ namespace MMORPG.Game
             FSM.AddState(LaunchStatus.ApplicationQuit, new ApplicationQuitState(FSM, this));
 
             FSM.StartState(LaunchStatus.InitLog);
-        }
-
-        public IArchitecture GetArchitecture()
-        {
-            return GameApp.Interface;
         }
 
         protected void OnApplicationQuit()
@@ -61,7 +55,7 @@ namespace MMORPG.Game
             {
                 FSM.Clear();
                 GameApp.Interface.Deinit();
-                Serilog.Log.CloseAndFlush();
+                Log.CloseAndFlush();
             }
         }
     }

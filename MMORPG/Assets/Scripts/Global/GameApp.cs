@@ -2,6 +2,7 @@ using QFramework;
 using MMORPG.Model;
 using MMORPG.System;
 using Serilog;
+using UnityEngine;
 
 namespace MMORPG.Game
 {
@@ -9,7 +10,7 @@ namespace MMORPG.Game
     {
         protected override void Init()
         {
-            Log.Information("[Init Architecture] GameApp");
+            Debug.Log("[Init Architecture] GameApp");
             this.RegisterSystem<IBoxSystem>(new BoxSystem());
             this.RegisterSystem<IDataManagerSystem>(new DataManagerSystem());
             this.RegisterSystem<IEntityManagerSystem>(new EntityManagerSystem());
@@ -21,7 +22,7 @@ namespace MMORPG.Game
 
         protected override void OnDeinit()
         {
-            Log.Information("[DeInit Architecture] GameApp");
+            Debug.Log("[DeInit Architecture] GameApp");
         }
     }
 }
