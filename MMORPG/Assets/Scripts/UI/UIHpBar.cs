@@ -14,6 +14,12 @@ namespace MMORPG.UI
 
         private float _lerpSpeed = 3;
 
+        public void UpdateValue(int hp, int maxHp)
+        {
+            Hp = hp;
+            MaxHp = maxHp;
+        }
+
         private void Update()
         {
             TextHp.text = $"{Hp}/{MaxHp}";

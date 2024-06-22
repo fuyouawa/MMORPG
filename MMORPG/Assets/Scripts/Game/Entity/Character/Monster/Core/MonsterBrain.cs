@@ -28,10 +28,6 @@ namespace MMORPG.Game
         public FeedbacksManager CritHurtFeedbacks;
         public FeedbacksManager MissHurtFeedbacks;
 
-        [Title("UI")]
-        public TextMeshProUGUI TextName;
-        public UIHpBar HPBar;
-
         private void Awake()
         {
             ActorController.Entity.OnTransformSync += OnTransformEntitySync;
@@ -118,6 +114,33 @@ namespace MMORPG.Game
             ActorController.SmoothRotate(data.Rotation);
         }
 
+        private void Start()
+        {
+            FSM.AddState(ActorState.Idle, new IdleState(FSM, this));
+            FSM.AddState(ActorState.Move, new MoveState(FSM, this));
+            FSM.AddState(ActorState.Skill, new AttackState(FSM, this));
+            FSM.StartState(ActorState.Idle);
+        }
+
+        private void Update()
+        {
+            FSM.Update();
+        }
+
+        private void FixedUpdate()
+        {
+            FSM.FixedUpdate();
+        }
+
+        private void OnGUI()
+        {
+            FSM.OnGUI();
+        }
+
+        private void OnDestroy()
+        {
+            FSM.Clear();
+        }
 
         private Vector3 CalculateGroundPosition(Vector3 position, int layer)
         {
