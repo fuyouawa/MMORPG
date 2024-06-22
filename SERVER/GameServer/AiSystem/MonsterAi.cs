@@ -1,4 +1,5 @@
-﻿using MMORPG.Common.Proto.Entity;
+﻿using System.Diagnostics;
+using MMORPG.Common.Proto.Entity;
 using GameServer.Tool;
 using System.Numerics;
 using MMORPG.Common.Proto.Entity;
@@ -11,6 +12,7 @@ using System.Threading;
 using MMORPG.Common.Proto.Fight;
 using Org.BouncyCastle.Ocsp;
 using GameServer.FightSystem;
+using static GameServer.AiSystem.MonsterAbilityManager;
 
 namespace GameServer.AiSystem
 {
@@ -89,7 +91,7 @@ namespace GameServer.AiSystem
 
         public void Attack()
         {
-            if (!OwnerMonster.SkillManager.SkillDict.Any()) return;
+            if (!OwnerMonster.SkillManager.SkillDict.Any() || ChasingTarget == null) return;
             var first = OwnerMonster.SkillManager.SkillDict.First();
             
             var castInfo = new CastInfo()
@@ -103,8 +105,9 @@ namespace GameServer.AiSystem
             };
 
             ChangeSyncState(ActorState.Skill);
-            OwnerMonster.Spell.Cast(castInfo);
             SyncState = ActorState.Idle;
+
+            OwnerMonster.Spell.Cast(castInfo);
         }
 
         public void Revive()
@@ -114,6 +117,13 @@ namespace GameServer.AiSystem
 
         public void OnHurt()
         {
+            // 能拿到攻击者，施加一个力
+            Debug.Assert(OwnerMonster.DamageSourceInfo != null);
+            var skillDefine = DataManager.Instance.SkillDict[OwnerMonster.DamageSourceInfo.SkillId];
+            var target = EntityManager.Instance.GetEntity(OwnerMonster.DamageSourceInfo.AttackerId);
+            if (target == null) return;
+            MoveAbility.AddForce((OwnerMonster.Direction - target.Direction).Normalized(), skillDefine.Force);
+
             ChangeSyncState(ActorState.Hurt);
             SyncState = ActorState.Idle;
         }
@@ -198,7 +208,7 @@ namespace GameServer.AiSystem
                     _fsm.ChangeState(MonsterAiState.Death);
                     return;
                 }
-                if (monster.Attacker != 0)
+                if (monster.DamageSourceInfo != null)
                 {
                     _fsm.ChangeState(MonsterAiState.Hurt);
                     return;
@@ -253,6 +263,7 @@ namespace GameServer.AiSystem
         public class HurtState : FSMAbstractState<MonsterAiState, MonsterAbilityManager>
         {
             private float _endTime;
+            private DamageInfo _currentDamageInfo;
 
             public HurtState(FSM<MonsterAiState> fsm, MonsterAbilityManager parameter) :
                 base(fsm, parameter)
@@ -261,9 +272,18 @@ namespace GameServer.AiSystem
 
             public override void OnEnter()
             {
+                _target.MoveAbility.LockDirection = true;
+
                 _endTime = Time.time + _target.OwnerMonster.UnitDefine.HurtTime;
-                _target.OwnerMonster.Attacker = 0;
+                Debug.Assert(_target.OwnerMonster.DamageSourceInfo != null);
+                _currentDamageInfo = _target.OwnerMonster.DamageSourceInfo;
                 _target.OnHurt();
+            }
+
+            public override void OnExit()
+            {
+                _target.MoveAbility.LockDirection = false;
+                _target.OwnerMonster.DamageSourceInfo = null;
             }
 
             public override void OnUpdate()
@@ -274,7 +294,7 @@ namespace GameServer.AiSystem
                     return;
                 }
                 if (!(_endTime < Time.time)) return;
-                if (_target.OwnerMonster.Attacker != 0)
+                if (_currentDamageInfo != _target.OwnerMonster.DamageSourceInfo)
                 {
                     OnEnter();
                     return;
@@ -300,7 +320,7 @@ namespace GameServer.AiSystem
                     _fsm.ChangeState(MonsterAiState.Death);
                     return;
                 }
-                if (monster.Attacker != 0)
+                if (monster.DamageSourceInfo != null)
                 {
                     _fsm.ChangeState(MonsterAiState.Hurt);
                     return;
