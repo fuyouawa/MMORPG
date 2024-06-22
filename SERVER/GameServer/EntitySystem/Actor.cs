@@ -20,7 +20,7 @@ namespace GameServer.EntitySystem
         public float Speed { get; set; }
         public float Hp { get; set; }
         public float Mp { get; set; }
-        public int Attacker { get; set; } = 0;
+        public DamageInfo? DamageSourceInfo { get; set; }
         public AttributeManager AttributeManager { get; protected set; }
         public SkillManager SkillManager { get; protected set; }
         public Spell Spell { get; protected set; }
@@ -78,7 +78,7 @@ namespace GameServer.EntitySystem
 
         public virtual void OnHurt(DamageInfo info)
         {
-            Attacker = info.AttackerId;
+            DamageSourceInfo = info;
             Map.PlayerManager.Broadcast(new EntityHurtResponse{ Info = info }, this);
             ChangeHP(-info.Amount);
             Log.Debug($"Actor:{Name}({EntityId})受到{info.AttackerId}的攻击, 扣除{info.Amount}血量, 剩余血量:{Hp}!");
