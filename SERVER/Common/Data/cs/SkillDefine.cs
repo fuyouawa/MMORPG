@@ -36,6 +36,7 @@ public class SkillDefine
 	public float Ap; // 法术攻击
 	public float Adc; // 物攻加成
 	public float Apc; // 法攻加成
+	public float Force; // 对实体施加的力
 }
 
 
