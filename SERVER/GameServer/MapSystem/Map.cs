@@ -85,13 +85,7 @@ namespace GameServer.MapSystem
             entity.AoiEntity = _aoiWord.Enter(entity.EntityId, entity.Position.X, entity.Position.Z);
             
             var res = new EntityEnterResponse();
-            res.Datas.Add(new EntityEnterData()
-            {
-                EntityId = entity.EntityId,
-                UnitId = entity.UnitDefine.ID,
-                EntityType = entity.EntityType,
-                Transform = ProtoHelper.ToNetTransform(entity.Position, entity.Direction),
-            });
+            res.Datas.Add(ConstructEntityEnterData(entity));
 
             // 向能观察到新实体的角色广播新实体加入场景
             PlayerManager.Broadcast(res, entity);
@@ -103,17 +97,27 @@ namespace GameServer.MapSystem
                 res.Datas.Clear();
                 ScanEntityFollowing(entity, e =>
                 {
-                    res.Datas.Add(new EntityEnterData()
-                    {
-                        EntityId = e.EntityId,
-                        EntityType = e.EntityType,
-                        UnitId = e.UnitDefine.ID,
-                        Transform = ProtoHelper.ToNetTransform(e.Position, e.Direction),
-                    });
+                    res.Datas.Add(ConstructEntityEnterData(e));
                 });
                 var currentPlayer = entity as Player;
-                currentPlayer?.User.Channel.Send(res, null);
+                currentPlayer?.User.Channel.Send(res);
             }
+        }
+
+        private EntityEnterData ConstructEntityEnterData(Entity entity)
+        {
+            var data = new EntityEnterData()
+            {
+                EntityId = entity.EntityId,
+                UnitId = entity.UnitDefine.ID,
+                EntityType = entity.EntityType,
+                Transform = ProtoHelper.ToNetTransform(entity.Position, entity.Direction),
+            };
+            if (entity is Actor actor)
+            {
+                data.Actor = actor.ToNetActor();
+            }
+            return data;
         }
 
         /// <summary>

@@ -8,7 +8,6 @@ using MMORPG.System;
 using MMORPG.Tool;
 using Serilog;
 using UnityEngine;
-using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Game
 {
@@ -58,9 +57,6 @@ namespace MMORPG.Game
                     {
                         case EntityAttributeEntryType.Level:
                             actor.Level = entry.Int32;
-                            break;
-                        case EntityAttributeEntryType.Exp:
-                            actor.Exp = entry.Int32;
                             break;
                         case EntityAttributeEntryType.Gold:
                             actor.Gold = entry.Int32;
@@ -121,13 +117,23 @@ namespace MMORPG.Game
                 
                 var unitDefine = _dataManager.GetUnitDefine(data.UnitId);
 
-                _entityManager.SpawnEntity(
+                var entity = _entityManager.SpawnEntity(
                     _resLoader.LoadSync<EntityView>(unitDefine.Resource),
                     entityId,
                     data.UnitId,
                     data.EntityType,
                     position,
                     rotation);
+
+                if (entity.TryGetComponent<ActorController>(out var actor))
+                {
+                    if (data.Actor != null)
+                    {
+                        actor.Hp = data.Actor.Hp;
+                        actor.Mp = data.Actor.Mp;
+                        actor.Level = data.Actor.Level;
+                    }
+                }
             }
         }
 
