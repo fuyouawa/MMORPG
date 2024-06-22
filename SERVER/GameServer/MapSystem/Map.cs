@@ -32,7 +32,6 @@ namespace GameServer.MapSystem
         public NpcManager NpcManager;
         public MissileManager MissileManager;
         public SpawnManager SpawnManager;
-        public FightManager FightManager;
         public DroppedItemManager DroppedItemManager;
 
         private AoiWord _aoiWord;
@@ -49,7 +48,6 @@ namespace GameServer.MapSystem
             NpcManager = new(this);
             MissileManager = new(this);
             SpawnManager = new(this);
-            FightManager = new(this);
             DroppedItemManager = new(this);
         }
 
@@ -60,7 +58,6 @@ namespace GameServer.MapSystem
             NpcManager.Start();
             MissileManager.Start();
             SpawnManager.Start();
-            FightManager.Start();
             DroppedItemManager.Start();
         }
 
@@ -71,7 +68,6 @@ namespace GameServer.MapSystem
             NpcManager.Update();
             MissileManager.Update();
             SpawnManager.Update();
-            FightManager.Update();
             DroppedItemManager.Update();
         }
 

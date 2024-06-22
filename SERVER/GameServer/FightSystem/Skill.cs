@@ -11,6 +11,7 @@ using GameServer.Manager;
 using GameServer.Tool;
 using Serilog;
 using GameServer.EntitySystem;
+using MMORPG.Common.Proto.Entity;
 using MMORPG.Common.Tool;
 
 namespace GameServer.FightSystem
@@ -107,7 +108,7 @@ namespace GameServer.FightSystem
                     return CastResult.TargetInvaild;
                 }
             }
-            var dist = Vector3.Distance(OwnerActor.Position, castTarget.Position);
+            var dist = Vector2.Distance(OwnerActor.Position.ToVector2(), castTarget.Position.ToVector2());
             if (dist > Define.SpellRange)
             {
                 return CastResult.OutOfRange;
@@ -185,12 +186,24 @@ namespace GameServer.FightSystem
             }
             else
             {
-                var offsetTemp = VectorHelper.RotateVector2(new Vector2(AreaOffset.X, AreaOffset.Z), OwnerActor.Direction.Y);
-                var offset = new Vector3(offsetTemp.X, AreaOffset.Y, offsetTemp.Y);
+                var offset = VectorHelper.RotateVector2(AreaOffset.ToVector2(), OwnerActor.Direction.Y);
+                //var offset = new Vector2(offsetTemp.X, AreaOffset.Y, offsetTemp.Y);
 
                 OwnerActor.Map.ScanEntityFollowing(OwnerActor, e =>
                 {
-                    float distance = Vector3.Distance(castTarget.Position + offset, e.Position);
+                    switch (OwnerActor.EntityType)
+                    {
+                        case EntityType.Player:
+                            if (e.EntityType != EntityType.Monster) return;
+                            break;
+                        case EntityType.Monster:
+                            if (e.EntityType != EntityType.Player) return;
+                            break;
+                        default:
+                            return;
+                    }
+
+                    float distance = Vector2.Distance(castTarget.Position.ToVector2() + offset, e.Position.ToVector2());
                     if (distance > Define.Area) return;
                     var actor = e as Actor;
                     if (actor != null && actor.IsValid() && !actor.IsDeath())
