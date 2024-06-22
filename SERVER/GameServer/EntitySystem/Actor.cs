@@ -65,7 +65,7 @@ namespace GameServer.EntitySystem
             Hp += amount;
             if (Hp <= 0) Hp = 0;
             if (Hp > AttributeManager.Final.MaxHp) Hp = AttributeManager.Final.MaxHp;
-            EntityAttributeEntrySync(EntityAttributeEntryType.Hp, Hp);
+            EntityAttributeEntrySync(EntityAttributeEntryType.Hp, (int)Hp);
         }
 
         public void ChangeMp(float amount)
@@ -73,7 +73,7 @@ namespace GameServer.EntitySystem
             Mp += amount;
             if (Mp <= 0) Mp = 0;
             if (Mp > AttributeManager.Final.MaxMp) Mp = AttributeManager.Final.MaxMp;
-            EntityAttributeEntrySync(EntityAttributeEntryType.Mp, Mp);
+            EntityAttributeEntrySync(EntityAttributeEntryType.Mp, (int)Mp);
         }
 
         public virtual void OnHurt(DamageInfo info)

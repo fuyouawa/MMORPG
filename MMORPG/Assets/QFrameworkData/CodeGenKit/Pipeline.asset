@@ -19,23 +19,22 @@ MonoBehaviour:
     From: 0
     NameToFullName: []
     BindInfos:
-    - TypeName: UnityEngine.UI.Text
-      PathToRoot: Bar (Power)/Text Group/TextMpPercentage
-      MemberName: TextMpPercentage
-    - TypeName: UnityEngine.UI.Text
-      PathToRoot: Bar (Health)/Text Group/TextHpPercentage
-      MemberName: TextHpPercentage
-    - TypeName: UnityEngine.UI.Text
-      PathToRoot: Level Frame/TextLevel
+    - TypeName: TMPro.TextMeshProUGUI
+      PathToRoot: TextName
+      MemberName: TextName
+    - TypeName: TMPro.TextMeshProUGUI
+      PathToRoot: TextLevel
       MemberName: TextLevel
-    ScriptsFolder: Assets/Scripts/UI/UIGameHubPanel
-    ClassName: PlayerPropertyPanel
-    Namespace: MMORPG.Game
-    MainCode: "using UnityEngine;\r\nusing QFramework;\r\n\r\nnamespace MMORPG.Game\r\n{\r\n\tpublic
-      partial class PlayerPropertyPanel : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
+    - TypeName: MMORPG.UI.UIHpBar
+      PathToRoot: UIHpBar
+      MemberName: UIHpBar
+    ScriptsFolder: Assets/Scripts/UI/UIMonster
+    ClassName: UIMonsterCanvas
+    Namespace: MMORPG.UI
+    MainCode: "using UnityEngine;\r\nusing QFramework;\r\n\r\nnamespace MMORPG.UI\r\n{\r\n\tpublic
+      partial class UIMonsterCanvas : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
       Code Here\r\n\t\t}\r\n\t}\r\n}\r\n"
-    DesignerCode: "// Generate Id:689814bb-bdd5-49a1-8fbe-2ee7a604a770\r\nusing UnityEngine;\r\n\r\nnamespace
-      MMORPG.Game\r\n{\r\n\tpublic partial class PlayerPropertyPanel : QFramework.IController\r\n\t{\r\n\r\n\t\tpublic
-      UnityEngine.UI.Text TextMpPercentage;\r\n\r\n\t\tpublic UnityEngine.UI.Text
-      TextHpPercentage;\r\n\r\n\t\tpublic UnityEngine.UI.Text TextLevel;\r\n\r\n\t\tQFramework.IArchitecture
-      QFramework.IBelongToArchitecture.GetArchitecture()=>MMORPG.Game.GameApp.Interface;\r\n\t}\r\n}\r\n"
+    DesignerCode: "// Generate Id:410d8231-a7fa-4324-8aaa-01268b1ef98e\r\nusing UnityEngine;\r\n\r\nnamespace
+      MMORPG.UI\r\n{\r\n\tpublic partial class UIMonsterCanvas : QFramework.IController\r\n\t{\r\n\r\n\t\tpublic
+      TMPro.TextMeshProUGUI TextName;\r\n\r\n\t\tpublic TMPro.TextMeshProUGUI TextLevel;\r\n\r\n\t\tpublic
+      MMORPG.UI.UIHpBar UIHpBar;\r\n\r\n\t\tQFramework.IArchitecture QFramework.IBelongToArchitecture.GetArchitecture()=>MMORPG.Game.GameApp.Interface;\r\n\t}\r\n}\r\n"

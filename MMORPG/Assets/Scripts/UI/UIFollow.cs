@@ -1,3 +1,4 @@
+using MMORPG.Game;
 using QFramework;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,11 @@ namespace MMORPG.UI
             if (ObservationCamera == null)
             {
                 ObservationCamera = Camera.main;
+            }
+
+            if (FollowTarget == null)
+            {
+                FollowTarget = GetComponentInParent<EntityView>().transform;
             }
         }
 
