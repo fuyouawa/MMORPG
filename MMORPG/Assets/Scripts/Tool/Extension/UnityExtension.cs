@@ -4,6 +4,14 @@ using UnityEngine;
 
 namespace MMORPG.Tool
 {
+    public class TransformLocalStore
+    {
+        public Transform OriginParent;
+        public Vector3 LocalPosition;
+        public Quaternion LocalRotation;
+        public Vector3 LocalScale;
+    }
+    
     public static class UnityExtension
     {
         public static Transform FindIncludeAllChildren(
@@ -66,6 +74,25 @@ namespace MMORPG.Tool
                 texture,
                 new Rect(0, 0, texture.width, texture.height),
                 new Vector2(0.5f, 0.5f));
+        }
+
+        public static TransformLocalStore GetLocalStore(this Transform transform)
+        {
+            return new TransformLocalStore()
+            {
+                OriginParent = transform.parent,
+                LocalPosition = transform.localPosition,
+                LocalRotation = transform.localRotation,
+                LocalScale = transform.localScale,
+            };
+        }
+
+        public static void FromLocalStore(this Transform transform, TransformLocalStore localStore)
+        {
+            transform.SetParent(localStore.OriginParent);
+            transform.localPosition = localStore.LocalPosition;
+            transform.localRotation = localStore.LocalRotation;
+            transform.localScale = localStore.LocalScale;
         }
     }
 }

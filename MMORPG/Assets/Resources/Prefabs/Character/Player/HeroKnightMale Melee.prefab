@@ -871,6 +871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnterAbilityFeedbacks: {fileID: 0}
   ExitAbilityFeedbacks: {fileID: 0}
+  HangupThreshold: 5
 --- !u!114 &5844382415902207706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1267,9 +1268,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 062188451defe3c458b62a3ab0331a23, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -1325,9 +1323,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 5a404e2c2c9c7d24fb99e804cee9e225, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -1383,9 +1378,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 1093955749ad75c4fa3c96852de35950, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -1725,9 +1717,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: dc56d9c72d9d82f40a141b840566aa0e, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 1
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -1783,10 +1772,7 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 1d5d9076e7205884ca28651ecb36655a, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
-        PlayMethod: 0
+        PlayMethod: 1
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
         MinVolume: 1
@@ -2786,9 +2772,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: f603b0af489e86f46a274f31c0b33670, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -2844,9 +2827,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: e6cc7f4972c93ca458cd877837907ebb, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -3052,9 +3032,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 378266c2edd31774390ec87c5ab1fc42, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 1
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -3110,9 +3087,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 7c8dae806993510439fdd78d46740b2b, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -3190,9 +3164,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 02bc0cdf61e383f4eaea13732f2b63b9, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -4484,6 +4455,7 @@ MonoBehaviour:
     Duration: 0.4
     HitDelays:
     - 0.3
+    DamageAreaTestDuration: 0.5
   - SkillId: 1002
     SkillName: "\u9F99\u7259\u731B\u51FB"
     EditArea: 0
@@ -4493,6 +4465,7 @@ MonoBehaviour:
     Duration: 0.3
     HitDelays:
     - 0.6
+    DamageAreaTestDuration: 0.5
   - SkillId: 1003
     SkillName: "\u5251\u5203\u566C\u5FC3"
     EditArea: 0
@@ -4504,6 +4477,7 @@ MonoBehaviour:
     - 0.4
     - 0.8
     - 1.2
+    DamageAreaTestDuration: 0.5
   - SkillId: 1004
     SkillName: "\u6C89\u5929\u9668\u51FB"
     EditArea: 1
@@ -4513,6 +4487,7 @@ MonoBehaviour:
     Duration: 1.5
     HitDelays:
     - 0.5
+    DamageAreaTestDuration: 0.5
 --- !u!1 &7665732481079919491
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System.Collections;
+using MMORPG.Common.Proto.Entity;
 using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;
@@ -30,8 +31,20 @@ namespace MMORPG.Game
         [ShowInInspector]
         [ReadOnly]
         public int Mp { get; set; }
+        [ShowInInspector]
+        [ReadOnly]
+        public int MaxHp { get; set; }
 
-        public int MaxHp => Entity.UnitDefine.MaxHp;
+        public void ApplyNetActor(NetActor netActor)
+        {
+            if (netActor != null)
+            {
+                Level = netActor.Level;
+                Hp = netActor.Hp;
+                Mp = netActor.Mp;
+                MaxHp = netActor.MaxHp;
+            }
+        }
 
         public CharacterSkillManager SkillManager { get; private set; }
 

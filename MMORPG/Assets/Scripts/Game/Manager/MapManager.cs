@@ -63,6 +63,8 @@ namespace MMORPG.Game
                     response.Transform.Position.ToVector3(),
                     Quaternion.Euler(response.Transform.Direction.ToVector3()));
 
+                entity.GetComponent<ActorController>().ApplyNetActor(response.Actor);
+
                 Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
 
                 _playerManager.SetMine(entity);

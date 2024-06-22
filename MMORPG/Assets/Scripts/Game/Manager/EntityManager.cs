@@ -127,12 +127,7 @@ namespace MMORPG.Game
 
                 if (entity.TryGetComponent<ActorController>(out var actor))
                 {
-                    if (data.Actor != null)
-                    {
-                        actor.Hp = data.Actor.Hp;
-                        actor.Mp = data.Actor.Mp;
-                        actor.Level = data.Actor.Level;
-                    }
+                    actor.ApplyNetActor(data.Actor);
                 }
             }
         }

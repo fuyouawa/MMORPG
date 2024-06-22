@@ -84,7 +84,7 @@
         protected Coroutine _coroutine;
         protected Color _initialColor;
 
-        protected Transform _initialParent;
+        protected TransformLocalStore _transformLocalStore;
 
         public override float GetDuration()
         {
@@ -100,7 +100,7 @@
             _initialShadowStrength = BoundLight.shadowStrength;
             _initialIntensity = BoundLight.intensity;
             _initialColor = BoundLight.color;
-            _initialParent = BoundLight.transform.parent;
+            _transformLocalStore = BoundLight.transform.GetLocalStore();
         }
 
         protected override void OnFeedbackPlay()
@@ -143,7 +143,7 @@
 
             if (ChangeParentOnPlay)
             {
-                BoundLight.transform.SetParent(_initialParent, WorldPositionStays);
+                BoundLight.transform.FromLocalStore(_transformLocalStore);
             }
 
             if (DisableOnStop)
