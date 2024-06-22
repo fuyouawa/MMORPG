@@ -41,9 +41,9 @@ namespace GameServer.FightSystem
 
             var growth = new AttributeData()
             {
-                Str = define.Gstr * level - 1,
-                Int = define.Gint * level - 1,
-                Agi = define.Gagi * level - 1,
+                Str = define.Gstr * (level - 1),
+                Int = define.Gint * (level - 1),
+                Agi = define.Gagi * (level - 1),
             };
 
             Basic.Add(initial);

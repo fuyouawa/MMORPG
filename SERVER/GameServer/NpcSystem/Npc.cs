@@ -18,8 +18,8 @@ namespace GameServer.NpcSystem
         public NpcDefine NpcDefine;
         public Vector3 InitPos;
 
-        public Npc(int entityId, UnitDefine unitDefine, Map map, string name, Vector3 pos, Vector3 dire) 
-            : base(EntityType.Npc, entityId, unitDefine, map, pos, dire, name)
+        public Npc(int entityId, UnitDefine unitDefine, Map map, string name, Vector3 pos, Vector3 dire, int level) 
+            : base(EntityType.Npc, entityId, unitDefine, map, pos, dire, name, level)
         {
             InitPos = pos;
         }

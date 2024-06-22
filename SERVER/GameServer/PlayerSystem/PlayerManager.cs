@@ -70,7 +70,7 @@ namespace GameServer.PlayerSystem
         public Player NewPlayer(User user, DbCharacter dbCharacter, Vector3 pos, Vector3 dire)
         {
             var player = new Player(EntityManager.Instance.NewEntityId(), dbCharacter, 
-                DataManager.Instance.UnitDict[dbCharacter.UnitId], _map, pos, dire, user);
+                DataManager.Instance.UnitDict[dbCharacter.UnitId], _map, pos, dire, user, dbCharacter.Level);
             EntityManager.Instance.AddEntity(player);
             
             _playerDict.Add(player.EntityId, player);

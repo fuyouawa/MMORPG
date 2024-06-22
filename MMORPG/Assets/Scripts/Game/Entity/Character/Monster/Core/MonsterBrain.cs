@@ -42,7 +42,7 @@ namespace MMORPG.Game
             FSM.AddState(ActorState.Skill, new AttackState(FSM, this));
             FSM.StartState(ActorState.Idle);
 
-            TextName.text = ActorController.Entity.UnitDefine.Name;
+            //TextName.text = ActorController.Entity.UnitDefine.Name;
 
             ActorController.SmoothMove(CalculateGroundPosition(transform.position, 6));
         }
@@ -50,8 +50,8 @@ namespace MMORPG.Game
         private void Update()
         {
             FSM.Update();
-            HPBar.Hp = ActorController.Hp;
-            HPBar.MaxHp = ActorController.MaxHp;
+            //HPBar.Hp = ActorController.Hp;
+            //HPBar.MaxHp = ActorController.MaxHp;
         }
 
         private void FixedUpdate()
@@ -114,33 +114,7 @@ namespace MMORPG.Game
             ActorController.SmoothRotate(data.Rotation);
         }
 
-        private void Start()
-        {
-            FSM.AddState(ActorState.Idle, new IdleState(FSM, this));
-            FSM.AddState(ActorState.Move, new MoveState(FSM, this));
-            FSM.AddState(ActorState.Skill, new AttackState(FSM, this));
-            FSM.StartState(ActorState.Idle);
-        }
 
-        private void Update()
-        {
-            FSM.Update();
-        }
-
-        private void FixedUpdate()
-        {
-            FSM.FixedUpdate();
-        }
-
-        private void OnGUI()
-        {
-            FSM.OnGUI();
-        }
-
-        private void OnDestroy()
-        {
-            FSM.Clear();
-        }
 
         private Vector3 CalculateGroundPosition(Vector3 position, int layer)
         {

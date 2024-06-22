@@ -39,9 +39,9 @@ namespace GameServer.NpcSystem
             }
         }
 
-        public Npc NewNpc(int unitId, Vector3 pos, Vector3 dire, string name)
+        public Npc NewNpc(int unitId, Vector3 pos, Vector3 dire, string name, int level)
         {
-            var npc = new Npc(EntityManager.Instance.NewEntityId(), DataManager.Instance.UnitDict[unitId], _map, name, pos, dire);
+            var npc = new Npc(EntityManager.Instance.NewEntityId(), DataManager.Instance.UnitDict[unitId], _map, name, pos, dire, level);
             EntityManager.Instance.AddEntity(npc);
 
             _npcDict.Add(npc.EntityId, npc);

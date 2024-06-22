@@ -17,8 +17,8 @@ namespace GameServer.MonsterSystem
 
         public Vector3 InitPos;
 
-        public Monster(int entityId, UnitDefine unitDefine, Map map, string name, Vector3 pos, Vector3 dire) 
-            : base(EntityType.Monster, entityId, unitDefine, map, pos, dire, name)
+        public Monster(int entityId, UnitDefine unitDefine, Map map, Vector3 pos, Vector3 dire, string name, int level) 
+            : base(EntityType.Monster, entityId, unitDefine, map, pos, dire, name, level)
         {
             InitPos = pos;
         }

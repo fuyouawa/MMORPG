@@ -42,11 +42,11 @@ namespace GameServer.EntitySystem
             var unitDefine = DataManager.Instance.UnitDict[SpawnDefine.UnitID];
             if (unitDefine.Kind == "Monster")
             {
-                Actor = SpawnManager.Map.MonsterManager.NewMonster(SpawnDefine.UnitID, pos, dire, unitDefine.Name);
+                Actor = SpawnManager.Map.MonsterManager.NewMonster(SpawnDefine.UnitID, pos, dire, unitDefine.Name, SpawnDefine.Level);
             }
             else if (unitDefine.Kind == "Npc")
             {
-                Actor = SpawnManager.Map.NpcManager.NewNpc(SpawnDefine.UnitID, pos, dire, unitDefine.Name);
+                Actor = SpawnManager.Map.NpcManager.NewNpc(SpawnDefine.UnitID, pos, dire, unitDefine.Name, SpawnDefine.Level);
             }
         }
 
@@ -58,7 +58,7 @@ namespace GameServer.EntitySystem
                 _reviveTime = Time.time + SpawnDefine.Period;
                 _reviving = true;
             }
-            if (_reviveTime <= Time.time)
+            if (Time.time >= _reviveTime)
             {
                 Actor.Revive();
                 _reviving = false;
@@ -68,7 +68,7 @@ namespace GameServer.EntitySystem
 
 
     /// <summary>
-    /// 怪物生成管理器
+    /// 实体生成管理器
     /// </summary>
     public class SpawnManager
     {
