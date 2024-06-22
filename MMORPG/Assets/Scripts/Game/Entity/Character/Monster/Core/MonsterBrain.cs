@@ -39,6 +39,41 @@ namespace MMORPG.Game
             ActorController.Entity.OnHurt += OnHurt;
         }
 
+        private void Start()
+        {
+            FSM.AddState(ActorState.Idle, new IdleState(FSM, this));
+            FSM.AddState(ActorState.Move, new MoveState(FSM, this));
+            FSM.AddState(ActorState.Skill, new AttackState(FSM, this));
+            FSM.StartState(ActorState.Idle);
+
+            TextName.text = ActorController.Entity.UnitDefine.Name;
+
+            ActorController.SmoothMove(CalculateGroundPosition(transform.position, 6));
+        }
+
+        private void Update()
+        {
+            FSM.Update();
+            HPBar.Hp = ActorController.Hp;
+            HPBar.MaxHp = ActorController.MaxHp;
+        }
+
+        private void FixedUpdate()
+        {
+            FSM.FixedUpdate();
+        }
+
+        private void OnGUI()
+        {
+            FSM.OnGUI();
+        }
+
+        private void OnDestroy()
+        {
+            FSM.Clear();
+        }
+
+
         private void OnHurt(DamageInfo info)
         {
             if (info.IsCrit)
@@ -83,39 +118,8 @@ namespace MMORPG.Game
             ActorController.SmoothRotate(data.Rotation);
         }
 
-        private void Start()
-        {
-            FSM.AddState(ActorState.Idle, new IdleState(FSM, this));
-            FSM.AddState(ActorState.Move, new MoveState(FSM, this));
-            FSM.AddState(ActorState.Skill, new AttackState(FSM, this));
-            FSM.StartState(ActorState.Idle);
 
-            TextName.text = ActorController.Entity.UnitDefine.Name;
-        }
-
-        private void Update()
-        {
-            FSM.Update();
-            HPBar.Hp = ActorController.Hp;
-            HPBar.MaxHp = ActorController.MaxHp;
-        }
-
-        private void FixedUpdate()
-        {
-            FSM.FixedUpdate();
-        }
-
-        private void OnGUI()
-        {
-            FSM.OnGUI();
-        }
-
-        private void OnDestroy()
-        {
-            FSM.Clear();
-        }
-
-        public Vector3 CalculateGroundPosition(Vector3 position, int layer)
+        private Vector3 CalculateGroundPosition(Vector3 position, int layer)
         {
             int layerMask = 1 << layer;
             if (Physics.Raycast(position, Vector3.down, out var hit, Mathf.Infinity, layerMask))
