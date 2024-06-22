@@ -34,8 +34,8 @@ namespace GameServer.PlayerSystem
         private DbCharacter _dbCharacter;
 
         public Player(int entityId, DbCharacter dbCharacter, UnitDefine unitDefine,
-            Map map, Vector3 pos, Vector3 dire, User user)
-            : base(EntityType.Player, entityId, unitDefine, map, pos, dire, dbCharacter.Name)
+            Map map, Vector3 pos, Vector3 dire, User user, int level)
+            : base(EntityType.Player, entityId, unitDefine, map, pos, dire, dbCharacter.Name, level)
         {
             User = user;
             CharacterId = dbCharacter.Id;

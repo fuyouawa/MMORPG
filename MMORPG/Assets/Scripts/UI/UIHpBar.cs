@@ -22,7 +22,7 @@ namespace MMORPG.UI
 
         private void Update()
         {
-            TextHp.text = $"{Hp}/{MaxHp}";
+            TextHp.text = $"{MaxHp} / {Hp}";
             BarFiller();
         }
 
