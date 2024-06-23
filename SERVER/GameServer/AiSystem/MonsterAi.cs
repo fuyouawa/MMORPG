@@ -202,7 +202,10 @@ namespace GameServer.AiSystem
             public override void OnEnter()
             {
                 _lastTime = Time.time;
-                _target.Idle();
+                if (_target.SyncState != ActorState.Move)
+                {
+                    _target.Idle();
+                }
             }
 
             public override void OnUpdate()
