@@ -25,6 +25,7 @@ namespace MMORPG.Game
         public FeedbacksManager HurtFeedbacks;
         public FeedbacksManager CritHurtFeedbacks;
         public FeedbacksManager MissHurtFeedbacks;
+        public FeedbacksManager DeathFeedbacks;
 
         private void Awake()
         {
@@ -71,6 +72,11 @@ namespace MMORPG.Game
 
         private void OnHurt(DamageInfo info)
         {
+            if (ActorController.Hp - info.Amount <= 0)
+            {
+                return;
+            }
+
             if (info.IsCrit)
             {
                 if (CritHurtFeedbacks != null)

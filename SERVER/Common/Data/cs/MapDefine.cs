@@ -13,6 +13,7 @@ public class MapDefine
 	public string Resource; // 资源
 	public string Kind; // 类型
 	public int AllowPK; // 允许PK（1允许，0不允许）
+	public float Friction; // 摩擦力(只关系作用力的衰减)
 }
 
 

@@ -44,7 +44,7 @@ namespace GameServer.AiSystem
 
             OwnerMissile.Map.ScanEntityFollower(OwnerMissile, entity =>
             {
-                var distance = Vector2.Distance(entity.Position.ToVector2(), OwnerMissile.Position.ToVector2());
+                var distance = Vector2.Distance(entity.Position, OwnerMissile.Position);
                 if (distance > _range) return;
                 if (_hitEntitySet.Contains(entity.EntityId)) return;
                 _hitEntitySet.Add(entity.EntityId);

@@ -61,7 +61,7 @@ namespace GameServer.NetService
                     var item = player.Knapsack.GetItemBySlot(req.OriginSlotId);
                     if (item == null) return;
 
-                    player.Map.DroppedItemManager.NewDroppedItem(item.Id, player.Position, player.Direction,
+                    player.Map.DroppedItemManager.NewDroppedItem(item.Id, player.Position.ToVector3(), player.Direction,
                         item.Amount);
                     player.Knapsack.Discard(req.OriginSlotId, int.MaxValue);
                 }
@@ -116,7 +116,7 @@ namespace GameServer.NetService
                         break;
                     }
 
-                    var distance = Vector2.Distance(player.Position.ToVector2(), droppedItem.Position.ToVector2());
+                    var distance = Vector2.Distance(player.Position, droppedItem.Position);
                     if (distance > 1)
                     {
                         resp.Error = NetError.InvalidEntity;

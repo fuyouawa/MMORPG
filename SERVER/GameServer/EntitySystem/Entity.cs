@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Aoi;
 using GameServer.MapSystem;
+using GameServer.Tool;
 
 namespace GameServer.EntitySystem
 {
@@ -18,7 +19,7 @@ namespace GameServer.EntitySystem
         public bool Valid = true;
         public Map Map;
         public AoiWord.AoiEntity? AoiEntity;
-        public Vector3 Position;
+        public Vector2 Position;
         public Vector3 Direction;
 
         protected Entity(EntityType entityType, int entityId, UnitDefine unitDefine, Map map, Vector3 pos, Vector3 dire)
@@ -27,7 +28,7 @@ namespace GameServer.EntitySystem
             EntityId = entityId;
             UnitDefine = unitDefine;
             Map = map;
-            Position = pos;
+            Position = pos.ToVector2();
             Direction = dire;
         }
 
