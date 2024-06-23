@@ -2,17 +2,12 @@
 using MMORPG.Common.Proto.Entity;
 using GameServer.Tool;
 using System.Numerics;
-using MMORPG.Common.Proto.Entity;
 using GameServer.PlayerSystem;
 using GameServer.MonsterSystem;
 using GameServer.EntitySystem;
 using GameServer.AiSystem.Ability;
 using GameServer.Manager;
-using System.Threading;
 using MMORPG.Common.Proto.Fight;
-using Org.BouncyCastle.Ocsp;
-using GameServer.FightSystem;
-using static GameServer.AiSystem.MonsterAbilityManager;
 
 namespace GameServer.AiSystem
 {
@@ -28,10 +23,10 @@ namespace GameServer.AiSystem
 
     public class MonsterAbilityManager
     {
-        public Monster OwnerMonster;
+        public Monster OwnerMonster { get; }
         public ActorState SyncState;
-        public IdleAbility IdleAbility;
-        public MoveAbility MoveAbility;
+        public IdleAbility IdleAbility { get; }
+        public MoveAbility MoveAbility { get; }
         public Actor? ChasingTarget;
         public Random Random = new();
 
@@ -74,14 +69,22 @@ namespace GameServer.AiSystem
                 IdleAbility.Update();
             }
         }
-
-        public void Move(Vector3 targetPos)
+        public void Move(Vector2 destination)
         {
             if (SyncState == ActorState.Idle)
             {
                 SyncState = ActorState.Move;
             }
-            MoveAbility.Move(targetPos);
+            MoveAbility.Move(destination);
+        }
+
+        public void AddForce(Vector2 force)
+        {
+            if (SyncState == ActorState.Idle)
+            {
+                SyncState = ActorState.Move;
+            }
+            MoveAbility.AddForce(force);
         }
 
         public void Idle()
@@ -126,9 +129,8 @@ namespace GameServer.AiSystem
             var target = EntityManager.Instance.GetEntity(OwnerMonster.DamageSourceInfo.AttackerId);
             if (target == null) return;
 
-            var tmpTargetPos = target.Position;
-            tmpTargetPos.Y = OwnerMonster.Position.Y;
-            AddForce((OwnerMonster.Position - tmpTargetPos).Normalized(), skillDefine.Force);
+            var direction = OwnerMonster.Position - target.Position;
+            AddForce(direction.Normalized() * skillDefine.Force);
         }
 
         public void OnDeath()
@@ -152,12 +154,6 @@ namespace GameServer.AiSystem
                 Transform = ProtoHelper.ToNetTransform(OwnerMonster.Position, OwnerMonster.Direction)
             };
             OwnerMonster.Map.PlayerManager.Broadcast(res, OwnerMonster);
-        }
-
-        private void AddForce(Vector3 distance, float force)
-        {
-            MoveAbility.Speed = force;
-            Move(OwnerMonster.Position + distance * force);
         }
     }
 
@@ -195,6 +191,7 @@ namespace GameServer.AiSystem
         {
             private float _lastTime;
             private float _waitTime;
+            private Vector2 _lastRandomPointWithBirth;
 
             public WalkState(FSM<MonsterAiState> fsm, MonsterAbilityManager parameter) :
                 base(fsm, parameter)
@@ -235,8 +232,8 @@ namespace GameServer.AiSystem
                 if (nearestPlayer != null)
                 {
                     // 若玩家位于怪物的追击范围内
-                    float d1 = Vector2.Distance(monster.InitPos.ToVector2(), nearestPlayer.Position.ToVector2()); // 目标与出生点的距离
-                    float d2 = Vector2.Distance(monster.Position.ToVector2(), nearestPlayer.Position.ToVector2()); // 自身与目标的距离
+                    float d1 = Vector2.Distance(monster.InitPos, nearestPlayer.Position); // 目标与出生点的距离
+                    float d2 = Vector2.Distance(monster.Position, nearestPlayer.Position); // 自身与目标的距离
                     if (d1 <= _target.ChaseRange && d2 <= _target.ChaseRange)
                     {
                         // 切换为追击状态
@@ -249,19 +246,21 @@ namespace GameServer.AiSystem
                 if (_target.SyncState != ActorState.Idle) return;
                 if (!(_lastTime + _waitTime < Time.time)) return;
 
+                _lastRandomPointWithBirth = RandomPointWithBirth(_target.WalkRange);
+
                 // 状态是空闲或等待时间已结束，则尝试随机移动
                 _waitTime = _target.Random.NextSingle() * 10;
                 _lastTime = Time.time;
-                _target.Move(RandomPointWithBirth(_target.WalkRange));
+                _target.Move(_lastRandomPointWithBirth);
             }
 
 
-            public Vector3 RandomPointWithBirth(float range)
+            public Vector2 RandomPointWithBirth(float range)
             {
                 var monster = _target.OwnerMonster;
                 float x = _target.Random.NextSingle() * 2f - 1f;
-                float z = _target.Random.NextSingle() * 2f - 1f;
-                Vector3 direction = new Vector3(x, 0, z).Normalized();
+                float y = _target.Random.NextSingle() * 2f - 1f;
+                var direction = new Vector2(x, y).Normalized();
                 return monster.InitPos + direction * range * _target.Random.NextSingle();
             }
         }
@@ -292,6 +291,7 @@ namespace GameServer.AiSystem
             public override void OnExit()
             {
                 _target.MoveAbility.LockDirection = false;
+
                 _target.OwnerMonster.DamageSourceInfo = null;
                 _target.MoveAbility.Speed = _target.OwnerMonster.Speed;
             }
@@ -348,9 +348,8 @@ namespace GameServer.AiSystem
                     return;
                 }
 
-                var monsterPos = new Vector2(monster.Position.X, monster.Position.Z);
-                float d1 = Vector2.Distance(monsterPos, player.Position.ToVector2());  // 自身与目标的距离
-                float d2 = Vector2.Distance(monsterPos, monster.InitPos.ToVector2()); // 自身与出生点的距离
+                float d1 = Vector2.Distance(monster.Position, player.Position);  // 自身与目标的距离
+                float d2 = Vector2.Distance(monster.Position, monster.InitPos); // 自身与出生点的距离
                 if (d1 > _target.ChaseRange || d2 > _target.ChaseRange)
                 {
                     _fsm.ChangeState(MonsterAiState.Goback);

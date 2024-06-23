@@ -29,7 +29,7 @@ namespace GameServer.MapSystem
             foreach (var mapDefine in DataManager.Instance.MapDict.Values)
             {
                 Log.Information($"加载地图：{mapDefine.Name}");
-                NewMap(mapDefine.ID, mapDefine.Name);
+                NewMap(mapDefine);
             }
         }
 
@@ -41,10 +41,10 @@ namespace GameServer.MapSystem
             }
         }
 
-        public Map NewMap(int mapId, string name)
+        public Map NewMap(MapDefine mapDefine)
         {
-            var map = new Map(mapId, name);
-            _mapDict.Add(mapId, map);
+            var map = new Map(mapDefine);
+            _mapDict.Add(mapDefine.ID, map);
             map.Start();
             return map;
         }
@@ -59,7 +59,7 @@ namespace GameServer.MapSystem
         {
             foreach (var map in _mapDict)
             {
-                if (map.Value.Name == mapName)
+                if (map.Value.Define.Name == mapName)
                 {
                     return map.Value;
                 }
