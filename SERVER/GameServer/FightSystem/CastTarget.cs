@@ -14,7 +14,7 @@ namespace GameServer.FightSystem
 {
     public abstract class CastTarget
     {
-        public virtual Vector3 Position => Vector3.Zero;
+        public virtual Vector2 Position => Vector2.Zero;
         public virtual Vector3 Direction => Vector3.Zero;
         public virtual bool Selectable => false;
     }
@@ -28,7 +28,7 @@ namespace GameServer.FightSystem
             Entity = entity;
         }
 
-        public override Vector3 Position => Entity.Position;
+        public override Vector2 Position => Entity.Position;
         public override Vector3 Direction => Entity.Direction;
         public override bool Selectable
         {
@@ -47,10 +47,10 @@ namespace GameServer.FightSystem
 
     public class CastTargetPosition : CastTarget
     {
-        private Vector3 _position;
-        public override Vector3 Position => _position;
+        private Vector2 _position;
+        public override Vector2 Position => _position;
 
-        public CastTargetPosition(Vector3 position)
+        public CastTargetPosition(Vector2 position)
         {
             _position = position;
         }

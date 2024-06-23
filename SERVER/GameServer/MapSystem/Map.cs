@@ -22,24 +22,21 @@ namespace GameServer.MapSystem
     {
         const int InvalidMapId = 0;
 
-        public readonly int MapId;
-        public readonly string Name;
-        public readonly string Description = "";
-        public readonly int Music = 0;
+        public MapDefine Define { get; }
+        public int MapId => Define.ID;
 
-        public PlayerManager PlayerManager;
-        public MonsterManager MonsterManager;
-        public NpcManager NpcManager;
-        public MissileManager MissileManager;
-        public SpawnManager SpawnManager;
-        public DroppedItemManager DroppedItemManager;
+        public PlayerManager PlayerManager { get; }
+        public MonsterManager MonsterManager { get; }
+        public NpcManager NpcManager { get; }
+        public MissileManager MissileManager { get; }
+        public SpawnManager SpawnManager { get; }
+        public DroppedItemManager DroppedItemManager { get; }
 
         private AoiWord _aoiWord;
 
-        public Map(int mapId, string name)
+        public Map(MapDefine mapDefine)
         {
-            MapId = mapId;
-            Name = name;
+            Define = mapDefine;
 
             _aoiWord = new(20);
 
@@ -78,7 +75,7 @@ namespace GameServer.MapSystem
         {
             Log.Information($"实体进入场景:{entity.EntityId}");
 
-            entity.AoiEntity = _aoiWord.Enter(entity.EntityId, entity.Position.X, entity.Position.Z);
+            entity.AoiEntity = _aoiWord.Enter(entity.EntityId, entity.Position.X, entity.Position.Y);
             
             var res = new EntityEnterResponse();
             res.Datas.Add(ConstructEntityEnterData(entity));
@@ -147,7 +144,7 @@ namespace GameServer.MapSystem
 
             bool init1 = false, init2 = false;
 
-            _aoiWord.Refresh(entity.AoiEntity, entity.Position.X, entity.Position.Z,
+            _aoiWord.Refresh(entity.AoiEntity, entity.Position.X, entity.Position.Y,
                 entityId =>
                 {
                     if (init1 == false)
@@ -276,11 +273,11 @@ namespace GameServer.MapSystem
                     if (nearest == null)
                     {
                         nearest = followerEntity;
-                        minDistance = Vector2.Distance(followerEntity.Position.ToVector2(), entity.Position.ToVector2());
+                        minDistance = Vector2.Distance(followerEntity.Position, entity.Position);
                     }
                     else
                     {
-                        var tmp = Vector2.Distance(followerEntity.Position.ToVector2(), entity.Position.ToVector2());
+                        var tmp = Vector2.Distance(followerEntity.Position, entity.Position);
                         if (tmp < minDistance)
                         {
                             nearest = followerEntity;
@@ -300,7 +297,7 @@ namespace GameServer.MapSystem
             var entity = EntityManager.Instance.GetEntity(entityId);
             if (entity == null) return;
 
-            entity.Position = transform.Position.ToVector3();
+            entity.Position = transform.Position.ToVector3().ToVector2();
             entity.Direction = transform.Direction.ToVector3();
             EntityRefreshPosition(entity);
 
@@ -330,7 +327,7 @@ namespace GameServer.MapSystem
                 EntityId = entityId,
                 Transform = new()
                 {
-                    Direction = entity.Position.ToNetVector3(),
+                    Direction = entity.Position.ToVector3().ToNetVector3(),
                     Position = entity.Direction.ToNetVector3()
                 },
                 StateId = stateId,

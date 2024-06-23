@@ -108,7 +108,7 @@ namespace GameServer.FightSystem
                     return CastResult.TargetInvaild;
                 }
             }
-            var dist = Vector2.Distance(OwnerActor.Position.ToVector2(), castTarget.Position.ToVector2());
+            var dist = Vector2.Distance(OwnerActor.Position, castTarget.Position);
             if (dist > Define.SpellRange)
             {
                 return CastResult.OutOfRange;
@@ -141,7 +141,7 @@ namespace GameServer.FightSystem
                 var missileUnitDefine = DataManager.Instance.UnitDict[Define.MissileUnitId];
 
                 var missile = OwnerActor.Map.MissileManager.NewMissile(Define.MissileUnitId,
-                    OwnerActor.Position, OwnerActor.Direction, 
+                    OwnerActor.Position.ToVector3(), OwnerActor.Direction, 
                     Define.Area, missileUnitDefine.Speed, _castTarget,
                     entity =>
                     {
@@ -203,7 +203,7 @@ namespace GameServer.FightSystem
                             return;
                     }
 
-                    float distance = Vector2.Distance(castTarget.Position.ToVector2() + offset, e.Position.ToVector2());
+                    float distance = Vector2.Distance(castTarget.Position + offset, e.Position);
                     if (distance > Define.Area) return;
                     var actor = e as Actor;
                     if (actor != null && actor.IsValid() && !actor.IsDeath())

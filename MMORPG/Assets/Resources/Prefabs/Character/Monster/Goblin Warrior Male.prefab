@@ -4950,6 +4950,7 @@ Transform:
   - {fileID: 6917111222232717309}
   - {fileID: 4324169223281865340}
   - {fileID: 2579025809336871693}
+  - {fileID: 6149957652715703225}
   m_Father: {fileID: 407186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1343725437972017709
@@ -5039,9 +5040,6 @@ MonoBehaviour:
         RandomSfx:
         - {fileID: 8300000, guid: 23b5902c6894fc04bbafc06c548920d5, type: 3}
         - {fileID: 8300000, guid: 695d4ea32c9815e42a1b163c30baf519, type: 3}
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -5097,9 +5095,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 634d2dd19d5774647b467bf759cd9d3b, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -5188,14 +5183,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10becf2d56f68b448a35e9ae0014158a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 7478517571520445435}
   ActorController: {fileID: -6944603909313355789}
   DamageNumberPoint: {fileID: 3267704363213240744}
   HurtFeedbacks: {fileID: 5896594241678660570}
   CritHurtFeedbacks: {fileID: 4180661061954951010}
   MissHurtFeedbacks: {fileID: 102359795350942727}
-  TextName: {fileID: 6314416884929200694}
-  HPBar: {fileID: 2639293471759567526}
+  DeathFeedbacks: {fileID: 6721286697652676217}
 --- !u!1 &4859643427600465926
 GameObject:
   m_ObjectHideFlags: 0
@@ -5283,9 +5276,6 @@ MonoBehaviour:
         RandomSfx:
         - {fileID: 8300000, guid: 3d7a73855e6e4d040857f45e9a2741f5, type: 3}
         - {fileID: 8300000, guid: a0828c29b0227514a97f411c5c236522, type: 3}
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -5341,9 +5331,130 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: a246ac94e779cf140a8deff0ca342816, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+--- !u!1 &4956310594841207189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6149957652715703225}
+  - component: {fileID: 6721286697652676217}
+  m_Layer: 8
+  m_Name: Death Feedback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6149957652715703225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4956310594841207189}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7234482439999282308}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6721286697652676217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4956310594841207189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fb458d4bea0fa48b80327cec288cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  InitializationMode: 0
+  AutoInitialization: 1
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
+  StopCurrentPlayIfNewPlay: 1
+  FeedbackItems:
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: Sound
+    Feedback:
+      rid: 4065860387561537614
+  references:
+    version: 2
+    RefIds:
+    - rid: 4065860387561537614
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        StopAfterDuration: 1
+        Sfx: {fileID: 8300000, guid: 02b8cab646df36147b1fc427eb46c169, type: 3}
+        RandomSfx: []
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -5571,9 +5682,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: a2f3b8c8965981d4b86386516828eecc, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -5762,28 +5870,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6af8efea344622642be0e445d6a946f7, type: 3}
---- !u!114 &2639293471759567526 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1020633631962383147, guid: 6af8efea344622642be0e445d6a946f7, type: 3}
-  m_PrefabInstance: {fileID: 3065442320835135885}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ece12e6b31c2c446a5d8dc6abd8e65b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6314416884929200694 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9019570131608325051, guid: 6af8efea344622642be0e445d6a946f7, type: 3}
-  m_PrefabInstance: {fileID: 3065442320835135885}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &6592297040884980977 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8211795739334743420, guid: 6af8efea344622642be0e445d6a946f7, type: 3}

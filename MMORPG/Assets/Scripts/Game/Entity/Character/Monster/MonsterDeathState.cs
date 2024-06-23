@@ -13,6 +13,10 @@ using MMORPG.Common.Proto.Entity;
         protected override void OnEnter()
         {
             Log.Information($"{mTarget.ActorController.Entity.gameObject.name}死亡");
+            if (mTarget.DeathFeedbacks != null)
+            {
+                mTarget.DeathFeedbacks.Play();
+            }
             mTarget.ActorController.Animator.SetBool("Death", true);
         }
 

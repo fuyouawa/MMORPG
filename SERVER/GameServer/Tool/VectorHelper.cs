@@ -10,6 +10,8 @@ namespace GameServer.Tool
 {
     public static class VectorHelper
     {
+        public static readonly float Rad2Deg = 180 / (float)Math.PI;
+
         /// <summary>
         /// 方向向量转欧拉角
         /// </summary>
@@ -17,7 +19,6 @@ namespace GameServer.Tool
         /// <returns></returns>
         public static Vector3 ToEulerAngles(this Vector3 direction)
         {
-            const float rad2Deg = 57.29578f;
             var num = MathF.Sqrt(
                 (direction.X * direction.X + direction.Z * direction.Z) /
                 (direction.X * direction.X + direction.Y * direction.Y + direction.Z * direction.Z)
@@ -25,13 +26,13 @@ namespace GameServer.Tool
             var eulerAngles = new Vector3
             {
                 // Anglex = arc cos(sqrt((x^2 + z^2) / (x^2 + y^2 + z^2)))
-                X = MathF.Acos(num) * rad2Deg
+                X = MathF.Acos(num) * Rad2Deg
             };
 
             if (direction.Y > 0) eulerAngles.X = 360 - eulerAngles.X;
 
             // AngleY = arc tan(x/z)
-            eulerAngles.Y = MathF.Atan2(direction.X, direction.Z) * rad2Deg;
+            eulerAngles.Y = MathF.Atan2(direction.X, direction.Z) * Rad2Deg;
             if (eulerAngles.Y < 0) eulerAngles.Y += 180;
             if (direction.X < 0) eulerAngles.Y += 180;
 
@@ -74,6 +75,32 @@ namespace GameServer.Tool
             if (magnitude > 1E-05f)
                 return value / magnitude;
             return Vector2.Zero;
+        }
+
+        public static Vector3 ToVector3(this Vector2 vector)
+        {
+            return new Vector3(vector.X, 0, vector.Y);
+        }
+
+        public static float ToEulerAngles(this Vector2 direction)
+        {
+            return (float)Math.Atan2(direction.X, direction.Y) * Rad2Deg;
+        }
+
+        public static Vector2 MoveTowards(Vector2 current, Vector2 target, float maxDistanceDelta)
+        {
+            float toVectorX = target.X - current.X;
+            float toVectorY = target.Y - current.Y;
+
+            float sqDist = toVectorX * toVectorX + toVectorY * toVectorY;
+
+            if (sqDist == 0 || (maxDistanceDelta >= 0 && sqDist <= maxDistanceDelta * maxDistanceDelta))
+                return target;
+
+            float dist = (float)Math.Sqrt(sqDist);
+
+            return new Vector2(current.X + toVectorX / dist * maxDistanceDelta,
+                current.Y + toVectorY / dist * maxDistanceDelta);
         }
     }
 }

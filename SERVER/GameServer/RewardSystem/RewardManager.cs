@@ -63,7 +63,7 @@ namespace GameServer.RewardSystem
 
                 if (number != 0) //rewardDefine.Type == "Drop")
                 {
-                    entity.Map.DroppedItemManager.NewDroppedItemWithOffset(format.ItemId, entity.Position, Vector3.Zero, number, 1f);
+                    entity.Map.DroppedItemManager.NewDroppedItemWithOffset(format.ItemId, entity.Position.ToVector3(), Vector3.Zero, number, 1f);
                 }
             }
         }

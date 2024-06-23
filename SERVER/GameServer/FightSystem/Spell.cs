@@ -91,7 +91,7 @@ namespace GameServer.FightSystem
         // 释放位置目标技能
         private void CastPosition(Skill skill, CastInfo info)
         {
-            var target = new CastTargetPosition(info.CastTarget.TargetPos.ToVector3());
+            var target = new CastTargetPosition(info.CastTarget.TargetPos.ToVector3().ToVector2());
             CastTarget(skill, info, target);
         }
 

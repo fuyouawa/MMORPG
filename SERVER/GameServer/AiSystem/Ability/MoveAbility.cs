@@ -6,21 +6,26 @@ namespace GameServer.AiSystem.Ability
 {
     public class MoveAbility : Ability
     {
-        private Vector3 _moveTargetPos;
-        private float FixedY;
+        public Entity? LookAtTarget { get; set; }
+        public bool LookAtMoveDirection { get; set; } = true;
+        public bool LockDirection { get; set; }
+        public Entity Entity { get; }
 
-        public Entity Entity;
-        public float Speed;
-        public bool Moving { get; private set; }
-        public bool LockDirection;
+        public float Speed { get; set; }
+
+        public Vector2 Velocity { get; private set; }
+
+        public bool Moving => Velocity.Length() > 0.1f;
+
+        private Vector2 _force;
+        private Vector2 _destination;
+
+        private Vector2 _lastPosition;
 
         public MoveAbility(Entity entity, float fixedY, float speed)
         {
             Entity = entity;
-            FixedY = fixedY;
-            Moving = false;
             Speed = speed;
-            LockDirection = false;
         }
 
         public override void Start()
@@ -30,37 +35,58 @@ namespace GameServer.AiSystem.Ability
 
         public override void Update()
         {
-            if (_moveTargetPos == Entity.Position) Moving = false;
-            if (!Moving) return;
+            _lastPosition = Entity.Position;
 
-            var direction = (_moveTargetPos - Entity.Position).Normalized();
             if (!LockDirection)
             {
-                Entity.Direction = direction.ToEulerAngles() * new Vector3(0, 1, 0);
+                // 面朝目标实体
+                if (LookAtTarget != null)
+                {
+                    var direction = (LookAtTarget.Position - Entity.Position);
+                    Entity.Direction.Y = direction.ToEulerAngles();
+                }
+
+                // 面朝移动方向
+                if (LookAtMoveDirection)
+                {
+                    Entity.Direction.Y = (_destination - Entity.Position).ToEulerAngles();
+                }
             }
 
-            float distance = Speed * Time.DeltaTime;
+            Entity.Position = VectorHelper.MoveTowards(
+                    Entity.Position,
+                    _destination,
+                    Speed * Time.DeltaTime);
 
-            if (Vector3.Distance(_moveTargetPos, Entity.Position) <= distance)
+            // 力的衰减
+            var friction = Entity.Map.Define.Friction * Time.DeltaTime;
+            var forceLen = _force.Length();
+
+            if (forceLen > friction)
             {
-                // 本次移动能到达目的地
-                Entity.Position = _moveTargetPos;
+                Entity.Position += (_force * Time.DeltaTime);
+                forceLen -= friction;
+                _force = forceLen * _force.Normalized();
             }
             else
             {
-                // 向这个方向移动指定距离
-                Entity.Position += distance * direction;
+                _force = Vector2.Zero;
             }
+
+            Velocity = Entity.Position - _lastPosition;
+
+
             Entity.Map.EntityRefreshPosition(Entity);
         }
 
-        public void Move(Vector3 targetPos)
+        public void AddForce(Vector2 force)
         {
-            Moving = true;
-            _moveTargetPos = targetPos;
-            _moveTargetPos.Y = FixedY;
+            _force += force;
         }
 
-
+        public void Move(Vector2 destination)
+        {
+            _destination = destination;
+        }
     }
 }

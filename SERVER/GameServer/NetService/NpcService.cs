@@ -53,7 +53,7 @@ namespace GameServer.NetService
                         if (entity == null) break;
                         npc = entity as NpcSystem.Npc;
                         if (npc == null) break;
-                        var distance = Vector2.Distance(player.Position.ToVector2(), npc.Position.ToVector2());
+                        var distance = Vector2.Distance(player.Position, npc.Position);
                         if (distance > 1) break;
                         res.Error = NetError.Success;
                     } while (false);

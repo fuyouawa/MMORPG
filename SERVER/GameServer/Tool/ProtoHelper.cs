@@ -46,6 +46,11 @@ namespace GameServer.Tool
             return transform;
         }
 
+        public static NetTransform ToNetTransform(Vector2 pos, Vector3 dire)
+        {
+            return ToNetTransform(pos.ToVector3(), dire);
+        }
+
         public static NetActor ToNetActor(this Actor actor)
         {
             var netActor = new NetActor()
