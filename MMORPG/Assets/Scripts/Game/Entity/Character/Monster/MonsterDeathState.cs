@@ -1,3 +1,4 @@
+using System.Collections;
 using MMORPG.Common.Proto.Entity;
  using QFramework;
  using Serilog;
@@ -17,13 +18,11 @@ using MMORPG.Common.Proto.Entity;
             {
                 mTarget.DeathFeedbacks.Play();
             }
-            mTarget.ActorController.Animator.SetBool("Death", true);
+            mTarget.ActorController.Animator.SetTrigger("Death");
         }
 
         protected override void OnExit()
         {
-            Log.Information($"{mTarget.ActorController.Entity.gameObject.name}复活");
-            mTarget.ActorController.Animator.SetBool("Death", false);
         }
     }
 }
