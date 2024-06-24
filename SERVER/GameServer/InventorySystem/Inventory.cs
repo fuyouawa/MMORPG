@@ -223,6 +223,26 @@ namespace GameServer.InventorySystem
             return residue;
         }
 
+        public int RemoveItemBySlot(int slotId, int amount = 1)
+        {
+            if (amount < 1) return 0;
+
+            var item = GetItemBySlot(slotId);
+            if (item == null) return amount;
+
+            Debug.Assert(item != null);
+
+            _hasChange = true;
+            if (amount < item.Amount)
+            {
+                item.Amount -= amount;
+                return 0;
+            }
+            SetItem(slotId, null);
+            return amount - item.Amount;
+        }
+
+
         public bool HasItem(int itemId, int amount = 1)
         {
             int residue = amount;
@@ -247,23 +267,6 @@ namespace GameServer.InventorySystem
         /// <param name="slotId"></param>
         /// <param name="amount"></param>
         /// <returns>还有多少数量没有成功丢弃</returns>
-        public int Discard(int slotId, int amount = 1)
-        {
-            if (amount < 1) return 0;
-
-            var item = Items[slotId];
-            Debug.Assert(item != null);
-
-            _hasChange = true;
-            if (amount < item.Amount)
-            {
-                item.Amount -= amount;
-                return 0;
-            }
-            SetItem(slotId, null);
-            return amount - item.Amount;
-        }
-
 
         public Item? GetItem(int itemId, int beginSlot = 0)
         {
