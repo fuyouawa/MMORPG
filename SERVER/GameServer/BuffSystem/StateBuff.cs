@@ -21,16 +21,16 @@ namespace GameServer.BuffSystem
         public override void Start()
         {
             base.Start();
-            Change("Start");
+            Modify("Start");
         }
 
         public override void Exit()
         {
             base.Exit();
-            Change("Exit");
+            Modify("Exit");
         }
 
-        private void Change(string stage)
+        private void Modify(string stage)
         {
             
         }
