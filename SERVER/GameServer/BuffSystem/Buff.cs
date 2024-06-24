@@ -28,10 +28,7 @@ namespace GameServer.BuffSystem
             _endTime = Time.time + Duration;
         }
 
-        public virtual void Start()
-        {
-            
-        }
+        public virtual void Start() { }
 
         public virtual void Update()
         {
@@ -41,9 +38,6 @@ namespace GameServer.BuffSystem
             }
         }
 
-        public virtual void Exit()
-        {
-
-        }
+        public virtual void Exit() { }
     }
 }
