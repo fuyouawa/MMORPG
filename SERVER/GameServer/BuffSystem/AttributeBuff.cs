@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace GameServer.BuffSystem
@@ -21,30 +20,35 @@ namespace GameServer.BuffSystem
         public override void Start()
         {
             base.Start();
-            Change("Start");
+            Modify("Start");
         }
 
         public override void Exit()
         {
             base.Exit();
-            Change("Exit");
+            Modify("Exit");
         }
 
-        private void Change(string stage)
+        private void Modify(string stage)
         {
             foreach (JObject obj in _attributeModifier)
             {
-                if (obj["name"] == null) return;
                 if (obj[stage] == null) return;
-                string name = obj["name"].ToString();
-                string content = obj[stage].ToString();
-                if (name == "Hp")
+                JObject stageValue = obj[stage] as JObject;
+                if (stageValue == null) return;
+
+                foreach (var property in stageValue.Properties())
                 {
-                    BuffManager.OwnerActor.ChangeHP(int.Parse(content));
-                }
-                else if (name == "Mp")
-                {
-                    BuffManager.OwnerActor.ChangeMp(int.Parse(content));
+                    string name = property.Name;
+                    string content = property.Value.ToString();
+                    if (name == "Hp")
+                    {
+                        BuffManager.OwnerActor.ChangeHP(int.Parse(content));
+                    }
+                    else if (name == "Mp")
+                    {
+                        BuffManager.OwnerActor.ChangeMp(int.Parse(content));
+                    }
                 }
             }
             

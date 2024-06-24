@@ -25,22 +25,33 @@ namespace MMORPG.Common.Proto.Entity {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChdFbnRpdHkvQWN0b3JTdGF0ZS5wcm90bxIaTU1PUlBHLkNvbW1vbi5Qcm90",
-            "by5FbnRpdHkqQAoKQWN0b3JTdGF0ZRIICgRJRExFEAASCAoETU9WRRABEgkK",
-            "BVNLSUxMEAISCAoESFVSVBADEgkKBURFQVRIEARiBnByb3RvMw=="));
+            "by5FbnRpdHkqRAoOQW5pbWF0aW9uU3RhdGUSCAoESURMRRAAEggKBE1PVkUQ",
+            "ARIJCgVTS0lMTBACEggKBEhVUlQQAxIJCgVERUFUSBAEKlUKCUZsYWdTdGF0",
+            "ZRIICgRaRVJPEAASCAoEU1RVThABEggKBFJPT1QQAhILCgdTSUxFTkNFEAQS",
+            "DgoKSU5WSU5DSUJMRRAIEg0KCUlOVklTSUJMRRAQYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Entity.ActorState), }, null, null));
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Entity.AnimationState), typeof(global::MMORPG.Common.Proto.Entity.FlagState), }, null, null));
     }
     #endregion
 
   }
   #region Enums
-  public enum ActorState {
+  public enum AnimationState {
     [pbr::OriginalName("IDLE")] Idle = 0,
     [pbr::OriginalName("MOVE")] Move = 1,
     [pbr::OriginalName("SKILL")] Skill = 2,
     [pbr::OriginalName("HURT")] Hurt = 3,
     [pbr::OriginalName("DEATH")] Death = 4,
+  }
+
+  public enum FlagState {
+    [pbr::OriginalName("ZERO")] Zero = 0,
+    [pbr::OriginalName("STUN")] Stun = 1,
+    [pbr::OriginalName("ROOT")] Root = 2,
+    [pbr::OriginalName("SILENCE")] Silence = 4,
+    [pbr::OriginalName("INVINCIBLE")] Invincible = 8,
+    [pbr::OriginalName("INVISIBLE")] Invisible = 16,
   }
 
   #endregion

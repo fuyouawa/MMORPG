@@ -3,9 +3,9 @@ using MMORPG.Common.Proto.Entity;
 
  namespace MMORPG.Game
 {
-    public class MonsterHurtState : AbstractState<ActorState, MonsterBrain>
+    public class MonsterHurtState : AbstractState<AnimationState, MonsterBrain>
     {
-        public MonsterHurtState(FSM<ActorState> fsm, MonsterBrain target) : base(fsm, target)
+        public MonsterHurtState(FSM<AnimationState> fsm, MonsterBrain target) : base(fsm, target)
         {
         }
 
