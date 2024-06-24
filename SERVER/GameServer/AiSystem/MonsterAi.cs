@@ -123,14 +123,23 @@ namespace GameServer.AiSystem
             ChangeSyncState(ActorState.Hurt);
             SyncState = ActorState.Idle;
 
-            // 能拿到攻击者，施加一个力
             Debug.Assert(OwnerMonster.DamageSourceInfo != null);
-            var skillDefine = DataManager.Instance.SkillDict[OwnerMonster.DamageSourceInfo.SkillId];
-            var target = EntityManager.Instance.GetEntity(OwnerMonster.DamageSourceInfo.AttackerId);
-            if (target == null) return;
+            var attackInfo = OwnerMonster.DamageSourceInfo.AttackerInfo;
 
-            var direction = OwnerMonster.Position - target.Position;
-            AddForce(direction.Normalized() * skillDefine.Force);
+            switch (attackInfo.AttackerType)
+            {
+                case AttackerType.Skill:
+                    // 能拿到攻击者，施加一个力
+                    var skillDefine = DataManager.Instance.SkillDict[attackInfo.SkillId];
+                    var target = EntityManager.Instance.GetEntity(attackInfo.AttackerId);
+                    if (target == null) return;
+
+                    var direction = OwnerMonster.Position - target.Position;
+                    AddForce(direction.Normalized() * skillDefine.Force);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public void OnDeath()
