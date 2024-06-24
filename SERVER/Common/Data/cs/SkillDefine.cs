@@ -26,7 +26,6 @@ public class SkillDefine
 	public string Anim2; // 激活动作
 	public int ReqLevel; // 等级要求
 	public int MissileUnitId; // 投射物UnitId
-	public string HitArt; // 击中效果
 	public float Duration; // 持续时间
 	public float Area; // 影响区域
 	public string AreaOffset; // 区域偏移

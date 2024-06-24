@@ -232,8 +232,12 @@ namespace GameServer.FightSystem
 
             var damageInfo = new DamageInfo()
             {
-                SkillId = Define.ID,
-                AttackerId = OwnerActor.EntityId,
+                AttackerInfo = new()
+                {
+                    AttackerId = OwnerActor.EntityId,
+                    AttackerType = AttackerType.Skill,
+                    SkillId = Define.ID
+                },
                 TargetId = target.EntityId,
                 DamageType = DamageType.Physical,
             };
