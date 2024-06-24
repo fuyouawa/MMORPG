@@ -33,10 +33,6 @@ namespace GameServer.MonsterSystem
 
         public void Update()
         {
-            foreach (var monster in _monsterDict.Values)
-            {
-                monster.Update();
-            }
         }
 
         public Monster NewMonster(int unitId, Vector3 pos, Vector3 dire, string name, int level)

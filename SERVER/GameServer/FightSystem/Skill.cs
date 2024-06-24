@@ -21,6 +21,7 @@ namespace GameServer.FightSystem
         public enum Stage
         {
             Idle = 0,
+            Ready,  // 就绪
             Intonate,   // 吟唱
             Active,     // 已激活
             Cooling,   // 冷却中
@@ -59,7 +60,17 @@ namespace GameServer.FightSystem
         public void Update()
         {
             if (CurrentStage == Stage.Idle) return;
-            _timeCounter += Time.DeltaTime;
+
+            if (CurrentStage == Stage.Ready)
+            {
+                _timeCounter = 0;
+                CurrentStage = Stage.Intonate;
+            }
+            else
+            {
+                _timeCounter += Time.DeltaTime;
+            }
+            
 
             // 如果是吟唱阶段并且吟唱已经结束
             if (CurrentStage == Stage.Intonate && _timeCounter >= Define.IntonateTime)
@@ -118,8 +129,9 @@ namespace GameServer.FightSystem
 
         public CastResult Cast(CastTarget castTarget)
         {
-            _timeCounter = 0;
-            CurrentStage = Stage.Intonate;
+            Log.Debug($"释放：{Time.time}");
+
+            CurrentStage = Stage.Ready;
             _castTarget = castTarget;
             OwnerActor.Spell.CurrentRunSkill = this;
             return CastResult.Success;
@@ -163,6 +175,8 @@ namespace GameServer.FightSystem
             {
                 if (_timeCounter >= HitDelay[_hitDelayIndex])
                 {
+                    
+                    Log.Debug($"命中：{Time.time}, {_timeCounter}, {HitDelay[_hitDelayIndex]}");
                     _timeCounter -= HitDelay[_hitDelayIndex];
                     // 命中延迟触发
                     OnHit(_castTarget);

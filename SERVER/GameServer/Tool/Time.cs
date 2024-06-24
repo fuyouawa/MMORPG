@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,8 @@ namespace GameServer.Tool
 {
     public static class Time
     {
-        private static long _startTime = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
-        private static long _lastTick = 0;
+        private static long _startTime = 0;
+        private static long _lastTime = 0;
 
         //TODO time命名
         public static float time { get; private set; }
@@ -17,11 +18,13 @@ namespace GameServer.Tool
 
         public static void Tick()
         {
-            var now = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
+            var now = DateTimeOffset.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
+            if (_startTime == 0) _startTime = now;
             time = (now - _startTime) * 0.001f;
-            if (_lastTick == 0) _lastTick = now;
-            DeltaTime = (now - _lastTick) * 0.001f;
-            _lastTick = now;
+            if (_lastTime == 0) _lastTime = now;
+            DeltaTime = (now - _lastTime) * 0.001f;
+            //Log.Debug($"Tick：{time}，{DeltaTime}");
+            _lastTime = now;
         }
     }
 }
