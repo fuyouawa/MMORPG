@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameServer.EntitySystem;
 using GameServer.Manager;
+using MMORPG.Common.Proto.Entity;
 
 namespace GameServer.BuffSystem
 {
@@ -13,6 +14,7 @@ namespace GameServer.BuffSystem
         private Dictionary<int, List<Buff>> _buffDict = new();
 
         public Actor OwnerActor {get; private set; }
+        public FlagState FlagState { get; private set; }
 
         public BuffManager(Actor ownerActor)
         {
@@ -45,9 +47,18 @@ namespace GameServer.BuffSystem
                 _buffDict[buffId] = buffList;
             }
 
+            Buff? buff = null;
             if (buffDefine.Type == "Attribute")
             {
-                var buff = new AttributeBuff(buffId, this, caster, buffDefine.Duration, buffDefine.Modifier);
+                buff = new AttributeBuff(buffId, this, caster, buffDefine.Duration, buffDefine.Modifier);
+            }
+            if (buffDefine.Type == "State")
+            {
+                buff = new StateBuff(buffId, this, caster, buffDefine.Duration, buffDefine.Modifier);
+            }
+
+            if (buff != null)
+            {
                 buffList.Add(buff);
                 buff.Start();
                 if (Math.Abs(buffDefine.Duration) <= 1e-6) RemoveBuff(buff);
