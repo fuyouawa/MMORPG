@@ -129,8 +129,6 @@ namespace GameServer.FightSystem
 
         public CastResult Cast(CastTarget castTarget)
         {
-            Log.Debug($"释放：{Time.time}");
-
             CurrentStage = Stage.Ready;
             _castTarget = castTarget;
             OwnerActor.Spell.CurrentRunSkill = this;
@@ -175,8 +173,6 @@ namespace GameServer.FightSystem
             {
                 if (_timeCounter >= HitDelay[_hitDelayIndex])
                 {
-                    
-                    Log.Debug($"命中：{Time.time}, {_timeCounter}, {HitDelay[_hitDelayIndex]}");
                     _timeCounter -= HitDelay[_hitDelayIndex];
                     // 命中延迟触发
                     OnHit(_castTarget);
