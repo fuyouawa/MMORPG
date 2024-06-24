@@ -186,8 +186,7 @@ namespace GameServer.FightSystem
             }
             else
             {
-                var offset = VectorHelper.RotateVector2(AreaOffset.ToVector2(), OwnerActor.Direction.Y);
-                //var offset = new Vector2(offsetTemp.X, AreaOffset.Y, offsetTemp.Y);
+                var offset = VectorHelper.RotateVector2(AreaOffset.ToVector2(), -OwnerActor.Direction.Y);
 
                 OwnerActor.Map.ScanEntityFollowing(OwnerActor, e =>
                 {
