@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameServer.BuffSystem;
 
 namespace GameServer.Manager
 {
@@ -21,6 +22,7 @@ namespace GameServer.Manager
         public Dictionary<int, DialogueDefine> DialogueDict;
         public Dictionary<int, TaskDefine> TaskDict;
         public Dictionary<int, RewardDefine> RewardDict;
+        public Dictionary<int, BuffDefine> BuffDict;
 
         private DataManager() { }
 
@@ -35,6 +37,7 @@ namespace GameServer.Manager
             DialogueDict = Load<Dictionary<int, DialogueDefine>>("Data/Json/DialogueDefine.json");
             TaskDict = Load<Dictionary<int, TaskDefine>>("Data/Json/TaskDefine.json");
             RewardDict = Load<Dictionary<int, RewardDefine>>("Data/Json/RewardDefine.json");
+            BuffDict = Load<Dictionary<int, BuffDefine>>("Data/Json/BuffDefine.json");
         }
 
         public void Update() { }

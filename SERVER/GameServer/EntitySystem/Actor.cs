@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using GameServer.BuffSystem;
 using MMORPG.Common.Proto.Entity;
 using MMORPG.Common.Proto.Fight;
 using GameServer.FightSystem;
@@ -15,14 +16,15 @@ namespace GameServer.EntitySystem
 {
     public class Actor : Entity
     {
-        public string Name { get; set; }
-        public int Level { get; set; }
-        public float Speed { get; set; }
-        public float Hp { get; set; }
-        public float Mp { get; set; }
+        public string Name { get; protected set; }
+        public int Level { get; protected set; }
+        public float Speed { get; protected set; }
+        public float Hp { get; protected set; }
+        public float Mp { get; protected set; }
         public DamageInfo? DamageSourceInfo { get; set; }
         public AttributeManager AttributeManager { get; protected set; }
         public SkillManager SkillManager { get; protected set; }
+        public BuffManager BuffManager { get; protected set; }
         public Spell Spell { get; protected set; }
 
         public Actor(EntityType entityType, int entityId, UnitDefine unitDefine,
@@ -33,6 +35,7 @@ namespace GameServer.EntitySystem
             Level = level;
             AttributeManager = new(this);
             SkillManager = new(this);
+            BuffManager = new(this);
             Spell = new(this);
         }
 
@@ -41,6 +44,7 @@ namespace GameServer.EntitySystem
             base.Start();
             AttributeManager.Start();
             SkillManager.Start();
+            BuffManager.Start();
 
             //var unitDefine = DataHelper.GetUnitDefine(UnitId);
             //Spell.Start();
@@ -50,6 +54,7 @@ namespace GameServer.EntitySystem
         {
             base.Update();
             SkillManager.Update();
+            BuffManager.Update();
         }
 
         public virtual bool IsDeath()

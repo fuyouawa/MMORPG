@@ -63,7 +63,7 @@ namespace GameServer.NetService
 
                     player.Map.DroppedItemManager.NewDroppedItem(item.Id, player.Position.ToVector3(), player.Direction,
                         item.Amount);
-                    player.Knapsack.Discard(req.OriginSlotId, int.MaxValue);
+                    player.Knapsack.RemoveItemBySlot(req.OriginSlotId, int.MaxValue);
                 }
                 else
                 {
@@ -150,9 +150,20 @@ namespace GameServer.NetService
             });
         }
 
-        public void OnHandle(NetChannel sender, DiscardItemRequest req)
+        public void OnHandle(NetChannel sender, UseItemRequest req)
         {
+            UpdateManager.Instance.AddTask(() =>
+            {
+                if (sender.User == null || sender.User.Player == null) return;
+                var player = sender.User.Player;
 
+                var item = player.Knapsack.GetItemBySlot(req.SlotId);
+                if (item == null) return;
+                if (!item.Define.CanUse) return;
+                player.BuffManager.AddBuff(item.Define.UseBuff);
+                player.Knapsack.RemoveItemBySlot(req.SlotId, 1);
+                ResponseKnapsackInfo(sender, player);
+            });
         }
     }
 }

@@ -16,6 +16,8 @@ public class ItemDefine
 	public int Capacity; // 堆叠上限
 	public string Icon; // 图标资源
 	public int UnitId; // 
+	public bool CanUse; // 是否可直接使用
+	public int UseBuff; // 使用后的Buff
 }
 
 
