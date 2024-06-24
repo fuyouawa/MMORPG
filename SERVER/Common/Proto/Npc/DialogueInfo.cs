@@ -43,7 +43,6 @@ namespace MMORPG.Common.Proto.Npc {
   /// <summary>
   /// Npc对话信息
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class DialogueRecord : pb::IMessage<DialogueRecord>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -270,7 +269,6 @@ namespace MMORPG.Common.Proto.Npc {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class DialogueInfo : pb::IMessage<DialogueInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
