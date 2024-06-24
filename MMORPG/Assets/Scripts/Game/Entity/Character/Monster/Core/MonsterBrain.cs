@@ -27,6 +27,7 @@ namespace MMORPG.Game
         public FeedbacksManager CritHurtFeedbacks;
         public FeedbacksManager MissHurtFeedbacks;
         public FeedbacksManager DeathFeedbacks;
+        public FeedbacksManager ResurrectionFeedbacks;
 
         private void Awake()
         {

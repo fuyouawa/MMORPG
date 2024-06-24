@@ -86,7 +86,7 @@ namespace GameServer.EntitySystem
             DamageSourceInfo = info;
             Map.PlayerManager.Broadcast(new EntityHurtResponse{ Info = info }, this);
             ChangeHP(-info.Amount);
-            Log.Debug($"Actor:{Name}({EntityId})受到{info.AttackerId}的攻击, 扣除{info.Amount}血量, 剩余血量:{Hp}!");
+            Log.Debug($"Actor:{Name}({EntityId})受到{info.AttackerInfo.AttackerId}的{info.AttackerInfo.AttackerType}攻击, 扣除{info.Amount}血量, 剩余血量:{Hp}!");
         }
 
         private EntityAttributeEntry ConstructAttributeEntry<T>(EntityAttributeEntryType type, T value)
