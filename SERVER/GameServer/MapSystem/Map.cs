@@ -157,13 +157,7 @@ namespace GameServer.MapSystem
                     if (entity.EntityType != EntityType.Player) return;
                     var enterEntity = EntityManager.Instance.GetEntity(entityId);
                     Debug.Assert(enterEntity != null);
-                    enterRes.Datas.Add(new EntityEnterData()
-                    {
-                        EntityId = enterEntity.EntityId,
-                        UnitId = enterEntity.UnitDefine.ID,
-                        EntityType = enterEntity.EntityType,
-                        Transform = ProtoHelper.ToNetTransform(enterEntity.Position, enterEntity.Direction),
-                    });
+                    enterRes.Datas.Add(ConstructEntityEnterData(enterEntity));
                 },
                 entityId =>
                 {
