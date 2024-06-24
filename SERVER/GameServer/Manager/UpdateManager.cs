@@ -54,14 +54,52 @@ namespace GameServer.Manager
 
             foreach (var task in _backupTaskQueue)
             {
-                task();
+                try
+                {
+                    task();
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e, "[UpdateManager] task()时出现报错");
+                }
             }
             _backupTaskQueue.Clear();
 
-            DataManager.Instance.Update();
-            EntityManager.Instance.Update();
-            MapManager.Instance.Update();
-            UserManager.Instance.Update();
+            try
+            {
+                DataManager.Instance.Update();
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "[UpdateManager] DataManager.Instance.Update()时出现报错");
+            }
+
+            try
+            {
+                EntityManager.Instance.Update();
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "[UpdateManager] EntityManager.Instance.Update()时出现报错");
+            }
+
+            try
+            {
+                MapManager.Instance.Update();
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "[UpdateManager] MapManager.Instance.Update()时出现报错");
+            }
+
+            try
+            {
+                UserManager.Instance.Update();
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "[UpdateManager] UserManager.Instance.Update()时出现报错");
+            }
         }
 
         /// <summary>
