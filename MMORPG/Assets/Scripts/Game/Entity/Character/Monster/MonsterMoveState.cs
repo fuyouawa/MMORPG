@@ -1,12 +1,13 @@
 using MMORPG.Common.Proto.Entity;
 using QFramework;
 using UnityEngine;
+using AnimationState = MMORPG.Common.Proto.Entity.AnimationState;
 
 namespace MMORPG.Game
 {
-    public class MonsterMoveState : AbstractState<ActorState, MonsterBrain>
+    public class MonsterMoveState : AbstractState<AnimationState, MonsterBrain>
     {
-        public MonsterMoveState(FSM<ActorState> fsm, MonsterBrain target) : base(fsm, target)
+        public MonsterMoveState(FSM<AnimationState> fsm, MonsterBrain target) : base(fsm, target)
         {
 
         }

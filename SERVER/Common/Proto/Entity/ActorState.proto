@@ -2,10 +2,19 @@ syntax = "proto3";
 
 package MMORPG.Common.Proto.Entity;
 
-enum ActorState {
+enum AnimationState {
     IDLE = 0;
     MOVE = 1;
     SKILL = 2;
     HURT = 3;
     DEATH = 4;
+}
+
+enum FlagState {
+    ZERO = 0;
+    STUN = 1;
+    ROOT = 2;
+    SILENCE = 4;
+    INVINCIBLE = 8;
+    INVISIBLE = 16;
 }

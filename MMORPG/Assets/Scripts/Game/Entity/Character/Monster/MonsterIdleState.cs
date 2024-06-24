@@ -3,10 +3,10 @@ using QFramework;
 
 namespace MMORPG.Game
 {
-    public class MonsterIdleState : AbstractState<ActorState, MonsterBrain>
+    public class MonsterIdleState : AbstractState<AnimationState, MonsterBrain>
     {
 
-        public MonsterIdleState(FSM<ActorState> fsm, MonsterBrain target) : base(fsm, target)
+        public MonsterIdleState(FSM<AnimationState> fsm, MonsterBrain target) : base(fsm, target)
         {
 
         }

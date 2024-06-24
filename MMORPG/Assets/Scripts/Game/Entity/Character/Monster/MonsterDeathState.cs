@@ -5,9 +5,9 @@ using MMORPG.Common.Proto.Entity;
 
  namespace MMORPG.Game
 {
-    public class MonsterDeathState : AbstractState<ActorState, MonsterBrain>
+    public class MonsterDeathState : AbstractState<AnimationState, MonsterBrain>
     {
-        public MonsterDeathState(FSM<ActorState> fsm, MonsterBrain target) : base(fsm, target)
+        public MonsterDeathState(FSM<AnimationState> fsm, MonsterBrain target) : base(fsm, target)
         {
         }
 

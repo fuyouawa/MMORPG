@@ -24,7 +24,7 @@ namespace GameServer.AiSystem
     public class MonsterAbilityManager
     {
         public Monster OwnerMonster { get; }
-        public ActorState SyncState;
+        public AnimationState AnimationState;
         public IdleAbility IdleAbility { get; }
         public MoveAbility MoveAbility { get; }
         public Actor? ChasingTarget;
@@ -52,44 +52,44 @@ namespace GameServer.AiSystem
 
         public void Update()
         {
-            if (SyncState == ActorState.Move)
+            if (AnimationState == AnimationState.Move)
             {
                 MoveAbility.Update();
                 if (MoveAbility.Moving)
                 {
-                    UpdateSyncState();
+                    UpdateAnimationState();
                 }
                 else
                 {
                     Idle();
                 }
             }
-            else if (SyncState == ActorState.Idle)
+            else if (AnimationState == AnimationState.Idle)
             {
                 IdleAbility.Update();
             }
         }
         public void Move(Vector2 destination)
         {
-            if (SyncState == ActorState.Idle)
+            if (AnimationState == AnimationState.Idle)
             {
-                SyncState = ActorState.Move;
+                AnimationState = AnimationState.Move;
             }
             MoveAbility.Move(destination);
         }
 
         public void AddForce(Vector2 force)
         {
-            if (SyncState == ActorState.Idle)
+            if (AnimationState == AnimationState.Idle)
             {
-                SyncState = ActorState.Move;
+                AnimationState = AnimationState.Move;
             }
             MoveAbility.AddForce(force);
         }
 
         public void Idle()
         {
-            ChangeSyncState(ActorState.Idle);
+            ChangeAnimationState(AnimationState.Idle);
         }
 
         public void Attack()
@@ -107,8 +107,8 @@ namespace GameServer.AiSystem
                 },
             };
 
-            ChangeSyncState(ActorState.Skill);
-            SyncState = ActorState.Idle;
+            ChangeAnimationState(AnimationState.Skill);
+            AnimationState = AnimationState.Idle;
 
             OwnerMonster.Spell.Cast(castInfo);
         }
@@ -120,8 +120,8 @@ namespace GameServer.AiSystem
 
         public void OnHurt()
         {
-            ChangeSyncState(ActorState.Hurt);
-            SyncState = ActorState.Idle;
+            ChangeAnimationState(AnimationState.Hurt);
+            AnimationState = AnimationState.Idle;
 
             // 能拿到攻击者，施加一个力
             Debug.Assert(OwnerMonster.DamageSourceInfo != null);
@@ -135,22 +135,22 @@ namespace GameServer.AiSystem
 
         public void OnDeath()
         {
-            ChangeSyncState(ActorState.Death);
+            ChangeAnimationState(AnimationState.Death);
         }
 
-        private void ChangeSyncState(ActorState state)
+        private void ChangeAnimationState(AnimationState state)
         {
-            if (SyncState == state) return;
-            SyncState = state;
-            UpdateSyncState();
+            if (AnimationState == state) return;
+            AnimationState = state;
+            UpdateAnimationState();
         }
 
-        private void UpdateSyncState()
+        private void UpdateAnimationState()
         {
             var res = new EntityTransformSyncResponse()
             {
                 EntityId = OwnerMonster.EntityId,
-                StateId = (int)SyncState,
+                StateId = (int)AnimationState,
                 Transform = ProtoHelper.ToNetTransform(OwnerMonster.Position, OwnerMonster.Direction)
             };
             OwnerMonster.Map.PlayerManager.Broadcast(res, OwnerMonster);
@@ -202,7 +202,7 @@ namespace GameServer.AiSystem
             public override void OnEnter()
             {
                 _lastTime = Time.time;
-                if (_target.SyncState != ActorState.Move)
+                if (_target.AnimationState != AnimationState.Move)
                 {
                     _target.Idle();
                 }
@@ -246,7 +246,7 @@ namespace GameServer.AiSystem
                     }
                 }
 
-                if (_target.SyncState != ActorState.Idle) return;
+                if (_target.AnimationState != AnimationState.Idle) return;
                 if (!(_lastTime + _waitTime < Time.time)) return;
 
                 _lastRandomPointWithBirth = RandomPointWithBirth(_target.WalkRange);
