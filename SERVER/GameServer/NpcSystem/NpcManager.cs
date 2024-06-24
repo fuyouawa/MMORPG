@@ -33,10 +33,6 @@ namespace GameServer.NpcSystem
 
         public void Update()
         {
-            foreach (var npc in _npcDict.Values)
-            {
-                npc.Update();
-            }
         }
 
         public Npc NewNpc(int unitId, Vector3 pos, Vector3 dire, string name, int level)

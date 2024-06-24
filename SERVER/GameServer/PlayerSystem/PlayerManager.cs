@@ -41,10 +41,6 @@ namespace GameServer.PlayerSystem
 
         public void Update()
         {
-            foreach (var player in _playerDict.Values)
-            {
-                player.Update();
-            }
             _updateDbCountdown -= Time.DeltaTime;
             if (_updateDbCountdown <= 0)
             {

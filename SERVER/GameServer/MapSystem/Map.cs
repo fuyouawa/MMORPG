@@ -64,8 +64,8 @@ namespace GameServer.MapSystem
             MonsterManager.Update();
             NpcManager.Update();
             MissileManager.Update();
-            SpawnManager.Update();
             DroppedItemManager.Update();
+            SpawnManager.Update();
         }
 
         /// <summary>

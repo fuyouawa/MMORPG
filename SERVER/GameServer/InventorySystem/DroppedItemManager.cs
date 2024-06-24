@@ -31,10 +31,6 @@ namespace GameServer.InventorySystem
 
         public void Update()
         {
-            foreach (var item in _itemDict.Values)
-            {
-                item.Update();
-            }
         }
 
         /// <summary>

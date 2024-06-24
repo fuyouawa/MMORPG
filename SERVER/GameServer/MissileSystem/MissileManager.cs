@@ -29,10 +29,6 @@ namespace GameServer.MissileSystem
 
         public void Update()
         {
-            foreach (var missile in _missileDict.Values)
-            {
-                missile.Update();
-            }
         }
 
         public Missile NewMissile(int unitId, Vector3 pos, Vector3 dire, 
