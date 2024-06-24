@@ -28,8 +28,6 @@ namespace GameServer.Manager
 
         public void Start()
         {
-            Scheduler.Instance.Register(1000 / Fps, Update);
-
             DataManager.Instance.Start();
             Log.Information("[Server] DataManager初始化完成");
 
@@ -41,6 +39,8 @@ namespace GameServer.Manager
 
             UserManager.Instance.Start();
             Log.Information("[Server] UserManager初始化完成");
+
+            Scheduler.Instance.Register(1000 / Fps, Update);
         }
 
         public void Update()
