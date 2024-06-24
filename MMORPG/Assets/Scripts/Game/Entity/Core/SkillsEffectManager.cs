@@ -15,11 +15,6 @@ using System;
             public FeedbacksManager SpellFeedbacks;
         }
 
-#if UNITY_EDITOR
-        [SerializeField]
-        private SkillDamageAreaDebugger _skillDamageAreaDebugger;
-#endif
-
         [SerializeField]
         private List<SkillFeedback> _skillFeedbacks = new();
 
@@ -30,13 +25,6 @@ using System;
             {
                 feedback.SpellFeedbacks.Play();
             }
-
-#if UNITY_EDITOR
-            if (_skillDamageAreaDebugger != null)
-            {
-                _skillDamageAreaDebugger.TestSkill(skillId);
-            }
-#endif
         }
     }
 }
