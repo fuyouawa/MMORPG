@@ -34,7 +34,7 @@ namespace GameServer.FightSystem
 
         public Stage CurrentStage;
 
-        private float _time;
+        private float _timeCounter;
         private int _hitDelayIndex;
         private CastTarget _castTarget;
         private Random _random = new();
@@ -59,10 +59,10 @@ namespace GameServer.FightSystem
         public void Update()
         {
             if (CurrentStage == Stage.Idle) return;
-            _time += Time.DeltaTime;
+            _timeCounter += Time.DeltaTime;
 
             // 如果是吟唱阶段并且吟唱已经结束
-            if (CurrentStage == Stage.Intonate && _time >= Define.IntonateTime)
+            if (CurrentStage == Stage.Intonate && _timeCounter >= Define.IntonateTime)
             {
                 OnActive();
             }
@@ -79,7 +79,7 @@ namespace GameServer.FightSystem
             }
 
             // 如果是技能冷却阶段
-            if (CurrentStage == Stage.Cooling && _time >= Define.Cd)
+            if (CurrentStage == Stage.Cooling && _timeCounter >= Define.Cd)
             {
                 // 技能冷却完成
                 OnCoolingEnded();
@@ -118,7 +118,7 @@ namespace GameServer.FightSystem
 
         public CastResult Cast(CastTarget castTarget)
         {
-            _time = 0;
+            _timeCounter = 0;
             CurrentStage = Stage.Intonate;
             _castTarget = castTarget;
             OwnerActor.Spell.CurrentRunSkill = this;
@@ -133,7 +133,7 @@ namespace GameServer.FightSystem
             CurrentStage = Stage.Active;
 
             // 技能激活
-            _time -= Define.IntonateTime;
+            _timeCounter -= Define.IntonateTime;
 
             Log.Debug("[Skill.OnActive]");
             if (Define.MissileUnitId != 0)
@@ -161,9 +161,9 @@ namespace GameServer.FightSystem
         {
             if (_hitDelayIndex < HitDelay.Length)
             {
-                if (_time >= HitDelay[_hitDelayIndex])
+                if (_timeCounter >= HitDelay[_hitDelayIndex])
                 {
-                    _time -= HitDelay[_hitDelayIndex];
+                    _timeCounter -= HitDelay[_hitDelayIndex];
                     // 命中延迟触发
                     OnHit(_castTarget);
                     ++_hitDelayIndex;
