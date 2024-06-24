@@ -7,12 +7,13 @@ using QFramework;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using AnimationState = MMORPG.Common.Proto.Entity.AnimationState;
 
 namespace MMORPG.Game
 {
     public class MonsterBrain : MonoBehaviour, IController
     {
-        public FSM<ActorState> FSM = new ();
+        public FSM<AnimationState> FSM = new ();
 
         public EntityTransformSyncData Data;
 
@@ -36,11 +37,11 @@ namespace MMORPG.Game
 
         private void Start()
         {
-            FSM.AddState(ActorState.Idle, new MonsterIdleState(FSM, this));
-            FSM.AddState(ActorState.Move, new MonsterMoveState(FSM, this));
-            FSM.AddState(ActorState.Skill, new MonsterAttackState(FSM, this));
-            FSM.AddState(ActorState.Death, new MonsterDeathState(FSM, this));
-            FSM.StartState(ActorState.Idle);
+            FSM.AddState(AnimationState.Idle, new MonsterIdleState(FSM, this));
+            FSM.AddState(AnimationState.Move, new MonsterMoveState(FSM, this));
+            FSM.AddState(AnimationState.Skill, new MonsterAttackState(FSM, this));
+            FSM.AddState(AnimationState.Death, new MonsterDeathState(FSM, this));
+            FSM.StartState(AnimationState.Idle);
 
             //TextName.text = ActorController.Entity.UnitDefine.Name;
 
@@ -109,7 +110,7 @@ namespace MMORPG.Game
 
         private void OnTransformEntitySync(EntityTransformSyncData data)
         {
-            ActorState state = (ActorState)data.StateId;
+            AnimationState state = (AnimationState)data.StateId;
             if (FSM.CurrentStateId != state)
             {
                 FSM.ChangeState(state);
