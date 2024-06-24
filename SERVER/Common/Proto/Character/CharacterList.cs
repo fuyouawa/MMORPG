@@ -40,7 +40,6 @@ namespace MMORPG.Common.Proto.Character {
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CharacterListRequest : pb::IMessage<CharacterListRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -193,7 +192,6 @@ namespace MMORPG.Common.Proto.Character {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CharacterListResponse : pb::IMessage<CharacterListResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage

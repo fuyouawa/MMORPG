@@ -78,13 +78,13 @@ namespace MMORPG.Game
         {
             if (_entityManager.EntityDict.TryGetValue(response.Info.TargetId, out var wounded))
             {
-                if (_entityManager.EntityDict.TryGetValue(response.Info.AttackerId, out var attacker))
+                if (_entityManager.EntityDict.TryGetValue(response.Info.AttackerInfo.AttackerId, out var attacker))
                 {
-                    Log.Information($"{wounded.gameObject.name}受到{attacker.gameObject.name}的攻击({response.Info.DamageType}), 扣除{response.Info.Amount}点血量");
+                    Log.Information($"{wounded.gameObject.name}受到{attacker.gameObject.name}的{response.Info.AttackerInfo.AttackerType}攻击, 扣除{response.Info.Amount}点血量");
                 }
                 else
                 {
-                    Log.Information($"{wounded.gameObject.name}受到EntityId:{response.Info.AttackerId}(已离开视野范围)的攻击({response.Info.DamageType}), 扣除{response.Info.Amount}点血量");
+                    Log.Information($"{wounded.gameObject.name}受到EntityId:{response.Info.AttackerInfo.AttackerId}(已离开视野范围)的{response.Info.AttackerInfo.AttackerType}攻击({response.Info.DamageType}), 扣除{response.Info.Amount}点血量");
                 }
 
                 wounded.OnHurt?.Invoke(response.Info);
