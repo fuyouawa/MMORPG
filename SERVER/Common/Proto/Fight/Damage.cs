@@ -25,18 +25,23 @@ namespace MMORPG.Common.Proto.Fight {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChJGaWdodC9EYW1hZ2UucHJvdG8SGU1NT1JQRy5Db21tb24uUHJvdG8uRmln",
-            "aHQitAEKCkRhbWFnZUluZm8SEAoIc2tpbGxfaWQYASABKAUSEwoLYXR0YWNr",
-            "ZXJfaWQYAiABKAUSEQoJdGFyZ2V0X2lkGAMgASgFEg4KBmFtb3VudBgEIAEo",
-            "BRI6CgtkYW1hZ2VfdHlwZRgFIAEoDjIlLk1NT1JQRy5Db21tb24uUHJvdG8u",
-            "RmlnaHQuRGFtYWdlVHlwZRIPCgdpc19jcml0GAYgASgIEg8KB2lzX21pc3MY",
-            "ByABKAgiSQoSRW50aXR5SHVydFJlc3BvbnNlEjMKBGluZm8YASABKAsyJS5N",
-            "TU9SUEcuQ29tbW9uLlByb3RvLkZpZ2h0LkRhbWFnZUluZm8qPgoKRGFtYWdl",
-            "VHlwZRILCgdVTktOT1dOEAASDAoIUEhZU0lDQUwQARILCgdNQUdJQ0FMEAIS",
-            "CAoEUkVBTBADYgZwcm90bzM="));
+            "aHQiiQEKDEF0dGFja2VySW5mbxITCgthdHRhY2tlcl9pZBgBIAEoBRI+Cg1h",
+            "dHRhY2tlcl90eXBlGAIgASgOMicuTU1PUlBHLkNvbW1vbi5Qcm90by5GaWdo",
+            "dC5BdHRhY2tlclR5cGUSEgoIc2tpbGxfaWQYAyABKAVIAEIQCg5hdHRhY2tl",
+            "cl92YWx1ZSLNAQoKRGFtYWdlSW5mbxIRCgl0YXJnZXRfaWQYAiABKAUSPgoN",
+            "YXR0YWNrZXJfaW5mbxgDIAEoCzInLk1NT1JQRy5Db21tb24uUHJvdG8uRmln",
+            "aHQuQXR0YWNrZXJJbmZvEg4KBmFtb3VudBgEIAEoBRI6CgtkYW1hZ2VfdHlw",
+            "ZRgFIAEoDjIlLk1NT1JQRy5Db21tb24uUHJvdG8uRmlnaHQuRGFtYWdlVHlw",
+            "ZRIPCgdpc19jcml0GAYgASgIEg8KB2lzX21pc3MYByABKAgiSQoSRW50aXR5",
+            "SHVydFJlc3BvbnNlEjMKBGluZm8YASABKAsyJS5NTU9SUEcuQ29tbW9uLlBy",
+            "b3RvLkZpZ2h0LkRhbWFnZUluZm8qGQoMQXR0YWNrZXJUeXBlEgkKBVNraWxs",
+            "EAAqPgoKRGFtYWdlVHlwZRILCgdVTktOT1dOEAASDAoIUEhZU0lDQUwQARIL",
+            "CgdNQUdJQ0FMEAISCAoEUkVBTBADYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Fight.DamageType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.DamageInfo), global::MMORPG.Common.Proto.Fight.DamageInfo.Parser, new[]{ "SkillId", "AttackerId", "TargetId", "Amount", "DamageType", "IsCrit", "IsMiss" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Fight.AttackerType), typeof(global::MMORPG.Common.Proto.Fight.DamageType), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.AttackerInfo), global::MMORPG.Common.Proto.Fight.AttackerInfo.Parser, new[]{ "AttackerId", "AttackerType", "SkillId" }, new[]{ "AttackerValue" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.DamageInfo), global::MMORPG.Common.Proto.Fight.DamageInfo.Parser, new[]{ "TargetId", "AttackerInfo", "Amount", "DamageType", "IsCrit", "IsMiss" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Fight.EntityHurtResponse), global::MMORPG.Common.Proto.Fight.EntityHurtResponse.Parser, new[]{ "Info" }, null, null, null, null)
           }));
     }
@@ -44,6 +49,10 @@ namespace MMORPG.Common.Proto.Fight {
 
   }
   #region Enums
+  public enum AttackerType {
+    [pbr::OriginalName("Skill")] Skill = 0,
+  }
+
   public enum DamageType {
     [pbr::OriginalName("UNKNOWN")] Unknown = 0,
     /// <summary>
@@ -63,7 +72,299 @@ namespace MMORPG.Common.Proto.Fight {
   #endregion
 
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class AttackerInfo : pb::IMessage<AttackerInfo>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<AttackerInfo> _parser = new pb::MessageParser<AttackerInfo>(() => new AttackerInfo());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<AttackerInfo> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::MMORPG.Common.Proto.Fight.DamageReflection.Descriptor.MessageTypes[0]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public AttackerInfo() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public AttackerInfo(AttackerInfo other) : this() {
+      attackerId_ = other.attackerId_;
+      attackerType_ = other.attackerType_;
+      switch (other.AttackerValueCase) {
+        case AttackerValueOneofCase.SkillId:
+          SkillId = other.SkillId;
+          break;
+      }
+
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public AttackerInfo Clone() {
+      return new AttackerInfo(this);
+    }
+
+    /// <summary>Field number for the "attacker_id" field.</summary>
+    public const int AttackerIdFieldNumber = 1;
+    private int attackerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int AttackerId {
+      get { return attackerId_; }
+      set {
+        attackerId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "attacker_type" field.</summary>
+    public const int AttackerTypeFieldNumber = 2;
+    private global::MMORPG.Common.Proto.Fight.AttackerType attackerType_ = global::MMORPG.Common.Proto.Fight.AttackerType.Skill;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::MMORPG.Common.Proto.Fight.AttackerType AttackerType {
+      get { return attackerType_; }
+      set {
+        attackerType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "skill_id" field.</summary>
+    public const int SkillIdFieldNumber = 3;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int SkillId {
+      get { return attackerValueCase_ == AttackerValueOneofCase.SkillId ? (int) attackerValue_ : 0; }
+      set {
+        attackerValue_ = value;
+        attackerValueCase_ = AttackerValueOneofCase.SkillId;
+      }
+    }
+
+    private object attackerValue_;
+    /// <summary>Enum of possible cases for the "attacker_value" oneof.</summary>
+    public enum AttackerValueOneofCase {
+      None = 0,
+      SkillId = 3,
+    }
+    private AttackerValueOneofCase attackerValueCase_ = AttackerValueOneofCase.None;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public AttackerValueOneofCase AttackerValueCase {
+      get { return attackerValueCase_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearAttackerValue() {
+      attackerValueCase_ = AttackerValueOneofCase.None;
+      attackerValue_ = null;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as AttackerInfo);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(AttackerInfo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (AttackerId != other.AttackerId) return false;
+      if (AttackerType != other.AttackerType) return false;
+      if (SkillId != other.SkillId) return false;
+      if (AttackerValueCase != other.AttackerValueCase) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (AttackerId != 0) hash ^= AttackerId.GetHashCode();
+      if (AttackerType != global::MMORPG.Common.Proto.Fight.AttackerType.Skill) hash ^= AttackerType.GetHashCode();
+      if (attackerValueCase_ == AttackerValueOneofCase.SkillId) hash ^= SkillId.GetHashCode();
+      hash ^= (int) attackerValueCase_;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (AttackerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(AttackerId);
+      }
+      if (AttackerType != global::MMORPG.Common.Proto.Fight.AttackerType.Skill) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) AttackerType);
+      }
+      if (attackerValueCase_ == AttackerValueOneofCase.SkillId) {
+        output.WriteRawTag(24);
+        output.WriteInt32(SkillId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (AttackerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(AttackerId);
+      }
+      if (AttackerType != global::MMORPG.Common.Proto.Fight.AttackerType.Skill) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) AttackerType);
+      }
+      if (attackerValueCase_ == AttackerValueOneofCase.SkillId) {
+        output.WriteRawTag(24);
+        output.WriteInt32(SkillId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (AttackerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(AttackerId);
+      }
+      if (AttackerType != global::MMORPG.Common.Proto.Fight.AttackerType.Skill) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) AttackerType);
+      }
+      if (attackerValueCase_ == AttackerValueOneofCase.SkillId) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SkillId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(AttackerInfo other) {
+      if (other == null) {
+        return;
+      }
+      if (other.AttackerId != 0) {
+        AttackerId = other.AttackerId;
+      }
+      if (other.AttackerType != global::MMORPG.Common.Proto.Fight.AttackerType.Skill) {
+        AttackerType = other.AttackerType;
+      }
+      switch (other.AttackerValueCase) {
+        case AttackerValueOneofCase.SkillId:
+          SkillId = other.SkillId;
+          break;
+      }
+
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            AttackerId = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            AttackerType = (global::MMORPG.Common.Proto.Fight.AttackerType) input.ReadEnum();
+            break;
+          }
+          case 24: {
+            SkillId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            AttackerId = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            AttackerType = (global::MMORPG.Common.Proto.Fight.AttackerType) input.ReadEnum();
+            break;
+          }
+          case 24: {
+            SkillId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   public sealed partial class DamageInfo : pb::IMessage<DamageInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -78,7 +379,7 @@ namespace MMORPG.Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MMORPG.Common.Proto.Fight.DamageReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Fight.DamageReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -98,9 +399,8 @@ namespace MMORPG.Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public DamageInfo(DamageInfo other) : this() {
-      skillId_ = other.skillId_;
-      attackerId_ = other.attackerId_;
       targetId_ = other.targetId_;
+      attackerInfo_ = other.attackerInfo_ != null ? other.attackerInfo_.Clone() : null;
       amount_ = other.amount_;
       damageType_ = other.damageType_;
       isCrit_ = other.isCrit_;
@@ -114,32 +414,8 @@ namespace MMORPG.Common.Proto.Fight {
       return new DamageInfo(this);
     }
 
-    /// <summary>Field number for the "skill_id" field.</summary>
-    public const int SkillIdFieldNumber = 1;
-    private int skillId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int SkillId {
-      get { return skillId_; }
-      set {
-        skillId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "attacker_id" field.</summary>
-    public const int AttackerIdFieldNumber = 2;
-    private int attackerId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int AttackerId {
-      get { return attackerId_; }
-      set {
-        attackerId_ = value;
-      }
-    }
-
     /// <summary>Field number for the "target_id" field.</summary>
-    public const int TargetIdFieldNumber = 3;
+    public const int TargetIdFieldNumber = 2;
     private int targetId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -147,6 +423,18 @@ namespace MMORPG.Common.Proto.Fight {
       get { return targetId_; }
       set {
         targetId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "attacker_info" field.</summary>
+    public const int AttackerInfoFieldNumber = 3;
+    private global::MMORPG.Common.Proto.Fight.AttackerInfo attackerInfo_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::MMORPG.Common.Proto.Fight.AttackerInfo AttackerInfo {
+      get { return attackerInfo_; }
+      set {
+        attackerInfo_ = value;
       }
     }
 
@@ -213,9 +501,8 @@ namespace MMORPG.Common.Proto.Fight {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (SkillId != other.SkillId) return false;
-      if (AttackerId != other.AttackerId) return false;
       if (TargetId != other.TargetId) return false;
+      if (!object.Equals(AttackerInfo, other.AttackerInfo)) return false;
       if (Amount != other.Amount) return false;
       if (DamageType != other.DamageType) return false;
       if (IsCrit != other.IsCrit) return false;
@@ -227,9 +514,8 @@ namespace MMORPG.Common.Proto.Fight {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (SkillId != 0) hash ^= SkillId.GetHashCode();
-      if (AttackerId != 0) hash ^= AttackerId.GetHashCode();
       if (TargetId != 0) hash ^= TargetId.GetHashCode();
+      if (attackerInfo_ != null) hash ^= AttackerInfo.GetHashCode();
       if (Amount != 0) hash ^= Amount.GetHashCode();
       if (DamageType != global::MMORPG.Common.Proto.Fight.DamageType.Unknown) hash ^= DamageType.GetHashCode();
       if (IsCrit != false) hash ^= IsCrit.GetHashCode();
@@ -252,17 +538,13 @@ namespace MMORPG.Common.Proto.Fight {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (SkillId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(SkillId);
-      }
-      if (AttackerId != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(AttackerId);
-      }
       if (TargetId != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteInt32(TargetId);
+      }
+      if (attackerInfo_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(AttackerInfo);
       }
       if (Amount != 0) {
         output.WriteRawTag(32);
@@ -290,17 +572,13 @@ namespace MMORPG.Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (SkillId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(SkillId);
-      }
-      if (AttackerId != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(AttackerId);
-      }
       if (TargetId != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteInt32(TargetId);
+      }
+      if (attackerInfo_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(AttackerInfo);
       }
       if (Amount != 0) {
         output.WriteRawTag(32);
@@ -328,14 +606,11 @@ namespace MMORPG.Common.Proto.Fight {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (SkillId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SkillId);
-      }
-      if (AttackerId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(AttackerId);
-      }
       if (TargetId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(TargetId);
+      }
+      if (attackerInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(AttackerInfo);
       }
       if (Amount != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Amount);
@@ -361,14 +636,14 @@ namespace MMORPG.Common.Proto.Fight {
       if (other == null) {
         return;
       }
-      if (other.SkillId != 0) {
-        SkillId = other.SkillId;
-      }
-      if (other.AttackerId != 0) {
-        AttackerId = other.AttackerId;
-      }
       if (other.TargetId != 0) {
         TargetId = other.TargetId;
+      }
+      if (other.attackerInfo_ != null) {
+        if (attackerInfo_ == null) {
+          AttackerInfo = new global::MMORPG.Common.Proto.Fight.AttackerInfo();
+        }
+        AttackerInfo.MergeFrom(other.AttackerInfo);
       }
       if (other.Amount != 0) {
         Amount = other.Amount;
@@ -397,16 +672,15 @@ namespace MMORPG.Common.Proto.Fight {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            SkillId = input.ReadInt32();
-            break;
-          }
           case 16: {
-            AttackerId = input.ReadInt32();
+            TargetId = input.ReadInt32();
             break;
           }
-          case 24: {
-            TargetId = input.ReadInt32();
+          case 26: {
+            if (attackerInfo_ == null) {
+              AttackerInfo = new global::MMORPG.Common.Proto.Fight.AttackerInfo();
+            }
+            input.ReadMessage(AttackerInfo);
             break;
           }
           case 32: {
@@ -440,16 +714,15 @@ namespace MMORPG.Common.Proto.Fight {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            SkillId = input.ReadInt32();
-            break;
-          }
           case 16: {
-            AttackerId = input.ReadInt32();
+            TargetId = input.ReadInt32();
             break;
           }
-          case 24: {
-            TargetId = input.ReadInt32();
+          case 26: {
+            if (attackerInfo_ == null) {
+              AttackerInfo = new global::MMORPG.Common.Proto.Fight.AttackerInfo();
+            }
+            input.ReadMessage(AttackerInfo);
             break;
           }
           case 32: {
@@ -475,7 +748,6 @@ namespace MMORPG.Common.Proto.Fight {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityHurtResponse : pb::IMessage<EntityHurtResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -490,7 +762,7 @@ namespace MMORPG.Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MMORPG.Common.Proto.Fight.DamageReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.Fight.DamageReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

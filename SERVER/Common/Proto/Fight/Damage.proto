@@ -2,6 +2,18 @@
 
 package MMORPG.Common.Proto.Fight;
 
+enum AttackerType {
+    Skill = 0;
+}
+
+message AttackerInfo {
+	int32 attacker_id = 1;
+	AttackerType attacker_type = 2;
+	oneof attacker_value {
+		int32 skill_id = 3;
+	}
+}
+
 enum DamageType {
     UNKNOWN = 0;
     PHYSICAL = 1;       // 物理伤害
@@ -10,9 +22,8 @@ enum DamageType {
 }
 
 message DamageInfo {
-    int32 skill_id = 1;
-    int32 attacker_id = 2;
-    int32 target_id = 3;
+    int32 target_id = 2;
+    AttackerInfo attacker_info = 3;
     int32 amount = 4;
     DamageType damage_type = 5;
     bool is_crit = 6;

@@ -23,6 +23,7 @@ using MMORPG.Common.Proto.Entity;
 
         protected override void OnExit()
         {
+            mTarget.ResurrectionFeedbacks.Play();
             mTarget.ActorController.Animator.Play("Idle");
         }
     }

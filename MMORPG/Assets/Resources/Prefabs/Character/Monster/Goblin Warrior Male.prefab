@@ -4951,8 +4951,73 @@ Transform:
   - {fileID: 4324169223281865340}
   - {fileID: 2579025809336871693}
   - {fileID: 6149957652715703225}
+  - {fileID: 5301367439490652692}
   m_Father: {fileID: 407186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &516822048911755576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5301367439490652692}
+  - component: {fileID: 2843736769542392478}
+  m_Layer: 8
+  m_Name: Resurrection Feedbacks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5301367439490652692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516822048911755576}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7234482439999282308}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2843736769542392478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516822048911755576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fb458d4bea0fa48b80327cec288cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  InitializationMode: 0
+  AutoInitialization: 1
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
+  StopCurrentPlayIfNewPlay: 1
+  FeedbackItems: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1343725437972017709
 GameObject:
   m_ObjectHideFlags: 0
@@ -5189,6 +5254,7 @@ MonoBehaviour:
   CritHurtFeedbacks: {fileID: 4180661061954951010}
   MissHurtFeedbacks: {fileID: 102359795350942727}
   DeathFeedbacks: {fileID: 6721286697652676217}
+  ResurrectionFeedbacks: {fileID: 2843736769542392478}
 --- !u!1 &4859643427600465926
 GameObject:
   m_ObjectHideFlags: 0
