@@ -2,15 +2,22 @@
   "1": {
     "ID": 1,
     "Name": "哥布林掉落",
-    "Type": "Drop",
+    "Type": "DropItem",
     "Decs": "哥布林掉落",
-    "RewardList": "[{\"ItemId\":1, \"Number\":1, \"Probability\":0.1}, {\"ItemId\":2, \"Number\":2, \"Probability\":0.2}]"
+    "RewardList": "[{\"ItemId\":1001, \"Number\":1, \"Probability\":1}, {\"ItemId\":1001, \"Number\":1, \"Probability\":1},  {\"ItemId\":1001, \"Number\":1, \"Probability\":1},  {\"ItemId\":1001, \"Number\":1, \"Probability\":1},  {\"ItemId\":1001, \"Number\":1, \"Probability\":1},  {\"ItemId\":1001, \"Number\":1, \"Probability\":1},  {\"ItemId\":1001, \"Number\":1, \"Probability\":1},  {\"ItemId\":1001, \"Number\":1, \"Probability\":1},  {\"ItemId\":1001, \"Number\":1, \"Probability\":1},  {\"ItemId\":1001, \"Number\":1, \"Probability\":1}]"
   },
   "2": {
     "ID": 2,
     "Name": "任务奖励",
-    "Type": "Inventory",
+    "Type": "InventoryItem",
     "Decs": "收集任务奖励",
     "RewardList": ""
+  },
+  "3": {
+    "ID": 3,
+    "Name": "经验值奖励",
+    "Type": "Buff",
+    "Decs": "",
+    "RewardList": "[{\"BuffId\":2, \"Probability\":1}]"
   }
 }

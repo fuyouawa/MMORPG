@@ -14,12 +14,14 @@ namespace GameServer.MonsterSystem
 
         private AiBase? _ai;
         private Random _random = new();
-
+        
         public Vector2 InitPos { get; }
+        public SpawnDefine SpawnDefine { get; }
 
-        public Monster(int entityId, UnitDefine unitDefine, Map map, Vector3 pos, Vector3 dire, string name, int level) 
+        public Monster(SpawnDefine spawnDefine, int entityId, UnitDefine unitDefine, Map map, Vector3 pos, Vector3 dire, string name, int level) 
             : base(EntityType.Monster, entityId, unitDefine, map, pos, dire, name, level)
         {
+            SpawnDefine = spawnDefine;
             InitPos = pos.ToVector2();
         }
 
