@@ -94,13 +94,13 @@ namespace GameServer.PlayerSystem
         /// </summary>
         /// <param name="msg"></param>
         /// <param name="sender"></param>
-        public void Broadcast(Google.Protobuf.IMessage msg, Entity sender, bool sendToFollower = true)
+        public void Broadcast(Google.Protobuf.IMessage msg, Entity sender, bool sendToFollower = true, bool excludeSender = true)
         {
             if (!sendToFollower)
             {
                 foreach (var player in _playerDict.Values)
                 {
-                    if (player.EntityId == sender.EntityId) continue;
+                    if (excludeSender && player.EntityId == sender.EntityId) continue;
                     player.User.Channel.Send(msg);
                 }
             }
@@ -108,13 +108,15 @@ namespace GameServer.PlayerSystem
             {
                 _map.ScanEntityFollower(sender, entity =>
                 {
-                    if (entity.EntityType != EntityType.Player)
-                    {
-                        return;
-                    }
+                    if (entity.EntityType != EntityType.Player) return;
                     var player = (Player)entity;
                     player.User.Channel.Send(msg);
                 });
+                if (!excludeSender)
+                {
+                    var player = (Player)sender;
+                    player.User.Channel.Send(msg);
+                }
             }
         }
     }
