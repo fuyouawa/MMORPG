@@ -1,6 +1,7 @@
 using MMORPG.Common.Proto.Entity;
 using MMORPG.Common.Proto.Player;
 using MMORPG.Common.Tool;
+using MMORPG.Event;
 using MMORPG.Model;
 using QFramework;
 using MMORPG.System;
@@ -16,7 +17,7 @@ namespace MMORPG.Game
     /// 地图控制器
     /// 负责监听在当前地图中创建角色的事件并将角色加入到地图
     /// </summary>
-    public class MapManager : MonoBehaviour, IController
+    public class MapManager : MonoBehaviour, IController, ICanSendEvent
     {
         private IPlayerManagerSystem _playerManager;
         private IEntityManagerSystem _entityManager;
@@ -68,6 +69,8 @@ namespace MMORPG.Game
                 Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
 
                 _playerManager.SetMine(entity);
+
+                this.SendEvent(new PlayerJoinedMapEvent(entity));
             });
         }
 
