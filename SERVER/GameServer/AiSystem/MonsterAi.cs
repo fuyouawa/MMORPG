@@ -139,6 +139,7 @@ namespace GameServer.AiSystem
 
         public void OnDeath()
         {
+            MoveAbility.ClearForce();
             ChangeAnimationState(AnimationState.Death);
         }
 
@@ -216,14 +217,14 @@ namespace GameServer.AiSystem
             {
                 var monster = _target.OwnerMonster;
 
-                if (monster.IsDeath())
-                {
-                    _fsm.ChangeState(MonsterAiState.Death);
-                    return;
-                }
                 if (monster.DamageSourceInfo != null && !monster.DamageSourceInfo.IsMiss)
                 {
                     _fsm.ChangeState(MonsterAiState.Hurt);
+                    return;
+                }
+                if (monster.IsDeath())
+                {
+                    _fsm.ChangeState(MonsterAiState.Death);
                     return;
                 }
 
@@ -330,14 +331,14 @@ namespace GameServer.AiSystem
             public override void OnUpdate()
             {
                 var monster = _target.OwnerMonster;
-                if (monster.IsDeath())
-                {
-                    _fsm.ChangeState(MonsterAiState.Death);
-                    return;
-                }
                 if (monster.DamageSourceInfo != null && !monster.DamageSourceInfo.IsMiss)
                 {
                     _fsm.ChangeState(MonsterAiState.Hurt);
+                    return;
+                }
+                if (monster.IsDeath())
+                {
+                    _fsm.ChangeState(MonsterAiState.Death);
                     return;
                 }
                 if (_target.ChasingTarget == null)// || monster.ChasingTarget.IsDeath())
