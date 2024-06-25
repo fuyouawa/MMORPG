@@ -31,6 +31,13 @@ namespace GameServer.AiSystem.Ability
 
         public override void Update()
         {
+            var actor = Entity as Actor;
+            // 如果不可移动
+            if (actor != null && 
+                (actor.FlagState & FlagState.Root) == FlagState.Root || 
+                (actor.FlagState & FlagState.Stun) == FlagState.Stun)
+                StopMove();
+            
             _lastPosition = Entity.Position;
 
             if (!LockDirection)
@@ -79,22 +86,17 @@ namespace GameServer.AiSystem.Ability
             _force += force;
         }
 
+        public void ClearForce()
+        {
+            _force = Vector2.Zero;
+        }
+
         public void Move(Vector2 destination)
         {
-            var actor = Entity as Actor;
-            if (actor != null)
-            {
-                if ((actor.FlagState & FlagState.Root) == FlagState.Root || (actor.FlagState & FlagState.Stun) == FlagState.Stun)
-                {
-                    // 不可移动
-                    Stop();
-                    return;
-                }
-            }
             _destination = destination;
         }
 
-        public void Stop()
+        public void StopMove()
         {
             _destination = Entity.Position;
         }
