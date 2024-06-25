@@ -13,11 +13,11 @@ namespace MMORPG.Game
 {
     public class MonsterBrain : MonoBehaviour, IController
     {
+        public float GroundClearance;
+
         public FSM<AnimationState> FSM = new ();
 
         public EntityTransformSyncData Data;
-
-        public float GroundClearance;
 
         [Required]
         public ActorController ActorController;
