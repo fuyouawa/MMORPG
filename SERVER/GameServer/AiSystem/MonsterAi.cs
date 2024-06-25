@@ -221,7 +221,7 @@ namespace GameServer.AiSystem
                     _fsm.ChangeState(MonsterAiState.Death);
                     return;
                 }
-                if (monster.DamageSourceInfo != null)
+                if (monster.DamageSourceInfo != null && !monster.DamageSourceInfo.IsMiss)
                 {
                     _fsm.ChangeState(MonsterAiState.Hurt);
                     return;
@@ -298,9 +298,7 @@ namespace GameServer.AiSystem
             public override void OnExit()
             {
                 _target.MoveAbility.LockDirection = false;
-
                 _target.OwnerMonster.DamageSourceInfo = null;
-                _target.MoveAbility.Speed = _target.OwnerMonster.Speed;
             }
 
             public override void OnUpdate()
@@ -337,7 +335,7 @@ namespace GameServer.AiSystem
                     _fsm.ChangeState(MonsterAiState.Death);
                     return;
                 }
-                if (monster.DamageSourceInfo != null)
+                if (monster.DamageSourceInfo != null && !monster.DamageSourceInfo.IsMiss)
                 {
                     _fsm.ChangeState(MonsterAiState.Hurt);
                     return;
