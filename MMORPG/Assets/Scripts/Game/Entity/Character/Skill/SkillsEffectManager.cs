@@ -6,10 +6,10 @@ using System;
 
  namespace MMORPG.Game
 {
-    public class SkillsEffectManager : SerializedMonoBehaviour
+    public class SkillsEffectManager : MonoBehaviour
     {
         [Serializable]
-        public struct SkillFeedback
+        public class SkillFeedback
         {
             public int SkillId;
             public FeedbacksManager SpellFeedbacks;
