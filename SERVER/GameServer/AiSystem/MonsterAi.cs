@@ -7,7 +7,9 @@ using GameServer.MonsterSystem;
 using GameServer.EntitySystem;
 using GameServer.AiSystem.Ability;
 using GameServer.Manager;
+using GameServer.RewardSystem;
 using MMORPG.Common.Proto.Fight;
+using MMORPG.Common.Tool;
 
 namespace GameServer.AiSystem
 {
@@ -141,6 +143,25 @@ namespace GameServer.AiSystem
         {
             MoveAbility.ClearForce();
             ChangeAnimationState(AnimationState.Death);
+
+            // 掉落物品
+            var killRewardList = DataHelper.ParseIntegers(OwnerMonster.SpawnDefine.killRewardList);
+            foreach (var rewardId in killRewardList)
+            {
+                var reward = DataManager.Instance.RewardDict[rewardId];
+                if (reward.Type == "DropItem")
+                {
+                    RewardManager.Instance.Distribute(rewardId, OwnerMonster);
+                }
+                else if (reward.Type == "InventoryItem" || reward.Type == "Buff")
+                {
+                    if (OwnerMonster.DamageSourceInfo == null) continue;
+                    var entity =
+                        EntityManager.Instance.GetEntity(OwnerMonster.DamageSourceInfo.AttackerInfo.AttackerId);
+                    if (entity == null || !(entity is Player)) continue;
+                    RewardManager.Instance.Distribute(rewardId, entity);
+                }
+            }
         }
 
         private void ChangeAnimationState(AnimationState state)
@@ -299,7 +320,10 @@ namespace GameServer.AiSystem
             public override void OnExit()
             {
                 _target.MoveAbility.LockDirection = false;
-                _target.OwnerMonster.DamageSourceInfo = null;
+                if (!_target.OwnerMonster.IsDeath())
+                {
+                    _target.OwnerMonster.DamageSourceInfo = null;
+                }
             }
 
             public override void OnUpdate()
@@ -404,6 +428,11 @@ namespace GameServer.AiSystem
             public override void OnEnter()
             {
                 _target.OnDeath();
+            }
+
+            public override void OnExit()
+            {
+                _target.OwnerMonster.DamageSourceInfo = null;
             }
 
             public override void OnUpdate()

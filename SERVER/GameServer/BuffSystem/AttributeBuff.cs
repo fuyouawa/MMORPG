@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using System.Reflection;
+using System.Xml.Linq;
 
 namespace GameServer.BuffSystem
 {
@@ -41,15 +43,42 @@ namespace GameServer.BuffSystem
                 {
                     string name = property.Name;
                     string? content = property.Value.Value<string>();
-                    if (content == null) continue;
-                    if (name == "Hp")
+                    if (content == null || !content.Any()) continue;
+
+                    int value = 0;
+                    if (content[content.Length - 1] == '%')
                     {
-                        BuffManager.OwnerActor.ChangeHP(int.Parse(content));
+                        PropertyInfo propertyInfo = typeof(Actor).GetProperty(name);
+                        if (propertyInfo == null) continue;
+
+                        float percentage = int.Parse(content.Substring(0, content.Length - 1));
+
+                        // 获取属性值
+                        var tmp = propertyInfo.GetValue(BuffManager.OwnerActor);
+                        if (tmp == null || !(tmp is int)) continue;
+                        int propertyValue = (int)tmp;
+                        // 计算并返回结果
+                        value = (int)(propertyValue * percentage / 100);
                     }
-                    else if (name == "Mp")
+                    else
                     {
-                        BuffManager.OwnerActor.ChangeMp(int.Parse(content));
+                        value = int.Parse(content);
                     }
+
+                    switch (name)
+                    {
+                        case "Hp":
+                            BuffManager.OwnerActor.ChangeHP(value);
+                            break;
+                        case "Mp":
+                            BuffManager.OwnerActor.ChangeMp(value);
+                            break;
+                        case "Speed":
+                            break;
+                        case "Exp":
+                            break;
+                    }
+
                 }
             }
             

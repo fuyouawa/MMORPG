@@ -35,9 +35,9 @@ namespace GameServer.MonsterSystem
         {
         }
 
-        public Monster NewMonster(int unitId, Vector3 pos, Vector3 dire, string name, int level)
+        public Monster NewMonster(SpawnDefine spawnDefine, int unitId, Vector3 pos, Vector3 dire, string name, int level)
         {
-            var monster = new Monster(EntityManager.Instance.NewEntityId(), DataManager.Instance.UnitDict[unitId], _map, pos, dire, name, level);
+            var monster = new Monster(spawnDefine, EntityManager.Instance.NewEntityId(), DataManager.Instance.UnitDict[unitId], _map, pos, dire, name, level);
             EntityManager.Instance.AddEntity(monster);
 
             _monsterDict.Add(monster.EntityId, monster);
