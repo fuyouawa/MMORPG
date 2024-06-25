@@ -42,7 +42,7 @@ namespace GameServer.EntitySystem
             var unitDefine = DataManager.Instance.UnitDict[SpawnDefine.UnitID];
             if (unitDefine.Kind == "Monster")
             {
-                Actor = SpawnManager.Map.MonsterManager.NewMonster(SpawnDefine.UnitID, pos, dire, unitDefine.Name, SpawnDefine.Level);
+                Actor = SpawnManager.Map.MonsterManager.NewMonster(SpawnDefine, SpawnDefine.UnitID, pos, dire, unitDefine.Name, SpawnDefine.Level);
             }
             else if (unitDefine.Kind == "Npc")
             {

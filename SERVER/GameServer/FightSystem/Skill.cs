@@ -220,17 +220,20 @@ namespace GameServer.FightSystem
                     var actor = e as Actor;
                     if (actor != null && actor.IsValid() && !actor.IsDeath())
                     {
-                        CauseDamage(actor);
-                        foreach (var buff in BuffArr)
+                        var info = CauseDamage(actor);
+                        if (!info.IsMiss)
                         {
-                            actor.BuffManager.AddBuff(buff, OwnerActor);
+                            foreach (var buff in BuffArr)
+                            {
+                                actor.BuffManager.AddBuff(buff, OwnerActor);
+                            }
                         }
                     }
                 });
             }
         }
 
-        private void CauseDamage(Actor target)
+        private DamageInfo CauseDamage(Actor target)
         {
             // 伤害 = 攻击 × (1 - 护甲 / (护甲 + 400 ＋ 85 × 等级))
             var a = OwnerActor.AttributeManager.Final;
@@ -279,6 +282,7 @@ namespace GameServer.FightSystem
             }
             damageInfo.Amount = (int)amount;
             target.OnHurt(damageInfo);
+            return damageInfo;
         }
 
         /// <summary>

@@ -15,6 +15,7 @@ public class SpawnDefine
 	public int UnitID; // 单位类型
 	public int Level; // 单位等级
 	public int Period; // 刷新周期（秒）
+	public string killRewardList; // 击杀奖励
 }
 
 

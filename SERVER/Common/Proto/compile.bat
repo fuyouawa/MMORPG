@@ -8,4 +8,3 @@ protoc --csharp_out=./Inventory ./Inventory/*.proto
 protoc --csharp_out=./Task ./Task/*.proto
 protoc --csharp_out=./Character ./Character/*.proto
 protoc --csharp_out=./Fight ./Fight/*.proto
-pause
