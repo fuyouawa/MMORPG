@@ -8,7 +8,6 @@ using GameServer.EntitySystem;
 using GameServer.AiSystem.Ability;
 using GameServer.Manager;
 using MMORPG.Common.Proto.Fight;
-using Org.BouncyCastle.Asn1.X509;
 
 namespace GameServer.AiSystem
 {

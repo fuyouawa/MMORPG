@@ -85,7 +85,7 @@ namespace GameServer.EntitySystem
         public virtual void OnHurt(DamageInfo info)
         {
             DamageSourceInfo = info;
-            Map.PlayerManager.Broadcast(new EntityHurtResponse{ Info = info }, this);
+            Map.PlayerManager.Broadcast(new EntityHurtResponse{ Info = info }, this, true, false);
             ChangeHP(-info.Amount);
             Log.Debug($"Actor:{Name}({EntityId})受到{info.AttackerInfo.AttackerId}的{info.AttackerInfo.AttackerType}攻击, 扣除{info.Amount}血量, 剩余血量:{Hp}!");
         }
@@ -121,7 +121,7 @@ namespace GameServer.EntitySystem
                 EntityId = EntityId,
             };
             resp.Entrys.Add(ConstructAttributeEntry(type, value));
-            Map.PlayerManager.Broadcast(resp, this);
+            Map.PlayerManager.Broadcast(resp, this, true, false);
         }
 
         private void EntityAttributeEntrySync(params EntityAttributeEntry[] entries)
