@@ -1,4 +1,4 @@
-﻿//----------------------------------------------
+//----------------------------------------------
 //            3rd Person Camera
 // Copyright © 2015-2019 Thomas Enzenebner
 //            Version 1.0.5.3
@@ -6,6 +6,7 @@
 //----------------------------------------------
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace ThirdPersonCamera
 {
@@ -105,7 +106,7 @@ namespace ThirdPersonCamera
             if (cameraController == null || cameraController.target == null)
                 return;
 
-            if (cameraEnabled)
+            if (cameraEnabled && !EventSystem.current.IsPointerOverGameObject())
             {
                 bool inputFreeLook = cameraMode == CameraMode.Always;
 
@@ -132,7 +133,7 @@ namespace ThirdPersonCamera
                 if (inputFreeLook)
                 {
                     x = Input.GetAxis("Mouse X") * mouseSensitivity.x;
-                    y = Input.GetAxis("Mouse Y") * mouseSensitivity.y;                   
+                    y = Input.GetAxis("Mouse Y") * mouseSensitivity.y;
 
                     if (mouseInvertY)
                         y *= -1.0f;
