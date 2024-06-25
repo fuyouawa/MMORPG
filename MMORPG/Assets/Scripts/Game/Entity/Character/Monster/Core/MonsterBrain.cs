@@ -17,10 +17,13 @@ namespace MMORPG.Game
 
         public EntityTransformSyncData Data;
 
+        public float GroundClearance;
+
         [Required]
         public ActorController ActorController;
 
         public Transform DamageNumberPoint;
+        public UIMonsterCanvas MonsterCanvas;
 
         [Title("Feedbacks")]
         public FeedbacksManager HurtFeedbacks;
@@ -46,7 +49,7 @@ namespace MMORPG.Game
 
             //TextName.text = ActorController.Entity.UnitDefine.Name;
 
-            ActorController.SmoothMove(CalculateGroundPosition(transform.position, 6));
+            CorrectedMove(transform.position);
         }
 
         private void Update()
@@ -117,11 +120,17 @@ namespace MMORPG.Game
                 FSM.ChangeState(state);
             }
 
-            ActorController.SmoothMove(CalculateGroundPosition(data.Position, 6));
+            CorrectedMove(data.Position);
             ActorController.SmoothRotate(data.Rotation);
         }
 
 
+        public void CorrectedMove(Vector3 pos)
+        {
+            pos = CalculateGroundPosition(pos, LayerMask.NameToLayer("Ground"));
+            pos.y += GroundClearance;
+            ActorController.SmoothMove(pos);
+        }
 
         private Vector3 CalculateGroundPosition(Vector3 position, int layer)
         {
