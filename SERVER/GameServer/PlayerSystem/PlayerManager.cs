@@ -114,8 +114,11 @@ namespace GameServer.PlayerSystem
                 });
                 if (!excludeSender)
                 {
-                    var player = (Player)sender;
-                    player.User.Channel.Send(msg);
+                    var player = sender as Player;
+                    if (player != null)
+                    {
+                        player.User.Channel.Send(msg);
+                    }
                 }
             }
         }
