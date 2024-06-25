@@ -43,7 +43,7 @@ namespace GameServer.BuffSystem
                 foreach (var property in stageValue.Properties())
                 {
                     string name = property.Name;
-                    bool enable = property.Value<bool>();
+                    bool enable = property.Value.Value<bool>();
                     FlagState flag = FlagState.Zero;
                     switch (name)
                     {

@@ -10,6 +10,7 @@ namespace GameServer.BuffSystem
 {
     public class Buff
     {
+        public LinkedListNode<Buff> Node;
         public int BuffId { get; }
         public BuffManager BuffManager { get; protected set; }
         public Actor? Caster { get; protected set; }
@@ -32,7 +33,7 @@ namespace GameServer.BuffSystem
 
         public virtual void Update()
         {
-            if (_endTime >= Time.time)
+            if (Time.time >= _endTime)
             {
                 BuffManager.RemoveBuff(this);
             }

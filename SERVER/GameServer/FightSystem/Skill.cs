@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MMORPG.Common.Proto.Fight;
 using GameServer.AiSystem;
+using GameServer.BuffSystem;
 using GameServer.Manager;
 using GameServer.Tool;
 using Serilog;
@@ -32,6 +33,7 @@ namespace GameServer.FightSystem
 
         public Vector3 AreaOffset { get; }
         public float[] HitDelay { get; }
+        public int[] BuffArr { get; }
 
         public Stage CurrentStage;
 
@@ -47,6 +49,7 @@ namespace GameServer.FightSystem
 
             AreaOffset = DataHelper.ParseVector3(define.AreaOffset);
             HitDelay = DataHelper.ParseFloats(Define.HitDelay);
+            BuffArr = DataHelper.ParseIntegers(Define.Buff);
             if (HitDelay == null || HitDelay.Length == 0)
             {
                 HitDelay = new[] { 0.0f };
@@ -218,6 +221,10 @@ namespace GameServer.FightSystem
                     if (actor != null && actor.IsValid() && !actor.IsDeath())
                     {
                         CauseDamage(actor);
+                        foreach (var buff in BuffArr)
+                        {
+                            actor.BuffManager.AddBuff(buff, OwnerActor);
+                        }
                     }
                 });
             }

@@ -11,7 +11,7 @@ namespace GameServer.BuffSystem
 {
     public class BuffManager
     {
-        private Dictionary<int, List<Buff>> _buffDict = new();
+        private Dictionary<int, LinkedList<Buff>> _buffDict = new();
 
         public Actor OwnerActor {get; private set; }
         public FlagState FlagState { get; private set; }
@@ -30,9 +30,12 @@ namespace GameServer.BuffSystem
         {
             foreach (var list in _buffDict.Values)
             {
-                foreach (var buff in list)
+                var cur = list.First;
+                while (cur != null)
                 {
-                    buff.Update();
+                    var next = cur.Next;
+                    cur.Value.Update();
+                    cur = next;
                 }
             }
         }
@@ -43,7 +46,7 @@ namespace GameServer.BuffSystem
             
             if (!_buffDict.TryGetValue(buffId, out var buffList))
             {
-                buffList = new List<Buff>();
+                buffList = new LinkedList<Buff>();
                 _buffDict[buffId] = buffList;
             }
 
@@ -59,7 +62,7 @@ namespace GameServer.BuffSystem
 
             if (buff != null)
             {
-                buffList.Add(buff);
+                buff.Node = buffList.AddLast(buff);
                 buff.Start();
                 if (Math.Abs(buffDefine.Duration) <= 1e-6) RemoveBuff(buff);
             }
@@ -69,7 +72,7 @@ namespace GameServer.BuffSystem
         {
             if (!_buffDict.TryGetValue(buff.BuffId, out var buffList)) return;
             buff.Exit();
-            buffList.Remove(buff);
+            buffList.Remove(buff.Node);
         }
     }
 }
