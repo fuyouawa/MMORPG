@@ -40,7 +40,7 @@ namespace GameServer.BuffSystem
                 foreach (var property in stageValue.Properties())
                 {
                     string name = property.Name;
-                    string? content = property.Value<string>();
+                    string? content = property.Value.Value<string>();
                     if (content == null) continue;
                     if (name == "Hp")
                     {
