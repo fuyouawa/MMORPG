@@ -26,6 +26,7 @@ namespace GameServer.EntitySystem
         public SkillManager SkillManager { get; protected set; }
         public BuffManager BuffManager { get; protected set; }
         public Spell Spell { get; protected set; }
+        public FlagState FlagState = FlagState.Zero;
 
         public Actor(EntityType entityType, int entityId, UnitDefine unitDefine,
             Map map, Vector3 pos, Vector3 dire, string name, int level) 
