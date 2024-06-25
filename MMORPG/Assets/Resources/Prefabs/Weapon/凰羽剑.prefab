@@ -113,9 +113,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 1415cc49c3a46c241b1ef1b413b53af2, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -171,9 +168,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: e6cc7f4972c93ca458cd877837907ebb, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -331,9 +325,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 442cf2675b15c794c8cfb2256c9097f4, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -389,9 +380,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: e6cc7f4972c93ca458cd877837907ebb, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -549,9 +537,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: 26c8e1afa3ece13479b4a619d441d58a, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -607,9 +592,6 @@ MonoBehaviour:
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: e6cc7f4972c93ca458cd877837907ebb, type: 3}
         RandomSfx: []
-        ChangeParentOnPlay: 0
-        ParentOnPlay: {fileID: 0}
-        WorldPositionStays: 1
         PlayMethod: 0
         PoolSize: 10
         StopSoundOnFeedbackStop: 1
@@ -706,7 +688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponId: 101
   DelayBeforeUse: 0
-  TimeBetweenUses: 0.08
+  TimeBetweenUses: 0.35
   TriggerMode: 0
   PreventAllMovementWhileInUse: 0
   IdleAnimationParameter: 
@@ -731,6 +713,7 @@ MonoBehaviour:
   AreaOffset: {x: 0, y: 1.2, z: 2}
   Area: 4.5
   Duration: 0.4
+  DamageAreaTestDuration: 0.5
   HitDelays:
   - 0.3
 --- !u!114 &2501495121438830941
@@ -747,7 +730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponId: 102
   DelayBeforeUse: 0
-  TimeBetweenUses: 0.2
+  TimeBetweenUses: 0.35
   TriggerMode: 0
   PreventAllMovementWhileInUse: 0
   IdleAnimationParameter: 
@@ -772,6 +755,7 @@ MonoBehaviour:
   AreaOffset: {x: 0, y: 1.2, z: 2}
   Area: 4.5
   Duration: 0.4
+  DamageAreaTestDuration: 0.5
   HitDelays:
   - 0.3
 --- !u!114 &7980425108764882983
@@ -788,7 +772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponId: 103
   DelayBeforeUse: 0
-  TimeBetweenUses: 0
+  TimeBetweenUses: 0.35
   TriggerMode: 0
   PreventAllMovementWhileInUse: 0
   IdleAnimationParameter: 
@@ -813,6 +797,7 @@ MonoBehaviour:
   AreaOffset: {x: 0, y: 1.2, z: 2}
   Area: 4.5
   Duration: 0.4
+  DamageAreaTestDuration: 0.5
   HitDelays:
   - 0.3
 --- !u!114 &3377978280450113729

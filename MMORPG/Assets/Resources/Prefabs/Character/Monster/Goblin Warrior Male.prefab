@@ -4983,7 +4983,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5685071265502751153}
   m_Father: {fileID: 7234482439999282308}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2843736769542392478
@@ -5014,10 +5015,217 @@ MonoBehaviour:
   CanPlay: 1
   CanPlayWhileAlreadyPlaying: 1
   StopCurrentPlayIfNewPlay: 1
-  FeedbackItems: []
+  FeedbackItems:
+  - FeedbackName: MMORPG.Tool.FeedbackParticlePlay
+    Enable: 1
+    Label: "\u590D\u6D3B\u7279\u6548"
+    Feedback:
+      rid: 4065860404945617012
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: "\u7206\u70B8\u97F3\u6548"
+    Feedback:
+      rid: 4065860404945617013
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: "\u6C14\u6D41\u97F3\u6548"
+    Feedback:
+      rid: 4065860404945617014
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: "\u5636\u543C\u97F3\u6548"
+    Feedback:
+      rid: 4065860404945617015
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 4065860404945617012
+      type: {class: FeedbackParticlePlay, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        StopAfterDuration: 1
+        Mode: 0
+        EmitCount: 100
+        BoundParticleSystem: {fileID: 5685071265502751159}
+        WithChildrenParticles: 1
+        RandomParticleSystems: []
+        ActivateOnPlay: 0
+        StopSystemOnInit: 1
+        DeclaredDuration: 1
+        ChangeParentOnPlay: 1
+        ParentOnPlay: {fileID: 0}
+        WorldPositionStays: 1
+        ForceSimulationSpeed: 0
+        ForcedSimulationSpeed: {x: 0.1, y: 1}
+    - rid: 4065860404945617013
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        StopAfterDuration: 1
+        Sfx: {fileID: 8300000, guid: 5a404e2c2c9c7d24fb99e804cee9e225, type: 3}
+        RandomSfx: []
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    - rid: 4065860404945617014
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        StopAfterDuration: 1
+        Sfx: {fileID: 8300000, guid: e6cc7f4972c93ca458cd877837907ebb, type: 3}
+        RandomSfx: []
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    - rid: 4065860404945617015
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        StopAfterDuration: 1
+        Sfx: {fileID: 8300000, guid: eaba901e0d739d44fb60e00967e36f67, type: 3}
+        RandomSfx: []
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!1 &1343725437972017709
 GameObject:
   m_ObjectHideFlags: 0
@@ -5229,8 +5437,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4051600229559835100}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9566324, y: 1.4129399, z: 0.227826}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5248,8 +5456,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10becf2d56f68b448a35e9ae0014158a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GroundClearance: 0.1
   ActorController: {fileID: -6944603909313355789}
   DamageNumberPoint: {fileID: 3267704363213240744}
+  MonsterCanvas: {fileID: 7760218123828405460}
   HurtFeedbacks: {fileID: 5896594241678660570}
   CritHurtFeedbacks: {fileID: 4180661061954951010}
   MissHurtFeedbacks: {fileID: 102359795350942727}
@@ -5941,6 +6151,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8211795739334743420, guid: 6af8efea344622642be0e445d6a946f7, type: 3}
   m_PrefabInstance: {fileID: 3065442320835135885}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7760218123828405460 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4700481237700373849, guid: 6af8efea344622642be0e445d6a946f7, type: 3}
+  m_PrefabInstance: {fileID: 3065442320835135885}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fce87d6b6bed46489383d5018923751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5277981819433004370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6022,4 +6243,95 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 427658, guid: 715ee36f50566e542b87a9b1c6a73582, type: 3}
   m_PrefabInstance: {fileID: 5277981819433004370}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6744870274005249183
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5301367439490652692}
+    m_Modifications:
+    - target: {fileID: 1215135391175299824, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1215135391951884936, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1215135392071267784, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405116446760944936, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405116446760944942, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405116446760944942, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405116446760944942, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405116446760944942, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405116446760944942, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405116446760944942, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405116446760944942, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405116446760944942, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405116446760944942, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405116446760944942, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405116446760944943, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: m_Name
+      value: HCFX_Energy_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2584648372332622154, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7420552353011692188, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+--- !u!4 &5685071265502751153 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1405116446760944942, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+  m_PrefabInstance: {fileID: 6744870274005249183}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5685071265502751159 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1405116446760944936, guid: 2dd7cce54cc54684bbf475b7e61db48c, type: 3}
+  m_PrefabInstance: {fileID: 6744870274005249183}
   m_PrefabAsset: {fileID: 0}
