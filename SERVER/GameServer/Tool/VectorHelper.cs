@@ -51,10 +51,9 @@ namespace GameServer.Tool
             return Vector3.Zero;
         }
 
-        public static Vector2 ToVector2(this Vector3 vector3)
+        public static Vector2 ToVector2(this Vector3 vector)
         {
-            var vector2 = new Vector2(vector3.X, vector3.Z);
-            return vector2;
+            return new Vector2(vector.X, vector.Z);
         }
 
         public static Vector2 RotateVector2(Vector2 v, float angle)

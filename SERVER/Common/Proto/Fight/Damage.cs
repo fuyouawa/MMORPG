@@ -72,6 +72,7 @@ namespace MMORPG.Common.Proto.Fight {
   #endregion
 
   #region Messages
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class AttackerInfo : pb::IMessage<AttackerInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -152,10 +153,24 @@ namespace MMORPG.Common.Proto.Fight {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int SkillId {
-      get { return attackerValueCase_ == AttackerValueOneofCase.SkillId ? (int) attackerValue_ : 0; }
+      get { return HasSkillId ? (int) attackerValue_ : 0; }
       set {
         attackerValue_ = value;
         attackerValueCase_ = AttackerValueOneofCase.SkillId;
+      }
+    }
+    /// <summary>Gets whether the "skill_id" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasSkillId {
+      get { return attackerValueCase_ == AttackerValueOneofCase.SkillId; }
+    }
+    /// <summary> Clears the value of the oneof if it's currently set to "skill_id" </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearSkillId() {
+      if (HasSkillId) {
+        ClearAttackerValue();
       }
     }
 
@@ -207,7 +222,7 @@ namespace MMORPG.Common.Proto.Fight {
       int hash = 1;
       if (AttackerId != 0) hash ^= AttackerId.GetHashCode();
       if (AttackerType != global::MMORPG.Common.Proto.Fight.AttackerType.Skill) hash ^= AttackerType.GetHashCode();
-      if (attackerValueCase_ == AttackerValueOneofCase.SkillId) hash ^= SkillId.GetHashCode();
+      if (HasSkillId) hash ^= SkillId.GetHashCode();
       hash ^= (int) attackerValueCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -235,7 +250,7 @@ namespace MMORPG.Common.Proto.Fight {
         output.WriteRawTag(16);
         output.WriteEnum((int) AttackerType);
       }
-      if (attackerValueCase_ == AttackerValueOneofCase.SkillId) {
+      if (HasSkillId) {
         output.WriteRawTag(24);
         output.WriteInt32(SkillId);
       }
@@ -257,7 +272,7 @@ namespace MMORPG.Common.Proto.Fight {
         output.WriteRawTag(16);
         output.WriteEnum((int) AttackerType);
       }
-      if (attackerValueCase_ == AttackerValueOneofCase.SkillId) {
+      if (HasSkillId) {
         output.WriteRawTag(24);
         output.WriteInt32(SkillId);
       }
@@ -277,7 +292,7 @@ namespace MMORPG.Common.Proto.Fight {
       if (AttackerType != global::MMORPG.Common.Proto.Fight.AttackerType.Skill) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) AttackerType);
       }
-      if (attackerValueCase_ == AttackerValueOneofCase.SkillId) {
+      if (HasSkillId) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(SkillId);
       }
       if (_unknownFields != null) {
@@ -365,6 +380,7 @@ namespace MMORPG.Common.Proto.Fight {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class DamageInfo : pb::IMessage<DamageInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -748,6 +764,7 @@ namespace MMORPG.Common.Proto.Fight {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityHurtResponse : pb::IMessage<EntityHurtResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage

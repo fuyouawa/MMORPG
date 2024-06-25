@@ -135,7 +135,6 @@ namespace GameServer.MapSystem
         /// <param name="entity"></param>
         public void EntityRefreshPosition(Entity entity)
         {
-
             var enterRes = new EntityEnterResponse();
             enterRes.Datas.Add(ConstructEntityEnterData(entity));
 
@@ -211,7 +210,6 @@ namespace GameServer.MapSystem
                     player?.User.Channel.Send(leaveRes);
                 }
             }
-
         }
 
         /// <summary>

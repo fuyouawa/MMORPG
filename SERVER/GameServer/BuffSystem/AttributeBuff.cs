@@ -40,7 +40,8 @@ namespace GameServer.BuffSystem
                 foreach (var property in stageValue.Properties())
                 {
                     string name = property.Name;
-                    string content = property.Value.ToString();
+                    string? content = property.Value<string>();
+                    if (content == null) continue;
                     if (name == "Hp")
                     {
                         BuffManager.OwnerActor.ChangeHP(int.Parse(content));

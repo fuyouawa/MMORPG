@@ -8,6 +8,7 @@ using GameServer.EntitySystem;
 using GameServer.AiSystem.Ability;
 using GameServer.Manager;
 using MMORPG.Common.Proto.Fight;
+using Org.BouncyCastle.Asn1.X509;
 
 namespace GameServer.AiSystem
 {
@@ -27,6 +28,8 @@ namespace GameServer.AiSystem
         public AnimationState AnimationState;
         public IdleAbility IdleAbility { get; }
         public MoveAbility MoveAbility { get; }
+        public CastSkillAbility CastSkillAbility { get; }
+
         public Actor? ChasingTarget;
         public Random Random = new();
 
@@ -42,6 +45,7 @@ namespace GameServer.AiSystem
             OwnerMonster = ownerMonster;
             MoveAbility = new(OwnerMonster, OwnerMonster.InitPos.Y, OwnerMonster.Speed);
             IdleAbility = new();
+            CastSkillAbility = new(OwnerMonster);
         }
 
         public void Start()
@@ -69,6 +73,7 @@ namespace GameServer.AiSystem
                 IdleAbility.Update();
             }
         }
+
         public void Move(Vector2 destination)
         {
             if (AnimationState == AnimationState.Idle)
@@ -92,25 +97,16 @@ namespace GameServer.AiSystem
             ChangeAnimationState(AnimationState.Idle);
         }
 
-        public void Attack()
+        public void CastSkill()
         {
             if (!OwnerMonster.SkillManager.SkillDict.Any() || ChasingTarget == null) return;
             var first = OwnerMonster.SkillManager.SkillDict.First();
-            
-            var castInfo = new CastInfo()
+
+            if (CastSkillAbility.CastSkill(first.Value.Define.ID, ChasingTarget) == CastResult.Success)
             {
-                SkillId = first.Value.Define.ID,
-                CasterId = OwnerMonster.EntityId,
-                CastTarget = new NetCastTarget()
-                {
-                    TargetId = ChasingTarget.EntityId,
-                },
-            };
-
-            ChangeAnimationState(AnimationState.Skill);
-            AnimationState = AnimationState.Idle;
-
-            OwnerMonster.Spell.Cast(castInfo);
+                ChangeAnimationState(AnimationState.Skill);
+                AnimationState = AnimationState.Idle;
+            }
         }
 
         public void Revive()
@@ -371,7 +367,7 @@ namespace GameServer.AiSystem
                 if (d1 <= _target.AttackRange)
                 {
                     // 距离足够，可以发起攻击了
-                    _target.Attack();
+                    _target.CastSkill();
                 }
                 else
                 {

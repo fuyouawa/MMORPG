@@ -29,18 +29,23 @@ namespace GameServer.FightSystem
             OwnerActor = ownerActor;
         }
 
-        public void Cast(CastInfo info)
+        public CastResult Cast(CastInfo info)
         {
+            if ((OwnerActor.FlagState & FlagState.Silence) == FlagState.Silence || (OwnerActor.FlagState & FlagState.Stun) == FlagState.Stun)
+            {
+                return CastResult.NotAllowed;
+            }
+
             if (CurrentRunSkill != null)
             {
                 ResponseSpellFail(info, CastResult.Running);
-                return;
+                return CastResult.Running;
             }
             var skill = OwnerActor.SkillManager.GetSkill(info.SkillId);
             if (skill == null)
             {
                 ResponseSpellFail(info, CastResult.InvalidSkillId);
-                return;
+                return CastResult.InvalidSkillId;
             }
 
             if (OwnerActor is Player player)
@@ -54,58 +59,56 @@ namespace GameServer.FightSystem
             switch (skill.Define.TargetType)
             {
                 case "None":
-                    CastNone(skill, info);
-                    break;
+                    return CastNone(skill, info);
                 case "Unit":
-                    CastUnit(skill, info);
-                    break;
+                    return CastUnit(skill, info);
                 case "Position":
-                    CastPosition(skill, info);
-                    break;
+                    return CastPosition(skill, info);
                 default:
                     Log.Error("[Spell.Cast]无效的目标类型.");
-                    break;
+                    return CastResult.TargetInvaild;
             }
         }
 
         // 释放无目标技能
-        private void CastNone(Skill skill, CastInfo info)
+        private CastResult CastNone(Skill skill, CastInfo info)
         {
             var target = new CastTargetEntity(OwnerActor);
-            CastTarget(skill, info, target);
+            return CastTarget(skill, info, target);
         }
 
         // 释放单位目标技能
-        private void CastUnit(Skill skill, CastInfo info)
+        private CastResult CastUnit(Skill skill, CastInfo info)
         {
             var targetActor = EntityManager.Instance.GetEntity(info.CastTarget.TargetId) as Actor;
             if (targetActor == null)
             {
                 ResponseSpellFail(info, CastResult.InvalidCastTarget);
-                return;
+                return CastResult.InvalidCastTarget;
             }
             var target = new CastTargetEntity(targetActor);
-            CastTarget(skill, info, target);
+            return CastTarget(skill, info, target);
         }
 
         // 释放位置目标技能
-        private void CastPosition(Skill skill, CastInfo info)
+        private CastResult CastPosition(Skill skill, CastInfo info)
         {
             var target = new CastTargetPosition(info.CastTarget.TargetPos.ToVector3().ToVector2());
-            CastTarget(skill, info, target);
+            return CastTarget(skill, info, target);
         }
 
 
-        private void CastTarget(Skill skill, CastInfo info, CastTarget target)
+        private CastResult CastTarget(Skill skill, CastInfo info, CastTarget target)
         {
             var res = skill.CanCast(target);
             ResponseSpellFail(info, res);
             if (res != CastResult.Success)
             {
-                return;
+                return res;
             }
             skill.Cast(target);
             skill.OwnerActor.Map.PlayerManager.Broadcast(new SpellResponse() { Info = info }, skill.OwnerActor);
+            return res;
         }
 
 
