@@ -19,12 +19,20 @@ using MMORPG.Common.Proto.Entity;
                 mTarget.DeathFeedbacks.Play();
             }
             mTarget.ActorController.Animator.SetTrigger("Death");
+            if (mTarget.MonsterCanvas != null)
+            {
+                mTarget.MonsterCanvas.gameObject.SetActive(false);
+            }
         }
 
         protected override void OnExit()
         {
             mTarget.ResurrectionFeedbacks.Play();
             mTarget.ActorController.Animator.Play("Idle");
+            if (mTarget.MonsterCanvas != null)
+            {
+                mTarget.MonsterCanvas.gameObject.SetActive(true);
+            }
         }
     }
 }
