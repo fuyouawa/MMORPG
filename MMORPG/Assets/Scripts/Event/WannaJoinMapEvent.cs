@@ -1,11 +1,11 @@
 namespace MMORPG.Event
 {
-    public class JoinMapEvent
+    public class WannaJoinMapEvent
     {
         public int MapId { get; }
         public long CharacterId { get; }
 
-        public JoinMapEvent(int mapId, long characterId)
+        public WannaJoinMapEvent(int mapId, long characterId)
         {
             MapId = mapId;
             CharacterId = characterId;
