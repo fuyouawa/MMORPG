@@ -28,9 +28,11 @@ public class UnitDefine
 	public float DodgeRate; // 闪避率
 	public int HpRegen; // 生命恢复/秒
 	public float HpSteal; // 伤害吸血%
+	public float Con; // 体质
 	public float Str; // 力量
 	public float Int; // 智力
 	public float Agi; // 敏捷
+	public float Gcon; // 体质成长
 	public float Gstr; // 力量成长
 	public float Gint; // 智力成长
 	public float Gagi; // 敏捷成长

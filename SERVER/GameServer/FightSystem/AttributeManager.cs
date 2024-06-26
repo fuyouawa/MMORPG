@@ -19,6 +19,11 @@ namespace GameServer.FightSystem
 
         public void Start()
         {
+            Recalculate();
+        }
+
+        public void Recalculate()
+        {
             var define = OwnerActor.UnitDefine;
             var level = OwnerActor.Level;
             var initial = new AttributeData()
@@ -32,6 +37,7 @@ namespace GameServer.FightSystem
                 Mdef = define.Mdef,
                 Cri = define.Cri,
                 Crd = define.Crd,
+                Con = define.Con,
                 Str = define.Str,
                 Int = define.Int,
                 Agi = define.Agi,
@@ -41,6 +47,7 @@ namespace GameServer.FightSystem
 
             var growth = new AttributeData()
             {
+                Con = define.Gcon * (level - 1),
                 Str = define.Gstr * (level - 1),
                 Int = define.Gint * (level - 1),
                 Agi = define.Gagi * (level - 1),
@@ -58,8 +65,12 @@ namespace GameServer.FightSystem
             // 计算附加属性
             var extra = new AttributeData()
             {
-                MaxHp = Final.Str * 5,
-                Ap = Final.Int * 1.5f,
+                MaxHp = Final.Con * 32f,
+                MaxMp = Final.Int * 24f,
+                Ad = Final.Str * 8f,
+                Ap = Final.Int * 6f,
+                Def = Final.Con * 2.4f + Final.Str * 0.8f,
+                Mdef = Final.Con * 1.6f + Final.Int * 0.8f,
             };
 
             Final.Add(extra);

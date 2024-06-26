@@ -21,7 +21,7 @@ namespace GameServer.PlayerSystem
         //public static readonly float DefaultViewRange = 100;
 
         public User User;
-        public long CharacterId;
+        public DbCharacter DbCharacter;
         public int Exp;
         public long Gold;
         public InventorySystem.Inventory Knapsack;
@@ -31,32 +31,28 @@ namespace GameServer.PlayerSystem
         public DialogueManager DialogueManager;
         public TaskManager TaskManager;
 
-        private DbCharacter _dbCharacter;
-
         public Player(int entityId, DbCharacter dbCharacter, UnitDefine unitDefine,
             Map map, Vector3 pos, Vector3 dire, User user, int level)
             : base(EntityType.Player, entityId, unitDefine, map, pos, dire, dbCharacter.Name, level)
         {
             User = user;
-            CharacterId = dbCharacter.Id;
+            DbCharacter = dbCharacter;
             Knapsack = new(this);
             DialogueManager = new(this);
             TaskManager = new(this);
-
-            _dbCharacter = dbCharacter;
         }
 
         public override void Start()
         {
             base.Start();
-            Hp = _dbCharacter.Hp;
-            Mp = _dbCharacter.Mp;
-            Level = _dbCharacter.Level;
-            Exp = _dbCharacter.Exp;
-            Gold = _dbCharacter.Gold;
-            Knapsack.LoadInventoryInfo(_dbCharacter.Knapsack);
-            DialogueManager.LoadDialogueInfo(_dbCharacter.DialogueInfo);
-            TaskManager.LoadTaskInfo(_dbCharacter.TaskInfo);
+            Hp = DbCharacter.Hp;
+            Mp = DbCharacter.Mp;
+            Level = DbCharacter.Level;
+            Exp = DbCharacter.Exp;
+            Gold = DbCharacter.Gold;
+            Knapsack.LoadInventoryInfo(DbCharacter.Knapsack);
+            DialogueManager.LoadDialogueInfo(DbCharacter.DialogueInfo);
+            TaskManager.LoadTaskInfo(DbCharacter.TaskInfo);
         }
 
         public override void Update()
@@ -68,7 +64,7 @@ namespace GameServer.PlayerSystem
         {
             return new DbCharacter()
             {
-                Id = CharacterId,
+                Id = DbCharacter.Id,
                 Name = Name,
                 UserId = User.UserId,
                 UnitId = UnitDefine.ID,
@@ -84,6 +80,41 @@ namespace GameServer.PlayerSystem
                 DialogueInfo = DialogueManager.GetDialogueInfo().ToByteArray(),
                 TaskInfo = TaskManager.GetTaskInfo().ToByteArray(),
             };
+        }
+
+        public void ChangeExp(int amount)
+        {
+            Exp += amount;
+            var maxExp = CalculateExp(Level);
+            var newLevel = Level;
+            while (Exp >= maxExp)
+            {
+                Exp -= maxExp;
+                maxExp = CalculateExp(++newLevel);
+            }
+            EntityAttributeEntrySync(EntityAttributeEntryType.Exp, Exp);
+            ChangeLevel(newLevel);
+            
+        }
+
+        public void ChangeLevel(int newLevel)
+        {
+            if (Level == newLevel) return;
+            EntityAttributeEntrySync(EntityAttributeEntryType.Level, newLevel);
+            AttributeManager.Recalculate();
+            ChangeHP(AttributeManager.Final.MaxHp);
+            ChangeMp(AttributeManager.Final.MaxMp);
+        }
+
+
+        private static int CalculateExp(int level)
+        {
+            // 基础经验值
+            const int baseXP = 100;
+            // 级数调整因子
+            const double levelFactor = 1.5;
+            // 经验值公式
+            return (int)(baseXP * Math.Pow(level, levelFactor));
         }
     }
 }

@@ -34,6 +34,7 @@
         /// <summary>
         /// 暴击伤害
         /// </summary>
+        public float Con { get; set; }
         public float Crd { get; set; }
         /// <summary>
         /// 力量
@@ -73,6 +74,7 @@
             Mdef += other.Mdef;
             Cri += other.Cri;
             Crd += other.Crd;
+            Con += other.Con;
             Str += other.Str;
             Int += other.Int;
             Agi += other.Agi;
@@ -91,6 +93,7 @@
             Mdef -= other.Mdef;
             Cri -= other.Cri;
             Crd -= other.Crd;
+            Con -= other.Con;
             Str -= other.Str;
             Int -= other.Int;
             Agi -= other.Agi;
@@ -108,6 +111,7 @@
             Def = 0;
             Mdef = 0;
             Cri = 0;
+            Con = 0;
             Str = 0;
             Int = 0;
             Agi = 0;
