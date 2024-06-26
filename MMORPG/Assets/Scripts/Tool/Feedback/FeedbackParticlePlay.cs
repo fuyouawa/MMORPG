@@ -20,11 +20,11 @@ namespace MMORPG.Tool
         public int EmitCount = 100;
 
         [FoldoutGroup("Bound Particles")]
-        [Required]
         public ParticleSystem BoundParticleSystem;
         [FoldoutGroup("Bound Particles")]
         public bool WithChildrenParticles = true;
         [FoldoutGroup("Bound Particles")]
+        [HideIf("@BoundParticleSystem != null")]
         public ParticleSystem[] RandomParticleSystems = Array.Empty<ParticleSystem>();
         [FoldoutGroup("Bound Particles")]
         public bool ActivateOnPlay = false;
@@ -68,7 +68,10 @@ namespace MMORPG.Tool
                 StopParticles();
             }
 
-            _originalLocalStores[BoundParticleSystem] = BoundParticleSystem.transform.GetLocalStore();
+            if (BoundParticleSystem != null)
+            {
+                _originalLocalStores[BoundParticleSystem] = BoundParticleSystem.transform.GetLocalStore();
+            }
             if (RandomParticleSystems != null)
             {
                 foreach (var particle in RandomParticleSystems)
