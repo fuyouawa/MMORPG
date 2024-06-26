@@ -1,8 +1,5 @@
-using MMORPG.Event;
 using MMORPG.System;
-using UnityEngine;
 using QFramework;
-using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Game
 {
@@ -11,9 +8,10 @@ namespace MMORPG.Game
         private ActorController actorController;
 
 
-        void Start()
+        async void Start()
         {
-            actorController = this.GetSystem<IPlayerManagerSystem>().MineEntity.GetComponent<ActorController>();
+            var mine = await this.GetSystem<IPlayerManagerSystem>().GetMineEntityTask();
+            actorController = mine.GetComponent<ActorController>();
         }
 
         void Update()
