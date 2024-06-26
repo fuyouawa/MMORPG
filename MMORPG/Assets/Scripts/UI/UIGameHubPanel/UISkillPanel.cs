@@ -24,11 +24,13 @@ namespace MMORPG.UI
             SetSlotCount(5);
         }
 
-        private void Start()
+        private async void Start()
         {
             var slots = GroupSlots.GetComponentsInChildren<UISkillSlot>();
 
-            SkillManager = this.GetSystem<IPlayerManagerSystem>().MineEntity.GetComponent<ActorController>().SkillManager;
+            var mine = await this.GetSystem<IPlayerManagerSystem>().GetMineEntityTask();
+
+            SkillManager = mine.GetComponent<ActorController>().SkillManager;
 
             int i = 0;
             foreach (var skill in SkillManager.Skills.Where(x => x.Mode == SkillModes.Skill))
