@@ -69,7 +69,7 @@ namespace GameServer.BuffSystem
                     switch (name)
                     {
                         case "Hp":
-                            BuffManager.OwnerActor.ChangeHP(value);
+                            BuffManager.OwnerActor.ChangeHp(value);
                             break;
                         case "Mp":
                             BuffManager.OwnerActor.ChangeMp(value);

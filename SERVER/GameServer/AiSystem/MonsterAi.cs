@@ -112,7 +112,7 @@ namespace GameServer.AiSystem
 
         public void Revive()
         {
-            OwnerMonster.ChangeHP(OwnerMonster.AttributeManager.Final.MaxHp);
+            OwnerMonster.ChangeHp(OwnerMonster.AttributeManager.Final.MaxHp);
         }
 
         public void OnHurt()

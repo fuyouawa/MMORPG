@@ -82,6 +82,13 @@ namespace GameServer.PlayerSystem
             };
         }
 
+        public override void Revive()
+        {
+            ChangeHp(AttributeManager.Final.MaxHp);
+            ChangeMp(AttributeManager.Final.MaxMp);
+            ChangeExp(-Exp);
+        }
+
         public void ChangeExp(int amount)
         {
             Exp += amount;
@@ -102,10 +109,9 @@ namespace GameServer.PlayerSystem
             if (Level == newLevel) return;
             EntityAttributeEntrySync(EntityAttributeEntryType.Level, newLevel);
             AttributeManager.Recalculate();
-            ChangeHP(AttributeManager.Final.MaxHp);
+            ChangeHp(AttributeManager.Final.MaxHp);
             ChangeMp(AttributeManager.Final.MaxMp);
         }
-
 
         private static int CalculateExp(int level)
         {

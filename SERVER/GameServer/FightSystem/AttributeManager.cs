@@ -25,8 +25,8 @@ namespace GameServer.FightSystem
         public void Recalculate()
         {
             Basic.Reset();
-            Equip.Reset();
-            Buff.Reset();
+            //Equip.Reset();
+            //Buff.Reset();
             Final.Reset();
 
             var define = OwnerActor.UnitDefine;
