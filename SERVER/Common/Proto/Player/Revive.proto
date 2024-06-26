@@ -1,0 +1,11 @@
+﻿syntax = "proto3";
+
+package MMORPG.Common.Proto.Player;
+import "Base/NetError.proto";
+
+message ReviveRequest {
+}
+
+message ReviveResponse {
+    Base.NetError error = 1;
+}
