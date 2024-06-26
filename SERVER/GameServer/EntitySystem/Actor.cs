@@ -89,6 +89,26 @@ namespace GameServer.EntitySystem
             ChangeHP(-info.Amount);
             Log.Debug($"Actor:{Name}({EntityId})受到{info.AttackerInfo.AttackerId}的{info.AttackerInfo.AttackerType}攻击, 扣除{info.Amount}血量, 剩余血量:{Hp}!");
         }
+        
+        protected void EntityAttributeEntrySync<T>(EntityAttributeEntryType type, T value)
+        {
+            var resp = new EntityAttributeSyncResponse()
+            {
+                EntityId = EntityId,
+            };
+            resp.Entrys.Add(ConstructAttributeEntry(type, value));
+            Map.PlayerManager.Broadcast(resp, this, true, false);
+        }
+
+        protected void EntityAttributeEntrySync(params EntityAttributeEntry[] entries)
+        {
+            var resp = new EntityAttributeSyncResponse()
+            {
+                EntityId = EntityId,
+            };
+            resp.Entrys.Add(entries);
+            Map.PlayerManager.Broadcast(resp, this);
+        }
 
         private EntityAttributeEntry ConstructAttributeEntry<T>(EntityAttributeEntryType type, T value)
         {
@@ -114,24 +134,5 @@ namespace GameServer.EntitySystem
             return entry;
         }
 
-        private void EntityAttributeEntrySync<T>(EntityAttributeEntryType type, T value)
-        {
-            var resp = new EntityAttributeSyncResponse()
-            {
-                EntityId = EntityId,
-            };
-            resp.Entrys.Add(ConstructAttributeEntry(type, value));
-            Map.PlayerManager.Broadcast(resp, this, true, false);
-        }
-
-        private void EntityAttributeEntrySync(params EntityAttributeEntry[] entries)
-        {
-            var resp = new EntityAttributeSyncResponse()
-            {
-                EntityId = EntityId,
-            };
-            resp.Entrys.Add(entries);
-            Map.PlayerManager.Broadcast(resp, this);
-        }
     }
 }

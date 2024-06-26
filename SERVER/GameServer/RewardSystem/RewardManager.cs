@@ -44,7 +44,7 @@ namespace GameServer.RewardSystem
                     {
                         for (int i = 0; i < number; i++)
                         {
-                            if (_random.NextSingle() < probability) continue;
+                            if (_random.NextSingle() > probability) continue;
                             ++finalNumber;
                         }
                     }
@@ -72,9 +72,9 @@ namespace GameServer.RewardSystem
                 foreach (JObject obj in rewardArr)
                 {
                     var probability = obj["Probability"].Value<float>();
-                    if (_random.NextSingle() < probability) continue;
+                    if (_random.NextSingle() > probability) continue;
 
-                    var buffId = obj["buffId"].Value<int>();
+                    var buffId = obj["BuffId"].Value<int>();
                     var actor = entity as Actor;
                     if (actor == null) continue;
                     actor.BuffManager.AddBuff(buffId);

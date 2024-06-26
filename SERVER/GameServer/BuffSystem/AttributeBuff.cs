@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System.Reflection;
 using System.Xml.Linq;
+using GameServer.PlayerSystem;
 
 namespace GameServer.BuffSystem
 {
@@ -76,6 +77,10 @@ namespace GameServer.BuffSystem
                         case "Speed":
                             break;
                         case "Exp":
+                            if (BuffManager.OwnerActor is Player)
+                            {
+                                ((Player)BuffManager.OwnerActor).ChangeExp(value);
+                            }
                             break;
                     }
 
