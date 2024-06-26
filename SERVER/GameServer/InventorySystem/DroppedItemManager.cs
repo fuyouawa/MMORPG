@@ -51,17 +51,6 @@ namespace GameServer.InventorySystem
             return item;
         }
 
-
-        /// <summary>
-        /// 删除掉落物
-        /// </summary>
-        /// <param name="player"></param>
-        public void RemoveDroppedItem(DroppedItem item)
-        {
-            EntityManager.Instance.RemoveEntity(item);
-            _itemDict.Remove(item.EntityId);
-        }
-
         public DroppedItem NewDroppedItemWithOffset(int itemId, Vector3 pos, Vector3 dire, int amount, float offset)
         {
             
@@ -73,6 +62,16 @@ namespace GameServer.InventorySystem
             pos.Z += offsetZ;
 
             return NewDroppedItem(itemId, pos, Vector3.Zero, amount);
+        }
+
+        /// <summary>
+        /// 删除掉落物
+        /// </summary>
+        /// <param name="player"></param>
+        public void RemoveDroppedItem(DroppedItem item)
+        {
+            EntityManager.Instance.RemoveEntity(item);
+            _itemDict.Remove(item.EntityId);
         }
     }
 }

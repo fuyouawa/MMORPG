@@ -23,10 +23,6 @@ namespace GameServer.UserSystem
 
         public void Update()
         {
-            foreach (var user in _userDict.Values)
-            {
-                user.Update();
-            }
         }
 
         public User NewUser(NetChannel channel, string username, long userId)

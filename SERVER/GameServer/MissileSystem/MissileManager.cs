@@ -24,7 +24,6 @@ namespace GameServer.MissileSystem
 
         public void Start()
         {
-
         }
 
         public void Update()

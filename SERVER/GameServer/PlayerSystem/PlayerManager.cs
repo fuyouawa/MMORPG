@@ -84,7 +84,6 @@ namespace GameServer.PlayerSystem
         public void RemovePlayer(Player player)
         {
             EntityManager.Instance.RemoveEntity(player);
-            
             _playerDict.Remove(player.EntityId);
         }
 

@@ -41,7 +41,7 @@ namespace GameServer.MapSystem
             }
         }
 
-        public Map NewMap(MapDefine mapDefine)
+        private Map NewMap(MapDefine mapDefine)
         {
             var map = new Map(mapDefine);
             _mapDict.Add(mapDefine.ID, map);
