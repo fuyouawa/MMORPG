@@ -131,20 +131,21 @@ namespace MMORPG.Game
 
         private void OnEntitySyncReceived(EntityTransformSyncResponse response)
         {
-            var entityId = response.EntityId;
-            var position = response.Transform.Position.ToVector3();
-            var rotation = Quaternion.Euler(response.Transform.Direction.ToVector3());
-            var entity = _entityManager.EntityDict[entityId];
-            Debug.Assert(entity.EntityId == entityId);
-            var data = new EntityTransformSyncData
+            if (_entityManager.EntityDict.TryGetValue(response.EntityId, out var entity))
             {
-                Entity = entity,
-                Position = position,
-                Rotation = rotation,
-                StateId = response.StateId,
-                Data = response.Data.ToByteArray()
-            };
-            entity.OnTransformSync?.Invoke(data);
+                var position = response.Transform.Position.ToVector3();
+                var rotation = Quaternion.Euler(response.Transform.Direction.ToVector3());
+                Debug.Assert(entity.EntityId == response.EntityId);
+                var data = new EntityTransformSyncData
+                {
+                    Entity = entity,
+                    Position = position,
+                    Rotation = rotation,
+                    StateId = response.StateId,
+                    Data = response.Data.ToByteArray()
+                };
+                entity.OnTransformSync?.Invoke(data);
+            }
         }
 
         public IArchitecture GetArchitecture()
