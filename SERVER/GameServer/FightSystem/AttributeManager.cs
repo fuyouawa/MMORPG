@@ -24,6 +24,11 @@ namespace GameServer.FightSystem
 
         public void Recalculate()
         {
+            Basic.Reset();
+            Equip.Reset();
+            Buff.Reset();
+            Final.Reset();
+
             var define = OwnerActor.UnitDefine;
             var level = OwnerActor.Level;
             var initial = new AttributeData()
@@ -67,10 +72,10 @@ namespace GameServer.FightSystem
             {
                 MaxHp = Final.Con * 32f,
                 MaxMp = Final.Int * 24f,
-                Ad = Final.Str * 8f,
-                Ap = Final.Int * 6f,
-                Def = Final.Con * 2.4f + Final.Str * 0.8f,
-                Mdef = Final.Con * 1.6f + Final.Int * 0.8f,
+                Ad = Final.Str * 4f,
+                Ap = Final.Int * 3f,
+                Def = Final.Con * 1.8f + Final.Str * 0.6f,
+                Mdef = Final.Con * 1.2f + Final.Int * 0.6f,
             };
 
             Final.Add(extra);
