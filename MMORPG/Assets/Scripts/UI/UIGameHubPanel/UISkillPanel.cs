@@ -1,9 +1,10 @@
 using System.Linq;
+using MMORPG.Event;
 using MMORPG.Game;
 using MMORPG.System;
 using QFramework;
 using UnityEngine;
-using ActorController = MMORPG.Game.ActorController;
+using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.UI
 {
@@ -18,13 +19,16 @@ namespace MMORPG.UI
         public override RectTransform GroupSlots => SlotsGroup;
         protected override string SlotAssetName => "UISkillSlot";
 
-        private void Start()
+        private void Awake()
         {
             SetSlotCount(5);
+        }
 
+        private void Start()
+        {
             var slots = GroupSlots.GetComponentsInChildren<UISkillSlot>();
-            var playerManager = this.GetSystem<IPlayerManagerSystem>();
-            SkillManager = playerManager.MineEntity.GetComponent<ActorController>().SkillManager;
+
+            SkillManager = this.GetSystem<IPlayerManagerSystem>().MineEntity.GetComponent<ActorController>().SkillManager;
 
             int i = 0;
             foreach (var skill in SkillManager.Skills.Where(x => x.Mode == SkillModes.Skill))

@@ -77,6 +77,11 @@ MonoBehaviour:
     Label: "\u6C14\u6D41\u97F3\u6548"
     Feedback:
       rid: 4065860201052897369
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: "\u5BD2\u51B0\u97F3\u6548"
+    Feedback:
+      rid: 4065860438689579105
   references:
     version: 2
     RefIds:
@@ -160,13 +165,68 @@ MonoBehaviour:
     - rid: 4065860201052897369
       type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        DelayBeforePlay: 0.1
+        DelayBeforePlay: 0
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 1
         DelayBetweenLoop: 0
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: e6cc7f4972c93ca458cd877837907ebb, type: 3}
+        RandomSfx: []
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    - rid: 4065860438689579105
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        StopAfterDuration: 1
+        Sfx: {fileID: 8300000, guid: e38a524f30ba61142ae92934ae6852ea, type: 3}
         RandomSfx: []
         PlayMethod: 0
         PoolSize: 10
@@ -289,6 +349,11 @@ MonoBehaviour:
     Label: "\u6C14\u6D41\u97F3\u6548"
     Feedback:
       rid: 4065860201052897371
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: "\u5BD2\u51B0\u97F3\u6548"
+    Feedback:
+      rid: 4065860438689579107
   references:
     version: 2
     RefIds:
@@ -372,13 +437,68 @@ MonoBehaviour:
     - rid: 4065860201052897371
       type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        DelayBeforePlay: 0.1
+        DelayBeforePlay: 0
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 1
         DelayBetweenLoop: 0
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: e6cc7f4972c93ca458cd877837907ebb, type: 3}
+        RandomSfx: []
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    - rid: 4065860438689579107
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        StopAfterDuration: 1
+        Sfx: {fileID: 8300000, guid: e38a524f30ba61142ae92934ae6852ea, type: 3}
         RandomSfx: []
         PlayMethod: 0
         PoolSize: 10
@@ -501,6 +621,11 @@ MonoBehaviour:
     Label: "\u6C14\u6D41\u97F3\u6548"
     Feedback:
       rid: 4065860201052897370
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: "\u5BD2\u51B0\u97F3\u6548"
+    Feedback:
+      rid: 4065860438689579106
   references:
     version: 2
     RefIds:
@@ -584,13 +709,68 @@ MonoBehaviour:
     - rid: 4065860201052897370
       type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
       data:
-        DelayBeforePlay: 0.15
+        DelayBeforePlay: 0.05
         LoopPlay: 0
         LimitLoopAmount: 0
         AmountOfLoop: 1
         DelayBetweenLoop: 0
         StopAfterDuration: 1
         Sfx: {fileID: 8300000, guid: e6cc7f4972c93ca458cd877837907ebb, type: 3}
+        RandomSfx: []
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    - rid: 4065860438689579106
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0.05
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        StopAfterDuration: 1
+        Sfx: {fileID: 8300000, guid: e38a524f30ba61142ae92934ae6852ea, type: 3}
         RandomSfx: []
         PlayMethod: 0
         PoolSize: 10

@@ -26,7 +26,7 @@ namespace MMORPG.Command
             Log.Information($"{CharacterId}加入地图:{MapId}");
             model.CurrentMapId.Value = MapId;
 
-            this.SendEvent(new JoinMapEvent(MapId, CharacterId));
+            this.SendEvent(new WannaJoinMapEvent(MapId, CharacterId));
         }
     }
 }

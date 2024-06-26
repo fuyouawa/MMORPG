@@ -34,13 +34,19 @@ namespace MMORPG.System
 
         public void LeaveEntity(int entityId)
         {
-            var entity = EntityDict[entityId];
-            var suc = EntityDict.Remove(entity.EntityId);
-            Debug.Assert(suc);
-            this.SendEvent(new EntityLeaveEvent(entity));
-            Log.Information($"实体退出地图: id:{entityId}, type:{entity.EntityType}");
-            // 主要为了延迟下一帧调用, 以便可以先处理EntityLeaveEvent再Destroy
-            UnityMainThreadDispatcher.Instance().Enqueue(() => GameObject.Destroy(entity.gameObject));
+            if (EntityDict.TryGetValue(entityId, out var entity))
+            {
+                var suc = EntityDict.Remove(entity.EntityId);
+                Debug.Assert(suc);
+                this.SendEvent(new EntityLeaveEvent(entity));
+                Log.Information($"实体退出地图: id:{entityId}, type:{entity.EntityType}");
+                // 主要为了延迟下一帧调用, 以便可以先处理EntityLeaveEvent再Destroy
+                UnityMainThreadDispatcher.Instance().Enqueue(() => GameObject.Destroy(entity.gameObject));
+            }
+            else
+            {
+                Log.Error($"实体:{entityId}还没加入地图, 但是有退出地图的响应发来");
+            }
         }
 
         public EntityView SpawnEntity(
