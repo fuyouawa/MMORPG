@@ -56,11 +56,13 @@ namespace MMORPG.Game
         {
             Rigidbody = GetComponent<Rigidbody>();
             Collider = GetComponent<CapsuleCollider>();
+
+            SkillManager = new(this);
         }
 
-        private void Start()
+        public void Initialize()
         {
-            SkillManager = new(this);
+            SkillManager.Initialize();
         }
 
         private void Update()

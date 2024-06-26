@@ -38,11 +38,44 @@ namespace MMORPG.Game
             _dataManager = this.GetSystem<IDataManagerSystem>();
         }
 
-        public void OnJoinMap(EntityView entity)
+        public void OnJoinMap(long characterId)
         {
-            SceneManager.MoveGameObjectToScene(entity.gameObject, gameObject.scene);
+            var net = this.GetSystem<INetworkSystem>();
+            net.SendToServer(new JoinMapRequest
+            {
+                CharacterId = characterId,
+            });
+            net.Receive<JoinMapResponse>(response =>
+            {
+                if (response.Error != Common.Proto.Base.NetError.Success)
+                {
+                    Log.Error($"JoinMap Error:{response.Error.GetInfo().Description}");
+                    //TODO Error处理
+                    return;
+                }
 
-            Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
+                Log.Information($"JoinMap Success, MineId:{response.EntityId}");
+
+                var unitDefine = _dataManager.GetUnitDefine(response.UnitId);
+
+                var resLoader = ResLoader.Allocate();
+
+                var entity = _entityManager.SpawnEntity(
+                    resLoader.LoadSync<EntityView>(unitDefine.Resource),    //TODO 角色生成
+                    response.EntityId,
+                    response.UnitId,
+                    EntityType.Player,
+                    response.Transform.Position.ToVector3(),
+                    Quaternion.Euler(response.Transform.Direction.ToVector3()));
+
+                resLoader.Recycle2Cache();
+
+                this.GetSystem<IPlayerManagerSystem>().SetMine(entity);
+
+                entity.GetComponent<ActorController>().ApplyNetActor(response.Actor);
+
+                Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
+            });
         }
 
         void OnDestroy()

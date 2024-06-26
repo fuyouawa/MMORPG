@@ -25,6 +25,10 @@ namespace MMORPG.Game
 
         private bool _initialized = false;
 
+        private void Awake()
+        {
+        }
+
 
         public void Initialize(int entityId, UnitDefine unitDefine)
         {
@@ -33,6 +37,8 @@ namespace MMORPG.Game
 
             EntityId = entityId;
             UnitDefine = unitDefine;
+
+            GetComponentInChildren<ActorController>()?.Initialize();
         }
 
         public IArchitecture GetArchitecture()
