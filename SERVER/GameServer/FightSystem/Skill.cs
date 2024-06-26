@@ -14,6 +14,7 @@ using Serilog;
 using GameServer.EntitySystem;
 using MMORPG.Common.Proto.Entity;
 using MMORPG.Common.Tool;
+using System.Diagnostics;
 
 namespace GameServer.FightSystem
 {
@@ -261,8 +262,11 @@ namespace GameServer.FightSystem
 
                 var ads = ad * (1 - b.Def / (b.Def + 400 + 85 * OwnerActor.Level));
                 var aps = ap * (1 - b.Mdef / (b.Mdef + 400 + 85 * OwnerActor.Level));
-
                 amount = ads + aps;
+
+                float levelDifference = OwnerActor.Level - target.Level;
+                amount *= (float)Math.Pow(2, levelDifference / 10);
+                if (amount < 0) amount = 0;
 
                 var randCri = _random.NextSingle();
                 var cri = a.Cri;
