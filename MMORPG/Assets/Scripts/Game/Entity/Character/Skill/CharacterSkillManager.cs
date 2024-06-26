@@ -15,7 +15,6 @@ namespace MMORPG.Game
         public CharacterSkillManager(ActorController actorController)
         {
             ActorController = actorController;
-            Initialize();
         }
 
         public void Initialize()
