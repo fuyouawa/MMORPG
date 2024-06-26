@@ -7,13 +7,14 @@ using MMORPG.Tool;
 using QFramework;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace MMORPG.UI
 {
     public class UIItem : MonoBehaviour, IController,
-        IBeginDragHandler, IDragHandler, IEndDragHandler
+        IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerUpHandler, IPointerDownHandler
     {
         private Vector3 _offset;
         private Transform _initialParent;
@@ -58,6 +59,7 @@ namespace MMORPG.UI
         private void Start()
         {
             TextAmount.raycastTarget = false;
+
         }
 
         public void Assign(Item item)
@@ -79,8 +81,26 @@ namespace MMORPG.UI
             //TODO 其他可能的处理
             Item = null;
         }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.button != PointerEventData.InputButton.Right) return;
+            _originSlot = transform.parent.GetComponent<UIKnapsackSlot>();
+            this.SendCommand(new UseItemCommand(_originSlot.SlotId));
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+        }
+
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (eventData.button != PointerEventData.InputButton.Left) return;
+            
             _originSlot = transform.parent.GetComponent<UIKnapsackSlot>();
             _offset = transform.position - Input.mousePosition;
             _initialParent = transform.parent;
@@ -95,12 +115,16 @@ namespace MMORPG.UI
 
         public void OnDrag(PointerEventData eventData)
         {
+            if (eventData.button != PointerEventData.InputButton.Left) return;
+
             // 更新物品位置
             transform.position = Input.mousePosition + _offset;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (eventData.button != PointerEventData.InputButton.Left) return;
+
             ImageIcon.raycastTarget = true;
 
             Destroy(gameObject);
