@@ -1,5 +1,7 @@
+using System;
 using QFramework;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using MMORPG.Common.Proto.Entity;
 using MMORPG.Event;
 using MMORPG.Game;
@@ -14,6 +16,8 @@ namespace MMORPG.System
         public int CharacterId { get; }
         public Dictionary<int, EntityView> PlayerDict { get; }
         public void SetMine(EntityView mineEntity);
+
+        public Task<EntityView> GetMineEntityTask();
     }
 
     public class PlayerManagerSystem : AbstractSystem, IPlayerManagerSystem
@@ -23,10 +27,22 @@ namespace MMORPG.System
         public int CharacterId { get; private set; } = -1;
         public EntityView MineEntity { get; private set; }
 
+        private TaskCompletionSource<EntityView> _mineEntityTcs = new();
 
         public void SetMine(EntityView mineEntity)
         {
             MineEntity = mineEntity;
+            _mineEntityTcs.TrySetResult(mineEntity);
+        }
+
+        public Task<EntityView> GetMineEntityTask()
+        {
+            if (MineEntity != null)
+            {
+                return Task.FromResult(MineEntity);
+            }
+
+            return _mineEntityTcs.Task;
         }
 
 
