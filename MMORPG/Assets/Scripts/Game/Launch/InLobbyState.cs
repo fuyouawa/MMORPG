@@ -12,6 +12,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace MMORPG.Game
 {
@@ -31,66 +32,27 @@ namespace MMORPG.Game
 
         private void OnWannaJoinMap(WannaJoinMapEvent e)
         {
-            var net = this.GetSystem<INetworkSystem>();
-            net.SendToServer(new JoinMapRequest
+            //TODO 根据MapId加载地图
+            var op = SceneManager.LoadSceneAsync("Space1Scene");
+
+            op.completed += operation =>
             {
-                CharacterId = e.CharacterId,
-            });
-            net.Receive<JoinMapResponse>(response =>
-            {
-                if (response.Error != Common.Proto.Base.NetError.Success)
-                {
-                    Log.Error($"JoinMap Error:{response.Error.GetInfo().Description}");
-                    //TODO Error处理
-                    return;
-                }
+                Log.Information("初始化地图");
+                var group = new GameObject("Managers(Auto Create)").transform;
 
-                Log.Information($"JoinMap Success, MineId:{response.EntityId}");
+                var entityManager = new GameObject(nameof(EntityManager)).AddComponent<EntityManager>();
+                entityManager.transform.SetParent(group, false);
 
-                var unitDefine = _dataManager.GetUnitDefine(response.UnitId);
+                var mapManager = new GameObject(nameof(MapManager)).AddComponent<MapManager>();
+                mapManager.transform.SetParent(group, false);
 
-                var resLoader = ResLoader.Allocate();
+                var fightManager = new GameObject(nameof(FightManager)).AddComponent<FightManager>();
+                fightManager.transform.SetParent(group, false);
 
-                var entity = _entityManager.SpawnEntity(
-                    resLoader.LoadSync<EntityView>(unitDefine.Resource),    //TODO 角色生成
-                    response.EntityId,
-                    response.UnitId,
-                    EntityType.Player,
-                    response.Transform.Position.ToVector3(),
-                    Quaternion.Euler(response.Transform.Direction.ToVector3()));
+                mFSM.ChangeState(LaunchStatus.Playing);
 
-                resLoader.Recycle2Cache();
-
-                GameObject.DontDestroyOnLoad(entity);
-
-                this.GetSystem<IPlayerManagerSystem>().SetMine(entity);
-
-                entity.GetComponent<ActorController>().ApplyNetActor(response.Actor);
-
-
-                //TODO 根据MapId加载地图
-
-                var op = SceneManager.LoadSceneAsync("Space1Scene");
-
-                op.completed += operation =>
-                {
-                    Log.Information("初始化地图");
-                    var group = new GameObject("Managers(Auto Create)").transform;
-
-                    var entityManager = new GameObject(nameof(EntityManager)).AddComponent<EntityManager>();
-                    entityManager.transform.SetParent(group, false);
-
-                    var mapManager = new GameObject(nameof(MapManager)).AddComponent<MapManager>();
-                    mapManager.transform.SetParent(group, false);
-
-                    var fightManager = new GameObject(nameof(FightManager)).AddComponent<FightManager>();
-                    fightManager.transform.SetParent(group, false);
-
-                    mFSM.ChangeState(LaunchStatus.Playing);
-
-                    mapManager.OnJoinMap(entity);
-                };
-            });
+                mapManager.OnJoinMap(e.CharacterId);
+            };
         }
 
         protected override void OnEnter()
