@@ -1,4 +1,5 @@
 using MMORPG.Event;
+using MMORPG.System;
 using UnityEngine;
 using QFramework;
 using NotImplementedException = System.NotImplementedException;
@@ -9,20 +10,11 @@ namespace MMORPG.Game
     {
         private ActorController actorController;
 
-        void Awake()
-        {
-            this.RegisterEvent<PlayerJoinedMapEvent>(OnPlayerJoined)
-                .UnRegisterWhenGameObjectDestroyed(gameObject);
-        }
-
-        private void OnPlayerJoined(PlayerJoinedMapEvent e)
-        {
-            actorController = e.PlayerEntity.GetComponent<ActorController>();
-        }
 
         void Start()
-		{
-		}
+        {
+            actorController = this.GetSystem<IPlayerManagerSystem>().MineEntity.GetComponent<ActorController>();
+        }
 
         void Update()
         {
