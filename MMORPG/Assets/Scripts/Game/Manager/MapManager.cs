@@ -1,3 +1,4 @@
+using System;
 using MMORPG.Common.Proto.Entity;
 using MMORPG.Common.Proto.Player;
 using MMORPG.Common.Tool;
@@ -9,6 +10,7 @@ using MMORPG.Tool;
 using Serilog;
 using ThirdPersonCamera;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 namespace MMORPG.Game
@@ -36,42 +38,11 @@ namespace MMORPG.Game
             _dataManager = this.GetSystem<IDataManagerSystem>();
         }
 
-        public void OnJoinMap(long characterId)
+        public void OnJoinMap(EntityView entity)
         {
-            var net = this.GetSystem<INetworkSystem>();
-            net.SendToServer(new JoinMapRequest
-            {
-                CharacterId = characterId,
-            });
-            net.Receive<JoinMapResponse>(response =>
-            {
-                if (response.Error != Common.Proto.Base.NetError.Success)
-                {
-                    Log.Error($"JoinMap Error:{response.Error.GetInfo().Description}");
-                    //TODO Error处理
-                    return;
-                }
+            SceneManager.MoveGameObjectToScene(entity.gameObject, gameObject.scene);
 
-                Log.Information($"JoinMap Success, MineId:{response.EntityId}");
-
-                var unitDefine = _dataManager.GetUnitDefine(response.UnitId);
-
-                var entity = _entityManager.SpawnEntity(
-                    _resLoader.LoadSync<EntityView>(unitDefine.Resource),    //TODO 角色生成
-                    response.EntityId,
-                    response.UnitId,
-                    EntityType.Player,
-                    response.Transform.Position.ToVector3(),
-                    Quaternion.Euler(response.Transform.Direction.ToVector3()));
-
-                entity.GetComponent<ActorController>().ApplyNetActor(response.Actor);
-
-                Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
-
-                _playerManager.SetMine(entity);
-
-                this.SendEvent(new PlayerJoinedMapEvent(entity));
-            });
+            Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
         }
 
         void OnDestroy()
