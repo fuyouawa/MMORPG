@@ -49,7 +49,7 @@ namespace Service
 
                 sender.User?.Player?.Map.PlayerManager.Broadcast(new ReceiveChatMessageResponse()
                 {
-                    CharacterId = sender.User.Player.CharacterId,
+                    CharacterId = sender.User.Player.DbCharacter.Id,
                     CharacterName = sender.User.Player.Name,
                     Message = request.Message,
                     MessageType = request.MessageType,
