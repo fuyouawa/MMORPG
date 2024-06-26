@@ -88,5 +88,30 @@ namespace GameServer.NetService
                 Log.Debug($"{sender}进入游戏成功");
             });
         }
+
+        public void OnHandle(NetChannel sender, ReviveRequest request)
+        {
+            UpdateManager.Instance.AddTask(() =>
+            {
+                var player = sender.User?.Player;
+                if (player == null) return;
+
+                var resp = new ReviveResponse()
+                {
+                    Error = NetError.Success
+                };
+                if (!player.IsDeath())
+                {
+                    resp.Error = NetError.PlayerNotDead;
+                }
+                else
+                {
+                    player.Revive();
+                }
+                sender.Send(resp, null);
+
+            });
+        }
+
     }
 }
