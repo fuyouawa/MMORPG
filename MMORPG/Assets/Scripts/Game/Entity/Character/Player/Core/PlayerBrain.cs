@@ -207,6 +207,11 @@ namespace MMORPG.Game
         {
             if (States.IsNullOrEmpty()) return;
             CurrentState?.Update();
+
+            if (ActorController.Hp <= 0)
+            {
+                ChangeStateByName("Death");
+            }
         }
 
         private void FixedUpdate()
