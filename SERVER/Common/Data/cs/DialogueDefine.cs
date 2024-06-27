@@ -16,6 +16,7 @@ public class DialogueDefine
 	public string AcceptTask; // 接取任务id，接取失败时跳转的对话id
 	public string SubmitTask; // 提交任务id，提交失败时跳转的对话id
 	public int SaveDialogueId; // 
+	public string TipResource; // 头顶提示，疑问，感叹，星号
 }
 
 
