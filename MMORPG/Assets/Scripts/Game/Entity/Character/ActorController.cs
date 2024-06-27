@@ -24,6 +24,9 @@ namespace MMORPG.Game
         public int Level { get; set; }
         [ShowInInspector]
         [ReadOnly]
+        public int Exp { get; set; }
+        [ShowInInspector]
+        [ReadOnly]
         public int Gold { get; set; }
         [ShowInInspector]
         [ReadOnly]
