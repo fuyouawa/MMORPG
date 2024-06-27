@@ -23,6 +23,9 @@ MonoBehaviour:
       PathToRoot: Bar (Power)/Text Group/TextMpPercentage
       MemberName: TextMpPercentage
     - TypeName: DuloGames.UI.UIProgressBar
+      PathToRoot: ProgressBgHp
+      MemberName: ProgressBgHp
+    - TypeName: DuloGames.UI.UIProgressBar
       PathToRoot: ProgressHp
       MemberName: ProgressHp
     - TypeName: UnityEngine.UI.Text
@@ -37,8 +40,9 @@ MonoBehaviour:
     MainCode: "using UnityEngine;\r\nusing QFramework;\r\n\r\nnamespace MMORPG.Game\r\n{\r\n\tpublic
       partial class PlayerPropertyPanel : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
       Code Here\r\n\t\t}\r\n\t}\r\n}\r\n"
-    DesignerCode: "// Generate Id:fe161c8f-d875-4633-ad2e-916e8e50b956\r\nusing UnityEngine;\r\n\r\nnamespace
+    DesignerCode: "// Generate Id:f523efa3-a18e-4bf6-9774-804b437e5fc5\r\nusing UnityEngine;\r\n\r\nnamespace
       MMORPG.Game\r\n{\r\n\tpublic partial class PlayerPropertyPanel : QFramework.IController\r\n\t{\r\n\r\n\t\tpublic
       UnityEngine.UI.Text TextMpPercentage;\r\n\r\n\t\tpublic DuloGames.UI.UIProgressBar
-      ProgressHp;\r\n\r\n\t\tpublic UnityEngine.UI.Text TextHpPercentage;\r\n\r\n\t\tpublic
-      UnityEngine.UI.Text TextLevel;\r\n\r\n\t\tQFramework.IArchitecture QFramework.IBelongToArchitecture.GetArchitecture()=>MMORPG.Game.GameApp.Interface;\r\n\t}\r\n}\r\n"
+      ProgressBgHp;\r\n\r\n\t\tpublic DuloGames.UI.UIProgressBar ProgressHp;\r\n\r\n\t\tpublic
+      UnityEngine.UI.Text TextHpPercentage;\r\n\r\n\t\tpublic UnityEngine.UI.Text
+      TextLevel;\r\n\r\n\t\tQFramework.IArchitecture QFramework.IBelongToArchitecture.GetArchitecture()=>MMORPG.Game.GameApp.Interface;\r\n\t}\r\n}\r\n"

@@ -138,6 +138,13 @@ namespace MMORPG.Game
             CurrentState = null;
             if (States.Length == 0) return;
             ActorController.Entity.OnTransformSync += OnTransformEntitySync;
+            ActorController.Entity.OnHurt += info =>
+            {
+                if (ActorController.Hp - info.Amount <= 0)
+                {
+                    ChangeStateByName("Death");
+                }
+            };
 
             if (HandleWeapon != null)
                 HandleWeapon.Setup(this);
@@ -199,19 +206,17 @@ namespace MMORPG.Game
                 //TODO 捡起成功后播放音效
                 SoundManager.Instance.PlayerPickItemAudio.Play();
             });
-        }
 
-        private bool _prepareFire = false;
+            if (ActorController.Hp == 0)
+            {
+                ChangeStateByName("Death");
+            }
+        }
 
         private void Update()
         {
             if (States.IsNullOrEmpty()) return;
             CurrentState?.Update();
-
-            if (ActorController.Hp <= 0)
-            {
-                ChangeStateByName("Death");
-            }
         }
 
         private void FixedUpdate()
