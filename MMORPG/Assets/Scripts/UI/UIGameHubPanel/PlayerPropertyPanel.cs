@@ -19,6 +19,7 @@ namespace MMORPG.Game
             if (actorController != null)
             {
                 var per = (float)actorController.Hp / actorController.MaxHp;
+                ProgressHp.fillAmount = per;
                 per *= 100f;
                 TextHpPercentage.text = $"{per:0}%";
             }

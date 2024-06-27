@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 2373588231371601818}
   - component: {fileID: 1976325529059806719}
   - component: {fileID: 122206386740146585}
+  - component: {fileID: 8284582202058442487}
   m_Layer: 7
   m_Name: RemoteAbilities
   m_TagString: Untagged
@@ -168,6 +169,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6df2e41a4d49a7a44ab950913bf920bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnterAbilityFeedbacks: {fileID: 0}
+  ExitAbilityFeedbacks: {fileID: 0}
+--- !u!114 &8284582202058442487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171388820641581816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c959d1cd3a58a264487a2808ee6a15ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EnterAbilityFeedbacks: {fileID: 0}
@@ -836,6 +851,7 @@ GameObject:
   - component: {fileID: 8332389238172448655}
   - component: {fileID: 7368765020191805106}
   - component: {fileID: 1584828809849157921}
+  - component: {fileID: 4883505689159752699}
   m_Layer: 7
   m_Name: LocalAbilities
   m_TagString: Untagged
@@ -926,6 +942,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 243a23430bd7809428dd7ad82206e242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnterAbilityFeedbacks: {fileID: 0}
+  ExitAbilityFeedbacks: {fileID: 0}
+--- !u!114 &4883505689159752699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952149207982524674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 501567ff823b34849b3b3018a07e2992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EnterAbilityFeedbacks: {fileID: 0}
@@ -1131,6 +1161,12 @@ MonoBehaviour:
     Actions:
     - LocalAbilityName: LocalPlayerHurt
       RemoteAbilityName: RemotePlayerHurt
+    HandleTransitionsScripts: 1
+    Transitions: []
+  - Name: Death
+    Actions:
+    - LocalAbilityName: LocalPlayerDeath
+      RemoteAbilityName: RemotePlayerDeath
     HandleTransitionsScripts: 1
     Transitions: []
   HandleWeapon: {fileID: 318675475786937441}
