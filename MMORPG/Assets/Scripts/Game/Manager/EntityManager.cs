@@ -67,6 +67,9 @@ namespace MMORPG.Game
                         case EntityAttributeEntryType.Mp:
                             actor.Mp = entry.Int32;
                             break;
+                        case EntityAttributeEntryType.Exp:
+                            actor.Exp = entry.Int32;
+                            break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
