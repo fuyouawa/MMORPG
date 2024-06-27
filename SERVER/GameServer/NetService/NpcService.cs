@@ -12,6 +12,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using GameServer.EntitySystem;
 using GameServer.Manager;
 using MMORPG.Common.Proto.Inventory;
 using MMORPG.Common.Proto.Entity;
@@ -19,6 +20,7 @@ using GameServer.MapSystem;
 using MMORPG.Common.Proto.Npc;
 using MMORPG.Common.Tool;
 using Newtonsoft.Json;
+using GameServer.NpcSystem;
 
 namespace GameServer.NetService
 {
@@ -158,6 +160,32 @@ namespace GameServer.NetService
                     }
                 }
 
+                sender.Send(res, null);
+            });
+        }
+
+        public void OnHandle(NetChannel sender, QueryDialogueIdRequest req)
+        {
+            UpdateManager.Instance.AddTask(() =>
+            {
+                if (sender.User == null || sender.User.Player == null) return;
+                var player = sender.User.Player;
+
+                var e = EntityManager.Instance.GetEntity(req.EntityId);
+                var res = new QueryDialogueIdResponse()
+                {
+                    Error = NetError.Success,
+                };
+                if (e == null || !(e is Npc))
+                {
+                    res.Error = NetError.InvalidEntity;
+                }
+                else
+                {
+                    var npc = (Npc)e;
+                    res.EntityId = e.EntityId;
+                    res.DialogueId = player.DialogueManager.GetDialogueId(npc.NpcDefine.ID);
+                }
                 sender.Send(res, null);
             });
         }
