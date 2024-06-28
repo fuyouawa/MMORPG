@@ -1,5 +1,6 @@
 using System.Collections;
 using MMORPG.Common.Proto.Entity;
+using MMORPG.System;
 using MMORPG.Tool;
 using QFramework;
 using Sirenix.OdinInspector;
@@ -38,6 +39,25 @@ namespace MMORPG.Game
         [ReadOnly]
         public int MaxHp { get; set; }
 
+        [Title("Hit Effects")]
+        public ParticleSystem HitParticlePrefab;
+        public AudioSource HitAudio;
+        public ParticleSystem CritHitParticlePrefab;
+        public AudioSource CritHitAudio;
+        public ParticleSystem MissHitParticlePrefab;
+        public AudioSource MissHitAudio;
+        public float HitParticleDuration = 1f;
+        public float HitAudioDuration = 1f;
+
+        [Title("Hurt Effects")]
+        public AudioSource HurtAudio;
+        public AudioSource CritHurtAudio;
+        public AudioSource MissHurtAudio;
+
+        [Title("Hurt Property")]
+        [Required]
+        public Transform HurtPoint;
+
         public void ApplyNetActor(NetActor netActor)
         {
             if (netActor != null)
@@ -55,12 +75,70 @@ namespace MMORPG.Game
         public Rigidbody Rigidbody { get; private set; }
         public CapsuleCollider Collider { get; private set; }
 
+        private IEntityManagerSystem _entityManager;
+
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody>();
             Collider = GetComponent<CapsuleCollider>();
+            _entityManager = this.GetSystem<IEntityManagerSystem>();
 
             SkillManager = new(this);
+
+            Entity.OnHit += info =>
+            {
+                if (_entityManager.EntityDict.TryGetValue(info.TargetId, out var wounded))
+                {
+                    var woundedActor = wounded.GetComponentInChildren<ActorController>();
+                    if (woundedActor == null) return;
+
+                    if (info.IsMiss)
+                    {
+                        PlayHitEffects(woundedActor, MissHitParticlePrefab, MissHitAudio);
+                    }
+                    else if (info.IsCrit)
+                    {
+                        PlayHitEffects(woundedActor, CritHitParticlePrefab, CritHitAudio);
+                    }
+                    else
+                    {
+                        PlayHitEffects(woundedActor, HitParticlePrefab, HitAudio);
+                    }
+                }
+            };
+
+            Entity.OnHurt += info =>
+            {
+                if (info.IsMiss)
+                {
+                    MissHurtAudio?.PlayWithChildren();
+                }
+                else if (info.IsCrit)
+                {
+                    CritHurtAudio?.PlayWithChildren();
+                }
+                else
+                {
+                    HurtAudio?.PlayWithChildren();
+                }
+            };
+        }
+
+        private void PlayHitEffects(ActorController actor, ParticleSystem particle, AudioSource audio)
+        {
+            if (particle != null)
+            {
+                var p = Instantiate(particle, actor.HurtPoint);
+                p.gameObject.AddComponent<LifeTime>().Run(HitParticleDuration);
+                p.Play();
+            }
+
+            if (audio != null)
+            {
+                var a = Instantiate(audio, actor.HurtPoint);
+                a.gameObject.AddComponent<LifeTime>().Run(HitAudioDuration);
+                a.PlayWithChildren();
+            }
         }
 
         public void Initialize()
