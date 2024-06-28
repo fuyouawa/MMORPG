@@ -1,6 +1,7 @@
 using MMORPG.Common.Proto.Base;
 using MMORPG.Common.Proto.Player;
 using MMORPG.System;
+using MMORPG.Tool;
 using QFramework;
 using Serilog;
 using NotImplementedException = System.NotImplementedException;
@@ -9,6 +10,8 @@ namespace MMORPG.Game
 {
     public class LocalPlayerDeath : LocalPlayerAbility, IController
     {
+        public FeedbacksManager DeathFeedbacks;
+
         private INetworkSystem _network;
 
         public override void OnStateInit()
@@ -18,6 +21,7 @@ namespace MMORPG.Game
 
         public override void OnStateEnter()
         {
+            DeathFeedbacks?.Play();
             Revive();
         }
 

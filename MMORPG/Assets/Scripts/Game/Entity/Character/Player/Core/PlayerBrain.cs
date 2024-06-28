@@ -45,6 +45,7 @@ namespace MMORPG.Game
         [Title("Binding")]
         public PlayerHandleWeapon HandleWeapon;
         public GameObject[] AdditionalAbilityNodes;
+        public FeedbacksManager HurtFeedbacks;
 
         public GameInputControls InputControls { get; private set; }
 
@@ -143,6 +144,14 @@ namespace MMORPG.Game
                 if (ActorController.Hp - info.Amount <= 0)
                 {
                     ChangeStateByName("Death");
+                }
+                else
+                {
+                    HurtFeedbacks?.Play();
+                    if (ActorController.SkillManager.CurrentSpellingSkill == null)
+                    {
+                        ChangeStateByName("Hurt");
+                    }
                 }
             };
 
