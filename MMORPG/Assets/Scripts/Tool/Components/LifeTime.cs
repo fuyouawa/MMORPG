@@ -30,5 +30,11 @@ namespace MMORPG.Tool
                 }
             }
         }
+
+        public void Run(float lifeTime)
+        {
+            EnableLifeTime = true;
+            DestroyLifeTime = lifeTime;
+        }
     }
 }
