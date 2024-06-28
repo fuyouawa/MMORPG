@@ -34,9 +34,11 @@ namespace MMORPG.Game
             if (_tipDict == null)
             {
                 _tipDict = new();
-                _tipDict["疑问"] = Resources.Load<GameObject>("Prefabs/Effect/Npc/VerticalIconQuestionMark3D");
-                _tipDict["感叹"] = Resources.Load<GameObject>("Prefabs/Effect/Npc/VerticalIconExclamationMark3D");
-                _tipDict["星号"] = Resources.Load<GameObject>("Prefabs/Effect/Npc/VerticalIconStar3D");
+                var resLoader = ResLoader.Allocate();
+                _tipDict["疑问"] = resLoader.LoadSync<GameObject>("IconWhiteQuestion");
+                _tipDict["感叹"] = resLoader.LoadSync<GameObject>("IconWhiteExclamation");
+                _tipDict["星号"] = resLoader.LoadSync<GameObject>("IconWhiteReward");
+                resLoader.Recycle2Cache();
             }
 
             this.RegisterEvent<InteractEvent>(e =>
