@@ -5,28 +5,79 @@ using QFramework;
 
 namespace MMORPG.UI
 {
-	// Generate Id:04a43405-b343-42d1-ab33-ac5f865c1e5a
+	// Generate Id:0b9b275d-38ba-4244-8167-322024eeaa16
 	public partial class UIGameHubPanel
 	{
 		public const string Name = "UIGameHubPanel";
 		
 		[SerializeField]
+		public MMORPG.Game.PlayerPropertyPanel PlayerPropertyPanel;
+		[SerializeField]
+		public UnityEngine.UI.Text TextMpPercentage;
+		[SerializeField]
+		public UnityEngine.UI.Image ImageBgHpFill;
+		[SerializeField]
+		public UnityEngine.UI.Image ImageHpFill;
+		[SerializeField]
+		public UnityEngine.UI.Text TextHpPercentage;
+		[SerializeField]
+		public UnityEngine.UI.Text TextLevel;
+		[SerializeField]
 		public MMORPG.UI.UISkillPanel SkillPanel;
 		[SerializeField]
 		public MMORPG.UI.UIPlayerKnapsackPanel PlayerKnapsackPanel;
 		[SerializeField]
-		public MMORPG.UI.UIDialoguePanel DialoguePanel;
+		public RectTransform TipPanel;
 		[SerializeField]
-		public UnityEngine.UI.Image TipPanel;
+		public MMORPG.UI.DialoguePanel DialoguePanel;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TextName;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI Content;
+		[SerializeField]
+		public RectTransform GroupOptionBox;
+		[SerializeField]
+		public MMORPG.UI.ChatPanel ChatPanel;
+		[SerializeField]
+		public UnityEngine.UI.ToggleGroup GroupTabsMenu;
+		[SerializeField]
+		public MMORPG.UI.UIChatTabContent TabContentCompositeChat;
+		[SerializeField]
+		public MMORPG.UI.UIChatTabContent TabContentWorldChat;
+		[SerializeField]
+		public MMORPG.UI.UIChatTabContent TabContentMapChat;
+		[SerializeField]
+		public MMORPG.UI.UIChatTabContent TabContentGroupChat;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TextChannel;
+		[SerializeField]
+		public TMPro.TMP_InputField InputMessage;
 		
 		private UIGameHubPanelData mPrivateData = null;
 		
 		protected override void ClearUIComponents()
 		{
+			PlayerPropertyPanel = null;
+			TextMpPercentage = null;
+			ImageBgHpFill = null;
+			ImageHpFill = null;
+			TextHpPercentage = null;
+			TextLevel = null;
 			SkillPanel = null;
 			PlayerKnapsackPanel = null;
-			DialoguePanel = null;
 			TipPanel = null;
+			DialoguePanel = null;
+			TextName = null;
+			Content = null;
+			GroupOptionBox = null;
+			ChatPanel = null;
+			GroupTabsMenu = null;
+			TabContentCompositeChat = null;
+			TabContentWorldChat = null;
+			TabContentMapChat = null;
+			TabContentGroupChat = null;
+			TextChannel = null;
+			InputMessage = null;
 			
 			mData = null;
 		}
