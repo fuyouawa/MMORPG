@@ -28,9 +28,10 @@ namespace MMORPG.UI
 
         public void ClearOptionButton()
         {
-            for (int i = GroupOptionBox.childCount; i > 0; i--)
+            for (int i = GroupOptionBox.childCount - 1; i >= 0; i--)
             {
-                Destroy(GroupOptionBox.GetChild(i).gameObject);
+                var child = GroupOptionBox.GetChild(i);
+                Destroy(child.gameObject);
             }
         }
 
