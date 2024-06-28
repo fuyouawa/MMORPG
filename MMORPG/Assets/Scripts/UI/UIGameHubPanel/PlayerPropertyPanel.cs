@@ -21,14 +21,14 @@ namespace MMORPG.Game
             if (actorController != null)
             {
                 var per = (float)actorController.Hp / actorController.MaxHp;
-                ProgressHp.fillAmount = per;
-                if (ProgressHp.fillAmount > ProgressBgHp.fillAmount)
+                ImageHpFill.fillAmount = per;
+                if (ImageHpFill.fillAmount > ImageBgHpFill.fillAmount)
                 {
-                    ProgressBgHp.fillAmount = ProgressHp.fillAmount;
+                    ImageBgHpFill.fillAmount = ImageHpFill.fillAmount;
                 }
                 else
                 {
-                    ProgressBgHp.fillAmount = Mathf.Lerp(ProgressBgHp.fillAmount, per, BgHpLerp * Time.deltaTime);
+                    ImageBgHpFill.fillAmount = Mathf.Lerp(ImageBgHpFill.fillAmount, per, BgHpLerp * Time.deltaTime);
                 }
                 per *= 100f;
                 TextHpPercentage.text = $"{per:0}%";

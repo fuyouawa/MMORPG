@@ -25,13 +25,7 @@ namespace MMORPG.UI
 
             _inputControls.UI.Inventory.started += OnSwitchInventory;
             _inputControls.Player.Interact.started += OnInteract;
-        }
-
-		protected override void OnInit(IUIData uiData = null)
-		{
-			mData = uiData as UIGameHubPanelData ?? new UIGameHubPanelData();
-            // please add init code here
-
+            
             this.RegisterEvent<InteractEvent>(e =>
             {
                 if (e.Resp.Error != NetError.Success)
@@ -42,7 +36,8 @@ namespace MMORPG.UI
                 {
                     if (DialoguePanel.gameObject.activeSelf)
                     {
-                        PanelHelper.FadeOut(DialoguePanel.gameObject, 0, true, true, true, () =>
+                        ShowPlayerHub();
+                        PanelHelper.FadeOut(DialoguePanel.gameObject, onComplete: () =>
                         {
                             DialoguePanel.ClearOptionButton();
                         });
@@ -51,7 +46,8 @@ namespace MMORPG.UI
                 }
                 if (!DialoguePanel.gameObject.activeSelf)
                 {
-                    PanelHelper.FadeIn(DialoguePanel.gameObject, 0.3f, true, true, true, () =>
+                    HidePlayerHub();
+                    PanelHelper.FadeIn(DialoguePanel.gameObject, onComplete: () =>
                     {
                         DialoguePanel.OnInteract(e);
                     });
@@ -63,6 +59,12 @@ namespace MMORPG.UI
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
+		protected override void OnInit(IUIData uiData = null)
+		{
+			mData = uiData as UIGameHubPanelData ?? new UIGameHubPanelData();
+            // please add init code here
+        }
+        
         private void OnInteract(InputAction.CallbackContext obj)
         {
             DialoguePanel.Interact();
@@ -109,6 +111,20 @@ namespace MMORPG.UI
 		{
 
 		}
+
+        private void HidePlayerHub()
+        {
+            PanelHelper.FadeOut(ChatPanel.gameObject);
+            PanelHelper.FadeOut(PlayerPropertyPanel.gameObject);
+            PanelHelper.FadeOut(SkillPanel.gameObject);
+        }
+
+        private void ShowPlayerHub()
+        {
+            PanelHelper.FadeIn(ChatPanel.gameObject);
+            PanelHelper.FadeIn(PlayerPropertyPanel.gameObject);
+            PanelHelper.FadeIn(SkillPanel.gameObject);
+        }
 
         public IArchitecture GetArchitecture()
         {
