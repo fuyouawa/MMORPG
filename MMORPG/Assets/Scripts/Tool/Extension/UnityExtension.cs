@@ -94,5 +94,13 @@ namespace MMORPG.Tool
             transform.localRotation = localStore.LocalRotation;
             transform.localScale = localStore.LocalScale;
         }
+
+        public static void PlayWithChildren(this AudioSource audio)
+        {
+            foreach (var a in audio.GetComponentsInChildren<AudioSource>())
+            {
+                a.Play();
+            }
+        }
     }
 }
