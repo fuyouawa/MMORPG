@@ -1,4 +1,4 @@
-// Generate Id:f523efa3-a18e-4bf6-9774-804b437e5fc5
+// Generate Id:e5ba10a8-3f00-48f8-b0cc-a3491f0a99c9
 using UnityEngine;
 
 namespace MMORPG.Game
@@ -8,9 +8,9 @@ namespace MMORPG.Game
 
 		public UnityEngine.UI.Text TextMpPercentage;
 
-		public DuloGames.UI.UIProgressBar ProgressBgHp;
+		public UnityEngine.UI.Image ImageBgHpFill;
 
-		public DuloGames.UI.UIProgressBar ProgressHp;
+		public UnityEngine.UI.Image ImageHpFill;
 
 		public UnityEngine.UI.Text TextHpPercentage;
 

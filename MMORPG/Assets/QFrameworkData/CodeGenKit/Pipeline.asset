@@ -19,30 +19,37 @@ MonoBehaviour:
     From: 0
     NameToFullName: []
     BindInfos:
-    - TypeName: UnityEngine.UI.Text
-      PathToRoot: Bar (Power)/Text Group/TextMpPercentage
-      MemberName: TextMpPercentage
-    - TypeName: DuloGames.UI.UIProgressBar
-      PathToRoot: ProgressBgHp
-      MemberName: ProgressBgHp
-    - TypeName: DuloGames.UI.UIProgressBar
-      PathToRoot: ProgressHp
-      MemberName: ProgressHp
-    - TypeName: UnityEngine.UI.Text
-      PathToRoot: ProgressHp/Text Group/TextHpPercentage
-      MemberName: TextHpPercentage
-    - TypeName: UnityEngine.UI.Text
-      PathToRoot: Level Frame/TextLevel
-      MemberName: TextLevel
+    - TypeName: UnityEngine.UI.ToggleGroup
+      PathToRoot: Chat/GroupTabsMenu
+      MemberName: GroupTabsMenu
+    - TypeName: MMORPG.UI.UIChatTabContent
+      PathToRoot: Chat/Tabs Content/TabContentCompositeChat
+      MemberName: TabContentCompositeChat
+    - TypeName: MMORPG.UI.UIChatTabContent
+      PathToRoot: Chat/Tabs Content/TabContentWorldChat
+      MemberName: TabContentWorldChat
+    - TypeName: MMORPG.UI.UIChatTabContent
+      PathToRoot: Chat/Tabs Content/TabContentMapChat
+      MemberName: TabContentMapChat
+    - TypeName: MMORPG.UI.UIChatTabContent
+      PathToRoot: Chat/Tabs Content/TabContentGroupChat
+      MemberName: TabContentGroupChat
+    - TypeName: TMPro.TextMeshProUGUI
+      PathToRoot: Chat/InputMessageGroup/TextChannel
+      MemberName: TextChannel
+    - TypeName: TMPro.TMP_InputField
+      PathToRoot: Chat/InputMessageGroup/InputMessage
+      MemberName: InputMessage
     ScriptsFolder: Assets/Scripts/UI/UIGameHubPanel
-    ClassName: PlayerPropertyPanel
-    Namespace: MMORPG.Game
-    MainCode: "using UnityEngine;\r\nusing QFramework;\r\n\r\nnamespace MMORPG.Game\r\n{\r\n\tpublic
-      partial class PlayerPropertyPanel : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
+    ClassName: ChatPanel
+    Namespace: MMORPG.UI
+    MainCode: "using UnityEngine;\r\nusing QFramework;\r\n\r\nnamespace MMORPG.UI\r\n{\r\n\tpublic
+      partial class ChatPanel : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
       Code Here\r\n\t\t}\r\n\t}\r\n}\r\n"
-    DesignerCode: "// Generate Id:f523efa3-a18e-4bf6-9774-804b437e5fc5\r\nusing UnityEngine;\r\n\r\nnamespace
-      MMORPG.Game\r\n{\r\n\tpublic partial class PlayerPropertyPanel : QFramework.IController\r\n\t{\r\n\r\n\t\tpublic
-      UnityEngine.UI.Text TextMpPercentage;\r\n\r\n\t\tpublic DuloGames.UI.UIProgressBar
-      ProgressBgHp;\r\n\r\n\t\tpublic DuloGames.UI.UIProgressBar ProgressHp;\r\n\r\n\t\tpublic
-      UnityEngine.UI.Text TextHpPercentage;\r\n\r\n\t\tpublic UnityEngine.UI.Text
-      TextLevel;\r\n\r\n\t\tQFramework.IArchitecture QFramework.IBelongToArchitecture.GetArchitecture()=>MMORPG.Game.GameApp.Interface;\r\n\t}\r\n}\r\n"
+    DesignerCode: "// Generate Id:7a33944b-c6dc-4307-a831-98aed5893cdb\r\nusing UnityEngine;\r\n\r\nnamespace
+      MMORPG.UI\r\n{\r\n\tpublic partial class ChatPanel : QFramework.IController\r\n\t{\r\n\r\n\t\tpublic
+      UnityEngine.UI.ToggleGroup GroupTabsMenu;\r\n\r\n\t\tpublic MMORPG.UI.UIChatTabContent
+      TabContentCompositeChat;\r\n\r\n\t\tpublic MMORPG.UI.UIChatTabContent TabContentWorldChat;\r\n\r\n\t\tpublic
+      MMORPG.UI.UIChatTabContent TabContentMapChat;\r\n\r\n\t\tpublic MMORPG.UI.UIChatTabContent
+      TabContentGroupChat;\r\n\r\n\t\tpublic TMPro.TextMeshProUGUI TextChannel;\r\n\r\n\t\tpublic
+      TMPro.TMP_InputField InputMessage;\r\n\r\n\t\tQFramework.IArchitecture QFramework.IBelongToArchitecture.GetArchitecture()=>MMORPG.Game.GameApp.Interface;\r\n\t}\r\n}\r\n"
