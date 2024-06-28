@@ -17,13 +17,12 @@ namespace MMORPG.Game
     public class NpcBrain : MonoBehaviour, IController
     {
         public float GroundClearance;
-
         public ActorController ActorController;
-        private static Dictionary<string, GameObject> _tipDict;
-
         public FSM<AnimationState> FSM = new ();
 
         private GameObject _tip;
+
+        private static Dictionary<string, GameObject> _tipDict;
 
         private void Awake()
         {
@@ -43,9 +42,9 @@ namespace MMORPG.Game
             this.RegisterEvent<InteractEvent>(e =>
             {
                 if (e.Resp.Error != NetError.Success) return;
-                if (e.Resp.DialogueId != 0)
+                if (e.Resp.DialogueId == 0)
                 {
-                    LoadTip(e.Resp.DialogueId);
+                    this.SendCommand(new QueryDialogueIdCommand(ActorController.Entity.EntityId));
                 }
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
@@ -67,12 +66,13 @@ namespace MMORPG.Game
             if (_tip != null)
             {
                 Destroy(_tip);
+                _tip = null;
             }
             var dataManagerSystem = this.GetSystem<IDataManagerSystem>();
             var dialogueDefine = dataManagerSystem.GetDialogueDefine(dialogueId);
             if (dialogueDefine.TipResource == "")
             {
-                Destroy(_tip);
+                if (_tip != null)  Destroy(_tip);
                 return;
             }
             _tip = Instantiate(_tipDict[dialogueDefine.TipResource], transform);
