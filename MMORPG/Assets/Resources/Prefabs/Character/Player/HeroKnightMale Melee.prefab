@@ -1173,6 +1173,7 @@ MonoBehaviour:
   AdditionalAbilityNodes:
   - {fileID: 1952149207982524674}
   - {fileID: 171388820641581816}
+  HurtFeedbacks: {fileID: 5086840145885372305}
 --- !u!114 &318675475786937441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3510,7 +3511,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -3851,6 +3852,7 @@ Transform:
   m_Children:
   - {fileID: 899194400635972477}
   - {fileID: 189010334653391765}
+  - {fileID: 5996997580536282284}
   m_Father: {fileID: 2429740359941644855}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7043817481160811206
@@ -4254,6 +4256,130 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &7439001963851292433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5996997580536282284}
+  - component: {fileID: 5086840145885372305}
+  m_Layer: 7
+  m_Name: Hurt Feedback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5996997580536282284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7439001963851292433}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 204620109946203986}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5086840145885372305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7439001963851292433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fb458d4bea0fa48b80327cec288cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  InitializationMode: 0
+  AutoInitialization: 1
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
+  StopCurrentPlayIfNewPlay: 1
+  FeedbackItems:
+  - FeedbackName: MMORPG.Tool.FeedbackSound
+    Enable: 1
+    Label: Sound
+    Feedback:
+      rid: 4065860481593901208
+  references:
+    version: 2
+    RefIds:
+    - rid: 4065860481593901208
+      type: {class: FeedbackSound, ns: MMORPG.Tool, asm: Assembly-CSharp}
+      data:
+        DelayBeforePlay: 0
+        LoopPlay: 0
+        LimitLoopAmount: 0
+        AmountOfLoop: 1
+        DelayBetweenLoop: 0
+        StopAfterDuration: 1
+        Sfx: {fileID: 8300000, guid: 634d2dd19d5774647b467bf759cd9d3b, type: 3}
+        RandomSfx: []
+        PlayMethod: 0
+        PoolSize: 10
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 0.4
+        MaxVolume: 0.4
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!1 &7665732481079919491
 GameObject:
   m_ObjectHideFlags: 0
