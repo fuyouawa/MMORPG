@@ -1,9 +1,11 @@
+using System.Collections;
 using MMORPG.Common.Proto.Base;
 using MMORPG.Common.Proto.Player;
 using MMORPG.System;
 using MMORPG.Tool;
 using QFramework;
 using Serilog;
+using UnityEngine;
 using NotImplementedException = System.NotImplementedException;
 
 namespace MMORPG.Game
@@ -11,6 +13,7 @@ namespace MMORPG.Game
     public class LocalPlayerDeath : LocalPlayerAbility, IController
     {
         public FeedbacksManager DeathFeedbacks;
+        public FeedbacksManager ReviveFeedbacks;
 
         private INetworkSystem _network;
 
@@ -22,6 +25,19 @@ namespace MMORPG.Game
         public override void OnStateEnter()
         {
             DeathFeedbacks?.Play();
+            OwnerState.Brain.ActorController.Animator.SetTrigger("Die");
+            OwnerState.Brain.ActorController.Animator.SetBool("Death", true);
+            StartCoroutine("ReviveCo");
+        }
+
+        public override void OnStateExit()
+        {
+            StopCoroutine("ReviveCo");
+        }
+
+        private IEnumerator ReviveCo()
+        {
+            yield return new WaitForSeconds(3);
             Revive();
         }
 
@@ -36,6 +52,8 @@ namespace MMORPG.Game
                 return;
             }
             Log.Information("复活成功");
+            ReviveFeedbacks?.Play();
+            OwnerState.Brain.ActorController.Animator.SetBool("Death", false);
             OwnerState.Brain.ChangeStateByName("Idle");
         }
 
