@@ -83,6 +83,7 @@ namespace MMORPG.Game
             {
                 if (_entityManager.EntityDict.TryGetValue(response.Info.AttackerInfo.AttackerId, out var attacker))
                 {
+                    attacker.OnHit?.Invoke(response.Info);
                     Log.Information($"'{wounded.gameObject.name}'受到'{attacker.gameObject.name}'的{response.Info.AttackerInfo.AttackerType}攻击, 扣除{response.Info.Amount}点血量");
                 }
                 else

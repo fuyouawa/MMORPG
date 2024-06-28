@@ -15,6 +15,7 @@ namespace MMORPG.Game
         protected override void OnEnter()
         {
             mTarget.ActorController.Animator.SetTrigger("Attack");
+            mTarget.AttackFeedback?.Play();
         }
 
         protected override void OnExit()

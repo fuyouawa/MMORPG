@@ -45,6 +45,9 @@ namespace MMORPG.Game
         [Title("Binding")]
         public PlayerHandleWeapon HandleWeapon;
         public GameObject[] AdditionalAbilityNodes;
+        public FeedbacksManager HurtFeedbacks;
+
+        public bool IsDeath => CurrentState.Name == "Death";
 
         public GameInputControls InputControls { get; private set; }
 
@@ -140,9 +143,18 @@ namespace MMORPG.Game
             ActorController.Entity.OnTransformSync += OnTransformEntitySync;
             ActorController.Entity.OnHurt += info =>
             {
+                if (IsDeath) return;
                 if (ActorController.Hp - info.Amount <= 0)
                 {
                     ChangeStateByName("Death");
+                }
+                else
+                {
+                    HurtFeedbacks?.Play();
+                    if (ActorController.SkillManager.CurrentSpellingSkill == null)
+                    {
+                        ChangeStateByName("Hurt");
+                    }
                 }
             };
 
