@@ -1,5 +1,6 @@
 using System.Collections;
 using MMORPG.Common.Proto.Entity;
+using MMORPG.Event;
 using MMORPG.System;
 using MMORPG.Tool;
 using QFramework;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace MMORPG.Game
 {
-    public class ActorController : MonoBehaviour, IController
+    public class ActorController : MonoBehaviour, IController, ICanSendEvent
     {
         [Required]
         public EntityView Entity;
@@ -49,10 +50,10 @@ namespace MMORPG.Game
         public float HitParticleDuration = 1f;
         public float HitAudioDuration = 1f;
 
-        [Title("Hurt Effects")]
-        public AudioSource HurtAudio;
-        public AudioSource CritHurtAudio;
-        public AudioSource MissHurtAudio;
+        [Title("Hurt Feedback")]
+        public FeedbacksManager HurtFeedbacks;
+        public FeedbacksManager CritHurtFeedbacks;
+        public FeedbacksManager MissHurtFeedbacks;
 
         [Title("Hurt Property")]
         [Required]
@@ -111,15 +112,15 @@ namespace MMORPG.Game
             {
                 if (info.IsMiss)
                 {
-                    MissHurtAudio?.PlayWithChildren();
+                    MissHurtFeedbacks?.Play();
                 }
                 else if (info.IsCrit)
                 {
-                    CritHurtAudio?.PlayWithChildren();
+                    CritHurtFeedbacks?.Play();
                 }
                 else
                 {
-                    HurtAudio?.PlayWithChildren();
+                    HurtFeedbacks?.Play();
                 }
             };
         }
