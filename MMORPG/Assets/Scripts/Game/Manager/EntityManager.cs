@@ -56,7 +56,7 @@ namespace MMORPG.Game
                     switch (entry.Type)
                     {
                         case EntityAttributeEntryType.Level:
-                            actor.Level = entry.Int32;
+                            actor.Level.Value = entry.Int32;
                             break;
                         case EntityAttributeEntryType.Gold:
                             actor.Gold = entry.Int32;
@@ -79,6 +79,10 @@ namespace MMORPG.Game
                         case EntityAttributeEntryType.MaxMp:
                             actor.MaxMp = entry.Int32;
                             break;
+                        case EntityAttributeEntryType.FlagState:
+                            actor.FlagState.Value = (FlagStates)entry.Int32;
+                            break;
+                        case EntityAttributeEntryType.None:
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
@@ -137,7 +141,7 @@ namespace MMORPG.Game
 
                 if (entity.TryGetComponent<ActorController>(out var actor))
                 {
-                    actor.ApplyNetActor(data.Actor);
+                    actor.ApplyNetActor(data.Actor, true);
                 }
             }
         }

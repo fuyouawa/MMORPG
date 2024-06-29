@@ -106,7 +106,6 @@ namespace MMORPG.Common.Proto.Fight {
   #endregion
 
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CastInfo : pb::IMessage<CastInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -379,7 +378,6 @@ namespace MMORPG.Common.Proto.Fight {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SpellRequest : pb::IMessage<SpellRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -581,7 +579,6 @@ namespace MMORPG.Common.Proto.Fight {
   /// <summary>
   ///技能施放错误（只有施法玩家才会收到）
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SpellFailResponse : pb::IMessage<SpellFailResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -848,7 +845,6 @@ namespace MMORPG.Common.Proto.Fight {
   /// <summary>
   ///通知客户端执行技能
   /// </summary>
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SpellResponse : pb::IMessage<SpellResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
