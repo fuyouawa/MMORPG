@@ -35,11 +35,11 @@ namespace GameServer.AiSystem
         public Random Random = new();
 
         // 相对于出生点的活动范围
-        public float WalkRange = 10f;
+        public float WalkRange;
         // 相对于出生点的追击范围
-        public float ChaseRange = 10f;
+        public float ChaseRange;
         // 攻击范围
-        public float AttackRange = 1f;
+        public float AttackRange;
 
         public MonsterAbilityManager(Monster ownerMonster)
         {
@@ -47,6 +47,10 @@ namespace GameServer.AiSystem
             MoveAbility = new(OwnerMonster, OwnerMonster.InitPos.Y, OwnerMonster.Speed);
             IdleAbility = new();
             CastSkillAbility = new(OwnerMonster);
+
+            WalkRange = OwnerMonster.SpawnDefine.WalkRange;
+            ChaseRange = OwnerMonster.SpawnDefine.ChaseRange;
+            AttackRange = OwnerMonster.SpawnDefine.AttackRange;
         }
 
         public void Start()
@@ -142,6 +146,7 @@ namespace GameServer.AiSystem
         public void OnDeath()
         {
             MoveAbility.ClearForce();
+            OwnerMonster.ZeroFlagState();
             ChangeAnimationState(AnimationState.Death);
 
             // 掉落物品
