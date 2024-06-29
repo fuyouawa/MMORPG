@@ -110,11 +110,11 @@ namespace GameServer.PlayerSystem
             Level = newLevel;
             EntityAttributeEntrySync(EntityAttributeEntryType.Level, newLevel);
             AttributeManager.Recalculate();
-            ChangeHp(AttributeManager.Final.MaxHp);
-            ChangeMp(AttributeManager.Final.MaxMp);
             EntityAttributeEntrySync(EntityAttributeEntryType.MaxHp, AttributeManager.Final.MaxHp);
             EntityAttributeEntrySync(EntityAttributeEntryType.MaxMp, AttributeManager.Final.MaxMp);
             EntityAttributeEntrySync(EntityAttributeEntryType.MaxExp, CalculateExp(Level));
+            ChangeHp(AttributeManager.Final.MaxHp);
+            ChangeMp(AttributeManager.Final.MaxMp);
         }
 
         public static int CalculateExp(int level)
