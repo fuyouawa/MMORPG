@@ -1,10 +1,14 @@
-// Generate Id:410d8231-a7fa-4324-8aaa-01268b1ef98e
+// Generate Id:3a585b54-5b3a-42c8-9289-4e13cfa11205
 using UnityEngine;
 
 namespace MMORPG.UI
 {
 	public partial class UIMonsterCanvas : QFramework.IController
 	{
+
+		public TMPro.TextMeshProUGUI TextReviveTime;
+
+		public RectTransform GroupHub;
 
 		public TMPro.TextMeshProUGUI TextName;
 

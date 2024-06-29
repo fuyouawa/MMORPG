@@ -5,11 +5,15 @@ using QFramework;
 
 namespace MMORPG.UI
 {
-	// Generate Id:0b9b275d-38ba-4244-8167-322024eeaa16
+	// Generate Id:27d3bfb8-716b-4d76-95c6-96367575fa54
 	public partial class UIGameHubPanel
 	{
 		public const string Name = "UIGameHubPanel";
 		
+		[SerializeField]
+		public MMORPG.UI.RevivePanel RevivePanel;
+		[SerializeField]
+		public TMPro.TextMeshProUGUI TextReveiveTime;
 		[SerializeField]
 		public MMORPG.Game.PlayerPropertyPanel PlayerPropertyPanel;
 		[SerializeField]
@@ -57,6 +61,8 @@ namespace MMORPG.UI
 		
 		protected override void ClearUIComponents()
 		{
+			RevivePanel = null;
+			TextReveiveTime = null;
 			PlayerPropertyPanel = null;
 			TextMpPercentage = null;
 			ImageBgHpFill = null;
