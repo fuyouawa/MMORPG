@@ -25,6 +25,9 @@ namespace MMORPG.Game
         [Required]
         public PlayerAnimationController AnimationController;
 
+        public float ForcePower = 10f;
+        public float ReviveTime = 5f;
+
 #if UNITY_EDITOR
         [SerializeField]
         [ReadOnly]
@@ -76,6 +79,7 @@ namespace MMORPG.Game
         }
 
         private INetworkSystem _newtwork;
+        private IEntityManagerSystem _entityManager;
 
         private TAbility[] GetAttachAbilities<TAbility>() where TAbility : PlayerAbility
         {
@@ -136,6 +140,7 @@ namespace MMORPG.Game
             }
 #endif
             _newtwork = this.GetSystem<INetworkSystem>();
+            _entityManager = this.GetSystem<IEntityManagerSystem>();
             AnimationController.Setup(this);
             CurrentState = null;
             if (States.Length == 0) return;

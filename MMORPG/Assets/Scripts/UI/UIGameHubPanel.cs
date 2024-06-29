@@ -57,9 +57,27 @@ namespace MMORPG.UI
                     DialoguePanel.OnInteract(e);
                 }
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            this.RegisterEvent<MinePlayerDeathEvent>(OnMinePlayerDeath)
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
+            this.RegisterEvent<MinePlayerReviveEvent>(OnMinePlayerRevive)
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
-		protected override void OnInit(IUIData uiData = null)
+
+        private void OnMinePlayerDeath(MinePlayerDeathEvent e)
+        {
+            PanelHelper.FadeIn(RevivePanel.gameObject);
+            RevivePanel.BeginRevive(e.Player.ReviveTime);
+        }
+
+        private void OnMinePlayerRevive(MinePlayerReviveEvent e)
+        {
+            PanelHelper.FadeOut(RevivePanel.gameObject);
+            RevivePanel.EndRevive();
+        }
+
+        protected override void OnInit(IUIData uiData = null)
 		{
 			mData = uiData as UIGameHubPanelData ?? new UIGameHubPanelData();
             // please add init code here
