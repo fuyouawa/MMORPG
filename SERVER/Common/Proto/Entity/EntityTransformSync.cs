@@ -44,7 +44,6 @@ namespace MMORPG.Common.Proto.Entity {
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityTransformSyncRequest : pb::IMessage<EntityTransformSyncRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -354,7 +353,6 @@ namespace MMORPG.Common.Proto.Entity {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityTransformSyncResponse : pb::IMessage<EntityTransformSyncResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage

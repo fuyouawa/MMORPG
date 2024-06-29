@@ -32,7 +32,7 @@ namespace MMORPG.UI
 
             if (isComposite)
             {
-                var typeStr = type switch
+                string typeStr = type switch
                 {
                     ChatMessageType.World => "世界",
                     ChatMessageType.Group => "组队",

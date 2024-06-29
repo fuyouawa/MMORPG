@@ -31,9 +31,10 @@ namespace MMORPG.Common.Proto.Entity {
             "b2F0XxgDIAEoAkgAEhEKB3N0cmluZ18YBCABKAlIAEIHCgV2YWx1ZSJyChtF",
             "bnRpdHlBdHRyaWJ1dGVTeW5jUmVzcG9uc2USEQoJZW50aXR5X2lkGAEgASgF",
             "EkAKBmVudHJ5cxgCIAMoCzIwLk1NT1JQRy5Db21tb24uUHJvdG8uRW50aXR5",
-            "LkVudGl0eUF0dHJpYnV0ZUVudHJ5KlIKGEVudGl0eUF0dHJpYnV0ZUVudHJ5",
+            "LkVudGl0eUF0dHJpYnV0ZUVudHJ5KncKGEVudGl0eUF0dHJpYnV0ZUVudHJ5",
             "VHlwZRIICgROT05FEAASCQoFTEVWRUwQARIHCgNFWFAQAhIICgRHT0xEEAMS",
-            "BgoCSFAQBBIGCgJNUBAFYgZwcm90bzM="));
+            "BgoCSFAQBBIGCgJNUBAFEgoKBk1BWF9IUBAGEgsKB01BWF9FWFAQBxIKCgZN",
+            "QVhfTVAQCGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Entity.EntityAttributeEntryType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -52,12 +53,14 @@ namespace MMORPG.Common.Proto.Entity {
     [pbr::OriginalName("GOLD")] Gold = 3,
     [pbr::OriginalName("HP")] Hp = 4,
     [pbr::OriginalName("MP")] Mp = 5,
+    [pbr::OriginalName("MAX_HP")] MaxHp = 6,
+    [pbr::OriginalName("MAX_EXP")] MaxExp = 7,
+    [pbr::OriginalName("MAX_MP")] MaxMp = 8,
   }
 
   #endregion
 
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityAttributeEntry : pb::IMessage<EntityAttributeEntry>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -131,24 +134,10 @@ namespace MMORPG.Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int Int32 {
-      get { return HasInt32 ? (int) value_ : 0; }
+      get { return valueCase_ == ValueOneofCase.Int32 ? (int) value_ : 0; }
       set {
         value_ = value;
         valueCase_ = ValueOneofCase.Int32;
-      }
-    }
-    /// <summary>Gets whether the "int32_" field is set</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool HasInt32 {
-      get { return valueCase_ == ValueOneofCase.Int32; }
-    }
-    /// <summary> Clears the value of the oneof if it's currently set to "int32_" </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void ClearInt32() {
-      if (HasInt32) {
-        ClearValue();
       }
     }
 
@@ -157,24 +146,10 @@ namespace MMORPG.Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public float Float {
-      get { return HasFloat ? (float) value_ : 0F; }
+      get { return valueCase_ == ValueOneofCase.Float ? (float) value_ : 0F; }
       set {
         value_ = value;
         valueCase_ = ValueOneofCase.Float;
-      }
-    }
-    /// <summary>Gets whether the "float_" field is set</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool HasFloat {
-      get { return valueCase_ == ValueOneofCase.Float; }
-    }
-    /// <summary> Clears the value of the oneof if it's currently set to "float_" </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void ClearFloat() {
-      if (HasFloat) {
-        ClearValue();
       }
     }
 
@@ -183,24 +158,10 @@ namespace MMORPG.Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string String {
-      get { return HasString ? (string) value_ : ""; }
+      get { return valueCase_ == ValueOneofCase.String ? (string) value_ : ""; }
       set {
         value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
         valueCase_ = ValueOneofCase.String;
-      }
-    }
-    /// <summary>Gets whether the "string_" field is set</summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool HasString {
-      get { return valueCase_ == ValueOneofCase.String; }
-    }
-    /// <summary> Clears the value of the oneof if it's currently set to "string_" </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void ClearString() {
-      if (HasString) {
-        ClearValue();
       }
     }
 
@@ -254,9 +215,9 @@ namespace MMORPG.Common.Proto.Entity {
     public override int GetHashCode() {
       int hash = 1;
       if (Type != global::MMORPG.Common.Proto.Entity.EntityAttributeEntryType.None) hash ^= Type.GetHashCode();
-      if (HasInt32) hash ^= Int32.GetHashCode();
-      if (HasFloat) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Float);
-      if (HasString) hash ^= String.GetHashCode();
+      if (valueCase_ == ValueOneofCase.Int32) hash ^= Int32.GetHashCode();
+      if (valueCase_ == ValueOneofCase.Float) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Float);
+      if (valueCase_ == ValueOneofCase.String) hash ^= String.GetHashCode();
       hash ^= (int) valueCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -280,15 +241,15 @@ namespace MMORPG.Common.Proto.Entity {
         output.WriteRawTag(8);
         output.WriteEnum((int) Type);
       }
-      if (HasInt32) {
+      if (valueCase_ == ValueOneofCase.Int32) {
         output.WriteRawTag(16);
         output.WriteInt32(Int32);
       }
-      if (HasFloat) {
+      if (valueCase_ == ValueOneofCase.Float) {
         output.WriteRawTag(29);
         output.WriteFloat(Float);
       }
-      if (HasString) {
+      if (valueCase_ == ValueOneofCase.String) {
         output.WriteRawTag(34);
         output.WriteString(String);
       }
@@ -306,15 +267,15 @@ namespace MMORPG.Common.Proto.Entity {
         output.WriteRawTag(8);
         output.WriteEnum((int) Type);
       }
-      if (HasInt32) {
+      if (valueCase_ == ValueOneofCase.Int32) {
         output.WriteRawTag(16);
         output.WriteInt32(Int32);
       }
-      if (HasFloat) {
+      if (valueCase_ == ValueOneofCase.Float) {
         output.WriteRawTag(29);
         output.WriteFloat(Float);
       }
-      if (HasString) {
+      if (valueCase_ == ValueOneofCase.String) {
         output.WriteRawTag(34);
         output.WriteString(String);
       }
@@ -331,13 +292,13 @@ namespace MMORPG.Common.Proto.Entity {
       if (Type != global::MMORPG.Common.Proto.Entity.EntityAttributeEntryType.None) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
       }
-      if (HasInt32) {
+      if (valueCase_ == ValueOneofCase.Int32) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Int32);
       }
-      if (HasFloat) {
+      if (valueCase_ == ValueOneofCase.Float) {
         size += 1 + 4;
       }
-      if (HasString) {
+      if (valueCase_ == ValueOneofCase.String) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(String);
       }
       if (_unknownFields != null) {
@@ -436,7 +397,6 @@ namespace MMORPG.Common.Proto.Entity {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EntityAttributeSyncResponse : pb::IMessage<EntityAttributeSyncResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage

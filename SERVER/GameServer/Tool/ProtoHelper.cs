@@ -63,13 +63,12 @@ namespace GameServer.Tool
                 MaxMp = (int)actor.AttributeManager.Final.MaxMp,
                 Mp = (int)actor.Mp,
             };
-            if (actor is Player)
+            if (actor is Player player)
             {
-                var player = (Player)actor;
                 netActor.Exp = player.Exp;
-            }else if (actor is Monster)
+                netActor.MaxExp = Player.CalculateExp(player.Level);
+            }else if (actor is Monster monster)
             {
-                var monster = (Monster)actor;
                 netActor.ResurrectionTime = monster.SpawnDefine.Period;
             }
             return netActor;

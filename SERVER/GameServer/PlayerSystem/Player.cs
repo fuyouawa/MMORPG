@@ -111,9 +111,12 @@ namespace GameServer.PlayerSystem
             AttributeManager.Recalculate();
             ChangeHp(AttributeManager.Final.MaxHp);
             ChangeMp(AttributeManager.Final.MaxMp);
+            EntityAttributeEntrySync(EntityAttributeEntryType.MaxHp, AttributeManager.Final.MaxHp);
+            EntityAttributeEntrySync(EntityAttributeEntryType.MaxHp, AttributeManager.Final.MaxMp);
+            EntityAttributeEntrySync(EntityAttributeEntryType.MaxExp, CalculateExp(Level));
         }
 
-        private static int CalculateExp(int level)
+        public static int CalculateExp(int level)
         {
             // 基础经验值
             const int baseXP = 100;

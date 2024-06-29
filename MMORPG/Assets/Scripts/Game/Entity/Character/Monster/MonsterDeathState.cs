@@ -19,6 +19,10 @@ using MMORPG.Common.Proto.Entity;
                 mTarget.DeathFeedbacks.Play();
             }
             mTarget.ActorController.Animator.SetTrigger("Death");
+            if (mTarget.MonsterCanvas != null)
+            {
+                mTarget.MonsterCanvas.BeginRevive(mTarget.ActorController.ReviveTime);
+            }
         }
 
         protected override void OnExit()
@@ -27,7 +31,7 @@ using MMORPG.Common.Proto.Entity;
             mTarget.ActorController.Animator.Play("Idle");
             if (mTarget.MonsterCanvas != null)
             {
-                mTarget.MonsterCanvas.gameObject.SetActive(true);
+                mTarget.MonsterCanvas.EndRevive();
             }
         }
     }

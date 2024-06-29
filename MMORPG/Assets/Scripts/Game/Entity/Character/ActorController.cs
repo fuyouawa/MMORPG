@@ -29,6 +29,9 @@ namespace MMORPG.Game
         public int Exp { get; set; }
         [ShowInInspector]
         [ReadOnly]
+        public int MaxExp { get; set; }
+        [ShowInInspector]
+        [ReadOnly]
         public int Gold { get; set; }
         [ShowInInspector]
         [ReadOnly]
@@ -38,7 +41,13 @@ namespace MMORPG.Game
         public int Mp { get; set; }
         [ShowInInspector]
         [ReadOnly]
+        public int MaxMp { get; set; }
+        [ShowInInspector]
+        [ReadOnly]
         public int MaxHp { get; set; }
+        [ShowInInspector]
+        [ReadOnly]
+        public int ReviveTime { get; set; }
 
         [Title("Hit Effects")]
         public ParticleSystem HitParticlePrefab;
@@ -67,6 +76,10 @@ namespace MMORPG.Game
                 Hp = netActor.Hp;
                 Mp = netActor.Mp;
                 MaxHp = netActor.MaxHp;
+                MaxMp = netActor.MaxMp;
+                Exp = netActor.Exp;
+                MaxExp = netActor.MaxExp;
+                ReviveTime = netActor.ResurrectionTime;
             }
         }
 

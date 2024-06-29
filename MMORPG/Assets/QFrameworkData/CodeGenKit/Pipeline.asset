@@ -19,16 +19,33 @@ MonoBehaviour:
     From: 0
     NameToFullName: []
     BindInfos:
-    - TypeName: TMPro.TextMeshProUGUI
-      PathToRoot: TextReveiveTime
-      MemberName: TextReveiveTime
+    - TypeName: UnityEngine.UI.Image
+      PathToRoot: Bar (Power)/ImageMpFill
+      MemberName: ImageMpFill
+    - TypeName: UnityEngine.UI.Text
+      PathToRoot: Bar (Power)/Text Group/TextMpPercentage
+      MemberName: TextMpPercentage
+    - TypeName: UnityEngine.UI.Image
+      PathToRoot: ProgressHp/ImageBgHpFill
+      MemberName: ImageBgHpFill
+    - TypeName: UnityEngine.UI.Image
+      PathToRoot: ProgressHp/ImageHpFill
+      MemberName: ImageHpFill
+    - TypeName: UnityEngine.UI.Text
+      PathToRoot: ProgressHp/Text Group/TextHpPercentage
+      MemberName: TextHpPercentage
+    - TypeName: UnityEngine.UI.Text
+      PathToRoot: Level Frame/TextLevel
+      MemberName: TextLevel
     ScriptsFolder: Assets/Scripts/UI/UIGameHubPanel
-    ClassName: RevivePanel
-    Namespace: MMORPG.UI
-    MainCode: "using UnityEngine;\r\nusing QFramework;\r\n\r\nnamespace MMORPG.UI\r\n{\r\n\tpublic
-      partial class RevivePanel : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
+    ClassName: PlayerPropertyPanel
+    Namespace: MMORPG.Game
+    MainCode: "using UnityEngine;\r\nusing QFramework;\r\n\r\nnamespace MMORPG.Game\r\n{\r\n\tpublic
+      partial class PlayerPropertyPanel : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
       Code Here\r\n\t\t}\r\n\t}\r\n}\r\n"
-    DesignerCode: "// Generate Id:67369d47-58d4-4382-976a-ec189419dc3d\r\nusing UnityEngine;\r\n\r\nnamespace
-      MMORPG.UI\r\n{\r\n\tpublic partial class RevivePanel : QFramework.IController\r\n\t{\r\n\r\n\t\tpublic
-      TMPro.TextMeshProUGUI TextReveiveTime;\r\n\r\n\t\tQFramework.IArchitecture
-      QFramework.IBelongToArchitecture.GetArchitecture()=>MMORPG.Game.GameApp.Interface;\r\n\t}\r\n}\r\n"
+    DesignerCode: "// Generate Id:380737e3-451b-4f50-89ec-7ef66495d1e2\r\nusing UnityEngine;\r\n\r\nnamespace
+      MMORPG.Game\r\n{\r\n\tpublic partial class PlayerPropertyPanel : QFramework.IController\r\n\t{\r\n\r\n\t\tpublic
+      UnityEngine.UI.Image ImageMpFill;\r\n\r\n\t\tpublic UnityEngine.UI.Text TextMpPercentage;\r\n\r\n\t\tpublic
+      UnityEngine.UI.Image ImageBgHpFill;\r\n\r\n\t\tpublic UnityEngine.UI.Image
+      ImageHpFill;\r\n\r\n\t\tpublic UnityEngine.UI.Text TextHpPercentage;\r\n\r\n\t\tpublic
+      UnityEngine.UI.Text TextLevel;\r\n\r\n\t\tQFramework.IArchitecture QFramework.IBelongToArchitecture.GetArchitecture()=>MMORPG.Game.GameApp.Interface;\r\n\t}\r\n}\r\n"
