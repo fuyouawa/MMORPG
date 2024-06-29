@@ -26,7 +26,7 @@ namespace GameServer.EntitySystem
         public SkillManager SkillManager { get; protected set; }
         public BuffManager BuffManager { get; protected set; }
         public Spell Spell { get; protected set; }
-        public FlagState FlagState { get; protected set; } = FlagState.Zero;
+        public FlagStates FlagState { get; protected set; } = FlagStates.Zero;
 
         public Actor(EntityType entityType, int entityId, UnitDefine unitDefine,
             Map map, Vector3 pos, Vector3 dire, string name, int level) 
@@ -82,20 +82,20 @@ namespace GameServer.EntitySystem
             EntityAttributeEntrySync(EntityAttributeEntryType.Mp, (int)Mp);
         }
 
-        public void AddFlagState(FlagState state)
+        public void AddFlagState(FlagStates state)
         {
             var tmp = FlagState | state;
             if (tmp == FlagState) return;
             FlagState = tmp;
-            EntityAttributeEntrySync(EntityAttributeEntryType.FlagState, FlagState);
+            EntityAttributeEntrySync(EntityAttributeEntryType.FlagState, (int)FlagState);
         }
 
-        public void RemoveFlagState(FlagState state)
+        public void RemoveFlagState(FlagStates state)
         {
             var tmp = FlagState & ~state;
             if (tmp == FlagState) return;
             FlagState = tmp;
-            EntityAttributeEntrySync(EntityAttributeEntryType.FlagState, FlagState);
+            EntityAttributeEntrySync(EntityAttributeEntryType.FlagState, (int)FlagState);
         }
 
         public virtual void OnHurt(DamageInfo info)

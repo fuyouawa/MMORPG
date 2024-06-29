@@ -41,7 +41,6 @@ namespace MMORPG.Common.Proto.Npc {
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class QueryDialogueIdRequest : pb::IMessage<QueryDialogueIdRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -231,7 +230,6 @@ namespace MMORPG.Common.Proto.Npc {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class QueryDialogueIdResponse : pb::IMessage<QueryDialogueIdResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
