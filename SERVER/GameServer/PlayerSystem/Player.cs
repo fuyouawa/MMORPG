@@ -107,12 +107,13 @@ namespace GameServer.PlayerSystem
         public void ChangeLevel(int newLevel)
         {
             if (Level == newLevel) return;
+            Level = newLevel;
             EntityAttributeEntrySync(EntityAttributeEntryType.Level, newLevel);
             AttributeManager.Recalculate();
             ChangeHp(AttributeManager.Final.MaxHp);
             ChangeMp(AttributeManager.Final.MaxMp);
             EntityAttributeEntrySync(EntityAttributeEntryType.MaxHp, AttributeManager.Final.MaxHp);
-            EntityAttributeEntrySync(EntityAttributeEntryType.MaxHp, AttributeManager.Final.MaxMp);
+            EntityAttributeEntrySync(EntityAttributeEntryType.MaxMp, AttributeManager.Final.MaxMp);
             EntityAttributeEntrySync(EntityAttributeEntryType.MaxExp, CalculateExp(Level));
         }
 

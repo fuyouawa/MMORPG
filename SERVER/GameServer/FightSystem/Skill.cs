@@ -115,6 +115,12 @@ namespace GameServer.FightSystem
             {
                 return CastResult.EntityDead;
             }
+
+            if (OwnerActor.Mp < Define.Cost)
+            {
+                return CastResult.MpLack;
+            }
+
             if (castTarget is CastTargetEntity target)
             {
                 var targetActor = target.Entity as Actor;
@@ -136,6 +142,9 @@ namespace GameServer.FightSystem
             CurrentStage = Stage.Ready;
             _castTarget = castTarget;
             OwnerActor.Spell.CurrentRunSkill = this;
+
+            OwnerActor.ChangeMp(-Define.Cost);
+
             return CastResult.Success;
         }
 
