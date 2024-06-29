@@ -28,6 +28,7 @@ namespace GameServer.PlayerSystem
         private Map _map;
         private Dictionary<int, Player> _playerDict = new();
         private float _updateDbCountdown;
+        private Queue<Player> _leavePlayerQueue = new();
 
         public PlayerManager(Map map)
         {
@@ -49,6 +50,12 @@ namespace GameServer.PlayerSystem
                 {
                     characters.Add(player.ToDbCharacter());
                 }
+                foreach (var player in _leavePlayerQueue)
+                {
+                    characters.Add(player.ToDbCharacter());
+                }
+                _leavePlayerQueue.Clear();
+
                 SqlDb.Connection.Update<DbCharacter>()
                     .SetSource(characters)
                     .IgnoreColumns(c => new { c.Id, c.Name, c.UserId, c.UnitId })
@@ -85,6 +92,8 @@ namespace GameServer.PlayerSystem
         {
             EntityManager.Instance.RemoveEntity(player);
             _playerDict.Remove(player.EntityId);
+
+            _leavePlayerQueue.Enqueue(player);
         }
 
         /// <summary>

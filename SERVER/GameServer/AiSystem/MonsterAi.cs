@@ -162,6 +162,17 @@ namespace GameServer.AiSystem
                     RewardManager.Instance.Distribute(rewardId, entity);
                 }
             }
+
+            // 掉落经验
+            {
+                if (OwnerMonster.DamageSourceInfo == null) return;
+                var entity =
+                    EntityManager.Instance.GetEntity(OwnerMonster.DamageSourceInfo.AttackerInfo.AttackerId);
+                var exp = (int)(OwnerMonster.UnitDefine.DropExpBase *
+                          Math.Pow(OwnerMonster.Level, OwnerMonster.UnitDefine.DropExpLevelFactor));
+                if (entity == null || !(entity is Player player)) return;
+                player.ChangeExp(exp);
+            }
         }
 
         private void ChangeAnimationState(AnimationState state)
