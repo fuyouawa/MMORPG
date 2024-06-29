@@ -14,7 +14,7 @@ namespace GameServer.BuffSystem
         private Dictionary<int, LinkedList<Buff>> _buffDict = new();
 
         public Actor OwnerActor {get; private set; }
-        public FlagState FlagState { get; private set; }
+        public FlagStates FlagState { get; private set; }
 
         public BuffManager(Actor ownerActor)
         {
