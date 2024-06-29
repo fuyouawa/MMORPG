@@ -34,8 +34,8 @@ namespace GameServer.AiSystem.Ability
             var actor = Entity as Actor;
             // 如果不可移动
             if (actor != null && 
-                (actor.FlagState & FlagState.Root) == FlagState.Root || 
-                (actor.FlagState & FlagState.Stun) == FlagState.Stun)
+                (actor.FlagState & FlagStates.Root) == FlagStates.Root || 
+                (actor.FlagState & FlagStates.Stun) == FlagStates.Stun)
                 StopMove();
             
             _lastPosition = Entity.Position;

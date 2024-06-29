@@ -16,6 +16,9 @@ public class SpawnDefine
 	public int Level; // 单位等级
 	public int Period; // 刷新周期（秒）
 	public string killRewardList; // 击杀奖励
+	public float WalkRange; // 巡逻范围
+	public float ChaseRange; // 追击范围
+	public float AttackRange; // 攻击范围
 }
 
 

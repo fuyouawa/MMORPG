@@ -4,7 +4,7 @@ package MMORPG.Common.Proto.Entity;
 import "Entity/ActorState.proto";
 
 message NetActor {
-    FlagState flag_state = 1;
+	FlagStates flag_state = 1;
     int32 level = 2;
     int32 max_hp = 3;
     int32 hp = 4;
