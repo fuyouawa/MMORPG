@@ -11,6 +11,8 @@ using MMORPG.Common.Proto.Character;
 using MMORPG.Common.Proto.Entity;
 using GameServer.Db;
 using GameServer.EntitySystem;
+using GameServer.MonsterSystem;
+using GameServer.PlayerSystem;
 
 namespace GameServer.Tool
 {
@@ -61,6 +63,15 @@ namespace GameServer.Tool
                 MaxMp = (int)actor.AttributeManager.Final.MaxMp,
                 Mp = (int)actor.Mp,
             };
+            if (actor is Player)
+            {
+                var player = (Player)actor;
+                netActor.Exp = player.Exp;
+            }else if (actor is Monster)
+            {
+                var monster = (Monster)actor;
+                netActor.ResurrectionTime = monster.SpawnDefine.Period;
+            }
             return netActor;
         }
 
