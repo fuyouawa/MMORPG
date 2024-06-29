@@ -67,13 +67,13 @@ namespace MMORPG.UI
 
         private void OnMinePlayerDeath(MinePlayerDeathEvent e)
         {
-            PanelHelper.FadeIn(RevivePanel.gameObject);
+            PanelHelper.FadeIn(RevivePanel.gameObject, 0.5f);
             RevivePanel.BeginRevive(e.Player.ReviveTime);
         }
 
         private void OnMinePlayerRevive(MinePlayerReviveEvent e)
         {
-            PanelHelper.FadeOut(RevivePanel.gameObject);
+            PanelHelper.FadeOut(RevivePanel.gameObject, 0.5f);
             RevivePanel.EndRevive();
         }
 
