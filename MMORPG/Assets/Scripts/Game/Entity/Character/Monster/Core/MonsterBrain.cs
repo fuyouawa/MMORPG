@@ -26,9 +26,6 @@ namespace MMORPG.Game
         public UIMonsterCanvas MonsterCanvas;
 
         [Title("Feedbacks")]
-        public FeedbacksManager HurtFeedbacks;
-        public FeedbacksManager CritHurtFeedbacks;
-        public FeedbacksManager MissHurtFeedbacks;
         public FeedbacksManager DeathFeedbacks;
         public FeedbacksManager ResurrectionFeedbacks;
         public FeedbacksManager AttackFeedback;
@@ -81,22 +78,6 @@ namespace MMORPG.Game
             if (ActorController.Hp - info.Amount <= 0)
             {
                 return;
-            }
-
-            if (info.IsCrit)
-            {
-                if (CritHurtFeedbacks != null)
-                    CritHurtFeedbacks.Play();
-            }
-            else if (info.IsMiss)
-            {
-                if (MissHurtFeedbacks != null)
-                    MissHurtFeedbacks.Play();
-            }
-            else
-            {
-                if (HurtFeedbacks != null)
-                    HurtFeedbacks.Play();
             }
 
             if (!info.IsMiss)
