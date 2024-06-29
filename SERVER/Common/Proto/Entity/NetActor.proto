@@ -1,14 +1,16 @@
 syntax = "proto3";
 
 package MMORPG.Common.Proto.Entity;
+import "Entity/ActorState.proto";
 
 message NetActor {
-    int32 Level = 1;
-    int32 MaxHp = 2;
-    int32 Hp = 3;
-    int32 MaxMp = 4;
-    int32 Mp = 5;
-    int32 Exp = 6;
-    int32 MaxExp = 7;
-    int32 resurrection_time = 8;
+    FlagState flag_state = 1;
+    int32 level = 2;
+    int32 max_hp = 3;
+    int32 hp = 4;
+    int32 max_mp = 5;
+    int32 mp = 6;
+    int32 exp = 7;
+    int32 max_exp = 8;
+    int32 resurrection_time = 9;
 }
