@@ -40,7 +40,6 @@ namespace MMORPG.Common.Proto.Character {
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CharacterDeleteRequest : pb::IMessage<CharacterDeleteRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -230,7 +229,6 @@ namespace MMORPG.Common.Proto.Character {
 
   }
 
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CharacterDeleteResponse : pb::IMessage<CharacterDeleteResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage

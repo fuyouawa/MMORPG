@@ -25,7 +25,8 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _BLENDMODE_ALPHA _DOUBLESIDED_ON _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -33,6 +34,7 @@ Material:
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
+  - TransparentBackface
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -119,7 +121,7 @@ Material:
     - _Depthpower: 1
     - _DetailNormalMapScale: 1
     - _Distortionpower: 0.05
-    - _DstBlend: 1
+    - _DstBlend: 10
     - _DstMode: 10
     - _Emission: 4
     - _GlossMapScale: 1

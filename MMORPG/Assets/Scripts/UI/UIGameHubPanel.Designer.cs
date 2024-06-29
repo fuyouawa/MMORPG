@@ -5,7 +5,7 @@ using QFramework;
 
 namespace MMORPG.UI
 {
-	// Generate Id:27d3bfb8-716b-4d76-95c6-96367575fa54
+	// Generate Id:06f63f98-326b-4d2f-a112-8589057d718e
 	public partial class UIGameHubPanel
 	{
 		public const string Name = "UIGameHubPanel";
@@ -16,6 +16,8 @@ namespace MMORPG.UI
 		public TMPro.TextMeshProUGUI TextReveiveTime;
 		[SerializeField]
 		public MMORPG.Game.PlayerPropertyPanel PlayerPropertyPanel;
+		[SerializeField]
+		public UnityEngine.UI.Image ImageMpFill;
 		[SerializeField]
 		public UnityEngine.UI.Text TextMpPercentage;
 		[SerializeField]
@@ -64,6 +66,7 @@ namespace MMORPG.UI
 			RevivePanel = null;
 			TextReveiveTime = null;
 			PlayerPropertyPanel = null;
+			ImageMpFill = null;
 			TextMpPercentage = null;
 			ImageBgHpFill = null;
 			ImageHpFill = null;
