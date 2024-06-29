@@ -1,3 +1,4 @@
+using DuloGames.UI;
 using MMORPG.System;
 using QFramework;
 using UnityEngine;
@@ -7,31 +8,41 @@ namespace MMORPG.Game
 	public partial class PlayerPropertyPanel : ViewController
     {
         public float BgHpLerp = 3f;
+        public UIProgressBar ProgressXpBar;
 
-        private ActorController actorController;
+        private ActorController _actorController;
 
         async void Start()
         {
             var mine = await this.GetSystem<IPlayerManagerSystem>().GetMineEntityTask();
-            actorController = mine.GetComponent<ActorController>();
+            _actorController = mine.GetComponent<ActorController>();
         }
 
         void Update()
         {
-            if (actorController != null)
+            if (_actorController != null)
             {
-                var per = (float)actorController.Hp / actorController.MaxHp;
-                ImageHpFill.fillAmount = per;
+                var hpPer = (float)_actorController.Hp / _actorController.MaxHp;
+                ImageHpFill.fillAmount = hpPer;
                 if (ImageHpFill.fillAmount > ImageBgHpFill.fillAmount)
                 {
                     ImageBgHpFill.fillAmount = ImageHpFill.fillAmount;
                 }
                 else
                 {
-                    ImageBgHpFill.fillAmount = Mathf.Lerp(ImageBgHpFill.fillAmount, per, BgHpLerp * Time.deltaTime);
+                    ImageBgHpFill.fillAmount = Mathf.Lerp(ImageBgHpFill.fillAmount, hpPer, BgHpLerp * Time.deltaTime);
                 }
-                per *= 100f;
-                TextHpPercentage.text = $"{per:0}%";
+                hpPer *= 100f;
+                TextHpPercentage.text = $"{hpPer:0}%";
+
+                var mpPer = (float)_actorController.Mp / _actorController.MaxMp;
+                ImageMpFill.fillAmount = mpPer;
+                mpPer *= 100f;
+                TextMpPercentage.text = $"{mpPer:0}%";
+
+                TextLevel.text = _actorController.Level.ToString();
+
+                ProgressXpBar.fillAmount = (float)_actorController.Exp / _actorController.MaxExp;
             }
         }
 	}

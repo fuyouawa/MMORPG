@@ -2686,7 +2686,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1242314848480310391}
-  - component: {fileID: 8117355472830078073}
   - component: {fileID: 9001069689274254807}
   - component: {fileID: 1641294405972899301}
   m_Layer: 5
@@ -2718,30 +2717,6 @@ RectTransform:
   m_AnchoredPosition: {x: 54, y: -70}
   m_SizeDelta: {x: 568, y: 64}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &8117355472830078073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1329976591049656908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373415518a0b7b947977a3d9880aca41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Type: 0
-  m_TargetImage: {fileID: 5386162382621092916}
-  m_Sprites: []
-  m_TargetTransform: {fileID: 0}
-  m_FillSizing: 0
-  m_MinWidth: 0
-  m_MaxWidth: 100
-  m_FillAmount: 1
-  m_Steps: 0
-  onChange:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!222 &9001069689274254807
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5181,7 +5156,7 @@ GameObject:
   - component: {fileID: 291048491314078392}
   - component: {fileID: 3518476270075009971}
   m_Layer: 5
-  m_Name: XP Bar
+  m_Name: ProgressXpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6266,7 +6241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4049153785645179392
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6344,7 +6319,7 @@ MonoBehaviour:
   PrefabFolder: Assets/Resources/Prefab
   ArchitectureFullTypeName: MMORPG.Game.GameApp
   ViewControllerFullTypeName: 
-  TextReveiveTime: {fileID: 0}
+  TextReveiveTime: {fileID: 7163966625693930742}
 --- !u!114 &5182929210269723569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9404,6 +9379,7 @@ MonoBehaviour:
   RevivePanel: {fileID: 1873550170989982262}
   TextReveiveTime: {fileID: 7163966625693930742}
   PlayerPropertyPanel: {fileID: 648458565799976356}
+  ImageMpFill: {fileID: 5386162382621092916}
   TextMpPercentage: {fileID: 580550686867855099}
   ImageBgHpFill: {fileID: 310832298258456577}
   ImageHpFill: {fileID: 5852715403600981058}
@@ -10360,6 +10336,8 @@ MonoBehaviour:
   ArchitectureFullTypeName: MMORPG.Game.GameApp
   ViewControllerFullTypeName: 
   BgHpLerp: 3
+  ProgressXpBar: {fileID: 6131045049663998533}
+  ImageMpFill: {fileID: 5386162382621092916}
   TextMpPercentage: {fileID: 580550686867855099}
   ImageBgHpFill: {fileID: 310832298258456577}
   ImageHpFill: {fileID: 5852715403600981058}
@@ -13467,8 +13445,9 @@ GameObject:
   - component: {fileID: 3192208563753771798}
   - component: {fileID: 5241549887521162262}
   - component: {fileID: 5386162382621092916}
+  - component: {fileID: 3205610581800336557}
   m_Layer: 5
-  m_Name: Fill
+  m_Name: ImageMpFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13531,6 +13510,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3205610581800336557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5661797217245220660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d51f3a7c41ab0346b49ae50d456bece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarkType: 0
+  CustomComponentName: Fill
+  CustomComment: 
+  mComponentName: UnityEngine.UI.Image
 --- !u!1 &5671486262526030066
 GameObject:
   m_ObjectHideFlags: 0

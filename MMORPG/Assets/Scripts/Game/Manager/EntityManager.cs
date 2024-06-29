@@ -70,6 +70,15 @@ namespace MMORPG.Game
                         case EntityAttributeEntryType.Exp:
                             actor.Exp = entry.Int32;
                             break;
+                        case EntityAttributeEntryType.MaxHp:
+                            actor.MaxHp = entry.Int32;
+                            break;
+                        case EntityAttributeEntryType.MaxExp:
+                            actor.MaxExp = entry.Int32;
+                            break;
+                        case EntityAttributeEntryType.MaxMp:
+                            actor.MaxMp = entry.Int32;
+                            break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
