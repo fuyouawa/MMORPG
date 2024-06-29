@@ -44,23 +44,23 @@ namespace GameServer.BuffSystem
                 {
                     string name = property.Name;
                     bool enable = property.Value.Value<bool>();
-                    FlagState flag = FlagState.Zero;
+                    FlagStates flag = FlagStates.Zero;
                     switch (name)
                     {
                         case "Stun":
-                            flag = FlagState.Stun;
+                            flag = FlagStates.Stun;
                             break;
                         case "Root":
-                            flag = FlagState.Root;
+                            flag = FlagStates.Root;
                             break;
                         case "Silence":
-                            flag = FlagState.Silence;
+                            flag = FlagStates.Silence;
                             break;
                         case "Invincible":
-                            flag = FlagState.Invincible;
+                            flag = FlagStates.Invincible;
                             break;
                         case "Invisible":
-                            flag = FlagState.Invisible;
+                            flag = FlagStates.Invisible;
                             break;
                     }
                     if (enable)

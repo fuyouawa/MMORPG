@@ -26,12 +26,12 @@ namespace MMORPG.Common.Proto.Entity {
           string.Concat(
             "ChdFbnRpdHkvQWN0b3JTdGF0ZS5wcm90bxIaTU1PUlBHLkNvbW1vbi5Qcm90",
             "by5FbnRpdHkqRAoOQW5pbWF0aW9uU3RhdGUSCAoESURMRRAAEggKBE1PVkUQ",
-            "ARIJCgVTS0lMTBACEggKBEhVUlQQAxIJCgVERUFUSBAEKlUKCUZsYWdTdGF0",
-            "ZRIICgRaRVJPEAASCAoEU1RVThABEggKBFJPT1QQAhILCgdTSUxFTkNFEAQS",
-            "DgoKSU5WSU5DSUJMRRAIEg0KCUlOVklTSUJMRRAQYgZwcm90bzM="));
+            "ARIJCgVTS0lMTBACEggKBEhVUlQQAxIJCgVERUFUSBAEKlYKCkZsYWdTdGF0",
+            "ZXMSCAoEWkVSTxAAEggKBFNUVU4QARIICgRST09UEAISCwoHU0lMRU5DRRAE",
+            "Eg4KCklOVklOQ0lCTEUQCBINCglJTlZJU0lCTEUQEGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Entity.AnimationState), typeof(global::MMORPG.Common.Proto.Entity.FlagState), }, null, null));
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::MMORPG.Common.Proto.Entity.AnimationState), typeof(global::MMORPG.Common.Proto.Entity.FlagStates), }, null, null));
     }
     #endregion
 
@@ -45,7 +45,7 @@ namespace MMORPG.Common.Proto.Entity {
     [pbr::OriginalName("DEATH")] Death = 4,
   }
 
-  public enum FlagState {
+  public enum FlagStates {
     [pbr::OriginalName("ZERO")] Zero = 0,
     [pbr::OriginalName("STUN")] Stun = 1,
     [pbr::OriginalName("ROOT")] Root = 2,

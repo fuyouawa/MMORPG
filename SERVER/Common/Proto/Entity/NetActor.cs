@@ -25,12 +25,12 @@ namespace MMORPG.Common.Proto.Entity {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChVFbnRpdHkvTmV0QWN0b3IucHJvdG8SGk1NT1JQRy5Db21tb24uUHJvdG8u",
-            "RW50aXR5GhdFbnRpdHkvQWN0b3JTdGF0ZS5wcm90byLFAQoITmV0QWN0b3IS",
-            "OQoKZmxhZ19zdGF0ZRgBIAEoDjIlLk1NT1JQRy5Db21tb24uUHJvdG8uRW50",
-            "aXR5LkZsYWdTdGF0ZRINCgVsZXZlbBgCIAEoBRIOCgZtYXhfaHAYAyABKAUS",
-            "CgoCaHAYBCABKAUSDgoGbWF4X21wGAUgASgFEgoKAm1wGAYgASgFEgsKA2V4",
-            "cBgHIAEoBRIPCgdtYXhfZXhwGAggASgFEhkKEXJlc3VycmVjdGlvbl90aW1l",
-            "GAkgASgFYgZwcm90bzM="));
+            "RW50aXR5GhdFbnRpdHkvQWN0b3JTdGF0ZS5wcm90byLGAQoITmV0QWN0b3IS",
+            "OgoKZmxhZ19zdGF0ZRgBIAEoDjImLk1NT1JQRy5Db21tb24uUHJvdG8uRW50",
+            "aXR5LkZsYWdTdGF0ZXMSDQoFbGV2ZWwYAiABKAUSDgoGbWF4X2hwGAMgASgF",
+            "EgoKAmhwGAQgASgFEg4KBm1heF9tcBgFIAEoBRIKCgJtcBgGIAEoBRILCgNl",
+            "eHAYByABKAUSDwoHbWF4X2V4cBgIIAEoBRIZChFyZXN1cnJlY3Rpb25fdGlt",
+            "ZRgJIAEoBWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Entity.ActorStateReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -41,7 +41,6 @@ namespace MMORPG.Common.Proto.Entity {
 
   }
   #region Messages
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class NetActor : pb::IMessage<NetActor>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -96,10 +95,10 @@ namespace MMORPG.Common.Proto.Entity {
 
     /// <summary>Field number for the "flag_state" field.</summary>
     public const int FlagStateFieldNumber = 1;
-    private global::MMORPG.Common.Proto.Entity.FlagState flagState_ = global::MMORPG.Common.Proto.Entity.FlagState.Zero;
+    private global::MMORPG.Common.Proto.Entity.FlagStates flagState_ = global::MMORPG.Common.Proto.Entity.FlagStates.Zero;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::MMORPG.Common.Proto.Entity.FlagState FlagState {
+    public global::MMORPG.Common.Proto.Entity.FlagStates FlagState {
       get { return flagState_; }
       set {
         flagState_ = value;
@@ -233,7 +232,7 @@ namespace MMORPG.Common.Proto.Entity {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (FlagState != global::MMORPG.Common.Proto.Entity.FlagState.Zero) hash ^= FlagState.GetHashCode();
+      if (FlagState != global::MMORPG.Common.Proto.Entity.FlagStates.Zero) hash ^= FlagState.GetHashCode();
       if (Level != 0) hash ^= Level.GetHashCode();
       if (MaxHp != 0) hash ^= MaxHp.GetHashCode();
       if (Hp != 0) hash ^= Hp.GetHashCode();
@@ -260,7 +259,7 @@ namespace MMORPG.Common.Proto.Entity {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (FlagState != global::MMORPG.Common.Proto.Entity.FlagState.Zero) {
+      if (FlagState != global::MMORPG.Common.Proto.Entity.FlagStates.Zero) {
         output.WriteRawTag(8);
         output.WriteEnum((int) FlagState);
       }
@@ -306,7 +305,7 @@ namespace MMORPG.Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (FlagState != global::MMORPG.Common.Proto.Entity.FlagState.Zero) {
+      if (FlagState != global::MMORPG.Common.Proto.Entity.FlagStates.Zero) {
         output.WriteRawTag(8);
         output.WriteEnum((int) FlagState);
       }
@@ -352,7 +351,7 @@ namespace MMORPG.Common.Proto.Entity {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (FlagState != global::MMORPG.Common.Proto.Entity.FlagState.Zero) {
+      if (FlagState != global::MMORPG.Common.Proto.Entity.FlagStates.Zero) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) FlagState);
       }
       if (Level != 0) {
@@ -391,7 +390,7 @@ namespace MMORPG.Common.Proto.Entity {
       if (other == null) {
         return;
       }
-      if (other.FlagState != global::MMORPG.Common.Proto.Entity.FlagState.Zero) {
+      if (other.FlagState != global::MMORPG.Common.Proto.Entity.FlagStates.Zero) {
         FlagState = other.FlagState;
       }
       if (other.Level != 0) {
@@ -434,7 +433,7 @@ namespace MMORPG.Common.Proto.Entity {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            FlagState = (global::MMORPG.Common.Proto.Entity.FlagState) input.ReadEnum();
+            FlagState = (global::MMORPG.Common.Proto.Entity.FlagStates) input.ReadEnum();
             break;
           }
           case 16: {
@@ -485,7 +484,7 @@ namespace MMORPG.Common.Proto.Entity {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            FlagState = (global::MMORPG.Common.Proto.Entity.FlagState) input.ReadEnum();
+            FlagState = (global::MMORPG.Common.Proto.Entity.FlagStates) input.ReadEnum();
             break;
           }
           case 16: {

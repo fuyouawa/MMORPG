@@ -20,21 +20,7 @@ namespace MMORPG.Game
         public Animator Animator;
         public SkillsEffectManager EffectManager;
 
-        private int _level;
-
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value > _level)
-                {
-                    LevelUpFeedbacks?.Play();
-                }
-
-                _level = value;
-            }
-        }
+        public BindableProperty<int> Level { get; } = new();
         public int Exp { get; set; }
         public int MaxExp { get; set; }
         public int Gold { get; set; }
@@ -43,6 +29,7 @@ namespace MMORPG.Game
         public int MaxMp { get; set; }
         public int MaxHp { get; set; }
         public int ReviveTime { get; set; }
+        public BindableProperty<FlagStates> FlagState { get; } = new();
 
         [Title("Hit Effects")]
         public ParticleSystem HitParticlePrefab;
@@ -64,11 +51,21 @@ namespace MMORPG.Game
         [Required]
         public Transform HurtPoint;
 
-        public void ApplyNetActor(NetActor netActor)
+        [Title("Buff Effects")]
+        public ParticleSystem StunParticle;
+
+        public void ApplyNetActor(NetActor netActor, bool inStart = false)
         {
             if (netActor != null)
             {
-                Level = netActor.Level;
+                if (inStart)
+                {
+                    Level.SetValueWithoutEvent(netActor.Level);
+                }
+                else
+                {
+                    Level.Value = netActor.Level;
+                }
                 Hp = netActor.Hp;
                 Mp = netActor.Mp;
                 MaxHp = netActor.MaxHp;
@@ -76,6 +73,7 @@ namespace MMORPG.Game
                 Exp = netActor.Exp;
                 MaxExp = netActor.MaxExp;
                 ReviveTime = netActor.ResurrectionTime;
+                FlagState.Value = netActor.FlagState;
             }
         }
 
@@ -132,6 +130,23 @@ namespace MMORPG.Game
                     HurtFeedbacks?.Play();
                 }
             };
+
+            Level.Register(lv =>
+            {
+                LevelUpFeedbacks?.Play();
+            });
+
+            FlagState.Register(flag =>
+            {
+                if ((flag & FlagStates.Stun) != 0)
+                {
+                    StunParticle?.Play();
+                }
+                else
+                {
+                    StunParticle?.Stop();
+                }
+            });
         }
 
         private void PlayHitEffects(ActorController actor, ParticleSystem particle, AudioSource audio)

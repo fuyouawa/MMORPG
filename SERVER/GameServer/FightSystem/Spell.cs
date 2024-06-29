@@ -31,7 +31,7 @@ namespace GameServer.FightSystem
 
         public CastResult Cast(CastInfo info)
         {
-            if ((OwnerActor.FlagState & FlagState.Silence) == FlagState.Silence || (OwnerActor.FlagState & FlagState.Stun) == FlagState.Stun)
+            if ((OwnerActor.FlagState & FlagStates.Silence) == FlagStates.Silence || (OwnerActor.FlagState & FlagStates.Stun) == FlagStates.Stun)
             {
                 return CastResult.NotAllowed;
             }
