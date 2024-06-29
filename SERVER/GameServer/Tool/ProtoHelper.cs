@@ -57,6 +57,7 @@ namespace GameServer.Tool
         {
             var netActor = new NetActor()
             {
+                FlagState = actor.FlagState,
                 Level = (int)actor.Level,
                 MaxHp = (int)actor.AttributeManager.Final.MaxHp,
                 Hp = (int)actor.Hp,

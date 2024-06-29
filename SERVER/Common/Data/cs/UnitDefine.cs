@@ -38,6 +38,8 @@ public class UnitDefine
 	public float Gagi; // 敏捷成长
 	public string Ai; // Ai名称
 	public float HurtTime; // 受伤时间
+	public float DropExpBase; // 基础经验
+	public float DropExpLevelFactor; // 等级因子
 }
 
 

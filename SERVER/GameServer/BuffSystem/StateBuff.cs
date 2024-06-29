@@ -65,11 +65,11 @@ namespace GameServer.BuffSystem
                     }
                     if (enable)
                     {
-                        BuffManager.OwnerActor.FlagState |= flag;
+                        BuffManager.OwnerActor.AddFlagState(flag);
                     }
                     else
                     {
-                        BuffManager.OwnerActor.FlagState &= ~flag;
+                        BuffManager.OwnerActor.RemoveFlagState(flag);
                     }
                 }
             }
