@@ -20,33 +20,28 @@ namespace MMORPG.Game
         public Animator Animator;
         public SkillsEffectManager EffectManager;
 
-        [Title("Properties")]
-        [ShowInInspector]
-        [ReadOnly]
-        public int Level { get; set; }
-        [ShowInInspector]
-        [ReadOnly]
+        private int _level;
+
+        public int Level
+        {
+            get => _level;
+            set
+            {
+                if (value > _level)
+                {
+                    LevelUpFeedbacks?.Play();
+                }
+
+                _level = value;
+            }
+        }
         public int Exp { get; set; }
-        [ShowInInspector]
-        [ReadOnly]
         public int MaxExp { get; set; }
-        [ShowInInspector]
-        [ReadOnly]
         public int Gold { get; set; }
-        [ShowInInspector]
-        [ReadOnly]
         public int Hp { get; set; }
-        [ShowInInspector]
-        [ReadOnly]
         public int Mp { get; set; }
-        [ShowInInspector]
-        [ReadOnly]
         public int MaxMp { get; set; }
-        [ShowInInspector]
-        [ReadOnly]
         public int MaxHp { get; set; }
-        [ShowInInspector]
-        [ReadOnly]
         public int ReviveTime { get; set; }
 
         [Title("Hit Effects")]
@@ -63,6 +58,7 @@ namespace MMORPG.Game
         public FeedbacksManager HurtFeedbacks;
         public FeedbacksManager CritHurtFeedbacks;
         public FeedbacksManager MissHurtFeedbacks;
+        public FeedbacksManager LevelUpFeedbacks;
 
         [Title("Hurt Property")]
         [Required]
