@@ -19,15 +19,15 @@ MonoBehaviour:
     From: 0
     NameToFullName: []
     BindInfos:
-    - TypeName: UnityEngine.UI.Text
-      PathToRoot: TextReviveTime
-      MemberName: TextReviveTime
-    ScriptsFolder: Assets/Scripts/UI/UIGameHubPanel
-    ClassName: RevivePanel
+    - TypeName: TMPro.TextMeshProUGUI
+      PathToRoot: TextName
+      MemberName: TextName
+    ScriptsFolder: Assets/Scripts/UI/UICharacter
+    ClassName: NpcUICanvas
     Namespace: MMORPG.UI
     MainCode: "using UnityEngine;\r\nusing QFramework;\r\n\r\nnamespace MMORPG.UI\r\n{\r\n\tpublic
-      partial class RevivePanel : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
+      partial class NpcUICanvas : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
       Code Here\r\n\t\t}\r\n\t}\r\n}\r\n"
-    DesignerCode: "// Generate Id:a10569bf-5a87-4a44-85b3-250830141c8b\r\nusing UnityEngine;\r\n\r\nnamespace
-      MMORPG.UI\r\n{\r\n\tpublic partial class RevivePanel : QFramework.IController\r\n\t{\r\n\r\n\t\tpublic
-      UnityEngine.UI.Text TextReviveTime;\r\n\r\n\t\tQFramework.IArchitecture QFramework.IBelongToArchitecture.GetArchitecture()=>MMORPG.Game.GameApp.Interface;\r\n\t}\r\n}\r\n"
+    DesignerCode: "// Generate Id:9e2ad5d8-d4da-48de-a8e5-cc15c63aeb67\r\nusing UnityEngine;\r\n\r\nnamespace
+      MMORPG.UI\r\n{\r\n\tpublic partial class NpcUICanvas : QFramework.IController\r\n\t{\r\n\r\n\t\tpublic
+      TMPro.TextMeshProUGUI TextName;\r\n\r\n\t\tQFramework.IArchitecture QFramework.IBelongToArchitecture.GetArchitecture()=>MMORPG.Game.GameApp.Interface;\r\n\t}\r\n}\r\n"

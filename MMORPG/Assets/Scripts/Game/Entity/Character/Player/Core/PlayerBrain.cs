@@ -187,24 +187,23 @@ namespace MMORPG.Game
             {
                 InputControls = new();
                 InputControls.Enable();
+
+                InputControls.Player.Pickup.started += context =>
+                {
+                    //TODO 捡起
+                    this.SendCommand(new PickupItemCommand());
+                };
             }
             else
             {
                 Destroy(ActorController.Rigidbody);
                 Destroy(ActorController.Collider);
             }
+
             if (States.IsNullOrEmpty()) return;
             InitStates();
             ChangeState(States[0]);
             StartCoroutine(NetworkFixedUpdate());
-
-            InputControls.Player.Pickup.started += context =>
-            {
-                //TODO 捡起
-                this.SendCommand(new PickupItemCommand());
-
-                
-            };
 
             var dataManagerSystem = this.GetSystem<IDataManagerSystem>();
             this.RegisterEvent<PickupItemEvent>(e =>
