@@ -10,6 +10,7 @@ using GameServer.Manager;
 using GameServer.RewardSystem;
 using MMORPG.Common.Proto.Fight;
 using MMORPG.Common.Tool;
+using System;
 
 namespace GameServer.AiSystem
 {
@@ -105,9 +106,9 @@ namespace GameServer.AiSystem
         public void CastSkill()
         {
             if (!OwnerMonster.SkillManager.SkillDict.Any() || ChasingTarget == null) return;
-            var first = OwnerMonster.SkillManager.SkillDict.First();
-
-            if (CastSkillAbility.CastSkill(first.Value.Define.ID, ChasingTarget) == CastResult.Success)
+            var values = OwnerMonster.SkillManager.SkillDict.Values.ToList();
+            var skill  = values[Random.Next(values.Count)];
+            if (CastSkillAbility.CastSkill(skill.Define.ID, ChasingTarget) == CastResult.Success)
             {
                 ChangeAnimationState(AnimationState.Skill);
                 AnimationState = AnimationState.Idle;
