@@ -1,11 +1,9 @@
 using MMORPG.Common.Proto.Fight;
 using MMORPG.Common.Proto.Entity;
-using MMORPG.Event;
 using MMORPG.Tool;
 using MMORPG.UI;
 using QFramework;
 using Sirenix.OdinInspector;
-using TMPro;
 using UnityEngine;
 using AnimationState = MMORPG.Common.Proto.Entity.AnimationState;
 
@@ -41,7 +39,7 @@ namespace MMORPG.Game
         {
             FSM.AddState(AnimationState.Idle, new MonsterIdleState(FSM, this));
             FSM.AddState(AnimationState.Move, new MonsterMoveState(FSM, this));
-            FSM.AddState(AnimationState.Skill, new MonsterAttackState(FSM, this));
+            FSM.AddState(AnimationState.Skill, new MonsterSkillState(FSM, this));
             FSM.AddState(AnimationState.Death, new MonsterDeathState(FSM, this));
             FSM.StartState(AnimationState.Idle);
 
@@ -96,6 +94,7 @@ namespace MMORPG.Game
 
         private void OnTransformEntitySync(EntityTransformSyncData data)
         {
+            Data = data;
             AnimationState state = (AnimationState)data.StateId;
             if (FSM.CurrentStateId != state)
             {
