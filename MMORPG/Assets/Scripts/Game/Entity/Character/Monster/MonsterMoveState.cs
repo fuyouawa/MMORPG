@@ -14,11 +14,13 @@ namespace MMORPG.Game
 
         protected override void OnEnter()
         {
+            mTarget.MovingFeedbacks?.Play();
             mTarget.ActorController.Animator.SetBool("Walking", true);
         }
 
         protected override void OnExit()
         {
+            mTarget.MovingFeedbacks?.Stop();
             mTarget.ActorController.Animator.SetBool("Walking", false);
         }
 

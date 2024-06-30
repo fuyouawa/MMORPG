@@ -26,7 +26,7 @@ namespace MMORPG.Game
         [Title("Feedbacks")]
         public FeedbacksManager DeathFeedbacks;
         public FeedbacksManager ResurrectionFeedbacks;
-        public FeedbacksManager AttackFeedback;
+        public FeedbacksManager MovingFeedbacks;
 
         private void Awake()
         {
