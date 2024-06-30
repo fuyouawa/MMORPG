@@ -14,11 +14,6 @@ namespace MMORPG.Game
 
         protected override void OnEnter()
         {
-            var skillSyncData = MonsterSkillSyncData.Parser.ParseFrom(mTarget.Data.Data);
-            var skill = mTarget.ActorController.SkillManager.GetSkill(skillSyncData.SkillId);
-
-            mTarget.ActorController.Animator.SetTrigger(skill.Define.Anim2);
-            mTarget.AttackFeedback?.Play();
         }
 
         protected override void OnExit()
