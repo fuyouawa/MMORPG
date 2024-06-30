@@ -6,6 +6,7 @@ using MMORPG.Common.Proto.Entity;
 using MMORPG.Event;
 using MMORPG.Game;
 using MMORPG.Model;
+using Serilog;
 using UnityEngine;
 
 namespace MMORPG.System
@@ -31,6 +32,7 @@ namespace MMORPG.System
 
         public void SetMine(EntityView mineEntity)
         {
+            Log.Information($"注册当前玩家:{mineEntity.gameObject.name}");
             MineEntity = mineEntity;
             _mineEntityTcs.TrySetResult(mineEntity);
         }

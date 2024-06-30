@@ -3,6 +3,7 @@ using MMORPG.Common.Proto.Entity;
 using MMORPG.Common.Proto.Fight;
 using MMORPG.Common.Proto.Map;
 using MMORPG.Event;
+using MMORPG.Global;
 using QFramework;
 using MMORPG.System;
 using MMORPG.Tool;
@@ -23,6 +24,7 @@ namespace MMORPG.Game
     public class EntityManager : MonoBehaviour, IController, ICanSendEvent
     {
         private IEntityManagerSystem _entityManager;
+        private IPlayerManagerSystem _playerManager;
         private IDataManagerSystem _dataManager;
         private INetworkSystem _network;
         private ResLoader _resLoader = ResLoader.Allocate();
@@ -31,6 +33,7 @@ namespace MMORPG.Game
         {
             _entityManager = this.GetSystem<IEntityManagerSystem>();
             _dataManager = this.GetSystem<IDataManagerSystem>();
+            _playerManager = this.GetSystem<IPlayerManagerSystem>();
             _network = this.GetSystem<INetworkSystem>();
 
             _network.Receive<EntityEnterResponse>(OnEntityEnterReceived)
@@ -121,8 +124,10 @@ namespace MMORPG.Game
             }
         }
 
-        private void OnEntityEnterReceived(EntityEnterResponse response)
+        private async void OnEntityEnterReceived(EntityEnterResponse response)
         {
+            // 等待主玩家先加入游戏
+            await _playerManager.GetMineEntityTask();
             foreach (var data in response.Datas)
             {
                 var entityId = data.EntityId;
@@ -131,8 +136,17 @@ namespace MMORPG.Game
                 
                 var unitDefine = _dataManager.GetUnitDefine(data.UnitId);
 
+                var path = unitDefine.Kind switch
+                {
+                    "Player" => Config.PlayerPrefabsPath,
+                    "Monster" => Config.MonsterPrefabsPath,
+                    "Npc" => Config.NpcPrefabsPath,
+                    "DroppedItem" => Config.ItemsPrefabsPath,
+                    _ => throw new NotImplementedException()
+                };
+
                 var entity = _entityManager.SpawnEntity(
-                    _resLoader.LoadSync<EntityView>(unitDefine.Resource),
+                    Resources.Load<EntityView>($"{path}/{unitDefine.Resource}"),
                     entityId,
                     data.UnitId,
                     data.EntityType,
