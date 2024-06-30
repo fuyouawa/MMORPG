@@ -147,7 +147,7 @@ namespace MMORPG.Game
             ActorController.Entity.OnTransformSync += OnTransformEntitySync;
             ActorController.Entity.OnHurt += info =>
             {
-                if (IsDeath) return;
+                if (IsDeath || info.IsMiss) return;
                 if (ActorController.Hp - info.Amount <= 0)
                 {
                     ChangeStateByName("Death");

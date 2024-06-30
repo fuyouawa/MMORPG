@@ -19,8 +19,6 @@ namespace MMORPG.Game
 
         [Required]
         public ActorController ActorController;
-
-        public Transform DamageNumberPoint;
         public UIMonsterCanvas MonsterCanvas;
 
         [Title("Feedbacks")]
@@ -81,14 +79,6 @@ namespace MMORPG.Game
             if (!info.IsMiss)
             {
                 ActorController.Animator.SetTrigger("Hurt");
-            }
-            if (info.IsMiss)
-            {
-                LevelManager.Instance.TakeText(DamageNumberPoint.position, "Miss");
-            }
-            else
-            {
-                LevelManager.Instance.TakeDamage(DamageNumberPoint.position, info.Amount, info.IsCrit);
             }
         }
 

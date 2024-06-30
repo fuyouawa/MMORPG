@@ -19,6 +19,7 @@ namespace MMORPG.Game
         [Required]
         public Animator Animator;
         public SkillsEffectManager EffectManager;
+        public Transform DamageNumberPoint;
 
         public BindableProperty<int> Level { get; } = new();
         public int Exp { get; set; }
@@ -128,6 +129,15 @@ namespace MMORPG.Game
                 else
                 {
                     HurtFeedbacks?.Play();
+                }
+
+                if (info.IsMiss)
+                {
+                    LevelManager.Instance.TakeText(DamageNumberPoint.position, "Miss");
+                }
+                else
+                {
+                    LevelManager.Instance.TakeDamage(DamageNumberPoint.position, info.Amount, info.IsCrit);
                 }
             };
 

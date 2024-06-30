@@ -72,7 +72,7 @@ namespace MMORPG.Game
 
                 this.GetSystem<IPlayerManagerSystem>().SetMine(entity);
 
-                entity.GetComponent<ActorController>().ApplyNetActor(response.Actor);
+                entity.GetComponent<ActorController>().ApplyNetActor(response.Actor, true);
 
                 Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
             });

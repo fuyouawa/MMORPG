@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using MMORPG.Common.Proto.Entity;
 using QFramework;
 using Serilog;
 using UnityEngine;
@@ -41,6 +42,7 @@ namespace MMORPG.Game
         public event Action OnStateChanged; 
 
         private PlayerHandleWeapon _handleWeapon;
+        private Coroutine _coroutine;
 
         public Skill(CharacterSkillManager skillManager, SkillDefine define)
         {
@@ -106,17 +108,28 @@ namespace MMORPG.Game
 
         private void UseSkill(CastTarget target)
         {
-            if (SkillManager.CurrentSpellingSkill != null)
+            if (SkillManager.ActorController.Entity.EntityType == EntityType.Player)
             {
-                Log.Warning($"{SkillManager.ActorController.Entity.EntityId}尝试在释放技能({SkillManager.CurrentSpellingSkill.Define.Name})的时候使用其他技能:{Define.Name}");
-                return;
+                if (SkillManager.CurrentSpellingSkill != null)
+                {
+                    Log.Warning($"{SkillManager.ActorController.Entity.EntityId}尝试在释放技能({SkillManager.CurrentSpellingSkill.Define.Name})的时候使用其他技能:{Define.Name}");
+                    return;
+                }
+                if (CurrentState != States.Idle)
+                {
+                    Log.Warning($"{SkillManager.ActorController.Entity.EntityId}尝试使用正在冷却中的技能:{Define.Name}");
+                    return;
+                }
             }
-            if (CurrentState != States.Idle)
+            else
             {
-                Log.Warning($"{SkillManager.ActorController.Entity.EntityId}尝试使用正在冷却中的技能:{Define.Name}");
-                return;
+                if (_coroutine != null)
+                {
+                    SkillManager.ActorController.StopCoroutine(_coroutine);
+                    _coroutine = null;
+                }
             }
-            SkillManager.ActorController.StartCoroutine(SpellSkillCo(target));
+            _coroutine = SkillManager.ActorController.StartCoroutine(SpellSkillCo(target));
         }
 
         public IEnumerator SpellSkillCo(CastTarget target)
