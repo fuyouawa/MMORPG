@@ -13,7 +13,7 @@ public class UnitDefine
 	public string Resource; // 模型资源
 	public string Kind; // 类别
 	public string Decs; // 介绍
-	public int Speed; // 移动速度
+	public float Speed; // 移动速度
 	public int MaxHp; // 生命上限
 	public int MaxMp; // 法力上限
 	public int InitLevel; // 初始等级
