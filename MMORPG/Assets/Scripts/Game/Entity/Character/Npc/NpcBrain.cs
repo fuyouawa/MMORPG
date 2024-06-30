@@ -11,6 +11,7 @@ using UnityEngine;
 using AnimationState = MMORPG.Common.Proto.Entity.AnimationState;
 using MMORPG.Common.Proto.Base;
 using System.Collections.Generic;
+using Serilog;
 
 namespace MMORPG.Game
 {
@@ -34,11 +35,9 @@ namespace MMORPG.Game
             if (_tipDict == null)
             {
                 _tipDict = new();
-                var resLoader = ResLoader.Allocate();
-                _tipDict["疑问"] = resLoader.LoadSync<GameObject>("IconWhiteQuestion");
-                _tipDict["感叹"] = resLoader.LoadSync<GameObject>("IconWhiteExclamation");
-                _tipDict["星号"] = resLoader.LoadSync<GameObject>("IconWhiteReward");
-                resLoader.Recycle2Cache();
+                _tipDict["疑问"] = Resources.Load<GameObject>("Prefabs/Effect/Npc/IconWhiteQuestion");
+                _tipDict["感叹"] = Resources.Load<GameObject>("Prefabs/Effect/Npc/IconWhiteExclamation");
+                _tipDict["星号"] = Resources.Load<GameObject>("Prefabs/Effect/Npc/IconWhiteReward");
             }
 
             this.RegisterEvent<InteractEvent>(e =>
@@ -77,6 +76,7 @@ namespace MMORPG.Game
                 if (_tip != null)  Destroy(_tip);
                 return;
             }
+            Log.Information($"{dialogueDefine.TipResource} - {_tipDict[dialogueDefine.TipResource]}");
             _tip = Instantiate(_tipDict[dialogueDefine.TipResource], transform);
 
             // 获取CapsuleCollider来确定NPC的高度
@@ -84,7 +84,7 @@ namespace MMORPG.Game
             if (capsuleCollider != null)
             {
                 float npcHeight = capsuleCollider.height;
-                _tip.transform.localPosition = new Vector3(0, npcHeight + 0.4f, 0);
+                _tip.transform.localPosition = new Vector3(0, npcHeight + 0.8f, 0);
             }
             else
             {

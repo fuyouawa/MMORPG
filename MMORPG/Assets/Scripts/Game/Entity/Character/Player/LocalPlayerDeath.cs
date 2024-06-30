@@ -13,9 +13,6 @@ namespace MMORPG.Game
 {
     public class LocalPlayerDeath : LocalPlayerAbility, IController, ICanSendEvent
     {
-        public FeedbacksManager DeathFeedbacks;
-        public FeedbacksManager ReviveFeedbacks;
-
         private INetworkSystem _network;
 
         public override void OnStateInit()
@@ -25,10 +22,8 @@ namespace MMORPG.Game
 
         public override void OnStateEnter()
         {
-            DeathFeedbacks?.Play();
             OwnerState.Brain.ActorController.Rigidbody.isKinematic = true;
-            OwnerState.Brain.ActorController.Animator.SetTrigger("Die");
-            OwnerState.Brain.ActorController.Animator.SetBool("Death", true);
+            OwnerState.Brain.ActorController.Animator.SetTrigger("Death");
             StartCoroutine("ReviveCo");
             this.SendEvent(new MinePlayerDeathEvent() { Player = OwnerState.Brain });
         }
@@ -36,8 +31,7 @@ namespace MMORPG.Game
         public override void OnStateExit()
         {
             StopCoroutine("ReviveCo");
-            ReviveFeedbacks?.Play();
-            OwnerState.Brain.ActorController.Animator.SetBool("Death", false);
+            OwnerState.Brain.ActorController.Animator.Play("Idle");
             OwnerState.Brain.ActorController.Rigidbody.isKinematic = false;
             this.SendEvent(new MinePlayerReviveEvent() { Player = OwnerState.Brain });
         }
