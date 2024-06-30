@@ -26,16 +26,18 @@ namespace MMORPG.Common.Proto.Entity {
           string.Concat(
             "CiBFbnRpdHkvRW50aXR5VHJhbnNmb3JtU3luYy5wcm90bxIaTU1PUlBHLkNv",
             "bW1vbi5Qcm90by5FbnRpdHkaGUVudGl0eS9OZXRUcmFuc2Zvcm0ucHJvdG8i",
-            "jAEKGkVudGl0eVRyYW5zZm9ybVN5bmNSZXF1ZXN0EhEKCWVudGl0eV9pZBgB",
-            "IAEoBRI7Cgl0cmFuc2Zvcm0YAiABKAsyKC5NTU9SUEcuQ29tbW9uLlByb3Rv",
-            "LkVudGl0eS5OZXRUcmFuc2Zvcm0SEAoIc3RhdGVfaWQYAyABKAUSDAoEZGF0",
-            "YRgEIAEoDCKNAQobRW50aXR5VHJhbnNmb3JtU3luY1Jlc3BvbnNlEhEKCWVu",
-            "dGl0eV9pZBgBIAEoBRI7Cgl0cmFuc2Zvcm0YAiABKAsyKC5NTU9SUEcuQ29t",
-            "bW9uLlByb3RvLkVudGl0eS5OZXRUcmFuc2Zvcm0SEAoIc3RhdGVfaWQYAyAB",
-            "KAUSDAoEZGF0YRgEIAEoDGIGcHJvdG8z"));
+            "KAoUTW9uc3RlclNraWxsU3luY0RhdGESEAoIc2tpbGxfaWQYASABKAUijAEK",
+            "GkVudGl0eVRyYW5zZm9ybVN5bmNSZXF1ZXN0EhEKCWVudGl0eV9pZBgBIAEo",
+            "BRI7Cgl0cmFuc2Zvcm0YAiABKAsyKC5NTU9SUEcuQ29tbW9uLlByb3RvLkVu",
+            "dGl0eS5OZXRUcmFuc2Zvcm0SEAoIc3RhdGVfaWQYAyABKAUSDAoEZGF0YRgE",
+            "IAEoDCKNAQobRW50aXR5VHJhbnNmb3JtU3luY1Jlc3BvbnNlEhEKCWVudGl0",
+            "eV9pZBgBIAEoBRI7Cgl0cmFuc2Zvcm0YAiABKAsyKC5NTU9SUEcuQ29tbW9u",
+            "LlByb3RvLkVudGl0eS5OZXRUcmFuc2Zvcm0SEAoIc3RhdGVfaWQYAyABKAUS",
+            "DAoEZGF0YRgEIAEoDGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Entity.NetTransformReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Entity.MonsterSkillSyncData), global::MMORPG.Common.Proto.Entity.MonsterSkillSyncData.Parser, new[]{ "SkillId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Entity.EntityTransformSyncRequest), global::MMORPG.Common.Proto.Entity.EntityTransformSyncRequest.Parser, new[]{ "EntityId", "Transform", "StateId", "Data" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Entity.EntityTransformSyncResponse), global::MMORPG.Common.Proto.Entity.EntityTransformSyncResponse.Parser, new[]{ "EntityId", "Transform", "StateId", "Data" }, null, null, null, null)
           }));
@@ -44,6 +46,195 @@ namespace MMORPG.Common.Proto.Entity {
 
   }
   #region Messages
+  public sealed partial class MonsterSkillSyncData : pb::IMessage<MonsterSkillSyncData>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<MonsterSkillSyncData> _parser = new pb::MessageParser<MonsterSkillSyncData>(() => new MonsterSkillSyncData());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<MonsterSkillSyncData> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::MMORPG.Common.Proto.Entity.EntityTransformSyncReflection.Descriptor.MessageTypes[0]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public MonsterSkillSyncData() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public MonsterSkillSyncData(MonsterSkillSyncData other) : this() {
+      skillId_ = other.skillId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public MonsterSkillSyncData Clone() {
+      return new MonsterSkillSyncData(this);
+    }
+
+    /// <summary>Field number for the "skill_id" field.</summary>
+    public const int SkillIdFieldNumber = 1;
+    private int skillId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int SkillId {
+      get { return skillId_; }
+      set {
+        skillId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as MonsterSkillSyncData);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(MonsterSkillSyncData other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (SkillId != other.SkillId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (SkillId != 0) hash ^= SkillId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (SkillId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(SkillId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (SkillId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(SkillId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (SkillId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SkillId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(MonsterSkillSyncData other) {
+      if (other == null) {
+        return;
+      }
+      if (other.SkillId != 0) {
+        SkillId = other.SkillId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            SkillId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            SkillId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   public sealed partial class EntityTransformSyncRequest : pb::IMessage<EntityTransformSyncRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -58,7 +249,7 @@ namespace MMORPG.Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MMORPG.Common.Proto.Entity.EntityTransformSyncReflection.Descriptor.MessageTypes[0]; }
+      get { return global::MMORPG.Common.Proto.Entity.EntityTransformSyncReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -367,7 +558,7 @@ namespace MMORPG.Common.Proto.Entity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MMORPG.Common.Proto.Entity.EntityTransformSyncReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MMORPG.Common.Proto.Entity.EntityTransformSyncReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
