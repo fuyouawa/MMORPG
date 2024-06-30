@@ -27,7 +27,6 @@ namespace MMORPG.Game
         private IPlayerManagerSystem _playerManager;
         private IDataManagerSystem _dataManager;
         private INetworkSystem _network;
-        private ResLoader _resLoader = ResLoader.Allocate();
 
         private void Awake()
         {
@@ -182,12 +181,6 @@ namespace MMORPG.Game
         public IArchitecture GetArchitecture()
         {
             return GameApp.Interface;
-        }
-
-        void OnDestroy()
-        {
-            _resLoader.Recycle2Cache();
-            _resLoader = null;
         }
     }
 }

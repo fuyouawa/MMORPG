@@ -3,6 +3,7 @@ using MMORPG.Common.Proto.Entity;
 using MMORPG.Common.Proto.Player;
 using MMORPG.Common.Tool;
 using MMORPG.Event;
+using MMORPG.Global;
 using MMORPG.Model;
 using QFramework;
 using MMORPG.System;
@@ -24,7 +25,6 @@ namespace MMORPG.Game
         private IPlayerManagerSystem _playerManager;
         private IEntityManagerSystem _entityManager;
         private IDataManagerSystem _dataManager;
-        private ResLoader _resLoader = ResLoader.Allocate();
 
         public IArchitecture GetArchitecture()
         {
@@ -61,7 +61,7 @@ namespace MMORPG.Game
                 var resLoader = ResLoader.Allocate();
 
                 var entity = _entityManager.SpawnEntity(
-                    resLoader.LoadSync<EntityView>(unitDefine.Resource),    //TODO 角色生成
+                    Resources.Load<EntityView>($"{Config.PlayerPrefabsPath}/{unitDefine.Resource}"),
                     response.EntityId,
                     response.UnitId,
                     EntityType.Player,
@@ -76,12 +76,6 @@ namespace MMORPG.Game
 
                 Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
             });
-        }
-
-        void OnDestroy()
-        {
-            _resLoader.Recycle2Cache();
-            _resLoader = null;
         }
     }
 }
