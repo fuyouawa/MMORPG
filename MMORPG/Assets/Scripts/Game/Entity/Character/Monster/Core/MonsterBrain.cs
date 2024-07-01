@@ -98,8 +98,9 @@ namespace MMORPG.Game
 
         public void CorrectedMove(Vector3 pos)
         {
-            pos = CalculateGroundPosition(pos, LayerMask.NameToLayer("Ground"));
-            pos.y += GroundClearance;
+            pos.y = 0;
+            pos = CalculateGroundPosition(pos, LayerMask.NameToLayer("Terrain"));
+            //pos.y += GroundClearance;
             ActorController.SmoothMove(pos);
         }
 
