@@ -14,19 +14,19 @@ namespace MMORPG.UI
             return GameApp.Interface;
         }
 
-        protected override void OnInit(IUIData uiData = null)
-		{
-			mData = uiData as UILoginPanelData ?? new UILoginPanelData();
-            // please add init code here
-
-            mData = uiData as UILoginPanelData ?? new UILoginPanelData();
-
+        private void Awake()
+        {
             BtnLogin.onClick.AddListener(() =>
             {
                 this.SendCommand(new LoginCommand(
                     InputUsername.text,
                     InputPassword.text));
             });
+        }
+
+        protected override void OnInit(IUIData uiData = null)
+		{
+			mData = uiData as UILoginPanelData ?? new UILoginPanelData();
         }
 		
 		protected override void OnOpen(IUIData uiData = null)

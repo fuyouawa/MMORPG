@@ -14,7 +14,6 @@ using UnityEngine;
         /// 槽资源的名称(使用QFramework标记后的)
         /// </summary>
         protected abstract string SlotAssetName { get; }
-        protected ResLoader ResLoader { get; } = ResLoader.Allocate();
 
         public virtual UISlotBase[] GetSlots()
         {
@@ -31,7 +30,7 @@ using UnityEngine;
 
             if (currentSlotCount < slotCount)
             {
-                var prefab = ResLoader.LoadSync<UISlotBase>(SlotAssetName);
+                var prefab = Resources.Load<UISlotBase>(SlotAssetName);
 
                 for (int i = currentSlotCount; i < slotCount; i++)
                 {
@@ -61,11 +60,5 @@ using UnityEngine;
         /// </summary>
         /// <param name="slot"></param>
         protected virtual void OnDestroySlot(UISlotBase slot) {}
-
-
-        protected virtual void OnDestroy()
-        {
-            ResLoader.Recycle2Cache();
-        }
     }
 }

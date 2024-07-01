@@ -17,7 +17,7 @@ namespace MMORPG.UI
     {
         public RectTransform SlotsGroup;
 
-        protected override string SlotAssetName => "UIKnapsackSlot";
+        protected override string SlotAssetName => "UIPrefab/UIGameHub/UIKnapsackSlot";
         public override RectTransform GroupSlots => SlotsGroup;
 
         private void Awake()
