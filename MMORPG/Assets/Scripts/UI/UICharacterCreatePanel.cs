@@ -16,11 +16,8 @@ namespace MMORPG.UI
     {
         private INetworkSystem _network;
 
-		protected override void OnInit(IUIData uiData = null)
-		{
-			mData = uiData as UICharacterCreatePanelData ?? new UICharacterCreatePanelData();
-			// please add init code here
-
+        private void Awake()
+        {
             _network = this.GetSystem<INetworkSystem>();
 
             _network.Receive<CharacterCreateResponse>(OnReceivedCharacterCreate)

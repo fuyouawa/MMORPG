@@ -17,7 +17,7 @@ namespace MMORPG.UI
         public bool HasSkillRequestingSpell { get; set; }
 
         public override RectTransform GroupSlots => SlotsGroup;
-        protected override string SlotAssetName => "UISkillSlot";
+        protected override string SlotAssetName => "UIPrefab/UIGameHub/UISkillSlot";
 
         private void Awake()
         {
