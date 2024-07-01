@@ -13,6 +13,7 @@ using GameServer.UserSystem;
 using GameServer.EntitySystem;
 using GameServer.NpcSystem;
 using GameServer.TaskSystem;
+using GameServer.Tool;
 
 namespace GameServer.PlayerSystem
 {
@@ -74,7 +75,7 @@ namespace GameServer.PlayerSystem
                 Gold = Gold,
                 Hp = (int)Hp,
                 Mp = (int)Mp,
-                X = (int)Position.X,
+                X = (int)Position.X ,
                 Z = (int)Position.Y,
                 Knapsack = Knapsack.GetInventoryInfo().ToByteArray(),
                 DialogueInfo = DialogueManager.GetDialogueInfo().ToByteArray(),

@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameServer.MapSystem;
 using GameServer.Manager;
+using MMORPG.Common.Tool;
 
 namespace GameServer.NetService
 {
@@ -63,21 +64,24 @@ namespace GameServer.NetService
                     return;
                 }
 
+                var mapId = MapManager.Instance.InitMapId;
+                var initPos = DataHelper.ParseVector3(MapManager.Instance.GetMapById(mapId).Define.InitPos);
+
                 var newDbCharacter = new DbCharacter()
                 {
                     Id = 0,
                     Name = request.Name,
                     UserId = sender.User.UserId,
                     UnitId = request.UnitId,
-                    MapId = MapManager.Instance.InitMapId,
+                    MapId = mapId,
                     Level = 0,
                     Exp = 0,
                     Gold = 0,
                     Hp = 0,
                     Mp = 0,
-                    X = 0,
-                    Y = 0,
-                    Z = 0,
+                    X = (int)initPos.X,
+                    Y = (int)initPos.Y,
+                    Z = (int)initPos.Z,
                     Knapsack = null,
                 };
                 long characterId = SqlDb.Connection.Insert(newDbCharacter).ExecuteIdentity();
