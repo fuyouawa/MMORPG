@@ -19,7 +19,6 @@ namespace MMORPG.Game
         private IEntityManagerSystem _entityManager;
         private IDataManagerSystem _dataManager;
         private INetworkSystem _network;
-        private ResLoader _resLoader = ResLoader.Allocate();
 
         private void Awake()
         {
@@ -40,12 +39,6 @@ namespace MMORPG.Game
         public IArchitecture GetArchitecture()
         {
             return GameApp.Interface;
-        }
-
-        void OnDestroy()
-        {
-            _resLoader.Recycle2Cache();
-            _resLoader = null;
         }
     }
 }
