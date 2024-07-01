@@ -58,8 +58,6 @@ namespace MMORPG.Game
 
                 var unitDefine = _dataManager.GetUnitDefine(response.UnitId);
 
-                var resLoader = ResLoader.Allocate();
-
                 var entity = _entityManager.SpawnEntity(
                     Resources.Load<EntityView>($"{Config.PlayerPrefabsPath}/{unitDefine.Resource}"),
                     response.EntityId,
@@ -67,8 +65,6 @@ namespace MMORPG.Game
                     EntityType.Player,
                     response.Transform.Position.ToVector3(),
                     Quaternion.Euler(response.Transform.Direction.ToVector3()));
-
-                resLoader.Recycle2Cache();
 
                 this.GetSystem<IPlayerManagerSystem>().SetMine(entity);
 

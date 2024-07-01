@@ -70,10 +70,8 @@ namespace MMORPG.UI
             }
         }
 
-        protected override void OnInit(IUIData uiData = null)
-		{
-			mData = uiData as UICharacterSelectPanelData ?? new UICharacterSelectPanelData();
-
+        private void Awake()
+        {
             _network = this.GetSystem<INetworkSystem>();
 
             _network.Receive<CharacterListResponse>(OnReceivedCharacterList)
@@ -81,11 +79,15 @@ namespace MMORPG.UI
 
             BtnPlay.onClick.AddListener(OnPlayGame);
         }
-		
-		protected override void OnOpen(IUIData uiData = null)
+
+        private void Start()
         {
             ClearCharacterItems();
             _network.SendToServer(new CharacterListRequest());
+        }
+
+		protected override void OnOpen(IUIData uiData = null)
+        {
         }
 
         protected override void OnShow()
