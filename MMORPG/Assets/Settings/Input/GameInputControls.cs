@@ -83,6 +83,42 @@ namespace MMORPG
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""W"",
+                    ""type"": ""Button"",
+                    ""id"": ""4dc085e8-b960-4fb0-a3f2-800eb975ffc5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""A"",
+                    ""type"": ""Button"",
+                    ""id"": ""127eaf25-016f-4327-8000-da9f4c84c5a8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""S"",
+                    ""type"": ""Button"",
+                    ""id"": ""01622a4e-503d-4092-af93-b7bf24192010"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""D"",
+                    ""type"": ""Button"",
+                    ""id"": ""1eff0872-f4e3-4d1d-9a3b-db4a6af35883"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -336,6 +372,50 @@ namespace MMORPG
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pickup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c8b8b54c-85db-48b9-b74a-d872428c7e72"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""W"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f71d77a0-5634-463c-a087-2fb8b2b5317e"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""A"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""99564887-dd7f-4f5c-9960-2fd7342ad08d"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""S"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b1f56d61-ff8e-4963-8218-efde19769055"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""D"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -949,6 +1029,10 @@ namespace MMORPG
             m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
             m_Player_Pickup = m_Player.FindAction("Pickup", throwIfNotFound: true);
+            m_Player_W = m_Player.FindAction("W", throwIfNotFound: true);
+            m_Player_A = m_Player.FindAction("A", throwIfNotFound: true);
+            m_Player_S = m_Player.FindAction("S", throwIfNotFound: true);
+            m_Player_D = m_Player.FindAction("D", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1035,6 +1119,10 @@ namespace MMORPG
         private readonly InputAction m_Player_Run;
         private readonly InputAction m_Player_Interact;
         private readonly InputAction m_Player_Pickup;
+        private readonly InputAction m_Player_W;
+        private readonly InputAction m_Player_A;
+        private readonly InputAction m_Player_S;
+        private readonly InputAction m_Player_D;
         public struct PlayerActions
         {
             private @GameInputControls m_Wrapper;
@@ -1045,6 +1133,10 @@ namespace MMORPG
             public InputAction @Run => m_Wrapper.m_Player_Run;
             public InputAction @Interact => m_Wrapper.m_Player_Interact;
             public InputAction @Pickup => m_Wrapper.m_Player_Pickup;
+            public InputAction @W => m_Wrapper.m_Player_W;
+            public InputAction @A => m_Wrapper.m_Player_A;
+            public InputAction @S => m_Wrapper.m_Player_S;
+            public InputAction @D => m_Wrapper.m_Player_D;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1072,6 +1164,18 @@ namespace MMORPG
                 @Pickup.started += instance.OnPickup;
                 @Pickup.performed += instance.OnPickup;
                 @Pickup.canceled += instance.OnPickup;
+                @W.started += instance.OnW;
+                @W.performed += instance.OnW;
+                @W.canceled += instance.OnW;
+                @A.started += instance.OnA;
+                @A.performed += instance.OnA;
+                @A.canceled += instance.OnA;
+                @S.started += instance.OnS;
+                @S.performed += instance.OnS;
+                @S.canceled += instance.OnS;
+                @D.started += instance.OnD;
+                @D.performed += instance.OnD;
+                @D.canceled += instance.OnD;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1094,6 +1198,18 @@ namespace MMORPG
                 @Pickup.started -= instance.OnPickup;
                 @Pickup.performed -= instance.OnPickup;
                 @Pickup.canceled -= instance.OnPickup;
+                @W.started -= instance.OnW;
+                @W.performed -= instance.OnW;
+                @W.canceled -= instance.OnW;
+                @A.started -= instance.OnA;
+                @A.performed -= instance.OnA;
+                @A.canceled -= instance.OnA;
+                @S.started -= instance.OnS;
+                @S.performed -= instance.OnS;
+                @S.canceled -= instance.OnS;
+                @D.started -= instance.OnD;
+                @D.performed -= instance.OnD;
+                @D.canceled -= instance.OnD;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1290,6 +1406,10 @@ namespace MMORPG
             void OnRun(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
             void OnPickup(InputAction.CallbackContext context);
+            void OnW(InputAction.CallbackContext context);
+            void OnA(InputAction.CallbackContext context);
+            void OnS(InputAction.CallbackContext context);
+            void OnD(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

@@ -45,6 +45,8 @@ namespace MMORPG.Game
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
             _network.Receive<EntityAttributeSyncResponse>(OnEntityAttributeSyncReceived)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
+
+
         }
 
         private void OnEntityAttributeSyncReceived(EntityAttributeSyncResponse response)

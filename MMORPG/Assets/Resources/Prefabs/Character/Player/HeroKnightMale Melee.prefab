@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 1976325529059806719}
   - component: {fileID: 122206386740146585}
   - component: {fileID: 8284582202058442487}
+  - component: {fileID: 5328490751426844818}
   m_Layer: 7
   m_Name: RemoteAbilities
   m_TagString: Untagged
@@ -187,6 +188,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnterAbilityFeedbacks: {fileID: 5461296939530261852}
   ExitAbilityFeedbacks: {fileID: 2621699601792081367}
+--- !u!114 &5328490751426844818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171388820641581816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 416a0e4c0f2cf4e428ca190a9a8ead6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnterAbilityFeedbacks: {fileID: 0}
+  ExitAbilityFeedbacks: {fileID: 0}
 --- !u!1 &284044486536489920
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,70 +233,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9162639045243292746}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &576179504020121677
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 189010334653391765}
-  - component: {fileID: 2370554753991957036}
-  m_Layer: 7
-  m_Name: Run Feedback
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &189010334653391765
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 576179504020121677}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 204620109946203986}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2370554753991957036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 576179504020121677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4fb458d4bea0fa48b80327cec288cf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  InitializationMode: 0
-  AutoInitialization: 1
-  AutoPlayOnStart: 0
-  AutoPlayOnEnable: 0
-  CanPlay: 1
-  CanPlayWhileAlreadyPlaying: 0
-  StopCurrentPlayIfNewPlay: 1
-  FeedbackItems: []
-  references:
-    version: 2
-    RefIds: []
 --- !u!1 &884816792351883935
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,6 +963,7 @@ GameObject:
   - component: {fileID: 7368765020191805106}
   - component: {fileID: 1584828809849157921}
   - component: {fileID: 4883505689159752699}
+  - component: {fileID: 478593324606530670}
   m_Layer: 7
   m_Name: LocalAbilities
   m_TagString: Untagged
@@ -1120,6 +1072,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnterAbilityFeedbacks: {fileID: 5461296939530261852}
   ExitAbilityFeedbacks: {fileID: 2621699601792081367}
+--- !u!114 &478593324606530670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952149207982524674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8a435bf4bc3a2a4bbaa31acfc514df7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnterAbilityFeedbacks: {fileID: 0}
+  ExitAbilityFeedbacks: {fileID: 0}
+  DodgeTime: 0.5
 --- !u!1 &2031200277136639676
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,6 +1230,12 @@ MonoBehaviour:
         Not: 0
       TrueStateName: Skill
       FalseStateName: 
+    - Label: "\u7FFB\u6EDA"
+      StateConditions:
+      - FullMethodName: LocalPlayerDodge/IsDodgeClick
+        Not: 0
+      TrueStateName: Dodge
+      FalseStateName: 
   - Name: Movement
     Actions:
     - LocalAbilityName: LocalPlayerMovement
@@ -1294,6 +1267,12 @@ MonoBehaviour:
       - FullMethodName: LocalPlayerSkill/IsSpellingSkill
         Not: 0
       TrueStateName: Skill
+      FalseStateName: 
+    - Label: "\u7FFB\u6EDA"
+      StateConditions:
+      - FullMethodName: LocalPlayerDodge/IsDodgeClick
+        Not: 0
+      TrueStateName: Dodge
       FalseStateName: 
   - Name: Attack
     Actions:
@@ -1329,6 +1308,12 @@ MonoBehaviour:
     Actions:
     - LocalAbilityName: LocalPlayerDeath
       RemoteAbilityName: RemotePlayerDeath
+    HandleTransitionsScripts: 1
+    Transitions: []
+  - Name: Dodge
+    Actions:
+    - LocalAbilityName: LocalPlayerDodge
+      RemoteAbilityName: RemotePlayerDodge
     HandleTransitionsScripts: 1
     Transitions: []
   HandleWeapon: {fileID: 318675475786937441}
@@ -4284,70 +4269,6 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
---- !u!1 &6665857463537944884
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 899194400635972477}
-  - component: {fileID: 4769104135306738409}
-  m_Layer: 7
-  m_Name: Walk Feedback
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &899194400635972477
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6665857463537944884}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 204620109946203986}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4769104135306738409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6665857463537944884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4fb458d4bea0fa48b80327cec288cf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  InitializationMode: 0
-  AutoInitialization: 1
-  AutoPlayOnStart: 0
-  AutoPlayOnEnable: 0
-  CanPlay: 1
-  CanPlayWhileAlreadyPlaying: 0
-  StopCurrentPlayIfNewPlay: 1
-  FeedbackItems: []
-  references:
-    version: 2
-    RefIds: []
 --- !u!1 &6710520580799211426
 GameObject:
   m_ObjectHideFlags: 0
@@ -4472,8 +4393,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 899194400635972477}
-  - {fileID: 189010334653391765}
   - {fileID: 5887721236147765679}
   - {fileID: 6022445722869376737}
   - {fileID: 1906137943269824257}
