@@ -77,12 +77,6 @@ namespace MMORPG.UI
             RevivePanel.EndRevive();
         }
 
-        protected override void OnInit(IUIData uiData = null)
-		{
-			mData = uiData as UIGameHubPanelData ?? new UIGameHubPanelData();
-            // please add init code here
-        }
-        
         private void OnInteract(InputAction.CallbackContext obj)
         {
             DialoguePanel.Interact();
