@@ -18,6 +18,7 @@ namespace GameServer.AiSystem
     {
         None = 0,
         Walk,
+        Cast,
         Hurt,
         Chase,
         Goback,
@@ -105,14 +106,13 @@ namespace GameServer.AiSystem
 
         public void CastSkill()
         {
+            ChangeAnimationState(AnimationState.Skill);
+            AnimationState = AnimationState.Idle;
+
             if (!OwnerMonster.SkillManager.SkillDict.Any() || ChasingTarget == null) return;
             var values = OwnerMonster.SkillManager.SkillDict.Values.ToList();
             var skill  = values[Random.Next(values.Count)];
-            if (CastSkillAbility.CastSkill(skill.Define.ID, ChasingTarget) == CastResult.Success)
-            {
-                ChangeAnimationState(AnimationState.Skill);
-                AnimationState = AnimationState.Idle;
-            }
+            if (CastSkillAbility.CastSkill(skill.Define.ID, ChasingTarget) == CastResult.Success) ;
         }
 
         public void Revive()
@@ -210,6 +210,7 @@ namespace GameServer.AiSystem
             AbilityManager = new MonsterAbilityManager(monster);
             Fsm.AddState(MonsterAiState.Walk, new WalkState(Fsm, AbilityManager));
             Fsm.AddState(MonsterAiState.Chase, new ChaseState(Fsm, AbilityManager));
+            Fsm.AddState(MonsterAiState.Cast, new CastState(Fsm, AbilityManager));
             Fsm.AddState(MonsterAiState.Goback, new GobackState(Fsm, AbilityManager));
             Fsm.AddState(MonsterAiState.Hurt, new HurtState(Fsm, AbilityManager));
             Fsm.AddState(MonsterAiState.Death, new DeathState(Fsm, AbilityManager));
@@ -312,6 +313,33 @@ namespace GameServer.AiSystem
         }
 
         /// <summary>
+        /// 技能释放状态
+        /// </summary>
+        public class CastState : FSMAbstractState<MonsterAiState, MonsterAbilityManager>
+        {
+            private float _endTime;
+            private DamageInfo _currentDamageInfo;
+
+            public CastState(FSM<MonsterAiState> fsm, MonsterAbilityManager parameter) :
+                base(fsm, parameter)
+            {
+            }
+
+            public override void OnEnter()
+            {
+                _target.CastSkill();
+            }
+
+            public override void OnUpdate()
+            {
+                if (_target.OwnerMonster.Spell.CurrentRunSkill == null)
+                {
+                    _fsm.ChangeState(MonsterAiState.Walk);
+                }
+            }
+        }
+
+        /// <summary>
         /// 受击状态
         /// </summary>
         public class HurtState : FSMAbstractState<MonsterAiState, MonsterAbilityManager>
@@ -405,8 +433,9 @@ namespace GameServer.AiSystem
 
                 if (d1 <= _target.AttackRange)
                 {
-                    // 距离足够，可以发起攻击了
-                    _target.CastSkill();
+                    // 距离足够，可以尝试释放技能了
+                    _fsm.ChangeState(MonsterAiState.Cast);
+                    return;
                 }
                 else
                 {
