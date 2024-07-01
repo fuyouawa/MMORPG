@@ -40,6 +40,8 @@ namespace MMORPG.Game
         [AnimatorParam]
         public float VertMovementDirection { get; set; }
 
+        public float SpeedMultiply { get; set; }
+
         public Vector2 MovementDirection
         {
             get => new(HoriMovementDirection, VertMovementDirection);
@@ -96,6 +98,7 @@ namespace MMORPG.Game
             Animator = GetComponent<Animator>();
             _machine = new(this, gameObject, Animator);
             _machine.Run();
+            SpeedMultiply = 1f;
         }
 
         void Start()
@@ -159,7 +162,7 @@ namespace MMORPG.Game
         {
             if (_animatorMove)
             {
-                Brain.ActorController.MoveDirection(Animator.deltaPosition);
+                Brain.ActorController.MoveDirection(Animator.deltaPosition * SpeedMultiply);
                 Brain.ActorController.RelativeRotate(Animator.deltaRotation);
             }
         }
