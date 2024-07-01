@@ -119,53 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &34167673
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 34167675}
-  - component: {fileID: 34167674}
-  m_Layer: 0
-  m_Name: ResKitUIPanelTester
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &34167674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 34167673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6b7a3e7dc894eaca1053ef166cdad33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PanelName: UICharacterSelectPanel
-  Level: 0
-  mOtherPanels: []
---- !u!4 &34167675
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 34167673}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 86.88381, y: 10.636557, z: 31.908623}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1132465548
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +450,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4062627324149580619}
   m_Father: {fileID: 7058012567862941438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -516,8 +470,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4062627324149580619}
+  m_Children: []
   m_Father: {fileID: 7058012567862941438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -982,7 +935,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7057756308288872048}
+    m_TransformParent: {fileID: 7057725459546261810}
     m_Modifications:
     - target: {fileID: 45737458194281135, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1038,15 +991,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 851522075023499502, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 851522075023499502, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 851522075023499502, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 851522075023499502, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1066,6 +1019,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 851522075023499502, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 899288989916253899, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 899288989916253899, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 899288989916253899, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 899288989916253899, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 899288989916253899, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 899288989916253899, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1898426010858241577, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
@@ -1136,6 +1113,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: UICharacterSelectPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 8598874869433913260, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598874869433913260, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598874869433913260, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598874869433913260, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598874869433913260, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598874869433913260, guid: 8c8d26e665176e24ca8e84e335f44695, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1148,4 +1149,3 @@ SceneRoots:
   - {fileID: 1484184529}
   - {fileID: 1132465550}
   - {fileID: 7058012567862941438}
-  - {fileID: 34167675}

@@ -7,12 +7,6 @@ namespace MMORPG.UI
 	}
 	public partial class UIToolPanel : UIPanel
 	{
-		protected override void OnInit(IUIData uiData = null)
-		{
-			mData = uiData as UIToolPanelData ?? new UIToolPanelData();
-			// please add init code here
-		}
-		
 		protected override void OnOpen(IUIData uiData = null)
 		{
 		}
