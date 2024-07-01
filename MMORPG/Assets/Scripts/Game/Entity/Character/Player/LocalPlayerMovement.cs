@@ -17,6 +17,8 @@ namespace MMORPG.Game
     public class LocalPlayerMovement : LocalPlayerAbility
     {
         public float BackIdleThreshold = 0.5f;
+        public float WalkSpeedMultiply = 1.2f;
+        public float RunSpeedMultiply = 1.5f;
 
         private Vector2 _moveDirection;
 
@@ -48,6 +50,7 @@ namespace MMORPG.Game
         {
             SoundManager.Instance.PlayerWalkAudio.Stop();
             SoundManager.Instance.PlayerRunAudio.Stop();
+            Brain.AnimationController.SpeedMultiply = 1;
         }
 
         [StateCondition]
@@ -68,6 +71,7 @@ namespace MMORPG.Game
             {
                 if (!Brain.AnimationController.Running)
                 {
+                    Brain.AnimationController.SpeedMultiply = RunSpeedMultiply;
                     Brain.AnimationController.StartRunning();
                     SoundManager.Instance.PlayerWalkAudio.Stop();
                     SoundManager.Instance.PlayerRunAudio.Play();
@@ -77,6 +81,7 @@ namespace MMORPG.Game
             {
                 if (!Brain.AnimationController.Walking)
                 {
+                    Brain.AnimationController.SpeedMultiply = WalkSpeedMultiply;
                     Brain.AnimationController.StartWalking();
                     SoundManager.Instance.PlayerRunAudio.Stop();
                     SoundManager.Instance.PlayerWalkAudio.Play();
