@@ -83,11 +83,8 @@ namespace GameServer
         {
             var channel = sender as NetChannel;
             Debug.Assert(channel != null);
-            if (channel == null)
-            {
-                return;
-            }
-
+            if (channel == null) return;
+            
             UserService.Instance.OnChannelClosed(channel);
             CharacterService.Instance.OnChannelClosed(channel);
             MapService.Instance.OnChannelClosed(channel);
