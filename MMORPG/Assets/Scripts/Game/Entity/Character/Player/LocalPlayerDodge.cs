@@ -16,7 +16,8 @@ namespace MMORPG.Game
 
     public class LocalPlayerDodge : LocalPlayerAbility
     {
-        public float DodgeDuration = 0.7f;
+        public float DodgeHoriDuration = 0.7f;
+        public float DodgeVertDuration = 0.5f;
         public float DodgeCoolTime = 1.3f;
         public float SpeedMultiply = 1.5f;
 
@@ -59,7 +60,7 @@ namespace MMORPG.Game
                     throw new ArgumentOutOfRangeException();
             }
 
-            StartCoroutine("BackIdleCo");
+            StartCoroutine("BackIdleCo", _dodgeState);
         }
 
         public override void OnStateExit()
@@ -67,11 +68,16 @@ namespace MMORPG.Game
             StopCoroutine("BackIdleCo");
         }
 
-        private IEnumerator BackIdleCo()
+        private IEnumerator BackIdleCo(DodgeStates state)
         {
             _lastDodgeTime = Time.time;
             OwnerState.Brain.AnimationController.SpeedMultiply = SpeedMultiply;
-            yield return new WaitForSeconds(DodgeDuration);
+
+            if (state is DodgeStates.Front or DodgeStates.Back)
+                yield return new WaitForSeconds(DodgeHoriDuration);
+            else
+                yield return new WaitForSeconds(DodgeVertDuration);
+
             OwnerState.Brain.AnimationController.SpeedMultiply = 1f;
             OwnerState.Brain.ChangeStateByName("Idle");
         }
