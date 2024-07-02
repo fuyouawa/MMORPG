@@ -1016,6 +1016,8 @@ MonoBehaviour:
   EnterAbilityFeedbacks: {fileID: 0}
   ExitAbilityFeedbacks: {fileID: 0}
   BackIdleThreshold: 0.5
+  WalkSpeedMultiply: 1.2
+  RunSpeedMultiply: 1.5
 --- !u!114 &8332389238172448655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1086,7 +1088,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnterAbilityFeedbacks: {fileID: 0}
   ExitAbilityFeedbacks: {fileID: 0}
-  DodgeTime: 0.5
+  DodgeHoriDuration: 0.7
+  DodgeVertDuration: 0.5
+  DodgeCoolTime: 1.3
+  SpeedMultiply: 1.5
 --- !u!1 &2031200277136639676
 GameObject:
   m_ObjectHideFlags: 0
@@ -3954,7 +3959,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &5051288707126291415
 CapsuleCollider:
   m_ObjectHideFlags: 0
