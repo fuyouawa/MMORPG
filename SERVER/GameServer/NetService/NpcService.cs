@@ -110,11 +110,6 @@ namespace GameServer.NetService
                 }
 
                 res.DialogueId = player.CurrentDialogueId;
-                // 如果需要保存当前的对话进度
-                if (dialogueDefine.SaveDialogueId != 0)
-                {
-                    player.DialogueManager.SaveDialogueId(npc.NpcDefine.ID, dialogueDefine.SaveDialogueId);
-                }
 
                 bool next = true;
                 if (dialogueDefine.AcceptTask != "")
@@ -145,12 +140,18 @@ namespace GameServer.NetService
                 {
                     dialogueDefine = DataManager.Instance.DialogueDict[player.CurrentDialogueId];
                 }
+                // 如果需要保存当前的对话进度
+                if (dialogueDefine.SaveDialogueId != 0)
+                {
+                    player.DialogueManager.SaveDialogueId(npc.NpcDefine.ID, dialogueDefine.SaveDialogueId);
+                }
 
                 if (next)
                 {
                     // 转到下一段对话
                     player.CurrentDialogueId = dialogueDefine.Jump;
                 }
+
 
                 if (player.CurrentDialogueId == 0)
                 {
