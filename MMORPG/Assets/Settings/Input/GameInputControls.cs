@@ -119,6 +119,42 @@ namespace MMORPG
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill1"",
+                    ""type"": ""Button"",
+                    ""id"": ""1c85ba33-5021-4b54-94bc-065ca215e7a2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill2"",
+                    ""type"": ""Button"",
+                    ""id"": ""614c608d-db45-426a-95aa-8f018d08dc29"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill3"",
+                    ""type"": ""Button"",
+                    ""id"": ""1675f5cb-812d-45f1-a64c-0fded42a9a8f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill4"",
+                    ""type"": ""Button"",
+                    ""id"": ""a2beb78f-acee-4481-aff2-f2164f19a272"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -416,6 +452,50 @@ namespace MMORPG
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""D"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c144afeb-6536-42c1-bc2e-e1bd288c430b"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skill1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a4e6b1c-b28b-4107-a859-bb66f4ae40ff"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skill2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""48b5ec82-327d-4cbb-bdc2-872a94c70cc8"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skill3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""472c016f-b685-48d8-a40d-572fbecbbbf6"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skill4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1033,6 +1113,10 @@ namespace MMORPG
             m_Player_A = m_Player.FindAction("A", throwIfNotFound: true);
             m_Player_S = m_Player.FindAction("S", throwIfNotFound: true);
             m_Player_D = m_Player.FindAction("D", throwIfNotFound: true);
+            m_Player_Skill1 = m_Player.FindAction("Skill1", throwIfNotFound: true);
+            m_Player_Skill2 = m_Player.FindAction("Skill2", throwIfNotFound: true);
+            m_Player_Skill3 = m_Player.FindAction("Skill3", throwIfNotFound: true);
+            m_Player_Skill4 = m_Player.FindAction("Skill4", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1123,6 +1207,10 @@ namespace MMORPG
         private readonly InputAction m_Player_A;
         private readonly InputAction m_Player_S;
         private readonly InputAction m_Player_D;
+        private readonly InputAction m_Player_Skill1;
+        private readonly InputAction m_Player_Skill2;
+        private readonly InputAction m_Player_Skill3;
+        private readonly InputAction m_Player_Skill4;
         public struct PlayerActions
         {
             private @GameInputControls m_Wrapper;
@@ -1137,6 +1225,10 @@ namespace MMORPG
             public InputAction @A => m_Wrapper.m_Player_A;
             public InputAction @S => m_Wrapper.m_Player_S;
             public InputAction @D => m_Wrapper.m_Player_D;
+            public InputAction @Skill1 => m_Wrapper.m_Player_Skill1;
+            public InputAction @Skill2 => m_Wrapper.m_Player_Skill2;
+            public InputAction @Skill3 => m_Wrapper.m_Player_Skill3;
+            public InputAction @Skill4 => m_Wrapper.m_Player_Skill4;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1176,6 +1268,18 @@ namespace MMORPG
                 @D.started += instance.OnD;
                 @D.performed += instance.OnD;
                 @D.canceled += instance.OnD;
+                @Skill1.started += instance.OnSkill1;
+                @Skill1.performed += instance.OnSkill1;
+                @Skill1.canceled += instance.OnSkill1;
+                @Skill2.started += instance.OnSkill2;
+                @Skill2.performed += instance.OnSkill2;
+                @Skill2.canceled += instance.OnSkill2;
+                @Skill3.started += instance.OnSkill3;
+                @Skill3.performed += instance.OnSkill3;
+                @Skill3.canceled += instance.OnSkill3;
+                @Skill4.started += instance.OnSkill4;
+                @Skill4.performed += instance.OnSkill4;
+                @Skill4.canceled += instance.OnSkill4;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1210,6 +1314,18 @@ namespace MMORPG
                 @D.started -= instance.OnD;
                 @D.performed -= instance.OnD;
                 @D.canceled -= instance.OnD;
+                @Skill1.started -= instance.OnSkill1;
+                @Skill1.performed -= instance.OnSkill1;
+                @Skill1.canceled -= instance.OnSkill1;
+                @Skill2.started -= instance.OnSkill2;
+                @Skill2.performed -= instance.OnSkill2;
+                @Skill2.canceled -= instance.OnSkill2;
+                @Skill3.started -= instance.OnSkill3;
+                @Skill3.performed -= instance.OnSkill3;
+                @Skill3.canceled -= instance.OnSkill3;
+                @Skill4.started -= instance.OnSkill4;
+                @Skill4.performed -= instance.OnSkill4;
+                @Skill4.canceled -= instance.OnSkill4;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1410,6 +1526,10 @@ namespace MMORPG
             void OnA(InputAction.CallbackContext context);
             void OnS(InputAction.CallbackContext context);
             void OnD(InputAction.CallbackContext context);
+            void OnSkill1(InputAction.CallbackContext context);
+            void OnSkill2(InputAction.CallbackContext context);
+            void OnSkill3(InputAction.CallbackContext context);
+            void OnSkill4(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
