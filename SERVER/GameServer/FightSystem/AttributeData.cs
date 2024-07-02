@@ -111,6 +111,7 @@
             Def = 0;
             Mdef = 0;
             Cri = 0;
+            Crd = 0;
             Con = 0;
             Str = 0;
             Int = 0;
