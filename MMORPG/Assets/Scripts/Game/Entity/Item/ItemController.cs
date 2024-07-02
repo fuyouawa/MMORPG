@@ -24,7 +24,9 @@ public class ItemController : MonoBehaviour, IController
             _essenceDict["传说"] = Resources.Load<GameObject>("Prefabs/Effect/Essence/ItemRedEssence");
         }
 
-        transform.position = CalculateGroundPosition(transform.position, 6);
+        var pos = transform.position;
+        pos.y = 20;
+        transform.position = CalculateGroundPosition(pos, LayerMask.NameToLayer("Terrain"));
 
         // 找到物品品质
         var dataManagerSystem = this.GetSystem<IDataManagerSystem>();
