@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameServer.Manager;
+using GameServer.NetService;
 using GameServer.PlayerSystem;
 using MMORPG.Common.Proto.Npc;
 using MMORPG.Common.Proto.Task;
@@ -95,6 +96,8 @@ namespace GameServer.TaskSystem
                         break;
                 }
             }
+            InventoryService.Instance.SyncKnapsackInfo(PlayerOwner.User.Channel, PlayerOwner);
+            TaskList.Remove(taskId);
             return true;
         }
     }

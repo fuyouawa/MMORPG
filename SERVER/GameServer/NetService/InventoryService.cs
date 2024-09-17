@@ -31,9 +31,6 @@ namespace GameServer.NetService
                 var player = entity as Player;
                 if (player == null) return;
 
-                player.Knapsack.AddItem(1001, 2);
-                player.Knapsack.AddItem(1001, 100);
-
                 var resp = new InventoryQueryResponse()
                 {
                     EntityId = player.EntityId,
@@ -69,11 +66,11 @@ namespace GameServer.NetService
                 {
                     player.Knapsack.Exchange(req.OriginSlotId, req.TargetSlotId);
                 }
-                ResponseKnapsackInfo(sender, player);
+                SyncKnapsackInfo(sender, player);
             });
         }
 
-        private void ResponseKnapsackInfo(NetChannel sender, Player player)
+        public void SyncKnapsackInfo(NetChannel sender, Player player)
         {
             UpdateManager.Instance.AddTask(() =>
             {
@@ -145,7 +142,7 @@ namespace GameServer.NetService
                 sender.Send(resp, null);
                 if (resp.Error == NetError.Success)
                 {
-                    ResponseKnapsackInfo(sender, player);
+                    SyncKnapsackInfo(sender, player);
                 }
             });
         }
@@ -162,7 +159,7 @@ namespace GameServer.NetService
                 if (!item.Define.CanUse) return;
                 player.BuffManager.AddBuff(item.Define.UseBuff);
                 player.Knapsack.RemoveItemBySlot(req.SlotId, 1);
-                ResponseKnapsackInfo(sender, player);
+                SyncKnapsackInfo(sender, player);
             });
         }
     }
