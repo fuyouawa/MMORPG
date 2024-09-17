@@ -110,40 +110,48 @@ namespace GameServer.NetService
                 }
 
                 res.DialogueId = player.CurrentDialogueId;
-                // 如果需要保存当前的对话进度
-                if (dialogueDefine.SaveDialogueId != 0)
-                {
-                    player.DialogueManager.SaveDialogueId(npc.NpcDefine.ID, dialogueDefine.SaveDialogueId);
-                }
 
-                if (req.SelectIdx != 0)
-                {
-                    dialogueDefine = DataManager.Instance.DialogueDict[player.CurrentDialogueId];
-                }
-
-
-                // 转到下一段对话
-                player.CurrentDialogueId = dialogueDefine.Jump;
-
+                bool next = true;
                 if (dialogueDefine.AcceptTask != "")
                 {
                     // 接取任务
                     var tmp = JsonConvert.DeserializeObject<int[]>(dialogueDefine.AcceptTask);
                     if (!player.TaskManager.AcceptTask(tmp[0]))
                     {
-                        player.CurrentDialogueId = tmp[1];
+                        player.CurrentDialogueId = 0;
+                        res.DialogueId = tmp[1];
+                        next = false;
                     }
                 }
-
+                
                 if (dialogueDefine.SubmitTask != "")
                 {
                     // 提交任务
                     var tmp = JsonConvert.DeserializeObject<int[]>(dialogueDefine.SubmitTask);
                     if (!player.TaskManager.SubmitTask(tmp[0]))
                     {
-                        player.CurrentDialogueId = tmp[1];
+                        player.CurrentDialogueId = 0;
+                        res.DialogueId = tmp[1];
+                        next = false;
                     }
                 }
+
+                if (req.SelectIdx != 0 && player.CurrentDialogueId != 0)
+                {
+                    dialogueDefine = DataManager.Instance.DialogueDict[player.CurrentDialogueId];
+                }
+                // 如果需要保存当前的对话进度
+                if (dialogueDefine.SaveDialogueId != 0)
+                {
+                    player.DialogueManager.SaveDialogueId(npc.NpcDefine.ID, dialogueDefine.SaveDialogueId);
+                }
+
+                if (next)
+                {
+                    // 转到下一段对话
+                    player.CurrentDialogueId = dialogueDefine.Jump;
+                }
+
 
                 if (player.CurrentDialogueId == 0)
                 {
