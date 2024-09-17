@@ -254,7 +254,7 @@ namespace GameServer.InventorySystem
                 {
                     return false;
                 }
-                slotId = item.SlotId;
+                slotId = item.SlotId + 1;
                 int removeAmount = Math.Min(residue, item.Amount);
                 residue -= removeAmount;
             }
