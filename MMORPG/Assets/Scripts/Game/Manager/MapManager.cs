@@ -71,6 +71,10 @@ namespace MMORPG.Game
                 entity.GetComponent<ActorController>().ApplyNetActor(response.Actor, true);
 
                 Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
+                foreach (var followTarget in FindObjectsByType<FollowTarget>(FindObjectsSortMode.None))
+                {
+                    followTarget.Target = entity.transform;
+                }
             });
         }
     }

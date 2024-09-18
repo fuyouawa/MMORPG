@@ -56,6 +56,7 @@ namespace MMORPG.Tool
 
         public static bool HasParam(this Animator animator, string name, AnimatorControllerParameterType typeCheck)
         {
+            
             return animator.parameters.FirstOrDefault(x => x.name == name && x.type == typeCheck) != null;
         }
 
@@ -76,6 +77,14 @@ namespace MMORPG.Tool
                 new Vector2(0.5f, 0.5f));
         }
 
+        public static void PlayWithChildren(this AudioSource audio)
+        {
+            foreach (var a in audio.GetComponentsInChildren<AudioSource>())
+            {
+                a.Play();
+            }
+        }
+
         public static TransformLocalStore GetLocalStore(this Transform transform)
         {
             return new TransformLocalStore()
@@ -93,14 +102,6 @@ namespace MMORPG.Tool
             transform.localPosition = localStore.LocalPosition;
             transform.localRotation = localStore.LocalRotation;
             transform.localScale = localStore.LocalScale;
-        }
-
-        public static void PlayWithChildren(this AudioSource audio)
-        {
-            foreach (var a in audio.GetComponentsInChildren<AudioSource>())
-            {
-                a.Play();
-            }
         }
     }
 }
