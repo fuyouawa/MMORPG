@@ -50,7 +50,13 @@ namespace Service
                 if (request.Message.StartsWith("--/"))
                 {
                     var cmd = request.Message[3..];
-                    Log.Information($"管理员:\"{sender}\"使用作弊指令:{cmd}");
+                    var str = $"管理员:\"{sender}\"使用作弊指令:{cmd}";
+                    if (cmd == "等级提升")
+                    {
+                        sender.User?.Player?.AddLevel(1);
+                        str += $", 等级提升了1, 当前等级:{sender.User?.Player?.Level}";
+                    }
+                    Log.Information(str);
                 }
                 else
                 {

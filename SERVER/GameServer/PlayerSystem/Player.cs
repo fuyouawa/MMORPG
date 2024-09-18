@@ -110,6 +110,11 @@ namespace GameServer.PlayerSystem
             
         }
 
+        public void AddLevel(int level)
+        {
+            ChangeLevel(Level + level);
+        }
+
         public void ChangeLevel(int newLevel)
         {
             if (Level == newLevel) return;

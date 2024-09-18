@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using MMORPG.Global;
 using MMORPG.Tool;
 using UnityEngine;
 
@@ -85,7 +86,8 @@ namespace MMORPG.Game
 
         private void OnDodgeClick(DodgeStates dodge)
         {
-            Debug.Log("翻滚");
+            if (!InputManager.CanInput)
+                return;
             StartCoroutine(OnDodgeClickCo(dodge));
         }
 

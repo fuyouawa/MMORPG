@@ -19,15 +19,26 @@ MonoBehaviour:
     From: 0
     NameToFullName: []
     BindInfos:
+    - TypeName: RectTransform
+      PathToRoot: GroupHub
+      MemberName: GroupHub
     - TypeName: TMPro.TextMeshProUGUI
-      PathToRoot: TextName
+      PathToRoot: GroupHub/TextName
       MemberName: TextName
+    - TypeName: TMPro.TextMeshProUGUI
+      PathToRoot: GroupHub/TextLevel
+      MemberName: TextLevel
+    - TypeName: MMORPG.UI.UIHpBar
+      PathToRoot: GroupHub/UIHpBar
+      MemberName: UIHpBar
     ScriptsFolder: Assets/Scripts/UI/UICharacter
-    ClassName: NpcUICanvas
-    Namespace: MMORPG.UI
-    MainCode: "using UnityEngine;\r\nusing QFramework;\r\n\r\nnamespace MMORPG.UI\r\n{\r\n\tpublic
-      partial class NpcUICanvas : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
+    ClassName: UIPlayerCanvas
+    Namespace: MMORPG.Game
+    MainCode: "using UnityEngine;\r\nusing QFramework;\r\n\r\nnamespace MMORPG.Game\r\n{\r\n\tpublic
+      partial class UIPlayerCanvas : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
       Code Here\r\n\t\t}\r\n\t}\r\n}\r\n"
-    DesignerCode: "// Generate Id:9e2ad5d8-d4da-48de-a8e5-cc15c63aeb67\r\nusing UnityEngine;\r\n\r\nnamespace
-      MMORPG.UI\r\n{\r\n\tpublic partial class NpcUICanvas : QFramework.IController\r\n\t{\r\n\r\n\t\tpublic
-      TMPro.TextMeshProUGUI TextName;\r\n\r\n\t\tQFramework.IArchitecture QFramework.IBelongToArchitecture.GetArchitecture()=>MMORPG.Game.GameApp.Interface;\r\n\t}\r\n}\r\n"
+    DesignerCode: "// Generate Id:cbe7a309-8d2a-4e01-a52b-e0711c0ae705\r\nusing UnityEngine;\r\n\r\nnamespace
+      MMORPG.Game\r\n{\r\n\tpublic partial class UIPlayerCanvas : QFramework.IController\r\n\t{\r\n\r\n\t\tpublic
+      RectTransform GroupHub;\r\n\r\n\t\tpublic TMPro.TextMeshProUGUI TextName;\r\n\r\n\t\tpublic
+      TMPro.TextMeshProUGUI TextLevel;\r\n\r\n\t\tpublic MMORPG.UI.UIHpBar UIHpBar;\r\n\r\n\t\tQFramework.IArchitecture
+      QFramework.IBelongToArchitecture.GetArchitecture()=>MMORPG.Game.GameApp.Interface;\r\n\t}\r\n}\r\n"

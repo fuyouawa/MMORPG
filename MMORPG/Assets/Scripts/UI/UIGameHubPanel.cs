@@ -8,6 +8,7 @@ using MMORPG.Command;
 using MMORPG.Common.Proto.Base;
 using MMORPG.Game;
 using MMORPG.Event;
+using MMORPG.Global;
 using MMORPG.System;
 
 namespace MMORPG.UI
@@ -84,6 +85,10 @@ namespace MMORPG.UI
 
         private void OnSwitchInventory(InputAction.CallbackContext obj)
         {
+            if (!InputManager.CanInput)
+            {
+                return;
+            }
             if (PlayerKnapsackPanel.gameObject.activeSelf)
             {
                 PanelHelper.FadeOut(PlayerKnapsackPanel.gameObject);
