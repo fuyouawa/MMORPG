@@ -70,6 +70,7 @@ namespace MMORPG.UI
 
         public async void Spell()
         {
+            if (!InputManager.CanInput) return;
             if (SkillPanel.HasSkillRequestingSpell) return;
             if (Skill.CurrentState != Skill.States.Idle) return;
 

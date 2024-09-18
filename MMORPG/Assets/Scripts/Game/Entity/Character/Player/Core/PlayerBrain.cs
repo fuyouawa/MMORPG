@@ -57,8 +57,8 @@ namespace MMORPG.Game
 
         public RemotePlayerAbility[] GetAttachRemoteAbilities() => GetAttachAbilities<RemotePlayerAbility>();
 
-        public Vector2 GetMoveInput() => InputControls.Player.Move.ReadValue<Vector2>();
-        public bool IsPressingRun() => InputControls.Player.Run.inProgress;
+        public Vector2 GetMoveInput() => InputManager.CanInput ? InputControls.Player.Move.ReadValue<Vector2>() : Vector2.zero;
+        public bool IsPressingRun() => InputManager.CanInput ? InputControls.Player.Run.inProgress : false;
 
         private bool? _isMine = null;
 
