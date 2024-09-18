@@ -39,9 +39,9 @@ namespace MMORPG.System
                 var suc = EntityDict.Remove(entity.EntityId);
                 Debug.Assert(suc);
                 this.SendEvent(new EntityLeaveEvent(entity));
-                Log.Information($"实体退出地图: id:{entityId}, type:{entity.EntityType}");
+                // Log.Information($"实体退出地图: id:{entityId}, type:{entity.EntityType}");
                 // 主要为了延迟下一帧调用, 以便可以先处理EntityLeaveEvent再Destroy
-                UnityMainThreadDispatcher.Instance().Enqueue(() => GameObject.Destroy(entity.gameObject));
+                GameObject.Destroy(entity.gameObject);
             }
             else
             {
@@ -73,7 +73,6 @@ namespace MMORPG.System
 
             EntityDict[entity.EntityId] = entity;
 
-            Log.Information($"实体生成成功: id:{entityId}, type:{type}, position:{position}, rotation:{rotation}");
             this.SendEvent(new EntityEnterEvent(entity));
             return entity;
         }

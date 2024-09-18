@@ -46,16 +46,16 @@ namespace GameServer.PlayerSystem
             Knapsack = new(this);
             DialogueManager = new(this);
             TaskManager = new(this);
-        }
-
-        public override void Start()
-        {
-            base.Start();
             Hp = DbCharacter.Hp;
             Mp = DbCharacter.Mp;
             Level = DbCharacter.Level;
             Exp = DbCharacter.Exp;
             Gold = DbCharacter.Gold;
+        }
+
+        public override void Start()
+        {
+            base.Start();
             Knapsack.LoadInventoryInfo(DbCharacter.Knapsack);
             DialogueManager.LoadDialogueInfo(DbCharacter.DialogueInfo);
             TaskManager.LoadTaskInfo(DbCharacter.TaskInfo);
