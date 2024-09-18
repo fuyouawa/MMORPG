@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MMORPG.Common.Proto.Fight;
 
 namespace MMORPG.Common.Tool
 {
@@ -70,6 +71,11 @@ namespace MMORPG.Common.Tool
         public static void RemoveIf<T>(this LinkedList<T> list, Func<T, bool> predicate)
         {
             list.Remove(list.FindIf(predicate));
+        }
+
+        public static string ToString(this CastInfo info)
+        {
+            return $"CastInfo:\"SkillId:{info.SkillId}|{info.CastTarget}:{info.CasterId}|\"";
         }
     }
 }
