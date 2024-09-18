@@ -33,12 +33,12 @@ namespace MMORPG.Game
                     ImageBgHpFill.fillAmount = Mathf.Lerp(ImageBgHpFill.fillAmount, hpPer, BgHpLerp * Time.deltaTime);
                 }
                 hpPer *= 100f;
-                TextHpPercentage.text = $"{hpPer:0}%";
+                TextHpPercentage.text = $"{_actorController.Hp}/{_actorController.MaxHp}({hpPer:0}%)";
 
                 var mpPer = (float)_actorController.Mp / _actorController.MaxMp;
                 ImageMpFill.fillAmount = mpPer;
                 mpPer *= 100f;
-                TextMpPercentage.text = $"{mpPer:0}%";
+                TextMpPercentage.text = $"{_actorController.Mp}/{_actorController.MaxMp}({mpPer:0}%)";
 
                 TextLevel.text = _actorController.Level.ToString();
 
