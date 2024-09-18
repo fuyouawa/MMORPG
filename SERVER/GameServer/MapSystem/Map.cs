@@ -152,7 +152,7 @@ namespace GameServer.MapSystem
                         init1 = true;
                     }
                     // 如果移动的是玩家，还需要向该玩家通知所有新加入视野范围的实体
-                    Log.Debug($"[Map.EntityRefreshPosition]2.实体：{entityId} 进入了 实体：{entity.EntityId} 的视距范围");
+                    // Log.Debug($"[Map.EntityRefreshPosition]2.实体：{entityId} 进入了 实体：{entity.EntityId} 的视距范围");
                     if (entity.EntityType != EntityType.Player) return;
                     var enterEntity = EntityManager.Instance.GetEntity(entityId);
                     Debug.Assert(enterEntity != null);
@@ -166,7 +166,7 @@ namespace GameServer.MapSystem
                         init2 = true;
                     }
                     // 如果移动的是玩家，还需要向该玩家通知所有退出其视野范围的实体
-                    Log.Debug($"[Map.EntityRefreshPosition]2.实体：{entityId} 离开了 实体：{entity.EntityId} 的视距范围");
+                    // Log.Debug($"[Map.EntityRefreshPosition]2.实体：{entityId} 离开了 实体：{entity.EntityId} 的视距范围");
                     if (entity.EntityType != EntityType.Player) return;
                     var leaveEntity = EntityManager.Instance.GetEntity(entityId);
                     Debug.Assert(leaveEntity != null);
@@ -175,7 +175,7 @@ namespace GameServer.MapSystem
                 entityId =>
                 {
                     // 如果进入了一个玩家的视距范围，则向其通知有实体加入
-                    Log.Debug($"[Map.EntityRefreshPosition]1.实体：{entity.EntityId} 进入了 实体：{entityId} 的视距范围");
+                    // Log.Debug($"[Map.EntityRefreshPosition]1.实体：{entity.EntityId} 进入了 实体：{entityId} 的视距范围");
                     var enterEntity = EntityManager.Instance.GetEntity(entityId);
                     Debug.Assert(enterEntity != null);
                     if (enterEntity.EntityType != EntityType.Player) return;
@@ -187,7 +187,7 @@ namespace GameServer.MapSystem
                 entityId =>
                 {
                     // 如果离开了一个玩家的视距范围，则向其通知有实体退出
-                    Log.Debug($"[Map.EntityRefreshPosition]1.实体：{entity.EntityId} 离开了 实体：{entityId} 的视距范围");
+                    // Log.Debug($"[Map.EntityRefreshPosition]1.实体：{entity.EntityId} 离开了 实体：{entityId} 的视距范围");
                     var leaveEntity = EntityManager.Instance.GetEntity(entityId);
                     Debug.Assert(leaveEntity != null);
                     if (leaveEntity.EntityType != EntityType.Player) return;
