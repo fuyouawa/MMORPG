@@ -1,6 +1,7 @@
 using System.Collections;
 using MMORPG.Common.Proto.Entity;
 using MMORPG.Event;
+using MMORPG.Global;
 using MMORPG.System;
 using MMORPG.Tool;
 using QFramework;

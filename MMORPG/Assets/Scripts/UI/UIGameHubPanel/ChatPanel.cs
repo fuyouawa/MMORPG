@@ -5,7 +5,11 @@ using MMORPG.System;
 using MMORPG.Common.Proto.Map;
 using System;
 using MMORPG.Common.Proto.Base;
+using MMORPG.Game;
 using MMORPG.Model;
+using TMPro;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace MMORPG.UI
 {
@@ -40,6 +44,7 @@ namespace MMORPG.UI
             _network.Receive<ReceiveChatMessageResponse>(OnReceiveChatMessage)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
         }
+
         private void OnTabChanged(UITab tab, bool isSelected)
         {
             if (isSelected)
