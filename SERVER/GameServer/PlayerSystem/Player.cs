@@ -32,6 +32,11 @@ namespace GameServer.PlayerSystem
         public DialogueManager DialogueManager;
         public TaskManager TaskManager;
 
+        public override string ToString()
+        {
+            return $"{base.ToString()}({User})";
+        }
+
         public Player(int entityId, DbCharacter dbCharacter, UnitDefine unitDefine,
             Map map, Vector3 pos, Vector3 dire, User user, int level)
             : base(EntityType.Player, entityId, unitDefine, map, pos, dire, dbCharacter.Name, level)

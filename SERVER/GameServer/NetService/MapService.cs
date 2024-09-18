@@ -47,14 +47,22 @@ namespace Service
                     Timestamp = time
                 });
 
-                sender.User?.Player?.Map.PlayerManager.Broadcast(new ReceiveChatMessageResponse()
+                if (request.Message.StartsWith("--/"))
                 {
-                    CharacterId = sender.User.Player.DbCharacter.Id,
-                    CharacterName = sender.User.Player.Name,
-                    Message = request.Message,
-                    MessageType = request.MessageType,
-                    Timestamp = time
-                }, sender.User.Player, false);
+                    var cmd = request.Message[3..];
+                    Log.Information($"管理员:\"{sender}\"使用作弊指令:{cmd}");
+                }
+                else
+                {
+                    sender.User?.Player?.Map.PlayerManager.Broadcast(new ReceiveChatMessageResponse()
+                    {
+                        CharacterId = sender.User.Player.DbCharacter.Id,
+                        CharacterName = sender.User.Player.Name,
+                        Message = request.Message,
+                        MessageType = request.MessageType,
+                        Timestamp = time
+                    }, sender.User.Player, false);
+                }
             });
         }
     }

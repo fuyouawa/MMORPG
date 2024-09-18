@@ -40,5 +40,10 @@ namespace GameServer.EntitySystem
         {
             return Valid;
         }
+
+        public override string ToString()
+        {
+            return $"Entity:\"Type:{EntityType}({EntityId})\"";
+        }
     }
 }

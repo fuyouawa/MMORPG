@@ -34,6 +34,11 @@ namespace GameServer.MapSystem
 
         private AoiWord _aoiWord;
 
+        public override string ToString()
+        {
+            return $"Map:\"{Define.Name}:{MapId}\"";
+        }
+
         public Map(MapDefine mapDefine)
         {
             Define = mapDefine;
@@ -73,7 +78,7 @@ namespace GameServer.MapSystem
         /// </summary>
         public void EntityEnter(Entity entity)
         {
-            Log.Information($"实体进入场景:{entity.EntityId}");
+            Log.Information($"{entity}进入{entity.Map}");
 
             entity.AoiEntity = _aoiWord.Enter(entity.EntityId, entity.Position.X, entity.Position.Y);
             
@@ -118,7 +123,7 @@ namespace GameServer.MapSystem
         /// </summary>
         public void EntityLeave(Entity entity)
         {
-            Log.Information($"实体离开场景:{entity.EntityId}");
+            Log.Information($"{entity}离开{entity.Map}");
 
             // 向能观察到实体的角色广播实体离开场景
             // 实际上直接广播是向当前entity的关注实体广播而非关注当前entity的实体
