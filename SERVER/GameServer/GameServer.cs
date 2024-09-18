@@ -83,8 +83,7 @@ namespace GameServer
         {
             var channel = sender as NetChannel;
             Debug.Assert(channel != null);
-            if (channel == null) return;
-            
+
             UserService.Instance.OnChannelClosed(channel);
             CharacterService.Instance.OnChannelClosed(channel);
             MapService.Instance.OnChannelClosed(channel);
@@ -94,7 +93,14 @@ namespace GameServer
             {
                 if (channel.LinkedListNode != null)
                 {
-                    _channels.Remove(channel.LinkedListNode);
+                    try
+                    {
+                        _channels.Remove(channel.LinkedListNode);
+                    }
+                    catch (Exception exception)
+                    {
+                        //TODO _channels.Remove的报错处理
+                    }
                 }
             }
         }

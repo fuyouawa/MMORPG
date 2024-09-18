@@ -26,6 +26,11 @@ namespace GameServer.UserSystem
             UserId = userId;
         }
 
+        public override string ToString()
+        {
+            return $"User:{Username}({UserId})";
+        }
+
         public void Start() { }
 
         public void Update() { }

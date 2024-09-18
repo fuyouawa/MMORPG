@@ -158,7 +158,6 @@ namespace GameServer.FightSystem
             // 技能激活
             _timeCounter -= Define.IntonateTime;
 
-            Log.Debug("[Skill.OnActive]");
             if (Define.MissileUnitId != 0)
             {
                 var missileUnitDefine = DataManager.Instance.UnitDict[Define.MissileUnitId];

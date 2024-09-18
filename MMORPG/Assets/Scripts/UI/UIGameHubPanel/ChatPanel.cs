@@ -71,7 +71,10 @@ namespace MMORPG.UI
 
             if (_isSendingMessage) return;
 
-            if (InputMessage.text.Trim().Length > 0)
+            var msg = InputMessage.text;
+            var isCmd = msg.StartsWith("--/");
+
+            if (msg.Trim().Length > 0)
             {
 
                 var messageType = CurrentTabContent.ChannelType switch
@@ -91,7 +94,7 @@ namespace MMORPG.UI
 
                 _network.SendToServer(new SubmitChatMessageRequest()
                 {
-                    Message = InputMessage.text,
+                    Message = msg,
                     MessageType = (Common.Proto.Map.ChatMessageType)messageType
                 });
 
@@ -99,16 +102,24 @@ namespace MMORPG.UI
 
                 if (response.Error == NetError.Success)
                 {
-                    var time = response.Timestamp.ToDateTime();
-                    if (CurrentTabContent.ChannelType == ChatChannelType.Composite)
+                    //如果是作弊指令
+                    if (isCmd)
                     {
-                        TabContentWorldChat.SubmitMessage(time, messageType, characterName, InputMessage.text, messageColor);
-                        CurrentTabContent.SubmitMessage(time, messageType, characterName, InputMessage.text, messageColor);
+                        //TODO 作弊指令
                     }
                     else
                     {
-                        TabContentCompositeChat.SubmitMessage(time, messageType, characterName, InputMessage.text, messageColor);
-                        CurrentTabContent.SubmitMessage(time, messageType, characterName, InputMessage.text, messageColor);
+                        var time = response.Timestamp.ToDateTime();
+                        if (CurrentTabContent.ChannelType == ChatChannelType.Composite)
+                        {
+                            TabContentWorldChat.SubmitMessage(time, messageType, characterName, InputMessage.text, messageColor);
+                            CurrentTabContent.SubmitMessage(time, messageType, characterName, InputMessage.text, messageColor);
+                        }
+                        else
+                        {
+                            TabContentCompositeChat.SubmitMessage(time, messageType, characterName, InputMessage.text, messageColor);
+                            CurrentTabContent.SubmitMessage(time, messageType, characterName, InputMessage.text, messageColor);
+                        }
                     }
                     InputMessage.text = string.Empty;
                 }

@@ -50,11 +50,11 @@ namespace GameServer.FightSystem
 
             if (OwnerActor is Player player)
             {
-                Log.Information($"玩家({player.User.Channel})请求释放技能: TargetType:{skill.Define.TargetType}, SkillId:{info.SkillId}, CastId:{info.CasterId}");
+                Log.Information($"{player}请求释放技能: TargetType:{skill.Define.TargetType}, {info}");
             }
             else if (OwnerActor is Monster monster)
             {
-                Log.Information($"怪物({monster.Name})请求释放技能: TargetType:{skill.Define.TargetType}, SkillId:{info.SkillId}, CastId:{info.CasterId}");
+                Log.Information($"{monster}请求释放技能: TargetType:{skill.Define.TargetType}, {info}");
             }
             switch (skill.Define.TargetType)
             {

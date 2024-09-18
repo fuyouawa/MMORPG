@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace MMORPG.UI
 {
+    [ExecuteAlways]
     public class UIHpBar : MonoBehaviour
     {
         public Image LerpFillImage;
