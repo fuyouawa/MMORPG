@@ -68,7 +68,8 @@ namespace MMORPG.Game
 
                 this.GetSystem<IPlayerManagerSystem>().SetMine(entity);
 
-                entity.GetComponent<ActorController>().ApplyNetActor(response.Actor, true);
+                var actor = entity.GetComponent<ActorController>();
+                actor.ApplyNetActor(response.Actor, true);
 
                 Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
                 foreach (var followTarget in FindObjectsByType<FollowTarget>(FindObjectsSortMode.None))

@@ -63,6 +63,7 @@ namespace GameServer.Tool
                 Hp = (int)actor.Hp,
                 MaxMp = (int)actor.AttributeManager.Final.MaxMp,
                 Mp = (int)actor.Mp,
+                Name = actor.Name
             };
             if (actor is Player player)
             {

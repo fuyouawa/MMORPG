@@ -11,7 +11,7 @@ namespace MMORPG.Game
 
         void Start()
         {
-            TextName.text = Player.ActorController.Entity.UnitDefine.Name;
+            TextName.text = Player.ActorController.Name;
             TextLevel.text = $"Lv.{Player.ActorController.Level}";
             
             gameObject.SetActive(!Player.IsMine);
