@@ -74,13 +74,13 @@ namespace GameServer.PlayerSystem
         {
             var player = new Player(EntityManager.Instance.NewEntityId(), dbCharacter, 
                 DataManager.Instance.UnitDict[dbCharacter.UnitId], _map, pos, dire, user, dbCharacter.Level);
+            player.Start();
+
             EntityManager.Instance.AddEntity(player);
             
             _playerDict.Add(player.EntityId, player);
             
             _map.EntityEnter(player);
-
-            player.Start();
             return player;
         }
 
