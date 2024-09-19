@@ -109,6 +109,8 @@ namespace GameServer.Tool
                 Level = character.Level,
                 Exp = character.Exp,
                 Gold = character.Gold,
+                Hp = character.Hp,
+                Mp = character.Mp
             };
             return netCharacter;
         }
