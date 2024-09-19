@@ -25,16 +25,16 @@ namespace MMORPG.Common.Proto.Entity {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChVFbnRpdHkvTmV0QWN0b3IucHJvdG8SGk1NT1JQRy5Db21tb24uUHJvdG8u",
-            "RW50aXR5GhdFbnRpdHkvQWN0b3JTdGF0ZS5wcm90byLGAQoITmV0QWN0b3IS",
+            "RW50aXR5GhdFbnRpdHkvQWN0b3JTdGF0ZS5wcm90byLUAQoITmV0QWN0b3IS",
             "OgoKZmxhZ19zdGF0ZRgBIAEoDjImLk1NT1JQRy5Db21tb24uUHJvdG8uRW50",
             "aXR5LkZsYWdTdGF0ZXMSDQoFbGV2ZWwYAiABKAUSDgoGbWF4X2hwGAMgASgF",
             "EgoKAmhwGAQgASgFEg4KBm1heF9tcBgFIAEoBRIKCgJtcBgGIAEoBRILCgNl",
             "eHAYByABKAUSDwoHbWF4X2V4cBgIIAEoBRIZChFyZXN1cnJlY3Rpb25fdGlt",
-            "ZRgJIAEoBWIGcHJvdG8z"));
+            "ZRgJIAEoBRIMCgRuYW1lGAogASgJYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::MMORPG.Common.Proto.Entity.ActorStateReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Entity.NetActor), global::MMORPG.Common.Proto.Entity.NetActor.Parser, new[]{ "FlagState", "Level", "MaxHp", "Hp", "MaxMp", "Mp", "Exp", "MaxExp", "ResurrectionTime" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MMORPG.Common.Proto.Entity.NetActor), global::MMORPG.Common.Proto.Entity.NetActor.Parser, new[]{ "FlagState", "Level", "MaxHp", "Hp", "MaxMp", "Mp", "Exp", "MaxExp", "ResurrectionTime", "Name" }, null, null, null, null)
           }));
     }
     #endregion
@@ -84,6 +84,7 @@ namespace MMORPG.Common.Proto.Entity {
       exp_ = other.exp_;
       maxExp_ = other.maxExp_;
       resurrectionTime_ = other.resurrectionTime_;
+      name_ = other.name_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -201,6 +202,18 @@ namespace MMORPG.Common.Proto.Entity {
       }
     }
 
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 10;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -225,6 +238,7 @@ namespace MMORPG.Common.Proto.Entity {
       if (Exp != other.Exp) return false;
       if (MaxExp != other.MaxExp) return false;
       if (ResurrectionTime != other.ResurrectionTime) return false;
+      if (Name != other.Name) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -241,6 +255,7 @@ namespace MMORPG.Common.Proto.Entity {
       if (Exp != 0) hash ^= Exp.GetHashCode();
       if (MaxExp != 0) hash ^= MaxExp.GetHashCode();
       if (ResurrectionTime != 0) hash ^= ResurrectionTime.GetHashCode();
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -295,6 +310,10 @@ namespace MMORPG.Common.Proto.Entity {
         output.WriteRawTag(72);
         output.WriteInt32(ResurrectionTime);
       }
+      if (Name.Length != 0) {
+        output.WriteRawTag(82);
+        output.WriteString(Name);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -341,6 +360,10 @@ namespace MMORPG.Common.Proto.Entity {
         output.WriteRawTag(72);
         output.WriteInt32(ResurrectionTime);
       }
+      if (Name.Length != 0) {
+        output.WriteRawTag(82);
+        output.WriteString(Name);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -377,6 +400,9 @@ namespace MMORPG.Common.Proto.Entity {
       }
       if (ResurrectionTime != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(ResurrectionTime);
+      }
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -416,6 +442,9 @@ namespace MMORPG.Common.Proto.Entity {
       }
       if (other.ResurrectionTime != 0) {
         ResurrectionTime = other.ResurrectionTime;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -468,6 +497,10 @@ namespace MMORPG.Common.Proto.Entity {
             ResurrectionTime = input.ReadInt32();
             break;
           }
+          case 82: {
+            Name = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -517,6 +550,10 @@ namespace MMORPG.Common.Proto.Entity {
           }
           case 72: {
             ResurrectionTime = input.ReadInt32();
+            break;
+          }
+          case 82: {
+            Name = input.ReadString();
             break;
           }
         }

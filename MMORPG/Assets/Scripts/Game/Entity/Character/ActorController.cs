@@ -22,14 +22,37 @@ namespace MMORPG.Game
         public SkillsEffectManager EffectManager;
         public Transform DamageNumberPoint;
 
+        [Title("Properties")]
+        [ShowInInspector]
+        [ReadOnly]
+        public string Name { get; set; }
+        [ShowInInspector]
+        [ReadOnly]
+        private int _level => Level.Value;
         public BindableProperty<int> Level { get; } = new();
+        [ShowInInspector]
+        [ReadOnly]
         public int Exp { get; set; }
+        [ShowInInspector]
+        [ReadOnly]
         public int MaxExp { get; set; }
+        [ShowInInspector]
+        [ReadOnly]
         public int Gold { get; set; }
+        [ShowInInspector]
+        [ReadOnly]
         public int Hp { get; set; }
+        [ShowInInspector]
+        [ReadOnly]
         public int Mp { get; set; }
+        [ShowInInspector]
+        [ReadOnly]
         public int MaxMp { get; set; }
+        [ShowInInspector]
+        [ReadOnly]
         public int MaxHp { get; set; }
+        [ShowInInspector]
+        [ReadOnly]
         public int ReviveTime { get; set; }
         public BindableProperty<FlagStates> FlagState { get; } = new();
 
@@ -68,6 +91,7 @@ namespace MMORPG.Game
                 {
                     Level.Value = netActor.Level;
                 }
+                Name = netActor.Name;
                 Hp = netActor.Hp;
                 Mp = netActor.Mp;
                 MaxHp = netActor.MaxHp;
