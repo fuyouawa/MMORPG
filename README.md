@@ -5,7 +5,7 @@
 
 ## SERVER - C# 服务器项目
 
-使用C#网络api从0搭建框架，服务器和客户端之间使用protobuf进行通信，使用Mysql存储数据。
+使用C#网络api从0搭建框架，服务器和客户端之间使用protobuf进行通信，使用Mysql存储数据，Serilog作为日志库。
 
 使用excel表格配置地图数据、人物属性、地图上怪物分布情况、掉落物属性等，然后转换为json数据给服务器和客户端解析。
 
@@ -39,3 +39,6 @@ Unity客户端里面的资源禁止商用！！！
 
 - 客户端主要负责人：fuyouawa
 - 服务器主要负责人：yuyuqwq
+
+## 视频介绍
+https://www.bilibili.com/video/BV1uNtrefEbn
