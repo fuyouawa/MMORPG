@@ -39,7 +39,7 @@ namespace GameServer.NetService
                     Log.Debug($"{sender}角色创建失败：用户未登录");
                     return;
                 }
-                var count = SqlDb.Connection.Select<DbCharacter>()
+                var count = SqlDb.FreeSql.Select<DbCharacter>()
                     .Where(t => t.UserId.Equals(sender.User.UserId))
                     .Count();
                 if (count >= 4)
@@ -54,7 +54,7 @@ namespace GameServer.NetService
                     sender.Send(new CharacterCreateResponse() { Error = NetError.IllegalCharacterName });
                     return;
                 }
-                var dbCharacter = SqlDb.Connection.Select<DbCharacter>()
+                var dbCharacter = SqlDb.FreeSql.Select<DbCharacter>()
                     .Where(p => p.Name == request.Name)
                     .First();
                 if (dbCharacter != null)
@@ -84,7 +84,7 @@ namespace GameServer.NetService
                     Z = (int)initPos.Z,
                     Knapsack = null,
                 };
-                long characterId = SqlDb.Connection.Insert(newDbCharacter).ExecuteIdentity();
+                long characterId = SqlDb.FreeSql.Insert(newDbCharacter).ExecuteIdentity();
                 if (characterId == 0)
                 {
                     sender.Send(new CharacterCreateResponse() { Error = NetError.UnknowError });
@@ -114,7 +114,7 @@ namespace GameServer.NetService
                     return;
                 }
 
-                var characterList = SqlDb.Connection.Select<DbCharacter>()
+                var characterList = SqlDb.FreeSql.Select<DbCharacter>()
                     .Where(t => t.UserId.Equals(sender.User.UserId))
                     .ToList();
                 var res = new CharacterListResponse();
@@ -139,7 +139,7 @@ namespace GameServer.NetService
                     return;
                 }
 
-                var deleteCount = SqlDb.Connection.Delete<DbCharacter>()
+                var deleteCount = SqlDb.FreeSql.Delete<DbCharacter>()
                     .Where(t => t.UserId.Equals(sender.User.UserId))
                     .Where(t => t.Id == request.CharacterId)
                     .ExecuteAffrows();

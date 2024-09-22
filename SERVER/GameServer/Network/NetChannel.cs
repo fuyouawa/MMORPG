@@ -61,7 +61,7 @@ namespace GameServer.Network
             var name = _remoteEpName;
             if (User != null)
             {
-                name += $"({User.UserId}:{User.Username}";
+                name += $"({User.UserId}:{User.DbUser.Username}";
                 if (User.Player != null)
                 {
                     name += $":{User.Player.Name}";
