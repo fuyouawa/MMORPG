@@ -48,7 +48,7 @@ namespace GameServer.NetService
                     return;
                 }
 
-                var dbCharacter = SqlDb.Connection.Select<DbCharacter>()
+                var dbCharacter = SqlDb.FreeSql.Select<DbCharacter>()
                     .Where(t => t.UserId == sender.User.UserId)
                     .Where(t => t.Id == request.CharacterId)
                     .First();

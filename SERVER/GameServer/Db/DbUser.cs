@@ -7,6 +7,12 @@ using FreeSql.DataAnnotations;
 
 namespace GameServer.Db
 {
+    public enum Authoritys
+    {
+        Player,
+        Administrator
+    }
+
     [Table(Name = "user")]
     public class DbUser
     {
@@ -15,13 +21,13 @@ namespace GameServer.Db
         public long Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public int Coin { get; set; }
+        public Authoritys Authority { get; set; }
 
-        public DbUser(string username, string password, int coin)
+        public DbUser(string username, string password, Authoritys authority)
         {
             Username = username;
             Password = password;
-            Coin = coin;
+            Authority = authority;
         }
     }
 }

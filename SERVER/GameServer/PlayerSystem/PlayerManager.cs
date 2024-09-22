@@ -56,7 +56,7 @@ namespace GameServer.PlayerSystem
                 }
                 _leavePlayerQueue.Clear();
 
-                SqlDb.Connection.Update<DbCharacter>()
+                SqlDb.FreeSql.Update<DbCharacter>()
                     .SetSource(characters)
                     .IgnoreColumns(c => new { c.Id, c.Name, c.UserId, c.UnitId })
                     .ExecuteAffrowsAsync();

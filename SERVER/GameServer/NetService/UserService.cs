@@ -28,7 +28,7 @@ namespace GameServer.NetService
                     sender.User.Player.Valid = false;
                 }
 
-                UserManager.Instance.RemoveUser(sender.User);
+                UserManager.Instance.RemoveUser(sender.User.DbUser.Username);
             });
         }
 
@@ -53,7 +53,7 @@ namespace GameServer.NetService
                     return;
                 }
 
-                var dbUser = SqlDb.Connection.Select<DbUser>()
+                var dbUser = SqlDb.FreeSql.Select<DbUser>()
                     .Where(p => p.Username == request.Username)
                     .Where(p => p.Password == request.Password)
                     .First();
@@ -64,7 +64,7 @@ namespace GameServer.NetService
                     return;
                 }
 
-                sender.SetUser(UserManager.Instance.NewUser(sender, dbUser.Username, dbUser.Id));
+                sender.SetUser(UserManager.Instance.NewUser(sender, dbUser));
             
 
                 sender.Send(new LoginResponse() { Error = NetError.Success });
@@ -91,7 +91,7 @@ namespace GameServer.NetService
                     return;
                 }
 
-                var dbUser = SqlDb.Connection.Select<DbUser>()
+                var dbUser = SqlDb.FreeSql.Select<DbUser>()
                     .Where(p => p.Username == request.Username)
                     .First();
                 if (dbUser != null)
@@ -101,8 +101,8 @@ namespace GameServer.NetService
                     return;
                 }
 
-                var newDbUser = new DbUser(request.Username, request.Password, 0);
-                var insertCount = SqlDb.Connection.Insert<DbUser>(newDbUser).ExecuteAffrows();
+                var newDbUser = new DbUser(request.Username, request.Password, Authoritys.Player);
+                var insertCount = SqlDb.FreeSql.Insert<DbUser>(newDbUser).ExecuteAffrows();
                 if (insertCount <= 0)
                 {
                     sender.Send(new RegisterResponse() { Error = NetError.UnknowError });

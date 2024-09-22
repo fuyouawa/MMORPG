@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameServer.Db;
 
 namespace GameServer.UserSystem
 {
@@ -25,10 +26,10 @@ namespace GameServer.UserSystem
         {
         }
 
-        public User NewUser(NetChannel channel, string username, long userId)
+        public User NewUser(NetChannel channel, DbUser dbUser)
         {
-            var user = new User(channel, username, userId);
-            _userDict.Add(username, user);
+            var user = new User(channel, dbUser);
+            _userDict.Add(dbUser.Username, user);
             
             user.Start();
             return user;
@@ -40,9 +41,9 @@ namespace GameServer.UserSystem
             return user;
         }
 
-        public void RemoveUser(User user)
+        public void RemoveUser(string username)
         {
-            _userDict.Remove(user.Username);
+            _userDict.Remove(username);
         }
     }
 }
