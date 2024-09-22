@@ -1,4 +1,6 @@
-﻿using MMORPG.Common.Network;
+﻿using System.Diagnostics;
+using GameServer.Db;
+using MMORPG.Common.Network;
 using MMORPG.Common.Proto.Base;
 using MMORPG.Common.Proto.Entity;
 using GameServer.Network;
@@ -6,6 +8,7 @@ using MMORPG.Common.Proto.Map;
 using Google.Protobuf.WellKnownTypes;
 using Serilog;
 using GameServer.Manager;
+using GameServer.UserSystem;
 
 namespace Service
 {
@@ -47,7 +50,10 @@ namespace Service
                     Timestamp = time
                 });
 
-                if (request.Message.StartsWith("--/"))
+                Debug.Assert(sender.User?.Player != null);
+
+                // 如果是作弊指令的开头并且是管理员账号
+                if (request.Message.StartsWith("--/") && sender.User.DbUser.Authority == Authoritys.Administrator)
                 {
                     var cmd = request.Message[3..];
                     var str = $"管理员:\"{sender}\"使用作弊指令:{cmd}";
