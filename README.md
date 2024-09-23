@@ -35,6 +35,12 @@ SERVER解决方案下的GameServer即为服务器项目，构建并运行即可�
 
 MMORPG即为Unity客户端项目，使用Unity6打开
 
+## 项目配置
+
+数据库的配置在SERVER\GameServer\Db\DbConfig.cs，默认账号密码都为root
+
+网络的配置在SERVER\Common\Network\NetConfig.cs，如果想部署到远程服务器上，就要修改这里面的ServerIpAddress，并且再次构建Common类库
+
 ## 注意
 
 1.客户端的按钮不要重复点，比如登录按钮，进入游戏按钮什么的，当你点击第一次的时候已经在请求服务器了，因为时间原因没有增加加载框什么的，多次点击就会发送多次请求，可能会报错！
