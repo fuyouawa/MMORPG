@@ -53,12 +53,12 @@ namespace MMORPG.Command
             if (response.Error == NetError.Success)
             {
                 Log.Information($"'{_username}'注册成功!");
-                box.ShowMessage("注册成功!");
+                box.ShowNotification("注册成功!");
             }
             else
             {
                 Log.Information($"'{_username}'注册失败:{response.Error.GetInfo().Description}");
-                box.ShowMessage($"注册失败!\n原因:{response.Error.GetInfo().Description}");
+                box.ShowNotification($"注册失败!\n原因:{response.Error.GetInfo().Description}");
             }
         }
     }

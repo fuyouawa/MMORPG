@@ -35,7 +35,7 @@ namespace MMORPG.UI
         {
             if (canvas == null || bgImage == null)
             {
-                Debug.LogError("Canvas or Image component not found.");
+                // Debug.LogError("Canvas or Image component not found.");
                 return;
             }
 

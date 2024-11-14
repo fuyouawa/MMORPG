@@ -91,6 +91,7 @@ namespace MMORPG.System
         public void ShowNotification(NotificationBoxConfig config)
         {
             this.SendEvent(new ShowNotificationBoxEvent(config));
+            NotificationBoxManager.Instance.Create(config);
         }
 
         public void ShowNotification(string description, string title = "通知")

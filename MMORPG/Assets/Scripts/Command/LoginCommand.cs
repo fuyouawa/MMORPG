@@ -55,7 +55,7 @@ namespace MMORPG.Command
             else
             {
                 Log.Error($"'{_username}'登录失败:{response.Error.GetInfo().Description}");
-                box.ShowMessage($"登录失败!\n原因:{response.Error.GetInfo().Description}");
+                box.ShowNotification($"登录失败!\n原因:{response.Error.GetInfo().Description}");
             }
         }
     }
