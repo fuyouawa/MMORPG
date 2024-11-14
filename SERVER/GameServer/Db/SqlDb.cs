@@ -34,7 +34,7 @@ namespace GameServer.Db
                 .UseAutoSyncStructure(true)
                 .Build();
 
-            exists = FreeSql.DbFirst.GetTablesByDatabase("user").Exists(t => t.Name == "user");
+            exists = FreeSql.DbFirst.GetTablesByDatabase(DbConfig.DbName).Exists(t => t.Name == "user");
 
             if (!exists)
             {
