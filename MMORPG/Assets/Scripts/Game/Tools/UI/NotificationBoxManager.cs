@@ -1,4 +1,5 @@
 using System;
+using QFramework;
 using UnityEngine;
 
 namespace MMORPG.Tool
@@ -34,20 +35,31 @@ namespace MMORPG.Tool
 
     public class NotificationBoxManager : MonoBehaviour
     {
-        public Michsky.MUIP.NotificationManager NotifyFadingTL;
-        public Michsky.MUIP.NotificationManager NotifyPopupTL;
-        public Michsky.MUIP.NotificationManager NotifySlidingTL;
-        public Michsky.MUIP.NotificationManager NotifyFadingTR;
-        public Michsky.MUIP.NotificationManager NotifyPopupTR;
-        public Michsky.MUIP.NotificationManager NotifySlidingTR;
-        public Michsky.MUIP.NotificationManager NotifyFadingBL;
-        public Michsky.MUIP.NotificationManager NotifyPopupBL;
-        public Michsky.MUIP.NotificationManager NotifySlidingBL;
-        public Michsky.MUIP.NotificationManager NotifyFadingBR;
-        public Michsky.MUIP.NotificationManager NotifyPopupBR;
-        public Michsky.MUIP.NotificationManager NotifySlidingBR;
+        private static NotificationBoxManager _instance;
+        public static NotificationBoxManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = GameObject.FindAnyObjectByType<NotificationBoxManager>();
+                }
+                return _instance;
+            }
+        }
 
-        public NotificationBoxConfig Config { get; set; }
+        public Michsky.MUIP.NotificationManager FadingTL;
+        public Michsky.MUIP.NotificationManager PopupTL;
+        public Michsky.MUIP.NotificationManager SlidingTL;
+        public Michsky.MUIP.NotificationManager FadingTR;
+        public Michsky.MUIP.NotificationManager PopupTR;
+        public Michsky.MUIP.NotificationManager SlidingTR;
+        public Michsky.MUIP.NotificationManager FadingBL;
+        public Michsky.MUIP.NotificationManager PopupBL;
+        public Michsky.MUIP.NotificationManager SlidingBL;
+        public Michsky.MUIP.NotificationManager FadingBR;
+        public Michsky.MUIP.NotificationManager PopupBR;
+        public Michsky.MUIP.NotificationManager SlidingBR;
 
         private RectTransform _instantiationsGroup;
 
@@ -57,52 +69,52 @@ namespace MMORPG.Tool
             _instantiationsGroup.SetParent(transform, false);
         }
 
-        public void Create()
+        public void Create(NotificationBoxConfig config)
         {
-            var notification = Instantiate(GetNotification());
+            var notification = Instantiate(GetNotification(config));
             notification.gameObject.SetActive(true);
             notification.gameObject.transform.SetParent(_instantiationsGroup, false);
-            notification.title = Config.Title;
-            notification.description = Config.Description;
+            notification.title = config.Title;
+            notification.description = config.Description;
             notification.closeBehaviour = Michsky.MUIP.NotificationManager.CloseBehaviour.Destroy;
             notification.UpdateUI();
             notification.Open();
         }
 
-        private Michsky.MUIP.NotificationManager GetNotification()
+        private Michsky.MUIP.NotificationManager GetNotification(NotificationBoxConfig config)
         {
-            switch (Config.Position)
+            switch (config.Position)
             {
                 case NotificationBoxPosition.TopLeft:
-                    return Config.Style switch
+                    return config.Style switch
                     {
-                        NotificationBoxStyle.Fading => NotifyFadingTL,
-                        NotificationBoxStyle.Popup => NotifyPopupTL,
-                        NotificationBoxStyle.Sliding => NotifySlidingTL,
+                        NotificationBoxStyle.Fading => FadingTL,
+                        NotificationBoxStyle.Popup => PopupTL,
+                        NotificationBoxStyle.Sliding => SlidingTL,
                         _ => throw new NotImplementedException(),
                     };
                 case NotificationBoxPosition.TopRight:
-                    return Config.Style switch
+                    return config.Style switch
                     {
-                        NotificationBoxStyle.Fading => NotifyFadingTR,
-                        NotificationBoxStyle.Popup => NotifyPopupTR,
-                        NotificationBoxStyle.Sliding => NotifySlidingTR,
+                        NotificationBoxStyle.Fading => FadingTR,
+                        NotificationBoxStyle.Popup => PopupTR,
+                        NotificationBoxStyle.Sliding => SlidingTR,
                         _ => throw new NotImplementedException(),
                     };
                 case NotificationBoxPosition.BottomLeft:
-                    return Config.Style switch
+                    return config.Style switch
                     {
-                        NotificationBoxStyle.Fading => NotifyFadingBL,
-                        NotificationBoxStyle.Popup => NotifyPopupBL,
-                        NotificationBoxStyle.Sliding => NotifySlidingBL,
+                        NotificationBoxStyle.Fading => FadingBL,
+                        NotificationBoxStyle.Popup => PopupBL,
+                        NotificationBoxStyle.Sliding => SlidingBL,
                         _ => throw new NotImplementedException(),
                     };
                 case NotificationBoxPosition.BottomRight:
-                    return Config.Style switch
+                    return config.Style switch
                     {
-                        NotificationBoxStyle.Fading => NotifyFadingBR,
-                        NotificationBoxStyle.Popup => NotifyPopupBR,
-                        NotificationBoxStyle.Sliding => NotifySlidingBR,
+                        NotificationBoxStyle.Fading => FadingBR,
+                        NotificationBoxStyle.Popup => PopupBR,
+                        NotificationBoxStyle.Sliding => SlidingBR,
                         _ => throw new NotImplementedException(),
                     };
                 default:
