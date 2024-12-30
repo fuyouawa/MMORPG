@@ -7,6 +7,8 @@
 
 首先由于服务器使用Mysql存储数据，所以运行服务器的系统必须先安装了Mysql服务，安装的方法可以去网上查
 
+SERVER/Common/Data需要运行build.bat，生成服务器和客户端都会读取的数据
+
 SERVER解决方案下的GameServer即为服务器项目，构建并运行即可启动服务器，会自动创建mmorpg的数据库，并且给你一个默认管理员账号（账号为root，密码为1234567890）
 
 MMORPG即为Unity客户端项目，使用Unity6打开
@@ -29,7 +31,7 @@ MMORPG即为Unity客户端项目，使用Unity6打开
 
 此库即为服务器和客户端之间共用的类库
 
-- Data文件夹内存储的就是excel表格，以及对应转换的json和生成的cs文件
+- Data文件夹内存储的就是excel表格，存储了技能定义、物品定义等，以及对应转换的json和生成的cs文件
 - Inventory文件夹为背包的一些通用代码
 - Network为通用网络框架
 - Proto为protobuf和生成的cs代码
