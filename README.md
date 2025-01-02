@@ -1,23 +1,23 @@
 # MMORPG项目简介
-此项目仅为练习项目，代码写的不是很好，注释也不全，很多细节也没有考虑到
+此项目仅为练习项目，代码写的不是很好，注释也不全，很多细节也没有考虑到。
 
 后期的时候写的代码很多都只是为了能跑就行，bug可能也有很多，仅供参考！！！
 
 ## 项目构建和运行
 
-首先由于服务器使用Mysql存储数据，所以运行服务器的系统必须先安装了Mysql服务，安装的方法可以去网上查
+首先由于服务器使用Mysql存储数据，所以运行服务器的系统必须先安装了Mysql服务，安装的方法可以去网上查。
 
-SERVER/Common/Data需要运行build.bat，生成服务器和客户端都会读取的数据
+需要运行SERVER/Common/Data下的build.bat，在客户端以及服务器的运行目录下生成json数据，包括excel表如果有更改也需要运行这个bat。
 
-SERVER解决方案下的GameServer即为服务器项目，构建并运行即可启动服务器，会自动创建mmorpg的数据库，并且给你一个默认管理员账号（账号为root，密码为1234567890）
+SERVER解决方案下的GameServer即为服务器项目，构建并运行即可启动服务器，会自动创建mmorpg的数据库，并且给你一个默认管理员账号（账号为root，密码为1234567890）。
 
-MMORPG即为Unity客户端项目，使用Unity6打开
+MMORPG即为Unity客户端项目，使用Unity6000.0.32f1打开（可以低几个小版本，但是最好不要高出这个版本，部分插件可能会报错）。
 
 ## 项目配置
 
-数据库的配置在SERVER\GameServer\Db\DbConfig.cs，默认账号密码都为root
+数据库的配置在SERVER\GameServer\Db\DbConfig.cs，默认账号密码都为root。
 
-网络的配置在SERVER\Common\Network\NetConfig.cs，如果想部署到远程服务器上，就要修改这里面的ServerIpAddress，并且再次构建Common类库
+网络的配置在SERVER\Common\Network\NetConfig.cs，如果想部署到远程服务器上，就要修改这里面的ServerIpAddress，并且再次构建Common类库。
 
 ## SERVER - C# 服务器项目
 
@@ -29,25 +29,25 @@ MMORPG即为Unity客户端项目，使用Unity6打开
 
 ### Common类库
 
-此库即为服务器和客户端之间共用的类库
+此库即为服务器和客户端之间共用的类库。
 
-- Data文件夹内存储的就是excel表格，存储了技能定义、物品定义等，以及对应转换的json和生成的cs文件
-- Inventory文件夹为背包的一些通用代码
-- Network为通用网络框架
-- Proto为protobuf和生成的cs代码
-- Tool为一些通用的工具api
+- Data文件夹内存储的就是excel表格，存储了技能定义、物品定义等，以及对应转换的json和生成的cs文件。
+- Inventory文件夹为背包的一些通用代码。
+- Network为通用网络框架。
+- Proto为protobuf和生成的cs代码。
+- Tool为一些通用的工具api。
 
 ## MMORPG - Unity客户端项目
 
-使用QFramework框架，MVC架构
+使用QFramework框架，MVC架构。
 
 ## 注意
 
 1. 客户端的按钮不要重复点，比如登录按钮，进入游戏按钮什么的，当你点击第一次的时候已经在请求服务器了，因为时间原因没有增加加载框什么的，多次点击就会发送多次请求，可能会报错！
 
 2. 客户端里面的资源禁止商用！！！我自己也都是网上找的非正版的！！！
-3. 客户端还没做注册的UI，目前只能通过直接修改数据库来添加账号（在mmorpg数据库的user表中）
-4. 任务系统虽然服务器上框架搭得差不多了，但是客户端还没有接入，NPC那里接取了任务实际上没什么用
+3. 客户端还没做注册的UI，目前只能通过直接修改数据库来添加账号（在mmorpg数据库的user表中）。
+4. 任务系统虽然服务器上框架搭得差不多了，但是客户端还没有接入，NPC那里接取了任务实际上没什么用。
 
 ## 视频介绍
 
