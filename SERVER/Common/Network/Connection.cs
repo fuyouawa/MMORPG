@@ -178,9 +178,9 @@ namespace MMORPG.Common.Network
             if (ex is SocketException ex1)
             {
                 Debug.Assert(ex1.SocketErrorCode != SocketError.Success);
-                Debug.Assert(_closeConnectionByManual != false);
 
                 if (_closeConnectionByManual == true) return;
+                Debug.Assert(_closeConnectionByManual != false);
                 _closeConnectionByManual = false;
                 Close();
                 return;
@@ -189,7 +189,7 @@ namespace MMORPG.Common.Network
             {
                 if (_closeConnectionByManual != null)
                 {
-                    WarningOccur?.Invoke(this, new WarningOccurEventArgs("在Socket被关闭后发生了ObjectDisposedException, 不过应该问题不大"));
+                    WarningOccur?.Invoke(this, new WarningOccurEventArgs("在Socket被关闭后发生了ObjectDisposedException"));
                     return;
                 }
             }
