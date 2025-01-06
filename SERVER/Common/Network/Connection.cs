@@ -180,7 +180,7 @@ namespace MMORPG.Common.Network
                 Debug.Assert(ex1.SocketErrorCode != SocketError.Success);
 
                 if (_closeConnectionByManual == true) return;
-                Debug.Assert(_closeConnectionByManual != false);
+                // Debug.Assert(_closeConnectionByManual != false);
                 _closeConnectionByManual = false;
                 Close();
                 return;
