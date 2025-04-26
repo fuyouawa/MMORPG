@@ -5,7 +5,7 @@ using QFramework;
 
 namespace MMORPG.UI
 {
-	// Generate Id:06f63f98-326b-4d2f-a112-8589057d718e
+	// Generate Id:ee751116-b63a-44fe-9a98-8ad9d2c33d18
 	public partial class UIGameHubPanel
 	{
 		public const string Name = "UIGameHubPanel";
