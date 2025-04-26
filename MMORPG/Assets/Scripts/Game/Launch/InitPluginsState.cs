@@ -17,7 +17,7 @@ namespace MMORPG.Game
         protected override void OnEnter()
         {
             Log.Information("初始化插件");
-            ResKit.Init();
+            // ResKit.Init();
             new GameObject(nameof(UnityMainThreadDispatcher)).AddComponent<UnityMainThreadDispatcher>();
 
             MessagePackSerializer.DefaultOptions = MessagePackSerializerOptions.Standard
