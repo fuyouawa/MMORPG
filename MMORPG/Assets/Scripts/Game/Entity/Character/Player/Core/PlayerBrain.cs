@@ -12,7 +12,6 @@ using MMORPG.System;
 using MMORPG.Tool;
 using MMORPG.UI;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using UnityEngine;
 using QFramework;
 
@@ -196,8 +195,8 @@ namespace MMORPG.Game
             }
             else
             {
-                Destroy(ActorController.Rigidbody);
-                Destroy(ActorController.Collider);
+                // Destroy(ActorController.Rigidbody);
+                // Destroy(ActorController.Collider);
             }
 
             if (States.IsNullOrEmpty()) return;
@@ -261,15 +260,20 @@ namespace MMORPG.Game
 
         private void InitStates()
         {
-            States.ForEach((x, i) =>
+            GetAttachLocalAbilities().ForEach(ability => ability.gameObject.SetActive(true));
+            GetAttachRemoteAbilities().ForEach(ability => ability.gameObject.SetActive(true));
+
+            for (int i = 0; i < States.Length; i++)
             {
-                x.Setup(this, i);
-                x.Initialize();
-                x.OnTransitionEvaluated += (transition, condition) =>
+                var state = States[i];
+                
+                state.Setup(this, i);
+                state.Initialize();
+                state.OnTransitionEvaluated += (transition, condition) =>
                 {
                     ChangeState(condition ? transition.TrueState : transition.FalseState);
                 };
-            });
+            }
         }
 
 

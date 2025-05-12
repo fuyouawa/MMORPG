@@ -34,6 +34,11 @@ namespace MMORPG.UI
                     UnitId = 1  //TODO UnitId
                 });
             }
+            else
+            {
+                var box = this.GetSystem<IBoxSystem>();
+                box.ShowNotification("人物名称必须在4-12字之间!");
+            }
         }
 
         private void OnReceivedCharacterCreate(CharacterCreateResponse response)
