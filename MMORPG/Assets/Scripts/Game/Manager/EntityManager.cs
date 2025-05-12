@@ -135,6 +135,16 @@ namespace MMORPG.Game
                 var position = data.Transform.Position.ToVector3();
                 var rotation = Quaternion.Euler(data.Transform.Direction.ToVector3());
                 
+                // 进行射线检测，确保实体不会卡在地下
+                var rayStart = position + Vector3.up * 100f; // 从高处向下发射射线
+                var ray = new Ray(rayStart, Vector3.down);
+                var layerMask = LayerMask.GetMask("Map", "Terrain");
+                if (Physics.Raycast(ray, out var hit, 200f, layerMask))
+                {
+                    // 如果检测到地面，将y轴位置调整到地面上方
+                    position.y = hit.point.y + 0.1f; // 稍微抬高一点，避免完全贴地
+                }
+                
                 var unitDefine = _dataManager.GetUnitDefine(data.UnitId);
 
                 var path = unitDefine.Kind switch
@@ -166,6 +176,7 @@ namespace MMORPG.Game
             if (_entityManager.EntityDict.TryGetValue(response.EntityId, out var entity))
             {
                 var position = response.Transform.Position.ToVector3();
+                position.y = entity.transform.position.y;
                 var rotation = Quaternion.Euler(response.Transform.Direction.ToVector3());
                 Debug.Assert(entity.EntityId == response.EntityId);
                 var data = new EntityTransformSyncData
