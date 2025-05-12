@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using MMORPG.Common.Proto.Entity;
 using MMORPG.Event;
 using MMORPG.Game;
-using PimDeWitte.UnityMainThreadDispatcher;
 using Serilog;
 using UnityEngine;
 
@@ -57,23 +56,21 @@ namespace MMORPG.System
             Vector3 position,
             Quaternion rotation)
         {
-            Debug.Assert(!EntityDict.ContainsKey(entityId));
-
-            if (prefab.EntityType != type)
+            if (EntityDict.TryGetValue(entityId, out var entity))
             {
-                throw new Exception("EntityType与当前预制体的Type不相同!");
+                Log.Error($"实体'{entityId}'已存在。");
+            }
+            else
+            {
+                entity = GameObject.Instantiate(prefab, position, rotation);
+                var unitDefine = _dataManager.GetUnitDefine(unitId);
+                entity.Initialize(entityId, unitDefine);
+                entity.gameObject.name = $"{unitDefine.Name}_{entityId}_{unitDefine.Kind}";
+                EntityDict[entity.EntityId] = entity;
+                this.SendEvent(new EntityEnterEvent(entity));
             }
 
-            var entity = GameObject.Instantiate(prefab, position, rotation);
             entity.transform.SetPositionAndRotation(position, rotation);
-            var unitDefine = _dataManager.GetUnitDefine(unitId);
-            entity.Initialize(entityId, unitDefine);
-
-            entity.gameObject.name = $"{unitDefine.Name}_{entityId}_{unitDefine.Kind}";
-
-            EntityDict[entity.EntityId] = entity;
-
-            this.SendEvent(new EntityEnterEvent(entity));
             return entity;
         }
 
