@@ -272,6 +272,9 @@ PlayerSettings:
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
+  androidAppCategory: 3
+  useAndroidAppCategory: 1
+  androidAppCategoryOther: 
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
@@ -377,6 +380,7 @@ PlayerSettings:
   - serializedVersion: 2
     m_BuildTarget: tvOS
     m_EncodingQuality: 1
+  m_BuildTargetGroupHDRCubemapEncodingQuality: []
   m_BuildTargetGroupLightmapSettings: []
   m_BuildTargetGroupLoadStoreDebugModeSettings: []
   m_BuildTargetNormalMapEncoding:
@@ -659,10 +663,12 @@ PlayerSettings:
     Android: DOTWEEN;UNITY_POST_PROCESSING_STACK_V2
     Bratwurst: DOTWEEN
     EmbeddedLinux: DOTWEEN;UNITY_POST_PROCESSING_STACK_V2
-    GameCoreScarlett: DOTWEEN
+    GameCoreScarlett: DOTWEEN;UNITY_POST_PROCESSING_STACK_V2
     GameCoreXboxOne: DOTWEEN;UNITY_POST_PROCESSING_STACK_V2
-    LinuxHeadlessSimulation: DOTWEEN
+    Kepler: UNITY_POST_PROCESSING_STACK_V2
+    LinuxHeadlessSimulation: DOTWEEN;UNITY_POST_PROCESSING_STACK_V2
     Nintendo Switch: DOTWEEN;UNITY_POST_PROCESSING_STACK_V2
+    Nintendo Switch 2: UNITY_POST_PROCESSING_STACK_V2
     PS4: DOTWEEN;UNITY_POST_PROCESSING_STACK_V2
     PS5: DOTWEEN;UNITY_POST_PROCESSING_STACK_V2
     QNX: DOTWEEN;UNITY_POST_PROCESSING_STACK_V2
