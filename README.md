@@ -11,7 +11,7 @@
 
 SERVER解决方案下的GameServer即为服务器项目，构建并运行即可启动服务器，会自动创建mmorpg的数据库，并且给你一个默认管理员账号（账号为root，密码为1234567890）。
 
-MMORPG即为Unity客户端项目，使用Unity6000.0.32f1打开（如果使用更高版本，OdinInspector插件可能会报错，需要自行更新插件）。
+MMORPG即为Unity客户端项目，使用Unity6000.0.56f1打开（如果使用更高版本，OdinInspector插件可能会报错，需要自行更新插件）。
 
 ## 项目配置
 
