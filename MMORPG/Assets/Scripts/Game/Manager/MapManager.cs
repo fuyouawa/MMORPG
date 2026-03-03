@@ -1,17 +1,12 @@
-using System;
 using MMORPG.Common.Proto.Entity;
 using MMORPG.Common.Proto.Player;
 using MMORPG.Common.Tool;
-using MMORPG.Event;
 using MMORPG.Global;
-using MMORPG.Model;
 using QFramework;
 using MMORPG.System;
 using MMORPG.Tool;
 using Serilog;
-using ThirdPersonCamera;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 namespace MMORPG.Game
@@ -82,7 +77,7 @@ namespace MMORPG.Game
                 var actor = entity.GetComponent<ActorController>();
                 actor.ApplyNetActor(response.Actor, true);
 
-                Camera.main.GetComponent<CameraController>().InitFromTarget(entity.transform);
+                Camera.main.GetComponent<ThirdPersonCamera>().InitializeFromTarget(entity.transform);
                 foreach (var followTarget in FindObjectsByType<FollowTarget>(FindObjectsSortMode.None))
                 {
                     followTarget.Target = entity.transform;
